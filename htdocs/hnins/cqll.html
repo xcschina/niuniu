@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <title>传奇来了</title>
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/website/css/add_page.css?t=3123">
+    <script src="http://cdn.66173.cn/www/js/jquery-1.8.3.min.js"></script>
+    <style>
+        .video-zone {
+            position: absolute;
+            width: 55%;
+            z-index: 9;
+            left: 3%;
+            top: 27.1%;
+            font-size: 0;
+        }
+
+        .poster {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="page-bg">
+<div class="page-game-box">
+    <a class="page-top" href="http://ins.66173yx.com/game.php?game_id=109202">
+        <img src="http://cdn.66173.cn//images/banner_img/201709/1506500115281.png"/>
+    </a>
+    <div class="page-center">
+        <div class="relative maxFullWidth">
+            <a class="block" href="http://ins.66173yx.com/game.php?game_id=109202">
+                <img src="http://cdn.66173.cn//images/banner_img/201709/150650011517.gif"/>
+            </a>
+        </div>
+        <a class="block" href="http://ins.66173yx.com/game.php?game_id=109202">
+            <div class="slideshow-zone"
+                 style="background-image: url(http://cdn.66173.cn//images/banner_img/201709/1506500115647.png)">
+                <ul class="img-ul">
+                    <li data-index="0" class="show"><img
+                            src="http://cdn.66173.cn//images/product_img/201709/1506500115677.png"></li>
+                    <li data-index="1"><img src="http://cdn.66173.cn//images/product_img/201709/1506500115219.png"></li>
+                    <li data-index="2"><img src="http://cdn.66173.cn//images/product_img/201709/1506500115444.png"></li>
+                </ul>
+                <ul class="dot-ul">
+                    <li data-index="0" class="cur"><span class="dot"></span></li>
+                    <li data-index="1"><span class="dot"></span></li>
+                    <li data-index="2"><span class="dot"></span></li>
+                </ul>
+            </div>
+            <img src="http://cdn.66173.cn//images/banner_img/201709/1506500115431.png"/> </a>
+    </div>
+</div>
+<input type="hidden" id="video_url" value="">
+<input type="hidden" id="video_img" value="">
+</body>
+
+<script type="text/javascript">
+    var cur = 0;
+    var slideInterval;
+    var video = null;
+    var videoSrc = $("#video_url").val();
+    var maskSrc = $("#video_img").val();
+    function slideControl(cur) {
+        $('.img-ul li[data-index="' + cur + '"]').addClass("show").siblings().removeClass("show");
+        $('.dot-ul li[data-index="' + cur + '"]').addClass("cur").siblings().removeClass("cur");
+    }
+    function sizeControl() {
+        $(".img-ul img").css("height", $(".img-ul img:visible").width() * 0.6 + 'px');
+        $(".video-zone").css("height", $(".video-zone").width() * 0.5625);
+    }
+    function addVideo() {
+        if ($(".video-zone").length > 0) {
+            var con = '<img class="poster" src="http://cdn.66173.cn' + maskSrc + '" alt="">'
+                + '<video width="100%" height="100%" style="object-fit:fill;z-index: 10" controls="controls"'
+                + 'webkit-playsinline playsinline id="video" src="' + videoSrc + '">not support</video>';
+            $(".video-zone").html(con);
+            video = document.getElementById("video");
+            $(".video-zone").css("height", $(".video-zone").width() * 0.5625);
+        }
+    }
+    $(window).load(function () {
+        sizeControl();
+        addVideo();
+        slideInterval = setInterval(function () {
+            cur < 3 ? cur++ : cur = 0;
+            slideControl(cur);
+        }, 2000)
+    });
+    $(window).resize(function () {
+        sizeControl();
+    });
+    $(".page-bg").on("click", ".poster", function (e) {
+        $(e.target).hide();
+        video.play();
+    })
+</script>
+
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>NNSDK_h5_game_page</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<style>
+		html {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			border: 0;
+			background: #fff;
+			font-size: 16px;
+		}
+		body {
+			height: 100%;
+			background-color: #ddd;
+			padding: 0;
+			border: 0;
+			margin: 0;
+			overflow: hidden;
+		}
+		#gameWrapper {
+			margin: auto;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			position: relative;
+			transform: translateZ(0px);
+		}
+		#gameCanvas {
+			cursor: inherit;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+
+		}
+		.call-zone {
+			margin: 100px 10px 0;
+		}
+		.result-block .line {
+			margin: 5px 0;
+		}
+		button {
+			min-width: 80px;
+			padding: 5px 5px;
+			background-color: #009999;
+			color: white;
+		}
+	</style>
+</head>
+<body>
+<div id="gameWrapper">
+	<div id="gameCanvas">
+
+		<div class="call-zone">
+			<div class="result-block">
+			</div>
+			<div class="operation-block">
+				<button  id="pay">支付</button>
+				<button id="roleReport">角色报道</button>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<script>
+    function loadScript(url) {
+        var el = document.createElement("script");
+        el.setAttribute("src", url + "?t=" + (new Date()).getTime());
+        document.body.appendChild(el);
+        el.onload = function() {
+            NNSDK.init(true);
+        }
+    }
+    loadScript("//cdn.66173.cn/mobile/scripts/sdk/js/nn_game_sdk.js");
+
+    // NNSDK.init();
+    document.getElementById("pay").addEventListener("click", pay, false);
+    document.getElementById("roleReport").addEventListener("click", roleReport, false);
+    function pay() {
+        var info = {
+            sdkgoodsid: "10011",
+            billno: "2017011111111",
+            amount: "1",
+            count: "6",
+            extraInfo: encodeURIComponent("1233|11"),
+            roleId: "1091",
+            roleName: "1091",
+            roleLevel: "23",
+            serverId: "3",
+            serverName: "区服1",
+            appId: "1001",
+            userId: "71"
+        };
+        NNSDK.pay(info);
+
+    }
+    function roleReport() {
+        var info = {
+            roleId: "1091",
+            roleName: "1091",
+            roleLevel: "121",
+            serverId: "3",
+            serverName: "区服1"
+        };
+        NNSDK.roleReport(info);
+    }
+    document.addEventListener("touchmove", function(e) {
+        console.log("id:"+e.target.id)
+        e.preventDefault();
+    }, false);
+
+</script>
+</html>

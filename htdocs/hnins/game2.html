@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>NNSDK_h5_game_page</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<style>
+		html {
+			height: 100%;
+		    margin: 0;
+		    padding: 0;
+		    border: 0;
+		    background: #fff;
+		    font-size: 16px;
+		}
+		body {
+			height: 100%;
+			background-color: #ddd;
+			padding: 0;
+		    border: 0;
+		    margin: 0;
+			overflow: hidden;
+		}
+		#gameWrapper {
+			margin: auto;
+		    width: 100%;
+		    height: 100%;
+		    overflow: hidden;
+		    position: relative;
+		    transform: translateZ(0px);
+		}
+		#gameCanvas {
+			cursor: inherit;
+		    position: absolute;
+		    width: 100%;
+		    height: 100%;
+
+		}
+		.call-zone {
+			margin: 100px 10px 0;
+		}
+		.result-block .line {
+			margin: 5px 0;
+		}
+		button {
+			min-width: 80px;
+			padding: 5px 5px;
+			background-color: #009999;
+			color: white;
+		}
+	</style>
+</head>
+<body>
+	<div id="gameWrapper">
+		<div id="gameCanvas">
+
+			<div class="call-zone">
+				<div class="result-block">
+		        </div>
+		        <div class="operation-block">
+					<button  id="pay">支付</button>
+					<button id="roleReport">角色报道</button>
+					<button id="getUinfo">获取用户信息</button>
+					<button id="callBind">吊起绑定手机弹窗</button>
+				</div>
+				<!-- <a href="http://www.ajujube.com/game/protocol.html">协议内容</a> -->
+				<a href="protocol.html">协议内容</a>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="http://cdn.66173.cn/mobile/scripts/sdk2/js/nn_h5game_sdk.min.js?t=191oo0"></script>
+<script>
+	var uinfo0;
+	// NNSDK.init 传参： true 为调试模式，在调用支付/角色报道等时会提示框打出cp传递的信息
+	// false 则不会弹出提示框
+	NNSDK.init(true);
+	NNSDK.setMBindCb(setMBindCb);
+	document.getElementById("pay").addEventListener("click", pay, false);
+	document.getElementById("roleReport").addEventListener("click", roleReport, false);
+	document.getElementById("getUinfo").addEventListener("click", getUinfo, false);
+	document.getElementById("callBind").addEventListener("click", callBind, false);
+	function pay() {
+		var info = {
+				roleId: "1091",
+			 	roleName: "1091",
+			 	roleLevel: "121",
+			 	serverId: "3",
+			 	serverName: "区服1",
+			 	appId: "1000",
+			 	userId: "71",
+				sdkgoodsid: "10001",
+				billno: "2017011111111",
+				amount: "2",
+			 	count: "5",
+			 	subject: "goods info",
+			 	extraInfo: encodeURIComponent("1233|11"),
+			 	
+		};
+		NNSDK.pay(info);
+			
+	}
+	function roleReport() {
+		var info = {
+			 	roleId: "1091",
+			 	roleName: "1091",
+			 	roleLevel: "121",
+			 	serverId: "3",
+			 	serverName: "区服1"
+		};
+		NNSDK.roleReport(info);
+	}
+	function getUinfo() {
+		NNSDK.getRinfo(getUinfoCb);
+	}
+	function getUinfoCb(uinfo) {
+		this.uinfo0 = uinfo;
+	}
+	function callBind() {
+		NNSDK.callBind();
+	}
+	function setMBindCb(params) {
+		alert(JSON.stringify(params))
+	}
+</script>
+</html>

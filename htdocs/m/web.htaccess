@@ -1,0 +1,4 @@
+rewrite ^/([0-9]+)/([0-9]+)$ /m_web.php?app_id=$1&apple_id=$2;
+
+break;
+# end nginx rewrite rule
