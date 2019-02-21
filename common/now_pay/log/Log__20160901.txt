@@ -1,0 +1,120 @@
+2016年09月01日8时33分20秒7652毫秒   验证接口请求:
+funcode=AP04&message=YXBwSWQ9MTQ1OTg0NjUzMDQwNzM2Mw%3D%3D%7CbGpxzcFssd%2BAEOE10QCXIBqlZ6s7RMW6f2pcpZy2Ejo0RAGwbJovJZSzPrGrHB%2B51xR2hVdvyYo2FOiap6RdwkrHDpBA7Sfsc30d4KQP0cNbVAopqjHGwvIv27jrB%2BVwVfxpjDBw3j0JXNtCnZAA%2BYldC%2FQCLLg0%2BwTsvpIRJpGTXk%2B98Q%2Fjokxeohfsr4P%2Bn%2BToQwOktUiLXEAquCC0nbCzl%2FerUnJp%7CNjY1MmI0MGQwNDg0ODJhZmVkYTEyNzJjMjZjMjA2ZWQ%3D
+------------------
+2016年09月01日8时33分20秒9533毫秒   验证接口验证应答:
+0|SVDpnZ7ms5U=
+
+------------------
+2016年09月01日8时33分20秒9543毫秒   验证信息接口应答:
+IP非法
+------------------
+2016年09月01日8时46分36秒2637毫秒   验证接口请求:
+funcode=AP04&message=YXBwSWQ9MTQ1OTg0NjUzMDQwNzM2Mw%3D%3D%7CbGpxzcFssd%2BAEOE10QCXIBqlZ6s7RMW6f2pcpZy2Ejo0RAGwbJovJZSzPrGrHB%2B51xR2hVdvyYo2FOiap6RdwqaBYFWIGJL8c30d4KQP0cNbVAopqjHGwk9k7QnvmtZOkO7ysc6LSYoJXNtCnZAA%2BYldC%2FQCLLg0%2BwTsvpIRJpGTXk%2B98Q%2Fjokxeohfsr4P%2Bn%2BToQwOktUiLXEAquCC0nbCzl%2FerUnJp%7CYzllYzAxYTZkZjU2NzM0YTQ4MWE0M2Q4YzJiNTg5ZTc%3D
+------------------
+2016年09月01日8时46分36秒3708毫秒   验证接口验证应答:
+0|SVDpnZ7ms5U=
+
+------------------
+2016年09月01日8时46分36秒3718毫秒   验证信息接口应答:
+IP非法
+------------------
+2016年09月01日8时46分40秒486毫秒   验证接口请求:
+funcode=AP04&message=YXBwSWQ9MTQ1OTg0NjUzMDQwNzM2Mw%3D%3D%7CbGpxzcFssd%2BAEOE10QCXIBqlZ6s7RMW6f2pcpZy2Ejo0RAGwbJovJZSzPrGrHB%2B51xR2hVdvyYo2FOiap6RdwtiJe1h1Mnlqc30d4KQP0cNbVAopqjHGwk9k7QnvmtZOPiPb87MpZ4oJXNtCnZAA%2BYldC%2FQCLLg0%2BwTsvpIRJpGTXk%2B98Q%2Fjokxeohfsr4P%2Bn%2BToQwOktUiLXEAquCC0nbCzl%2FerUnJp%7CYzBkOWQwMzk0NmI5OGYxOTMwNmMzOTc2MjhlNDQ3MGU%3D
+------------------
+2016年09月01日8时46分40秒522毫秒   验证接口验证应答:
+0|SVDpnZ7ms5U=
+
+------------------
+2016年09月01日8时46分40秒523毫秒   验证信息接口应答:
+IP非法
+------------------
+2016年09月01日8时46分42秒3191毫秒   验证接口请求:
+funcode=AP04&message=YXBwSWQ9MTQ1OTg0NjUzMDQwNzM2Mw%3D%3D%7CbGpxzcFssd%2BAEOE10QCXIBqlZ6s7RMW6f2pcpZy2Ejo0RAGwbJovJZSzPrGrHB%2B51xR2hVdvyYo2FOiap6RdwkSu2gDw%2B4Z6c30d4KQP0cNbVAopqjHGwk9k7QnvmtZOBgrvwQ%2FeOj8JXNtCnZAA%2BYldC%2FQCLLg0%2BwTsvpIRJpGTXk%2B98Q%2Fjokxeohfsr4P%2Bn%2BToQwOktUiLXEAquCC0nbCzl%2FerUnJp%7CYzE2NDE0OWMzODc2M2ZmNmVmMjBlZWM5ZTM0N2ZjMzk%3D
+------------------
+2016年09月01日8时46分42秒3551毫秒   验证接口验证应答:
+0|SVDpnZ7ms5U=
+
+------------------
+2016年09月01日8时46分42秒3561毫秒   验证信息接口应答:
+IP非法
+------------------
+2016年09月01日8时46分43秒5912毫秒   验证接口请求:
+funcode=AP04&message=YXBwSWQ9MTQ1OTg0NjUzMDQwNzM2Mw%3D%3D%7CbGpxzcFssd%2BAEOE10QCXIBqlZ6s7RMW6f2pcpZy2Ejo0RAGwbJovJZSzPrGrHB%2B51xR2hVdvyYo2FOiap6Rdwhvsgmw%2B%2FJFZc30d4KQP0cNbVAopqjHGwk9k7QnvmtZOTr3jy%2B9d%2BqkJXNtCnZAA%2BYldC%2FQCLLg0%2BwTsvpIRJpGTXk%2B98Q%2Fjokxeohfsr4P%2Bn%2BToQwOktUiLXEAquCC0nbCzl%2FerUnJp%7CYzY5YzU1NjMwY2FjNDMzNmI3NzdlM2Y0OWE1ODIzOWY%3D
+------------------
+2016年09月01日8时46分43秒6302毫秒   验证接口验证应答:
+0|SVDpnZ7ms5U=
+
+------------------
+2016年09月01日8时46分43秒6302毫秒   验证信息接口应答:
+IP非法
+------------------
+2016年09月01日8时46分44秒7172毫秒   验证接口请求:
+funcode=AP04&message=YXBwSWQ9MTQ1OTg0NjUzMDQwNzM2Mw%3D%3D%7CbGpxzcFssd%2BAEOE10QCXIBqlZ6s7RMW6f2pcpZy2Ejo0RAGwbJovJZSzPrGrHB%2B51xR2hVdvyYo2FOiap6RdwsEb4446AHYkc30d4KQP0cNbVAopqjHGwk9k7QnvmtZOvIRY1XUNb8gJXNtCnZAA%2BYldC%2FQCLLg0%2BwTsvpIRJpGTXk%2B98Q%2Fjokxeohfsr4P%2Bn%2BToQwOktUiLXEAquCC0nbCzl%2FerUnJp%7CMTNmNzc2ZDAyZGM0NWFhZGVmNDY3NTE1ZDYzODA1ODc%3D
+------------------
+2016年09月01日8时46分44秒7532毫秒   验证接口验证应答:
+0|SVDpnZ7ms5U=
+
+------------------
+2016年09月01日8时46分44秒7532毫秒   验证信息接口应答:
+IP非法
+------------------
+2016年09月01日8时46分45秒8003毫秒   验证接口请求:
+funcode=AP04&message=YXBwSWQ9MTQ1OTg0NjUzMDQwNzM2Mw%3D%3D%7CbGpxzcFssd%2BAEOE10QCXIBqlZ6s7RMW6f2pcpZy2Ejo0RAGwbJovJZSzPrGrHB%2B51xR2hVdvyYo2FOiap6RdwlNb619LLtH%2Fc30d4KQP0cNbVAopqjHGwk9k7QnvmtZOYjK2IgXVYW0JXNtCnZAA%2BYldC%2FQCLLg0%2BwTsvpIRJpGTXk%2B98Q%2Fjokxeohfsr4P%2Bn%2BToQwOktUiLXEAquCC0nbCzl%2FerUnJp%7CZjMwMGRlMzhmODc3NTYyNzZlNDk4NjVmZjNjNTFhYzI%3D
+------------------
+2016年09月01日8时46分45秒8323毫秒   验证接口验证应答:
+0|SVDpnZ7ms5U=
+
+------------------
+2016年09月01日8时46分45秒8333毫秒   验证信息接口应答:
+IP非法
+------------------
+2016年09月01日8时46分46秒7383毫秒   验证接口请求:
+funcode=AP04&message=YXBwSWQ9MTQ1OTg0NjUzMDQwNzM2Mw%3D%3D%7CbGpxzcFssd%2BAEOE10QCXIBqlZ6s7RMW6f2pcpZy2Ejo0RAGwbJovJZSzPrGrHB%2B51xR2hVdvyYo2FOiap6Rdwv0YA5b2DZWFc30d4KQP0cNbVAopqjHGwk9k7QnvmtZOLMpo9d4%2F6%2FwJXNtCnZAA%2BYldC%2FQCLLg0%2BwTsvpIRJpGTXk%2B98Q%2Fjokxeohfsr4P%2Bn%2BToQwOktUiLXEAquCC0nbCzl%2FerUnJp%7CYWUyYTI0ZWMwODhkN2QzZTUzYTZiY2RhNTM5YzE5Y2U%3D
+------------------
+2016年09月01日8时46分46秒7703毫秒   验证接口验证应答:
+0|SVDpnZ7ms5U=
+
+------------------
+2016年09月01日8时46分46秒7703毫秒   验证信息接口应答:
+IP非法
+------------------
+2016年09月01日8时46分47秒7364毫秒   验证接口请求:
+funcode=AP04&message=YXBwSWQ9MTQ1OTg0NjUzMDQwNzM2Mw%3D%3D%7CbGpxzcFssd%2BAEOE10QCXIBqlZ6s7RMW6f2pcpZy2Ejo0RAGwbJovJZSzPrGrHB%2B51xR2hVdvyYo2FOiap6RdwsYYCHDaRRHMc30d4KQP0cNbVAopqjHGwk9k7QnvmtZOmXfszRk3ym4JXNtCnZAA%2BYldC%2FQCLLg0%2BwTsvpIRJpGTXk%2B98Q%2Fjokxeohfsr4P%2Bn%2BToQwOktUiLXEAquCC0nbCzl%2FerUnJp%7CMDQxZjgxOWJiM2E4NDAyNzUyM2QxNmU5YWU0YzYyZWM%3D
+------------------
+2016年09月01日8时46分47秒7694毫秒   验证接口验证应答:
+0|SVDpnZ7ms5U=
+
+------------------
+2016年09月01日8时46分47秒7704毫秒   验证信息接口应答:
+IP非法
+------------------
+2016年09月01日8时46分50秒8126毫秒   验证接口请求:
+funcode=AP04&message=YXBwSWQ9MTQ1OTg0NjUzMDQwNzM2Mw%3D%3D%7CbGpxzcFssd%2BAEOE10QCXIBqlZ6s7RMW6f2pcpZy2Ejo0RAGwbJovJZSzPrGrHB%2B51xR2hVdvyYo2FOiap6RdwrEaLc1pkm2xc30d4KQP0cNbVAopqjHGwk9k7QnvmtZOhmzXjZdQXiYJXNtCnZAA%2BYldC%2FQCLLg0%2BwTsvpIRJpGTXk%2B98Q%2Fjokxeohfsr4P%2Bn%2BToQwOktUiLXEAquCC0nbCzl%2FerUnJp%7CYWFmZjg2NDBkNTczYjdhZTYxOWM4MjU0NGU1MzcxYmY%3D
+------------------
+2016年09月01日8时46分50秒8496毫秒   验证接口验证应答:
+0|SVDpnZ7ms5U=
+
+------------------
+2016年09月01日8时46分50秒8506毫秒   验证信息接口应答:
+IP非法
+------------------
+2016年09月01日8时47分37秒1692毫秒   验证接口请求:
+funcode=AP04&message=YXBwSWQ9MTQ1OTg0NjUzMDQwNzM2Mw%3D%3D%7CbGpxzcFssd%2BAEOE10QCXIBqlZ6s7RMW6f2pcpZy2Ejo0RAGwbJovJZSzPrGrHB%2B51xR2hVdvyYo2FOiap6RdwqlXVF1edvoPc30d4KQP0cNbVAopqjHGwj9hXis48e9CLEydX6c7uygJXNtCnZAA%2BYldC%2FQCLLg0%2BwTsvpIRJpGTXk%2B98Q%2Fjokxeohfsr4P%2Bn%2BToQwOktUiLXEAquCC0nbCzl%2FerUnJp%7COWI1YjQ4Y2M1MGFkMjhkZGM3MTNhNmZiYjU4ZTJjOGY%3D
+------------------
+2016年09月01日8时47分37秒2102毫秒   验证接口验证应答:
+0|SVDpnZ7ms5U=
+
+------------------
+2016年09月01日8时47分37秒2102毫秒   验证信息接口应答:
+IP非法
+------------------
+2016年09月01日8时47分56秒1433毫秒   验证接口请求:
+funcode=AP04&message=YXBwSWQ9MTQ1OTg0NjUzMDQwNzM2Mw%3D%3D%7CbGpxzcFssd%2BAEOE10QCXIBqlZ6s7RMW6f2pcpZy2Ejo0RAGwbJovJZSzPrGrHB%2B51xR2hVdvyYo2FOiap6RdwiQsIwE3%2F7%2Fic30d4KQP0cNbVAopqjHGwj9hXis48e9CtT1PgihLKUwJXNtCnZAA%2BYldC%2FQCLLg0%2BwTsvpIRJpGTXk%2B98Q%2Fjokxeohfsr4P%2Bn%2BToQwOktUiLXEAquCC0nbCzl%2FerUnJp%7CNzc3YjJlZmZjYjY4OTJmOGExZTY0NjYxZGRkNzRmYzk%3D
+------------------
+2016年09月01日8时47分56秒1843毫秒   验证接口验证应答:
+0|SVDpnZ7ms5U=
+
+------------------
+2016年09月01日8时47分56秒1843毫秒   验证信息接口应答:
+IP非法
+------------------

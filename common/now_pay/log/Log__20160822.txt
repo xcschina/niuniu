@@ -1,0 +1,10 @@
+2016年08月22日10时55分33秒5359毫秒   验证接口请求:
+funcode=AP04&message=YXBwSWQ9MTQ1OTg0NjUzMDQwNzM2Mw%3D%3D%7CbGpxzcFssd%2BAEOE10QCXIBqlZ6s7RMW6f2pcpZy2Ejo0RAGwbJovJZSzPrGrHB%2B51xR2hVdvyYok2%2FQkB7Vay5Dnrg09lOZRc30d4KQP0cNbVAopqjHGwsQSMaC1%2FAQu%2BFgaIDIPlVYJXNtCnZAA%2BYldC%2FQCLLg0%2BwTsvpIRJpGTXk%2B98Q%2Fjokxeohfsr4P%2Bn%2BToQwOktUiLXEAquCC0nbCzl%2FerUnJp%7CNTRmMGIyYTkxNGJjZTgzZjFjYWRlNTQ4ZGM4MDAwYjQ%3D
+------------------
+2016年08月22日10时55分33秒7329毫秒   验证接口验证应答:
+0|SVDpnZ7ms5U=
+
+------------------
+2016年08月22日10时55分33秒7429毫秒   验证信息接口应答:
+IP非法
+------------------
