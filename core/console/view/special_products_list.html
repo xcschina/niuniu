@@ -1,0 +1,50 @@
+<div class="bjui-pageHeader">
+    <form id="pagerForm" action="products_info.php?act=special_products_list" method="post" data-toggle="ajaxsearch">
+        <div class="bjui-searchBar">
+            <a href="products_info.php?act=special_products_add_view" class="btn btn-green" data-id="special_products_add_view" data-toggle="dialog" data-mask="true" data-width="500"  data-height="250" data-title="添加特卖商品">新建</a>
+            <label>商品名：</label><input type="text" name="title"  value="{$params.title}" class="form-control" size="10">&nbsp;
+            <label>游戏名：</label><input type="text" name="game_name"  value="{$params.game_name}" class="form-control" size="10">&nbsp;
+            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th>No.</th>
+            <th width="200">商品名称</th>
+            <th>商品ID</th>
+            <th width="200">游戏名</th>
+            <th>游戏ID</th>
+            <th width="200">截止时间</th>
+            <th>截图</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=data from=$dataList}
+        <tr align="center">
+            <td>{$data.id}</td>
+            <td>
+                {if $data.is_del eq 1}<span class="orange">[下架]</span>{else}<span class="green">[上架]</span>{/if}{$data.ptitle}
+                <p class="text-danger">{$data.title}</p>
+            </td>
+            <td>{$data.product_id}</td>
+            <td>{$data.game_name}</td>
+            <td>{$data.game_id}</td>
+            <td>{$data.end_time|date_format:"%Y-%m-%d %H:%M:%S"}</td>
+            <td>{if $data.img}<img src="http://static.66173.cn/{$data.img}" width="50px" height="50px"></td>{else}<span class="orange">未上传</span>{/if}</td>
+            <td>
+                <a href="products_info.php?act=special_products_edit_view&id={$data.id}" class="btn btn-green" data-id="special_products_edit_view" data-toggle="dialog" data-mask="true" data-width="600"  data-height="420" data-title="编辑特卖商品">编辑</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

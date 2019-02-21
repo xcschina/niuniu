@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>初入暗黑西游，于妖界登顶—《齐天战神》</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <meta name="description" content="牛果游戏特别献礼，立即参与活动领专属大奖！"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no, email=no"/>
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/activity_qi.css?t={$smarty.now}">
+    <script src="http://cdn.66173.cn/www/js/jquery-1.8.3.min.js"></script>
+    <script type="application/javascript" src="http://cdn.66173.cn/mobile/v2/scripts/activity_qi_func.js?t={$smarty.now}"></script>
+</head>
+<body class="m-station activity-qi">
+<div style="display:none;"><img src="http://cdn.66173.cn/mobile/v2/css/img/qtzs/icon.png" alt=""/></div>
+<header class="page-top clearfix">
+    <a class="link-niuguo" href="http://www.66173yx.com/"><img src="http://cdn.66173.cn/mobile/v2/css/img/qtzs/logo.png"/></a>
+    <a class="link-download-app" href="http://imtt.dd.qq.com/16891/C6DD1D23AAEF76458F38863BE9883AEB.apk?csr=1bbd&fsname=com.niuniu.market_2.0.0.1_1.apk"><img src="http://cdn.66173.cn/mobile/v2/css/img/qtzs/app_download_btn.png"/></a>
+</header>
+<section class="background-img sec sec1">
+    <img class="block-bg" src="http://cdn.66173.cn/mobile/v2/css/img/qtzs/bg1.png" alt="">
+    <a href="http://dd.myapp.com/16891/926FB67DBC1659A3A997556533060B09.apk?fsname=com.tencent.tmgp.qitianzs_1.7.apk" class="place-center link-download-game"><img class="w100" src="http://cdn.66173.cn/mobile/v2/css/img/qtzs/game_download_btn.png" alt=""></a>
+    <div class="place-center self-rel-zone">
+        {if !$smarty.session.user_id}
+        <div class="log-not">
+            <span class="font-md login-in-link">【&nbsp;登录&nbsp;】</span>
+        </div>
+        {else}
+        <div class="log-already">
+            <span class="inline-block-middle font-md">hi,<span class="name">{if $smarty.session.nick_name}{$smarty.session.nick_name}{else}{$smarty.session.mobile}{/if}</span></span>
+				<a href="/website.php?act=logout" class="inline-block-middle font-md log-out-link" >【&nbsp;注销&nbsp;】</a>
+				<span class="inline-block-middle font-md my-bag-btn my-bag-btn-can">【&nbsp;查询礼包&nbsp;】</span>
+        </div>
+        {/if}
+    </div>
+    <div class="place-center share-get-zone">
+        <img class="share-btn" src="http://cdn.66173.cn/mobile/v2/css/img/qtzs/share.png" />
+        {if !$gift_list}
+        <img class="get-rel-btn get-btn get-btn-can" src="http://cdn.66173.cn/mobile/v2/css/img/qtzs/get_btn.png" />
+        {else}
+        <img class="get-rel-btn get-already-btn get-already-btn-can" src="http://cdn.66173.cn/mobile/v2/css/img/qtzs/get_already_btn.png" />
+        {/if}
+    </div>
+</section>
+<section class="background-img sec sec2">
+    <img class="block-bg" src="http://cdn.66173.cn/mobile/v2/css/img/qtzs/bg2.png" alt="">
+    <div class="place-center shot-zone">
+        <div class="img-zone">
+            <img data-index="0" class="active" src="http://cdn.66173.cn/mobile/v2/css/img/qtzs/shot1.png" alt="">
+            <img data-index="1" src="http://cdn.66173.cn/mobile/v2/css/img/qtzs/shot2.png" alt="">
+            <img data-index="2" src="http://cdn.66173.cn/mobile/v2/css/img/qtzs/shot3.png" alt="">
+        </div>
+        <ul class="dot-zone">
+            <li data-index="0" class="active"></li>
+            <li data-index="1"></li><li data-index="2"></li>
+        </ul>
+    </div>
+    <div class="place-center video-zone"></div>
+</section>
+<section class="background-img sec sec3 strategy-zone" style="background-image: url(http://cdn.66173.cn/mobile/v2/css/img/qtzs/bg3.png)">
+    <ul class="strategy-list">
+        {foreach from=$game_articles item=articles}
+        <li>
+            <a href="/info/{$articles.id}" target="_blank">
+                <img src="http://cdn.66173.cn/{$articles.img}" class="game-img"/>
+                <div class="center">
+                    <div class="text-overflow font-md title">{$articles.title}</div>
+                    <div class="font-sm desc">{$articles.summary}</div>
+                    <div class="font-sm time">{$articles.add_time|date_format:'Y-m-d H:i:s'}</div>
+                </div>
+            </a>
+        </li>
+        {/foreach}
+    </ul>
+</section>
+<section class="background-img sec sec4" style="background-image: url(http://cdn.66173.cn/mobile/v2/css/img/qtzs/bg5.png)">
+    <img class="for-more-qrcode" src="http://cdn.66173.cn/mobile/v2/css/img/qtzs/bg4.png" alt="">
+    <div class="qr-zone">
+        <img class="weibo" src="http://cdn.66173.cn/mobile/v2/css/img/qtzs/niuguo_weibo_with_rel.png?t={$smarty.now}" alt="">
+        <img class="wx" src="http://cdn.66173.cn/mobile/v2/css/img/qtzs/niuguo_wx_with_rel.png?t={$smarty.now}" alt="">
+    </div>
+    <div class="rule-zone">
+        <div class="font-mder title">活动规则</div>
+        <div class="font-md rules">
+            1、活动时间：2017.08.31-2017.09.10；</br>
+            2、为方便奖励发放及通知，活动仅限手机号参与；</br>
+            3、登录后通过分享该活动页面给好友，好友成功点击进入后，即可领取礼包；</br>
+            4、礼包每个手机账号限领一次，领完为止；</br>
+            5、礼包有效期：2017.8.09-9.10（只限安卓使用）；</br>
+            6、用户通过非法途径所获的活动奖励我司有权追回并追求其法律责任；</br>
+            7、本活动解释权在法律规定范围内归66173运营团队所有。</br>
+        </div>
+    </div>
+</section>
+<div class="mask">
+    <div class="pop-wrapper">
+        <div class="background-img pop-bg pop-bg-large" style="background-image: url(http://cdn.66173.cn/mobile/v2/css/img/qtzs/pop_bg_large.png)">
+            <a class="close-pop"></a>
+            <div class="pop-title">我的礼包</div>
+            <div class="con">
+                <div class="has-my-gifts"><ul class="my-gifts-list"></ul></div>
+            </div>
+        </div>
+        <div class="background-img pop-bg pop-bg-small" style="background-image: url(http://cdn.66173.cn/mobile/v2/css/img/qtzs/pop_bg_small.png)">
+            <a class="close-pop"></a>
+            <div class="pop-title">我的礼包</div>
+            <div class="con">
+                <div class="no-my-gifts">
+                    <img src="http://cdn.66173.cn/mobile/v2/css/img/qtzs/no_sad.png" class="no-sad-img"/>
+                    <div class="msg">您当前还没有礼包哦</div>
+                </div>
+                <div class="out-pop">
+                    <div class="msg-title"></div>
+                    <div class="msg-con"></div>
+                    <div class="btn-zone">
+                        <img class="bt-btn cancel-btn" src="http://cdn.66173.cn/mobile/v2/css/img/qtzs/tip_cancel_btn.png"/>
+                        <a class="bt-btn link-detail-to-app" href="http://www.66173yx.com"><img class="detail-btn" src="http://cdn.66173.cn/mobile/v2/css/img/qtzs/tip_detail_btn.png"/></a>
+                    </div>
+                </div>
+                <div class="not-share-pop">
+                    <div class="msg-title"></div>
+                    <div class="msg-con"></div>
+                    <div class="btn-zone">
+                        <img class="bt-btn tip-share-btn" src="http://cdn.66173.cn/mobile/v2/css/img/qtzs/tip_share_btn.png"/>
+                    </div>
+                </div>
+                <div class="to-login-pop">
+                    <div class="pop-form-wrap">
+                        <div class="pop-form-line">
+                            <label>手机号&nbsp;:</label>
+                            <input type="tel" class="tel-input" placeholder="请输入您的手机号"/>
+                        </div>
+                        <div class="pop-form-line">
+                            <label>验证码&nbsp;:</label>
+                            <input type="number" class="captcha-input" placeholder="请输入收到的验证码"/>
+                            <span class="captcha-tip to-get-captcha">获取验证码</span>
+                        </div>
+                        <div class="btn-zone">
+                            <img class="bt-btn go-login go-login-can" src="http://cdn.66173.cn/mobile/v2/css/img/qtzs/tip_login.png"/>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="background-img share-collect-zone" style="background-image: url(http://cdn.66173.cn/mobile/v2/css/img/qtzs/share_pop_bg.png)">
+            <div class="share-choose-zone"></div>
+            <div class="cancel-share-btn"></div>
+        </div>
+    </div>
+</div>
+<div class="wx-share-mask">
+    <div class="wx-share-arrow"><img src="http://cdn.66173.cn/mobile/v2/css/img/wx_share_arrow.png" alt=""></div>
+    <div class="wx-share-text"><img src="http://cdn.66173.cn/mobile/v2/css/img/wx_share_text.png" alt=""></div>
+</div>
+<div class="brief-tip-pop"><div class="font-md con"></div></div>
+
+<input type="hidden" id="share_code" value="{$smarty.session.user_id}">
+<input type="hidden" id="user_id" value="{$smarty.session.user_id}">
+<input type="hidden" id="act_id" value="{$game_info.id}">
+<input type="hidden" value="{$noncestr}" id="noncestr"/>
+<input type="hidden" value="{$timestamp}" id="timestamp"/>
+<input type="hidden" value="{$signature}" id="signature" />
+<input type="hidden" id="pagehash" value="{$pagehash}">
+</body>
+{literal}
+<script src="http://cdn.66173.cn/mobile/v2/scripts/clipboard1.6.1.min.js"></script>
+<script>
+    var userId = $('#user_id').val();
+    var actId = $('#act_id').val();
+    var curSlide = 0; // 游戏截图当前显示张
+    var slideInterval; // 游戏截图变换定时
+    var video = null;
+    var videoSrc = "http://apk.66173.cn/mp4/qtzs.mp4";
+    var maskSrc = "http://cdn.66173.cn/mobile/v2/css/img/qtzs/video_mask.png";
+    var hasReserved = $("#hasReserved").val() == 1 ? true : false;
+    var pageMyBagTimeout; //页面上我的礼包定时
+    var pageAlreadyGetBagTimeout; //页面上已领取点击获取我的礼包定时
+    var pageGetGiftTimeout;//页面上领取点击获取我的礼包定时
+    var popMyBagTimeout; //弹窗中我的礼包定时
+    var goLoginTimeout; //弹窗中登录定时
+    var regContact = new RegExp(/(^[1-9][0-9]{5,9}$)|(^1[34578]\d{9}$)/);
+    var regCaptchaPart = new RegExp(/^[0-9]{6}$/);
+    var captchaInterval;//验证倒计时
+    var clipboardGift; //弹窗内礼包码复制功能
+    var get_count = $('#get_count').val() || 0;
+    // 分享相关
+    var share_link = setParameterByName("code",$("#share_code").val()||"");
+    var share_title = $('title').html();
+    var share_desc = $('meta[name=description]').attr("content");
+    var share_summary = $('meta[name=description]').attr("content");
+    var share_img = "http://cdn.66173.cn/mobile/v2/css/img/qtzs/icon.png";
+    var hash = $('#pagehash').val();
+    // 分享链接
+    shareConInit(share_title, share_desc, share_link, share_summary, share_img);
+    $(window).load(function() {
+        pageBgSize();
+        slideInterval = setInterval(function() {
+            curSlide < 2 ? curSlide++ : curSlide = 0;
+            slideControl(curSlide);
+        }, 2000);
+        addVideo();
+    })
+    // 点击视频遮罩层开始播放视频
+    $(".activity-qi").on("click", ".poster", function(e) {
+        $(e.target).hide();
+        video.play();
+    });
+    // 点击页面上或弹窗中的我的礼包
+    $(".activity-qi").on("click", ".my-bag-btn-can, .get-already-btn-can", function(e) {
+        if(!userId) {
+            popControl(".pop-bg-small", ".to-login-pop", "登录")
+        }
+        else {
+            if($(e.target).hasClass("my-bag-btn-can")) {
+                $(".my-bag-btn").removeClass("my-bag-btn-can");
+                btnTimeOutControl(".my-bag-btn","my-bag-btn-can", pageMyBagTimeout);
+            }
+            else {
+                $(".get-already-btn").removeClass("get-already-btn-can");
+                btnTimeOutControl(".get-already-btn","get-already-btn-can", pageAlreadyGetBagTimeout);
+            }
+             $.ajax({
+             	url: "/website.php?act=user_gift",
+             	type: "post",
+                 data:{pagehash:hash,user_id:userId},
+             	dataType: "json"
+             }).success(function(res) {
+            var code = res.code;
+            var data = res.data;
+            //  code 0：未登录；1:查到领过且有或无礼包；其他：异常
+            if(code == 0) {
+                popControl(".pop-bg-small", ".to-login-pop", "登录");
+            } else if (code == 1) {
+                if (data && data.length != 0) {
+                    renderGift(data);
+                } else {
+                    popControl(".pop-bg-small", ".no-my-gifts", "我的礼包")
+                }
+            } else {
+                briefTipControl(res.msg);
+            }
+             })
+        }
+    })
+    // 点击页面上领取礼包
+    $(".activity-qi").on("click", ".get-btn-can", function(e) {
+        if(!userId) {
+            popControl(".pop-bg-small", ".to-login-pop", "登录")
+        }
+        else {
+            $(".get-btn").removeClass("get-btn-can");
+            btnTimeOutControl(".get-btn","get-btn-can", pageGetGiftTimeout);
+             $.ajax({
+             	url: "/website.php?act=draw_gift",
+             	type: "post",
+                 data:{pagehash:hash,user_id:userId,act_id:actId},
+             	dataType: "json"
+             }).success(function(res){
+            var code = res.code;
+            var data = res.data;
+            //  code 0：未登录；1:有礼包；2：不能领取，处于未分享或分享未被点击；3：礼包被抢光或活动结束，其他：异常
+            if(code == 0) {
+                popControl(".pop-bg-small", ".to-login-pop", "登录");
+            } else if (code == 1) {
+                if (data && data.length != 0) {
+                    $(".get-rel-btn").removeClass("get-btn get-btn-can").addClass("get-already-btn get-already-btn-can");
+                    $(".get-rel-btn").attr("src","http://cdn.66173.cn/mobile/v2/css/img/qtzs/get_already_btn.png");
+                    renderGift(data,true);
+                }
+            } else if(code == 2) {
+                popControl(".pop-bg-small", ".not-share-pop", "提示");
+                $(".pop-bg-small .msg-title").html(res.msg);
+            } else if(code == 3) {
+                popControl(".pop-bg-small", ".out-pop", "提示");
+                $(".pop-bg-small .msg-title").html(res.msg)
+            } else {
+                briefTipControl(res.msg);
+            }
+             })
+        }
+    });
+    function renderGift(data, fromGet) {
+        var popTitle = fromGet ? "领取成功" : "我的礼包";
+        if (data &&  data!= 0) {
+            var content = '';
+            for (var i = 0, l = data.length; i < l; i++) {
+                var item = data[i];
+                content += '<li>'
+                    + '<img class="gift-img-bg"src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/gift_img_bg.png"/><img src="http://cdn.66173.cn/mobile/v2/css/img/qtzs/icon.png" class="gift-img"/>'
+                    + '<div class="center">'
+                    + '<div class="text-overflow title">' + item['draw_desc'] + '</div>'
+                    + '<div class="background-img text-overflow gift-code" style="background-image: url(http://cdn.66173.cn/mobile/v2/css/img/dsgl/gift_code_bg.png)">';
+                if(item['gift_code']) {
+                    content += '礼包码：<span class="code">'+ item['gift_code'] + '</span></div></div>'
+                        +'<img src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/copy_gift_code.png" class="gift-pop-copy-btn" data-clipboard-text="'+item['gift_code']+'"/>'
+                        +'</li>';
+                }
+                else {
+                    content +='礼包码：<span class="wait-code">敬请期待</span></div></div></li>';
+                }
+            }
+            $(".my-gifts-list").html(content);
+            popControl(".pop-bg-large", ".has-my-gifts", popTitle);
+            // 先销毁之前的礼包复制功能以免会重复调用
+            if (clipboardGift) {
+                clipboardGift.destroy();
+            }
+            clipboardGift = new Clipboard(".gift-pop-copy-btn");
+            clipboardGift.on('success', function (e) {
+                briefTipControl("礼包码: " + e.text + " 已复制");
+                e.clearSelection();
+            })
+        }
+    }
+
+    // 填好表单后点击登录
+    $(".activity-qi").on("click", ".go-login-can", function() {
+        $(".go-login:visible").removeClass("go-login-can");
+        btnTimeOutControl(".go-login", "go-login-can", goLoginTimeout);
+        var resData = checkInput({
+            ".tel-input": "mobile",
+            ".captcha-input": "sms_code"
+        });
+        resData.res['pagehash'] = hash;
+        if(resData.pass) {
+            // 请求登录过后直接刷页面
+            console.log(resData);
+            $.ajax({
+                url: "/website.php?act=login",
+                type: "post",
+                dataType: "json",
+                data: resData.res
+            }).success(function(data) {
+                if(data.code == 1){
+                    window.location.reload();
+                }
+                if(data.msg) {
+                    briefTipControl(data.msg);
+                }
+            })
+        }
+    })
+    // 点击页头登录跳登录弹窗
+    $(".login-in-link").on("click", function() {
+        popControl(".pop-bg-small", ".to-login-pop", "登录")
+    })
+    // 获取验证码
+    $(".activity-qi").on("click", ".to-get-captcha", function() {
+        if(!regContact.test($(".tel-input:visible").val())) {
+            briefTipControl("请填写正确的手机号码！");
+            $(".captcha-tip").removeClass("to-get-captcha");
+            setTimeout(function() {
+                $(".captcha-tip").addClass("to-get-captcha");
+            }, 2000);
+        }
+        else {
+            $(".captcha-tip").removeClass("to-get-captcha").html('<span class="count-time">120</span>s后获取');
+            var countDownRest = 120;
+            clearInterval(captchaInterval);
+            captchaInterval = setInterval(function() {
+                if(countDownRest > 1) {
+                    countDownRest--;
+                    $(".count-time").html(countDownRest)
+                }
+                else {
+                    $(".captcha-tip").html("获取验证码").addClass("to-get-captcha");
+                    clearInterval(captchaInterval)
+                }
+
+            }, 1000)
+            var phone = $(".tel-input:visible").val();
+             $.ajax({
+                 url: "/website.php?act=sms_code",
+                 type: "post",
+                 data: {mobile: phone,pagehash:hash},
+                 dataType: "json"
+             }).success(function(json) {
+            briefTipControl(json.msg);
+             })
+        }
+    })
+    // 点击取消弹窗
+    $(".activity-qi").on("click", ".cancel-share-btn, .cancel-btn, .close-pop, link-copy-btn", function() {
+        $(".activity-qi .mask").hide();
+    })
+    $(".activity-qi").on("click", ".link-download-game, .link-download-app", function(e) {
+        if(isMobileIOS()) {
+            e.preventDefault();
+            briefTipControl("暂无苹果版app,此为安卓版~")
+        }
+    })
+    // 点击页面上或弹窗内的分享
+    $(".activity-qi").on("click", ".share-btn,.tip-share-btn, .tip-invite-btn", function() {
+        if(!userId) {
+            popControl(".pop-bg-small", ".to-login-pop", "登录")
+        }
+        else {
+            if (!shareSelf()) {
+                sharePopControl();
+            } else {
+                $(".activity-qi .mask").hide();
+                $(".wx-share-mask").show();
+            }
+        }
+    })
+    //  活动结束后点击预约按钮
+    $(".activity-qi").on("click", ".preorder-btn-after", function() {
+        briefTipControl("活动已结束");
+    })
+
+    // 点击引导微信分享图层
+    $(".activity-qi").on("click", ".wx-share-mask", function(e) {
+        $(e.currentTarget).hide();
+    })
+    // 添加视频
+    function addVideo() {
+        if($(".video-zone").length > 0) {
+            var con = '<img class="poster" src="' + maskSrc + '" alt="">'
+                +'<video width="100%" height="100%" style="object-fit:fill;z-index: 10" controls="controls"'
+                +'webkit-playsinline playsinline id="video" src="' + videoSrc + '">not support</video>';
+            $(".video-zone").html(con);
+            video = document.getElementById("video");
+            $(".video-zone").css("height", $(".video-zone").width()*0.5625);
+        }
+    }
+</script>
+
+<script src="http://cdn.66173.cn/mobile/v2/scripts/share_tenxun_co.js?t=3"></script>
+<script type="text/javascript">
+    var noncestr = $("#noncestr").val();
+    var timestamp = $("#timestamp").val();
+    var signature = $("#signature").val();
+    setShareInfo({
+        title: share_title,
+        summary: share_desc,
+        pic: share_img,
+        url: share_link,
+        WXconfig:       {
+            swapTitleInWX: true,
+            appId: 'wxbaed68c7f2f3a62c',
+            timestamp: timestamp,
+            nonceStr: noncestr,
+            signature: signature,
+            debug: true
+        },
+        callback: function() {
+            briefTipControl("分享成功！");
+        },
+        judgeLoginFunc: function() {
+            if(!userId) {
+                alert("登录后的分享链接才有效哦~");
+            }
+        }
+    });
+</script>
+{/literal}
+</html>

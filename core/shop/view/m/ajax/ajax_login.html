@@ -1,0 +1,31 @@
+<link rel="stylesheet" type="text/css" href="http://static.66173.cn/shop/m/css/login.css?t={rand(1,10000)}" media="screen" />
+<form action="/index.php?act=user_login_do" method="post">
+<div class="login-bg" id="loginBox">
+    <div class="login-box">
+        <header class="login-header">
+            <h1 class="login-h1">66173登录</h1>
+            <a class="login-close" onclick="$('#login').hide();"></a>
+            <a class="login-txt" href="http://m.66173.cn/account.php?act=register">注册</a>
+        </header>
+        <section class="input-con clearfix">
+            <div class="input-con-box clearfix">
+                <div class="inp-box">
+                    <label class="login-spr-1">用户名</label>
+                    <input name="mobile" type="text" placeholder="请输入手机号" class="l-input" />
+                </div>
+                <div class="inp-box">
+                    <label class="login-spr-2">密码</label>
+                    <input name="password" type="password" placeholder="请输入密码" class="l-input" />
+                </div>
+            </div>
+            <a href="http://m.66173.cn/account.php?act=forget" class="f-password">忘记密码?</a>
+            <input type="submit" class="b-btn" value="登录">
+        </section>
+        <footer class="login-footer clearfix">
+            <h3 class="tx-tit">第三方账号登录</h3>
+            <a class="tx-login" href="http://shop.66173.cn/index.php?act=user_qqlogin_view"></a>
+        </footer>
+    </div>
+</div>
+    <input type="hidden" name="pagehash" value="{$pagehash}">
+</form>

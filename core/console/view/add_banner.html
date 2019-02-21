@@ -1,0 +1,40 @@
+<script type="text/javascript">
+    $(function(){
+        $("select[name=game_id]").chosen();
+    })
+</script>
+<div class="bjui-pageContent">
+    <form action="api.php?act=banner_save"data-toggle="validate" data-alertmsg="false"  method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">轮播图：</label>
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="pic.click()">选择图片</button>
+                    <input type="file" name="pic" style="display: none;" onchange="file.value=value"/>
+                    <input type="text" name="file" placeholder="None file" class="form-control" size="15" data-rule="required" readonly/>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">图片备注：</label>
+                    <input type="text" name="remark" value=""  class="form-control" >
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">图片链接：</label>
+                    <input type="text" name="url" value="" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+

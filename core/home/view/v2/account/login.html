@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>用户登录</title>
+    <link href="http://cdn.66173.cn/wwwv2/css/style.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+{include file="include/top.html"}
+{include file="include/header.html"}
+{include file="include/nav.html"}
+<div class="wrapper clearfix">
+    <div class="login">
+        <div class="w1000 relative">
+            <a href="http://www.66173.cn/game8" class="ad" target="_blank" rel="noopener noreferrer"><img src="http://cdn.66173.cn/images/login_ad.jpg" /></a>
+            <form action="account.php?act=do_login" method="post" id="do_login">
+            <div class="login_box absolute">
+                <div class="login_txt">
+                    <div class="title">66173用户登录</div>
+                    <div class="row" style="color:#C7162B">{$smarty.session.do_login_error}</div>
+                    <div class="row">
+                        <span class="icon_user"></span>
+                        <input type="text"  class="txt" placeholder="手机号/用户名" name="mobile" value="" />
+                    </div>
+                    <div class="row">
+                        <span class="icon_pw"></span>
+                        <input type="password" class="txt" placeholder="您的密码" name="password" value="" />
+                    </div>
+                    <div class="row">
+                        <label><input type="checkbox" name="cookie_check"  {if $smarty.session.cookie_check eq 1}checked{/if} value="1" style="float: left; margin: 0 5px 0 0 ;"/>记住我的登录状态</label>
+                        <a href="account.php?act=forget">忘记密码</a>
+                        <div class="clear_both"></div>
+                    </div>
+                    <div style="margin-top: 40px; height: 45px;">
+                        <a href="#;" onclick="$('#do_login').submit()"  class="btn_red_big"  style="padding: 10px 125px;">登录</a>
+                    </div>
+                    <div style="text-align: center;">还没有66173账号？<a href="account.php?act=register" class="color_red">立即注册</a></div>
+                </div>
+                <div style="text-align: center; line-height: 24px; padding: 25px 0 0 0;">您还可以使用合作方账号登录<br />
+                    <a href="account.php?act=qq_login" class="color_red">QQ账号登录</a>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--footer-->
+{include file="include/footer.html"}
+<!--//footer-->
+</body>
+</html>

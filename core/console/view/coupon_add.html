@@ -1,0 +1,253 @@
+<script>
+    $(function(){
+        $("#games").chosen();
+        $("#channels").chosen();
+    });
+    $('#channel').change(function() {
+        $("input[name=serv_name]").val($(this).children('option:selected').attr("rel"))
+    });
+    $("select[name=game_id]").chosen();
+    $("select[name=pay_type]").chosen();
+    $("select[name=product_id]").chosen();
+
+    $('#sel_ch').hide();
+    $('#sel_game').hide();
+    $('#sel_games').hide();
+    $('#sel_type').hide();
+    $('#sel_goods').hide();
+    $('#reduced').hide();
+    $('#valid_time').hide();
+    $('#total').show();
+</script>
+<div class="bjui-pageContent">
+    <form action="coupon.php?act=coupon_save"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">优惠券名称：</label>
+                    <input type="text" name="coupon_name" class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">优惠方式：</label>
+                    <input type="radio" name="discount_type"  data-toggle="icheck" value="1" data-rule="checked" checked="checked">&nbsp;原价+优惠券&nbsp;&nbsp;
+                    <input type="radio" name="discount_type"  data-toggle="icheck" value="2">&nbsp;折扣价+优惠券
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">优惠券类型：</label>
+                    <input type="radio" name="coupon_type"  data-toggle="icheck" value="1" data-rule="checked" checked="checked">&nbsp;打折券&nbsp;&nbsp;
+                    <input type="radio" name="coupon_type"  data-toggle="icheck" value="2">&nbsp;满减券
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">优惠券折扣：</label>
+                    <span id="discount">
+                        满&nbsp;<input type="text" name="full_amount" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" class="form-control" style="width:70px!important;">&nbsp;打&nbsp;
+                        <input type="text" name="discount" class="form-control" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" style="width:50px!important;">&nbsp;折
+                    </span>
+                    <span id="reduced">
+                        满&nbsp;<input type="text" name="total_amount" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" class="form-control" style="width:70px!important;">&nbsp;减&nbsp;
+                        <input type="text" name="discount_amount" class="form-control" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" style="width:70px!important;">(单位:RMB)
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">有效期类型：</label>
+                    <input type="radio" name="valid_type"  data-toggle="icheck" value="1" data-rule="checked" checked="checked">&nbsp;自领券起&nbsp;&nbsp;
+                    <input type="radio" name="valid_type"  data-toggle="icheck" value="2">&nbsp;开始时间到结束时间
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">有效期：</label>
+                    <span id="valid_time">
+                        <input type="text"  name="start_time" data-toggle="datepicker" data-pattern="yyyy-MM-dd 00:00:00" size="20">&nbsp;到&nbsp;<input type="text"  name="end_time" data-toggle="datepicker" data-pattern="yyyy-MM-dd 23:59:59" size="20">
+                    </span>
+                    <span id="deadline">
+                        自领劵起&nbsp;<input type="text" name="valid_days" onkeyup="this.value=this.value.replace(/\D/g,'')" class="form-control" style="width:50px!important;">&nbsp;日内有效
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">适用范围：</label>
+                    <input type="radio" name="applicable"  data-toggle="icheck" value="1" data-rule="checked" checked="checked">&nbsp;全站通用&nbsp;&nbsp;
+                    <input type="radio" name="applicable"  data-toggle="icheck" value="2">&nbsp;单款游戏配置&nbsp;&nbsp;
+                    <input type="radio" name="applicable"  data-toggle="icheck" value="3">&nbsp;批量游戏配置
+                </td>
+            </tr>
+            <tr id="sel_ch">
+                <td colspan="4">
+                    <label class="control-label x120">指定渠道：</label>
+                    <select id="channels" name="channel[]" multiple="true" style="width:800px" data-placeholder="请选择需要的渠道名称">
+                        {foreach from=$channel_list item=ch}
+                        <option value="{$ch.id}">{$ch.channel_name}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            <tr id="sel_game">
+                <td>
+                    <label  class="control-label x120">指定游戏：</label>
+                    <select name="game_id" style="width: 200px!important;">
+                        <option value="">请选择</option>
+                        {foreach from=$game_list item=game}
+                        <option value="{$game.id}">{$game.game_name}</option>
+                        {/foreach}
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr id="sel_games">
+                <td colspan="4">
+                    <label class="control-label x120">指定游戏：</label>
+                    <select id="games" name="game_ids[]" multiple="true" style="width:800px" data-placeholder="请选择需要的游戏名称">
+                        {foreach from=$game_list item=game}
+                        <option value="{$game.id}">{$game.game_name}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            <tr id="sel_type">
+                <td>
+                    <label  class="control-label x120">指定类型：</label>
+                    <select name="pay_type" style="width: 200px!important;">
+                        <option value="0">所有类型</option>
+                        <option value="1">首充号</option>
+                        <option value="2">首充号续充</option>
+                        <option value="3">游戏币</option>
+                        <option value="4">账号</option>
+                        <option value="5">代充</option>
+                        <option value="6">游戏充值（代充、续充、游戏币）</option>
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr id="sel_goods">
+                <td>
+                    <label  class="control-label x120">指定商品id：</label>
+                    <select name="product_id" style="width: 200px!important;">
+                        <option value="">请选择</option>
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">发送方式：</label>
+                    <input type="radio" name="send_type"  data-toggle="icheck" value="1" data-rule="checked" checked="checked">&nbsp;活动中心展示(所有用户)&nbsp;&nbsp;
+                    <input type="radio" name="send_type"  data-toggle="icheck" value="2">&nbsp;站内信(指定用户)
+                </td>
+            </tr>
+            <tr id="total">
+                <td>
+                    <label  class="control-label x120">发行数量：</label>
+                    <input type="text" name="total" class="form-control" onkeyup="this.value=this.value.replace(/\D/g,'')" style="width:100px!important;">&nbsp;
+                </td>
+            </tr>
+            <!--<tr id="user_id">-->
+                <!--<td colspan="3">-->
+                    <!--<label class="control-label x120">玩家ID:</label>-->
+                    <!--<textarea name="user_id" cols="80" rows="1" data-toggle="autoheight" class="form-control autosize" placeholder="请输入玩家ID"></textarea>&nbsp;多个用户用","隔开.-->
+                <!--</td>-->
+            <!--</tr>-->
+            <tr>
+                <td colspan="4">
+                    <label class="control-label x120">领取提示：</label>
+                    <textarea name="content" id="content" style="width:800px;height:80px;"></textarea>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+<script type="text/javascript">
+    $(function(){
+        $("input[name='applicable']").on('ifChecked', function(e) {
+            var applicable = $(this).val();
+            if(applicable == '3') {
+                $('#sel_ch').show();
+                $('#sel_games').show();
+                $('#sel_game').hide();
+                $('#sel_type').show();
+                $('#sel_goods').hide();
+            } else if(applicable == '2') {
+                $('#sel_ch').show();
+                $('#sel_games').hide();
+                $('#sel_game').show();
+                $('#sel_type').show();
+                $('#sel_goods').show();
+            } else {
+                $('#sel_ch').hide();
+                $('#sel_games').hide();
+                $('#sel_game').hide();
+                $('#sel_type').hide();
+                $('#sel_goods').hide();
+            }
+        });
+
+        $("input[name='coupon_type']").on('ifChecked', function(e) {
+            var coupon_type = $(this).val();
+            if(coupon_type == '1') {
+                $('#discount').show();
+                $('#reduced').hide();
+            } else if(coupon_type == '2') {
+                $('#discount').hide();
+                $('#reduced').show();
+            }
+        });
+
+        $("input[name='valid_type']").on('ifChecked', function(e) {
+            var valid_type = $(this).val();
+            if(valid_type == '1') {
+                $('#deadline').show();
+                $('#valid_time').hide();
+            } else if(valid_type == '2') {
+                $('#deadline').hide();
+                $('#valid_time').show();
+            }
+        });
+
+        $("input[name='send_type']").on('ifChecked', function(e) {
+            var send_type = $(this).val();
+            if(send_type == '2') {
+                $('#total').hide();
+            } else if(send_type == '1') {
+                $('#total').show();
+            }
+        });
+
+        $("select[name=game_id]").chosen().change(function(){
+            var game_id = $(this).find("option:selected").val();
+            var product_id = $("select[name=product_id]").chosen();
+            $.ajax({
+                type:'post',
+                url:'products_info.php?act=products_bygame_id',
+                data:{
+                    game_id:game_id
+                },
+                dataType: 'json',
+                success: function (json) {
+                    product_id.empty();
+                    product_id.append("<option value='0'>请选择</option>");
+                    $(json).each(function(){
+                        product_id.append("<option value=\"" + this.id + "\">" + this.title + "—"+ this.type_name +"</option>")
+                    });
+                    product_id.trigger("chosen:updated");
+                },
+                error:function(){
+                }
+            });
+        });
+
+    })
+</script>

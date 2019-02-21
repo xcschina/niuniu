@@ -1,0 +1,153 @@
+<style>
+    #user_info td{
+        border: 1px solid #0866C6 !important;
+        height: 35px;
+        text-align: center;
+    }
+</style>
+{literal}
+<script type="text/javascript">
+    $(function(){
+        $("select[name=user_game]").chosen({width:"150px"});
+        $("select[name=user_group]").chosen({width:"150px"});
+    })
+</script>
+{/literal}
+<div class="bjui-pageContent">
+    <form action="user_info.php?act=user_info_detail_do&id={$user.user_id}"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table id='user_info' class="table table-bordered" width="100%">
+            <tbody>
+
+                <tr>
+                    <td>用户ID</td>
+                    <td>{$user.user_id}</td>
+                    <td>昵称</td>
+                    <td>
+                        {if $user.login_name}{$user.login_name}
+                        {else}未知{/if}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>真实姓名</td>
+                    <td>
+                        {if $user.user_name}{$user.user_name}
+                        {else}未知{/if}
+                    </td>
+                    <td>性别</td>
+                    <td>
+                        {if $user.sex eq '0'}男
+                        {elseif $user.sex eq '1'}女
+                        {else}未知{/if}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>手机号</td>
+                    <td>
+                        {if $user.mobile}{$user.mobile}
+                        {else}未知{/if}
+                    </td>
+                    <td>身份证号</td>
+                    <td>
+                        {if $user.id_number}{$user.id_number}
+                        {else}未知{/if}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>QQ</td>
+                    <td>
+                        {if $user.qq}{$user.qq}
+                        {else}未知{/if}
+                    </td>
+                    <td>邮箱</td>
+                    <td>
+                        {if $user.email}{$user.email}
+                        {else}未知{/if}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>注册时间</td>
+                    <td>
+                        {if $user.reg_time}
+                        {'Y-m-d H:i:s'|date:$user.reg_time}
+                        {else}未知{/if}
+                    </td>
+                    <td>注册IP</td>
+                    <td>
+                        {if $user.reg_ip}{$user.reg_ip}
+                        {else}未知{/if}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>总消费(元)</td>
+                    <td>
+                        {if $user.total_pay}{$user.total_pay}
+                        {else}0{/if}
+                    </td>
+                    <td>所消费游戏</td>
+                    <td>
+                        <select name="user_game">
+                            {if $user.games|@count}
+                                {foreach from=$user.games item=game}
+                                <option>{$game.game_name}</option>
+                                {/foreach}
+                            {else}
+                                <option>无</option>
+                            {/if}
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>用户分组</td>
+                    <td>
+                    <select name="user_group">
+                        {foreach from=$groups item=group}
+                        <option value="{$group.ID}"{if $group.ID eq $user.user_group} selected{/if}>
+                        {$group.GroupName}
+                        </option>
+                        {/foreach}
+                    </select>
+                    </td>
+                    <td>最后一次登录</td>
+                    <td>
+                        {if $user.last_login_time}
+                        {'Y-m-d H:i:s'|date:$user.last_login_time}
+                        {else}未知{/if}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>最后一次消费时间</td>
+                    <td>
+                        {if $user.last_buy_time}
+                        {'Y-m-d H:i:s'|date:$user.last_buy_time}
+                        {else}未知{/if}
+                    </td>
+                    <td>最后一次消费金额（元）</td>
+                    <td>
+                        {if $user.last_pay}{$user.last_pay}
+                        {else}0{/if}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="4">
+                        <span style="color:#a94442">特别说明: [ 保存 ] 按钮仅用于修改用户所属分组</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>

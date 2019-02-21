@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>确认订单</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <link href="http://static.66173.cn/website/index.css?t=122" rel="stylesheet" type="text/css">
+    <style>
+        .link_hover div{
+            width:100%;height:40px; background-color:#ae0714; opacity:0.8;
+        }
+    </style>
+</head>
+
+<body>
+<div class="header">
+    <div class="header_con">
+        <div class="title">官方充值</div>
+    </div>
+</div>
+<form action="gamepay.php" method="post" name="pay_form_commit">
+<div class="content">
+    <div class="tips">{if isset($smarty.session.error)}{$smarty.session.error}{/if}</div>
+    <div class="pay_detail">
+        <p><i>充值游戏：</i><span>{$info.app_name}</span></p>
+        <p><i>服务器：</i><span>{$serv_name}</span></p>
+        <input type="hidden" name="serv_id" value="{$serv_id}" />
+        <p><i>角色名：</i><span>{$usr_name}</span></p>
+        <p><i>充值商品：</i><span>{$money.good_name}</span></p>
+        <p><i>支付金额：</i><span>{$money.good_price}元</span></p>
+    </div>
+    <div class="pay_sub_sel">
+        <span>请选择充值方式</span>
+        <div class="select" ><div class="alipay"></div><span rel="1">支付宝支付</span></div>
+        <!--{if $paypal eq "enable"}<div><div class="PayPal"></div><span rel="5">PayPal支付</span></div>{/if}-->
+        <input type="hidden" name="ch" value="1" />
+    </div>
+
+    <input type="hidden" name="money_id" value="{$money.id}" />
+    <input type="hidden" name="mode" value="1" />
+    <input type="hidden" name="player_id" value="{$player_id}" />
+    <input type="hidden" name="timestamp" value="{$time}" />
+    <input type="hidden" name="game_id" value="1" />
+    <input type="hidden" name="usr_name" value="{$usr_name}" />
+    <input type="hidden" name="bank" value="" />
+    <input type="hidden" name="wappay" value="1" />
+    <input type="hidden" name="usr_id" value="{$usr_id}" />
+    <div class="sub_bnt_pay link" onclick="go_pay()"><div>确认</div></div>
+    <div class="foot"> &copy;2010-2016 </div>
+</div>
+    </form>
+</body>
+<script type="text/javascript" src="http://static.66173.cn/website/jquery.min.js"></script>
+<script src="http://static.66173.cn/website/wap_pay.js?t=1"></script>
+<script src="http://static.66173.cn/website/flip.js"></script>
+<script src="http://static.66173.cn/website/web-base.js"></script>
+<script type="text/javascript">Web.BaseInit();</script>
+</html>

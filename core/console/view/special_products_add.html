@@ -1,0 +1,95 @@
+<script>
+    $("select[name=game_id]").chosen();
+    $("select[name=product_id]").chosen();
+</script>
+
+<div class="bjui-pageContent">
+    <form action="products_info.php?act=do_special_products_save"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏ID：</label>
+                    <select name="game_id" data-rule="required">
+                        <option value="">请选择</option>
+                        {foreach from=$game_list item=game}
+                        <option value="{$game.id}">{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">选择商品：</label>
+                    <select name="product_id" data-rule="required" id="product_ids"  style="width: 200px">
+                        <option value="">请选择</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">促销文案：</label>
+                    <input type="text" name="title" cols="30" rows="1"  class="form-control" data-rule="required" maxlength="20">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">截止时间：</label>
+                    <input type="text"  name="end_time" data-toggle="datepicker" data-pattern="yyyy-MM-dd H:m:s" size="20" >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">选择图片：</label>
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="special_product_img.click()">选择图片</button>
+                    <input type="file" name="special_product_img" style="display: none;" onchange="special_p_img.value=value" />
+                    <input type="text" name="special_p_img" placeholder="None file" class="form-control" size="15" readonly />&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">立即上架：</label>
+                    <select name="is_del"   data-toggle="selectpicker">
+                        <option value="1" >否</option>
+                        <option value="0" >是</option>
+                    </select>&nbsp;
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+<script>
+    $(function(){
+
+        $("select[name=game_id]").chosen().change(function(){
+            var game_id = $(this).find("option:selected").val();
+            var product_id = $("select[name=product_id]").chosen();
+            $.ajax({
+                type:'post',
+                url:'products_info.php?act=products_bygame_id',
+                data:{
+                    game_id:game_id
+                },
+                dataType: 'json',
+                success: function (json) {
+                    product_id.empty();
+                    $(json).each(function(){
+                        product_id.append("<option value=\"" + this.id + "\">" + this.title + "</option>")
+                    })
+                    product_id.trigger("chosen:updated");
+                },
+                error:function(){
+
+                }
+            });
+        });
+    })
+</script>
+

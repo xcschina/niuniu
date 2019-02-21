@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>{$game.game_name}首充号续充_手游交易_66173手游交易平台</title>
+    <meta name="keywords" content="首充号、{$game.game_name}首充号、{$game.game_name}首冲号续充、66173、手游交易平台" />
+    <meta name="description" content="需要{$game.game_name}首充号续充吗？大部分玩家都是在66173手游交易平台上购买{$game.game_name}首充号续充，首充号续充只需要原价的6折就可购买。66173 (m.66173.cn)是国内权威的游戏交易平台，安全快捷有保障的手游充值中心。" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/common.css?t={rand(1,10000)}" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/pay.css?t={rand(1,10000)}" media="screen" />
+</head>
+<body>
+<header class="page-header clearfix">
+    <h1 class="page-h1">购买详情</h1>
+    <a onclick="javascript:history.back();" class="p2-back">返回</a>
+    {if $smarty.session.user_id}
+    <a class="login-on" href="/account.php?act=user_center">个人中心</a>
+    {else}
+    <a class="login-link" href="/account.php?act=user_center" id="login-btn">登录</a>
+    {/if}
+</header>
+<!--<nav class="pay-nav clearfix">
+    <ul class="pay-nav-list clearfix">
+        <li class="on"><a>商品详情</a></li>
+        <li><a>礼包领取</a></li>
+        <li><a>游戏下载</a></li>
+        <li><a>游戏资讯</a></li>
+    </ul>
+</nav>-->
+<section class="pay-game clearfix"><img src="http://cdn.66173.cn{$game.game_icon}" alt="{$game.game_name}" />
+    <h2 class="pay-game-name">{$game.game_name}</h2>
+</section>
+<!-- Str交易类型 -->
+<section class="clearfix">
+    <header class="pay-tit clearfix">
+        <h3 class="pay-tit-h">商品类型:</h3>
+        <span class="pay-type-txt">首充号续充</span>
+    </header>
+</section>
+<!-- End交易类型 -->
+{if !$game_users}
+{include file="include/recharge_no_user.html"}
+{else}
+<section class="mt-10 clearfix">
+    <header class="pay-tit clearfix"><h3 class="pay-tit-h user">账号选择：</h3></header>
+    <ul class="user-list gver-list clearfix">
+        {foreach from=$game_users item=u key=k}
+        <li>
+            <a href="/game{$game.id}/recharge?game_user={$u.id}">
+                <span><label>服务器：</label>{$u.serv_name}</span>
+                <span><label>角色名：</label>{$u.role_name}</span><em></em>
+            </a>
+        </li>
+        {/foreach}
+    </ul>
+</section>
+<section class="none-box clearfix">
+<a class="xc-btn" href="/game{$game.id}/gameuser" />为其他账号进行续充</a>
+</section>
+{/if}
+{include file="include/footer.html"}
+<div class="side-bg" id="servs"></div>
+<div class="side-bg" id="products"></div>
+<div class="side-bg" id="login"></div>
+</body>
+</html>

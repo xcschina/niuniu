@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>66173手游交易平台_66173手机游戏交易平台_手机游戏交易平台_手游交易平台_66173！</title>
+    <meta name="description" content="66173(www.66173.cn)是国内权威的游戏交易平台，安全快捷有保障的手游充值中心，66173是提供手游账号交易、首充号购买、游戏充值、苹果IOS代充、手游退游、装备及道具、游戏币交易的游戏交易平台。">
+    <meta name="keywords" content="天龙八部3D首充号、天龙礼包、天龙3d礼包、手游交易、手游交易平台、66173手游交易平台、66173手机游戏交易平台">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/common.css?t={rand(1,10000)}" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/index.css?t={rand(1,10000)}" media="screen" />
+</head>
+<body>
+<header class="page-header clearfix">
+    <h1 class="logo">66173.cn</h1>
+    <div class="search-box">
+        <input type="search" placeholder="请输入游戏名称" class="search-input" />
+        <a class="search-icon"></a>
+    </div>
+    {if $smarty.session.user_id}
+    <a class="login-on" href="/account.php?act=user_center">个人中心</a>
+    {else}
+    <a class="login-link mr-40" href="/account.php?act=register">注册</a>
+    <a class="login-link" href="#;" id="login-btn">登录</a>
+    {/if}
+</header>
+<!--Str 轮播-->
+<section class="rotator clearfix">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            {foreach from=$banners item=banner}
+            <div class="swiper-slide"><a href="{$banner.go_url}"><img src="http://cdn.66173.cn/{$banner.img}" alt="name" /></a></div>
+            {/foreach}
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+</section>
+<!--End 轮播-->
+<!--Str 公告-->
+{if $notices}
+<section class="notice-box clearfix">
+    <div class="swiper-container-2">
+        <ul class="swiper-wrapper notice-list clearfix">
+            {foreach from=$notices item=notice}
+            <li class="swiper-slide"><a href="{$notice.go_url}">{$notice.title}</a></li>
+            {/foreach}
+        </ul>
+    </div>
+</section>
+{/if}
+<!--End 公告-->
+<!--Str 导航-->
+<nav class="inav-box clearfix">
+    <ul class="inav-list clearfix">
+        <li><a href="/character.php"><i class="nav-icon-1"></i>首充号</a></li>
+        <li><a href="/recharge.php"><i class="nav-icon-2"></i>首充号续充</a></li>
+        <li><a href="/topup.php"><i class="nav-icon-7"></i>代充</a></li>
+        <li><a href="/coin.php"><i class="nav-icon-4"></i>代币交易</a></li>
+        <li><a href="game_account.php"><i class="nav-icon-5"></i>账号交易</a></li>
+        <!--<li><a href="/appstore.php"><i class="nav-icon-3"></i>苹果代充</a></li>-->
+        {if $smarty.session.user_id eq 57 or
+        $smarty.session.user_id eq 4891 or
+        $smarty.session.user_id eq 11824 or
+        $smarty.session.user_id eq 11825 or
+        $smarty.session.user_id eq 4891 or
+        $smarty.session.user_id eq 5632}
+        <li><a href="/sells.php"><i class="nav-icon-8"></i>我要卖</a></li>
+        {else}
+        <li><a href="#;"><i class="nav-icon-8"></i>我要卖</a></li>
+        {/if}
+        <li><a><i class="nav-icon-6"></i>账号回购</a></li>
+    </ul>
+</nav>
+<!--End 导航-->
+<!--Str 限时特卖 -->
+<section class="ibox mt-10 clearfix">
+    <header><h2 class="bor-tit">限时特卖</h2></header>
+    <div class="ibox-con swiper-container-3 clearfix">
+        <ul class="xs-list swiper-wrapper clearfix">
+            {foreach from=$special item=s}
+            <li class="swiper-slide">
+                <a class="index-t-1" href="/shop{$s.product_id}"><img src="http://cdn.66173.cn/{$s.img}" /><span class="pic-name">{$s.game_name}</span><em class="pic-txt">{$s.title}</em></a>
+            </li>
+            {/foreach}
+        </ul>
+    </div>
+</section>
+<!--End 限时特卖 -->
+<!--Str 热门游戏 -->
+<section class="ibox mt-10 clearfix">
+    <header class="bor-header">
+        <h2 class="bor-tit">热门游戏</h2>
+        <a class="more-btn" id="moreBtn">更多游戏</a>
+        <div class="game-index clearfix" id="gameIndex">
+            <ul class="index-list clearfix">
+                <li><a class="on" href="#;" rel="hot">热</a></li>
+                {assign var=i value=0}
+                {section name=total loop=26}{assign var=i value=$i+1}<li><a href="#;" rel="{($i+64)|chr}">{($i+64)|chr}</a></li>{/section}
+            </ul>
+        </div>
+    </header>
+    <div class="ibox-con clearfix">
+        <ul class="soft-list clearfix hotgame">
+            {foreach from=$games item=game}
+            <li><a href="/game{$game.id}"><img src="http://cdn.66173.cn/{$game.game_icon}" alt="{$game.game_name}"/><span>{$game.game_name}</span></a></li>
+            {/foreach}
+        </ul>
+        <ul class="soft-list clearfix othergame"></ul>
+    </div>
+</section>
+<!--End 热门游戏 -->
+<!--Str 活动资讯 -->
+<section class="ibox mt-10 clearfix">
+    <header class="bor-header"><h2 class="bor-tit">活动资讯</h2></header>
+    <div class="ibox-con clearfix">
+        <ul class="hotcom-list clearfix">
+            {foreach from=$news item=n}
+            <li><a href="/info/{$n.id}">{$n.title}</a></li>
+            {/foreach}
+        </ul>
+    </div>
+</section>
+<!--End 活动资讯 -->
+<!--Str 页面广告-->
+<!--<section class="footer-pic mt-10 clearfix"><a><img src="pic/foot.jpg" alt="" /></a> </section>-->
+<!--End 页面广告-->
+{include file="include/footer.html"}
+{literal}
+<script src="http://cdn.66173.cn/mobile/v2/scripts/script.js"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        /*autoplay: 3000,
+         effect: 'fade',
+         crossFade: true,*///控制是否自动播放
+        paginationClickable: true
+    });
+
+    var swiper = new Swiper('.swiper-container-2', {
+        direction: 'vertical',
+        autoplay: 4000,
+        loop: true,
+        autoplayDisableOnInteraction: false
+    });
+
+    var swiper = new Swiper('.swiper-container-3', {
+        slidesPerView: 2.8,
+        spaceBetween: 5
+    });
+
+    (function(){
+        var aBtn = document.getElementById('moreBtn'),
+                oDiv = document.getElementById('gameIndex'),
+                oHeigth = oDiv.offsetHeight,
+                timer = null;
+        oDiv.style.height = 0 +"px";
+
+        function hasClass(ele,cls) {
+            return ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
+        }
+
+        function addClass(ele,cls) {
+            if (!hasClass(ele,cls)){ele.className += " "+cls;}
+        }
+
+        function removeClass(ele,cls) {
+            if (hasClass(ele,cls)) {
+                var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)');
+                ele.className=ele.className.replace(reg,'');
+            }
+        }
+
+        aBtn.onclick = function (){
+            var  This = this,
+                    sClass= "more-btn-on",
+                    speed = oHeigth/8,
+                    iHeigth = 0;
+
+            if(!hasClass(This,sClass)){
+                addClass(aBtn,sClass);
+                timer = setInterval(function(){
+                    oDiv.style.borderTop = "1px solid #eceaea";
+                    iHeigth += speed;
+                    oDiv.style.height = iHeigth + "px";
+                    if(iHeigth == oHeigth){
+                        clearInterval(timer);
+                    }
+                },30)
+
+            }else{
+                removeClass(aBtn,sClass);
+                speed = -oHeigth/8;
+                iHeigth = oHeigth ;
+                timer = setInterval(function(){
+                    iHeigth += speed;
+                    oDiv.style.height = iHeigth + "px";
+                    if(oDiv.style.height == "0px"){
+                        clearInterval(timer);
+                        oDiv.style.borderTop = "none";
+                    }
+                },30)
+            }
+        }
+    })()
+</script>
+<script src="http://cdn.66173.cn/mobile/v2/scripts/index.js"></script>
+{/literal}
+</body>
+</html>

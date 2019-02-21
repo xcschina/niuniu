@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>公告详情</title>
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/comment.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <style>
+        .tips_detail_text img{
+            width:92%;
+            height: 200px;
+            margin: 5px 4%;
+        }
+        .tips_detail_text p{
+            width: 100%;height: auto;
+            color: #a3a3a3;
+            font-size: 0.9rem;
+            line-height: 24px
+        }
+    </style>
+</head>
+<body>
+    <div class="page_top2">
+        <div class="page_top_left2">
+            <img class="margin_two" src="//cdn.66173.cn/mobile/trading/image/index_image/back.png" alt="">
+        </div>
+        <div class="page_top_center2">
+            公告详情
+        </div>
+        <a class="page_top_right2" href="/moyu">
+            <span class="login_my">
+                <img class="page_top_r_img" src="//cdn.66173.cn/mobile/trading/image/person_center/index2.png" alt="">
+            </span>
+        </a>
+    </div>
+    <div class="tips_page_title margin_t">
+        <div class="tips_page_title_s">{$article_info.title}</div>
+        <div class="tips_page_title_x"> {'Y-m-d H:i:s'|date:$article_info.add_time}</div>
+    </div>
+    <div class="tips_detail_text">
+        {$article_info.intro|html_entity_decode}
+    </div>
+</body>
+<script>
+    $(".page_top_left2").click(function () {
+        history.back()
+    })
+</script>
+</html>

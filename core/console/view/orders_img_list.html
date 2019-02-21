@@ -1,0 +1,35 @@
+{if !$smarty.session.shop_id}
+<div class="bjui-pageHeader">
+    <div class="bjui-searchBar">
+        <a href="orders_info.php?act=order_imgs_add_view&order_id={$order_id}" class="btn btn-green" data-toggle="dialog" data-mask="true" data-width="800"  data-height="700" data-id="orders_img_add_view" data-title="添加图片">添加图片</a>
+    </div>
+</div>
+{/if}
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th width="100px">No.</th>
+            <th width="100px">操作人ID</th>
+            <th>图片</th>
+            <th width="80px">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=data from=$img_list}
+        <tr align="center">
+            <td>{$data.id}</td>
+            <th>{$data.admin_id}</th>
+            <td>
+                <img src="http://static.66173.cn{$data.img}" style="max-width: 500px;max-height: 300px">
+            </td>
+            <td>
+                {if $data.status eq 0}
+                <a type="button" href="orders_info.php?act=del_order_img&id={$data.id}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要删除该行信息吗？">删除</a>
+                {/if}
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>

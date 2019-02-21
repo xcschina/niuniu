@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>《{$info.game_name}》官网网站 - 牛牛游戏</title>
+<meta name="keywords" content="{$info.game_name}, {$info.game_name}官网" />
+<link rel="stylesheet" href="http://static.66173.cn/game/css/reset.css"/>
+<link rel="stylesheet" href="http://static.66173.cn/game/css/main.css" />
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+<script src="http://static.66173.cn/game/js/jquery-1.9.1.min.js"></script>
+<script src="http://static.66173.cn/game/js/index.js?t=1"></script>
+<style>
+    body{
+        /*background:{$info.website_background_color} url('http://cdndl.go.cc{$info.website_background}') no-repeat center 52px;*/
+        background:#f6f6f6 url('http://static.66173.cn/game/css/img/mxqst.jpg') no-repeat center 52px;
+    }
+</style>
+</head>
+<body>
+<div id="wrap">
+{include 'default/common/top.htm'}
+{include 'default/common/header.htm'}
+    <div id="main">
+    <div id="content" class="left">
+        <div id="index">
+            {if !empty($banners)}
+            <div id="imgs">
+                <div id="lunbo">
+                    {foreach from=$banners item=banner}<a href="{$banner.go_url}" data="{$banner.title}"><img src="http://static.66173.cn/{$banner.img}" alt="{$banner.title}"></a>{/foreach}
+                </div>
+                <div id="adannouce"><div class="left" id="js_imgtitle"></div><div class="right" id="lunbo_btn"></div></div>
+            </div>
+            {/if}
+            <dl class="info">
+                <dt><span>
+                    {if $moudule_id eq 5}游戏论坛{elseif $moudule_id eq 4}图鉴攻略{elseif $moudule_id eq 1}活动公告{/if}
+                </span></dt>
+                {if $moudule_id eq 5}
+                <dd>
+                   <p>论坛正在开发中,暂未开放.</p>
+                </dd>
+                {else}
+                {foreach from=$articles item=article}
+                <dd>
+                    <div class="title">
+                        <em class="annouce">
+                            {if $moudule_id eq 4}攻略{elseif $moudule_id eq 1}公告{/if}
+                        </em>
+                        <a href="/article.php?id={$article.id}" title="{$article.title}" class="index-title">{$article.title}</a>
+                    </div>
+                    <div class="remark"><span class="time">时间 : {$article.add_time|date_format:'%Y-%m-%d %H:%M:%S'}</span><a href="/article.php?id={$article.id}" title="{$article.title}"></a></div>
+                    <div class="content">
+                        <div class="last right" style="width:100%">
+                            <p>{$article.summary|truncate:120:'...'}</p>
+                            <p class="detail"><a href="http://www.66173.cn/info/{$article.id}">查看详情&gt;&gt;</a></p>
+                        </div>
+                </dd>
+                {/foreach}
+                </dl>
+                {/if}
+        </div>
+    </div>
+<!--侧边-->
+{include 'default/common/side.htm'}
+</div>
+</div>
+{include file="default/common/footer.htm"}
+{include file="default/common/useroption.html"}
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>交易指南</title>
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/comment.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/pay_guide.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+</head>
+<body>
+<div class="page_top2">
+    <div class="page_top_left2">
+        <img class="margin_two" src="//cdn.66173.cn/mobile/trading/image/index_image/back.png" alt="">
+    </div>
+    <div class="page_top_center2">
+       交易指南
+    </div>
+    <a class="page_top_right2" href="/moyu">
+        <span class="login_my">
+            <img class="page_top_r_img" src="//cdn.66173.cn/mobile/trading/image/person_center/index2.png" alt="">
+        </span>
+    </a>
+</div>
+<div class="top_guide_title margin_t">
+    {if $top_list}
+    {foreach from=$top_list item=top key=k}
+   <a class="top_guide_title_div" href="/guideDetail/{$top.id}">
+      <div class="guide_div_item">
+          <img class="guide_icon1" src="//cdn.66173.cn/mobile/trading/image/pay_image/buy_guide{$k+1}.png" alt="">
+          <div class="guide_title1">{$top.title}</div>
+      </div>
+   </a>
+    {/foreach}
+    {/if}
+</div>
+<div class="tab_nav">
+    <div class="buy_manage">
+        <div class="buy_manage_item">
+            <div class="buy_manage_item_text2 tab_one style_color">
+                买家帮助
+            </div>
+        </div>
+        <div class="buy_manage_item">
+            <div class="buy_manage_item_text2 tab_two">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="buy_help_c">
+    <ul class="buy_help_ul">
+        {if $buy_help}
+        {foreach from=$buy_help item=help key=k}
+        <a href="/guideDetail/{$help.id}">{$k+1}.{$help.title}</a>
+        {/foreach}
+        {/if}
+    </ul>
+</div>
+</body>
+<script>
+    $(".page_top_left2").click(function () {
+        history.back()
+    })
+</script>
+</html>

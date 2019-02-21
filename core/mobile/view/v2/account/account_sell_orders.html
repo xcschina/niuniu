@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>已售订单 - 我的66173</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/common.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/pay.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/my.css" media="screen" />
+    {literal}
+    <style>
+        .md-tnav li{width: 33.3%}
+    </style>
+    {/literal}
+</head>
+<body>
+<header class="page-header clearfix">
+    <h1 class="page-h1">已售订单</h1>
+    <a href="account.php?act=user_center" class="p2-back">返回</a>
+    {if $smarty.session.user_id}
+    <a class="login-on" href="/account.php?act=user_center">个人中心</a>
+    {else}
+    <a class="login-link" href="/account.php?act=user_center" id="login-btn">登录</a>
+    {/if}
+</header>
+<form action="?" method="get" id="order-list">
+    <input type="hidden" name="act" value="my_orders">
+    <section class="clearfix" id="sell-main">
+        {if $orders|count eq 0}<div class="block none">加油,你还没卖出过商品哦</div>{/if}
+        {foreach from=$orders item=p}
+        <div class="block">
+            <a href="?act=selled-item&id={$p.id}">
+                {if $p.status eq 1}
+                <h3><em class="red">待发货</em>{$p.title}</h3>
+                {elseif $p.status eq 2}
+                <h3><em class="green">交易成功</em>{$p.title}</h3>
+                {/if}
+                <p class="summary">{$p.game_name}/{$p.channel_name}/{$p.serv_name}</p>
+                <p class="price">价格<strong class="red">{$p.money}</strong>元</p>
+            </a>
+        </div>
+        {/foreach}
+    </section>
+</form>
+<input type="hidden" name="act" value="{$act}">
+<!--Str 页面通用底部-->
+{include file="include/footer.html"}
+<!--End 页面通用底部-->
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+    !window.jQuery && document.write('<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"><\/script>');
+</script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="expires" content="{$expires}" />
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta content="width=device-width; initial-scale=1; minimum-scale=1, maximum-scale=1; user-scalable=1" name="viewport">
+    <title>牛币充值</title>
+    <link rel="stylesheet" href="http://static.66173.cn/ins/css/sdk_pay.css?t={$smarty.now}">
+</head>
+<body>
+<form action="payto.php" method="post" name="pay_form">
+<div class="user_info_box">
+    <section class="u_fri"><span>当前账号:</span>{if $user_info.mobile}{$user_info.mobile}{else}{$user_info.login_name}{/if}</section>
+    <section class="u_sec">牛币余额:<span>{if $user_info.nnb}{$user_info.nnb}{else}0{/if}</span>牛币</section>
+</div>
+<div class="user_title_box">
+    <i class="dollar_icon"></i>充值面额
+</div>
+<div class="niu_goods_box">
+    <ul>
+        <li class="active" id="niu10">
+            <a href="javascript:void(0)" onclick="sel_goods('niu10','10');">10牛币</a>
+            <span class="selected_org"></span>
+        </li>
+        <li id="niu50">
+            <a href="javascript:void(0)" onclick="sel_goods('niu50','50');">50牛币</a>
+            <span class="selected_org" style="display: none"></span>
+        </li>
+        <li id="niu100">
+            <a href="javascript:void(0)" onclick="sel_goods('niu100','100');">100牛币</a>
+            <span class="selected_org" style="display: none"></span>
+        </li>
+        <li id="niu000">
+            <input name="niu_goods" id="niu_goods" type="number" placeholder="其他金额" onkeyup="value=value.replace(/[^\d]/g,'')" onclick="sel_goods('niu000','0');">
+        </li>
+    </ul>
+</div>
+<div class="user_title_box">
+    <i class="ka_icon"></i>选择支付方式
+</div>
+<div class="pay_box">
+    <div class="pay_body">
+        <ul>
+            <li class="active_red zfb_pay" id="zfb_pay">
+                <a href="javascript:void(0)" onclick="select_pay_type('zfb_pay');">
+                    <section class="zfb_icon"><img width="50px" height="20px" src="http://cdn.66173.cn/ins/css/img/zfb_icon.png"></section>
+                    <section class="f-l m-l-6">
+                        <p class="zfb_zf">支付宝支付</p>
+                    </section>
+                    <i class="selected_red"></i>
+                </a>
+            </li>
+            {if $ip eq '117.25.82.237' or $ip eq '117.25.82.219' or $ip eq '117.25.82.213'}
+            <li class="wx_pay" id="wx_pay">
+                <a href="javascript:void(0)" onclick="select_pay_type('wx_pay');">
+                    <section class="wx_icon"><img width="29px" height="29px" src="http://cdn.66173.cn/ins/css/img/wx_icon.png"></section>
+                    <section class="f-l m-l-6">
+                        <p class="wx_zf">微信支付</p>
+                    </section>
+                    <i class="selected_red" style="display: none"></i>
+                </a>
+            </li>
+            {/if}
+        </ul>
+    </div>
+</div>
+<input name="rate" id="rate" value="1" type="hidden">
+<input name="goods" id="goods" value="10" type="hidden">
+<input type="hidden" id="pay_type" name="pay_type" value="zfb_pay" />
+<div class="h-72"></div>
+<div class="foot_box">
+    <section class="f-fri">充值金额:<span class="m-l-6 c-e9696b">10元</span></section>
+    <section class="f-sec"><a href="#" onclick="niu_pay();">确定充值</a></section>
+</div>
+</form>
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    $('#niu_goods').bind('input propertychange', function () {
+        if($(this).val()>5000){
+            alert('充值金额不能大于5000');
+            $(this).val('5000')
+        }
+        var num=$(this).val();
+        num=num.replace(/^0+/,"");
+        $(this).val(num);
+        $('.foot_box span.c-e9696b').html($(this).val()+'元');
+        $('#goods').val($(this).val());
+    });
+    function select_pay_type($id){
+        $(".pay_body li").each(function () {
+            $(this).removeClass("active_red");
+            $(this).find('i').css('display','none');
+        });
+        $("#"+$id).addClass("active_red");
+        $("#"+$id).find('i').css('display','block');
+        $("#pay_type").val($id);
+    }
+    function sel_goods($id,$num){
+        $(".niu_goods_box li").each(function () {
+            $(this).removeClass("active");
+            $(this).find('span').css('display','none');
+        });
+        $("#"+$id).addClass("active");
+        $("#"+$id).find('span').css('display','block');
+        $('#niu_goods').val('');
+        $('.foot_box span.c-e9696b').html($num+'元');
+        $('#goods').val($num);
+    }
+    function niu_pay(){
+        var price = $('#goods').val();
+        var rate = $('#rate').val();
+        if(price=='0' || !price){
+            alert('请选择充值金额.');
+            return false;
+        }
+        if($("#pay_type").val() == 'zfb_pay'){
+            window.nsdk_obj.nnb_charge(String(price),String(rate));
+            return;
+        }else if($("#pay_type").val() == 'wx_pay'){
+            window.nsdk_obj.wx_charge(String(price),String(rate));
+            return;
+        }
+    }
+</script>
+</body>
+</html>

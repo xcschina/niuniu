@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="expires" content="{$expires}" />
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta content="width=device-width; initial-scale=1; minimum-scale=1, maximum-scale=1; user-scalable=1" name="viewport">
+    <script src="http://cdn.66173.cn/www/js/jquery-1.8.3.min.js"></script>
+    <title>{if $details.type eq '1'}系统消息{else if $details.type eq '2'}客服消息{else if $details.type eq '3'}活动消息{else}消息中心{/if}</title>
+    <style>
+        body {
+            font-size: 12px;
+        }
+        .art-con-box{
+            padding: 5px 2% 15px;
+            color: #333;
+            line-height: 1.5;
+        }
+        .art-con-box p{
+            padding: 2px 0;
+            margin: 0;
+        }
+        .art-con-box img {
+            max-width: 90% !important;
+            height: auto !important;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="art-con-box">{$details.desc|htmlspecialchars_decode}</div>
+</body>
+</html>

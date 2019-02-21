@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <title>订单信息</title>
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/common.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/qb.css?t={$smarty.now}">
+</head>
+<body>
+<header class="page-header clearfix">
+    <h1 class="page-h1">Q币详情页</h1>
+    <a class="p2-back" href="javascript:history.back();">返回</a>
+    <a class="p2-back ml-40" href="http://m.66173.cn">首页</a>
+    {if $smarty.session.user_id}
+    <a class="login-on" href="/account.php?act=user_center">个人中心</a>
+    {else}
+    <a class="login-link" href="/account.php?act=user_center" id="login-btn">登录</a>
+    {/if}
+</header>
+<form action="/qb.php?act=pay" method="post" name="payform">
+<div class="qb-order qb-text">
+    <div class="qb-border-top-grey background-white detail">
+        <div class="detail-line">
+            <label>商品名称：</label>
+            <span class="con">Q币充值</span>
+        </div>
+        <div class="detail-line">
+            <label>充值QQ号：</label>
+            <span class="con red">{$params.qq}</span>
+        </div>
+        <div class="detail-line">
+            <label>商品单价：</label>
+            <span class="con">{$rate/10}</span>
+        </div>
+        <div class="detail-line">
+            <label>商品数量：</label>
+            <span class="con">{$params.amount}</span>
+        </div>
+        <div class="detail-line">
+            <label>商品总价：</label>
+            <span class="con">{$params.amount*$rate/10}</span>
+        </div>
+        <div class="detail-line">
+            <label>联系信息：</label>
+            <span class="con">{$params.tel}</span>
+        </div>
+        <div class="detail-line">
+            <label>买家备注：</label>
+            <span class="con">{$params.message}</span>
+        </div>
+        <input type="hidden" name="pagehash" value="{$pagehash}">
+        <input type="hidden" name="amount" value="{$params.amount}">
+        <input type="hidden" name="charge_qq" value="{$params.qq}">
+        <input type="hidden" name="pay_mode" id="pay_mode" value="alipay">
+        <input type="hidden" name="tel"  value="{$params.tel}">
+        <input type="hidden" name="message"  value="{$params.message}">
+    </div>
+    <div class="qb-border-top-grey qb-border-bottom-grey background-white total-money">
+        <label>总计金额：</label>
+        <span class="con red"><span class="large-text">{$params.amount*$rate/10}</span>元</span>
+    </div>
+    <div class="qb-border-top-grey qb-border-bottom-light-grey background-white coupon">
+        <span>优惠券</span>
+        <div class="right">
+            <span class="coupon-desc">无可用优惠券</span>
+            <img src="http://cdn.66173.cn/mobile/css/img/arrow-right.png" class="arrow"/>
+        </div>
+    </div>
+    <div class="pay-way">选择支付方式：</div>
+    <div class="qb-border-top-light-grey qb-border-bottom-light-grey background-white">
+        <div class="pay-choose"  data-way="alipay">
+            <div class="left">
+                <img src="http://cdn.66173.cn/mobile/css/img/alipay.png"/>
+                <!--<span class="name">支付宝支付</span>-->
+                <span class="fee">手续费&nbsp;&nbsp;￥0.00</span>
+            </div>
+            <div class="right">
+                <span>支付<span class="red">{$params.amount*$rate/10}</span>元</span>
+					<span class="circle active">
+						<span class="check"></span>
+					</span>
+            </div>
+        </div>
+        <!--<div class="pay-choose" data-way="wechat">-->
+            <!--<div class="left">-->
+                <!--<img src="http://cdn.66173.cn/mobile/css/img/wechat.png" class="wechat"/>-->
+                <!--<span class="name">微信支付</span>-->
+                <!--<span class="fee">手续费&nbsp;&nbsp;￥0.00</span>-->
+            <!--</div>-->
+            <!--<div class="right">-->
+                <!--<span>支付<span class="red">{$params.amount*$rate/10}</span>元</span>-->
+					<!--<span class="circle">-->
+						<!--<span class="check"></span>-->
+					<!--</span>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+    <div class="background-white pay-zone">
+        <div class="go-pay active">确定支付</div>
+        <div class="pay-tip">
+            <img src="http://cdn.66173.cn/mobile/css/img/info.png">
+            !请您在30分钟内完成订单支付，否则系统会自动取消您的订单。
+        </div>
+    </div>
+</div>
+</form>
+{include file="include/footer.html"}
+</body>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+{literal}
+<script type="text/javascript">
+    var payWay = "alipay";
+    $(".qb-order").on("click", ".pay-choose", function(e) {
+        var $ele = $(e.currentTarget);
+        payWay = $ele.data("way");
+        $ele.siblings().find(".circle").removeClass("active");
+        $ele.find(".circle").addClass("active");
+        $(".qb-order .go-pay").addClass("active");
+        console.log("click",$ele)
+
+    })
+    $(".qb-order").on("click", ".go-pay.active", function() {
+        console.log("payWay", payWay);
+        $(".go-pay").removeClass("active");
+        setTimeout(function() {
+            $(".go-pay").addClass("active");
+        }, 2000);
+        $("#pay_mode").val(payWay);
+        $("form[name='payform']").submit();
+    })
+</script>
+{/literal}
+</html>

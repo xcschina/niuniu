@@ -1,0 +1,125 @@
+<style> 
+.dialogContent{ height:430px !important; } 
+.bjui-dialog{ height:466px !important; }
+</style>
+<div class="bjui-pageContent">
+    <form action="shop_info.php?act=shop_edit_do"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">店铺ID：</label>
+                    {$shop.s_id}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">管理员ID：</label>
+                    {$shop.user_id}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">店铺名称：</label>
+                    <input type="text" name="s_name" cols="30" rows="1"  class="form-control" data-rule="required" maxlength="20" value="{$shop.s_name}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">店铺介绍：</label>
+                    <input type="text" name="s_intro" cols="30" rows="1"  class="form-control" data-rule="required" maxlength="20" value="{$shop.s_intro}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">店铺LOGO：</label>
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="shop_icon.click()">选择图片</button>
+                    <input type="file" name="shop_icon" style="display: none;" onchange="s_icon.value=value" />
+                    <input type="text" name="s_icon" placeholder="None file" class="form-control" size="15" readonly />&nbsp;
+                    <input type="hidden" value="{$shop.s_icon}" name="old_img">
+                </td>
+            </tr>
+            {if $shop.s_icon}
+            <tr>
+                <td>
+                    <label class="control-label x120"></label>
+                    <img src="http://static.66173.cn/{$shop.s_icon}" alt="店铺LOGO" style="width:100px;">
+                </td>
+            </tr>
+            {/if}
+            {if !$smarty.session.shop_id}
+            <tr>
+                <td>
+                    <label  class="control-label x120">排序：</label>
+                    <input type="text" name="s_sort" cols="30" rows="1"  class="form-control" data-rule="required" maxlength="20" value="{$shop.s_sort}">
+                </td>
+            </tr>
+            {else}
+            <input type="hidden" name="s_sort" value="{$shop.s_sort}">
+            {/if}
+            <tr>
+                <td>
+                    <label  class="control-label x120">状态：</label>
+                    <select name="s_status" data-toggle="selectpicker" style="width: 200px">
+                        <option value="0" {if $shop.s_status eq '0'}selected{/if}>营业</option>
+                        <option value="1" {if $shop.s_status eq '1'}selected{/if}>打烊</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">成交订单：</label>
+                    <input type="text" name="order_num" cols="20" rows="1"  class="form-control" data-rule="required" maxlength="20" value="{$shop.order_num}"> 笔
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">开门时间：</label>
+                    <input type="text" name="open_time" cols="20" rows="1"  class="form-control" data-rule="required" maxlength="20" value="{$shop.open_time}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">关门时间：</label>
+                    <input type="text" name="close_time" cols="20" rows="1"  class="form-control" data-rule="required" maxlength="20" value="{$shop.close_time}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">客服热线：</label>
+                    <input type="text" name="s_tel" cols="20" rows="1"  class="form-control" data-rule="required" maxlength="20" value="{$shop.s_tel}">
+                </td>
+            </tr>
+           <tr>
+               <td>
+                   <label  class="control-label x120">客服1：</label>
+                   <input type="text" name="s_qq_1[]" cols="10" rows="1"  class="form-control" data-rule="required" maxlength="20" placeholder='昵称' value="{$shop['s_qq'][0][0]}"> -
+                   <input type="text" name="s_qq_1[]" cols="19" rows="1"  class="form-control" data-rule="required" maxlength="20" placeholder="客服QQ" value="{$shop['s_qq'][0][1]}">
+               </td>
+           </tr>
+           <tr>
+               <td>
+                   <label  class="control-label x120">客服2：</label>
+                   <input type="text" name="s_qq_2[]" cols="10" rows="1"  class="form-control" maxlength="20" placeholder='昵称' value="{$shop['s_qq'][1][0]}"> -
+                   <input type="text" name="s_qq_2[]" cols="19" rows="1"  class="form-control" maxlength="20" placeholder="客服QQ" value="{$shop['s_qq'][1][1]}">
+               </td>
+           </tr>
+           <tr>
+               <td>
+                   <label  class="control-label x120">客服3：</label>
+                   <input type="text" name="s_qq_3[]" cols="10" rows="1"  class="form-control" maxlength="20" placeholder="昵称" value="{$shop['s_qq'][2][0]}"> -
+                   <input type="text" name="s_qq_3[]" cols="19" rows="1"  class="form-control" maxlength="20"  placeholder="客服QQ" value="{$shop['s_qq'][2][1]}">
+               </td>
+           </tr>
+            </tbody>
+        </table>
+        <input type="hidden" name="s_id" value="{$shop.s_id}">
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+

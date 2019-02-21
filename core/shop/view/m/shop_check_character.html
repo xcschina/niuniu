@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>66173-首充号验证</title>
+    <meta name="keywords" content="66173，首充号，首充号验证" />
+    <meta name="description" content="找{$game.game_name}首冲号续充吗？很多玩家都在66173交易坦克风云首充号，只需官网原价的2~5折。欢迎您到66173，66173是知名的手游交易平台。" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://static.66173.cn/shop/m/css/common.css?t={rand(1,10000)}" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://static.66173.cn/shop/m/css/pay.css?t={rand(1,10000)}" media="screen" />
+    <style>
+        .yz-title { padding: 25px 0 0px 0px; font-size: 18px; line-height: 0.6em; text-align: center; }
+        .yz-result { font-size: 13px; line-height: 1.6em; }
+        .none-box a{ margin: 0 auto; }
+        .yz-box>input{ margin-bottom: 0px; }
+    </style>
+</head>
+<body>
+{include file="{$TPL}/include/shop_header.html" title="首充号验证"}
+<section class="yz-title">
+    <strong style="color:#232323;">请输入您在66173购买的首充号</strong>
+</section>
+
+<form action="/check{$from_shop}.html" id="check_form" method="get" onsubmit="return is_empty_character();">
+    <section class="yz-box clearfix" style="padding-bottom: 0px;">
+        <div class="yz-inbox clearfix" style="margin-bottom: 0px;">
+            <label>游戏账号：</label>
+            <input name="character" type="text" placeholder="请输入您在66173购买的首充号" class="yz-input" />
+        </div>
+        <input class="btn" type="submit" value="验证" />
+    </section>
+</form>
+
+{if $data.ret eq 'often'}
+<section class="yz-result">
+    <strong>您的操作太频繁了，为了您的健康，休息一下下吧~~</strong>
+</section>
+
+{elseif $data.ret eq 'wrong'}
+<section class="yz-result">
+    <strong>验证账号: {$data.character}</strong><br>
+    <strong>验证结果: 验证失败，该账号不是66173首充号！</strong>
+</section>
+
+{elseif $data.ret eq 'right'}
+<section class="yz-result">
+    <strong>验证账号:{$data.character}</strong><br>
+    <strong>验证结果:验证成功！该账号具体信息如下:</strong><br><br>
+    <a href="{$data.info.url}"> 
+        <p>区服：{$data.info.serv_name}</p> 
+        <p>角色：{$data.info.role_name}</p> 
+        <p>账号：{$data.info.game_user}</p>
+        <p style="color:red;font-weight: bolder;">点此续充该账号</p>
+    </a>
+</section>
+{/if}
+
+<section class="none-box clearfix">
+    <a class="xc-btn" href="/"/>购买首充号</a>
+</section>
+
+{include file="{$TPL}/include/footer.html"}
+{literal}
+<script type="text/javascript">
+    function is_empty_character(){
+        character = $("input[name='character']").val();
+        if(character==''){
+            $("input[name='character']").addClass("form-warning").focus();
+            return false;
+        }
+        return true;
+    }
+</script>
+{/literal}
+</body>
+</html>

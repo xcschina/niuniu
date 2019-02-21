@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>《{$info.game_name}》官网网站 - 牛牛游戏</title>
+<meta name="keywords" content="{$info.game_name}, {$info.game_name}官网" />
+<link rel="stylesheet" href="http://static.66173.cn/game/css/reset.css"/>
+<link rel="stylesheet" href="http://static.66173.cn/game/css/main.css" />
+<link rel="stylesheet" href="http://static.66173.cn/game/css/index.css" />
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+<script src="http://static.66173.cn/game/js/jquery-1.9.1.min.js"></script>
+<script src="http://static.66173.cn/game/js/index.js?t=1"></script>
+<style>
+    body{
+        background:#f6f6f6 url('http://static.66173.cn/game/css/img/mxqst.jpg') no-repeat center 52px;
+    }
+</style>
+</head>
+<body>
+<div id="wrap">
+{include 'default/common/top.htm'}
+<div class="index-main">
+    <div class="index-w">
+        <div class="news-center">
+            <div class="in-title">
+                <span>新闻中心</span>
+            </div>
+            <ul class="news-ul">
+                {foreach from=$articles item=article}
+                <li class="bor-b-d7">
+                    <a href="/article.php?id={$article.id}">
+                        <p>[资讯]{$article.title}</p>
+                        <p class="cl-f6">{$article.add_time|date_format:'%Y-%m-%d %H:%M:%S'}</p>
+                    </a>
+                </li>
+                {/foreach}
+            </ul>
+        </div>
+        <div class="activity-center">
+            <div class="in-title">
+                <span>游戏活动</span>
+            </div>
+            {foreach from=$banners item=banner}
+            <div class="index-img">
+                <a href="{$banner.go_url}" data="{$banner.title}"><img src="http://static.66173.cn/{$banner.img}" width="440px"></a>
+            </div>
+            {/foreach}
+        </div>
+        <div class="game-introduce">
+            <div class="in-title">
+                <span>游戏介绍</span>
+            </div>
+            <div class="index-icon">
+                <div class="left_icon">
+                    <img width="75px" height="75px" src="http://static.66173.cn/{$info.game_icon}">
+                </div>
+                <div class="left_gdetail">
+                    <p class="cl-33">{$info.game_name}</p>
+                    <p class="m-t-10">大小:50MB</p>
+                    <p id="pingjia"><em style="width:90%"></em></p>
+                    <!--<p class="m-t-10">星级</p>-->
+                </div>
+            </div>
+            <p class="index-con">
+                {if !$info.subtitle}
+                《冒险骑士团》是一款好玩的回合制冒险类的泛二次元卡牌RPG手机游戏。在二次元世界冒险的少年，通过自己与宿命神器的融合，迸发天赋，一路碾压战五渣们，拯救被污染的二次元世界世界。
+                {else}
+                {$info.subtitle|truncate:120:'...'}
+                {/if}
+            </p>
+            <div class="m-t-30">
+                <!--<a class="down-btn" href="{$down[0]['url']}">游戏下载</a>-->
+            </div>
+            <div class="m-t-50">
+                <a class="down-btn cl-e4" href="/pay.php">游戏充值</a>
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="footer" style="background-color: #333;">
+        <div id="footer_sub">
+            <div id="copy">
+                <p>Copyright&copy;2016 琼ICP备16002140号</p>
+                <p><a href="/wmw.php">网络文化经营许可证 琼网文[2016]4099-040号</a>&nbsp;&nbsp;增值电信业务经营许可证琼B2-20160073</p>
+                {if $links }
+                <p>友情合作:{foreach $links as $val}<a href="{$media.go_url}">{$val.title}|</a>{/foreach}</p>
+                {/if}
+                <p>单位地址：海南省老城高新技术产业示范区海南生态软件园</p>
+                <p>联系方式：0898-67200139&nbsp;&nbsp;&nbsp;投诉电话：0898-67200139</p>
+            </div>
+        </div>
+    </div>
+    {include file="default/common/useroption.html"}
+</body>
+</html>

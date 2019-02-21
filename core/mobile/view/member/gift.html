@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>{$game.game_name}</title>
+    <meta name="keywords" content="{$game.game_name}" />
+    <meta name="description" content="66173提供{$game.game_name}首充号、代充、装备、金币的购买。玩家都在66173进行{$game.game_name}的游戏交易。66173是知名的手游交易平台。" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/common.css?t={rand(1,5)}" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/pay.css?t={rand(1,5)}" media="screen" />
+</head>
+<body>
+<header class="page-header clearfix">
+    <h1 class="page-h1">游戏详情</h1>
+    <a class="p2-back" href="javascript:history.back();">返回</a>
+    {if $smarty.session.user_id}
+    <a class="login-on" href="/account.php?act=user_center">个人中心</a>
+    {else}
+    <a class="login-link" href="/account.php?act=user_center" id="login-btn">登录</a>
+    {/if}
+</header>
+<nav class="pay-nav clearfix">
+    <ul class="pay-nav-list clearfix">
+        <li><a href="/game{$game.id}" rel="1">商品购买</a></li>
+        <li class="on"><a href="/game{$game.id}" rel="2">礼包领取</a></li>
+        <li>
+            <!--<a href="/game{$game.id}" rel="3">游戏下载</a>-->
+        </li>
+        <li><a href="/game{$game.id}" rel="4">游戏资讯</a></li>
+    </ul>
+</nav>
+<div id="sec2" style="text-align: center">
+    <h4 style="margin: 20px auto;font-size:1.2rem">功能随后杀到~~，您可以进入微信领取<p>微信公众号：game66173</p></h4>
+    <p><img style="max-width: 80%" src="http://cdn.66173.cn/images/weixin.jpg" /></p>
+</div>
+{include file="include/footer.html"}
+<script src="http://cdn.66173.cn/mobile/v2/scripts/zeptio.min.js"></script>
+<script src="http://cdn.66173.cn/mobile/v2/scripts/script.js"></script>
+</body>
+</html>

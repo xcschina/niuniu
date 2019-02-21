@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的收藏</title>
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/comment.css?t={$smarty.now|date_format:'%Y%m%d'}11">
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/my_collection.css?t={$smarty.now|date_format:'%Y%m%d'}11">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+
+</head>
+<body>
+<div class="page_top2">
+    <div class="page_top_left2">
+        <img class="margin_two" src="//cdn.66173.cn/mobile/trading/image/index_image/back.png" alt="">
+    </div>
+    <div class="page_top_center2">
+        我的收藏
+    </div>
+    <a class="page_top_right2">
+        <span class="login_my2">
+           编辑
+        </span>
+    </a>
+</div>
+<div class="allChecked margin_t">
+    <div class="allChecked_all">
+        <img class="check_img_11" src="//cdn.66173.cn/mobile/trading/image/pay_image/u_choose.png" alt="">
+        <img class="check_img_112" src="//cdn.66173.cn/mobile/trading/image/pay_image/choose.png" alt="">
+        <span class="quanxuan">全选</span>
+    </div>
+</div>
+<div class="collection_list">
+    {if $collect_list}
+    {foreach from=$collect_list item=list}
+    <div class="collection_list_item" data-id="{$list.id}" href="/productDetail/{$list.product_id}">
+        <div class="collection_list_a">
+            <div class="check_icon">
+                <img class="check_img" data-id="{$list.id}" src="//cdn.66173.cn/mobile/trading/image/pay_image/u_choose.png" alt="">
+                <img class="check_img2" data-id="{$list.id}" src="//cdn.66173.cn/mobile/trading/image/pay_image/choose.png" alt="">
+            </div>
+            <a class="check_list" href="/productDetail/{$list.product_id}">
+                <div class="check_list_title">
+                    {if  $list.type eq 4}<span class="type_name_c">账号</span>
+                    {elseif  $list.type eq 5}<span class="type_name_c2">游戏币</span>
+                    {elseif  $list.type eq 6}<span class="type_name_c3">道具</span>
+                    {/if}
+                    <!--<span class="type_name_title">{$list.title}</span>-->
+                    {if  $list.type eq 4} <span class="my_collection_type_name_title">{$list.title}</span>
+                    {elseif $list.type eq 5}<span class="my_collection_type_name_title">{$list.num}魔石&nbsp;(1元={$list.proportion}魔石)</span>
+                    {elseif  $list.type eq 6}<span class="my_collection_type_name_title">{$list.title}</span>
+                    {/if}
+                </div>
+                <div class="check_list_label">
+                    <div class="check_list_label2">
+                        <span>{$list.game_name}&nbsp;</span><span>&nbsp;{$list.channel_name}&nbsp;</span><span class="tag_text">&nbsp;{if $list.serv_name }{$list.serv_name}{elseif $list.serv_id eq 0}全区全服{/if}</span>
+                    </div>
+                    <!--<img class="check_list_icon" src="//cdn.66173.cn/mobile/trading/image/shangpin_detail/confirm_id.png" alt="">-->
+                    <!--<img class="check_list_icon2" src="//cdn.66173.cn/mobile/trading/image/shangpin_detail/jicun.png" alt="">-->
+                </div>
+                <div class="price_collection">
+                    <span class="money_detail">
+                       ￥
+                    </span>
+                    <span class="price">{$list.price}</span>
+                </div>
+            </a>
+        </div>
+    </div>
+    {/foreach}
+    {/if}
+    {if !$invalid_list && !$collect_list}
+    <div class="current_nodata2">暂无数据~</div>
+    {/if}
+</div>
+{if $invalid_list}
+<div class="empty_all">
+    <div class="clear_all">
+        <div class="clear_all_num">失效商品<span class="num_shixiao">{count($invalid_list)}</span>件</div>
+        <div class="clear_all_good">清空失效商品</div>
+    </div>
+</div>
+{/if}
+<div class="collection_list margin">
+    {foreach from=$invalid_list item=data}
+    <div class="collection_list_item">
+        <div class="collection_list_a">
+            <a class="check_list" href="/productDetail/{$data.product_id}">
+                <div class="check_list_title">
+                    {if $data.type eq '4'}<span class="type_name_c">账号</span>
+                    {elseif $data.type eq '5'}<span class="type_name_c2">游戏币</span>
+                    {elseif $data.type eq '6'}<span class="type_name_c3">道具</span>
+                    {/if}
+                    <!--<span class="type_name_title">{$data.title}</span>-->
+                    {if  $data.type eq 4} <span class="my_collection_type_name_title">{$data.title}</span>
+                    {elseif  $data.type eq 5}<span class="my_collection_type_name_title">{$data.num}魔石&nbsp;(1元={$data.proportion}魔石)</span>
+                    {elseif  $data.type eq 6}<span class="my_collection_type_name_title">{$data.title}</span>
+                    {/if}
+                </div>
+                <div class="check_list_label">
+                    <div class="check_list_label2">
+                        <span>{$data.game_name}&nbsp;</span><span>&nbsp;{$data.channel_name}&nbsp;</span><span class="tag_text">&nbsp;{if $data.serv_name }{$data.serv_name}{elseif $data.serv_id eq 0}全区全服{/if}</span>
+                    </div>
+                    <!--<img class="check_list_icon" src="//cdn.66173.cn/mobile/trading/image/shangpin_detail/confirm_id.png" alt="">-->
+                    <!--<img class="check_list_icon2" src="//cdn.66173.cn/mobile/trading/image/shangpin_detail/jicun.png" alt="">-->
+                </div>
+                <div class="price_collection">
+                     <span class="money_detail">
+                       ￥
+                     </span>
+                    <span class="price">{$data.price}</span>
+                </div>
+            </a>
+        </div>
+    </div>
+    {/foreach}
+</div>
+<div class="space_footer">
+</div>
+<div class="collect_footer">
+    <button class="footer_btn">删除</button>
+</div>
+<div class="mask">
+
+</div>
+<div class="alert_one">
+    <div class="alert_one_s">
+        是否删除该商品？
+    </div>
+    <div class="alert_one_x">
+        <div class="alert_one_confirm">
+            确认
+        </div>
+        <div class="alert_one_cancel">
+            取消
+        </div>
+    </div>
+</div>
+<div class="alert_two">
+    <div class="alert_two_s">
+        是否确认清空失效商品？
+    </div>
+    <div class="alert_two_x">
+        <div class="alert_two_confirm">
+            确认
+        </div>
+        <div class="alert_two_cancel">
+            取消
+        </div>
+    </div>
+</div>
+<input class="pagehash" type="hidden" name="pagehash" value="{$pagehash}">
+<input class="user_id" type="hidden" name="user_id" value="{$user_id}">
+</body>
+<script src="//cdn.66173.cn/mobile/trading/js/base64_a.js?t={$smarty.now|date_format:'%Y%m%d'}12"></script>
+<script src="//cdn.66173.cn/mobile/trading/js/getUrlParam.js?t={$smarty.now|date_format:'%Y%m%d'}11"></script>
+<script src="//cdn.66173.cn/mobile/trading/js/my_collection.js?t={$smarty.now|date_format:'%Y%m%d'}2111"></script>
+<script>
+    $(".tag_text").each(function () {
+        var text = $(this).text();
+        if(text.length>5){
+            text = text.substring(0,6)+"...";
+            $(this).text(text)
+        }else{
+            text = text;
+            $(this).text(text)
+        }
+    });
+</script>
+</html>

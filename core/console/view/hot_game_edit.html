@@ -1,0 +1,494 @@
+<script type="text/javascript">
+    $("#games_1").chosen();
+    $("#games_2").chosen();
+    $("#games_3").chosen();
+    $("#games_4").chosen();
+    $("#games_5").chosen();
+    $("#games_6").chosen();
+    $("#games_7").chosen();
+    $("#games_8").chosen();
+    $("#games_9").chosen();
+    $("#games_10").chosen();
+    $("#games_11").chosen();
+    $("#games_12").chosen();
+    $("#games_13").chosen();
+    $("#games_14").chosen();
+    $("#games_15").chosen();
+    $("#games_16").chosen();
+    $("#games_17").chosen();
+    $("#games_18").chosen();
+    $("#games_19").chosen();
+    $("#games_20").chosen();
+</script>
+<div class="bjui-pageContent">
+    <form action="game_info.php?act=save_hot_games" id="j_custom_form" class="pageForm" data-toggle="validate" method="post">
+        <input type="hidden" name="type" value="{$type}">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x70">顺序1：</label>
+                    <select  style="width:250px;" id="games_1" name="game_ids[]" data-placeholder="请选择本栏目显示的游戏">
+                        {if  $hot_games['0']}
+                        <option value="">请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" {if $game.id eq  $hot_games['0']}selected{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {else}
+                        <option value="" selected>请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" >{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {/if}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x70">顺序2：</label>
+                    <select  style="width:250px;" id="games_2" name="game_ids[]" data-placeholder="请选择本栏目显示的游戏">
+                        {if  $hot_games['1']}
+                        <option value="">请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" {if $game.id eq  $hot_games['1']}selected{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {else}
+                        <option value="" selected>请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" >{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {/if}
+                    </select>
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    <label  class="control-label x70">顺序3：</label>
+                    <select  style="width:250px;" id="games_3" name="game_ids[]" data-placeholder="请选择本栏目显示的游戏">
+                        {if  $hot_games['2']}
+                        <option value="">请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" {if $game.id eq  $hot_games['2']}selected{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {else}
+                        <option value="" selected>请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" >{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {/if}
+                    </select>
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    <label  class="control-label x70">顺序4：</label>
+                    <select  style="width:250px;" id="games_4" name="game_ids[]" data-placeholder="请选择本栏目显示的游戏">
+                        {if  $hot_games['3']}
+                        <option value="">请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" {if $game.id eq  $hot_games['3']}selected{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {else}
+                        <option value="" selected>请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" >{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {/if}
+                    </select>
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    <label  class="control-label x70">顺序5：</label>
+                    <select  style="width:250px;" id="games_5" name="game_ids[]" data-placeholder="请选择本栏目显示的游戏">
+                        {if  $hot_games['4']}
+                        <option value="">请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" {if $game.id eq  $hot_games['4']}selected{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {else}
+                        <option value="" selected>请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" >{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {/if}
+                    </select>
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    <label  class="control-label x70">顺序6：</label>
+                    <select  style="width:250px;" id="games_6" name="game_ids[]" data-placeholder="请选择本栏目显示的游戏">
+                        {if  $hot_games['5']}
+                        <option value="">请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" {if $game.id eq  $hot_games['5']}selected{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {else}
+                        <option value="" selected>请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" >{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {/if}
+                    </select>
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    <label  class="control-label x70">顺序7：</label>
+                    <select  style="width:250px;" id="games_7" name="game_ids[]" data-placeholder="请选择本栏目显示的游戏">
+                        {if  $hot_games['6']}
+                        <option value="">请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" {if $game.id eq  $hot_games['6']}selected{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {else}
+                        <option value="" selected>请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" >{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {/if}
+                    </select>
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    <label  class="control-label x70">顺序8：</label>
+                    <select  style="width:250px;" id="games_8" name="game_ids[]" data-placeholder="请选择本栏目显示的游戏">
+                        {if  $hot_games['7']}
+                        <option value="">请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" {if $game.id eq  $hot_games['7']}selected{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {else}
+                        <option value="" selected>请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" >{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {/if}
+                    </select>
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    <label  class="control-label x70">顺序9：</label>
+                    <select  style="width:250px;" id="games_9" name="game_ids[]" data-placeholder="请选择本栏目显示的游戏">
+                        {if  $hot_games['8']}
+                        <option value="">请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" {if $game.id eq  $hot_games['8']}selected{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {else}
+                        <option value="" selected>请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" >{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {/if}
+                    </select>
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    <label  class="control-label x70">顺序10：</label>
+                    <select  style="width:250px;" id="games_10" name="game_ids[]" data-placeholder="请选择本栏目显示的游戏">
+                        {if  $hot_games['9']}
+                        <option value="">请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" {if $game.id eq  $hot_games['9']}selected{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {else}
+                        <option value="" selected>请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" >{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {/if}
+                    </select>
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    <label  class="control-label x70">顺序11：</label>
+                    <select  style="width:250px;" id="games_11" name="game_ids[]" data-placeholder="请选择本栏目显示的游戏">
+                        {if  $hot_games['10']}
+                        <option value="">请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" {if $game.id eq  $hot_games['10']}selected{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {else}
+                        <option value="" selected>请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" >{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {/if}
+                    </select>
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    <label  class="control-label x70">顺序12：</label>
+                    <select  style="width:250px;" id="games_12" name="game_ids[]" data-placeholder="请选择本栏目显示的游戏">
+                        {if  $hot_games['11']}
+                        <option value="">请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" {if $game.id eq  $hot_games['11']}selected{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {else}
+                        <option value="" selected>请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" >{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {/if}
+                    </select>
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    <label  class="control-label x70">顺序13：</label>
+                    <select  style="width:250px;" id="games_13" name="game_ids[]" data-placeholder="请选择本栏目显示的游戏">
+                        {if  $hot_games['12']}
+                        <option value="">请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" {if $game.id eq  $hot_games['12']}selected{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {else}
+                        <option value="" selected>请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" >{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {/if}
+                    </select>
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    <label  class="control-label x70">顺序14：</label>
+                    <select  style="width:250px;" id="games_14" name="game_ids[]" data-placeholder="请选择本栏目显示的游戏">
+                        {if  $hot_games['13']}
+                        <option value="">请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" {if $game.id eq  $hot_games['13']}selected{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {else}
+                        <option value="" selected>请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" >{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {/if}
+                    </select>
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    <label  class="control-label x70">顺序15：</label>
+                    <select  style="width:250px;" id="games_15" name="game_ids[]" data-placeholder="请选择本栏目显示的游戏">
+                        {if  $hot_games['14']}
+                        <option value="">请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" {if $game.id eq  $hot_games['14']}selected{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {else}
+                        <option value="" selected>请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" >{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {/if}
+                    </select>
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    <label  class="control-label x70">顺序16：</label>
+                    <select  style="width:250px;" id="games_16" name="game_ids[]" data-placeholder="请选择本栏目显示的游戏">
+                        {if  $hot_games['15']}
+                        <option value="">请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" {if $game.id eq  $hot_games['15']}selected{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {else}
+                        <option value="" selected>请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" >{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {/if}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x70">顺序17：</label>
+                    <select  style="width:250px;" id="games_17" name="game_ids[]" data-placeholder="请选择本栏目显示的游戏">
+                        {if  $hot_games['16']}
+                        <option value="">请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" {if $game.id eq  $hot_games['16']}selected{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {else}
+                        <option value="" selected>请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" >{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {/if}
+                    </select>
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    <label  class="control-label x70">顺序18：</label>
+                    <select  style="width:250px;" id="games_18" name="game_ids[]" data-placeholder="请选择本栏目显示的游戏">
+                        {if $hot_games['17']}
+                        <option value="">请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" {if $game.id eq  $hot_games['17']}selected{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {else}
+                        <option value="" selected>请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}">{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {/if}
+                    </select>
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    <label  class="control-label x70">顺序19：</label>
+                    <select  style="width:250px;" id="games_19" name="game_ids[]" data-placeholder="请选择本栏目显示的游戏">
+                        {if $hot_games['18']}
+                        <option value="">请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" {if $game.id eq  $hot_games['18']}selected{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {else}
+                        <option value="" selected>请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}">{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                    </select>
+                    {/if}
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    <label  class="control-label x70">顺序20：</label>
+                    <select  style="width:250px;" id="games_20" name="game_ids[]" data-placeholder="请选择本栏目显示的游戏">
+                        {if  $hot_games['19']}
+                        <option value="">请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" {if $game.id eq  $hot_games['19']}selected{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {else}
+                        <option value="" selected>请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}">{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {/if}
+                    </select>
+
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    <label  class="control-label x70">顺序21：</label>
+                    <select  style="width:250px;" id="games_21" name="game_ids[]" data-placeholder="请选择本栏目显示的游戏">
+                        {if  $hot_games['20']}
+                        <option value="">请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" {if $game.id eq  $hot_games['20']}selected{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {else}
+                        <option value="" selected>请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}">{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {/if}
+                    </select>
+
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    <label  class="control-label x70">顺序22：</label>
+                    <select  style="width:250px;" id="games_22" name="game_ids[]" data-placeholder="请选择本栏目显示的游戏">
+                        {if  $hot_games['21']}
+                        <option value="">请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" {if $game.id eq  $hot_games['21']}selected{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {else}
+                        <option value="" selected>请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}">{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {/if}
+                    </select>
+
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    <label  class="control-label x70">顺序23：</label>
+                    <select  style="width:250px;" id="games_23" name="game_ids[]" data-placeholder="请选择本栏目显示的游戏">
+                        {if  $hot_games['22']}
+                        <option value="">请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" {if $game.id eq  $hot_games['22']}selected{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {else}
+                        <option value="" selected>请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}">{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {/if}
+                    </select>
+
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    <label  class="control-label x70">顺序24：</label>
+                    <select  style="width:250px;" id="games_24" name="game_ids[]" data-placeholder="请选择本栏目显示的游戏">
+                        {if  $hot_games['23']}
+                        <option value="">请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" {if $game.id eq  $hot_games['23']}selected{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {else}
+                        <option value="" selected>请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}">{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {/if}
+                    </select>
+
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    <label  class="control-label x70">顺序25：</label>
+                    <select  style="width:250px;" id="games_25" name="game_ids[]" data-placeholder="请选择本栏目显示的游戏">
+                        {if  $hot_games['24']}
+                        <option value="">请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}" {if $game.id eq  $hot_games['24']}selected{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {else}
+                        <option value="" selected>请选择本栏目显示的游戏</option>
+                        {foreach from=$game_list key=id item=game}
+                        <option value="{$game.id}">{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                        {/if}
+                    </select>
+
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+        <li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+    </ul>
+</div>

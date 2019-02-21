@@ -1,0 +1,60 @@
+<link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/login.css?t={rand(1,10000)}" media="screen" />
+<style>
+    #login_error{ color:red;position: absolute; }
+    .f-password{ margin-top: 28px; }
+</style>
+<form action="" method="post" onsubmit="return submitFun();" id="login_data">
+    <!--/account.php?act=do_login-->
+    <div class="login-bg" id="loginBox">
+        <div class="login-box">
+            <header class="login-header">
+                <h1 class="login-h1">登录</h1>
+                <a class="login-close" onclick="$('#login').hide();"></a>
+                <a class="login-txt" href="http://m.66173.cn/account.php?act=register">注册</a>
+            </header>
+            <section class="input-con clearfix">
+                <div class="input-con-box clearfix">
+                    <div class="inp-box">
+                        <label class="login-spr-1">用户名</label>
+                        <input name="mobile" type="text" id="mobile" placeholder="请输入手机号" class="l-input" />
+                    </div>
+                    <div class="inp-box">
+                        <label class="login-spr-2">密码</label>
+                        <input name="password" type="password" id="password" placeholder="请输入密码" class="l-input" />
+                    </div>
+                </div>
+                <a href="/account.php?act=forget" class="f-password">忘记密码?</a>
+                <label id="login_error"></label>
+                <input type="button" class="b-btn" value="登录" onclick="submitFun()">
+            </section>
+            <!--<footer class="login-footer clearfix">
+                <a class="tx-login">使用QQ登录</a>
+            </footer>-->
+            <footer class="login-footer clearfix">
+                <h3 class="tx-tit">第三方账号登录</h3>
+                <a class="tx-login" href="http://m.66173.cn/account.php?act=qq_login"></a>
+            </footer>
+        </div>
+    </div>
+    <input type="hidden" name="pagehash" value="{$pagehash}">
+    <input type="hidden" name="login" value="ajax_login">
+</form>
+<script>
+    function submitFun() {
+        var formStr = $('#login_data').serialize();
+        $.ajax({
+            type:'post',
+            url:'/account.php?act=do_login',
+            data:formStr,
+            dataType: 'json',
+            success: function (res) {
+                if(res.code == 0){
+                    $("#login_error").html(res.msg);
+                }else{
+                    location.href =res.url;
+                }
+            }
+        });
+        return true;
+    }
+</script>

@@ -1,0 +1,80 @@
+{include file="include/head.html" web_title=$web_title}
+    <body>
+        {include file="include/top.html"}
+        {include file="include/header.html"}
+        {include file="include/nav.html" nav="down"}
+        
+        <div class="w1000">
+            <div class="current_nav ">
+                当前位置：<a href="/">{if $domain_name eq 1}66173{else if $domain_name eq 2}u2590{/if}交易平台</a>&nbsp;>&nbsp;<a href="/games.php?act=down_list">游戏列表</a>&nbsp;>&nbsp;{$data.gameinfo.game_name}
+            </div>
+
+             <div class="index_banner">
+                <a target="_blank" rel="noopener noreferrer" href="{$data['regpic']['go_url']}"><img src="http://cdn.66173.cn/{$data['regpic']['img']}" alt="{$data['regpic']['title']}" width="1000" height="90"/></a>
+            </div>
+
+            <div class="game_down">
+                <div class="info">
+                    <a href="#"><img src="http://cdn.66173.cn/{$data.gameinfo.game_icon}" class="img" /></a>
+                    <div class="word">
+                        <a href="#">{$data.gameinfo.game_name}</a><br/>
+                        <!-- 游戏大小：159.5MB -->
+                    </div>
+                </div>
+                {if $data.game_ch_downs.android|@count neq 0}
+                <div class="downaddr">
+                    <i class="icon_android"></i>
+                    {foreach from=$data.game_ch_downs.android item=down}
+                    <a class="item" id="download" onclick="_hmt.push(['_trackEvent', 'game', 'dl', '{$data.gameinfo.game_name}+{$down.channel_name}']);" href="{$down.url}">
+                        {$down.channel_name}<br/>点击下载
+                        <div class="smallcode">
+                            <div class="code">
+                                <i></i>
+                                <img src="/game{$down.game_id}/qr{$down.id}" />扫一扫下载到手机
+                            </div>
+                            <img src="/game{$down.game_id}/qr{$down.id}" />
+                        </div>
+                    </a>
+                    {/foreach}
+                </div>
+                {else}
+                <div class="downaddr">
+                    <i class="icon_android"></i>
+                    <a class="item"> <span >敬请期待...</span> </a>
+                </div>
+                {/if}
+
+                {if $data.game_ch_downs.ios|@count neq 0}
+                <div class="downaddr">
+                    <i class="icon_ios"></i>
+                    {foreach from=$data.game_ch_downs.ios item=down}
+                    <a class="item" id="download" onclick="_hmt.push(['_trackEvent', 'game', 'dl', '{$data.gameinfo.game_name}+{$down.channel_name}']);" href="{$down.url}">
+                        {$down.channel_name}<br/>点击下载
+                        <div class="smallcode">
+                            <div class="code">
+                                <i></i>
+                                <img src="/game{$down.game_id}/qr{$down.id}" />扫一扫下载到手机
+                            </div>
+                            <img src="/game{$down.game_id}/qr{$down.id}" />
+                        </div>
+                    </a>
+                    {/foreach}
+                </div>
+                {else}
+                <div class="downaddr">
+                    <i class="icon_ios"></i>
+                    <a class="item"> <span >敬请期待...</span> </a>
+                </div>
+                {/if}
+
+            </div>
+
+            <div class="fontsize_16"><span class="color_red">温馨提示:</span>请使用{if $domain_name eq 1}66173{else if $domain_name eq 2}u2590{/if}下载的游戏包来登录您购买的首充号。<br/><br/><br/></div>
+
+            {include file="v2/include/footer.html"}
+
+        </div>
+    </div>
+
+    </body>
+</html>

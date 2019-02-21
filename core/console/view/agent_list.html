@@ -1,0 +1,41 @@
+<div class="bjui-pageHeader">
+    <a href="agent.php?act=add_view" class="btn btn-green" data-toggle="navtab" data-id="add_view" data-title="新建商人">新建</a>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th width="12">No.</th>
+            <th width="160">用户名字</th>
+            <th width="160">手机号</th>
+            <th width="200">游戏名称</th>
+            <th width="100">商人状态</th>
+            <th width="100">首冲号</th>
+            <th width="100">续充</th>
+            <th width="100">代充</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=data from=$datas}
+        <tr align="center">
+            <td>{$data.id}</td>
+            <td>{$data.user_id} - {$data.nick_name}</td>
+            <td>{$data.mobile}</td>
+            <td>{$data.game_name}</td>
+            <td>{if $data.is_agent eq 1}<span class="text-success">开放</span>{else}关闭{/if}</td>
+            <td>{if $data.discount_1 eq 0}无{else}{$data.discount_1}折{/if}</td>
+            <td>{if $data.discount_1 eq 0}无{else}{$data.discount_2}折{/if}</td>
+            <td>{if $data.discount_1 eq 0}无{else}{$data.discount_3}折{/if}</td>
+            <td>
+                <a href="agent.php?act=view&id={$data.id}" class="btn btn-green" data-toggle="dialog" data-mask="true" data-width="500"  data-height="400" data-title="商人配置">修改配置</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

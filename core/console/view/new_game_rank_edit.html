@@ -1,0 +1,70 @@
+<script>
+    $(document).ready(function(){
+        $("select[name=game_id]").chosen().change(function(){
+            $("input[name=game_id]").val($(this).val());
+            $("input[name=game_name]").val($(this).find("option:selected").attr("rel"));
+        });
+        $("select[name=type]").chosen().change(function(){
+            $("input[name=type]").val($(this).val());
+        });
+    })
+</script>
+<div class="bjui-pageContent">
+    <form action="/web_rank.php?act=new_game_rank_update&id={$id}" id="j_custom_form" data-toggle="validate" data-alertmsg="false">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">位置：</label>{$id}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">游戏ID：</label>
+                    <select name="game_id" data-rule="required" style="width: 180px!important;">
+                        <option value="" rel="" {if $info.game_id eq ''}selected="selected"{/if}>请选择{$info.game_name}</option>
+                        {foreach from=$game_list item=game}
+                        <option value="{$game.id}" rel="{$game.game_name}" {if $info.game_id eq $game.id}selected="selected"{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                    </select>&nbsp;
+                    <input type="hidden" name="game_id" value="{$info.game_id}" />
+                    <input type="hidden" name="game_name" value="{$info.game_name}" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">分类：</label>
+                    <select name="type" data-rule="required" style="width: 180px!important;">
+                        <option value="" {if $info.type eq ''}selected="selected"{/if}>请选择</option>
+                        {foreach from=$game_type key=k item=type}
+                        <option value="{$k}" {if $info.type eq $k}selected="selected"{/if}>{$type}</option>
+                        {/foreach}
+                    </select>&nbsp;
+                    <input type="hidden" name="type" value="{$info.type}" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">下载地址：</label>
+                    <input type="text" name="down_url" value="{$info.down_url}" cols="18" rows="1" class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">热度：</label>
+                    <input type="text" name="hot" value="{$info.hot}" cols="18" rows="1" onkeyup="this.value=this.value.replace(/\D/g,'')" class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <input type="hidden" name="id" value="{$id}" />
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+        <li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+    </ul>
+</div>

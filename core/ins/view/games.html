@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>{$game_info.app_name}</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="//cdn.66173.cn/mobile/scripts/sdk/css/NNSDK3.css?t={$smarty.now}" />
+	<script src="//cdn.66173.cn/www/js/jquery-1.8.3.min.js"></script>
+	<script src="//cdn.66173.cn/mobile/scripts/sdk/js/jsencrypt.min.js?y=3"></script>
+	<script src="//cdn.66173.cn/mobile/scripts/sdk/js/md5.min.js?y=3"></script>
+	<script src="//cdn.66173.cn/mobile/scripts/sdk/js/nn_h5game_sdk_auto_screen.js?t={$smarty.now}"></script>
+	<script src="//cdn.66173.cn/mobile/scripts/sdk/js/nn_h5game_sdk_common.js?t={$smarty.now}"></script>
+</head>
+<body>
+	<img src="//cdn.66173.cn/mobile/scripts/sdk/img/float_icon6.png?t=129" alt="" id="touchZone">
+	{if $appid == '1092'}<div class="before-mask"><div class="tip"><span class="time">3</span>s<a class="go-game">进入游戏</a></div><img class="start-img" src="//cdn.66173.cn/mobile/scripts/sdk/img/start_km_cqll.png" alt=""></div>{/if}
+	<div class="loading-mask"><img class="loading-img" src="//cdn.66173.cn/mobile/scripts/sdk/img/loading.gif?t=1" alt=""></div>
+	<div class="mask">
+		<div class="pop-wrapper">
+			<div class="pop-bg pop-bg-small">
+				<span class="close-pop"><img class="close-pop-img" src="//cdn.66173.cn/mobile/scripts/sdk2/img/icon_close_pop.png"></span><div class="pop-title"></div>
+				<div class="con">
+					<div class="common-pop-tip-zone">
+						<div class="tip-wrapper"><div class="tip1">这是公共提示</div></div>
+						<div class="btn-zone close-btn">好的</div>
+					</div>
+				</div>
+			</div>
+			<div class="pop-bg pop-user-rel">
+				<div class="pop-top">
+					<!-- <span class="back-pop"><img class="back-pop-img" src="//cdn.66173.cn/mobile/scripts/sdk2/img/icon_back.png"></span> -->
+					<span class="close-pop"><img class="close-pop-img" src="//cdn.66173.cn/mobile/scripts/sdk2/img/icon_close_pop.png"></span><div class="pop-title"></div>
+				</div>
+				<div class="con">
+					<div class="already-bind bind-info-rel">
+						<div class="top-line">用户名：<span class="user-id"></span></div>
+						<div class="my-info-wrapper">
+							<div class="line phone-line">
+								<span class="left"><span class="text">绑定手机</span></span>
+								<span class="phone right"></span>
+							</div>
+							<div class="line register-line">
+								<span class="left"><span class="text">注册时间</span></span>
+								<span class="register-time right"></span>
+							</div>
+						</div>
+					</div>
+					<div class="not-bind">
+						<div class="bind-info-rel step1">
+							<div class="top-line">用户名：<span class="user-id"></span></div>
+							<div class="my-info-wrapper">
+								<div class="line phone-line">
+									<span class="left"><span class="text">绑定手机</span></span>
+									<span class="right"><span class="to-bind">未绑定</span></span>
+								</div>
+								<div class="line register-line">
+									<span class="left"><span class="text">注册时间</span></span>
+									<span class="right register-time"></span>
+								</div>
+							</div>
+						</div>
+						<div class="step2">
+							<span class="back-pop"><img class="back-pop-img" src="//cdn.66173.cn/mobile/scripts/sdk2/img/icon_back.png"></span>
+							<div class="top-line">用户名：<span class="user-id"></span></div>
+							<div class="pop-form-wrap">
+								<div class="pop-form-line">
+									<img class="icon" src="//cdn.66173.cn/mobile/scripts/sdk2/img/icon_phone.png">
+									<input type="tel" class="tel-input" placeholder="输入您的手机号"/>
+									<span class="captcha-tip to-get-captcha" data-type="wish_bind_not">获取验证码</span>
+								</div>
+								<div class="pop-form-line">
+									<img class="icon" src="//cdn.66173.cn/mobile/scripts/sdk2/img/icon_message.png">
+									<input type="number" class="captcha-input" placeholder="输入收到的验证码"/>
+								</div>
+								<div class="pop-form-line">
+									<img class="icon" src="//cdn.66173.cn/mobile/scripts/sdk2/img/icon_psw.png">
+									<input type="password" class="password-input" placeholder="请输入设置密码"/>
+								</div>
+								<div class="pop-form-line">
+									<img class="icon" src="//cdn.66173.cn/mobile/scripts/sdk2/img/icon_psw.png">
+									<input type="password" class="password-input-again" placeholder="请再次输入设置密码"/>
+								</div>
+								<div class="btn-zone">
+									<span class="bt-btn go-bind go-bind-can">立即绑定</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="notice-mask">
+		<div class="pop-bg pop-notice">
+			<div class="pop-top">
+				<span class="close-pop"><img class="close-pop-img" src="//cdn.66173.cn/mobile/scripts/sdk2/img/icon_close_pop.png"></span><div class="pop-title">公告</div>
+			</div>
+			<div class="con">
+				<div class="pop-notice-main"></div>
+			</div>
+		</div>
+	</div>
+	<div class="brief-tip-pop"><div class="con"></div></div>
+
+
+	<input type="hidden" id="mobile" value="{$mobile}">
+	<input type="hidden" id="registerTime" value="{'Y-m-d H:i:s'|date:$registerTime}">
+	<input type="hidden" id="userId" value="{$user_id}">
+	<input type="hidden" id="userName" value="{$user_name}">
+	<input type="hidden" id="token" value="{$token}">
+	<input type="hidden" id="channel" value="{$channel}">
+	<input type="hidden" id="appId" value="{$appid}">
+	<input type="hidden" id="gameUrl" value="{$game_url}">
+	<input type="hidden" id="ifdu" value="{$if_du}">
+	<input type="hidden" id="img" value="{$img}">
+	<input type="hidden" id="sex" value="{$sex}">
+	<input type="hidden" id="hasNotice" value="{$hasNotice}">
+	<input type="hidden" id="noticeCon" value="{$noticeCon}">
+	<!--<input type="hidden" id="gameUrl" value="http://h5cqllyx.jiulingwan.com/webserver/h566/web/login.php?i=2">-->
+
+	<div id="gameFrameDiv"></div>
+</body>
+<script src="//cdn.66173.cn/mobile/scripts/sdk/js/nn_h5game_sdk_self.js?t={$smarty.now}"></script>
+<script src="//cdn.66173.cn/mobile/scripts/sdk/js/nn_h5game_sdk_cp.js?t={$smarty.now}"></script>
+<script type="text/javascript" >
+	window._du = $("#ifdu").val() == 1 ? true : false;
+    (function() {
+        var gameUrl = $("#gameUrl").val();
+        var gameFrameDiv = document.getElementById("gameFrameDiv");
+        var iframe = document.createElement("iframe");
+        var a = "appId=" + $("#appId").val() + "&channel=" + $("#channel").val() + "&userId=" + $("#userId").val() +"&token=" + $("#token").val() + "&appId=" + $("#appId").val() + "&t=" + (new Date()).getTime();
+        gameUrl = gameUrl.indexOf("?") > 0 ? gameUrl + "&" + a : gameUrl + "?" + a;
+        iframe.setAttribute("src", gameUrl);
+        iframe.setAttribute("id", "gameFrame");
+        iframe.setAttribute("frameborder", "0");
+//        iframe.setAttribute("scrolling", "no");
+        gameFrameDiv.appendChild(iframe);
+    })();
+//    function loadScript(url) {
+//        var el = document.createElement("script");
+//        el.setAttribute("src", url + "?t=" + (new Date()).getTime());
+//        document.body.appendChild(el);
+//    }
+//    loadScript("//cdn.66173.cn/mobile/scripts/sdk/js/nn_h5game_sdk_self.js");
+//    loadScript("//cdn.66173.cn/mobile/scripts/sdk/js/nn_h5game_sdk_cp.js");
+</script>
+
+</html>
+
+
+
+

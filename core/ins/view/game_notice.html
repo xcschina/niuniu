@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="width=device-width; initial-scale=0.5; minimum-scale=0.5; maximum-scale=0.5; user-scalable=0" name="viewport" />
+    <meta name="viewport" content="width=device-width,target-densitydpi=high-dpi,initial-scale=0.5, minimum-scale=0.5, maximum-scale=0.5, user-scalable=no" />
+    <title>{$info.app_name}公告</title>
+    {literal}
+    <style>
+        .notice_content{margin: 20px 40px;line-height: 1.6em;font-size: 1.6rem}
+        /*ipad 设备*/
+        @media only screen and (min-device-width : 768px) and (max-device-width : 1024px)  {
+            .notice_content{font-size: 120%;}
+        }
+    </style>
+    {/literal}
+</head>
+<body>
+<section class="notice_content">{$info.notice|html_entity_decode}</section>
+</body>
+</html>

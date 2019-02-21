@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>确认订单</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <link rel="stylesheet" href="//cdn.66173.cn/website/css/ios_pay.css?t={$smarty.now}">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script type="application/javascript">
+        function initHTMLSize() {
+            var wWidth = document.documentElement.clientWidth || document.body.clientWidth;
+            var size = wWidth / 7.5;
+            document.getElementsByTagName('html')[0].style.fontSize = (size > 55 ? 55 : size) + 'px';
+        }
+        $(document).ready(function () {
+            initHTMLSize();
+        });
+        $(window).resize(function() {
+            initHTMLSize()
+        });
+    </script>
+</head>
+
+<body class="pay-step2">
+    <div class="top-header">
+        <div class="title">官方充值</div>
+    </div>
+    <div class="content">
+        <div class="tips">{if isset($smarty.session.error)}{$smarty.session.error}{/if}</div>
+        <form action="gamepay.php" method="post" name="pay_form_commit">
+
+            <div class="pay-detail">
+                <div class="pay-detail-main">
+                    <div><i>充值游戏：</i><span>{$info.app_name}</span></div>
+                    <div><i>服务器：</i><span>{$serv_name}</span></div>
+                    <input type="hidden" name="serv_id" value="{$serv_id}" />
+                    <div><i>角色名：</i><span>{$usr_name}</span></div>
+                    <div><i>充值商品：</i><span>{$money.good_name}</span></div>
+                    <div><i>支付金额：</i><span>{$money.good_price}元</span></div>
+                </div>
+            </div>
+            <div class="pay-others">
+                <div class="tit">请选择充值方式</div>
+                <div class="pay_sub_sel">
+                    <div class="item" rel="2"><img class="icon" src="//cdn.66173.cn/website/img/icon_wxpay.png"/><span class="text">微信支付</span><i></i></div>
+                    <div class="item active" rel="1"><img class="icon" src="//cdn.66173.cn/website/img/icon_alipay.png"/><span class="text">支付宝</span><i></i></div>
+                    {if $paypal eq "enable"}
+                    <div class="item" rel="5"><img class="icon" src="//cdn.66173.cn/website/img/icon-16.png"/><span class="text">PayPal支付</span><i></i></div>
+                    {/if}
+                    <input type="hidden" name="ch" value="1" />
+                </div>
+                <div class="ch_err"></div>
+                <input type="hidden" name="money_id" value="{$money.id}" />
+                <input type="hidden" name="mode" value="1" />
+                <input type="hidden" name="player_id" value="{$player_id}" />
+                <input type="hidden" name="timestamp" value="{$time}" />
+                <input type="hidden" name="game_id" value="1" />
+                <input type="hidden" name="usr_name" value="{$usr_name}" />
+                <input type="hidden" name="bank" value="" />
+                <input type="hidden" name="wappay" value="1" />
+                <input type="hidden" name="usr_id" value="{$usr_id}" />
+                <div class="confirm-btn go-pay go-pay-can">确认</div>
+            </div>
+            <div class="foot"> &copy;2010-2016 </div>
+
+        </form>
+    </div>
+</body>
+{literal}
+<script>
+    $("body").on("click", ".pay_sub_sel .item", function(e){
+        pay_channel(e)
+    });
+    $("body").on("click", ".go-pay-can", function(e){
+        $(".go-pay").removeClass("go-pay-can");
+        setTimeout(function() {
+            $(".go-pay").addClass("go-pay-can");
+        },2000);
+        go_pay();
+    });
+    function go_pay(){
+        var player_id = $("input[name='player_id']").val();
+        var money_id = $("input[name='money_id']").val();
+        var ch = $("input[name='ch']").val();
+        var bank = $("input[name='bank']").val();
+        var referrer =   $("input[name='referrer']").val();
+
+        if($.trim(ch)==''){
+            var t = $(".ch_err").html("请选择支付渠道").show(500).offset().top;
+            $(window).scrollTop(t - 200);
+            return false;
+        }
+
+        $("form[name='pay_form_commit']").submit();
+
+    }
+
+    function pay_channel(e){
+        var $ele = $(e.currentTarget);
+        $ele.addClass("active").siblings().removeClass("active");
+        $("input[name='ch']").val($ele.attr("rel"));
+        $(".ch_err").hide();
+    }
+</script>
+{/literal}
+</html>

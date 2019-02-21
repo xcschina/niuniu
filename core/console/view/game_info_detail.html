@@ -1,0 +1,37 @@
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th colspan='8'>用户ID: {$params.user_id} 游戏信息表</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr align="center">
+            <td>游戏信息</td>
+            <td>账号</td>
+            <td>游戏职业</td>
+            <td>登录频率</td>
+            <td>在线时长</td>
+            <td>游戏在线周期</td>
+            <td>总消费金额</td>
+            <td>游戏设备</td>
+        </tr>
+        {foreach item=data from=$user_attr_list}
+        <tr align="center">
+            <td>{$data.game_name}[{$data.channel_name}]</td>
+            <td>{$data.game_user}</td>
+            <td>{$data.attr}</td>
+            <td>{$data.day}次/日</td>
+            <td>{$data.in_time}/小时</td>
+            <td>{$data.mon}天/月</td>
+            <td><code class="bg-info">￥{$data.sum}</code></td>
+            <td>未知</td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

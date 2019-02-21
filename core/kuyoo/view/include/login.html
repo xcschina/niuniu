@@ -1,0 +1,48 @@
+<!--弹窗-->
+<div class="tc_bg"></div>
+<div class="login_box po_f">
+    <form action="http://shouyou.kuyoo.com/account.php?act=do_login" method="post" id="do_login">
+        <a href="javascript:void(0);" class="absolute guanbi">
+            <img src="http://static.kuyoo.com/kuyoo/wwwv2/img/guanbi.jpg">
+        </a>
+        <div class="login_txt">
+            <div class="title">酷游用户登录</div>
+            <div class="row" style="color:#C7162B"></div>
+            <div class="row">
+                <span class="icon_user"></span>
+                <input type="text"  class="txt" placeholder="手机号/用户名" name="mobile" value="" />
+            </div>
+            <div class="row">
+                <span class="icon_pw"></span>
+                <input type="password" class="txt" placeholder="您的密码" name="password" value="" />
+            </div>
+            <div class="row">
+                <label><input type="checkbox" name="cookie_check"  {if $smarty.session.cookie_check eq 1}checked{/if} value="1" style="float: left; margin: 0 5px 0 0 ;"/>记住我的登录状态</label>
+                <a href="http://shouyou.kuyoo.com/account.php?act=forget">忘记密码</a>
+                <div class="clear_both"></div>
+            </div>
+            <div style="margin-top: 40px; height: 45px;">
+                <a href="#;" onclick="$('#do_login').submit()"  class="btn_red_big"  style="padding: 10px 125px;">登录</a>
+            </div>
+            <div style="text-align: center;">还没有酷游账号？<a href="http://shouyou.kuyoo.com/account.php?act=register" class="color_red">立即注册</a></div>
+        </div>
+</form>
+</div>
+<script>
+    var f_hide_login_box = function(){ $('.tc_bg,.login_box').hide(); }
+    var f_show_login_box = function($u){
+        $uuu = $u || $uu || '';
+        if(!Number($uuu)){
+            $('.tc_bg,.login_box').show();
+            return true;
+        }else{
+            return false;
+        }
+            
+    }
+    $(function(){
+        $('.guanbi').click(function(){
+            f_hide_login_box();
+        });
+    })
+</script>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>{$activity.activity_name}</title>
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/www/css/activity_pc.css">
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/wwwv2/css/style_v2.css">
+    <script src="http://cdn.66173.cn/www/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript">
+        function judgeIELower() {
+            var b_appName = navigator.appName;
+            var b_version = navigator.appVersion;
+            var reg = new RegExp(/.+MSIE\s+([5678])\.0;.+/);
+            reg.test(b_version);
+            return b_appName == "Microsoft Internet Explorer" && reg.test(b_version);
+        }
+
+        if(judgeIELower()) {
+            alert("您使用的浏览器版本过低，为了您的浏览体验，请使用360浏览器或Chrome浏览器");
+        }
+        var mobileAgent = new Array("iphone", "ipod", "ipad", "android", "mobile", "blackberry", "webos", "incognito", "webmate", "bada", "nokia", "lg", "ucweb", "skyfire");
+        var browser = navigator.userAgent.toLowerCase();
+        for (var i=0; i<mobileAgent.length; i++){
+            if (browser.indexOf(mobileAgent[i])!=-1) {
+                window.location.href = "http://m.66173.cn/activity_info.php?act=activity_view&id={$activity.id}";
+                break;
+            }
+        }
+    </script>
+    <script >
+        if(judgeIELower()) {
+            var body = document.body;
+            body.style.display = "none";
+            window.location.href = "http://www.66173.cn";
+        }
+    </script>
+</head>
+<body class="activity_pc">
+ {include file="include/top.html"}
+    <div class="bg-wrapper">
+        <div class="background-img bg-left" style="background-image:url(http://cdn.66173.cn/{$pc_img[2]})"></div>
+        <div class="w800 bg-center">
+            <div class="background-img bg-center-top" style="background-image:url(http://cdn.66173.cn/{$pc_img[0]})"></div>
+            <div class="background-img bg-center-bottom" style="background-image:url(http://cdn.66173.cn/{$pc_img[1]})">
+                <div class="treasure-top">
+                    <img src="http://cdn.66173.cn/www/img/activity/knight.png" class="knight"/>
+                    <img src="http://cdn.66173.cn/www/img/activity/treasureTip.png" class="treasure-tip"/>
+                </div>
+                <div class="qr-zone">
+                    <div class="qr-bg">
+                        <div id="qrcode" class="qr-img"></div>
+                    </div>
+                    <div class="text">扫描二维码下载游戏</div>
+                    <a href="{$activity.down_url}" target="blank"><img src="http://cdn.66173.cn/www/img/activity/downloadBtn.png" class="download-btn"/></a>
+                </div>
+                <div class="background-img treasure-cont" style="background-image:url(http://cdn.66173.cn/www/img/activity/pricebg.png)">
+                    <span class="my-price-link">我的奖品</span>
+                    <div class="left">
+                        <ul>
+                            {foreach from=$box_img item=box}
+                            <li><img src="http://cdn.66173.cn/{$box}" /></li>
+                            {/foreach}
+                        </ul>
+                    </div>
+                    <div class="right">
+                        {if $receive}
+                        <div><div class="background-img treasure-box already-open"></div></div>
+                        <div><div class="background-img treasure-status already-open">已开启</div></div>
+                        {else if  $activity.end_time < time()}
+                        <div><div class="background-img treasure-box already-close"></div></div>
+                        <div><div class="background-img treasure-status already-close">活动已结束</div></div>
+                        {else if $activity.start_time > time()}
+                        <div><div class="background-img treasure-box already-close"></div></div>
+                        <div><div class="background-img treasure-status already-close">活动未开始</div></div>
+                        {else}
+                        <div><div class="background-img treasure-box wait-to-open"></div></div>
+                        <div><div class="background-img treasure-status wait-to-open">开宝箱</div></div>
+                        {/if}
+                    </div>
+                </div>
+                <div class="background-img rule-cont" style="background-image:url(http://cdn.66173.cn/www/img/activity/rulebg.png)">
+                    <div class="title">活动规则</div>
+                    <div class="desc">
+                        活动时间：{$activity['start_time']|date_format:'Y年m月d日'}-{$activity['end_time']|date_format:'Y年m月d日'}<br/>
+                        {str_replace("\n","<br/>",{$activity['activity_rules']})}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="background-img bg-right" style="background-image:url(http://cdn.66173.cn/{$pc_img[3]})"></div>
+        <div class="mask">
+            <div class="background-img pop-window price-window">
+                <a class="close"></a>
+                <div class="con">
+                    <div class="price-type"></div>
+                    <div class="share">
+                        <span class="text">好东西记得分享哦！</span>
+                        <div class="share-collection">
+                            <div class="bdsharebuttonbox">
+                                <a class="bds_weixin" data-cmd="weixin"></a>
+                                <a class="bds_qzone" data-cmd="qzone"></a>
+                                <a class="bds_tsina" data-cmd="tsina"></a>
+                                <a class="bds_sqq" data-cmd="sqq"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pop-window getting-tip">正在开宝箱，请稍后。。。</div>
+        </div>
+        <input type="hidden" name="user_id" value="{$smarty.session.user_id}" id="user_id">
+    </div>
+    <div class="brief-tip-pop"><div class="con">ee</div></div>
+     {include file="include/footer.html"}
+    <script> var $uu = {$smarty.session.user_id}+''; </script>
+    {include file="include/login.html"}
+</body>
+<script type="text/javascript">
+    with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+    // bdText:  分享标题，bdDesc: 附送的消息，bdUrl: 分享链接，bdPic: 图片
+    window._bd_share_config = { common : { bdText : "{$activity.share_title}", bdDesc : "{$activity.share_msg}", bdUrl : window.location.href, bdPic : "http://cdn.66173.cn/{$activity.product_img}",bdComment:"{$activity.share_desc}"}, share : [{ "bdSize":32}]};
+</script>
+<script type="text/javascript" src="http://cdn.66173.cn/www/js/qrcode.min.js"></script>
+<script type="text/javascript" src="http://cdn.66173.cn/mobile/v2/scripts/clipboard1.6.1.min.js"></script>
+<script>
+    $(".right_fixed").hide();
+    var clipboardCode;
+    // 生成二维码
+    var qrcode = new QRCode(document.getElementById("qrcode"), {
+        width : 100,
+        height : 96
+    });
+    // 这里要放游戏下载地址！！！
+    qrcode.makeCode("{$activity['down_url']}");
+    // 简单提示控制
+    function briefTipControl(text) {
+        $(".brief-tip-pop .con").html(text);
+        $(".brief-tip-pop").fadeIn(500).delay(1000).fadeOut(500);
+    }
+    // 开宝箱
+    $(".activity_pc").on("click",".treasure-status.wait-to-open", function(e) {
+        var user_id = $('#user_id').val();
+        //判断user_id
+        if(!user_id){
+            //登录页面
+            $('.tc_bg,.login_box').show();
+            return false;
+        }
+
+        var $ele = $(e.target);
+        $(".mask").show();
+        $(".getting-tip").show().siblings().hide();
+         $.ajax({
+         	url: "/activity.php?act=activity_ajax",
+         	type: "post",
+             data:{
+                 user_id: user_id,
+                 id:"{$activity.id}",
+             },
+         	dataType: "json"
+         }).success(function(res) {
+        var con = "";
+        if(res.code == 1) {
+            $ele.addClass("already-open").removeClass("wait-to-open").html("已开启");
+            $(".treasure-box").addClass("already-open").removeClass("wait-to-open");
+            if(res.type == "gift") {
+                var str = res.info;
+                con = '<div class="gift">'
+                    +'<div class="tip">恭喜您获得<span class="name">{$activity.game_name}</span>大礼包一份!</div>'
+                    +'<div class="center">'
+                    + '<div class="gift-con"><div class="left">礼包内容：</div><div class="right">'+str.content+'</div></div>'
+                    +'<div class="code"><div class="left">兑换码：</div><div class="right">'+str.code+'</div></div>'
+                    +'</div>'
+                    +'<div class="go-link"><a href="my.php?act=my_gifts" target="_blank">查看我的礼包</a></div>'
+                    +'</div>';
+                $(".price-type").html(con);
+            } else{
+                var str = res.info;
+                con = '<div class="coupon">'
+                    +'<div class="tip">恭喜您获得66173优惠券<span class="num">'+str.num+'</span>张!</div>'
+                    +'<div class="center"><div class="background-img coupon-bg"><div class="left">￥<span class="amount">'+str.discount_amount+'</span></div><div class="right"></div></div></div>'
+                    +'<div class="go-link"><a href="my.php?act=my_coupon" target="_blank">查看我的优惠券</a></div>'
+                    +'</div>';
+                $(".price-type").html(con);
+                // 再区分全场通还是当前游戏优惠券
+                if(res.type == 'common') {
+                    $(".price-type .right").append('<div class="common">全场通优惠券</div>');
+                } else {
+                    $('.price-type .right').append('<div class="certain"><div class="name">{$activity.game_name}</div><div class="type">专属优惠券</div></div>');
+                }
+            }
+            $(".price-window").show().siblings().hide();
+        }
+        else {
+            con = '<div class="msg-tip">'
+                +'<div class="tip">'+res.desc+'</div>'
+                +'<div class="center"><img src="http://cdn.66173.cn/www/img/activity/no-cry.png" class="no-cry-img"/></div>'
+                +'</div>';
+            $(".price-type").html(con);
+            $(".price-window").show().siblings().hide();
+        }
+         })
+
+    })
+    $(".price-window .close").on("click", function() {
+        $(".mask").hide();
+    })
+    $(".msg-tip .close").on("click", function() {
+        $(".mask").hide();
+    })
+    $(".activity_pc").on("click", ".my-price-link", function() {
+        var user_id = $('#user_id').val();
+        //判断user_id
+        if(!user_id){
+            //登录页面
+            $('.tc_bg,.login_box').show();
+            return false;
+        }
+        $(".mask").show();
+        $(".getting-tip").show().siblings().hide();
+         $.ajax({
+         	url: "activity.php?act=my_prize",
+         	dataType: "json",
+         	type: "post",
+         	data: {
+                user_id: user_id,
+                id:"{$activity.id}"
+         	}
+         }).success(function(res) {
+             alert(res);
+             return false;
+        var res = {
+            code: 0,
+            type: "gift",
+            type: "coupon"
+        }
+        var code = res.code;
+        var con = "";
+        if(code == 1) {
+            if(res.type == "gift") {
+                con += '<div class="my-price">'
+                        +'<div class="tip">我的奖品</div>'
+                        +'<div class="center">'
+                        +'<div class="line"><div class="left">奖品名称：</div><div class="right">大礼包哈哈</div></div>'
+                        +'<div class="line"><div class="left">奖品内容：</div><div class="right">VIP点数*1，农场提升（1天）*1,建筑加速（5分钟）*5， 体力药水（初级）*1 </div></div>'
+                        +'<div class="line"><div class="left">兑换码：</div><div class="right right-code-zone">132455665<a class="copy-code" data-clipboard-text="132455665">复制礼包码</a></div></div>'
+                        +'</div>'
+                        +'</div>';
+                $(".price-type").html(con);
+                $(".price-window").show().siblings().hide();
+                if (clipboardCode) {
+                    clipboardCode.destroy();
+                }
+                clipboardCode = new Clipboard(".copy-code");
+                clipboardCode.on('success', function (e) {
+                    briefTipControl("礼包码: " + e.text + " 已复制");
+                    e.clearSelection();
+                })
+            }
+            else {
+                con += '<div class="my-price">'
+                        +'<div class="tip">我的奖品</div>'
+                        +'<div class="center">'
+                        +'<div class="line"><div class="left">奖品名称：</div><div class="right">优惠券</div></div>'
+                        +'<div class="line"><div class="left">奖品内容：</div><div class="right">全站优惠券啦啦啦,价值3元</div></div>'
+                        +'</div>'
+                        +'</div>';
+                $(".price-type").html(con);
+                $(".price-window").show().siblings().hide();
+            }
+        }
+        else {
+            var con = '<div class="msg-tip">'
+                    +'<div class="tip">你还没有奖品哇哈哈</div>'
+                    +'<div class="center"><img src="http://cdn.66173.cn/www/img/activity/no-cry.png" class="no-cry-img"/></div>'
+                    +'</div>';
+            $(".price-type").html(con);
+            $(".price-window").show().siblings().hide();
+        }
+
+         })
+    })
+    $(window).scroll(function() {
+        if(document.body.scrollTop > 380 && $(".qr-zone").css("position") !== "fixed") {
+            var right = $(window).width() - $(".qr-zone").offset().left - 148;
+            $(".qr-zone").css({
+                position: "fixed",
+                top: "10px",
+                right: right
+            })
+        }
+        if(document.body.scrollTop < 380 && $(".qr-zone").css("position") == "fixed") {
+            $(".qr-zone").css({
+                position: "absolute",
+                right: "-200px",
+                top: "-70px"
+            })
+        }
+    })
+
+</script>
+</html>

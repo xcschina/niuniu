@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>《魔域口袋》</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+	<meta property="og:image" content="http://front.preorderactivity.com/img/icon.png"/>
+	<meta name="description" content="牛果游戏特别献礼，立即参与活动领专属大奖！"/>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no, email=no"/>
+    <!-- uc强制竖屏 -->
+	<meta name="screen-orientation" content="portrait">
+	<!-- QQ强制竖屏 -->
+	<meta name="x5-orientation" content="portrait">
+	<link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/activity_mykd_get.css?t={$smarty.now}">
+	<script src="http://cdn.66173.cn/www/js/jquery-1.8.3.min.js"></script>
+	<script>
+		function initHTMLSize() {
+		    var wWidth = document.documentElement.clientWidth || document.body.clientWidth;
+		    var size = wWidth / 7.5;
+		    document.getElementsByTagName('html')[0].style.fontSize = (size > 55 ? 55 : size) + 'px';
+		}
+		$(document).ready(function () {
+		    initHTMLSize();
+		});
+		$(window).resize(function() {
+		    initHTMLSize();
+		});
+	</script>
+</head>
+<body class="m-station activity-mykd-get">
+	<!--未登录-->
+	<!--<div class="link-login-wrapper"><a class="link-login">登录</a></div>-->
+
+	<!--已登录-->
+	<section class="sec sec1">
+		<img class="block-bg" src="http://cdn.66173.cn/mobile/v2/css/img/mykd/bg_retrievepage_top.png" alt="">
+	</section>
+	<section class="sec sec2">
+		<div class="font-mder role-bind-zone">
+			<!--未绑区服, 引导去抽奖页-->
+			<!--<div class="role-bind-not">-->
+				<!--<a class="link-activity-mykd" href="http://www.66173.cn">尚未绑定区服, 点击参与抽奖</a>-->
+			<!--</div>-->
+			<!--绑过区服-->
+			<div class="role-bind-already">
+				<span>区服：</span><span class="server-name">一区古神圣歌</span><span>&nbsp;,&nbsp;</span><span>角色名：</span><span class="role-name">愤怒的阿拉基</span>
+			</div>
+		</div>
+		<div class="gifts-wrapper">
+			<div class="line title-line">
+				<span class="col col1">名称</span><span class="col col2">数量</span><span class="col col3">操作</span>
+			</div>
+			<div class="gifts-zone has-my-gifts">
+				<ul class="my-gifts-list">
+					<div class="line record-line">
+						<span class="col col1">特权礼包</span><span class="col col2">1</span><span class="col col3"><span class="opt-btn copy-gift-btn" data-clipboard-text="fdfffff">复制礼包码</span></span>
+					</div>
+					<div class="line record-line">
+						<span class="col col1">特权礼包</span><span class="col col2">1</span><span class="col col3"><span class="opt-btn copy-gift-btn" data-clipboard-text="2324345">复制礼包码</span></span>
+					</div>
+					<div class="line record-line">
+						<span class="col col1">魔石</span><span class="col col2">10</span><span class="col col3"><span class="opt-btn get-mo get-mo-can get-mo-can-12" data-serial="12">领取</span></span>
+					</div>
+					<div class="line record-line">
+						<span class="col col1">魔石</span><span class="col col2">50</span><span class="col col3"><span class="opt-btn get-mo get-mo-can get-mo-can-33" data-serial="33">领取</span></span>
+					</div>
+					<div class="line record-line">
+						<span class="col col1">魔石</span><span class="col col2">10</span><span class="col col3"><span class="opt-btn get-mo get-mo-already">已领取</span></span>
+					</div>
+				</ul>
+				<div class="font-sm pop-tip tip1"><div class="line-horizon line-left"></div><span class="text">没有了~</span><div class="line-horizon line-left"></div></div>
+			</div>
+			<!--<div class="gifts-zone no-my-gifts">-->
+				<!--<img src="http://cdn.66173.cn/mobile/v2/css/img/mykd/no_gift.png" alt=""/>-->
+				<!--<div class="font-sm pop-tip tip1">您还未中奖~~</div>-->
+			<!--</div>-->
+		</div>
+	</section>
+	<div class="brief-tip-pop"><div class="font-md con"></div></div>
+
+	<input type="hidden" id="userId" value="1"/>
+
+</body>
+<script src="http://cdn.66173.cn/mobile/v2/scripts/clipboard1.6.1.min.js"></script>
+<script>
+	var userId = $("#userId").val();
+	var clipboardInvite = new Clipboard(".copy-gift-btn"); //邀请码复制功能
+	clipboardInvite.on('success', function(e) {
+		briefTipControl("礼包码: " + e.text + " 已复制");
+		e.clearSelection();
+	});
+	if(!userId) {
+        loginControl();
+	}
+    // 点击登录
+	$("body").on("click", ".link-login", function() {
+	    loginControl();
+	});
+	// 点击领取魔石
+	$("body").on("click", ".get-mo-can", function(e) {
+		if(!userId) {
+            loginControl();
+			return false;
+		}
+		if($(e.target).hasClass("get-mo-already")) {
+			return false;
+		}
+		var serial = $(e.target).data("serial");
+		var $ele = $(".get-mo-can-" + serial);
+		$ele.removeClass("get-mo-can");
+		setTimeout(function() {
+			$ele.addClass("get-mo-can");
+		}, 2000);
+		// $.ajax({
+		// 	url: "get_mo.php",
+		// 	type: "post",
+		// 	dataType: "json",
+		// 	data: {
+		// 		serial: serail
+		// 	}
+		// }).success(function(data) {
+			data = {
+				code: 1,
+				msg: "领取成功"
+			};
+			var code = data.code;
+			if(code == 1) {
+				$ele.removeClass("get-mo-can").addClass("get-mo-already");
+				briefTipControl(data.msg);
+			} else {
+				briefTipControl(data.msg);
+			}
+		// })
+	});
+	function loginControl() {
+        window.local_obj && window.local_obj.goto_login();
+	}
+	// 简单提示控制
+	function briefTipControl(text, delay) {
+	    $(".brief-tip-pop .con").html(text);
+	    $(".brief-tip-pop").fadeIn(500).delay(delay ? delay : 1000).fadeOut(500);
+	}
+</script>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <title>{$info.title}</title>
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/website/css/add_page.css">
+    <script src="http://cdn.66173.cn/www/js/jquery-1.8.3.min.js"></script>
+
+</head>
+<body class="page-bg">
+<a href="{$info.down_url}" class="page-game-box">
+    <div class="page-top">
+        <img src="http://cdn.66173.cn/{$info.banner}"/>
+    </div>
+    <div class="page-center">
+        <img src="http://cdn.66173.cn/{$info.top_img}"/>
+        <div class="slideshow-zone" style="background-image: url(http://cdn.66173.cn/{$info.middle_img})">
+            <ul class="img-ul">
+                {foreach from=$bg_img key=$k item=bg}
+                <li data-index="{$k}" {if $k==0}class="show"{/if}><img src="http://cdn.66173.cn/{$bg}"></li>
+                {/foreach}
+            </ul>
+            <ul class="dot-ul">
+                {foreach from=$bg_img key=$k item=bg}
+                <li data-index="{$k}" {if $k==0}class="cur"{/if}><span class="dot"></span></li>
+                {/foreach}
+            </ul>
+        </div>
+        {if $info.bottom_img}<img src="http://cdn.66173.cn/{$info.bottom_img}"/>{/if}
+    </div>
+</a>
+<div class="bottom-foot">
+    杭州道盟网络科技有限公司</br>沪网文(2016)0298-168号
+</div>
+</body>
+<script type="text/javascript">
+    var cur = 0;
+    var str = "{$k}";
+    var slideInterval;
+    function slideControl(cur) {
+        $('.img-ul li[data-index="'+cur+'"]').addClass("show").siblings().removeClass("show");
+        $('.dot-ul li[data-index="'+cur+'"]').addClass("cur").siblings().removeClass("cur");
+    }
+    function sizeControl() {
+        $(".img-ul img").css("height", $(".img-ul img:visible").width()*0.6+'px');
+    }
+    $(window).load(function() {
+        sizeControl();
+        slideInterval = setInterval(function() {
+            cur < str ? cur++ : cur = 0;
+            slideControl(cur);
+        }, 2000)
+    })
+    $(window).resize(function() {
+        sizeControl();
+    });
+</script>
+</html>

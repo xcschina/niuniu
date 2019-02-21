@@ -1,0 +1,67 @@
+<div class="bjui-pageHeader">
+    <form id="pagerForm" action="shop_info.php?act=shop_list_view" method="post" data-toggle="ajaxsearch">
+        <div class="bjui-searchBar">
+            <a href="shop_info.php?act=shop_add_view" class="btn btn-green" data-id="limit_products_add_view" data-toggle="dialog" data-mask="true" data-width="550"  data-height="300" data-title="添加店铺">新增店铺</a>
+            <label>店铺名称：</label><input type="text" name="s_name"  value="{$params.s_name}" class="form-control" size="10">&nbsp;
+            <label>店铺No：</label><input type="text" name="s_id"  value="{$params.s_id}" class="form-control" size="10">&nbsp;
+            <label>店长ID：</label><input type="text" name="user_id"  value="{$params.user_id}" class="form-control" size="10">&nbsp;
+<!--        <label>状态：</label>
+            <select name="s_status" style="width:80px">
+                <option value="" {if $params.type eq ''}selected="selected"{/if}>全部</option>
+                <option value="1" {if $params.type eq 1}selected="selected"{/if}>锁定</option>
+                <option value="2" {if $params.type eq 2}selected="selected"{/if}>正常</option>
+            </select> -->
+            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th>No.</th>
+            <th>店铺图标</th>
+            <th width="200">店铺名称</th>
+            <th>店长ID</th>
+            <th width="200">店铺介绍</th>
+            <th>排序</th>
+            <th>虚拟订单数量</th>
+            <th width="200">开业时间</th>
+            <th width="200">营业时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=shop from=$shops}
+        <tr align="center">
+            <td>{$shop.s_id}</td>
+            <td>{if $shop.s_icon}<img src="http://static.66173.cn/{$shop.s_icon}" width="50px" height="50px"></td>{else}<span class="orange">未上传</span>{/if}</td>
+            <td>
+                {if $shop.s_status eq 1}<span class="orange">[ 歇业中 ] </span>{else}<span class="green">[ 营业中 ] </span>{/if}&nbsp;{$shop.s_name}
+                <!-- <p class="text-danger"></p> -->
+            </td>
+            <td>{$shop.user_id}</td>
+            <td>{$shop.s_intro}</td>
+            <td>{$shop.s_sort}</td>
+            <td>{$shop.order_num} 笔</td>
+            <td>{$shop.create_time|date_format:"%Y-%m-%d %H:%M:%S"}</td>
+            <td>{$shop.open_time} - {$shop.close_time}</td>
+            <td>
+                {if $shop.s_status eq 1}
+                <a type="button" href="shop_info.php?act=shop_unlock_do&id={$shop.s_id}" class="btn btn-green" data-toggle="doajax" data-confirm-msg="您真的要让这家店铺开始营业吗？">去营业</a>
+                {else}
+                <a type="button" href="shop_info.php?act=shop_lock_do&id={$shop.s_id}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="您真的要让这家店铺立刻打烊吗？">去打烊</a>
+                {/if}
+                <a href="shop_info.php?act=shop_edit_view&id={$shop.s_id}" class="btn btn-green" data-id="shop_edit_view" data-toggle="dialog" data-mask="true" data-width="600"  data-height="420" data-title="编辑店铺信息">店铺编辑</a>
+                <a href="shop_info.php?act=shop_game_list_view&id={$shop.s_id}" class="btn btn-green" data-id="shop_edit_view" data-toggle="navtab" data-mask="true" data-width="600"  data-height="420" data-title="{$shop.s_name} - 店铺游戏列表">店铺游戏</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

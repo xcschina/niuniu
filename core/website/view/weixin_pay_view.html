@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>微信支付</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no, email=no"/>
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/website/wx_pay_md.css?t=3">
+    <script src="http://cdn.66173.cn/www/js/jquery-1.8.3.min.js"></script>
+    <script>
+        function initHTMLSize() {
+            var wWidth = document.documentElement.clientWidth || document.body.clientWidth;
+            var size = wWidth / 7.5;
+            document.getElementsByTagName('html')[0].style.fontSize = (size > 55 ? 55 : size) + 'px';
+        }
+        $(document).ready(function () {
+            initHTMLSize();
+        });
+        $(window).resize(function() {
+            initHTMLSize();
+        });
+    </script>
+</head>
+<body class="wx-pay-page">
+<div class="mask">
+    <div class="pop-wrapper">
+        <div class="pop-bg pop-bg-large">
+            <div class="font-lg pop-title"></div>
+            <div class="con">
+                <div class="pay-already-pop step-line-zone step1">
+                    <div class="step step1">
+                        <div class="dot dot1"></div>
+                        <div class="text text1">交易已完成</div>
+                    </div>
+                    <div class="step-line-gap step-line-gap1"></div>
+                    <div class="step step2">
+                        <div class="dot dot2"></div>
+                        <div class="text text2"><span class="rest-time">2</span>秒后跳转游戏</div>
+                    </div>
+                    <div class="step-line-gap step-line-gap2"></div>
+                    <div class="step step3">
+                        <div class="dot dot3"></div>
+                        <div class="text text3">返回游戏</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pop-bg pop-bg-small">
+            <div class="font-lg pop-title"></div>
+            <div class="con">
+                <div class="pay-check-pop">
+                    <div class="desc">
+                        1.如果您已支付请点击【已支付】返回APP.<br/>
+                        2.如果您未支付请点击【去支付】完成支付.<br/>
+                        3.请在微信内完成支付.
+                        <!--3.请在微信内完成支付,支付成功自动跳转.-->
+                    </div>
+                    <!--<div class="tip">支付安全由中国人民财产保险股份有限公司承保</div>-->
+                    <div class="font-mder btn-zone">
+                        <span class="bt-btn go-pay-btn">去支付</span>
+                        <span class="bt-btn already-pay-btn">已支付</span>
+                    </div>
+                </div>
+                <div class="pay-check-fail-pop">
+                    <div class="desc">{$msg}</div>
+                    <div class="font-mder btn-zone">
+                        <span class="bt-btn cancel-btn">知道了</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script>
+    var restTime = 2;
+    var restInterval;
+    var popType = '{$pop_type}';
+    if(popType == 2) {
+        popControl(".pop-bg-small", ".pay-check-pop", "确认支付");
+        reqPay();
+    } else {
+        popControl(".pop-bg-small", ".pay-check-fail-pop", "支付信息错误");
+        $(".pop-bg-small").addClass("red-color");
+    }
+    // 点击去支付
+    $("body").on("click", ".go-pay-btn", function() {
+        reqPay();
+    });
+    // 支付信息错误关闭点击弹窗
+    $("body").on("click", ".cancel-btn", function() {
+        closeWebPop();
+    });
+    // 支付完成
+    $("body").on("click", ".already-pay-btn", function() {
+        popControl(".pop-bg-large", ".pay-already-pop", "交易完成");
+        restInterval = setInterval(function() {
+            --restTime;
+            $(".rest-time").html(restTime);
+            if(restTime <= 0){
+                clearInterval(restInterval);
+                $(".step-line-zone").removeClass("step1").addClass("step2");
+                closeWebPop();
+            }
+        },1000)
+    });
+    // 关弹窗
+    function closeWebPop() {
+        closeweb();
+    }
+    // 支付
+    function reqPay() {
+        window.location.href = '{$wx_token}';
+    }
+    function popSize() {
+        // 大弹窗高度
+        $(".pop-bg-large").css("height", $(".pop-bg-large").width());
+        // 小弹窗高度
+//        $(".pop-bg-small").css("height", $(".pop-bg-small").width()*1.1);
+        $(".pop-bg-small").css("height", $(".pop-bg-small").width()*0.9);
+        // document.body.clientHeight
+        var minH = Math.min($(".mask").height(),window.screen.availHeight,window.screen.height);
+        $(".pop-bg").css("top", (minH-$(".pop-bg:visible").height())/3 + 'px');
+    }
+    // 弹窗控制
+    function popControl(popParentClass, popClass, popTitle) {
+        $(popParentClass).show().siblings().hide();
+        $(popClass).show().siblings().hide();
+        $(".pop-bg .pop-title").html(popTitle);
+        $(".mask").show();
+        popSize();
+    }
+</script>
+</html>

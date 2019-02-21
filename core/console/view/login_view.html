@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>系统登录</title>
+<script src="http://static.66173.cn/console/BJUI/js/jquery-1.7.2.min.js"></script>
+<script src="http://static.66173.cn/console/BJUI/js/jquery.cookie.js"></script>
+<!--<script src="http://{$smarty.server.SERVER_NAME}/static/js/sha256.js"></script>-->
+<link href="http://static.66173.cn/console/BJUI/themes/css/bootstrap.min.css" rel="stylesheet">
+<link href="http://static.66173.cn/console/BJUI/themes/css/login.css" rel="stylesheet">
+<!--[if lte IE 7]>
+<link href="http://static.66173.cn/console/BJUI/themes/css/ie7.css" rel="stylesheet">
+<div id="errorie"><div>您还在使用老掉牙的IE，请升级您的浏览器到 IE8以上版本 <a target="_blank" href="http://windows.microsoft.com/zh-cn/internet-explorer/ie-8-worldwide-languages">点击升级</a>&nbsp;&nbsp;强烈建议您更改换浏览器：<a href="http://down.tech.sina.com.cn/content/40975.html" target="_blank">谷歌 Chrome</a></div></div>
+<![endif]-->
+<script type="text/javascript">
+var COOKIE_NAME = 'sys__username';
+$(function() {
+	if ($.cookie(COOKIE_NAME)){
+	    $("#j_username").val($.cookie(COOKIE_NAME));
+	    $("#j_password").focus();
+	    $("#j_remember").attr('checked', true);
+	} else {
+		$("#j_username").focus();
+	}
+	$("#login_form").submit(function(){
+		var issubmit = true;
+		var i_index  = 0;
+		$(this).find('.in').each(function(i){
+			if ($.trim($(this).val()).length == 0) {
+				$(this).css('border', '1px #ff0000 solid');
+				issubmit = false;
+				if (i_index == 0)
+					i_index  = i;
+			}
+		});
+		if (!issubmit) {
+			$(this).find('.in').eq(i_index).focus();
+			return false;
+		}
+		var $remember = $("#j_remember");
+		if ($remember.attr('checked')) {
+			$.cookie(COOKIE_NAME, $("#j_username").val(), { path: '/', expires: 15 });
+		} else {
+			$.cookie(COOKIE_NAME, null, { path: '/' });  //删除cookie
+		}
+		$("#login_ok").attr("disabled", true).val('登陆中..');
+        var password =HMAC_SHA256_MAC($("#j_username").val(), $("#j_password").val());
+        return false;
+	});
+});
+
+</script>
+</head>
+<body>
+<div class="main_box">
+	<div class="login_box">
+        <div class="login_error_msg">{$smarty.session.login_error_msg}</div>
+        <div class="login_form">
+    		<form action="login.php?act=do_login" id="login_form" method="post">
+    			<div class="form-group" >
+    				<label for="j_username" class="t">用户名：</label> <input id="j_username" value="" name="account" type="text" class="form-control x219 in" autocomplete="off">
+    			</div>
+    			<div class="form-group">
+    				<label for="j_password" class="t">密　码：</label> <input id="j_password" value="" name="user_pwd" type="password" class="form-control x219 in">
+    			</div>
+    			<div class="form-group">
+                    <label class="t"></label>
+                    <div class="checkbox_div"><input id="j_remember" type="checkbox" value="true" class="checkbox" >&nbsp;记住登录账号</div>
+    			</div>
+    			<div class="form-group space">　
+                    <label class="l"></label>　
+    				<input type="submit" id="login_ok" value="&nbsp;登&nbsp;录&nbsp;" class="btn btn-primary btn-lg">&nbsp;&nbsp;&nbsp;&nbsp;
+    				<input type="reset" value="&nbsp;重&nbsp;置&nbsp;" class="btn btn-default btn-lg">
+    			</div>
+    		</form>
+        </div>
+	</div>
+</div>
+</body>
+</html>

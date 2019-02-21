@@ -1,0 +1,36 @@
+<script>
+    $(document).ready(function(){
+        $("select[name=sys_game_id]").chosen();
+    })
+</script>
+<div class="bjui-pageContent">
+    <form action="7881.php?act=do_edit&id={$info.id}"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td><label  class="control-label x120">7881游戏名称：</label>{$info.game_name}({$info.products})</td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">系统游戏绑定：</label>
+                    <select name="sys_game_id">
+                        <option value="0">请选择</option>
+                        {foreach from=$sys_games item=g}
+                        <option value="{$g.id}"{if $g.id eq $info.sys_game_id} selected{/if}>{$g.game_name}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            <input type="hidden" name="id" value="{$id}">
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+
+

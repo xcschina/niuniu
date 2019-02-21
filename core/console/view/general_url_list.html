@@ -1,0 +1,44 @@
+
+<div class="bjui-pageContent">
+    <form id="pagerForm" action="general.php?act=url_list&id={$id}" method="post" data-toggle="ajaxsearch">
+        <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+            <thead>
+            <tr align="center">
+                <th width="12">No.</th>
+                <th width="160">渠道</th>
+                <th width="100">链接地址</th>
+                <th width="100">下载量</th>
+                <th width="100">访问量 </th>
+                <th width="100">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach item=data from=$general_list}
+            <tr align="center">
+                <td>{$data.id}</td>
+                <td>
+                    {$data.code}
+                </td>
+                <td>
+                    <!--<a href="http://ad.66173yx.com/website.php?act=general&id={$data.id}" target="_blank">推广地址</a>-->
+                    <a href="http://www.66173.cn/website.php?act=general&id={$data.id}" target="_blank">推广地址</a>
+                </td>
+                <td>{$data.down_num}</td>
+                <td>{$data.visit_num}</td>
+                <td>
+                    {if !$type}
+                    <a type="button" href="general.php?act=del_general&id={$data.id}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要删除该行信息吗？">删除</a>
+                    {/if}
+                </td>
+            </tr>
+            {/foreach}
+            </tbody>
+        </table>
+    </form>
+</div>
+
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>
+

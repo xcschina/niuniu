@@ -1,0 +1,122 @@
+<!doctype html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+        <title>{$game.game_name}官网 - {$shop.s_name} - 66173</title>
+        <meta name="keywords" content="{if $game.keyword neq ''}{$game.keyword}{else}{$game.game_name}{/if}" />
+        <meta name="description" content="66173提供{$game.game_name}首充号、代充、装备、金币的购买。玩家都在66173进行{$game.game_name}的游戏交易。66173是知名的手游交易平台。" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <link rel="stylesheet" type="text/css" href="http://static.66173.cn/shop/m/css/common.css?t={rand(1,10000)}" media="screen" />
+        <link rel="stylesheet" type="text/css" href="http://static.66173.cn/shop/m/css/pay.css?t={rand(1,10000)}" media="screen" />
+    </head>
+    <body>
+
+{include file="{$TPL}/include/shop_header.html" title="{$shop.s_name}"}
+    <nav class="pay-nav clearfix">
+    	<ul class="pay-nav-list clearfix">
+    		<li class="on"><a href="#;" rel="1">商品购买</a></li>
+    		<!-- <li><a href="#;" rel="2">礼包领取</a></li> -->
+            {if $shop.s_id eq 22}
+            <!--<li><a href="http://m.66173.cn/my.php?act=game_down_url&url=http://apk.66173.cn/1012/FKNSG2_20161020_v1.0_66173.apk" rel="3">游戏下载</a></li>-->
+            {/if}
+    		<!-- <li><a href="#;" rel="4">游戏资讯</a></li>  -->
+    	</ul>
+    </nav>
+<div id="sec1" class="game_box">
+    <section class="pay-game clearfix">
+        <img src="http://static.66173.cn/{$game.game_icon}" alt="{$game.game_name}" />
+        <h2 class="pay-game-name">{$game.game_name}</h2>
+    </section>
+    <section class="clearfix">
+        <header class="pay-tit clearfix">
+            <h3 class="pay-tit-h">交易类型:</h3>
+        </header>
+        <div class="cate-box clearfix">
+            <a class="buy-cate" href="/{$shop.s_id}-{$game.id}-character.html">首充号</a>
+            <a class="buy-cate" href="/{$shop.s_id}-{$game.id}-recharge.html">首充号续充</a>
+        </div>
+    </section>
+</div>
+<!-- <div id="sec2" style="display: none" class="game_box">
+    <ul class="lb-list clearfix">
+        {foreach from=$gifts item=g}
+        <li>
+            <a href="/gift{$g.id}">
+                <img src="http://static.66173.cn/{$g.game_icon}" alt="name"><em>{$g.game_name}</em><span class="lb-stxt">{$g.title}</span><span class="lb-sinfo">{$g.content}</span>
+            </a>
+            {if $g.is_get}
+                <a href="/gift{$g.id}" class="chart chart-2{if $g.remain<1} over{/if}" data-percent="{($g.remain/$g.num)*100}">已领<canvas height="45" width="45"></canvas></a>
+            {else}
+                {if $g.remain<1}
+                <a href="/gift{$g.id}" class="chart chart-1 over" data-percent="0">已结束<canvas height="45" width="45"></canvas></a>
+                {else}
+                <a href="/gift{$g.id}" class="chart chart-1" data-percent="{($g.remain/$g.num)*100}">领取<canvas height="45" width="45"></canvas></a>
+                {/if}
+            {/if}
+        </li>
+        {/foreach}
+    </ul>
+</div> -->
+<div id="sec3" style="display: none" class="game_box">
+    <ul class="gm-list clearfix">
+        {foreach from=$downs item=d}
+        <li><a href="{$d.url}" target="_blank" rel="noopener noreferrer"><img src="http://static.66173.cn/{$d.icon}" /><em>{$d.title}</em></a><a href="{$d.url}" class="gm-btn">下载</a></li>
+        {/foreach}
+    </ul>
+</div>
+<!-- <div id="sec4" style="display: none" class="game_box">
+    <ul class="zx-list clearfix">
+        {foreach from=$news item=n}
+        <li><a href="/info/{$n.id}"><span>{"m-d"|date:$n.add_time}</span>{$n.title}</a></li>
+        {/foreach}
+    </ul>
+</div> -->
+{include file="{$TPL}/include/footer.html"}
+<!-- <script src="http://static.66173.cn/shop/m/scripts/zepto.min.js"></script> -->
+<!-- <script src="http://static.66173.cn/shop/m/scripts/script.js"></script> -->
+
+<!-- {literal}
+<script>
+    $(document).ready(function(){
+        $("ul.pay-nav-list a").click(function(){
+            game_box_nav(this);
+        });
+    });
+    function game_box_nav(obj){
+        $("div.game_box").hide();
+        $("ul.pay-nav-list li").removeClass("on");
+        $(obj).parent("li").attr("class","on");
+        $("#sec"+$(obj).attr("rel")).show();
+    }
+    var optionsg = {
+        scaleColor: false,
+        trackColor: '#ccc',
+        barColor: '#30b66f',
+        lineWidth: 3,
+        lineCap: 'butt',
+        size: 45
+    };
+    var optionsb = {
+        scaleColor: false,
+        trackColor: '#ccc',
+        barColor: '#317ee7',
+        lineWidth: 3,
+        lineCap: 'butt',
+        size: 45
+    };
+    window.addEventListener('DOMContentLoaded', function() {
+        var charts = [];
+        [].forEach.call(document.querySelectorAll('.chart-1'),  function(el) {
+            charts.push(new EasyPieChart(el, optionsg));
+        });
+        [].forEach.call(document.querySelectorAll('.chart-2'),  function(el) {
+            charts.push(new EasyPieChart(el, optionsb));
+        });
+    });
+
+</script>
+{/literal} -->
+</body>
+</html>

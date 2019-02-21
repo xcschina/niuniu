@@ -1,0 +1,219 @@
+<!--登录弹窗-->
+<div class="tc_bg"></div>
+<div class="phone_box po_fs">
+    <form action="" method="post" id="">
+        <a href="javascript:void(0);" class="absolute close_phone">
+            <img width="20" height="20" src="http://static.kuyoo.com/kuyoo/wwwv2/img/guanbi.jpg">
+        </a>
+        <div class="login_txt h-260">
+            <div class="title">绑定手机号</div>
+            <div class="row">
+                <span class="icon_user"></span>
+                <input type="text" class="txt" placeholder="手机号/用户名" name="mobile" id="b_mobile" value=""/>
+            </div>
+            <div class="row">
+                <span class="icon_sms"></span>
+                <input type="text" class="txt" placeholder="验证码" name="sms_code" id="b_sms_code" value=""/><a href="#" rel="1" class="yzm" id="send_code">验证码</a>
+            </div>
+            <div class="row">
+                <span class="icon_pw"></span>
+                <input type="password" class="txt" placeholder="设置密码" name="password" id="b_password" value=""/>
+            </div>
+            <div class="row">
+                <span class="icon_pw"></span>
+                <input type="password" class="txt" placeholder="重复密码" name="cpassword" id="b_cpassword" value=""/>
+            </div>
+            <div class="btn_bd">
+                <!--<a href="#;" onclick="ban_success();" class="btn_big">绑定手机号</a>-->
+                <a href="#;" onclick="javascript:qq_login_phone_bind();"  class="btn_big">绑定手机号</a>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="ban_success po_f">
+    <a href="javascript:void(0);" class="absolute close_success">
+        <img width="20" height="20" src="http://static.kuyoo.com/kuyoo/wwwv2/img/guanbi.jpg">
+    </a>
+    <img width="80" height="80" class="success_bg" src="http://static.kuyoo.com/kuyoo/wwwv2/img/guanbi.jpg">
+</div>
+<!--登录弹窗-->
+<!--登录弹窗-->
+<div class="tc_bg"></div>
+<div class="login_box po_f">
+    <form action="/account.php?act=ky_login" method="post" id="do_login">
+        <a href="javascript:void(0);" class="absolute guanbi">
+            <img width="20" height="20" src="http://static.kuyoo.com/kuyoo/wwwv2/img/guanbi.jpg">
+        </a>
+        <div class="login_txt">
+            <div class="title">酷游用户登录</div>
+            <div class="qq_lohin" style="margin-top: -10px">
+                <a href="http://shouyou.kuyoo.com/account.php?act=qq_login" rel="nofollow"><img src="./tianlong/imgs/qqlogin.png"></a>
+            </div>
+        </div>
+        <div class="login_txt" style="border-bottom: 0">
+            <div class="row">
+                <span class="icon_user"></span>
+                <input type="text"  class="txt" placeholder="手机号/用户名" name="mobile" id="login_mobile" value="" />
+            </div>
+            <div class="row">
+                <span class="icon_pw"></span>
+                <input type="password" class="txt" placeholder="您的密码" name="password" id="login_password" value="" />
+            </div>
+            <div class="row">
+                <label><input type="checkbox" name="cookie_check" class="re_pwd"/>记住我的登录状态</label>
+                <a href="http://shouyou.kuyoo.com/account.php?act=forget" target="_blank" rel="noopener noreferrer" class="forget_pwd">忘记密码</a>
+                <div class="clear_both"></div>
+            </div>
+            <div>
+                <a href="#;" onclick="login_verify();"  class="btn_red_big">登录</a>
+            </div>
+        </div>
+    </form>
+</div>
+<!--登录弹窗-->
+<!--成功提示-->
+<div class="ban_success po_f">
+    <a href="javascript:void(0);" class="absolute close_success">
+        <img width="20" height="20" src="http://static.kuyoo.com/kuyoo/wwwv2/img/guanbi.jpg">
+    </a>
+    <img width="80" height="80" class="success_bg" src="./tianlong/imgs/btn_success.png">
+    <p>恭喜你成功绑定手机</p>
+</div>
+<!--成功提示-->
+<!--我的礼包-->
+<div class="f_box po_f my_gift_box">
+    <div class="f_title_bg"><a class="close_btn" onclick=""></a></div>
+    <div class="f_my_gift">
+        <p class="m-l-30">礼包码:<span class="red"></span><a href="#" class="f_copy">复制</a></p>
+        <p class="m-l-30 affi_time"></p>
+        <p class="m-l-30">使用方式：点击游戏右上角-领奖-激活-输入兑奖码-邮箱领取</p>
+    </div>
+    <div class="pad-30-0"></div>
+</div>
+
+
+
+<!--带分享弹窗-->
+<!--带按钮弹窗-->
+<!--<div class="f_box po_f get_gift_box" style="display: block">-->
+    <!--<div class="f_title_bg"><a class="close_btn" onclick=""></a></div>-->
+    <!--<h3>登录酷游才能领取天龙八部3D高级礼包哦!</h3>-->
+    <!--<a href="javascript:dologin();"><img width="250" height="90" src="./tianlong/imgs/to_login.png"></a>-->
+    <!--<div class="pad-10-0"></div>-->
+<!--</div>-->
+<!--带按钮弹窗-->
+<!--带分享弹窗-->
+<div class="f_box prize_coupon po_f">
+    <div class="f_title_bg"><a class="close_btn" onclick=""></a></div>
+    <h3 id="prize_coupon_t">恭喜您成功领取价值<span class="red">{$smarty.session.prize_name}</span>的酷游现金券一份!</h3>
+    <img class="sup_img" id="f_img" src="./tianlong/imgs/f_c3.png">
+    <!--<div class="b-b1"></div>-->
+    <div class="f_share_box">
+        <section class="fl">喊小伙伴一起来领奖</section>
+        <section class="fr">分享至:
+            <ul class="fr">
+                <li class="fl m-l-5 m-t-5"><a><img width="35" height="35" src="./tianlong/imgs/f_wx.png"></a></li>
+                <li class="fl m-l-5 m-t-5"><a><img width="35" height="35" src="./tianlong/imgs/f_qz.png"></a></li>
+                <li class="fl m-l-5 m-t-5"><a><img width="35" height="35" src="./tianlong/imgs/f_wb.png"></a></li>
+                <li class="fl m-l-5 m-t-5"><a><img width="35" height="35" src="./tianlong/imgs/f_qq.png"></a></li>
+            </ul>
+        </section>
+    </div>
+    <div class="f_ban_box">
+        <p>为了方便奖品发放,请务必绑定手机<a href="#" class="red">&nbsp;绑定手机>></a></p>
+    </div>
+</div>
+<!--带分享弹窗-->
+<!--带分享弹窗-->
+<div class="f_box prize_phone po_f">
+    <div class="f_title_bg"><a class="close_btn" onclick=""></a></div>
+    <h5 id="prize_phone_t">恭喜您成功获得<span class="red">iphone7</span>一台</h5>
+    <img class="phone_img" id="phone_img" src="./tianlong/imgs/f_mi.png">
+    <!--<img class="phone_img" src="./tianlong/imgs/f_ip7.png">-->
+    <a href="#"><img width="160" height="50" src="./tianlong/imgs/to_ser.png"></a>
+    <div class="f_share_box">
+        <section class="fl">喊小伙伴一起来领奖</section>
+        <section class="fr">分享至:
+            <ul class="fr">
+                <li class="fl m-l-5 m-t-5"><a><img width="35" height="35" src="./tianlong/imgs/f_wx.png"></a></li>
+                <li class="fl m-l-5 m-t-5"><a><img width="35" height="35" src="./tianlong/imgs/f_qz.png"></a></li>
+                <li class="fl m-l-5 m-t-5"><a><img width="35" height="35" src="./tianlong/imgs/f_wb.png"></a></li>
+                <li class="fl m-l-5 m-t-5"><a><img width="35" height="35" src="./tianlong/imgs/f_qq.png"></a></li>
+            </ul>
+        </section>
+    </div>
+    <div class="f_ban_box">
+        <p>为了方便奖品发放,请务必绑定手机<a href="#" class="red">&nbsp;绑定手机>></a></p>
+    </div>
+</div>
+<!--带分享弹窗-->
+<!--带分享弹窗-->
+<div class="f_box prize_gift po_f">
+    <div class="f_title_bg"><a class="close_btn" onclick=""></a></div>
+    <h4 id="prize_gift_t"> </h4>
+    <div class="f_get_code">
+        <section class="fri"><img width="100" src="./tianlong/imgs/f_qr.png"></section>
+        <section class="sec">
+            <p>礼包码:<span class="red" id="gift_code"></span><a href="#" id="f_copy" class="f_copy">复制</a></p>
+            <p>扫描发送礼包码到手机里面查看</p>
+        </section>
+    </div>
+    <div class="f_share_box">
+        <section class="fl">喊小伙伴一起来领奖</section>
+        <section class="fr">分享至:
+            <ul class="fr">
+                <li class="fl m-l-5 m-t-5"><a><img width="35" height="35" src="./tianlong/imgs/f_wx.png"></a></li>
+                <li class="fl m-l-5 m-t-5"><a><img width="35" height="35" src="./tianlong/imgs/f_qz.png"></a></li>
+                <li class="fl m-l-5 m-t-5"><a><img width="35" height="35" src="./tianlong/imgs/f_wb.png"></a></li>
+                <li class="fl m-l-5 m-t-5"><a><img width="35" height="35" src="./tianlong/imgs/f_qq.png"></a></li>
+            </ul>
+        </section>
+    </div>
+    <div class="f_ban_box">
+        <p>为了方便奖品发放,请务必绑定手机<a href="#" class="red">&nbsp;绑定手机>></a></p>
+    </div>
+</div>
+<!--带分享弹窗-->
+<div class="f_box no_prize po_f">
+    <div class="f_title_bg"><span class="f_title">我的奖品</span><a class="close_btn" onclick=""></a></div>
+    <div class="pad-30-0">
+        <img src="./tianlong/imgs/f_fail.png">
+        <p class="no_prize">您当前尚未抽到奖品哦~</p>
+    </div>
+</div>
+
+<div class="f_box no_coupon po_f">
+    <div class="f_title_bg"><span class="f_title">我的优惠卷</span><a class="close_btn" onclick=""></a></div>
+    <div class="pad-30-0">
+        <img src="./tianlong/imgs/f_fail.png">
+        <p class="no_prize">您当前还没有优惠卷~</p>
+    </div>
+</div>
+
+<!--带分享弹窗-->
+<!--带分享弹窗-->
+<div class="f_box show_coupon po_f">
+    <div class="f_title_bg"><span class="f_title">我的优惠券</span><a class="close_btn" onclick=""></a></div>
+    <div>
+        <ul class="f_my_coupon">
+            <li class="f_label c_list">
+                <div class="w-6-f">奖品名称</div>
+                <div class="w-4-f">数量</div>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--带分享弹窗-->
+<!--带分享弹窗-->
+<div class="f_box po_f myprize">
+    <div class="f_title_bg"><span class="f_title">我的奖品</span><a class="close_btn" onclick=""></a></div>
+    <div>
+        <ul class="f_my_prize">
+            <li class="f_label p_list">
+                <div>奖品名称</div>
+                <div>中奖时间</div>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--带分享弹窗-->

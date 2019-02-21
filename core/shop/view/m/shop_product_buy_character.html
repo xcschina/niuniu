@@ -1,0 +1,214 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>{$shop.s_name} - {$shop_game.game_name}首充号购买</title>
+    <meta name="keywords" content="{$shop_game.game_name}充值,{$shop_game.game_name}首充号购买" />
+    <meta name="description" content="找{$shop_game.game_name}首充号吗？很多玩家都在66173交易{$shop_game.game_name}首充号，只需官网原价的2~5折。欢迎您到66173，66173是知名的手游交易平台。" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://static.66173.cn/shop/m/css/common.css?t={rand(1,10000)}" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://static.66173.cn/shop/m/css/pay.css?t={rand(1,10000)}" media="screen" />
+</head>
+<body>
+{include file="{$TPL}/include/shop_header.html" title="{$shop.s_name}"}
+<section class="pay-game clearfix">
+    <img src="http://static.66173.cn/{$shop_game.game_icon}" alt="{$shop_game.game_name}" />
+    <h2 class="pay-game-name">{$shop_game.game_name}</h2>
+</section>
+<!-- Str交易类型 -->
+<section class="clearfix">
+    <header class="pay-tit clearfix">
+        <h3 class="pay-tit-h">商品类型:</h3>
+        <span class="pay-type-txt">首充号</span>
+    </header>
+</section>
+<!-- End交易类型 -->
+
+<!-- Str商品选择 -->
+<section class="com-choose clearfix">
+    <header class="com-choose-h clearfix">
+        <h3 class="pay-tit-h">商品选择：</h3>
+        <span class="com-choose-s" id="slt-product">{$product.title}<em>点击更换</em></span>
+    </header>
+    {if $sub_title}
+    <ul class="com-choose-list clearfix">
+        <li><a data-txt="{$sub_title[0]}">{$sub_title[1]}</a></li>
+    </ul>
+    {/if}
+</section>
+<!-- End商品选择 -->
+
+<form action="/order-review.html" method="post" name="payform">
+<!-- Str渠道选择 -->
+<section class="mt-10 clearfix">
+    <header class="pay-tit clearfix"><h3 class="pay-tit-h">渠道选择：</h3></header>
+
+    {if $chs.android|@count gt 0}
+    <h5 class="android">安卓版</h5>
+    <ul class="gver-list clearfix">
+        {foreach from=$chs.android item=ch key=k}
+        <li rel="{$ch.priority_discount}">
+            <a href="#;" rel="{$ch.id}">
+                <span><img src="http://static.66173.cn/{$ch.icon}" /><label>{$ch.channel_name}</label></span>
+                <em>{$ch.priority_discount}折</em>
+            </a>
+        </li>
+        {/foreach}
+    </ul>
+    {/if}
+
+    {if $chs.ios|@count gt 0}
+    <h5 class="ios">苹果iOS版</h5>
+    <ul class="gver-list clearfix">
+        {foreach from=$chs['ios'] item=ch key=k}
+        <li rel="{$ch.priority_discount}">
+            <a href="#;" rel="{$ch.id}">
+                <span><img src="http://static.66173.cn/{$ch.icon}" /><label>{$ch.channel_name}</label></span>
+                <em>{$ch.priority_discount}折</em>
+            </a>
+        </li>
+        {/foreach}
+    </ul>
+    {/if}
+
+    <div class="pay-money clearfix"><span>折扣价：<em id="dprice">￥{$product.price}</em></span><span class="fr">原价：￥{$product.price}</span> </div>
+</section>
+<!-- End渠道选择 -->
+
+<!-- Str填写账户信息 -->
+<section class="clearfix">
+    <header class="pay-tit clearfix"><h3 class="pay-tit-h">填写账户信息</h3></header>
+    <div class="card-info-box clearfix">
+        <label><i>*</i>选择区服：</label>
+        <a class="sel-sev" href="#;" onclick="select_servs();">点击选择服务器</a>
+    </div>
+    {foreach from=$tags item=tag key=k}
+    <div class="card-info-box">
+        <label><i>*</i>{$k}：</label>
+        <select name="attr[]">
+            {foreach from=$tag item=t}
+            <option value="{$k}:{$t}">{$t}</option>
+            {/foreach}
+        </select>
+    </div>
+    {/foreach}
+    <div class="card-info-box-2 clearfix" id="is-rand-game-user">
+        <label>随机角色名：</label>
+        <a href="#;" rel="1">是</a><a href="#;" class="on">否</a>
+    </div>
+    <div class="card-info-box-3 clearfix rand-user">
+        <div class="card3-con">
+            <label><i>*</i>角色名：</label>
+            <input name="role_name" type="text" placeholder="请输入您想要的角色名" class="card-input" />
+        </div>
+    </div>
+
+    <div class="card-info-box-3 clearfix rand-user">
+        <p class="card3-con-txt">备用角色名不能与角色名一样</p>
+        <div class="card3-con">
+            <label><i>*</i>备用角色名：</label>
+            <input name="role_back_name" type="text" placeholder="如角色名被占用 将使用备用名" class="card-input" />
+        </div>
+    </div>
+
+    <div class="card-info-box-3 clearfix rand-user">
+        <div class="card3-con">
+            <label><i></i>备注：</label>
+            <input name="remarks" type="text" placeholder="请输入您需要给客服的留言" class="card-input" />
+        </div>
+    </div>
+
+</section>
+<!-- End填写账户信息 -->
+
+<!-- Str联系方式 -->
+<section class="mt-10 clearfix">
+    <header class="pay-tit clearfix">
+        <h3 class="pay-tit-h">联系方式</h3>
+    </header>
+    <div class="card-info-box clearfix">
+        <label><i>*</i>手机：</label>
+        <input name="tel" type="text" placeholder="{if !$smarty.session.buy_mobile}请输入联系手机{/if}" class="card-input" value="{$smarty.session.buy_mobile}" />
+        <a class="card-close-1"></a>
+    </div>
+    <div class="card-info-box clearfix">
+        <label><i>*</i>QQ：</label>
+        <input name="qq" type="number" class="card-input" value="{$smarty.session.buy_qq}"/>
+        <a class="card-close-1"></a>
+    </div>
+    <a class="b-btn" href="#;" onclick="go_pay();">提交订单</a>
+</section>
+<!-- End联系方式 -->
+
+<section class="clearfix">
+    <header class="pay-tit clearfix"><h3 class="pay-tit-h">购买流程</h3></header>
+    <ul class="shop-rule clearfix">
+        <li><i>1.</i>选择充值类型</li>
+        <li><i>2.</i>完善账号信息</li>
+        <li><i>3.</i>提交订单</li>
+    </ul>
+</section>
+<input type="hidden" name="channel_id" value="0">
+<input type="hidden" name="service_id" value="1">
+<input type="hidden" name="price" value="{$product.price}" />
+<input type="hidden" name="stprice" value="{$product.price}" />
+<input type="hidden" name="pagehash" value="{$pagehash}" />
+<input type="hidden" name="game_id" value="{$shop_game.id}" />
+<input type="hidden" name="shop_id" value="{$shop.s_id}" />
+<input type="hidden" name="is_login" value="{$is_login}" />
+<input type="hidden" name="id" value="{$product.id}" />
+<input type="hidden" name="is_rand_user" value="0" />
+<input type="hidden" name="serv_id" value="0" />
+<input type="hidden" name="buy_type" value="1" />
+<input type="hidden" name="do" value="character" />
+<input type="hidden" name="num" value="1" />
+<input type="hidden" name="is_agent" value="{$smarty.session.is_agent}" />
+<input type="hidden" name="role_level" value="0" />
+<input type="hidden" name="serv_name" value="" />
+
+<input type="hidden" name="user_id" value="{$smarty.session.user_id}" />
+<input type="hidden" name="game_user" value="" />
+<input type="hidden" name="game_pwd" value="" />
+
+<input type="hidden" name="channel_name" value="">
+<input type="hidden" name="shop_name" value="{$shop.s_name}" />
+<input type="hidden" name="product_name" value="{$product.title}" />
+<input type="hidden" name="game_name" value="{$shop_game.game_name}">
+</form>
+{include file="{$TPL}/include/footer.html"}
+<div class="side-bg" id="servs"></div>
+<div class="side-bg" id="products"></div>
+<div class="side-bg" id="login"></div>
+<div class="side-bg" id="game_ch_serv"></div>
+{if !$smarty.session.buy_mobile}
+{literal}
+<script>
+    $(document).ready(function(){
+        $("input").on("click", function (e) {
+            $(this).blur();
+            login_mask();
+        });
+    })
+    function login_mask(){
+        var $url = "/index.php?act=ajax_login";
+        if($("input[name='user_id']").val()){
+            return true;
+        }
+        $('body,html').animate({scrollTop:0},0);
+        $("#login").load($url,function(responseTxt,statusTxt,xhr){
+            if(statusTxt=="error"){
+                $("#login").html("<h5>加载数据失败</h5>");
+            }
+        }).css("display","block");
+        $("#login").find("input[name='mobile']").focus();
+        return false;
+    }
+</script>
+{/literal}
+{/if}
+<script src="http://static.66173.cn/shop/m/scripts/buy_static.js"></script>
+<script src="http://static.66173.cn/shop/m/css/side.css?t=3191"></script>
+</body>
+</html>

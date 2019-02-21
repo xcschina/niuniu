@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<script src="//cdn.66173.cn/www/js/jquery-1.8.3.min.js"></script>
+	<title>登录</title>
+	<style>
+		html {
+			background-color: #333;
+			position: relative;
+		}
+        .login-btn {
+            position: fixed;
+            color: white;
+            width: 8rem;
+            margin: auto;
+            left: 0;
+            right: 0;
+            top: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            -webkit-transition: all 0.3s ease-in-out;
+            -webkit-tap-highlight-color:rgba(0,0,0,0);
+        }
+        .login-btn:hover {
+            transform: scale(1.01);
+            -webkit-transform: scale(1.01);
+        }
+
+	</style>
+</head>
+<body>
+	<img class="login-btn" src="//cdn.66173.cn/mobile/v2/css/img/jyjy/btn_go_login.png">
+	<input type="hidden" id="platform" value="huawei"/>
+	<input type="hidden" id="isND" value="2"/>
+	<input type="hidden" id="isNL" value="2"/>
+	<input type="hidden" id="gameUrl" value="https://lcwslogpy.newyx.jiulingwan.com/niuniu/login/login"/>
+	<!--<input type="hidden" id="gameUrl" value="https://rk.lyzbh5.jiulingwan.com/59/login_web.php"/>-->
+</body>
+{literal}
+<script>
+    (function() {
+        var commonM, commonC, commonS;
+        var beforeGameInterval;
+        var NMRTSDK = {
+            va: {
+                initCb: function(){},
+                loginCb: function(){},
+                sdfConfIndex: null,
+                sdkInited: false,
+                _du: true,
+                isLocal: false,
+            },
+            noop: function() {},
+            event: function() {
+                var c = this;
+                $("body").on("click", ".login-btn", function() {
+                    c.login();
+                });
+            },
+            isSdkInited: function() {
+                return this.va.sdkInited;
+            },
+            login: function(cb) {
+                var c = this;
+                if(!c.isSdkInited()) {
+                    console.log("sdk尚未完成初始化");
+                    return false;
+                }
+                commonM.isFunction(cb) && (c.va.loginCb = cb);
+                window.pltLogin && pltLogin();
+            },
+            loginCb: function() {
+
+                var platform = document.getElementById("platform").value;
+                var isND = document.getElementById("isND").value;
+                var isNL = document.getElementById("isNL").value;
+                var gameUrl = document.getElementById("gameUrl").value;
+                if(gameUrl) {
+                    var a = "platform=" + platform + "&isND=" + isND + "&isNL=" + isNL;
+                    gameUrl = gameUrl.indexOf("?") > 0 ? gameUrl + "&" + a : gameUrl + "?" + a;
+        			window.location.href = gameUrl;
+                }
+            },
+            getSdkConfig: function(sdks) {
+                var c = this;
+                var i, sdk, len = sdks.length;
+                for (i = 0; i < len; i++) {
+                    sdk = sdks[i];
+                    if (sdk != null && sdk.pfId == commonC.uaObj.platform) {
+                        c.va.sdfConfIndex = i;
+                        return sdk;
+                    }
+                }
+            },
+            initSDK: function(sdk) {
+                var c = this;
+                var sdkSrc = c.va.isLocal ? sdk.sdkSrcLocal : sdk.sdkSrc;
+                $.getScript(sdkSrc, function() {
+                    c.va.sdkInited = true;
+                    commonM.isFunction(c.va.initCb) && c.va.initCb();
+                     c.login();
+                });
+            },
+            init: function(data, cb) {
+                var c = this, sdk;
+                c.event();
+                $.getScript('//cdn.66173.cn/mobile/scripts/sdkmrt/js/comSet.js', function () {
+                    commonM = window.NMRTCommonM;
+                    commonC = window.NMRTCommonC;
+                    commonS = window.NMRTCommonS;
+                    var b = commonM.browserRel();
+                    var t = (new Date()).getTime();
+                    var platform = $("#platform").val() || "huawei";
+                    //是否调试
+                    if(commonM.getQueryString("isND") == 1) {
+                        c.va._du = true;
+                    } else if(commonM.getQueryString("isND") == 2) {
+                        c.va._du = false;
+                    } else {
+                        c.va.du = data.debug ? true : false;
+                    }
+                    //是否用本地数据
+                    if(commonM.getQueryString("isNL") == 1) {
+                        c.va.isLocal = true;
+                    } else if(commonM.getQueryString("isNL") == 2) {
+                        c.va.isLocal = false;
+                    } else {
+                        c.va.isLocal = data.isLocal ? true : false;
+                    }
+
+                    commonM.isFunction(cb) && (c.va.initCb = cb);
+                    commonC.uaObj = {
+                        platform: platform
+                    };
+                    commonC.infoObj = {
+                        browserRel: b
+                    };
+                    if(platform) {
+                        sdk = c.getSdkConfig(window.NMRTSDKMAP);
+                        if (sdk) {
+                            c.initSDK(sdk);
+                        }
+                    } else {
+                        alert(" 无渠道 ")
+                    }
+                })
+            }
+        };
+        window.NMRTSDK = NMRTSDK;
+
+    })();
+    NMRTSDK.init({});
+</script>
+{/literal}
+</html>

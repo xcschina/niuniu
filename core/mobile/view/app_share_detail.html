@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{$info.game_name} - 牛果游戏 NEW游戏NEW快乐</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    {if $info.isTX eq 1}
+    <meta property="og:image" content="{$info.game_icon}"/>
+    {else}
+    <meta property="og:image" content="//cdn.66173.cn{$info.game_icon}"/>
+    {/if}
+    <meta name="description" content="{$info.game_title}"/>
+    <meta name="keywords" content="牛果游戏,{$info.game_name},{$info.game_title}"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no, email=no"/>
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <link rel="stylesheet" type="text/css" href="//cdn.66173.cn/app/swiper/swiper3-4-1-min.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.66173.cn/app/css/app_share_detail.css?t={$smarty.now}">
+    <script src="//cdn.66173.cn/www/js/jquery-1.8.3.min.js"></script>
+</head>
+<body class="m-station game-detail-page">
+<div style="display:none;"><img src="{if $info.isTX eq 1}{$info.game_icon}{else}http://cdn.66173.cn{$info.game_icon}{/if}" alt="" class="hidden-share-img"/></div>
+<header class="page-top clearfix">
+    <a class="link-niuguo" href="http://66173yx.com/">
+        <img src="//cdn.66173.cn/app/css/img/logo.png"/>
+        <div class="right">
+            <div class="font-mder name">牛果游戏</div>
+            <div class="font-md desc">NEW游戏，NEW快乐</div>
+        </div>
+    </a>
+    <a class="font-mder link-download-app" href="//imtt.dd.qq.com/16891/C6DD1D23AAEF76458F38863BE9883AEB.apk?csr=1bbd&fsname=com.niuniu.market_2.0.0.1_1.apk">下载</a>
+</header>
+<div class="sec detail-top">
+    <img src="{if $info.isTX eq 1}{$info.game_icon}{else}//cdn.66173.cn{$info.game_icon}{/if}" class="game-img"/>
+    <div class="center">
+        <div class="font-mder title">{$info.game_name}</div>
+        <div class="font-sm desc">{$info.game_title}</div>
+    </div>
+</div>
+<div class="sec shot-block">
+    <div class="title-wrapper">
+        <div class="font-mder title">游戏截图</div>
+    </div>
+    <div class="download-horizon-box clearfix">
+        {if $info.img1}
+            <ul class="swiper-wrapper clearfix">
+                {if $info.isTX eq 1}
+                    {if $info.img1}
+                    <li class="swiper-slide"><img src="{$info.img1}" alt="" /></li>
+                    {/if}
+                    {if $info.img2}
+                    <li class="swiper-slide"><img src="{$info.img2}" alt="" /></li>
+                    {/if}
+                    {if $info.img3}
+                    <li class="swiper-slide"><img src="{$info.img3}" alt="" /></li>
+                    {/if}
+                    {if $info.img4}
+                    <li class="swiper-slide"><img src="{$info.img4}" alt="" /></li>
+                    {/if}
+                {else}
+                    {if $info.img1}
+                    <li class="swiper-slide"><img src="//cdn.66173.cn{$info.img1}" alt="" /></li>
+                    {/if}
+                    {if $info.img2}
+                    <li class="swiper-slide"><img src="//cdn.66173.cn{$info.img2}" alt="" /></li>
+                    {/if}
+                    {if $info.img3}
+                    <li class="swiper-slide"><img src="//cdn.66173.cn{$info.img3}" alt="" /></li>
+                    {/if}
+                    {if $info.img4}
+                    <li class="swiper-slide"><img src="//cdn.66173.cn{$info.img4}" alt="" /></li>
+                    {/if}
+                {/if}
+            </ul>
+        {else}
+        <div class="font-md no-shot-tip">暂无截图~</div>
+        {/if}
+    </div>
+</div>
+<div class="sec brief-intro-block">
+    <div class="title-wrapper">
+        <div class="font-mder title">游戏简介</div>
+    </div>
+    <div class="font-md desc">
+       {$info.game_desc}
+    </div>
+</div>
+<div class="sec game-info-block">
+    <div class="title-wrapper">
+        <div class="font-mder title">游戏信息</div>
+    </div>
+    <div class="info-wrapper">
+        <div class="font-md item"><span class="key">大小：</span><span class="value">{$info.apk_size}</span></div>
+        <div class="font-md item"><span class="key">版本：</span><span class="value">V{$info.version}</span></div>
+        {if $info.isTX eq 1}
+        {else}
+        <div class="font-md item"><span class="key">系统：</span><span class="value">{$info.system}</span></div>
+        {/if}
+        <div class="font-md item"><span class="key">类型：</span><span class="value">{$info.tag}</span></div>
+        <div class="font-md item"><span class="key">语言：</span><span class="value">{if $info.language eq '0'}中文{else if $info.language eq '1'}English{/if}</span></div>
+        {if $info.isTX eq 1}
+        {else}
+        <div class="font-md item"><span class="key">时间：</span><span class="value">{'Y-m-d'|date:$info.update_time}</span></div>
+        {/if}
+    </div>
+</div>
+<div class="bottom-fix-zone">
+    <a class="font-lg link-download-game" href="{$info.down_url}">下载</a>
+</div>
+<div class="brief-tip-pop"><div class="font-md con"></div></div>
+<input type="hidden" value="{$noncestr}" id="noncestr"/>
+<input type="hidden" value="{$timestamp}" id="timestamp"/>
+<input type="hidden" value="{$signature}" id="signature" />
+</body>
+<script type="text/javascript" src="//cdn.66173.cn/app/swiper/swiper3-4-1-min.js"></script>
+<script>
+    // 分享相关
+    var share_link = window.location.href;
+    var share_title = $('title').html();
+    var share_desc = $('meta[name=description]').attr("content");
+    var share_img = $(".hidden-share-img").attr("src");
+    var swiper2 = new Swiper('.download-horizon-box', {
+        slidesPerView: 'auto',
+        paginationClickable: true,
+        spaceBetween: 0,
+        slideToClickedSlide: true
+    });
+    $(document).ready(function () {
+        initHTMLSize();
+    });
+    $(window).resize(function() {
+        initHTMLSize();
+    });
+
+    $("body").on("click", ".link-download-game, .link-download-app", function(e) {
+        if(isMobileIOS()) {
+            e.preventDefault();
+            briefTipControl("暂无苹果版app,此为安卓版~")
+        }
+    });
+    // 设置rem
+    function initHTMLSize() {
+        var wWidth = document.documentElement.clientWidth || document.body.clientWidth;
+        var size = wWidth / 7.5;
+        document.getElementsByTagName('html')[0].style.fontSize = (size > 55 ? 55 : size) + 'px';
+    }
+    // 判断是否ios设备
+    function isMobileIOS() {
+        var isIOS =(/iPhone|iPod|iPad/i).test(navigator.userAgent);
+        return isIOS ? true : false;
+    }
+    // 简单提示控制
+    function briefTipControl(text) {
+        $(".brief-tip-pop .con").html(text);
+        $(".brief-tip-pop").fadeIn(500).delay(1000).fadeOut(500);
+    }
+</script>
+
+<script src="//cdn.66173.cn/mobile/v2/scripts/share_tenxun_co.js"></script>
+<script type="text/javascript">
+    var noncestr = $("#noncestr").val();
+    var timestamp = $("#timestamp").val();
+    var signature = $("#signature").val();
+    setShareInfo({
+        title: share_title,
+        summary: share_desc,
+        pic: share_img,
+        url: share_link,
+        WXconfig: {
+            swapTitleInWX: true,
+            appId: 'wxbaed68c7f2f3a62c',
+            timestamp: timestamp,
+            nonceStr: noncestr,
+            signature: signature,
+            debug: false
+        }
+    });
+</script>
+</html>

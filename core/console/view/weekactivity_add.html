@@ -1,0 +1,79 @@
+
+{literal}
+<script type="text/javascript">
+    $(function(){
+        $("#links").chosen();
+        $("select[name=game_id]").chosen();
+    })
+</script>
+{/literal}
+
+<div class="bjui-pageContent">
+    <form action="weekactivity.php?act=activity_save" data-toggle="validate" data-alertmsg="false"  method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td><label  class="control-label x120">指定游戏：</label>
+                    <select name="game_id" data-rule="required" style="width: 200px">
+                        <option value="">请选择</option>
+                        {foreach from=$game_list item=game}
+                        <option value="{$game.id}">{$game.game_name}</option>
+                        {/foreach}
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏图片：</label>
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="game_pic.click()">选择图片</button>
+                    <input type="file" name="game_pic" style="display: none;" onchange="game_file.value=value"/>
+                    <input type="text" name="game_file" placeholder="None file"  class="form-control" size="15" data-rule="required" readonly/>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">商品名称：</label>
+                    <input type="text" name="game_name" value="" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">商品原价：</label>
+                    <input type="text" name="old_price" value="" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">商品折扣价：</label>
+                    <input type="text" name="new_price" value="" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">商品库存量：</label>
+                    <input type="text" name="repertory" value="" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">商品剩余库存：</label>
+                    <input type="text" name="false_reper" value="" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <label  class="control-label x120">游戏简介：</label>
+                    <textarea name="game_desc" id="game_desc" style="width:300px;height:70px;"></textarea>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+

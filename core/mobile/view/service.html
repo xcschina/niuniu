@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>在线咨询</title>
+    <meta name="description" content="" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/common.css?t={rand(1,10000)}" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/service.css?t={rand(1,10000)}" media="screen" />
+</head>
+<body>
+<header class="page-header clearfix">
+    <h1 class="h1-txt">在线咨询</h1>
+    <a href="javascript:history.back();" class="back-link"></a>
+</header>
+<div class="welcome">请选择您要联系的客服</div>
+<div class="tel">
+    <p>{$set.tel}</p>
+    <span>注意：客服热线电话均无外拨功能</span>
+</div>
+<div class="qq">
+    {foreach from=$servicies item=s}
+    <a href="http://wpa.qq.com/msgrd?v=3&uin={$s.qq}&site=qq&menu=yes" target="_blank" rel="noopener noreferrer">{$s.qq}<span>客服：{$s.usr_name}</span></a>
+    {/foreach}
+</div>
+{include file="include/footer.html"}
+</body>
+</html>

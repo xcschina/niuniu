@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<label for="imgFile">请上传图片：</label><input id="imgFile" type="file" multiple accept="image/jpeg,image/png,image/gif" />
+<div id="imgBox1"></div>    <!-- 展示用图片盒子 -->
+<div id="btnBox">
+    <button id="upBtn">上传</button>
+</div>
+
+<canvas id="myCanvas"></canvas>
+
+</body>
+<script src="http://cdn.staticfile.org/jquery/2.1.1-rc2/jquery.min.js"></script>
+{literal}
+<script>
+    var dataList = [];
+    // ele 上传input按钮
+    var formData = new FormData();
+    function imgUp(){
+        dataList = [];
+        var btnBox = document.getElementById('btnBox');
+        // 获取fileList 需要注意的是fileList是一个类数组的对象
+        var fileList = $('#imgFile')[0].files;
+        console.log(fileList);
+        if(fileList){
+            for(var i = 0,file;file = fileList[i];i++){
+                // 实例化fileReader对象
+                var reader = new FileReader();
+                // 调用readAsDataURL方法
+                reader.readAsDataURL(file);
+                reader.onload = function(e){
+                    // 获取图片base64编码
+                    var result = this.result;
+                    // 给压缩前图片赋值src
+                    var exImg =new Image();
+                    exImg.src = result;
+                    var img = new Image();
+                    img.src = result;
+                    // 获取上传图片的文件大小 kb
+                    var imgSize = (e.total)/1024;
+                    if(imgSize<1024){
+                        dataList.push(result);
+                    }else{
+                        img.onload = function(){
+                            // 图片原始尺寸，压缩后最大宽高，canvas宽高，尺寸压缩比例
+                            var w = this.width,h = this.height,maxWidth = 1000,maxHeight = 600,canW,canH,proportion;
+                            // 判断图片尺寸是否大于限定尺寸
+                            if(w>maxWidth||h>maxHeight){
+                                if(w>h){
+                                    // 图片是宽大于高的
+                                    canW = maxWidth;
+                                    proportion = w/maxWidth;
+                                    canH = h/proportion;
+                                }else if(w<h){
+                                    // 图片是宽大于高的
+                                    canH = maxHeight;
+                                    proportion = h/maxHeight;
+                                    canW = w/proportion;
+                                }
+                            }else{
+                                canW = w;
+                                canH = h;
+                            };
+//                            var canvas = document.createElement('canvas');
+                            var canvas = document.getElementById('myCanvas');
+                                ctx = canvas.getContext('2d');
+                            canvas.width = canW;
+                            canvas.height = canH;
+                            ctx.drawImage(img, 0, 0, canW,canH);
+                            var result = canvas.toDataURL("image/jpeg",1);
+                            dataList.push(result);
+                        };
+                    }
+                };
+            };
+        }else{
+            return false;
+        }
+        return dataList;
+    };
+
+    // 选择图片
+    $('#imgFile').change(function(){
+        imgUp();
+    });
+    var upBtn = document.getElementById('upBtn');
+    // 上传按钮点击
+    upBtn.onclick = function(){
+        console.log(dataList);
+        if($('#imgBox2').children().length == 0){
+            for(var i in dataList){
+                formData.append("imageName"+i,convertBase64UrlToBlob(dataList[i]),'jpg');
+            }
+        }else{
+            $('#imgBox2').children("img").remove();
+            for(var i in dataList){
+                formData.append("imageName"+i,convertBase64UrlToBlob(dataList[i]),'jpg');
+            }
+        }
+        $.ajax({
+            url : '/moyu_product.php?act=edit_products',
+            type : "POST",
+            data : formData,
+            dataType:"json",
+            processData : false,         // 告诉jQuery不要去处理发送的数据
+            contentType : false,        // 告诉jQuery不要去设置Content-Type请求头
+
+            success:function(data){
+                console.log(data);
+            }
+        })
+    };
+    /**
+     * 将以base64的图片url数据转换为Blob
+     * @param urlData
+     *            用url方式表示的base64图片数据
+     */
+    function convertBase64UrlToBlob(urlData){
+        var arr = urlData.split(','), mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+        while(n--){
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new Blob([u8arr], {type:mime});
+    }
+
+</script>
+{/literal}
+</html>

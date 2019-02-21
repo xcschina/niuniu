@@ -1,0 +1,335 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>手游交易平台_手游充值_首充号_酷游手游交易平台</title>
+	<meta name="description" content="酷游(shouyou.kuyoo.com)是国内权威的游戏交易平台，安全快捷有保障的手游充值中心，酷游是提供手游账号交易、首充号购买、游戏充值、苹果iOS代充、手游退游、装备及道具、游戏币交易的游戏交易平台。">
+	<meta name="keywords" content="手游交易平台，首充号购买，手游充值，苹果IOS代充，装备道具交易，游戏币交易">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<link href="http://static.kuyoo.com/kuyoo/wwwv2/css/style.css" type="text/css" rel="stylesheet" />
+	<link href="favicon.ico" type="image/x-icon" rel=icon>
+	<link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+</head>
+<body>
+	{include file="v2/include/top.html"}
+	<div class="wrapper clearfix">
+		{include file="v2/include/header.html"}
+		<div class="index_nav ">
+			<div class="w1000 relative">
+				<dl class="index_nav_txt">
+					<dt>交易类目</dt>
+					<dd><a {if $nav eq 'character'}class="on" {/if}href="/games.html">首充号</a></dd>
+					<dd><a {if $nav eq 'topup'}class="on" {/if}href="/games.html">苹果代充</a></dd>
+					<dd><a {if $nav eq 'game'}class="on" {/if}href="/games.html">游戏列表</a></dd>
+					<dd><a {if $nav eq 'gift'}class="on" {/if}href="/gift.php">游戏礼包</a></dd>
+					<dd><a {if $nav eq 'down'}class="on" {/if}href="/download.html">游戏下载</a></dd>
+					<!--<dd><a {if $nav eq 'activity'}class="on" {/if}href="/account.php?act=activity_center">活动中心</a></dd>-->
+					<dd><a {if $nav eq 'activity'}class="on" {/if}href="#;">活动中心</a></dd>
+				</dl>
+				{if $notices}
+				<div class="top_news" >
+					<span class="icon-gg2"></span>
+					<ul>
+						{foreach from=$notices item=notice}
+						<li><a href="{$notice.go_url}">{$notice.title}</a></li>
+						{/foreach}
+					</ul>
+				</div>
+				{/if}
+			</div>
+		</div>
+		<div class="w1000">
+			<!--第一屏：类目导航+轮播开始-->
+			<div class="index_first_screen">
+				<div class="index_left_meu">
+					<ul>
+						<li class="meu1">
+							<div class="index_left_box" id="meu1_box">
+								<div class="message">代充：支持任意账号代充，比您直接在游戏内充值更优惠。</div>
+								<div class="game_list">
+									{foreach from=$cate_hot_games item=game}
+									{if $game.type eq 3}<a href="/buy/{$game.id}-topup.html">{$game.game_name}</a>{/if}
+									{/foreach}
+								</div>
+							</div>
+							<a href="#"><span></span>代充<div></div></a>
+						</li>
+						<li class="meu2">
+							<div class="index_left_box" id="meu2_box">
+								<div class="message">首充号：平台为您新注册账号及密码，且完成首次充值的账号；只需官网原价的2~5折即可购买，包含您购买的充值数及同等充值奖励。</div>
+								<div class="game_list">
+									{foreach from=$cate_hot_games item=game}
+									{if $game.type eq 1}<a href="/buy/{$game.id}-character.html">{$game.game_name}</a>{/if}
+									{/foreach}
+								</div>
+							</div>
+							<a href="#"><span></span>首充号<div></div></a>
+						</li>
+						<li class="meu3">
+							<div class="index_left_box" id="meu3_box">
+								<div class="message">首充号续充：就是对您在酷游购买的首充号进行后续充值，折扣约为6折左右。</div>
+								<div class="game_list">
+									{foreach from=$cate_hot_games item=game}
+									{if $game.type eq 2}<a href="/buy/{$game.id}-recharge.html">{$game.game_name}</a>{/if}
+									{/foreach}
+								</div>
+							</div>
+							<a href="#"><span></span>首充号续费<div></div></a>
+						</li>
+						<li class="meu4">
+							<div class="index_left_box" id="meu4_box">
+								<div class="message">账号：是酷游专门为游戏账号提供相关交易服务，让您账号交易更放心。</div>
+								<div class="game_list">
+									{foreach from=$cate_hot_games item=game}
+									{if $game.type eq 4}<a href="/buy/{$game.id}-account.html">{$game.game_name}</a>{/if}
+									{/foreach}
+								</div>
+							</div>
+							<a href="#"><span></span>账号<div></div></a>
+						</li>
+						<li class="meu5">
+							<div class="index_left_box" id="meu5_box">
+								<div class="message">装备：是在游戏中出产的虚拟物品，可在酷游手游交易平台进行交易。</div>
+								<div class="game_list">
+									{foreach from=$cate_hot_games item=game}
+									{if $game.type eq 6}<a href="/buy/{$game.id}-coin.html">{$game.game_name}</a>{/if}
+									{/foreach}
+								</div>
+							</div>
+							<a href="#"><span></span>装备<div></div></a>
+						</li>
+						<li class="meu6">
+							<div class="index_left_box" id="meu6_box">
+								<div class="message">代币：就是游戏中的虚拟货币交易，以供玩家在游戏中进行买卖道具及材料等。 </div>
+								<div class="game_list">
+									{foreach from=$cate_hot_games item=game}
+									{if $game.type eq 5}<a href="/buy/{$game.id}-coin.html">{$game.game_name}</a>{/if}
+									{/foreach}
+								</div>
+							</div>
+							<a href="#"><span></span>代币<div></div></a>
+						</li>
+					</ul>
+				</div>
+				<!--轮播-->
+				<div class="index_slideBox">
+					<div class="hd"><ul></ul></div>
+					<div class="bd">
+						<ul>
+							{foreach from=$banners item=b}
+							<li><a href="{$b.go_url}"><img src="http://static.kuyoo.com/{$b.img}"/></a></li>
+							{/foreach}
+						</ul>
+					</div>
+				</div>
+				<div class="index_first_screen_right">
+					<ul class="four_btn">
+						<li><a href="/download.html">我要买</a></li>
+						<li><a href="#">我要卖</a></li>
+						<li><a href="account.php?act=user_center">个人中心</a></li>
+						<li><a href="#">积分商城</a></li>
+					</ul>
+					<div class="title_style">
+						<span></span>实时手游交易
+					</div>
+					<dl>
+						{foreach from=$trades item=tr}
+						<dd><span class='sfl'>{$tr.game_name} {$tr.title|mb_substr:0:12}</span><span class='sfr'>￥{$tr.pay_money}</span></dd>
+						{/foreach}
+					</dl>
+				</div>
+			</div>
+			<!--第一屏：类目导航+轮播结束-->
+			<!--第二屏：超值热卖+首充号验证+常见问题开始-->
+			<div class="index_second_screen">
+				<div class="index_sale">
+					<div class="title_style">
+						<span></span>手游超值特卖
+						<a href="#" class="more">更多活动<span></span></a>
+					</div>
+					<ul class="sale_list">
+						{foreach from=$limit item=lit}
+						<li>
+							<dl>
+								<dt><a href="http://shouyou.kuyoo.com/games/{$lit.game_id}.html"><img src="http://static.kuyoo.com/{$lit.img}"/></a></dt>
+								<dd class="sale_title">{$lit.game_name}</dd>
+								<dd class="sale_title2">{$lit.title}</dd>
+								{if $lit.type eq 2}
+								<dd>秒杀开始：</dd>
+								<dd><span>{$lit.start_time|date_format:"m/d H:i"}</span></dd>
+								{elseif $lit.type eq 1}
+								<dd>限量抢购：</dd>
+								<dd><span>{$lit.max_num}</span></dd>
+								{/if}
+							</dl>
+						</li>
+						{/foreach}
+						{foreach from=$special item=spe}
+						<li>
+							<dl>
+								<dt><a href="http://shouyou.kuyoo.com/games/{$spe.game_id}.html"><img src="http://static.kuyoo.com/{$spe.img}"/></a></dt>
+								<dd class="sale_title">{$spe.game_name}</dd>
+								<dd class="sale_title2">{$spe.title}</dd>
+								<dd>截止时间：</dd>
+								<dd><span>{$spe.end_time|date_format:"m/d H:i"}</span></dd>
+							</dl>
+						</li>
+						{/foreach}
+					</ul>
+				</div>
+				<div class="index_verification">
+					<div class="title_style">
+						<span></span>首充号验证
+					</div>
+					<form class="index_verification_input">
+						<input class="txt"/>
+						<input type="button" class="search_btn"/>
+						<div >仅支持在酷游平台购买的首充号。</div>
+					</form>
+				</div>
+				<div class="index_faq">
+					<div class="title_style">
+						<span></span>常见问题
+					</div>
+					<ul>
+						{foreach from=$quetion item=vv}<li><a href="{$vv.go_url}">{$vv.title}</a></li>{/foreach}
+					</ul>
+				</div>
+			</div>
+			<!--第二屏：超值热卖+首充号验证+常见问题结束-->
+			<!--第三屏：游戏列表开始-->
+			<div class="index_game_list">
+				<div class="title_style">
+					<span></span>游戏列表
+					<a href="http://shouyou.kuyoo.com/games.html" class="more">更多游戏<span></span></a>
+				</div>
+				<div class="a_z">
+					<dl>
+						<dt class="current">HOT</dt>
+						{section name=total loop=26}
+						{assign var=i value=$i+1}
+						<dd>{($i+64)|chr}</dd>
+						{/section}
+					</dl>
+				</div>
+				<div class="game_ico">
+					{foreach from=$games item=game}
+					<dl>
+						<dt><a href="/games/{$game.id}.html"><img src="http://static.kuyoo.com/{$game.game_icon}"/></a></dt>
+						<dd><a href="/games/{$game.id}.html">{$game.game_name}</a></dd>
+					</dl>
+					{/foreach}
+				</div>
+				<div class="game_ico"></div>
+			</div>
+			<!--第三屏：游戏列表结束-->
+			<!--第四屏：banner+新游推荐+新闻公告+最新发布开始-->
+			<div class="index_banner">
+				<a href="{$advert[0]['go_url']}"><img src="http://static.kuyoo.com/{$advert[0]['img']}"/></a>
+			</div>
+			<div class="game_info">
+				<div class="new_game">
+					<div class="title_style">
+						<span></span>新游推荐
+						<a href="#" class="more">更多<span></span></a>
+					</div>
+					<div class="img_box relative">
+						<div class="img_title absolute">
+							<a href="{$newgame[0]['go_url']}">{$newgame[0]['title']}</a>
+						</div>
+						<a href="{$newgame[0]['go_url']}"><img src="http://static.kuyoo.com/{$newgame[0]['img']}"/></a>
+					</div>
+				</div>
+				<div class="game_news">
+					<div class="title_style">
+						<span></span>新闻公告
+						<a href="http://shouyou.kuyoo.com/info/list16" class="more">更多<span></span></a>
+					</div>
+					<div class="list">
+						<dl class="relative">
+							<dt></dt>
+							{foreach from=$news item=n}
+							<dd><a href="/info/{$n.id}">{$n.title|mb_substr:0:17}</a><span>{$n.lastupdate|date_format:"%d/%m"}</span></dd>
+							{/foreach}
+						</dl>
+					</div>
+				</div>
+				<div class="latest_news">
+					<div class="title_style">
+						<span></span>最新发布<!-- <a href="#" class="more">更多<span></span></a> -->
+					</div>
+					<div class="list">
+						<dl class="relative">
+							<dt></dt>
+							{foreach from=$publish item=v}
+							<dd>
+								<a href="/info/{$v.id}">{$v.title|mb_substr:0:17}</a>
+								<span>{$v.lastupdate|date_format:"%d/%m"}</span></dd>
+								{/foreach}
+							</dl>
+						</div>
+					</div>
+				</div>
+				<!--第四屏：banner+新游推荐+新闻公告+最新发布结束-->
+				<!--第五屏：最新活动开始-->
+				<div class="index_activity">
+					<div class="title_style">
+						<span></span>最新活动<!-- <a href="#" class="more">更多<span></span></a> -->
+					</div>
+					<ul class="activity_list">
+						{foreach from=$acts item=a}
+						<li><a href="{$a.go_url}"><img src="http://static.kuyoo.com/{$a.img}" /></a></li>
+						{/foreach}
+					</ul>
+				</div>
+				<!--第五屏：最新活动结束-->
+				<!--第六屏：底部开始-->
+				<div class="foot_info">
+					<div class="telephone">
+						<dl>
+							<dt><span></span>全国统一热线</dt>
+							<dd class="tel_num">0591-877酷游</dd>
+							<dd>客服电话均无外拨功能</dd>
+						</dl>
+					</div>
+					<div class="novice">
+						<dl>
+							<dt><span></span>新手指南</dt>
+							<dd><a href="/info/1" rel="nofollow">用户注册</a></dd>
+							<dd><a href="/info/2" rel="nofollow">交易流程</a></dd>
+							<dd><a href="/info/3" rel="nofollow">充值方式</a></dd>
+							<dd><a href="/info/4" rel="nofollow">收费标准</a></dd>
+						</dl>
+					</div>
+					<div class="service">
+						<dl>
+							<dt><span></span>客服中心</dt>
+							<dd><a href="/info/13" rel="nofollow">客服验证</a></dd>
+							<dd><a href="/info/14" rel="nofollow">帮助中心</a></dd>
+							<dd><a href="/info/15" rel="nofollow">咨询建议</a></dd>
+							<dd><a href="/info/16" rel="nofollow">售后保障</a></dd>
+						</dl>
+					</div>
+					<div class="understand">
+						<dl>
+							<dt><span></span>了解酷游</dt>
+							<dd><a href="/info/17" rel="nofollow">合作伙伴</a></dd>
+							<dd><a href="/info/18" rel="nofollow">免责声明</a></dd>
+							<dd><a href="/info/19" rel="nofollow">隐私申明</a></dd>
+							<dd><a href="/info/20" rel="nofollow">商务合作</a></dd>
+						</dl>
+					</div>
+					<div class="wechat">
+						<dl>
+							<dt><img src="http://static.kuyoo.com/kuyoo/wwwv2/css/img/code2.jpg"/></dt>
+							<dd>微信号:game酷游</dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="v2/include/footer.html"}
+		<script type="text/javascript" src="http://static.kuyoo.com/kuyoo/wwwv2/js/jquery.slides.js"></script>
+		<script type="text/javascript" src="http://static.kuyoo.com/kuyoo/wwwv2/js/zbc_index.js"></script>
+	</body>
+	</html>

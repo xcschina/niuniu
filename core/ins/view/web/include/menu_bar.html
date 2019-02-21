@@ -1,0 +1,9 @@
+<div class="menu-bar font-lg">
+    <a class="menu-item user" href="web_account.php?act=center"><span class="account-common-icon"></span><div class="text">账户</div></a>
+    <a class="menu-item message" href="web.php?act=message_center"><span class="account-common-icon">{if $is_read}<span class="dot"></span>{/if}</span><div class="text">消息</div></a>
+    <a class="menu-item service" href="web.php?act=service_center"><span class="account-common-icon">{if $is_question_read}<span class="dot"></span>{/if}</span><div class="text">客服</div></a>
+</div>
+<div class="brief-tip-pop"><div class="con"></div></div>
+<div class="loading-mask"><img class="loading-img" src="//cdn.66173.cn/mobile/scripts/sdk/img/loading.gif" alt=""></div>
+<button class="font-md ele-toggle-btn">切换</button>
+<input type="hidden" value="{$orientation}" id="orientation">

@@ -1,0 +1,325 @@
+{include file="include/head.html" web_title=$page_title web_key=$web_key}
+<body>
+	{include file="include/top.html"}
+	<div class="wrapper clearfix">
+		{include file="include/header.html"}
+		{include file="include/nav.html" nav="game"}
+		<div class="w1000">
+			<div class="current_nav ">
+				当前位置：<a href="/">{if $domain_name eq 1}66173{else if $domain_name eq 2}u2590{/if}交易平台</a>&nbsp;>&nbsp;<a href="/games.html">游戏列表</a>&nbsp;>&nbsp;{$gameinfo.game_name}首充号购买页
+			</div>
+			<div class="left_w260">
+				<div class="left_big_img">
+					<img src="http://cdn.66173.cn/{$pic}" class="left_imgthumb" alt="{$gameinfo.game_name}优惠充值" width="260"/>
+				</div>
+				<div class="game_introduce_box">
+					<div class="game_title_box">
+						<strong class="name title_name">游戏信息</strong>
+					</div>
+					<div class="m-lr-10">
+						<p><span>游戏名称</span>:&nbsp;{$gameinfo.game_name}</p>
+						{if $game_introduce.other_name}
+						<p><span>其他名称</span>:&nbsp;{$game_introduce.other_name}</p>{/if}
+						{if $game_introduce.status}
+						<p><span>运营状态</span>:&nbsp;{if $game_introduce.status eq 1}内测{elseif $game_introduce.status eq 2}公测{else}不删档内测{/if}</p>{/if}
+						{if $game_introduce.s_time}
+						<p><span>首发时间</span>:&nbsp;{$game_introduce.s_time|date_format:'%Y年%m月%d日'}</p>{/if}
+						{if $game_introduce.publisher}
+						<p><span>发行商</span>:&nbsp;{$game_introduce.publisher}</p>{/if}
+						{if $game_introduce.platform}
+						<p><span>游戏平台</span>:&nbsp;{if $game_introduce.platform eq 1}苹果{elseif $game_introduce.platform eq 2}安卓{else}全平台{/if}</p>{/if}
+						{if $game_introduce.game_screen}
+						<p><span>游戏画风</span>:&nbsp;{$game_introduce.game_screen}</p>{/if}
+						{if $game_introduce.game_theme}
+						<p><span>内容主题</span>:&nbsp;{$game_introduce.game_theme}</p>{/if}
+						{if $game_introduce.server}
+						<p><span>服务器</span>:&nbsp;{$game_introduce.server}</p>{/if}
+					</div>
+				</div>
+				{if $articles_info}
+				<div class="game_introduce_box">
+					<div class="game_title_box">
+						<strong class="name title_name">游戏简介</strong>
+					</div>
+					<div class="m-lr-10">
+						<p>
+							{$articles_info.summary}<a href="/info/{$articles_info.id}" style="color: #0a6aa1">点击查询</a>
+						</p>
+					</div>
+				</div>
+				{/if}
+				{if $domain_name eq 1}
+				<div id='weixin1'>
+					<!--<div class="title_sub">-->
+						<!--<strong class="name">礼包领取</strong>-->
+					<!--</div>-->
+					<img src="{$IMG_PATH}webchat.png" class="left_imgwebchat" />
+					<div class="left_msgbox">
+						<p>关注66173微信号，随时随地领取<strong>手机游戏礼包</strong>！</p>
+						<p>微信名称：66173手游平台</p>
+					</div>
+				</div>
+				{/if}
+			</div>
+			<!-- right main -->
+			<form method="post" id="buyfrm">
+				<input type="hidden" name="game_id" value="{$gameinfo.id}" id='gid'/>
+				<div class="right_w720" id='buy_section'>
+					<!-- 购买 首充号 -->
+					<div class="game_recharge">
+						<!-- 标题 -->
+						<div class="title" style="font-size: 24px">{$gameinfo.game_name}</div>
+						<div class="ashare bdsharebuttonbox" data-tag="share_1">
+							<a class="bds_qzone" data-cmd="qzone" href="#"></a>
+							<a class="bds_tsina" data-cmd="tsina"></a>
+							<a class="bds_baidu" data-cmd="baidu"></a>
+							<a class="bds_tqq" data-cmd="tqq"></a>
+							<a class="bds_weixin" data-cmd="weixin"></a>
+							<a class="bds_sqq" data-cmd="sqq"></a>
+							<a class="bds_tqf" data-cmd="tqf"></a>
+						</div>
+						<div class="type" id='paytype' style="margin-top: 20px;">
+							<label class="label">交易类型：</label>
+							<a class="item {if $type eq 1}cur{/if}" href="/buy/{$gameinfo.id}-character.html"><i></i>首充号</a>
+							<a class="item {if in_array($type,array(2,201))}cur{/if}" href="/buy/{$gameinfo.id}-recharge.html"><i></i>首充号续充</a>
+							<a class="item {if $type eq 5}cur{/if}" href="/buy/{$gameinfo.id}-coin.html"><i></i>游戏币</a>
+							<a class="item {if $type eq 4}cur{/if}" href="/buy/{$gameinfo.id}-account.html"><i></i>账号</a>
+						</div>
+					</div>
+					<!-- 首充号 商品选择 -->
+					<ul class="game_charge m-t-15">
+						<li class="maxrow">
+							商品选择:<span class="color_red m-r-20">*</span>
+							<select class="select" name="product_id" id='choose_product' data-intro="haha">
+							{foreach from=$products item=product}
+							<option value="{$product.id}" data-subtitle="{$product.sub_title}">{$product.title}</option>
+							{/foreach}
+						</select>
+							<a class="color_red" id='product_sub_title'></a>
+						</li>
+					</ul>
+					<!-- 平台选择 -->
+					<div id="choose_platform"  style="display: block">
+						<div class="charge_platform" id="android_platform" style="display: block">
+							<label class="icon_android"></label>
+							{foreach from=$android_chs item=ch key=k}
+							<div class="item" data-discount="{$ch.discount}" data-price="{$product.price}" data-ch="{$ch.id}">
+								<div class="img"><img src="http://cdn.66173.cn/{$ch.icon}"/><span>{$ch.channel_name}</span></div>
+								<span class="num">{$ch.discount}折</span>
+							</div>
+							{/foreach}
+						</div>
+						<div class="charge_platform" id="ios_platform" style="display: block">
+							<label class="icon_ios"></label>
+							{foreach from=$ios_chs item=ch key=k}
+							<div class="item" data-discount="{$ch.discount}" data-price="{$product.price}" data-ch="{$ch.id}">
+								<div class="img"><img src="http://cdn.66173.cn/{$ch.icon}"/><span>{$ch.channel_name}</span></div>
+								<span class="num">{$ch.discount}折</span>
+							</div>
+							{/foreach}
+						</div>
+						<ul class="game_form">
+							<li>
+								<label><span class="color_red">*</span>选择区服：</label>
+								<select name="serv_id" id="choose_server"></select>
+							<li id="other_ser" hidden>
+								<label><span class="color_red">*</span>其他区服：</label>
+								<input type="text" class="txt" placeholder="请输入其他区服名称" name="other_ser" />
+							</li>
+							<li class="maxrow maxrow1" id="discount_price" style="line-height: 40px;!important;"></li>
+						</ul>
+					</div>
+					<!-- 填写账号信息 -->
+					<div id="account_info1">
+						<div class="title_sub">
+							<strong class="name">填写帐号信息</strong>
+						</div>
+						<ul class="game_form">
+
+							<li class="game_recharge" id="random_nickname" >
+								<label><span class="color_red">*</span>随机角色名：</label>
+								<div class="type" style="padding-left:0; margin-top:0;">
+									<a class="item" lang="1"><i></i>是</a>
+									<a class="item cur" lang="0"><i></i>否</a>
+								</div>
+							</li>
+							<li class="nickname_row" style="padding-bottom:0;">
+								<label><span class="color_red">*</span>角色名：</label>
+								<input type="text" class="txt" placeholder="请输入你想要的角色名"  name="role_name"/>
+							</li>
+							<li class="color_red nickname_row">备用角色名不能与角色名一样</li>
+							<li class="nickname_row">
+								<label><span class="color_red">*</span>备用角色名：</label>
+								<input type="text" class="txt" placeholder="如角色名被占用将使用备用名" name="role_back_name" />
+							</li>
+							{if !empty($tags)}
+							{foreach from=$tags item=tag key=k}
+							<li>
+								<label><span class="color_red">*</span>{$k}：</label>
+								<select name="attr[]">
+									{foreach from=$tag item=t}
+									<option value="{$k}:{$t}">{$t}</option>
+									{/foreach}
+								</select>
+							</li>
+							{/foreach}
+							{/if}
+						</ul>
+					</div>
+					<!-- 联系方式 -->
+					<div id="contact1">
+						<div class="title_sub">
+							<strong class="name">联系方式</strong>
+						</div>
+						<ul class="game_form">
+							<li>
+								<label><span class="color_red">*</span>手机号码：</label>
+								<input type="text" class="txt" placeholder="请输入手机号码" name='tel' value="{if $smarty.session.buy_mobile neq ''}{$smarty.session.buy_mobile}{/if}"/>
+							</li>
+							<li>
+								<label><span class="color_red">*</span>QQ：</label>
+								<input type="text" class="txt" placeholder="请输入QQ号" name='qq' value="{$smarty.session.buy_qq}"/>
+							</li>
+							<li><a class="btn" id="firstpay">立即购买</a></li>
+						</ul>
+					</div>
+
+					<input type="hidden" name="pagehash" value="{$pagehash}" />
+					<input type="hidden" name="channel_id" value="0" id="channel_id">
+					<input type="hidden" name="price" value="0" id="price"/>
+					<input type="hidden" name="stprice" value="0" id="stprice"/>
+					<input type="hidden" name="is_random_nickname" value="0" id="is_random_nickname">
+					<input type="hidden" name="do" value="character" />
+					<div class="title_tab">
+						<span class="item cur" id="tab1">商品详情</span>
+						<!--<span class="item" id="tab2">游戏下载</span>-->
+					</div>
+					<div id="tab1_box">
+						<div class="pro_img_big f_pro_img_big" style="display: none">
+						<ul class="pro_img_small">
+							{foreach from=$imgs item=gimg key=k}
+							<li {if $k eq 0}class="cur"{/if}>
+							<i class="icon_arrow"></i>
+							<img src="http://cdn.66173.cn/{$gimg['img_url']}" alt="{$gameinfo.game_name}VIP商城图{$k+1}" />
+							</li>
+							{/foreach}
+						</ul>
+						<i class="prev"></i>
+						<i class="next"></i>
+					</div>
+						<div class="pro_img_big" style="margin-top: 20px">
+							<i class="icon_arrow_left"></i>
+							<i class="icon_arrow_right"></i>
+							<img src="http://cdn.66173.cn/{$imgs[0]['img_url']}" id="bigimg" width="500px" />
+						</div>
+						{if $game_introduce.com_desc}
+						<div class="com_desc" style="font-size: 14px;">
+							{$game_introduce.com_desc|htmlspecialchars_decode}
+						</div>
+						{/if}
+						{if $game_introduce.notice}
+						<div class="notice_box">
+							<span>{$gameinfo.game_name}首充号购买须知:</span>
+							<div>{$game_introduce.notice|htmlspecialchars_decode}</div>
+						</div>
+						{/if}
+					</div>
+					<div id="tab2_box" style="display:none;">
+						<div class="game_down">
+							{if $game_ch_downs.android|@count neq 0}
+							<div class="downaddr">
+								<i class="icon_android"></i>
+								{foreach from=$game_ch_downs.android item=down}
+								<a class="item" id="games" onclick="_hmt.push(['_trackEvent', 'game', 'dl', '{$gameinfo.game_name}+{$down.channel_name}']);" href="{$down.url}">
+									{$down.channel_name}<br/>点击下载
+									<div class="smallcode">
+										<div class="code">
+											<i></i>
+											<img src="/game{$down.game_id}/qr{$down.id}" />扫一扫下载到手机
+										</div>
+										<img src="/game{$down.game_id}/qr{$down.id}" />
+									</div>
+								</a>
+								{/foreach}
+							</div>
+							{else}
+							<div class="downaddr">
+								<i class="icon_android"></i>
+								<a class="item"> <span >敬请期待...</span> </a>
+							</div>
+							{/if}
+							{if $game_ch_downs.ios|@count neq 0}
+							<div class="downaddr">
+								<i class="icon_ios"></i>
+								{foreach from=$game_ch_downs.ios item=down}
+								<a class="item" id="games" onclick="_hmt.push(['_trackEvent', 'game', 'dl', '{$gameinfo.game_name}+{$down.channel_name}']);" href="{$down.url}">
+									{$down.channel_name}<br/>点击下载
+									<div class="smallcode">
+										<div class="code">
+											<i></i>
+											<img src="/game{$down.game_id}/qr{$down.id}" />扫一扫下载到手机
+										</div>
+										<img src="/game{$down.game_id}/qr{$down.id}" />
+									</div>
+								</a>
+								{/foreach}
+							</div>
+							{else}
+							<div class="downaddr">
+								<i class="icon_ios"></i>
+								<a class="item"> <span >敬请期待...</span> </a>
+							</div>
+							{/if}
+						</div>
+					</div>
+					<div class="article_box">
+						<div class="title_box">
+							<strong class="name title_name">{$gameinfo.game_name}相关讯息</strong>
+						</div>
+						<ul class="" style="overflow: hidden">
+							{if $article_list|@count eq 0}
+							<div class="no_article">该游戏暂无相关资讯~</div>
+							{else}
+							{foreach from=$article_list item=article}
+							<li class="article_li">
+								<i></i>
+								<a target="_blank" rel="noopener noreferrer" href="/info/{$article.id}" style="text-align: left;">{$article.title}</a>
+							</li>
+							{/foreach}
+							{/if}
+						</ul>
+					</div>
+				</div>
+			</form>
+			<div class="error" style="display: none;"></div>
+			<!-- 公用底部 -->
+			<div class="clear_both"></div><br/><br/>
+			<div class="title_sub border0"><strong class="name">购买流程</strong></div>
+			<img src="{$IMG_PATH}buyprocess.jpg" />
+			{include file="include/footer.html"}
+			<script> var $uu = {$smarty.session.user_id}+''; </script>
+			{include file="include/login.html"}
+			<script type="text/javascript" src="{$JS_PATH}zbc_check.js" ></script>
+			<script type="text/javascript" src="{$JS_PATH}zbc_buy.js" ></script>
+			<script type="text/javascript" src="{$JS_PATH}product/buy_firstpay.js?t=212" ></script>
+
+		</body>
+		<script>
+			with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+			window._bd_share_config = { common : { bdText : "{$gameinfo.game_name}首充号 【首充初始号】66173手游交易平台", bdDesc : "{$gameinfo.game_name}首充五折起，续充更优惠！赶紧上66173手游交易平台找{$gameinfo.game_name}。", bdUrl : "http://www.66173.cn/buy/{$gameinfo.id}-character.html", bdPic : "http://cdn.66173.cn/{$pic}"}, share : [{ "bdSize":16}]};
+		</script>
+		<script>
+		(function(){
+			var bp = document.createElement('script');
+			var curProtocol = window.location.protocol.split(':')[0];
+			if (curProtocol === 'https') {
+				bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+			}
+			else {
+				bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+			}
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(bp, s);
+		})();
+		</script>
+		</html>

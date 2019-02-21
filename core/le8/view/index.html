@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>牛币付款</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-rim-auto-match" content="none">
+    <link href="http://static.66173.cn/le8/css/index.css?t=20161201" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<header>牛币支付</header>
+<section>
+    <h2>账号:{if $smarty.session.nick_name}{$smarty.session.nick_name}
+        {elseif $smarty.session.mobile}{$smarty.session.mobile}{/if}</h2>
+    <h2>应付金额:<span class="orange">￥{$pay_money}</span>元</h2>
+</section>
+{if $ch_pay_money==0}
+<section class="sec title"><h3>牛币支付,只需<span class="orange">{$pay_money}</span>元</h3></section>
+<section class="sec">我的牛币:<span class="orange">{$smarty.session.nnb}</span>元</section>
+{/if}
+{if $ch_pay_money>0}
+<section class="sec alipay"><a href="dopay.php?hash={$pagehash}">快捷支付<span class="orange">{$ch_pay_money}</span>元</a></section>
+{/if}
+<div class="sub_bnt link_hover"><a href="dopay.php?hash={$pagehash}">马上支付</a></div>
+
+</body>
+</html>

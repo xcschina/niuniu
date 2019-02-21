@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no,viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <title></title>
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/moyu/css/common.css">
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/moyu/css/userCenter.css">
+    <script src="//cdn.66173.cn/mobile/moyu/js/setFontSize.min.js  " type="text/javascript"></script>
+</head>
+
+<body class="bgf">
+    <div class="user-header">
+        <div class="user-top-bar">
+            <span class="ui-return-btn"></span>
+            <h1>个人中心</h1>
+            <a href="http://wpa.qq.com/msgrd?v=3&uin=3001082900&site=qq&menu=yes" class="custom-btn"></a>
+        </div>
+        <div class="user-center">
+            <div class="user-head">
+                <img src="//cdn.66173.cn/mobile/moyu/images/niu_head.png" alt="">
+            </div>
+            <!-- 未登录 -->
+            <div class="login-begin hide">
+                <a href="">登录</a>
+                <em>/</em>
+                <a href="">注册</a>
+            </div>
+            <!-- 已登录 -->
+            <div class="login-end">
+                <p>{$info.login_name}</p>
+                <div class="user-info">
+                    <div class="user-tel">{substr($info['mobile'],0,3)}****{substr($info['mobile'],-4)}</div>
+                    {if $user_certification eq 1}
+                    <i class="user-card"></i>
+                    {/if}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="user-manage">
+        <div class="mod-tab">
+            <span class="on">买家管理</span>
+            <span>卖家管理</span>
+        </div>
+        <div class="mod-tabcon manage-list">
+            <ul>
+                <li>
+                    <a href="/orderList/0">
+                        <div class="img-block">
+                            <i class="badge">{if $pending_payment.num neq '0'}{$pending_payment.num}{/if}</i>
+                            <img src="//cdn.66173.cn/mobile/moyu/images/icon1.png" alt="">
+                        </div>
+                        <span>待付款</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/orderList/1">
+                        <div class="img-block">
+                            <i class="badge">{if $deliver_goods.num neq '0'}{$deliver_goods.num}{/if}</i>
+                            <img src="//cdn.66173.cn/mobile/moyu/images/icon2.png" alt="">
+                        </div>
+                        <span>待发货</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/orderList/2">
+                        <div class="img-block">
+                            <i class="badge">{if $collect_goods.num neq '0'}{$collect_goods.num}{/if}</i>
+                            <img src="//cdn.66173.cn/mobile/moyu/images/icon3.png" alt="">
+                        </div>
+                        <span>待收货</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/orderList">
+                        <div class="img-block">
+                            <img src="//cdn.66173.cn/mobile/moyu/images/icon4.png" alt="">
+                        </div>
+                        <span>我的订单</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="mod-tabcon manage-list hide">
+            <ul>
+                <li>
+                    <a href="moyu_product.php?act=publish_product_view">
+                        <img src="//cdn.66173.cn/mobile/moyu/images/icon5.png" alt="">
+                        <span>我要卖</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="trading_center.php?act=get_sell_order&status=1">
+                        <div class="img-block">
+                            <i class="badge">{if $sell_goods.num neq '0'}{$sell_goods.num}{/if}</i>
+                            <img src="//cdn.66173.cn/mobile/moyu/images/icon2.png" alt="">
+                        </div>
+                        <span>待发货</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="trading_center.php?act=get_sell_order&status=2">
+                        <div class="img-block">
+                            <i class="badge">{if $sell_collect_goods.num neq '0'}{$sell_collect_goods.num}{/if}</i>
+                            <img src="//cdn.66173.cn/mobile/moyu/images/icon3.png" alt="">
+                        </div>
+                        <span>待确认收货</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="trading_center.php?act=get_sell_order&status">
+                        <img src="//cdn.66173.cn/mobile/moyu/images/icon10.png" alt="">
+                        <span>全部订单</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="user_certification.php?act=my_income">
+                        <div class="img-block">
+                            <img src="//cdn.66173.cn/mobile/moyu/images/icon6.png" alt="">
+                        </div>
+                        <span>我的收入</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="trading_center.php?act=get_sell_product&status=1">
+                        <div class="img-block">
+                            <i class="badge">{if $on_product.num neq '0'}{$on_product.num}{/if}</i>
+                            <img src="//cdn.66173.cn/mobile/moyu/images/icon7.png" alt="">
+                        </div>
+                        <span>已上架商品</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="trading_center.php?act=get_sell_product&status=5">
+                        <div class="img-block">
+                            <i class="badge">{if $pusblish_product.num neq '0'}{$pusblish_product.num}{/if}</i>
+                            <img src="//cdn.66173.cn/mobile/moyu/images/icon8.png" alt="">
+                        </div>
+                        <span>审核中商品</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="trading_center.php?act=get_sell_product&status=">
+                        <img src="//cdn.66173.cn/mobile/moyu/images/icon9.png" alt="">
+                        <span>全部商品</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="user-menu">
+            <ul>
+                {if $user_certification neq 1}
+                <li>
+                    <a href="trading_center.php?act=user_certification">
+                        <span>实名认证</span>
+                        <em>未认证</em>
+                    </a>
+                </li>
+                {else}
+                <li class="on">
+                    <a href="trading_center.php?act=already_certification&user_id={$user_id}">
+                        <span>实名认证</span>
+                        <em>已认证</em>
+                    </a>
+                </li>
+                {/if}
+                {if $account_info['mobile'] eq null}
+                <li>
+                    <a href="trading_center.php?act=security_mobile">
+                        <span>安全手机</span>
+                        <em>未设置</em>
+                    </a>
+                </li>
+                {else}
+                <li class="on">
+                    <a href="trading_center.php?act=already_security_mobile&user_id={$user_id}">
+                        <span>安全手机</span>
+                        <em>{substr($account_info['mobile'],0,3)}****{substr($account_info['mobile'],-4)}</em>
+                    </a>
+                </li>
+                {/if}
+                {if $account_info['pay_password'] eq null}
+                <li>
+                    <a href="trading_center.php?act=pay_passward">
+                        <span>支付密码</span>
+                        <em>未设置</em>
+                    </a>
+                </li>
+                {else}
+                <li class="on">
+                    <a href="trading_center.php?act=re_pay_passward">
+                        <span>支付密码</span>
+                        <em>已设置</em>
+                    </a>
+                </li>
+                {/if}
+                {if $account_info['pay_account'] eq null}
+                <li>
+                    <a href="trading_center.php?act=pay_account">
+                        <span>提现账户</span>
+                        <em>未设置</em>
+                    </a>
+                </li>
+                {else}
+                <li class="on">
+                    <a href="trading_center.php?act=already_pay_account&user_id={$user_id}">
+                        <span>提现账户</span>
+                        <em>已设置</em>
+                    </a>
+                </li>
+                {/if}
+                <li>
+                    <a href="/collectList">
+                        <span>我的收藏</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="user_certification.php?act=get_user_balance_detail">
+                        <span>交易记录</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="trade_guide.php?act=index">
+                        <span>交易指南</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <a href="login.php?act=logout" class="login-out-btn">退出登录</a>
+    </div>
+    <script src="//cdn.66173.cn/mobile/moyu/js/jquery.min.js" type="text/javascript"></script>
+    <script src="//cdn.66173.cn/mobile/moyu/js/common.js" type="text/javascript"></script>
+    <script src="//cdn.66173.cn/mobile/moyu/js/userCenter.js" type="text/javascript"></script>
+</body>
+
+</html>

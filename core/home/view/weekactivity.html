@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>66173手游交易平台_春末秒杀活动_手机游戏充值特卖</title>
+    <meta name="description" content="66173手游春末秒杀活动开启，少年三国志、数码宝贝tri、弹弹岛2、九阴、无敌OL等热门手机游戏首充号特卖秒杀，每日限购，售完即止，更多游戏充值请访问66173手游交易平台官网。
+key:手游特价，手游秒杀活动，充值折扣">
+    <meta name="keywords" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link href="http://cdn.66173.cn/wwwv2/css/style.css?t=33" type="text/css" rel="stylesheet" />
+    <link href="http://cdn.66173.cn/weekactivity/css/weekactivity.css?t={rand(1,10000)}" type="text/css" rel="stylesheet" />
+    <link href="favicon.ico" type="image/x-icon" rel=icon>
+    <link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/common.css?t={rand(1,10000)}" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/pay.css?t={rand(1,10000)}" media="screen" />
+    <script type="text/javascript" src="http://cdn.66173.cn/wwwv2/js/product/buy_firstpay.js?t=33"></script>
+    <script type="text/javascript" src="{$JS_PATH}zbc_check.js" ></script>
+    <script type="text/javascript" src="{$JS_PATH}zbc_buy.js" ></script>
+    <style>
+        .banner{
+            background-color: #f8f8f8;;
+            width:100%;
+            /*background:url("http://cdn.66173.cn/weekactivity/banner_b.png")  top center scroll no-repeat;*/
+            height:488px!important;
+        }
+        .banner_box{
+            width:1201px;
+            height:488px!important;
+            background:url("http://cdn.66173.cn/{$batch.pc_img}") top center scroll no-repeat;background-size: 100%;
+            margin:auto;
+        }
+    </style>
+</head>
+<body>
+<div class="black"></div>
+{include file="include/top.html" from="index"}
+    <div class="banner">
+        <div class="banner_box"></div>
+    </div>
+<!--弹窗-->
+    <div class="content">
+        <div class="content_box">
+            {include file="include/alert.html"}
+            <div class="clear_h2"></div>
+            <div class="nav1">本周优惠</div>
+            <ul>
+                {foreach from=$data item=list}
+                <li>
+                    <div class="game_box">
+                        <div class="desc_img">
+                            <img src="http://cdn.66173.cn/{$list.game_img}" alt="">
+                            <div class="desc_content" style="display:none">
+                                <div class="black_1"></div>
+                                <em>{$list.game_desc}</em>
+                            </div>
+                        </div>
+                        <span>{$list.game_name}</span>
+                        <div class="solid"></div>
+                        <div class="price_border">
+                            <span>原价:{$list.old_price}</span>
+                            <div>春末秒杀价:<i>{$list.new_price}元</i></div>
+                        </div>
+                        <div class="reper_box">
+                            <div class="reper">
+                                <div class="reper_plan" style="width:{$list.reper}%;{if $list.reper >= 50}background-color:green;{elseif $list.reper<=50 and $list.reper >= 25}background-color:orange{elseif $list.reper <= 25}background-color:red{/if}"></div>
+                            </div>
+                            <div class="reper_num">&nbsp;&nbsp;{$list.reper}%剩余量</div>
+                        </div>
+                        <div class="solid"></div>
+                        <ul>
+                            {if $list.order_status eq 1}
+                                <a href="#;"><li class="cksp" info="{$list.order_id}">查看商品</li></a>
+                            {else}
+                                <a href="#;"><li class="ljgm" info="{$list.game_id}" price="{$list.old_price}" nprice="{$list.new_price}" id="{$list.id}">立即购买</li></a>
+                            {/if}
+                            <a href="#;"><li class="yjxz" info="{$list.game_id}">一键下载</li></a>
+                        </ul>
+                    </div>
+                </li>
+                {/foreach}
+            </ul>
+            <div class="clear_h2"></div>
+            <div class="nav2">活动规则</div>
+            <div class="rule_week">
+                <span>活动参与方式：</span><br>
+                <div class="clear_h2"></div>
+                <!--<div>{$batch.game_rule|htmlspecialchars_decode}</div>-->
+                <ul>
+                    <li>1.活动期间登录66173网站即可参与秒杀活动。</li>
+                    <li>2.活动时间4月1日12点-4月5日12点。</li>
+                    <li>3.每款游戏秒杀商品数量有限，售完即止。</li>
+                    <li>4.每个用户ID同款游戏秒杀商品限购1个。</li>
+                    <li>5.如有疑问请联系客服，QQ252432349，电话0591-87766173</li>
+                    <li>6.最终解释权归66173所有。</li>
+                    <li>7.凡是购买了首充号的，皆可在66173网站进行优惠续充。</li>
+                </ul>
+            </div>
+            <div class="clear_h2"></div>
+            <div class="nav3">关注有礼</div>
+            <div class="attention">
+                <ul>
+                    <li>
+                        <div class="qr">
+                            <img src="http://cdn.66173.cn/weekactivity/qr1.png" alt="">
+                            <div class="clear_h1"></div>
+                            <span>微信服务号</span><br>
+                            <span>game66173</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="qr">
+                            <img src="http://cdn.66173.cn/weekactivity/qr2.png" alt="">
+                            <div class="clear_h1"></div>
+                            <span>微信订阅号</span><br>
+                            <span>mg66173</span>
+                        </div>
+                    </li>
+                </ul>
+                <img class="attention_img" src="http://cdn.66173.cn/weekactivity/attention.png" alt="">
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="user_id" value="{$smarty.session.user_id}" />
+<!-- JiaThis Button BEGIN -->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?0323a07bab41ef36312f92afd8dd1b20";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+<script type="text/javascript" >
+    var jiathis_config={
+        summary:"",
+        shortUrl:false,
+        hideMore:false
+    }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+{include file="include/login.html"}
+<!--活动页尾部-->
+{include file="include/foot.html"}
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://cdn.66173.cn/weekactivity/js/weekactivity.js?t={rand(1,10000)}"></script>
+<script src="{$JS_PATH}zbc_check.js" ></script>
+<div class="side-bg" id="servs"></div>
+</body>
+</html>

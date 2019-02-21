@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>账户设置</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link href="http://cdn.66173.cn/wwwv2/css/style.css?t=109" type="text/css" rel="stylesheet" />
+</head>
+<body>
+{include file="include/top.html"}
+<div class="wrapper clearfix">
+    {include file="include/header.html"}
+    {include file="include/nav.html"}
+    <div class="w1000">
+        <div class="current_nav">
+            当前位置：<a href="#">66173交易平台</a>&nbsp;>&nbsp;我的66173
+        </div>
+        {include file="include/user-side.html"}
+        <div class="user_center_right">
+            <div class="integral_detail">
+                <div class="user_center_title">
+                    实名认证
+                </div>
+                {if $is_checked}
+                    <div class="account_setup bound_phone">
+                        <img src="http://cdn.66173.cn/www/css/v2/img/sucess.png"/><br/>
+                        <b>您已通过实名认证！</b><br/>
+                        <div style="margin: 40px 0 0 0;">
+                        姓名：{$idcard.user_name} <br /> 身份证：{$idcard.id_number}
+                        </div>
+                    </div>
+                {else}
+                    <div class="account_setup">
+                        <form action="account.php?act=do_modify_phone" method="post" id="modify_phone">
+                            <table border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td>您的真实姓名：</td>
+                                    <td>
+                                        <input name="name" type="text" style="width:200px" placeholder="" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>身份证号码：</td>
+                                    <td>
+                                        <input name="id" type="text" style="width:200px" placeholder="" />
+                                    </td>
+                                </tr>
+                            </table>
+                            <div style=" text-align: center; margin: 30px;">
+                                <a href="javascript:check_id_card();" class="btn_red_big">确定绑定</a>
+                            </div>
+                        </form>
+                        <div style=" text-align: center; margin: 30px; color:#c81623;" >
+                        实名认证一旦通过，无法更改，请仔细填写您的身份信息~！
+                        </div>
+                    </div>
+                {/if}
+            </div>
+        </div>
+    </div>
+</div>
+{include file="include/footer.html"}
+<script src="http://cdn.66173.cn/wwwv2/js/zbc_check.js"></script>
+{literal}
+<script type="text/javascript">
+    var check_id_card = function(){
+        $id   = $('input[name=id]').val();
+        $name = $('input[name=name]').val();
+        $.z_is_empty($('input[name=name]'),'请输入您的真实姓名');
+        if($.z_is_idcard($id,$('input[name=id]'))){
+            $.post('/account.php?act=check_IDcard_do',{'id':$id,'name':$name},function(data){
+                if(data.status  == 'ok'){
+                    window.location.reload(true);
+                }else{
+                    $.z_add_msg($('input[name='+data['err']['obj']+']'),data['err']['msg']);
+                }
+            },'json');
+        }
+    }
+</script>
+{/literal}
+</body>
+</html>

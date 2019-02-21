@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$info.title}</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no, email=no"/>
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait"/>
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/website/css/add_page_v2.css">
+    <script src="http://cdn.66173.cn/www/js/jquery-1.8.3.min.js"></script>
+<style>
+    .mask {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 99;
+        display: none;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body class="page-bg">
+<a href="http://ad.66173yx.com/website.php?act=general_down&id={$info.id}" class="page-game-box">
+    <div class="page-center">
+        <img src="http://cdn.66173.cn/{$info.top_img}"/>
+        <div class="slideshow-zone" style="background-image: url(http://cdn.66173.cn/{$info.middle_img})">
+            <!-- <div class="slideshow-zone"> -->
+            <ul class="img-ul">
+                {foreach from=$bg_img key=$k item=bg}
+                <li data-index="{$k}" {if $k==0}class="show"{/if}><img src="http://cdn.66173.cn/{$bg}"></li>
+                {/foreach}
+            </ul>
+            {if sizeof($bg_img) > 1}
+            <ul class="dot-ul">
+                {foreach from=$bg_img key=$k item=bg}
+                <li data-index="{$k}" {if $k==0}class="cur"{/if}><span class="dot"></span></li>
+                {/foreach}
+            </ul>
+            {/if}
+        </div>
+        <img src="http://cdn.66173.cn/{$info.bottom_img}"/>
+    </div>
+</a>
+<div class="mask">
+    <div>
+        <img src="http://cdn.66173.cn/www/img/activity/mask.jpg" style="width:100%">
+    </div>
+</div>
+<div class="bottom-foot">
+    {if $info.page_info}
+    {str_replace("\n","<br/>",{$info.page_info})}
+    {else}
+    广州指点网络科技有限公司  Copyright 2013 y6.cn 版权所有<br/>
+    网站安全备案编号 粤ICP备10217776号-1
+    {/if}
+</div>
+</body>
+<script type="text/javascript">
+    var cur = 0;
+    var slideInterval;
+    var imgUlLen = $(".img-ul li").length;
+    // 是否苹果移动端
+    if(isIOS()) {
+        $(".link-rel").attr("href",$("#ios_link").val());
+    }
+    function isWeiXin() {
+        var ua = window.navigator.userAgent.toLowerCase();
+        console.log(ua);//mozilla/5.0 (iphone; cpu iphone os 9_1 like mac os x) applewebkit/601.1.46 (khtml, like gecko)version/9.0 mobile/13b143 safari/601.1
+        if(ua.match(/MicroMessenger/i)== 'micromessenger') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    if(isWeiXin() && !isIOS()){
+        $(".link-rel").attr("href",'').addClass("is-weixin");
+    }
+    $('body').on("click",'.is-weixin',function(e){
+        $(".mask").show();
+    });
+    function slideControl(cur) {
+        $('.img-ul li[data-index="'+cur+'"]').addClass("show").siblings().removeClass("show");
+        $('.dot-ul li[data-index="'+cur+'"]').addClass("cur").siblings().removeClass("cur");
+    }
+    function isIOS() {
+        var isIOS =(/iPhone|iPod|iPad|mac/i).test(navigator.userAgent);
+        return isIOS ? true : false;
+    }
+    $(window).load(function() {
+        slideInterval = setInterval(function() {
+            cur < imgUlLen ? cur++ : cur = 0;
+            slideControl(cur);
+        }, 2000)
+    })
+
+</script>
+</html>

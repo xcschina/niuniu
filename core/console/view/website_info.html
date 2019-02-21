@@ -1,0 +1,35 @@
+<div class="bjui-pageHeader">
+    <a href="website.php?act=add_info" class="btn btn-green" data-toggle="navtab" data-id="add_info" data-title="新建推广信息链接">新建</a>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th width="20">No.</th>
+            <th>游戏名称</th>
+            <th>渠道名称</th>
+            <th>二维码</th>
+            <th>链接地址</th>
+            <!--<th>操作</th>-->
+        </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=data from=$game}
+        <tr align="center">
+            <td>{$data.id}</td>
+            <td>{$data.game_name}</td>
+            <td>{$data.ch_name}</td>
+            <td><img width="40px" src="http://cdn.66173.cn/{$data.qr_url}"></td>
+            <td><a href="http://www.66173.cn/website.php?act=game_template&id={$data.id}" target="_blank">推广地址</a></td>
+            <!--<td>-->
+                <!--<a href="website.php?act=edit&id={$data.id}" class="btn btn-green" data-toggle="dialog" data-mask="true" data-width="500"  data-height="400" data-title="修改推广链接">修改配置</a>-->
+            <!--</td>-->
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

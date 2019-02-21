@@ -1,0 +1,206 @@
+<div class="alert_box" style="display: none">
+    <div class="alert_nav">
+        <span>天龙八部3D下载地址</span>
+        <a href="#;"><i class="close_down"></i></a>
+    </div>
+    <!-- 平台选择 -->
+    <form action="/weekactivity.php?act=topay&id={$info.id}"  method="post"  id="payform">
+        <section class="mt-10 clearfix">
+            <header class="pay-tit clearfix"><h3 class="pay-tit-h">渠道选择：</h3></header>
+
+            <h5 class="android">安卓版</h5>
+            <ul class="gver-list clearfix and">
+
+            </ul>
+            <h5 class="ios">苹果iOS版</h5>
+            <ul class="gver-list clearfix iosd">
+
+            </ul>
+        </section>
+        <div class="clear_h2"></div>
+        <section class="clearfix buy_box">
+            <header class="pay-tit clearfix"><h3 class="pay-tit-h">填写账户信息</h3></header>
+            <div class="card-info-box clearfix">
+                <label><i>*</i>选择区服：</label>
+                <select name="serv_id" id="choose_server">
+                    <option value="">点击选择游戏区服</option>
+                    {foreach from=$game_servs item=servs}
+                    <option value="{$servs.id}">{$servs.serv_name}</option>
+                    {/foreach}
+                </select>
+            </div>
+            {foreach from=$tags item=tag key=k}
+            <div class="card-info-box">
+                <label><i>*</i>{$k}：</label>
+                <select name="attr[]" id="zhiy">
+                    {foreach from=$tag item=t}
+                    <option value="{$k}:{$t}">{$t}</option>
+                    {/foreach}
+                </select>
+            </div>
+            {/foreach}
+            <div class="card-info-box-2 clearfix" id="is-rand-game-user">
+                <label>随机角色名：</label>
+                <a href="#;" rel="1">是</a><a href="#;" class="on">否</a>
+            </div>
+            <div class="card-info-box-3 clearfix rand-user">
+                <div class="card3-con">
+                    <label><i>*</i>角色名：</label>
+                    <input name="role_name" type="text" placeholder="请输入您想要的角色名" class="card-input" />
+                </div>
+            </div>
+
+            <div class="card-info-box-3 clearfix rand-user">
+                <p class="card3-con-txt">备用角色名不能与角色名一样</p>
+                <div class="card3-con">
+                    <label><i>*</i>备用角色名：</label>
+                    <input name="role_back_name" type="text" placeholder="如角色名被占用 将使用备用名" class="card-input" />
+                </div>
+            </div>
+        </section>
+        <!-- End填写账户信息 -->
+        <!-- Str联系方式 -->
+        <section class="mt-10 clearfix">
+            <header class="pay-tit clearfix">
+                <h3 class="pay-tit-h">联系方式</h3>
+            </header>
+            <div class="card-info-box clearfix mt-10">
+                <label><i>*</i>手机：</label>
+                <input name="tel" type="text" placeholder="{if !$smarty.session.buy_mobile}请输入联系手机{/if}" class="card-input" value="{$smarty.session.buy_mobile}" />
+            </div>
+            <div class="card-info-box clearfix mt-10">
+                <label><i>*</i>QQ：</label>
+                <input name="qq" type="number" class="card-input" value="{$smarty.session.buy_qq}" />
+            </div>
+            <header class="pay-tit clearfix">
+                <h3 class="pay-tit-h">选择支付方式</h3>
+            </header>
+            <div class="pay_type">
+                <div class="pay_method" style="margin-top:20px;">
+
+                    <ul class="pay_method_tab">
+                        <li class="cur" lang="pay_method_1" data-pc="1">支付宝</li>
+                        <li lang="pay_method_5" data-pc='5'>微信</li>
+                        <li lang="pay_method_2" data-pc='2'>网银</li>
+                        <!-- <li lang="pay_method_3">手机充值卡支付</li> -->
+                    </ul>
+
+                    <!-- 支付宝 -->
+                    <div class="pay_method_box" id="pay_method_1">
+                        <!--<div class="pay_price"><span class="fontbold">支付：</span><span class="color_red">{($order.price*$discount/10)|round}元</span></div>-->
+                        <div class="msg"><i></i>支付宝需要收取手续费，手续费为0%；如果有任何支付问题请拨打客服电话 0591-87766173。</div>
+                        <div class="msg_center">
+                            <img src="{$IMG_PATH}pay_alipay.png" />
+                            <div>亲~请点击下方按钮进行支付，支付成功后请联系客服提货哦~</div>
+                        </div>
+                    </div>
+
+                    <!-- 网银 -->
+                    <div class="pay_method_box" id="pay_method_2" style="display:none;">
+                        <!--<div class="pay_price"><span class="fontbold">支付：</span><span class="color_red">{($order.price*$discount/10)|round}元</span></div>-->
+                        <div class="msg"><i></i>易宝公司需要收取手续费，手续费为0%；如果有任何支付问题请拨打客服电话 0591-87766173。</div>
+                        <ul class="banklist">
+                            {foreach from=$banks item=bank key=k}
+                            <li>
+                                <div>
+                                    <input type="radio" data-code="{$bank.code}" id="bank_{$bank.seq}" name="radio_bank" />
+                                    <label for="bank_{$bank.seq}"><img src="{$IMAGES_PATH}bank/{$bank.code}.gif" /></label>
+                                </div>
+                            </li>
+                            {/foreach}
+                        </ul>
+                    </div>
+
+                    <!-- 微信支付 -->
+                    <div class="pay_method_box" id="pay_method_5" style="display:none;">
+                        <div class="msg"><i></i>微信需要收取手续费，手续费为0%；如果有任何支付问题请拨打客服电话 0591-87766173。</div>
+                        <div class="msg_center">
+                            <img src="{$IMG_PATH}pay_wx.jpg" />
+                            <div>亲~请点击下方按钮进行支付，支付成功后请联系客服提货哦~</div>
+                        </div>
+                    </div>
+                    <div class=" buy_rule">
+                        <a href="javascript:go_pay()"><strong class="name">立即支付</strong></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End联系方式 -->
+        <input type="hidden" name="channel_id" value="0">
+        <input type="hidden" name="do" value="character" />
+        <input type="hidden" name="service_id" value="1">
+        <input type="hidden" name="price" value="" />
+        <input type="hidden" name="stprice" value="" />
+        <input type="hidden" name="pagehash" value="{$pagehash}" />
+        <input type="hidden" name="is_login" value="{$is_login}" />
+        <input type="hidden" name="is_rand_user" value="0" />
+        <input type="hidden" name="buy_type" value="1" />
+        <input type="hidden" name="num" value="1" />
+        <input type="hidden" name="is_agent" value="{$smarty.session.is_agent}" />
+        <input type="hidden" name="role_level" value="0" />
+        <input type="hidden" name="user_id" value="{$smarty.session.user_id}" />
+        <input type="hidden" name="pay-channel" value="1" id="pay_channel"/>
+        <input type="hidden" name="id" value="" id="pid"/>
+        <input type="hidden" name="product_id" value="" id="product_id"/>
+        <input type="hidden" name="game_id" value=""/>
+        <input type="hidden" name="bank" value="" id="bank"/>
+        <input type="hidden" name="set_order" value="1"/>
+        <input type="hidden" name="activity" value="weekactivity">
+    </form>
+</div>
+<div class="down_alert" style="display:none">
+    <div class="game_down">
+    <div class="alert_nav">
+        <span>天龙八部3D下载地址</span>
+        <a href="#;"><i class="close_down"></i></a>
+    </div>
+        <div class="downaddr down_an">
+            <i class="icon_android"></i>
+        </div>
+        <div class="downaddr down_ios">
+            <i class="icon_ios"></i>
+        </div>
+    </div>
+</div>
+
+<div class="alert_box_2" style="display:none">
+    <div class="alert_nav">
+        <span>天龙八部3D下载地址</span>
+        <a href="#;"><i class="close_down"></i></a>
+    </div>
+    <div class="order_detail_unpaid">
+        <dl>
+            <dt>订单编号：</dt>
+            <dd class="dd_bh"></dd>
+        </dl>
+        <dl>
+            <dt>订单状态：</dt>
+            <dd>
+                <b class="color_red dd_zt">
+
+                </b>
+            </dd>
+        </dl>
+        <dl>
+            <dt>商品详情：</dt>
+            <dd>商品名称：<em class="em1"></em><br/>
+                商品价格：<b class="color_red"><em class="em2"></em>元</b><br/>
+                游戏区服：<em class="em3"></em><br/>
+                游戏平台：<em class="em4"></em>/<em class="em5"></em><br/>
+                购买数量：<em class="em6"></em><br/>
+                角色名：<em class="em7"></em><br/>
+                备用角色名：<em class="em8"></em><br/>
+                <br /><a href="http://wpa.qq.com/msgrd?v=3&uin={$ser_qq}&site=qq&menu=yes" target="_blank" rel="noopener noreferrer" class="service">联系客服</a>
+            </dd>
+        </dl>
+        <div class="clear_both"></div>
+
+        <div class="jiathis_style_32x32">
+            <span>分享到：</span>
+            <a class="jiathis_button_qzone"></a>
+            <a class="jiathis_button_tsina"></a>
+            <a class="jiathis_button_weixin"></a>
+            <a class="jiathis_button_cqq"></a>
+        </div>
+    </div>
+</div>

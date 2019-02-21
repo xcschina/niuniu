@@ -1,0 +1,114 @@
+<script type="text/javascript">
+    $(function(){
+        $("select[name=title]").chosen();
+    })
+</script>
+<div class="bjui-pageHeader">
+    <form id="pagerForm" action="" method="post" data-toggle="ajaxsearch">
+        <div class="bjui-searchBar">
+            <a href="game_template.php?act=add_view" class="btn btn-green" data-toggle="navtab" data-id="game_add_view" data-title="游戏新建">新建</a>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th>NO.</th>
+            <th>标题</th>
+            <th>头部图片</th>
+            <th>中部图片</th>
+            <th>中部信息图1</th>
+            <th >中部信息图2</th>
+            <th>中部信息图3</th>
+            <th>中部信息图4</th>
+            <th>中部信息背景图</th>
+            <th>底部图片</th>
+            <th>底部游戏图</th>
+            <th>下载地址</th>
+            <th>二维码</th>
+            <th width="100">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach from=$template item=data}
+        <tr align="center">
+            {$game_img=explode(",",$data['game_img'])}
+            <td>{$data.id}</td>
+            <td>{$data.title}</td>
+            <td>
+                {if $data['top_img']}
+                {$top=explode(",",$data['top_img'])}
+                {foreach from=$top item=top_img}
+                <img src="http://cdn.66173.cn{$top_img}" width="50px" height="50px">
+                {/foreach}
+                {/if}
+            </td>
+            <td>
+                {if $data['middle_img']}
+                {$middle=explode(",",$data['middle_img'])}
+                {foreach from=$middle item=middle_img}
+                <img src="http://cdn.66173.cn{$middle_img}" width="50px" height="50px">
+                {/foreach}
+                {/if}
+            </td>
+            <td>
+                {if $data['img1']}
+                {$img1=explode(",",$data['img1'])}
+                <img title="{$img1[0]}" src="http://cdn.66173.cn{$img1[1]}" width="50px" height="50px">
+                {/if}
+            </td>
+            <td>
+                {if $data['img2']}
+                {$img2=explode(",",$data['img2'])}
+                <img title="{$img2[0]}" src="http://cdn.66173.cn{$img2[1]}" width="50px" height="50px">
+                {/if}
+            </td>
+            <td>
+                {if $data['img3']}
+                {$img3=explode(",",$data['img3'])}
+                <img title="{$img3[0]}" src="http://cdn.66173.cn{$img3[1]}" width="50px" height="50px">
+                {/if}
+            </td>
+            <td>
+                {if $data['img4']}
+                {$img4=explode(",",$data['img4'])}
+                <img title="{$img4[0]}" src="http://cdn.66173.cn{$img4[1]}" width="50px" height="50px">
+                {/if}
+            </td>
+            <td>
+                {if $data['box_img']}
+                <img src="http://cdn.66173.cn{$data['box_img']}" width="50px" height="50px">
+                {/if}
+            </td>
+            <td>
+                {if $data['bottom_img']}
+                {$bottom=explode(",",$data['bottom_img'])}
+                {foreach from=$bottom item=bottom_img}
+                <img src="http://cdn.66173.cn{$bottom_img}" width="50px" height="50px">
+                {/foreach}
+                {/if}
+            </td>
+            <td>
+                {if $data['game_img']}
+                {foreach from=$game_img item=img}
+                <img src="http://cdn.66173.cn{$img}" width="50px" height="50px">
+                {/foreach}
+                {/if}
+            </td>
+            <td>{$data.down_url}</td>
+            <td>{if $data.qr_code}<img src="http://cdn.66173.cn{$data.qr_code}" width="50px" height="50px">{/if}</td>
+
+            <td>
+                <a href="game_template.php?act=edit_view&id={$data.id}" class="btn btn-green" data-toggle="navtab"  data-height="550" data-id="game_edit_view" data-title="游戏编辑">编辑</a>
+                <a type="button" href="game_template.php?act=del_template&id={$data.id}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要删除该行信息吗？">删除</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

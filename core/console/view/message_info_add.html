@@ -1,0 +1,39 @@
+<div class="bjui-pageContent">
+    <form action="message_info.php?act=do_massages_add"  data-toggle="validate" data-alertmsg="false" method="post">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">接收者ID：</label>
+                    <div style="display: inline-block; vertical-align: middle;">
+                        <textarea type="text" name="receiver_ids" value="" cols="60" rows="5"  class="form-control" data-rule="required"></textarea>
+                    </div>
+                    多个用户‘,’隔开
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">标题：</label>
+                    <input type="text" name="title" value="" cols="60" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">消息内容：</label>
+                    <div style="display: inline-block; vertical-align: middle;">
+                        <textarea type="text" name="content" value="" cols="60"  rows="10" class="form-control" data-rule="required"></textarea>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+
+

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="pragma" content="no-cache" />
+	<meta http-equiv="Cache-Control" content="no-cache" />
+	<meta http-equiv="expires" content="{$expires}" />
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<title>充值失败</title>
+	<meta content="width=device-width; initial-scale=1; minimum-scale=1, maximum-scale=1; user-scalable=1" name="viewport">
+	<link rel="stylesheet" href="http://static.66173.cn/ins/css/android.pay.fail.css?t={$smarty.now}">
+	{literal}
+	<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		!window.jQuery && document.write('<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"><\/script>');
+	</script>
+	<script src="http://static.66173.cn/ins/js/android.pay.comm.js?t={$smarty.now}"></script>
+	<script type="text/javascript">
+		document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.2 + 'px';
+	</script>
+	{/literal}
+</head>
+<body>
+<div class="wrap">
+	<section class="icon"><em></em></section>
+	<section class="green_font"><span>支付失败，{$errmsg}</span></section>
+	<section class="gray_font"><span>如有疑问，请联系客服。</span></section>
+	<div class="contact">
+		<a href="tel:0591-87766173" class="phone"><section><em></em><p>0591-87766173</p></section></a>
+		<a href="javascript:go_qq(3141424712);" class="qq"><section><em></em><p>3141424712</p></section></a>
+	</div>
+</div>
+
+<div class="nav">
+	<a href="pay_list.php" class="button"><section><span class="gray">查看充值记录</span></section></a>
+	<!--<a href="#;" onclick="revoucher();" class="blue_button"><section><span class="white">继续充值</span></section></a>-->
+</div>
+</body>
+<script>
+	function revoucher(){
+		window.nsdk_obj.revoucher();
+	}
+</script>
+</html>

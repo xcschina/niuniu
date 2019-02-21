@@ -1,0 +1,14 @@
+<section class="none-box clearfix">
+    <i class="g-logo"></i>
+    {if !$smarty.session.user_id}
+	<span onclick="login_mask();">请先登录您的66173账号哦</span>
+    <!--<a class="xc-btn" href="#;" onclick="login_mask();"/>使用代充进行充值</a>-->
+    <a class="xc-btn" href="#;" onclick="login_mask();"/>购买首充号</a>
+    <a class="xc-btn" href="#;"  onclick="login_mask();"/>为其他账号进行续充</a>
+    {else}
+    <span>您还未在661763购买过[{$game.game_name}首充号]哦~<br/>你可以选择以下操作：</span>
+    <!--<a class="xc-btn" href="/game{$game.id}/topup"/>使用代充进行充值</a>-->
+    <a class="xc-btn" href="/game{$game.id}/character"/>购买首充号</a>
+    <a class="xc-btn" href="/game{$game.id}/gameuser" />为其他账号进行续充</a>
+    {/if}
+</section>

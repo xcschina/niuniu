@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>订单详情</title>
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/comment.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/pay_guide.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/goods_detail.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/paylist_detail.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.css">
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script src="//cdn.66173.cn/mobile/trading/js/swiper.js?t={$smarty.now|date_format:'%Y%m%d'}"></script>
+    <script src="//cdn.66173.cn/mobile/trading/js/goods_detail.js?t={$smarty.now|date_format:'%Y%m%d'}"></script>
+</head>
+<body>
+<div class="page_top2">
+    <div class="page_top_left2">
+        <img class="margin_two" src="//cdn.66173.cn/mobile/trading/image/index_image/back.png" alt="">
+    </div>
+    <div class="page_top_center2">
+        订单详情
+    </div>
+    <a class="page_top_right2" href="/moyu">
+        <span class="login_my">
+            <img class="page_top_r_img" src="//cdn.66173.cn/mobile/trading/image/person_center/index2.png" alt="">
+        </span>
+    </a>
+</div>
+<div class="detail_banner margin_t">
+    <div class="rotator clearfix">
+        <div class="swiper-container ">
+            <div class="swiper-wrapper">
+                {foreach from=$imgs item=img}
+                <div class="swiper-slide swiper-pagination-bullet-active"><img class="index_imgimg" src="http://cdn.66173.cn{$img.img_url}" alt="" /></div>
+                {/foreach}
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination">
+                {foreach from=$imgs key=k item=data}
+                <span class="swiper-pagination-bullet swiper-pagination-bullet-active" data-seq="{$k}"></span>
+                {/foreach}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="good_detail_top">
+    <div class="good_detail_top_div">
+        <div class="good_detail_top_left">
+            <div class="good_top_left_s">
+                {if $product.type eq '4'}<span class="type_name_c">账号</span>
+                {elseif $product.type eq '5'}<span class="type_name_c2">游戏币</span>
+                {elseif $product.type eq '6'}<span class="type_name_c3">道具</span>
+                {/if}
+                {if  $product.type eq 4}<span class="type_name_title">{$product.title}</span>
+                {elseif  $product.type eq 5}<span class="type_name_title_game_coin"><span class="game_mount">{$product.num}</span>魔石 (1元=<span class="singal_price">{$product.proportion}</span>魔石)</span>
+                {elseif  $product.type eq 6}<span class="type_name_title">{$product.title}</span>
+                {/if}
+            </div>
+            <div class="good_top_left_x">
+                <div class="price_collection2">
+                    <span class="money_detail3">￥</span> <span class="price">{$info.pay_money}</span>
+                </div>
+            </div>
+        </div>
+        <div class="good_detail_top_right">
+        </div>
+    </div>
+</div>
+<div class="space"></div>
+<div class="pay_detail_one">
+    <div class="pay_detail_div">
+        <span>订单号：</span><span>{$info.order_id}</span>
+    </div>
+    <li><span class="span_title">支付方式：</span><span class="span_result">{if $info.pay_channel eq '1'}支付宝{elseif $info.pay_channel eq '5'}微信{/if}</span></li>
+    <li><span class="span_title">生成时间：</span><span class="span_result">{'Y-m-d H:i:s'|date:$info.buy_time}</span></li>
+    <li><span class="span_title">支付时间：</span><span class="span_result">{if $info.pay_time}{'Y-m-d H:i:s'|date:$info.pay_time}{/if}</span></li>
+    <li><span class="span_title">发货时间：</span><span class="span_result">{if $info.ship_time}{'Y-m-d H:i:s'|date:$info.ship_time}{/if}</span></li>
+    <li><span class="span_title">收货时间：</span><span class="span_result">{if $info.collect_time}{'Y-m-d H:i:s'|date:$info.collect_time}{/if}</span></li>
+    <li><span class="span_title">完成时间：</span><span class="span_result">{if $info.finish_time}{'Y-m-d H:i:s'|date:$info.finish_time}{/if}</span></li>
+    <li><span class="span_title">发货客服：</span><span class="span_result">{$info.real_name}</span></li>
+    <li><span class="span_title">目前状态：</span><span class="span_result">{if $info.status eq '0'}待付款{elseif $info.status eq '1'}待发货{elseif $info.status eq '2'}已发货{elseif $info.status eq '3'}已完成{elseif $info.status eq '4'}已退款{elseif $info.status eq '5'}已关闭{/if}</span></li>
+    <li><span class="span_title">商品价格：</span><span class="span_result">{$info.unit_price}元</span></li>
+    <li><span class="span_title">购买数量：</span><span class="span_result">{$info.amount}</span></li>
+    <li><span class="span_title">实际支付：</span><span class="span_result">{$info.pay_money}元</span></li>
+</div>
+<div class="space"></div>
+<div class="pay_detail_one">
+    <li><span class="span_title">所属游戏：</span><span class="span_result">{$product.game_name}</span></li>
+    <li><span class="span_title">商品类型：</span><span class="span_result">{if $product.type eq '4'}账号{elseif $product.type eq '5'}游戏币{elseif $product.type eq '6'}道具{/if}</span></li>
+    <li><span class="span_title">适用系统：</span><span class="span_result">{if $product.platform eq '1'}安卓{else}IOS{/if}</span></li>
+    <li><span class="span_title">客户端：</span><span class="span_result">{$product.channel_name}</span></li>
+    {if $product.type eq '4'}<li><span class="span_title">角色等级：</span><span class="span_result">{$product.role_level}</span></li>
+    {else if $product.type eq '5'}
+    <li><span class="span_title">服务器：</span><span class="span_result">{if $info.serv_name}{$info.serv_name}{else if $product.serv_name}{$product.serv_name}{else if $product.serv_id eq 0}全区全服{/if}</span></li>
+    <li><span class="span_title">职业：</span><span class="span_result">{$info.job}</span></li>
+    <li><span class="span_title">性别：</span><span class="span_result">{if $info.role_sex eq '1'}男{elseif $product.role_sex eq '2'}女{else}未知{/if}</span></li>
+    {else if $product.type eq '6'}
+    <li><span class="span_title">职业：</span><span class="span_result">{$info.job}</span></li>
+    {/if}
+    <li><span class="span_title">卖家描述</span></li>
+    <li class="statement"><span>{$product.intro|html_entity_decode}</span></li>
+</div>
+</body>
+<script>
+    var swiper1 = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        autoplay:4000,
+        crossFade: true ,
+        preloadImages: false,
+        lazyLoading: true,
+        paginationClickable: true,
+        autoplayDisableOnInteraction: false
+    });
+</script>
+<script>
+    $(".page_top_left2").click(function () {
+        history.back()
+    })
+</script>
+</html>

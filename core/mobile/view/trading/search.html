@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>66173官方 魔域手游交易平台-{$game_name}</title>
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/comment.css?t={$smarty.now|date_format:'%Y%m%d%H%i%s'}">
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/menudown.css?t={$smarty.now|date_format:'%Y%m%d%H%i%s'}">
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/search.css?t={$smarty.now|date_format:'%Y%m%d%H%i%s'}">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script src="//cdn.66173.cn/mobile/trading/js/menudown.js?t={$smarty.now|date_format:'%Y%m%d'}"></script>
+</head>
+<style>
+    .search_input_ss{
+        display: block;z-index: 99;position: absolute;max-width: 550px;top: 161px;margin-left:18%;width:33%;
+    }
+    .color_p{
+        font-size: 0.9rem;color: red
+    }
+    .result_ul_a{
+        width: 100%;height:209px;overflow: scroll;margin-top: 54px;
+        margin-left: 8px
+    }
+    .all_area{
+        color: red;
+        font-size: 0.9rem;
+    }
+    .result_serv_name{
+        font-size: 0.9rem!important;
+    }
+    .red_color{
+        color: red;
+    }
+    /*.red_color2{*/
+    /*color: red;*/
+    /*}*/
+    @media (max-width: 599px){
+        .search_input_ss{
+            margin-left:13%;
+            width:50%;
+        }
+    }
+
+    @media (min-width:600px) and (max-width:767px){
+        .search_input_ss{
+            margin-left:13%;
+            width:30%;
+        }
+        .select_first_ul{
+            margin-left: 5%;
+        }
+    }
+    @media (min-width:768px) and (max-width:1023px) {
+        .search_input_ss{
+           margin-left:18%;width:30%;
+        }
+        .select_first_ul{
+            margin-left:13%;
+        }
+    }
+    @media(min-width:1025px) and (max-width:1300px) {
+        .search_input_ss{
+            margin-left: 11%;width: 20%;
+        }
+        .select_first_ul{
+            margin-left: 21%;
+        }
+    }
+    @media (min-width:1300px) {
+        .search_input_ss{
+            margin-left: 8%;width: 20%;
+        }
+        .select_first_ul{
+            margin-left: 30%;
+        }
+    }
+    .channel-name{
+        height: 38px!important;
+        font-size: 0.9rem;
+    }
+</style>
+
+<body>
+<div class="page_top2">
+    <div class="page_top_left2">
+        <img class="margin_two" src="//cdn.66173.cn/mobile/trading/image/index_image/back.png" alt="">
+    </div>
+    <div class="page_top_center2">
+        {$game_name}
+    </div>
+    {if $smarty.session.user_id}
+    <a class="page_top_right2" href="/accountCenter">
+        <span class="login_my">
+            我的
+        </span>
+    </a>
+    {else}
+    <a class="page_top_right2" href="/Login">
+        登录
+    </a>
+    {/if}
+</div>
+<div class="search_header_top margin_t">
+    <div class="search_header_top_div">
+        <input placeholder="请输入商品标题" class="top_input"/>
+        <div class="top_search" onclick="yes_submit()">搜索</div>
+    </div>
+
+</div>
+<div class="nav_nav">
+    <dl class="topmenu">
+        <dt>
+        <div class="selectlist">
+            <div class="select_textdiv">
+                <input type="hidden" value=""/>
+                <p class="s_text text_choose choose_model">选择机型</p><span class="down">
+                    <img class="last_down" src="//cdn.66173.cn/mobile/trading/image/index_image/down.png"></span>
+            </div>
+            <div class="select_textul">
+                <ul class="select_first_ul slect111">
+                    <li data-id="" class="focus">
+                        <p class="p"><span class="p_span">全部</span> </p>
+                    </li>
+                    <li data-id="1">
+                        <p class="p"><span class="p_span">安卓</span> </p>
+                    </li>
+                    <li data-id="2">
+                        <p class="p"><span class="p_span">iOS</span> </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </dt>
+        <dt>
+        <div class="selectlist">
+            <div class="select_textdiv">
+                <input type="hidden" value=""/>
+                <p class="s_text text_choose server_select select_fuwuqi">服务器</p><span class="down">
+                    <img class="last_down" src="//cdn.66173.cn/mobile/trading/image/index_image/down.png"></span>
+            </div>
+            <div class="select_textul fuwuqi_div">
+                <div class="search_input_ss gg" style="">
+                    <input  type="text" class="input_s" id="search_title2">
+                    <span class="search_txt_s">搜索</span>
+                </div>
+                <ul class="select_first_ul" style="min-height:270px!important;">
+
+                    <p class="p color_p all_p" id=""  data-id="{$data.id}" style="height: 30px;margin-bottom: 8px;">
+                        <span class="p_span all_span"  style="font-size: 0.9rem">全部</span>
+                    </p>
+                    <div class="left_div_p" style="width: 35%;height: 226px;overflow:scroll;font-size: 0.9rem" >
+                        {foreach from=$channel key=$k item=data}
+                        <p class="p p_select ppp_span channel-name" id="ch_id{$data.id}"  data-id="{$data.id}">
+                            <span class="p_span ppp_span_s" >{$data.channel_name}</span>
+                        </p>
+                        {/foreach}
+                    </div>
+                    <div class="select_second_ul" style="position: absolute;" >
+                        <li>
+                            <ul class="result_ul chali" style="width: 100%;height:209px;overflow: scroll;margin-top: 54px;margin-left: 8px;">
+
+                            </ul>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+        </div>
+        </dt>
+        <dt>
+        <div class="selectlist">
+            <div class="select_textdiv">
+                <input type="hidden" value=""/>
+                <p class="s_text text_choose good_type">商品类别</p><span class="down">
+                    <img class="last_down" src="//cdn.66173.cn/mobile/trading/image/index_image/down.png"></span>
+            </div>
+            <div class="select_textul">
+                <ul class="select_first_ul slect222">
+                    <li data-id="" class="focus">
+                        <p class="p"><span class="p_span">全部</span> </p>
+                    </li>
+                    <li data-id="4">
+                        <p class="p"><span class="p_span" >账号</span> </p>
+                    </li>
+                    <li data-id="5">
+                        <p class="p"><span class="p_span" >游戏币</span> </p>
+                    </li>
+                    <li data-id="6">
+                        <p class="p"><span class="p_span">道具</span> </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </dt>
+        <dt>
+        <div class="selectlist">
+            <div class="select_textdiv">
+                <input type="hidden" value=""/>
+                <p class="s_text text_choose">筛选排序</p><span class="down">
+                    <img class="last_down" src="//cdn.66173.cn/mobile/trading/image/index_image/down.png"></span>
+            </div>
+            <div class="select_textul select_div">
+                <ul class="select_first_ul">
+                    <li>
+                        <div class="price_choose">
+                            <div class="price_choose_input">
+                                <span class="choose_span">价格区间:</span>
+                                <input   class="choose_input_s " placeholder="最低价格" type="number">
+                                <span>--</span>
+                                <input  class="choose_input_s2 " placeholder="最高价格" type="number">
+                            </div>
+                            <div class="price_choose_btn">
+                                <button class="price_item"><span class="low_price">0</span>~<span class="high_price">30</span></button>
+                                <button class="price_item"><span class="low_price">30</span>~<span class="high_price">100</span></button>
+                                <button class="price_item"><span class="low_price">100</span>~<span class="high_price">200</span></button>
+                                <button class="price_item"><span class="low_price">200</span>~<span class="high_price">500</span></button>
+                                <button class="price_item"><span class="low_price">500</span>~<span class="high_price">1000</span></button>
+                                <button class="price_item"><span class="low_price">2000</span>~以上<span class="high_price"></span></button>
+                            </div>
+                        </div>
+                    </li>
+                    <li style="width: 95%; margin:-34px auto 0;height:22px"><li data-name=""><span class="p_span_head" >排序方式:</span> </li></li>
+                    <li>
+                    <li style="height: 30px;margin-top: -20px" class="li_price_order bgbg_bg" data-name=""><span class="p_span2" >按时间顺序</span> </li>
+                    <li style="height: 30px" class="li_price_order" data-name="desc"><span class="p_span2" >价格从高到底</span> </li>
+                    <li style="height: 30px" class="li_price_order" data-name="asc"><span class="p_span2" >价格从低到高</span> </li>
+                    </li>
+                    <li style="display: flex;flex-direction: row;justify-content: center;align-items: center">
+                        <div style="width:60%;height: 65px;display: flex;flex-direction: row;justify-content:space-between;align-items: center">
+                            <div class="yes_comfirm2" onclick="yes_submit2()">重置</div>
+                            <div class="yes_comfirm" onclick="yes_submit()">确定</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </dt>
+    </dl>
+</div>
+<div class="game_list">
+    <div class="game_list_div">
+        {foreach from=$product_list key=$k item=data}
+        <div class="list_item">
+            <a class="game_list_item" href="/productDetail/{$data.id}">
+                <div class="search_game_logo">
+                    <img  src="//cdn.66173.cn/{$data.game_icon}" alt="">
+                </div>
+                <div class="search_game_right">
+                    <div class="search_game_right_div">
+                        <div class="search_game_right_div_s">
+                            {if  $data.type eq 4}<span class="search_bg_title">账号</span>
+                            {elseif  $data.type eq 5}<span class="search_bg_title2">游戏币</span>
+                            {elseif  $data.type eq 6}<span class="search_bg_title3">道具</span>
+                            {/if}
+                            <!--<span class="title_text">{$data.title}</span>-->
+                            {if  $data.type eq 4} <span class="title_text">{$data.title}</span>
+                            {elseif  $data.type eq 5}<span class="title_text"><span class="game_mount">{$data.num}魔石</span>&nbsp;(1元=<span class="singal_price">{$data.proportion}</span>魔石)</span>
+                            {elseif  $data.type eq 6}<span class="title_text">{$data.title}</span>
+                            {/if}
+                        </div>
+                        <div class="search_game_right_div_z">
+                            <span>{$data.game_name}&nbsp;</span>|
+                            <span>&nbsp;{$data.channel_name}&nbsp;</span>|
+                            <span>&nbsp;{if $data.serv_id eq 0}全区全服{else}{$data.sname}{/if}</span>
+
+                        </div>
+                        <div class="search_game_right_div_x">
+                            ￥ <span class="search_money_price">{$data.price}</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <div class="space"></div>
+        </div>
+        {/foreach}
+    </div>
+    {if $flag eq 0}
+    <div class="look_more">
+        没有找到相对应商品
+    </div>
+    {elseif $flag eq 1}
+    <button class="look_more" onclick="getMore()">
+        查看更多>>
+    </button>
+    {/if}
+    <!--<button class="look_more1"  style="display: none">-->
+    <!--暂无数据~-->
+    <!--</button>-->
+</div>
+
+<input type="hidden" name="platform" value="{$platform}">
+<input type="hidden" id="game_id" name="game_id" value="{$game_id}">
+<input type="hidden" name="type" value="{$type}">
+</body>
+<script>
+    $(document).on('click touchstart','.ppp_span',function(){
+//    $(".ppp_span").click(function () {
+        $(".search_input_ss").show();
+        $(this).addClass("color_p").siblings().removeClass("color_p");
+        $(".all_p").removeClass("color_p");
+        $(".result_ul").css("margin-top","46px");
+        var li_ = "<li class='all_area'  onclick='getData2()'>"+"全区服"+"</li>";
+        $(".result_ul").html(li_);
+    });
+    $(document).on('click touchstart','.all_p',function(){
+//    $(".all_p").click(function () {
+        $(".result_ul").css("margin-top","6px");
+        $(this).addClass("color_p");
+        $(".ppp_span").removeClass("color_p");
+        $(".search_input_ss").hide();
+        $(".all_area").show();
+        $(".all_area").addClass("color_p");
+//        $(".select_second_ul").show();
+        var li_ = "<li class='all_area'  onclick='getData2()'>"+"全区服"+"</li>";
+        $(".result_ul").html(li_);
+    });
+    $(document).on('click touchstart','.server_select',function(){
+//    $(".server_select").click(function () {
+        $(".select_second_ul").show();
+        var text = $(".select_fuwuqi").html();
+        if(text=="服务器"){
+            $(".search_input_ss").hide();
+            $(".all_p").addClass("color_p");
+            $(".ppp_span").removeClass("color_p");
+            $(".result_ul").css("margin-top","6px");
+            var li_ = "<li class='all_area'  onclick='getData2()'>"+"全区服"+"</li>";
+            $(".select_second_ul").show();
+            $(".result_ul").html(li_);
+        }
+    });
+</script>
+<script src="//cdn.66173.cn/mobile/trading/js/search.js?t={$smarty.now|date_format:'%Y%m%d'}"></script>
+<script src="//cdn.66173.cn/mobile/trading/js/base64_a.js?t={$smarty.now|date_format:'%Y%m%d'}"></script>
+</html>

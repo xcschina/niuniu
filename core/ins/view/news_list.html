@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="expires" content="{$expires}" />
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta content="width=device-width; initial-scale=1; minimum-scale=1, maximum-scale=1; user-scalable=1" name="viewport">
+    <link rel="stylesheet" href="http://cdn.66173.cn/ins/css/message.css?t=112">
+    <script src="http://cdn.66173.cn/www/js/jquery-1.8.3.min.js"></script>
+    <title>消息中心</title>
+    <script>
+        function initHTMLSize() {
+            var wWidth = document.documentElement.clientWidth || document.body.clientWidth;
+            var size = wWidth / 7.5;
+            document.getElementsByTagName('html')[0].style.fontSize = (size > 55 ? 55 : size) + 'px';
+        }
+        $(document).ready(function () {
+            initHTMLSize();
+        });
+        $(window).resize(function() {
+            initHTMLSize();
+        });
+    </script>
+</head>
+<body class="message-center">
+<div class="message-wrapper">
+    {if !$info}
+    <!-- 没消息 -->
+    <div class="no-message">
+       <img class="no-pic" src="http://cdn.66173.cn/ins/css/news/message_no.png"/>
+       <div class="tip">暂无消息</div>
+    </div>
+    {else}
+    <!-- 有消息 -->
+    <ul class="message-ul">
+        {foreach from=$info item=data}
+        <a class="block" href="/news.php?act=info&id={$data.id}">
+            <li class="font-lg message-item">
+                <div class="left">
+                    {if $data.type eq 1}
+                    <img class="message-icon" src="http://cdn.66173.cn/ins/css/news/message_system.png"/>
+                    {else if $data.type eq 2}
+                    <img class="message-icon" src="http://cdn.66173.cn/ins/css/news/message_service.png"/>
+                    {else if $data.type eq 3}
+                    <img class="message-icon" src="http://cdn.66173.cn/ins/css/news/message_activity.png"/>
+                    {/if}
+                    {if $data.is_read neq 1}
+                    <img src="http://cdn.66173.cn/ins/css/news/message_unread.png" class="dot active"/>
+                    {/if}
+                </div>
+                <div class="center">
+                    <div class="text-overflow title">{if $data.type eq 1}[系统]{else if $data.type eq 2}[客服]{else if $data.type eq 3}[活动]{/if}{$data.title}</div>
+                    <div class="text-overflow desc">{$data.subtitle}</div>
+                    <div class="text-overflow font-sm time">{$data.push_time|date_format:"%Y-%m-%d"}</div>
+                </div>
+                <img class="go-to-message" src="http://cdn.66173.cn/ins/css/news/message_go.png" />
+            </li>
+        </a>
+        {/foreach}
+    </ul>
+    {/if}
+</div>
+{if count($info) eq 10}
+<div class="get-status">
+    <span class="more-btn more-btn-can">加载更多</span>
+</div>
+{else if $info}
+<div class="get-status">
+    <span>没有了~</span>
+</div>
+{/if}
+
+<div class="brief-tip-pop"><div class="con"></div></div>
+</body>
+<script>
+    var curPage = 1;
+    var getMoreTimeout;
+    // 加载更多
+    // getMessage();
+    // 点击加载更多按钮
+    $(".message-center").on("click", ".more-btn-can", function() {
+        $(".more-btn").removeClass("more-btn-can");
+        getMessage();
+        btnTimeOutControl(".more-btn", "more-btn-can", getMoreTimeout, 3000);
+    })
+    // 获取消息列表
+    function getMessage() {
+        var reqPage = curPage + 1;
+         $.ajax({
+         	url: "/news.php?act=more",
+         	type: 'post',
+         	dataType: 'json',
+         	data: {
+         		page:reqPage
+         	}
+         }).success(function(res){
+        // type : 1是活动消息，1是客服消息，3是系统消息
+        var code = res.result;
+        var messages = res.info || [];
+        var date = new Date();
+             Y = date.getFullYear() + '-';
+             M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+             D = date.getDate() + ' ';
+        if(code == 1) {
+            var content = "";
+            // 返回有消息，无论是第一页还是其他页
+            if (messages.length != 0) {
+                for(var i = 0; i < messages.length; i++) {
+                    content += '<a class="block" href="/news.php?act=info&id=' + messages[i]['id'] + '"><li class="font-lg message-item">'
+                        + '<div class="left"><img class="message-icon" src="'
+                    if(messages[i]['type'] == 1) {
+                        content += 'http://cdn.66173.cn/ins/css/news/message_system.png'
+                    } else if(messages[i]['type'] == 2) {
+                        content += 'http://cdn.66173.cn/ins/css/news/message_service.png'
+                    } else if(messages[i]['type'] == 3) {
+                        content += 'http://cdn.66173.cn/ins/css/news/message_activity.png'
+                    }
+                    content += '"/><img src="http://cdn.66173.cn/ins/css/news/message_unread.png" class="dot ';
+                    if(messages[i]['is_read'] != '1') {
+                        content += 'active'
+                    }
+                    content += '" /></div><div class="center">'
+                        + '<div class="text-overflow title">' + messages[i]['title'] + '</div>'
+                        + '<div class="text-overflow desc">' + messages[i]['subtitle'] + '</div>'
+                        + '<div class="text-overflow font-sm time">' + getLocalTime(messages[i]['push_time']) + '</div>'
+                        + '</div>'
+                        + '<img class="go-to-message" src="http://cdn.66173.cn/ins/css/news/message_go.png" />'
+                        + '</li></a>'
+
+                }
+                if(messages.length < 10) {
+                    $(".get-status").html("没有了~").show();
+                }
+                else {
+                    $(".get-status").html('<span class="more-btn more-btn-can">加载更多</span>').show();
+                }
+                $(".message-ul").append(content).show().siblings().hide();
+                curPage++;
+            }
+            // 第一页就没有消息或者其他页没有更多了
+            else {
+                $(".get-status").html("没有了~").show();
+            }
+        }
+        else {
+            briefTipControl(res.desc);
+        }
+         }).error(function(req) {
+         	briefTipControl("请求出错:"+req.status+","+req.statusText);
+         })
+    }
+    // 简单提示控制
+    function briefTipControl(text) {
+        $(".brief-tip-pop .con").html(text);
+        $(".brief-tip-pop").fadeIn(500).delay(1000).fadeOut(500);
+    }
+    // 按钮定时加class控制
+    function btnTimeOutControl(ele, cls, timeoutClient, timeout) {
+        clearTimeout(timeoutClient);
+        timeoutClient = setTimeout(function() {
+            $(ele).addClass(cls);
+        }, timeout || 2000);
+    }
+    function getLocalTime(timestamp) {
+        var date = new Date(parseInt(timestamp)*1000);
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var D = date.getDate();
+        return Y + M + D;
+    }
+</script>
+</html>

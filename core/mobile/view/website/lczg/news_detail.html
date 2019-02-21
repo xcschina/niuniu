@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="Mon, 20 Jul 2013 23:00:00 GMT" /> <!--//设置页面缓存-->
+    <meta name="robots" content="all">
+    <meta name="author" content="Tencent-TGideas">
+    <meta name="Copyright" content="Tencent">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,maximum-scale=1" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.js"></script>
+    <title>新闻详情</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link href="https://cdn.66173.cn/mobile/website/lczg/css/news_detail.css" rel="stylesheet">
+</head>
+<style>
+    img {
+        /* vertical-align: middle; */
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin: auto;
+    }
+</style>
+<script>
+    (function(doc, win) {
+        var docEl = doc.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function() {
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth) return;
+                docEl.style.fontSize = 20 * (clientWidth / 420) + 'px';
+                console.log("您当前字体大小是"+docEl.style.fontSize)
+            };
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+    })(document, window);
+</script>
+<body>
+<div class="all_boby">
+    <div class="index_div_top">
+    </div>
+    <div class="nav_top">
+         <div class="nav_top_icon">
+             <a  onclick="goBack()">< 返回</a>
+         </div>
+        <div class="nav_top_title">文章详情</div>
+    </div>
+    <div class="title_new">
+        <span>
+            {$info.title}
+        </span>
+    </div>
+    <p class="time_new">
+        <span>时间：{'Y-m-d H:i:s'|date:$info.add_time}</span>
+    </p>
+    <div class="contant_txt">
+        {$info.intro|htmlspecialchars_decode}
+    </div>
+</div>
+<!--微信分享的时间戳==============-->
+<input type="hidden" value="{$noncestr}" id="noncestr"/>
+<input type="hidden" value="{$timestamp}" id="timestamp"/>
+<input type="hidden" value="{$signature}" id="signature" />
+<input type="hidden" id="pagehash" value="{$pagehash}">
+<!--微信分享的时间戳结束===============-->
+</body>
+<!--轮播swiper.js-->
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        mode: 'horizontal',
+        autoplay: 4000,
+        crossFade: true ,///控制是否自动播放
+        preloadImages: false, //是否初始时将所有轮播图加载完,
+        lazyLoading: true, //是否图片懒加载，要和preloadImages: false一起使用
+        paginationClickable: true,
+        autoplayDisableOnInteraction: false //控制用户滑动或点击到其他图后是否不再轮播
+    });
+    function goBack(){
+        window.history.back()
+    }
+</script>
+<!--判断用户安卓手机还是苹果手机并跳转相应的下载地址-->
+<script>
+    function isMobileIOS() {
+        var isIOS =(/iPhone|iPod|iPad/i).test(navigator.userAgent);
+        return isIOS ? true : false;
+    }
+    $(".index_div_top").on("touchend",function () {
+        if(isMobileIOS()){
+            alert("ios版本正在内测中，后期开放")
+        }else{
+            window.location.href=""   //这里为移动端安卓下载地址链接
+        }
+    })
+</script>
+<!--判断手机端还是pc端-->
+<script>
+    function browserRedirect() {
+        var sUserAgent = navigator.userAgent.toLowerCase();
+        var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+        var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+        var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+        var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+        var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+        var bIsAndroid = sUserAgent.match(/android/i) == "android";
+        var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+        var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+        document.writeln("您的浏览设备为：");
+        if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+            alert("您是手机端")
+        } else {
+            alert("您是pc端")
+        }
+    }
+    $('.footer_enjoy').on("touchend",function () {
+        browserRedirect()
+    })
+</script>
+
+<!--引入微信分享在线cdn的js微信分享-->
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script>
+    // <!--获取到签名-->
+    var noncestr = $("#noncestr").val();
+    var timestamp = $("#timestamp").val();
+    var signature = $("#signature").val();
+    document.addEventListener('WeixinJSBridgeReady', function() {
+        wx.config({
+            debug: false,
+            appId: "wxbaed68c7f2f3a62c",// 必填，公众号的唯一标识
+            timestamp: parseInt(timestamp),// 必填，生成签名的时间戳
+            nonceStr: noncestr,// 必填，生成签名的随机串
+            signature: signature,// 必填，签名
+            jsApiList: [
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'onMenuShareQQ',
+                'onMenuShareWeibo',
+                'onMenuShareQZone'
+            ]
+        });
+
+        //通过ready接口处理成功验证
+        wx.ready(function() {
+            var shareData = {
+                title: '龙城战歌',
+                desc: '《龙城战歌》一款热门手游,与玩家一起体验精品游戏,享受真福利与真特权，只为带给您高品质的游戏体验。',
+                link: window.location.href,
+                imgUrl: "indexImage/logo.png",// 分享图标
+                type: '',
+                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                success: function() {
+                    alert("分享成功")
+                },
+                cancel: function() {
+                    alert("取消分享");
+                }
+            };
+            // 分享给朋友事件绑定
+            wx.onMenuShareAppMessage(shareData);
+            // 分享到朋友圈
+            wx.onMenuShareTimeline(shareData);
+            // 分享到QQ
+            wx.onMenuShareQQ(shareData);
+            // 分享到QZone
+            wx.onMenuShareQZone(shareData);
+            // 分享到微博
+            wx.onMenuShareWeibo(shareData);
+        });
+    });
+</script>
+
+</html>

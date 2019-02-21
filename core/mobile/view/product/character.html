@@ -1,0 +1,30 @@
+<div class="pay-page-con select-box clearfix">
+    <div class="card-info-box">
+        <label>选择区服</label>
+        <select name="serv_id" id="serv_id">
+            <option value="0">请选择服务器</option>
+            {foreach from=$servs item=serv}
+            <option value="{$serv.id}">{$serv.serv_name}</option>
+            {/foreach}
+        </select>
+    </div>
+    <div class="card-info-box">
+        <label>角色名称</label>
+        <input type="text" name="role_name" placeholder="请填写新建角色名称" />
+    </div>
+    <div class="card-info-box">
+        <label>备用名称</label>
+        <input type="text" name="role_back_name" placeholder="名称被占用将使用备用名称" />
+    </div>
+    {foreach from=$tags item=tag key=k}
+    <div class="card-info-box">
+        <label>{$k}</label>
+        <select name="attr[]">
+            {foreach from=$tag item=t}
+            <option value="{$k}:{$t}">{$t}</option>
+            {/foreach}
+        </select>
+    </div>
+    {/foreach}
+    <input type="hidden" name="do" value="character" />
+</div>

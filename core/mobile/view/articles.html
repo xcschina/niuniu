@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>文章列表页</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/common.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/list.css" media="screen" />
+</head>
+<body>
+<header class="page-header clearfix">
+    <h1 class="h1-txt">交易帮助</h1>
+    <a href="javascript:history.back();" class="back-link"></a> <a class="idv-link" href="/account.php?act=user_center"></a>
+</header>
+<section class="shelp-box clearfix">
+    <ul class="shelp-list clearfix">
+        {foreach from=$parts_list item=part}
+        <li><a href="/info/list{$part.id}" {if $params.part_id eq $part.id}style="color:#FF7E00"{/if}>{$part.name}</a></li>
+        {/foreach}
+    </ul>
+</section>
+<section class="shelp-con clearfix">
+    <h2 class="shelp-tit">{$title}</h2>
+    <ul class="shelp-alist clearfix">
+        {foreach from=$articles_list item=article}
+        <li><a href="/info/{$article.id}">{$article.title}</a></li>
+        {/foreach}
+    </ul>
+</section>
+{include file="include/footer.html"}
+</body>
+</html>

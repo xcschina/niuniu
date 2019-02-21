@@ -1,0 +1,198 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{if $info.app_id eq '1059'}贵宾充值返利活动{else}官方充值{/if}</title>
+    <meta name="keywords" content="{$info.app_name}" />
+    <meta name="description" content="《{$info.app_name}》唯一官方网站,{$info.app_name}正版苹果appstore充值。" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <link rel="stylesheet" href="//cdn.66173.cn/website/css/ios_pay.css?t={$smarty.now}">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script type="application/javascript">
+        function initHTMLSize() {
+            var wWidth = document.documentElement.clientWidth || document.body.clientWidth;
+            var size = wWidth / 7.5;
+            document.getElementsByTagName('html')[0].style.fontSize = (size > 55 ? 55 : size) + 'px';
+        }
+        $(document).ready(function () {
+            initHTMLSize();
+        });
+        $(window).resize(function() {
+            initHTMLSize()
+        });
+    </script>
+</head>
+
+<body class="pay-step1">
+    <div class="top-header">
+        <div class="title">{if $info.app_id eq '1059'}贵宾充值返利活动{else}官方充值{/if}</div>
+    </div>
+
+    <div class="content">
+        <div class="tips">{if isset($smarty.session.msg)}{$smarty.session.msg}{/if}</div>
+        <form action="pay_affirm.php" method="post" name="pay_form_info">
+            <input type="hidden" name="game_id" value="{$info.ID}" />
+            <div class="pay_input_server">
+                <div class="item item1">
+                    <span class="lb">服务器：</span>
+                    <select class="lb-r" name="serv_id">
+                        <option value="">==请选择服务器==</option>
+                        {foreach from=$servers item=server}<option value="{$server.serv_id}"{if $smarty.session.serv_id eq $server.serv_id}selected{/if}>{$server.serv_name}</option>{/foreach}
+                    </select>
+                </div>
+                {if $info.role_type eq 0}
+                <div class="item item2">
+                    <span class="lb">角色名：</span>
+                    <input class="lb-r" type="text" name="user" id="user" value="{if $smarty.session.usr_name}{$smarty.session.usr_name}{/if}"/>
+                </div>
+                {else}
+                <div class="item item2">
+                    <span class="lb">角色ID：</span>
+                    <input class="lb-r" type="text" name="user" id="user" value="{if $smarty.session.player_id}{$smarty.session.player_id}{/if}"/>
+                </div>
+                {/if}
+                <div class="usr_err" style="display: none"></div>
+                <div class="search-role" name="sub_search" id="sub_search">查找角色</div>
+            </div>
+            <div class="pay-others">
+                <div class="tit">请选择充值金额</div>
+                <div class="tip">{if $info.pay_message}({$info.pay_message|htmlspecialchars_decode}{else}{$info.web_tip}{/if}{if $smarty.session.limit_error}<a style="color:red">{$smarty.session.limit_error}</a>{/if}</div>
+                <div class="pay_money_sel">
+                    {foreach from=$exchanges item=exchange key=k}
+                        <span class="item {if $smarty.session.money_id eq $exchange.id}active{/if}" rel="{$exchange.id}" title="{$exchange.good_intro}">￥{$exchange.good_price}({$exchange.good_name})</span>
+                        <span class="item {if $smarty.session.money_id eq $exchange.id}active{/if}" rel="{$exchange.id}" title="{$exchange.good_intro}">￥{$exchange.good_price}({$exchange.good_name})</span>
+                    <span class="item {if $smarty.session.money_id eq $exchange.id}active{/if}" rel="{$exchange.id}" title="{$exchange.good_intro}">￥{$exchange.good_price}({$exchange.good_name})</span>
+                    <span class="item {if $smarty.session.money_id eq $exchange.id}active{/if}" rel="{$exchange.id}" title="{$exchange.good_intro}">￥{$exchange.good_price}({$exchange.good_name})</span>
+                    <span class="item {if $smarty.session.money_id eq $exchange.id}active{/if}" rel="{$exchange.id}" title="{$exchange.good_intro}">￥{$exchange.good_price}({$exchange.good_name})</span>
+                    {/foreach}
+                </div>
+                <input type="hidden" name="money_id" value="0" />
+                <input type="hidden" name="serv_id" value="" />
+                <input type="hidden" name="serv_name" value="" />
+                <input type="hidden" name="mode" value="1" />
+                <input type="hidden" name="player_id" value="" />
+                <input type="hidden" name="usr_id" value="0" />
+                <input type="hidden" name="usr_name" value="" />
+                <input type="hidden" name="game_id" value="{$info.app_id}" />
+                <input type="hidden" name="game_name" value="{$info.app_name}" />
+                <input type="hidden" name="encrypt_id" value="" />
+                <div class="confirm-btn pay-step1-confirm pay-step1-confirm-can">确认</div>
+
+            </div>
+            <div class="foot"> &copy;2010-2016 </div>
+        </form>
+    </div>
+</body>
+{literal}
+<script>
+    $("body").on("click", ".search-role", check_usr_name);
+    $("body").on("click", ".pay_money_sel .item", function(e) {
+        check_money(e);
+    });
+    $("body").on("keydown", "#user", function(e) {
+        if(e.keyCode==13){
+            check_usr_name();
+            return false;
+        }
+    });
+    $("body").on("click", ".pay-step1-confirm-can", function(e) {
+        $(".pay-step1-confirm").removeClass("pay-step1-confirm-can");
+        setTimeout(function() {
+            $(".pay-step1-confirm").addClass("pay-step1-confirm-can");
+        },2000);
+        pay_affirm();
+    });
+
+    function check_usr_name(){
+        var serv_id = $("select[name='serv_id']").val();
+        var usr_name = encodeURI($("input[name='user']").val());
+
+        if($.trim(serv_id)==''){
+            $(".usr_err").html("请选择服务器").show(200);
+            return false;
+        }
+        var serv_name = $("select[name='serv_id'] option:selected").html();
+        $("input[name='serv_name']").val(serv_name);
+        $("input[name='serv_id']").val(serv_id);
+        if($.trim(usr_name)==''){
+            $("input[name='user']").focus();
+            $(".usr_err").html("请填写角色信息").show(200);
+            return false;
+        }
+        $.ajax({
+            url: "gameserv.php",
+            type: "GET",
+            data: {serv_id:serv_id, usr_name:usr_name },
+            dataType: "json",
+            beforeSend: function(){
+                $(".usr_err").html("<div class='process'>查询中。。。。</div>").show();
+            },
+            success: function(result,textStatus){
+                if(result == '' || result == null){
+                    $(".usr_err").html("游戏服务器繁忙，请联络客服。").show();
+                    return;
+                }
+                result = eval(result);
+                if(parseInt(result.err_code) != 0){
+                    $(".usr_err").html("没有查到用户，请重新查询。").show();
+                }else{
+                    $(".usr_err").html("<label>角色：</label><span>"+result.usr_name+"</span><label>&nbsp;&nbsp;&nbsp;等级：</label><span>"+result.usr_rank+"</span>").show();
+                    $("input[name='player_id']").val(result.player_id);
+                    $("input[name='usr_name']").val(result.usr_name);
+                    if(result.usr_id){
+                        $("input[name='usr_id']").val(result.usr_id);
+                    }
+                }
+            },
+            complete:function(){}
+        });
+    }
+    //selected
+    function check_money(e){
+        var $ele = $(e.currentTarget);
+        $ele.addClass("active").siblings().removeClass("active");
+        $("input[name='money_id']").val($ele.attr("rel"));
+        var str = $ele.html();
+        $(".pay-others .tip").html(str).show(500);
+        if($ele.attr("title")!=""){
+            $(".pay-others .tip").html($ele.attr("title")).show(500);
+        }
+    }
+
+    function pay_affirm(){
+        var serv_id = $("select[name='serv_id']").val();
+        var usr_name = encodeURI($("input[name='user']").val());
+        var money_id = $("input[name='money_id']").val();
+        var player_id =   $("input[name='player_id']").val();
+        var referrer =   $("input[name='referrer']").val();
+        if($.trim(serv_id)==''){
+            $(".usr_err").html("请选择服务器").show(200).offset().top;
+            $(window).scrollTop(t - 200);
+            return false;
+        }
+        if($.trim(player_id)==''){
+            $(".usr_err").html("没有查到用户，请重新查询。").show(200).offset().top;
+            $(window).scrollTop(t - 200);
+            return false;
+        }
+
+        if($.trim(usr_name)==''){
+            var t = $(".usr_err").html("请填写角色信息").show(500).offset().top;
+            $(window).scrollTop(t - 200);
+            return false;
+        }
+        if($.trim(money_id)=='' || $.trim(money_id)==0){
+            var t = $(".pay-others .tip").html("请点击您需要充值的金额").show(500).offset().top;
+            $(window).scrollTop(t - 200);
+            return false;
+        }
+        $("form[name='pay_form_info']").submit();
+    }
+
+</script>
+{/literal}
+</html>

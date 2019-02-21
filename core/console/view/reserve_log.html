@@ -1,0 +1,65 @@
+<style>
+    .table-condensed > thead > tr > th, .table-condensed > tbody > tr > td{
+        border: 1px solid #dddddd;
+    }
+</style>
+<script type="text/javascript">
+    $(function(){
+        $("select[name=code]").chosen();
+        $("select[name=user_id]").chosen();
+    })
+</script>
+<div class="bjui-pageHeader">
+    <form id="pagerForm" action="reserve.php?act=reserve_log&id={$act_id}" method="post" data-toggle="ajaxsearch">
+        <div class="bjui-searchBar">
+            <label>用户电话：</label>&nbsp;
+            <input type="text" name="mobile" value="{$params.mobile}" class="form-control" size="12">
+            <label>用户ID：</label>&nbsp;
+            <input type="text" name="user_id" value="{$params.user_id}" class="form-control" size="8">
+            <label>邀请码：</label>&nbsp;
+            <input type="text" name="code" value="{$params.code}" class="form-control" size="11" >
+            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent">
+    <form action="" method="post"   data-toggle="validate" data-alertmsg="false">
+        <table class="table table-condensed table-hover" width="100%">
+            <thead>
+            <tr align="center">
+                <th width="120">用户ID</th>
+                <th width="120">用户名称</th>
+                <th width="120">用户电话</th>
+                <th width="120">邀请码</th>
+                <th width="180">预约时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach from=$reserve_log item=reserve}
+            <tr align="center">
+                <td>{$reserve.user_id}</td>
+                <td>{$reserve.nick_name}</td>
+                <td>{$reserve.mobile}</td>
+                <td>{$reserve.code}</td>
+                <td>{'Y-m-d H:i:s'|date:$reserve.add_time}</td>
+            </tr>
+            {/foreach}
+            </tbody>
+        </table>
+
+    </form>
+</div>
+
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>
+<script>
+    $(".btn-orange").click(function(){
+        $("input[name=mobile]").val("");
+        $("input[name=user_id]").val("");
+        $("input[name=code]").val("");
+        $("form").submit();
+    })
+</script>

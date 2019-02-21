@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>站内信</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link href="http://cdn.66173.cn/wwwv2/css/style.css?t=109" type="text/css" rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" href="http://cdn.66173.cn/www/css/page.css" />
+    <script type="text/javascript" src="http://cdn.66173.cn/www/js/jquery-1.7.1.min.js" ></script>
+</head>
+<body>
+{include file="include/top.html"}
+{include file="include/header.html"}
+{include file="include/nav.html"}
+<div class="wrapper clearfix">
+    <div class="w1000">
+        <div class="current_nav ">
+            当前位置：<a href="#">{if $domain_name eq 1}66173{else if $domain_name eq 2}u2590{/if}交易平台</a>&nbsp;>&nbsp;站内信
+        </div>
+        <div class="user_center">
+            {include file="include/user-side.html"}
+            <div class="user_center_right">
+                <div class="integral_detail">
+                    <form action="?act=my_msgs&" method="get" id="get_my_msgs">
+                        <input type="hidden" name="act" value="my_msgs">
+                        <input class="text" type="hidden"  name="is_read" value="" />
+                        <div class="user_center_title">站内信</div>
+                        <div style="color: #f00; margin:10px 20px; line-height:34px;text-align: center;border: 1px solid #ffd8c0; background:#fff9f3 ;">{if $domain_name eq 1}66173{else if $domain_name eq 2}u2590{/if}提示您：未收藏的站内信保存期为14天哦，请注意保持您重要的站内信。</div>
+                        <div class="buy_list">
+                            <div class="buy_tab_title">
+                                <ul id="tab">
+                                    <li {if $is_read eq ""}class="on"{/if} rel="">全部({$read_all})</li>
+                                    <li {if $is_read eq "0"}class="on"{/if} rel="0">未读({$unread_num})</li>
+                                    <li {if $is_read eq "1"}class="on"{/if} rel="1">已读({$isread_num})</li>
+                                </ul>
+                            </div>
+                            <div class="buy_subtitle">
+                                <table border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td class="letter_type">类型</td>
+                                        <td class="letter_title">标题</td>
+                                        <td class="letter_time">时间</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div id="buy_content">
+                                {if  $msg_list|@count eq 0}
+                                <div style=" text-align: center;color: #f00; line-height: 80px;">对不起，没有找到相应的记录！</div>
+                                {else}
+                                <ul class="letter_list">
+                                    {foreach from=$msg_list item=msg}
+                                    <li>
+                                        <div class="letter_type">系统消息</div>
+                                        <div class="letter_title "><a href="my.php?act=msg_detail&id={$msg.id}" {if $msg.is_read eq "1"}class="col-999"{/if}><b>{$msg.title}</b></a></div>
+                                        <div class="letter_time">{$msg.add_time}</div>
+                                    </li>
+                                    {/foreach}
+                                </ul>
+                                {/if}
+                            </div>
+                        </div>
+                        <div class="clear_both"></div>
+                        {if  $msg_list|@count > 0}
+                        <div id="pagebar">{$pageBar}</div>
+                        {/if}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--footer-->
+{include file="include/footer.html"}
+<!--//footer-->
+<script type="text/javascript" src="http://cdn.66173.cn/www/js/plugin.js"></script>
+{literal}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("ul#tab li").click(function(){
+            rel = $(this).attr("rel");
+            $("input[name='is_read']").val(rel);
+            $('#get_my_msgs').submit();
+        });
+    })
+</script>
+{/literal}
+</body>
+</html>

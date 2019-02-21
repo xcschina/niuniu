@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>预约西游记之大圣归来，人人享好礼，iPhone7、小米max等大奖等你来拿!</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <meta name="description" content="预约《西游记之大圣归来》即得88元大礼包，内含稀有体力丹、英雄经验丹，邀请好友参与预约，更可抽取iPhone7、小米max等多重大奖。"/>
+    <meta property="og:image" content="http://cdn.66173.cn/{$act_info.share_img}"/>
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/common.css?t={$smarty.now}">
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/m_common.css?t={$smarty.now}">
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/reserve_act.css?t={$smarty.now}">
+    <script src="http://cdn.66173.cn/www/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="http://cdn.66173.cn/mobile/v2/scripts/qrcode.min.js"></script>
+    <script type="text/javascript" src="http://cdn.66173.cn/mobile/v2/scripts/reserve_size.js?t={$smarty.now}"></script>
+</head>
+<body class="m-station preorder-activity">
+<img src="http://cdn.66173.cn/{$act_info.share_img}" alt="" width="0" height="0" style="position:absolute;">
+<header class="page-head clearfix">
+    <h1 class="page-title">{$act_info.name}</h1>
+    <a class="page-back" href="javascript:history.back();"></a>
+    <a class="page-home" href="http://m.66173.cn">首页</a>
+    {if $smarty.session.user_id && $smarty.session.mobile}
+     <a class="login-on-link" href="/account.php?act=user_center"></a>
+    {else}
+    <span class="login-in-link">登录</span>
+    {/if}
+    <!-- <a class="login-on-link" href="/account.php?act=user_center"></a> -->
+</header>
+<input type="hidden" id="user_id" value="{$smarty.session.user_id}">
+<input type="hidden" id="act_id" value="{$act_id}">
+<input type="hidden" id="rec_code" value="{$rec_code}">
+<input type="hidden" id="share_code" value="{$smarty.session.rec_core}">
+<input type="hidden" id="reserve_conut" value="{$reserve_conut}">
+<input type="hidden" id="share_title" value="{$act_info.share_title}">
+<input type="hidden" id="share_desc" value="{$act_info.share_msg}">
+<input type="hidden" id="share_img" value="{$act_info.share_img}">
+<input type="hidden" id="share_summary" value="{$act_info.share_desc}">
+<input type="hidden" value="{$draw_count}" id="restLotteryTime"/>
+<input type="hidden" value="{$smarty.session.mobile}" id="mobile"/>
+<input type="hidden" value="{$is_reserve}" id="hasReserved" />
+<input type="hidden" value="{$noncestr}" id="noncestr"/>
+<input type="hidden" value="{$timestamp}" id="timestamp"/>
+<input type="hidden" value="{$signature}" id="signature" />
+<input type="hidden" value="{$pagehash}" id="pagehash" />
+
+<section class="background-img sec sec1 " style="background-image: url(http://cdn.66173.cn/mobile/v2/css/img/dsgl/bg_01.png?t=23)">
+    <span class="rule-btn">活动规则&gt;&gt;</span>
+    <img class="my-bag-btn my-bag-btn-can" src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/my_bag_btn.png?t=22"/>
+    <img class="jump-to-lottery" src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/jump_to_lottery.png?t=22"/>
+    <div class="pre-down-zone">
+        {if $act_status eq 3}
+        <!-- 可预约 -->
+        <img class="btn preorder-btn preorder-btn-can" src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/preorder_btn.png?t=22"/>
+        {else if $act_status eq 1}
+        <!-- 活动开始前不可预约 -->
+         <img class="btn not-preorder-btn preorder-btn-before" src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/preorder_btn_before.png?t=22"/>
+        {else}
+        <!-- 活动开始后不可预约 -->
+         <img class="btn not-preorder-btn preorder-btn-after" src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/preorder_btn_after.png?t=22"/>
+        {/if}
+        <!-- 可下载 -->
+        {if $is_down eq 1}
+        <a href="{$act_info.down_url}" class="download-link" target="_blank"><img class="btn download-btn" src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/download_btn.png?t=12"/></a>
+        {else}
+        <!-- 不可下载 -->
+         <a class="download-link download-link-not"><img class="btn download-btn" src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/download_btn_before.png?t=12"/></a>
+        {/if}
+    </div>
+    <div class="top-pre-tip-zone">
+        已有<span class="num">{$reserve_conut}</span>人预约
+    </div>
+</section>
+<section class="background-img sec sec2" style="background-image: url(http://cdn.66173.cn/mobile/v2/css/img/dsgl/bg_02.png)">
+    <div class="lottery-zone">
+        <a name="lottery" class="lottery"></a>
+        <div class="place-center lottery-tip">
+            <div class="tip1">你还有<span class="num lottery-time">{$draw_count}</span>次抽奖机会</div>
+            <div class="tip2">成功邀请了<span class="num share-time">{$share_num}</span>次</div>
+        </div>
+        <!-- <img class="place-center lottery-plate" src="http://game.gtimg.cn/images/tlbb/cp/a20170303xsjhm//lottery.png?t=22"/> -->
+        <img class="place-center lottery-plate" src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/lottery_plate.png?t=22"/>
+        <img class="place-center lottery-pointer lottery-pointer-can" src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/lottery_pointer.png?t=22"/>
+    </div>
+    <div class="background-img place-center share-zone" style="background-image: url(http://cdn.66173.cn/mobile/v2/css/img/dsgl/qr_border.png)">
+        <div class="top">
+            <div class="top-left">
+                <div class="background-img qr_wrapper" style="background-image: url(http://cdn.66173.cn/mobile/v2/css/img/dsgl/qr_border.png)">
+                    <div id="qrcode" class="qr-img"></div>
+                </div>
+                <div class="qr-tip">分享给好友</div>
+            </div>
+            <div class="top-right">
+                <div class="qr-rule">
+                    <span class="highlight">规则:</span>登录后通过分享二维码、邀请码、链接给好友，好友成功预约后，您可获得抽奖机会。每个ID最多3次。
+                </div>
+                <div class="invite-zone">
+                    {if $smarty.session.user_id && $smarty.session.rec_code}
+                    <div class="has-invite-code">
+                        <img src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/preorder_copy_invite.png?t=22" alt=""/>
+                        {if $user_code}
+                        <div class="text">邀请码:&nbsp;<span class="invite-code">{$user_code}</span></div>
+                        {/if}
+                        <div class="invite-code-copy-btn" data-clipboard-text="{$user_code}"></div>
+                    </div>
+                    {else}
+                    <div class="no-invite-code">
+                        <img src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/preorder_deny_invite.png?t=22" alt=""/>
+                        <div class="text">登录并预约后可获得邀请码</div>
+                    </div>
+                    {/if}
+                </div>
+                <div class="activity-group">（活动QQ群：498033610）</div>
+            </div>
+        </div>
+        <div class="bottom">
+            <img class="share-btn" src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/share.png?t=22" />
+        </div>
+    </div>
+</section>
+<section class="background-img sec sec3" style="background-image: url(http://cdn.66173.cn/mobile/v2/css/img/dsgl/bg_03.png)">
+    <div class="background-img place-center preorder-zone" style="background-image: url(http://cdn.66173.cn/mobile/v2/css/img/dsgl/preorder_bg.png?t=1)">
+        <div class="preorder-tip">
+            <div class="tip1">已有<span class="preorder-count">{$reserve_conut}</span>人预约</div>
+            <div class="tip2">当预约达到指定人数，已预约的将得到相应的礼品奖励</div>
+        </div>
+        <div class="place-center process-check-zone">
+            <img class="process-check check1" src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/process_check.png">
+            <img class="process-check check2" src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/process_check.png">
+            <img class="process-check check3" src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/process_check.png">
+        </div>
+        <div class="place-center process-bar">
+            <div class="point-step point-step1">
+                <img class="point point-grey" src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/point_grey.png?t=22"/>
+                <img class="point point-light" src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/point_light.png?t=22"/>
+            </div>
+            <div class="point-step point-step2">
+                <img class="point point-grey" src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/point_grey.png?t=22"/>
+                <img class="point point-light" src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/point_light.png?t=22"/>
+            </div>
+            <div class="point-step point-step3">
+                <img class="point point-grey" src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/point_grey.png?t=22"/>
+                <img class="point point-light" src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/point_light.png?t=22"/>
+            </div>
+            <div class="background-img main-lr main-left" style="background-image: url(http://cdn.66173.cn/mobile/v2/css/img/dsgl/process_bg.png)">
+                <div class="step-active step0"></div>
+            </div>
+            <div class="background-img place-center process-main" style="background-image: url(http://cdn.66173.cn/mobile/v2/css/img/dsgl/process_bg.png)">
+                <div class="main-step"><div class="step-active step1"></div></div>
+                <div class="main-step"><div class="step-active step2"></div></div>
+                <!-- <div class="step-active main-step step2"></div> -->
+            </div>
+            <div class="background-img main-lr main-right" style="background-image: url(http://cdn.66173.cn/mobile/v2/css/img/dsgl/process_bg.png)">
+                <div class="step-active step3"></div>
+            </div>
+        </div>
+    </div>
+    <div class="place-center strategy-zone">
+        <img src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/strategy_top.png?t=22" class="top-pic"/>
+        <ul class="strategy-list">
+            {foreach from=$new item=data}
+            <li>
+                <a href="http://m.66173.cn/info/{$data.id}" target="_blank">
+                    <img src="http://cdn.66173.cn/{$data.img}" class="game-img"/>
+                    <div class="center">
+                        <div class="text-overflow title">{$data.title}</div>
+                        <div class="desc">{$data.summary}</div>
+                        <div class="time">{$data.add_time|date_format: '%Y-%m-%d %H:%M'}</div>
+                    </div>
+                </a>
+            </li>
+            {/foreach}
+        </ul>
+        <!--<div class="get-more"><a href="/game1721#game_infos" target="_blank">更多&gt;&gt;</a></div>-->
+    </div>
+</section>
+<!--<div class="get-more-strategy"><a href="http://www.baidu.com" target="_blank">更多&gt;&gt;</a></div>-->
+<footer class="footer">
+    <nav class="footer-nav">
+        <ul class="footer-nav-list clearfix">
+            <li><a href="http://m.66173.cn" target="_blank">首页</a></li>
+            <li><a href="/game1721#game_infos" target="_blank">游戏攻略</a></li>
+            <li><a href="http://m.66173.cn/service.php" target="_blank">联系客服</a></li>
+        </ul>
+    </nav>
+    <section class="contact-zone">
+        <img class="contact-qr" src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/qr_niuniu_wx.png?t=22"/>
+        <div class="right">
+            <div>活动QQ群：498033610</div>
+            <div>客服QQ: 252432349 </div>
+            <div>客服热线：0591-87766173</div>
+        </div>
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "//hm.baidu.com/hm.js?1f0a1f65ba01082e76f89fd1b54a087a";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    </section>
+</footer>
+{include file="include/reserve_mask.html"}
+<div class="brief-tip-pop"><div class="con">ee</div></div>
+</body>
+<script src="http://cdn.66173.cn/mobile/v2/scripts/clipboard1.6.1.min.js"></script>
+<script src="http://cdn.66173.cn/mobile/v2/scripts/jQueryRotate2.2.min.js"></script>
+<script src="http://cdn.66173.cn/mobile/v2/scripts/reserve_func.js?t={$smarty.now}"></script>
+{literal}
+<script type="text/javascript">
+    var shareLink = setParameterByName("code",$("#rec_code").val()||"");
+    function shareLinksInit() {
+        var share_title = $('#share_title').val();
+        var share_desc = $('#share_desc').val();
+        var share_img = $('#share_img').val();
+        var share_summary = $('#share_summary').val();
+        var shareTitle = encodeURIComponent(share_title);
+        var shareDesc = encodeURIComponent(share_desc);
+        var shareUrl = encodeURIComponent(shareLink);
+        var shareSummary = encodeURIComponent(share_summary);
+        if(share_img){
+            var sharePic = 'http://cdn.66173.cn/'+ share_img;
+        }
+        var qqShareLink = "http://connect.qq.com/widget/shareqq/index.html?url=" + shareUrl + "&title=" + shareTitle + "&desc=" + shareDesc + "&summary=" + shareSummary + "&pics=" + sharePic;
+        var qqZoneShareLink = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=" + shareUrl + "&title=" + shareTitle + "&desc=" + shareDesc + "&summary=" + shareSummary + "&pics=" + sharePic;
+        var sinaBlogShareLink = "http://service.weibo.com/share/share.php?url=" + shareUrl + "&title=" + shareTitle + "&desc=" + shareDesc + "&summary=" + shareSummary + "&pic=" + sharePic;
+        return {
+            qqShareLink: qqShareLink,
+            qqZoneShareLink: qqZoneShareLink,
+            sinaBlogShareLink: sinaBlogShareLink
+        }
+
+    }
+    // 二维码
+    var qrcode = new QRCode(document.getElementById("qrcode"), {
+        width : 50,
+        height : 50,
+        correctLevel: QRCode.CorrectLevel.L
+    });
+    $(window).load(function() {
+        pageBgSize();
+        // 这里要放分享链接地址！！！
+        qrcode.makeCode(shareLink);
+        qrSize();
+    });
+    var hasReserved = $("#hasReserved").val() == 1 ? true : false;
+    var restLotteryTime = $("#restLotteryTime").val() || 0; //剩余抽奖次数
+    var hasLotteryAll = $("#hasLotteryAll").val(); //已抽完最多的抽奖次数
+    var pageMyBagTimeout; //页面上我的礼包定时
+    var popMyBagTimeout; //弹窗中我的礼包定时
+    var pagePreorderTimeout; //页面上抢先预约定时
+    var goLoginTimeout; //弹窗中登录定时
+    var goPreorderTimeout; //弹窗中马上预约定时
+    var lottteryTimeout; //抽奖定时
+    var regContact = new RegExp(/(^[1-9][0-9]{5,9}$)|(^1[34578]\d{9}$)/);
+    // var regCaptcha = new RegExp(/(^1001$)|(^1[0-9]{2}[1-9]$)|(^[2-9][0-9]{2}[0-9])/)
+    var regCaptchaPart = new RegExp(/^[0-9]{6}$/);
+    var regInvite = new RegExp(/^g[1-9][0-9]{1,}wl$/);
+    var btnEnabledTimeOut;
+    var captchaInterval;//验证倒计时
+    var userId = $("#user_id").val();
+    var pros = [0, 10000, 50000, 100000, 100000];//预约节点人数
+    var compDots = [0, 0.2, 0.4, 0.6, 0.8, 1];//每个预约阶段内的近似段点
+    var compIndex;//预约人数阶段从0开始
+    var percent; //预约人数在一定阶段内的百分比
+    // 奖品列表，第一个是指针正北方向所指，向右顺时针列举奖品
+//    var awards = JSON.parse($('#awards').val());
+//    alert(awards);
+    var clipboardGift; //礼包码复制功能
+    var clipboardInvite = new Clipboard(".invite-code-copy-btn"); //邀请码复制功能
+    clipboardInvite.on('success', function(e) {
+        briefTipControl("邀请码: " + e.text + " 已复制");
+        e.clearSelection();
+    })
+    // 确定预约人数超过或达到哪个阶段节点
+    var reserve_conut = $('#reserve_conut').val() || 0;
+    preorderProcess(reserve_conut);
+    // 分享链接
+    shareConInit();
+
+    // 分享链接
+
+    // 抽奖按钮点击事件
+    $(".preorder-activity").on("click", ".lottery-pointer-can", function () {
+        $(".lottery-pointer").removeClass("lottery-pointer-can");
+        btnTimeOutControl(".lottery-pointer", "lottery-pointer-can", lottteryTimeout, 5000);
+        // 未登录
+        if(!userId) {
+            popControl(".pop-bg-small", ".to-login-pop", "登录");
+            return false;
+        }
+        if(restLotteryTime == 0){
+            lotteryQualityControl("暂无抽奖次数，邀好友预约还能再来一发！");
+        }
+        else {
+            fRotateDuringReq(); // 请求期间的旋转
+            var user_id = $('#user_id').val();
+            var act_id = $('#act_id').val();
+            var pagehash = $("#pagehash").val();
+
+            $.ajax({
+                url: "/reserve_act.php?act=draw",
+                type: "post",
+                data: {
+                    user_id: user_id,
+                    act_id: act_id,
+                    pagehash: pagehash
+                },
+                dataType: "json"
+            }).success(function (data) {
+                var code = data.code;
+                if (code == 0) { //异常提示
+                    setTimeout(function () {
+                        $('.lottery-pointer').stopRotate();  // 停止之前的旋转
+                        briefTipControl(data.desc);
+                    }, 3000);
+                } else if (code == 1) { //未登陆
+                    $('.lottery-pointer').stopRotate();  // 停止之前的旋转
+                    popControl(".pop-bg-small", ".tel-preorder-pop", "登录");
+                } else if (code == 2) {
+                    restLotteryTime = data.restLotteryTime;
+                    var awards = data.awards;
+                    var award = awards[data.awardKey];
+                    var angle = data.awardKey * 45;
+                    fStartLottery(angle, award.type, data);
+                    $(".lottery-time").html(restLotteryTime);
+                } else if (code == 3) {
+                    setTimeout(function () {
+                        $('.lottery-pointer').stopRotate();  // 停止之前的旋转
+                        lotteryQualityControl(data.desc);
+                    }, 3000);
+                    restLotteryTime = data.restLotteryTime;
+                    $(".lottery-time").html(restLotteryTime);
+                }
+            })
+        }
+    });
+    // 点击关闭弹窗
+    $(".close-pop").on("click", function() {
+        $(".preorder-activity .mask").hide();
+    })
+    // 点击页面上或弹窗中的我的礼包
+    $(".preorder-activity").on("click", ".my-bag-btn-can, .tip-bag-btn-can", function(e) {
+        if(!userId) {
+            popControl(".pop-bg-small", ".to-login-pop", "登录")
+        }
+        else {
+            if($(e.target).hasClass("my-bag-btn-can")) {
+                $(".my-bag-btn").removeClass("my-bag-btn-can");
+                btnTimeOutControl(".my-bag-btn","my-bag-btn-can", pageMyBagTimeout);
+            }
+            else {
+                $(".tip-bag-btn").removeClass("tip-bag-btn-can");
+                btnTimeOutControl(".tip-bag-btn","tip-bag-btn-can", popMyBagTimeout);
+            }
+
+             $.ajax({
+             	url: "/reserve_act.php?act=my_gift",
+             	type: "post",
+             	dataType: "json"
+             }).success(function(res) {
+                 var code = res.result;
+                 if(code == 0) {
+                     popControl(".pop-bg-small", ".to-login-pop", "登录");
+                 }
+                 if (code == 1) {
+                     if (res.data &&  res.data.length != 0) {
+                         var content = '';
+                         for (var i = 0, l = res.data.length; i < l; i++) {
+                             var item = res.data[i];
+                             if(item['draw_type'] == 3) {
+                                 content += '<li class="right-longer">'
+                                         + '<img class="gift-img-bg" src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/gift_img_bg.png?t=22"/><img src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/icon.png?t=1" class="gift-img"/>'
+                                         + '<div class="center">'
+                                         + '<div class="text-overflow title">' + item['draw_desc'] + '</div>'
+                                         + '<div class="background-img text-overflow gift-code" style="background-image: url(http://cdn.66173.cn/mobile/v2/css/img/dsgl/gift_code_bg.png)">请到个人中心查看我的优惠券</div>'
+                                         + '</div>'
+                                         + '</li>';
+                             }
+                             if(item['draw_type'] == 2) {
+                                 content += '<li>'
+                                         + '<img class="gift-img-bg" src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/gift_img_bg.png?t=22"/><img src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/icon.png?t=1" class="gift-img"/>'
+                                         + '<div class="center">'
+                                         + '<div class="text-overflow title">' + item['draw_desc'] + '</div>'
+                                         + '<div class="background-img text-overflow gift-code" style="background-image: url(http://cdn.66173.cn/mobile/v2/css/img/dsgl/gift_code_bg.png)">';
+                                 if(item['gift_code']) {
+                                     content += '礼包码：<span class="code">'+ item['gift_code'] + '</span></div></div>'
+                                             +'<img src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/copy_gift_code.png?t=22" class="gift-pop-copy-btn" data-clipboard-text="'+item['gift_code']+'"/>'
+                                             +'</li>';
+                                 }
+                                 else {
+                                     content +='礼包码：<span class="wait-code">敬请期待</span></div></div></li>';
+                                 }
+                             }
+                             if(item['draw_type'] == 1) {
+                                 content += '<li>'
+                                         + '<img class="gift-img-bg" src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/gift_img_bg.png?t=22"/><img src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/icon.png?t=1" class="gift-img"/>'
+                                         + '<div class="center">'
+                                         + '<div class="text-overflow title">' + item['draw_desc'] + '</div>'
+                                         + '<div class="background-img text-overflow gift-code" style="background-image: url(http://cdn.66173.cn/mobile/v2/css/img/dsgl/gift_code_bg.png)">请联系客服领取</div>';
+                                         + '</div>'
+                                         + '</li>';
+                             }
+                         }
+                         $(".my-gifts-list").html(content);
+                         popControl(".pop-bg-large", ".has-my-gifts", "我的礼包");
+                         // 先销毁之前的礼包复制功能以免会重复调用
+                         if (clipboardGift) {
+                             clipboardGift.destroy();
+                         }
+                         clipboardGift = new Clipboard(".gift-pop-copy-btn");
+                         clipboardGift.on('success', function (e) {
+                             briefTipControl("礼包码: " + e.text + " 已复制");
+                             e.clearSelection();
+                         })
+                     } else {
+                         popControl(".pop-bg-small", ".no-my-gifts", "我的礼包")
+                     }
+                 }
+                 if(code == 2) {
+                     briefTipControl(res.desc);
+                 }
+             })
+        }
+    })
+    // 点击活动规则
+    $(".preorder-activity").on("click", ".rule-btn", function() {
+        popControl(".pop-bg-large", ".rules-tip", "活动规则")
+    })
+    // 点击抢先预约按钮
+    $(".preorder-activity").on("click", ".preorder-btn-can", function() {
+        if(!userId) {
+            popControl(".pop-bg-small", ".to-login-pop", "登录")
+        }
+        else {
+            $(".preorder-btn").removeClass("preorder-btn-can");
+            btnTimeOutControl(".preorder-btn","preorder-btn-can", pagePreorderTimeout);
+            if(hasReserved) {
+                $(".after-preorder-pop .msg-title").html("您已预约成功，获得预约大礼包一份。");
+                $(".after-preorder-pop .msg-con").html("");
+                popControl(".pop-bg-small", ".after-preorder-pop", "提示");
+            }
+            else {
+                popControl(".pop-bg-small", ".tel-preorder-pop", "预约");
+                // 有手机号的话框里放手机号
+                if (regContact.test($("#mobile").val())) {
+                    $(".tel-input:visible").val($("#mobile").val()).attr("disabled", true);
+                }
+                var inviteCode = getParameterByName("code");
+                if (regInvite.test($("#share_code").val())) {
+                    $(".invite-code-input:visible").val($("#share_code").val());
+                }
+            }
+        }
+    })
+
+    // 点击马上预约
+    $(".preorder-activity").on("click", ".go-preorder-can", function(e) {
+        var resData;
+        $(".go-preorder:visible").removeClass("go-preorder-can");
+        btnTimeOutControl(".go-preorder","go-preorder-can", goPreorderTimeout);
+        resData = checkInput({
+            ".tel-input": "mobile",
+            ".invite-code-input": "rec_code"
+        });
+        resData.res.user_id = userId;
+        resData.res.act_id = $("#act_id").val();
+        resData.res.pagehash = $("#pagehash").val();
+        if(resData.pass) {
+             $.ajax({
+             	url: "/reserve_act.php?act=reserve",
+             	type: "post",
+             	dataType: "json",
+              	data: resData.res
+             }).success(function(res) {
+            // 预约成功
+                var code = res.code;
+                 if(code == 0) {
+                     popControl(".pop-bg-small", ".to-login-pop", "登录");
+                 }else if(code == 1) {
+                    popControl(".pop-bg-small", ".after-preorder-pop", "提示");
+                    $(".after-preorder-pop .msg-title").html(res.msgTitle);
+                     $(".after-preorder-pop .msg-con").html(res.msgCon);
+                    //   抽奖次数加一
+                     restLotteryTime++;
+                     $(".lottery-time").html(restLotteryTime);
+                     //   更新预约状态为已预约
+                     hasReserved = true;
+                    //   更新预约人数和预约进度条
+                     preorderProcess(++reserve_conut);
+                     $(".top-pre-tip-zone .num").html(reserve_conut);
+                     $(".preorder-zone .preorder-count").html(reserve_conut);
+
+                }else if (code == 2){
+                    briefTipControl(res.msg);
+                }else if (code == 3){
+                     briefTipControl(res.msg);
+                 }
+             })
+        }
+    })
+    // 填好表单后点击登录
+    $(".preorder-activity").on("click", ".go-login-can", function() {
+        $(".go-login:visible").removeClass("go-login-can");
+        btnTimeOutControl(".go-login", "go-login-can", goLoginTimeout);
+        var resData = checkInput({
+            ".tel-input": "mobile",
+            ".captcha-input": "sms_code"
+        });
+        resData.res.pagehash = $("#pagehash").val();
+
+        if(resData.pass) {
+            // 请求登录过后直接刷页面
+            $.ajax({
+                url: "/reserve_act.php?act=do_login",
+                type: "post",
+                dataType: "json",
+                data: resData.res
+            }).success(function(data) {
+                if(data.code == 1){
+                    window.location.reload();
+                }
+                if(data.msg) {
+                    briefTipControl(data.msg);
+                }
+            })
+        }
+    })
+    // 点击页头登录跳登录弹窗
+    $(".login-in-link").on("click", function() {
+        popControl(".pop-bg-small", ".to-login-pop", "登录")
+    })
+    // 获取验证码
+
+    $(".preorder-activity").on("click", ".to-get-captcha", function() {
+        if(!regContact.test($(".tel-input:visible").val())) {
+            briefTipControl("请填写正确的手机号码！");
+            $(".captcha-tip").removeClass("to-get-captcha");
+            setTimeout(function() {
+                $(".captcha-tip").addClass("to-get-captcha");
+            }, 2000);
+        }
+        else {
+            $(".captcha-tip").removeClass("to-get-captcha").html('<span class="count-time">120</span>s后获取');
+            var countDownRest = 120;
+            clearInterval(captchaInterval);
+            captchaInterval = setInterval(function () {
+                if (countDownRest > 1) {
+                    countDownRest--;
+                    $(".count-time").html(countDownRest)
+                }
+                else {
+                    $(".captcha-tip").html("获取验证码").addClass("to-get-captcha");
+                    clearInterval(captchaInterval)
+                }
+
+            }, 1000)
+            var phone = $(".tel-input:visible").val();
+            $.ajax({
+                url: "/reserve_act.php?act=sms_code",
+                type: "post",
+                data: {mobile: phone},
+                dataType: "json"
+            }).success(function(json) {
+                briefTipControl(json.msg);
+            })
+        }
+    })
+    // 跳至抽奖区域
+    $(".jump-to-lottery").on("click", function(e) {
+        var jumpTop = $(this).offset().top;
+        var lotteryTop = $(".lottery").offset().top;
+        $("body").animate({
+            scrollTop: lotteryTop - jumpTop
+        })
+    })
+    // 取消分享
+    $(".preorder-activity").on("click", ".cancel-share-btn", function() {
+        $(".preorder-activity .mask").hide();
+    })
+    // 点击页面上或弹窗内的分享
+    $(".preorder-activity").on("click", ".share-btn,.tip-share-btn, .tip-invite-btn", function() {
+        if(!isWeixinBrowser()) {
+            sharePopControl();
+        }
+        else {
+            $(".preorder-activity .mask").hide();
+            $(".wx-share-mask").show();
+        }
+    })
+    //  活动开始前点击预约按钮
+    $(".preorder-activity").on("click", ".preorder-btn-before", function() {
+        briefTipControl("活动还未开始，敬请期待");
+    })
+    //  活动结束后点击预约按钮
+    $(".preorder-activity").on("click", ".preorder-btn-after", function() {
+        briefTipControl("活动已结束");
+    })
+    //  活动开始前点击下载按钮
+    $(".preorder-activity").on("click", ".download-link-not", function() {
+        briefTipControl("5月25日我们花果山再会！");
+    })
+    // 点击复制链接关闭分享弹窗
+    $(".preorder-activity").on("click", ".link-copy-btn", function() {
+        $(".preorder-activity .mask").hide();
+    })
+    // 点击引导微信分享图层
+    $(".preorder-activity").on("click", ".wx-share-mask", function(e) {
+        $(e.currentTarget).hide();
+    })
+    // 判断是否在微信内置浏览器中打开
+    function isWeixinBrowser(){
+        return (/MicroMessenger/i).test(window.navigator.userAgent);
+    }
+</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script>
+    var mobile = $("#mobile").val();
+    var noncestr = $("#noncestr").val();
+    var timestamp = $("#timestamp").val();
+    var signature = $("#signature").val();
+    console.log("noncestr"+noncestr+",timestamp"+timestamp+",signature"+signature);
+//    if(mobile == "15005955704" || mobile == "15659155505") {
+          document.addEventListener('WeixinJSBridgeReady', function() {
+                wx.config({
+                    debug: false,
+                    appId: "wxbaed68c7f2f3a62c",
+                    timestamp: parseInt(timestamp),
+                    nonceStr: noncestr,
+                    signature: signature,
+                    jsApiList: [
+                        'onMenuShareTimeline',
+                        'onMenuShareAppMessage',
+                        'onMenuShareQQ',
+                        'onMenuShareWeibo',
+                        'onMenuShareQZone'
+                    ]
+                });
+                wx.ready(function() {
+                    var shareData = {
+                        title: '预约西游记之大圣归来，人人享好礼，iPhone7、小米max等大奖等你来拿',
+                        desc: '预约《西游记之大圣归来》即得88元大礼包，内含稀有体力丹、英雄经验丹，邀请好友参与预约，更可抽取iPhone7、小米max等多重大奖。',
+                        link: shareLink,
+                        imgUrl: 'http://cdn.66173.cn/mobile/v2/css/img/dsgl/icon.png?t=1',
+                        success: function() {
+                            briefTipControl("分享成功");
+                            $(".wx-share-mask").hide();
+                        },
+                        cancel: function() {
+                            briefTipControl("取消分享");
+                        }
+                    };
+                    // 分享给朋友事件绑定
+                    wx.onMenuShareAppMessage(shareData);
+                    // 分享到朋友圈
+                    wx.onMenuShareTimeline(shareData);
+                    // 分享到QQ
+                    wx.onMenuShareQQ(shareData);
+                    // 分享到QZone
+                    wx.onMenuShareQZone(shareData);
+                    // 分享到微博
+                    wx.onMenuShareWeibo(shareData);
+                });
+        })
+//    }
+</script>
+{/literal}
+</html>

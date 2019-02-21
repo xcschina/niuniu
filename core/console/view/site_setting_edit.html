@@ -1,0 +1,68 @@
+<div class="bjui-pageContent">
+    <form action="site_setting.php?act=do_setting_edit"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data" >
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">客服电话：</label>
+                    <input type="text" name="tel" value="{$info.tel}" cols="28" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">微信号：</label>
+                    <input type="text" name="weixin" value="{$info.weixin}" cols="28" rows="1"  class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">Q币折扣：</label>
+                    <input type="text" name="qq_discount" value="{$info.qq_discount}" cols="28" rows="1"  class="form-control"><lable>（0-10之间）</lable>
+                </td>
+            </tr>
+            {if $info.weixin_img}
+            <tr>
+                <td>
+                    <label  class="control-label x120">&nbsp;</label>
+                    <img src="http://static.66173.cn{$info.weixin_img}" height="200px" width="400px">
+                    <input type="hidden" name="old_weixin_img" value="{$info.old_weixin_img}">
+                </td>
+            </tr>
+            {/if}
+            <tr>
+                <td>
+                    <label  class="control-label x120">微信号图片URL：</label>
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="weixin_img.click()">选择图片</button>
+                    <input type="file" name="weixin_img" style="display: none;" onchange="weixin_img_input.value=value" />
+                    <input type="text" name="weixin_img_input" placeholder="None file" class="form-control" size="15" readonly/>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">微信关注：</label>
+                    <textarea name="weixin_welcome" cols="60" rows="6">{$info.weixin_welcome}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">微信自动回复：</label>
+                    <textarea name="weixin_reply" cols="60" rows="6">{$info.weixin_reply}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">交易动态：</label>
+                    <textarea name="trades" cols="60" rows="10">{$info.trades}</textarea>
+                </td>
+            </tr>
+            <input type="hidden" name="id" value="{$info.id}">
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>

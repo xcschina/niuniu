@@ -1,0 +1,116 @@
+<!-- 首充号续充 -->
+<div class="game_recharge">
+	<!-- 标题 -->
+	<div class="title">[{$gameinfo.game_name}]</div>
+	<div class="color_red">购买即可获得酷游送出的专属礼包</div>
+	{include file="product/buy_type.html"}
+	<div class="color_red fontsize_16">【首充号续充】对您在酷游购买的首充号进行后续充值，折扣约为6折左右。<br/>
+	</div>
+
+	{if $firstpays|@count neq 0}
+
+	<!-- 存在首充号 - 首充号列表 -->
+	<div class="title_sub mt_20">
+		<strong class="name">酷游检测到您曾购买过以下首充号，点击可以直接续充哦~</strong>
+	</div>
+	<ul class="continuedCharge">
+		{foreach from=$firstpays item=firstpay}
+		<li>
+			<a class="r_btn">点击续充</a>
+			<div class="title">{$firstpay.channel_name}</div>
+			<div class="desc">{$firstpay.serv_name}<br>{$firstpay.role_name}</div>
+			<input type="hidden" value="{$firstpay.serv_name}">
+			<input type="hidden" value="{$firstpay.serv_id}">
+			<input type="hidden" value="{$firstpay.role_name}">
+			<input type="hidden" value="{$firstpay.game_user}">
+			<input type="hidden" value="{$firstpay.game_channel}">
+			<input type="hidden" value="">
+			<input type="hidden" value="{if $smarty.session.buy_mobile neq ""}{$smarty.session.buy_mobile}{else}{$firstpay.tel}{/if}">
+			<input type="hidden" value="{$firstpay.qq}">
+		</li>
+		{/foreach}
+		<li>
+			<a class="r_btn" href="/buy{$gameinfo.id}/201">点击续充</a>
+			<div class="title"><a href="/buy{$gameinfo.id}/201">为其他首充号续充</a></div>
+			<div class="desc"><br></div>
+		</li>
+	</ul>
+	<!-- 分页 -->
+	<!-- <div id="page"> </div> -->
+
+	<div id="recharge_info">
+		<!-- 选中后的信息表单 -->
+		<ul class="game_charge">
+			<li class="maxrow">商品选择：*
+				<select class="select" name="product_id" id="choose_product">
+				{if $products neq ""}
+					<option value="">请选择商品</option>
+					{foreach from=$products item=product}
+					<option value="{$product.id}">{$product.title}</option>
+					{/foreach}
+				{else}
+					<option value="">暂无可选商品</option>
+				{/if}
+				</select>
+			</li>
+			<li class="maxrow" id="discount_price"></li>
+		</ul>
+
+		<!-- 填写账号信息 -->
+		<div class="title_sub">
+			<strong class="name">填写帐号信息</strong>
+		</div>
+		<ul class="game_form">
+			<li>
+				<label>
+					<span class="color_red">*</span>区服：
+				</label>
+				<input type="text" class="txt" disabled>
+				<input type="hidden" class="txt" name="serv_id">
+			</li>
+			<li>
+				<label><span class="color_red">*</span>角色名：</label>
+				<input type="text" class="txt" disabled>
+			</li>
+			<li>
+				<label><span class="color_red">*</span>续充帐号：</label>
+				<input type="text" class="txt" disabled>
+				<input type="hidden" name="channel_id">
+			</li>
+			<li>
+				<label><span class="color_red">*</span>密码：</label>
+				<input type="text" class="txt" placeholder="请输入密码" name="game_pwd">
+			</li>
+		</ul>
+
+		<!-- 联系方式 -->
+		<div class="title_sub">
+			<strong class="name">联系方式</strong>
+		</div>
+		<ul class="game_form">
+			<li><label><span class="color_red">*</span>手机号码：</label><input type="text" class="txt" placeholder="请输入手机号码" name="tel" value="{if $smarty.session.buy_mobile neq ''}{$smarty.session.buy_mobile}{/if}"></li>
+			<li><label><span class="color_red">*</span>QQ：</label><input type="text" class="txt" placeholder="请输入QQ号" name="qq" value="{$smarty.session.buy_qq}"></li>
+			<li><a class="btn" id="recharge">立即购买</a></li>
+		</ul>
+
+	</div>
+	
+	<input type="hidden" name="role_name" id="role_name">
+	<input type="hidden" name="game_user" id="game_user">
+	<input type="hidden" name="price" value="0" id="price"/>
+	<input type="hidden" name="do" value="recharge" />
+
+	{else}
+
+	<!-- 不存在首充号 -->
+	<div class="title_sub mt_20">
+		<strong class="name">您还未在酷游上购买过首充号哦~去充值其他帐号吧！</strong>
+	</div>
+	<div class="mt_20">
+		<a href="/buy/{$gameinfo.id}-character.html"><input type="button" class="btn_css1" value="购买首充号"></a>　
+		<a href="/buy{$gameinfo.id}/201"><input type="button" class="btn_css2" value="为其他首充号续充"></a>　
+		<a href="/buy{$gameinfo.id}/3"><input type="button" class="btn_css3" value="为其他帐号代充"></a>
+	</div>
+
+	{/if}
+</div>

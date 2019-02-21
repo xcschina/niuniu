@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {include file="include/head.html"}
+    <link href="//cdn.66173.cn/niuguo/css/bootstrap3.3.6.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.66173.cn/kplay/css/common.css?t={$smarty.now}">
+    <link rel="stylesheet" href="//cdn.66173.cn/kplay/css/service_center.css?t={$smarty.now}">
+    <script src="//libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+</head>
+<body class="service-rel-page service-center">
+    {include file="include/header.html"}
+    <div class="top-banner"><img src="//cdn.66173.cn/niuguo/img/service_banner.jpg" alt=""></div>
+    <div class="bg-white minHeight700 container">
+        <div class="text-center service-fast-link">
+            <div class="link-block go-feedback">
+                <div class="img-wrapper go-feedback-img-wrapper"><a href="/feedback" target="_blank"><img src="//cdn.66173.cn/niuguo/img/go_feedback.png"/></a></div>
+                <div class="font-md text">游戏问题反馈</div>
+            </div>
+            <div class="link-block online-service">
+                <div class="img-wrapper online-service-img-wrapper">
+                    <a href="//wpa.qq.com/msgrd?v=3&uin=270772735&site=qq&menu=yes" target="_blank">
+                        <img src="//cdn.66173.cn/niuguo/img/go_online_service.png"/>
+                    </a>
+                </div>
+                <div class="font-md text">在线客服</div>
+            </div>
+        </div>
+        <div class="common-wrapper">
+            <ul class="font-lg common-tab">
+                <li class="active">常见问题</li>
+            </ul>
+            <div class="tab-border-grey"></div>
+            <ul class="question-list"></ul>
+            <!--<div class="more-zone">-->
+                <!--<span class="font-md more more-can">加载更多&gt;&gt;</span>-->
+            <!--</div>-->
+        </div>
+    </div>
+    {include file="include/footer.html"}
+</body>
+<script>
+    var quesAnsArr = [{
+        question: "Q1:如何进入牛果游戏?",
+        answer: "1、【推荐】移动设备下载牛果游戏APP，通过下载进入游戏<br/>2、通过官网下载游戏，使用模拟器加载进入牛果游戏"
+    },{
+        question: "Q2:牛果账号怎么找回?",
+        answer: "1、密码忘记：可以通过手机绑定和邮箱绑定进行修改<br/>2、账号找回：向客服人员进行申诉找回，申诉提交成功后一般24小时内处理完毕"
+    },{
+        question: "Q3:无法登录游戏怎么办?",
+        answer: "1、判断有无维护更新并检查网络环境良好<br/>2、查看手机或设备内存是否不足<br/>3、卸载游戏重新安装"
+    },{
+        question: "Q4:我网银充值已经扣费了，为什么没到帐呢?",
+        answer: "您好，请您先退出游戏查看相应的游戏币是否到帐，若仍未到帐，请联系我们充值客服提供游戏帐号和银行扣费订单号码协助您查询。"
+    },{
+        question: "Q5:充值成功后多久才能到帐?",
+        answer: "银行卡充值成功后，充值金额会立即增加到您的帐户内。但有时可能会因为网络传输情况而稍有延迟。重新登录后，到充值管理中心,即可查询充值记录。"
+    }, {
+        question: "Q6:什么情况下会被纳入防沉迷系统?",
+        answer: "1、没有登记真实姓名及身份证号<br/>2、登记了虚假的身份证号及姓名<br/>3、您填写的身份证号未满18周岁<br/>提示：只有您填写真实的身份证号和对应真实姓名，并且该身份证对应的公民年满18岁才不受防沉迷系统的限制"
+    }];
+    $(".main-navbar .navbar-right a").eq(2).addClass("active");
+    addQuestions(0, quesAnsArr.length - 1, quesAnsArr);
+    function addQuestions(start, end, arr) {
+        var con = "";
+        for(var i = start || 0; i <= end; i++) {
+            con += '<li class="item">'
+                +'<div class="font-lg question">'+arr[i].question+'</div>'
+                +'<div class="shape-wrapper">'
+                +'<img class="answer-icon" src="//cdn.66173.cn/niuguo/img/A.png"/>'
+                +'<div class="font-sm answer">'+arr[i].answer+'</div>'
+                +'</div>'
+                +'</li>';
+        }
+        $(".question-list").append(con);
+        console.log(con)
+    }
+
+    $(".service-center").on("click", ".more-can", function() {
+        $(".service-center .more").removeClass("more-can").html("");
+        addQuestions(3, quesAnsArr.length - 2, quesAnsArr);
+    })
+</script>
+<script src="//cdn.66173.cn/niuguo/scripts/bootstrap3.3.6.min.js"></script>
+</html>

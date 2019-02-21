@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>官方唯一充值 - {$info.game_name}官网 - 牛牛游戏</title>
+    <meta name="keywords" content="{$info.game_name}充值" />
+    <meta name="description" content="{$info.game_name}官网，官方唯一在线充值网站，支持支付宝、财付通、paypal、网银充值，国内和海外都可以使用。" />
+    <link rel="stylesheet" href="http://static.66173.cn/game/css/reset.css"/>
+    <link rel="stylesheet" href="http://static.66173.cn/game/css/main.css" />
+    <link rel="stylesheet" href="http://static.66173.cn/game/css/index.css" />
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    <script src="http://static.66173.cn/game/js/jquery-1.9.1.min.js"></script>
+    <script src="http://static.66173.cn/game/js/index.js?t=1"></script>
+    <style>
+        body{
+            background:#f6f6f6 url('http://static.66173.cn/game/css/img/mxqst.jpg') no-repeat center 52px;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+{include 'default/common/top.htm'}
+{include 'default/common/header.htm'}
+<div id="main">
+    <div id="content" class="left">
+        <div id="adetails">
+            <dl class="info">
+                <dt class="qudiao">
+                    <a href="/">首页</a>
+                    <i>&gt;</i>
+                    <a href="javascript:;">游戏充值</a>
+                </dt>
+                <dd>
+                    <!--主页面-->
+                    <div class="main g-main">
+                        <div class="m-box">
+                            <form action="gamepay.php" method="post" name="payform" target="_blank" rel="noopener noreferrer">
+                                <div class="m-con">
+                                    <div class="c-title tit1"><i class="num1"></i><h3>填写您的游戏账号信息</h3></div>
+                                    <div class="new-select">
+                                        <select name="serv_id">
+                                            <option value="">==请选择服务器==</option>
+                                            {foreach from=$servers item=server}<option value="{$server.serv_id}">{$server.serv_name}</option>{/foreach}
+                                        </select>
+                                        &nbsp;&nbsp;&nbsp;
+                                        {$info.game_units}：<input name="user" id="user" type="text" value="">
+                                        <input name="game_id" id="user" type="hidden" value="{$game_id}">
+                                        <a href="javascript:;" name="sub_search" class="search">查找角色</a>
+                                    </div>
+                                    <div class="usr_err"></div>
+                                    <div class="c-title tit2"><h3>选择要充值的金额<a href="#jifen" class="jifen"><img src="http://static.gao7gao8.com/css/v3/img/wenhao.png" /></a></h3></div>
+                                    <div class="money_err"></div>
+                                    <div class="c-select">
+                                        <ul class="money_box">
+                                            {foreach from=$exchanges item=exchange}
+                                            {if $exchange.type eq 3}
+                                            <li><a href="#;" class="sel" rel="{$exchange.id}" title="{$exchange.title}">{$exchange.price}牛币({$exchange.title})</a></li>
+                                            {else}
+                                            <li><a href="#;" class="sel" rel="{$exchange.id}" title="{$exchange.title}">{$exchange.price}牛币({$exchange.GoodName}{$exchange.GoodUnit})</a></li>
+                                            {/if}
+                                            {/foreach}
+                                        </ul>
+                                    </div>
+                                    <div class="c-title tit3"><h3>选择喜币充值方式</h3></div>
+                                    <div class="ch_err"></div>
+                                    <div class="c-select ch">
+                                        <a href="#;" title="支付宝支付" rel="1" class="pay_c"><img src="http://static.gao7gao8.com/css/img/pay_alipay.gif"></a>
+                                    </div>
+                                    <div class="ch_box clearfix">
+                                        {foreach from=$banks item=bank}
+                                        <a href="#;" rel="{$bank.code}" title="{$bank.title}"><img src="http://static.gao7gao8.com/images/bank/{$bank.code}.gif" /></a>
+                                        {/foreach}
+                                    </div>
+                                    <input type="hidden" name="game_id" value="{$info.ID}" />
+                                    <input type="hidden" name="player_id" value="" />
+                                    <input type="hidden" name="usr_id" value="" />
+                                    <input type="hidden" name="usr_name" value="" />
+                                    <input type="hidden" name="encrypt_id" value="" />
+                                    <input type="hidden" name="money_id" value="" />
+                                    <input type="hidden" name="ch" value="" />
+                                    <input type="hidden" name="bank" value="" />
+                                    <div class="c-btn"><a href="javascript:;" onclick="go_pay();">确认支付</a></div>
+                                </div>
+                            </form>
+                            <div id="lightbox"></div>
+                        </div>
+                        <div class="m-box">
+                            <div class="title-3"><h2 id="jifen">说明</h2></div>
+                            <div class="pay-intro">
+                                <ul>
+                                    <li>1、66173的牛币与苹果公司无关。</li>
+                                    <li>2、66游戏的牛币解释权归66游戏所有。</li>
+                                    <li>3、牛币为用户的虚拟货币。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+        </div>
+    </div>
+{include 'default/common/side.htm'}
+</div>
+{include file="default/common/footer.htm"}
+<!--{include file="default/common/useroption.html"}-->
+<div class="alert" style="display:none">
+    <div class="popc">
+        <div class="popcnt">
+            <dl class="ts">
+                <dt></dt>
+                <dd><strong>请在新打开的银行页面中完成付款！</strong><p>付款未完成前请不要关闭此页面！</p><p>请根据您的支付情况选择下面按钮！</p></dd>
+            </dl>
+            <div class="popb">
+                <button class="btn" onclick="window.location='user_pay_result.php';">已完成付款</button>
+                <!--<button class="btn" onclick="window.location='http://go.cc/qa?t=charge_qa';">付款遇到问题</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!--[if lt IE 10]>
+<script type="text/javascript" src="http://static.66173.cn/game/js/v3/PIE.js"></script>
+<![endif]-->
+<link href="http://static.66173.cn/game/js/jquery-ui/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css"/>
+<script src="http://static.66173.cn/game/js/jquery-ui/jquery-ui-1.8.16.custom.min.js"></script>
+<link href="http://static.66173.cn/game/js/chosen/chosen.min.css?t={$smarty.now}" rel="stylesheet" type="text/css"/>
+<script src="http://static.66173.cn/game/js/chosen/chosen.jquery.min.js"></script>
+<script type="text/javascript" src="http://static.66173.cn/game/js/v3/pay.js"></script>
+<script src="http://static.66173.cn/game/js/jquery-ui/jquery-ui-timepicker-addon.js"></script>
+<script src="http://static.66173.cn/game/js/jquery-ui/zh-cn.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('select[name="serv_id"]').chosen({
+            no_results_text: "未找到",
+            placeholder_text: "==请选择服务器==",
+            search_contains: true,
+            disable_search_threshold: 10
+        });
+    });
+
+    $(document).ready(function() {
+        $("#remit_time").datetimepicker({
+            showSecond: true, //显示秒
+            timeFormat: 'H:mm:ss'//格式化时间
+        });
+    });
+//	function pnav(item){
+//		$("a[id^='pbtn_']").removeClass("on");
+//		$("ul[id^='plist_']").hide();
+//		$("a[id^='pbtn_"+item+"']").addClass("on");
+//		$("ul[id^='plist_"+item+"']").show();
+//	};
+	$(document).ready(function(){
+		var len = $(".nav a").length;
+		var $parent = $(".nav a");
+		$parent.css('width',960/len - 2);
+	});
+</script>
+</body>
+</html>

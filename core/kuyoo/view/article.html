@@ -1,0 +1,30 @@
+{include file="include/head.html" web_title=$title}
+    <body>
+        {include file="include/top.html"}
+        {include file="include/header.html"}
+        {include file="include/nav.html" nav=""}
+        <div class="w1000">
+			<div class="current_nav ">
+				当前位置：
+				<a href="http://shouyou.kuyoo.com">酷游手游交易平台</a> &nbsp;>&nbsp;
+				{$title}
+			</div>
+			<div class="user_center">
+				{include file="include/help-side.html" pid=$pid}
+				<div class="user_center_right">
+					<div class="integral_detail">
+						<div class="user_center_title"> {$article.part_name} </div>
+						<div class="news_info">
+							<div class="title">{$article.title} </div>
+							<div class="desc">
+								<div class="date">发布时间：{'Y-m-d H:i:s'|date:$article.add_time}</div>
+								<div class="date_before">{$article.ot}</div>
+							</div>
+							<div class="details">{$article.intro|htmlspecialchars_decode}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+            {include file="include/footer.html"}
+	</body>
+</html>

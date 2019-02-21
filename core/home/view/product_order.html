@@ -1,0 +1,258 @@
+{include file="include/head.html" web_title="支付"}
+<body>
+	{include file="include/top.html"}
+	{include file="include/header.html"}
+	{include file="include/nav.html"}
+	<form method="post" id="payfrm">
+	<div class="w1000">
+		<div class="current_nav ">
+			当前位置：<a href="javascript:;">66173交易平台</a>&nbsp;>&nbsp;<a href="/games.php">游戏列表</a>&nbsp;>&nbsp;{$gameinfo.game_name}
+		</div>
+		<img src="{$IMG_PATH}order_process2.png" />
+		<div class="title_sub mt_20">
+			<strong class="name">订单信息 </strong>
+		</div>
+		<ul class="orderinfo">
+			<li class="title">[{$info.game_name}]&nbsp;{$info.title}</li>
+			<li>正在支付订单：[{$info.game_name}]&nbsp;{$info.title}</li>
+			<li>订单总价：<span class="color_red">¥{($order.price*$discount/10)|round}元</span></li>
+			{if $order['game_user'] neq ""}
+			<li>充值账号：<span class="color_red">{$order.game_user}</span></li>
+			{/if}
+			<li>所在区服：{$order.serv_name}</li>
+			<li>商品单价：¥{$order.price}元</li>
+			<li>购买数量：1</li>
+		</ul>
+		<div class="title_sub b-t-1-c7">
+			<input type="checkbox" id="get_coupon" name="get_coupon"/>
+			{if !$user_coupon}
+			<label for="get_coupon" class="m-l-10">使用优惠券(<span class="col-ccc">当前无优惠券可用</span>)</label>
+			{else}
+			<label for="get_coupon" class="m-l-10">使用优惠券(当前<span class="col-e4393c">{$user_coupon|@count}</span>张优惠券可用)</label>
+			{/if}
+		</div>
+		{if $user_coupon}
+		<div class="over-hid" id="coupon" style="display: none">
+			<div class="m-15-30">
+				{foreach from=$user_coupon item=data}
+				{if $data.type eq 1}
+				<div class="coupon-box">
+					<div class="z-cp-bg">
+						<i></i>
+						<div class="coupon-title">{$data.discount}折</div>
+						<div class="coupon-desc">
+							<p class="fn-14">劵名:&nbsp;{$data.name}</p>
+							<p class="col-999">使用条件:&nbsp;实付金额满{$data.total_amount}元</p>
+							<p class="col-999">使用时间:&nbsp;{$data.start_time|date_format:"Y.m.d"}&nbsp;-&nbsp;{$data.end_time|date_format:"Y.m.d"}</p>
+						</div>
+						<input type="hidden" name="payment" value="{$data.payment}">
+						<input type="hidden" name="discount_amount" value="{$data.discount_amount}">
+						<input type="hidden" name="coupon_id" value="{$data.logs_id}">
+					</div>
+				</div>
+				{elseif $data.type eq 2}
+				<div class="coupon-box">
+					<div class="m-cp-bg">
+						<i></i>
+						<div class="coupon-title">{$data.discount_amount}元</div>
+						<div class="coupon-desc">
+							<p class="fn-14">劵名:&nbsp;{$data.name}</p>
+							<p class="col-999">使用条件:&nbsp;实付金额满{$data.total_amount}元减{$data.discount_amount}元</p>
+							<p class="col-999">使用时间:&nbsp;{$data.start_time|date_format:"Y.m.d"}&nbsp;-&nbsp;{$data.end_time|date_format:"Y.m.d"}</p>
+						</div>
+						<input type="hidden" name="payment" value="{$data.payment}">
+						<input type="hidden" name="discount_amount" value="{$data.discount_amount}">
+						<input type="hidden" name="coupon_id"  value="{$data.logs_id}">
+					</div>
+				</div>
+				{/if}
+				{/foreach}
+				<input type="hidden" name="payment_amount" value="0">
+				<input type="hidden" name="pay_discount_amount" value="0">
+				<input type="hidden" name="pay_coupon_id"  value="0">
+			</div>
+			<!--<div style="height: 20px;width: 100%;float: left;background-color: #00a5de;text-align: right">-->
+			<!--</div>-->
+		</div>
+		{/if}
+		<div class="title_sub">
+			<strong class="name">选择支付方式</strong>
+		</div>
+		<div class="pay_type">
+		<!-- 预留支付方式 -->
+			<!--<div class="item">-->
+				<!--<input type="checkbox" id="pay_balance" name="pay_balance"/><label for="pay_balance" class="fontbold">使用账户余额支付</label>-->
+				<!--<span class="ml_50 fontbold">余额：</span><span class="color_red" id="span_balance">0元</span>-->
+				<!--<div class="r_item fontbold">支付：<span class="color_red" id="span_pay">0元</span></div>-->
+			<!--</div>-->
+			<!--<div class="item" style="border:0px;">-->
+				<!--<input type="checkbox" id="pay_other" name="pay_other" checked=""/>-->
+				<!--<label for="pay_other" class="fontbold" id="check_other">选择其他支付方式</label>-->
+			<!--</div>-->
+			<div class="pay_method" style="margin-top:20px;">
+
+				<ul class="pay_method_tab">
+					<li lang="pay_method_1" data-pc="1">支付宝</li>
+					<li lang="pay_method_5" data-pc='5'>微信</li>
+					<li  class="cur" lang="pay_method_2" data-pc='2'>网银</li>
+					<!-- <li lang="pay_method_3">手机充值卡支付</li> -->
+				</ul>
+
+				<!-- 支付宝 -->
+				<div class="pay_method_box" id="pay_method_1" style="display:none;">
+					<!--<div class="pay_price"><span class="fontbold">支付：</span><span class="color_red">{($order.price*$discount/10)|round}元</span></div>-->
+					<div class="msg"><i></i>支付宝需要收取手续费，手续费为0%；如果有任何支付问题请拨打客服电话 0591-87766173。</div>
+					<div class="msg_center">
+						<img src="{$IMG_PATH}pay_alipay.png" />
+						<div>亲~请点击下方按钮进行支付，支付成功后请联系客服提货哦~</div>
+					</div>
+				</div>
+
+				<!-- 网银 -->
+				<div class="pay_method_box" id="pay_method_2">
+					<!--<div class="pay_price"><span class="fontbold">支付：</span><span class="color_red">{($order.price*$discount/10)|round}元</span></div>-->
+					<div class="msg"><i></i>易宝公司需要收取手续费，手续费为0%；如果有任何支付问题请拨打客服电话 0591-87766173。</div>
+					<ul class="banklist">
+						{foreach from=$banks item=bank key=k}
+						<li>
+							<div>
+								<input type="radio" data-code="{$bank.code}" id="bank_{$bank.seq}" name="radio_bank" />
+								<label for="bank_{$bank.seq}"><img src="{$IMAGES_PATH}bank/{$bank.code}.gif" /></label>
+							</div>
+						</li>
+						{/foreach}
+					</ul>
+				</div>
+
+				<!-- 手机充值卡支付 -->
+				<div class="pay_method_box" id="pay_method_3"  style="display:none;">
+					<!--<div class="pay_price"><span class="fontbold">支付：</span><span class="color_red">{($order.price*$discount/10)|round}元</span></div>-->
+					<div class="msg"><i></i>充值卡务必选择面额相同的选项，否则导致换取失败和充值卡作废；请注意，手机卡充值(100:94)即时到账。</div>
+					<ul class="form">
+						<li>
+							<label>卡类型</label>
+							<span class="item">移动卡</span>
+							<span class="item">联通卡</span>
+							<span class="item">电信卡</span>
+						</li>
+						<li>
+							<label>卡面值</label>
+							<span class="item">20元</span>
+							<span class="item">30元</span>
+							<span class="item">50元</span>
+							<span class="item">100元</span>
+							<span class="item">300元</span>
+							<span class="item">500元</span>
+						</li>
+						<li>
+							<label>卡号</label>
+							<input type="text" class="txt"  placeholder="请输入话费卡卡号" />
+						</li>
+						<li>
+							<label>密码</label>
+							<input type="text" class="txt"  placeholder="卡密为16位字符，区分大小写" />
+						</li>
+					</ul>
+				</div>
+				
+				<!-- 微信支付 -->
+				<div class="pay_method_box" id="pay_method_5" style="display:none;">
+					<!--<div class="pay_price"><span class="fontbold">支付：</span><span class="color_red">{($order.price*$discount/10)|round}元</span></div>-->
+					<div class="msg"><i></i>微信需要收取手续费，手续费为0%；如果有任何支付问题请拨打客服电话 0591-87766173。</div>
+					<div class="msg_center">
+						<img src="{$IMG_PATH}pay_wx.jpg" />
+						<div>亲~请点击下方按钮进行支付，支付成功后请联系客服提货哦~</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="title_sub mt_20">
+			<strong class="name">确认支付方式</strong>
+		</div>
+		<ul class="pay_confirm">
+			<li id="li_balance">
+				<label class="label fontbold">余额支付：</label>
+				<span class="color_red" id="span_balance_pay">￥ {($order.price*$discount/10)|round} 元</span>
+			</li>
+			<li id="li_discount_amount" style="display:none;">
+				<label class="label fontbold">优惠券抵扣：</label>
+				<span class="color_red" id="discount_amount"></span>
+			</li>
+			<li id="li_payment" style="display:none;">
+				<label class="label fontbold">支付宝支付：</label>
+				<span class="color_red" id="payment"></span>
+			</li>
+			<li id="li_other" style="display:none;">
+				<label class="label fontbold" id="method_name">手机充值卡支付：</label>
+				<span class="color_red">￥ 3 元</span>
+			</li>
+<!-- 			<li>
+				<label class="label fontbold">66173支付密码：</label>
+				<input type="password" class="txt"  placeholder="请输入支付密码" id="pwd" name="pwd"/>
+				<a class="ml_50" href="#">忘记密码</a>
+			</li> -->
+			<li><br/><input type="button" class="btn_pay" value="确认支付"/></li>
+		</ul>
+		{include file="include/footer.html"}
+	</div>
+	<input type="hidden" name="pay-channel" value="2" id="pay_channel"/>
+	<input type="hidden" name="id" value="{$info.id}" id="pid"/>
+	<input type="hidden" name="game_id" value="{$info.game_id}"/>
+	<input type="hidden" name="bank" value="" id="bank"/>
+</form>
+</div>
+
+<!-- JS文件放在页面底部 -->
+<script src="{$JS_PATH}zbc_check.js" ></script>
+<script src="{$JS_PATH}product/order.js"></script>
+{literal}
+<script type="text/javascript">
+	$("#get_coupon").click(function(){
+		var hasChk = $('#get_coupon').is(':checked');
+		if(hasChk){
+			$("#coupon").show();
+		}else{
+			$("#coupon").hide();
+			$("#coupon i").each(function(i){
+				$(this).removeClass("check_icon");
+				$("#li_payment").hide();
+				$("#li_discount_amount").hide();
+				$("#li_balance").show();
+				$("[name='payment_amount']").val(0);
+				$("[name='pay_discount_amount']").val(0);
+				$("[name='pay_coupon_id']").val(0);
+			});
+		}
+	});
+	$(".coupon-box").click(function() {
+		var check=$(this).find('i').attr("class");
+		$("#coupon i").each(function(i){
+			$(this).removeClass("check_icon");
+			$("#li_payment").hide();
+			$("#li_discount_amount").hide();
+			$("#li_balance").show();
+			$("[name='payment_amount']").val(0);
+			$("[name='pay_discount_amount']").val(0);
+			$("[name='pay_coupon_id']").val(0);
+
+		});
+		if(check!='check_icon'){
+			$(this).find('i').addClass("check_icon");
+			var discount_amount = $(this).find("[name='discount_amount']").val();
+			var payment = $(this).find("[name='payment']").val();
+			var coupon_id = $(this).find("[name='coupon_id']").val();
+			$("#li_balance").hide();
+			$("#li_discount_amount").show();
+			$("#discount_amount").html('￥'+discount_amount +'元');
+			$("#li_payment").show();
+			$("#payment").html('￥'+payment +'元');
+			$("[name='payment_amount']").val(payment);
+			$("[name='pay_discount_amount']").val(discount_amount);
+			$("[name='pay_coupon_id']").val(coupon_id);
+		}
+	});
+</script>
+{/literal}
+</body>
+</html>

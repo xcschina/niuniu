@@ -1,0 +1,231 @@
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>66173官方 魔域手游交易平台-账号-游戏币-道具装备-代练</title>
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/comment.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/index.css?t={$smarty.now|date_format:'%Y%m%d'}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js?t={$smarty.now|date_format:'%Y%m%d'}"></script>
+    <script src="//cdn.66173.cn/mobile/trading/js/swiper.js?t={$smarty.now|date_format:'%Y%m%d'}"></script>
+</head>
+<body>
+<!--顶部-->
+<div class="page_top">
+    <div class="page_top_left">
+        <img style="width:85px;height:25px" class="margin_l" src="//cdn.66173.cn/mobile/trading/image/index_image/logo2.png" alt="">
+    </div>
+    <div class="page_top_center">
+       魔域交易中心
+    </div>
+    {if $smarty.session.user_id}
+    <a class="page_top_right" href="/accountCenter">
+        <span class="login_my">我的</span>
+    </a>
+    {else}
+    <a class="page_top_right" href="/Login">
+        <span class="login_my">登录</span>
+    </a>
+    {/if}
+</div>
+<!--轮播图-->
+<div class="banner_div" style="margin:50px auto 0">
+    <div class="detail_banner">
+        <div class="rotator clearfix bbb">
+            <div class="swiper-container ">
+                <div class="swiper-wrapper">
+                    {foreach from=$banners key=$k item=data}
+                    <div class="swiper-slide swiper-pagination-bullet-active"><img class="index_imgimg" src="//cdn.66173.cn/{$data.img}" alt="" /></a></div>
+                    {/foreach}
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination">
+                    {foreach from=$banners key=$k item=data}
+                    <span class="swiper-pagination-bullet swiper-pagination-bullet-active" data-seq="{$k}"></span>
+                    {/foreach}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--游戏列表-->
+<div class="game_list">
+    <div class="game_icon">
+        <div class="game_icon_span"></div>
+    </div>
+    <div class="game_tilte">
+        游戏列表
+    </div>
+</div>
+<!--游戏类型-->
+<div class="game_list_div">
+    {foreach from=$games key=$k item=data}
+    <div class="game_item moyu_game_one">
+        <img class="game_item_logo" data-id="{$data.id}" src="//cdn.66173.cn/{$data.game_icon}" alt="">
+        <div class="game_item_right game_type" data-id="{$data.id}">
+            <div class="game_item_right_div">
+                <div class="game_item_right_div_top">
+                    <div class="game_name">
+                        <a class="game_s_item extra"
+                           href="/product/{$data.id}">{$data.game_name}
+                        </a>
+                    </div>
+                    <div class="game_list_type">
+                        <a class="color1" href="/platform/{$data.id}/1" >安卓</a>
+                        <a class="color2" href="/platform/{$data.id}/2" >iOS</a>
+                    </div>
+                </div>
+                <div class="game_item_right_div_bottom">
+                    <a class="bottom_type"  href="/productType/{$data.id}/4">
+                        账号
+                    </a>
+                    <span class="span_type">|</span>
+                    <a class="bottom_type" href="/productType/{$data.id}/5">
+                        游戏币
+                    </a>
+                    <span class="span_type">|</span>
+                    <a class="bottom_type"  href="/productType/{$data.id}/6">
+                        道具
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {/foreach}
+</div>
+<!--公告列表-->
+<div class="space"></div>
+<div class="tips_ad">
+    <div class="game_list border">
+        <div class="game_icon">
+            <div class="game_icon_span"></div>
+        </div>
+        <div class="game_tilte">
+            公告栏
+        </div>
+    </div>
+    {foreach from=$notices key=$k item=data}
+    <a class="tips_ad_item" href="/articleDetail/{$data.id}">
+        <div class="tips_ad_icon"><img class="tips_ad_icon_img" src="//cdn.66173.cn/mobile/trading/image/index_image/tip_message.png" alt=""></div>
+        <div class="tips_ad_title">{$data.title}</div>
+    </a>
+    {/foreach}
+</div>
+<div class="link_footer">
+    <div class="foot_1">
+        <span>友情链接：</span>
+        {foreach from=$links key=$k item=data}
+        {if $k >= 0 && $k<=3}
+        <a >{$data.title}|</a>
+        {/if}
+        {/foreach}
+    </div>
+    <div class="foot_1">
+        {foreach from=$links key=$k item=data}
+        {if $k >= 4 && $k<=8}
+        <a >{$data.title}|</a>
+        {/if}
+        {/foreach}
+    </div>
+    <div class="foot_1">
+        <img class="jiaoyi" src="//cdn.66173.cn/mobile/trading/image/index_image/jiaoyi.png" alt="">
+    </div>
+    <a class="foot_kefu">
+        <img class="kefu" src="//cdn.66173.cn/mobile/trading/image/index_image/kefu.png" alt="">
+    </a>
+</div>
+<input type="hidden" value="{$noncestr}" id="noncestr"/>
+<input type="hidden" value="{$timestamp}" id="timestamp"/>
+<input type="hidden" value="{$signature}" id="signature" />
+</body>
+<script>
+    var swiper1 = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        autoplay:4000,
+        crossFade: true ,///控制是否自动播放
+        preloadImages: false, //是否初始时将所有轮播图加载完,
+        lazyLoading: true, //是否图片懒加载，要和preloadImages: false一起使用
+        paginationClickable: true,
+        autoplayDisableOnInteraction: false //控制用户滑动或点击到其他图后是否不再轮播
+    });
+    $(".game_type").click(function () {
+        var id_game_type=$(this).attr("data-id");
+        window.location.href="/product/"+id_game_type;
+    });
+    $(".game_item_logo").click(function () {
+        var id_game_type=$(this).attr("data-id");
+        window.location.href="/product/"+id_game_type;
+    });
+    $(document).ready(function () {
+        $(".tips_ad_title").each(function () {
+            var text = $(this).text();
+            if ($(this).text().length >18) {
+                text = $(this).text().substring(0,18) + "...";
+                $(this).html(text);
+            }else {
+                var text = $(this).text();
+                $(this).html(text);
+            }
+        })
+    });
+    $('.foot_kefu').click(function(){
+        var u = navigator.userAgent;
+        if(/Safari/.test(u) && !/Chrome/.test(u)){
+            alert('请添加客服QQ：3001082900');
+        }else{
+            window.location.href = 'http://wpa.qq.com/msgrd?v=3&uin=3001082900&site=qq&menu=yes';
+        }
+    });
+</script>
+<!--引入微信分享在线cdn的js微信分享-->
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script>
+    var noncestr = $("#noncestr").val();
+    var timestamp = $("#timestamp").val();
+    var signature = $("#signature").val();
+    document.addEventListener('WeixinJSBridgeReady', function() {
+        wx.config({
+            debug: false,
+            appId: "wxbaed68c7f2f3a62c",
+            timestamp: parseInt(timestamp),
+            nonceStr: noncestr,
+            signature: signature,
+            jsApiList: [
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'onMenuShareQQ',
+                'onMenuShareWeibo',
+                'onMenuShareQZone'
+            ]
+        });
+        //通过ready接口处理成功验证
+        wx.ready(function() {
+            var shareData = {
+                title: '66173官方 魔域手游交易平台-账号-游戏币-道具装备-代练',
+                desc: 'http://m.66173.cn/moyu_index.php?act=index',
+                link: window.location.href,
+                imgUrl: "//cdn.66173.cn/mobile/trading/image/index_image/logo2.png",// 分享图标
+                type: '',
+                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                success: function() {
+                    alert("分享成功")
+                },
+                cancel: function() {
+                    alert("取消分享");
+                }
+            };
+            // 分享给朋友事件绑定
+            wx.onMenuShareAppMessage(shareData);
+            // 分享到朋友圈
+            wx.onMenuShareTimeline(shareData);
+            // 分享到QQ
+            wx.onMenuShareQQ(shareData);
+            // 分享到QZone
+            wx.onMenuShareQZone(shareData);
+            // 分享到微博
+            wx.onMenuShareWeibo(shareData);
+        });
+    });
+</script>
+</html>

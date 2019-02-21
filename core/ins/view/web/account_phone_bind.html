@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>手机绑定</title>
+    {include file="web/include/head_common.html"}
+    {if $orientation != "p"}
+        <link rel="stylesheet" href="//cdn.66173.cn/ins/css/web_h/account_rel.css?t={$smarty.now}">
+    {else}
+        <link rel="stylesheet" href="//cdn.66173.cn/ins/css/web_v/account_rel.css?t={$smarty.now}">
+    {/if}
+    {include file="web/include/head_script.html"}
+</head>
+<body class="account-rel account-phone-bind">
+    {include file="web/include/menu_bar.html"}
+    <!--手机已绑定信息-->
+    <div class="main-wrapper main-wrapper-verticle-middle phone-bind-info">
+        <div class="main-inner">
+            <div class="img-zone"><img src="//cdn.66173.cn/ins/img/web_h/phone_bind.png"/></div>
+            <div class="font-mder phone-line">手机已绑定：<span class="phone">159****8868</span></div>
+            <div><a class="font-lg phone-change-btn" href="web_account.php?act=phone_bind_change">更换手机</a></div>
+        </div>
+    </div>
+    <!--待绑定手机-->
+    <div class="main-wrapper fill-form fill-phone-bind wait-phone-bind">
+        <div class="main-width">
+            <div class="phone-bind-top">
+                <img class="head-icon" src="//cdn.66173.cn/ins/img/web_h/account_head_icon.png" alt="">
+                <div class="font-mder left-right">
+                    <div class="state">当前账号：</div>
+                    <div class="account-name">15806003696</div>
+                </div>
+            </div>
+            <div class="line">
+                <div class="font-lg left">账号密码：</div>
+                <div class="font-md right psw-line">{include file="web/include/input_with_clear.html" class="" type="password" placeholder="输入账号密码后才能绑定哦" name="password"}</div>
+            </div>
+            <div class="line">
+                <div class="font-lg left">绑定手机：</div>
+                <div class="font-md right phone-line">{include file="web/include/input_with_clear.html" class="" type="tel" placeholder="请输入您的手机号" name="phone"}</div>
+                <button class="font-md get-captcha-btn get-captcha-btn-can">获取验证码</button>
+            </div>
+            <div class="line">
+                <div class="font-lg left">验证码：</div>
+                <div class="font-md right captcha-line">{include file="web/include/input_with_clear.html" class="" type="text" placeholder="请输入验证码" name="captcha"}</div>
+            </div>
+            <div class="font-sm page-tip"></div>
+            <button class="font-lg submit-btn phone-bind-btn phone-bind-btn-can">立即绑定</button>
+        </div>
+    </div>
+</body>
+{include file="web/include/MD5.html"}
+{literal}
+<script>
+//    toggleEles(".wait-phone-bind",".phone-bind-info");
+    var submitTimeout;
+    var captchaInterval;
+    var pwdReg = new RegExp(/^[\da-zA-Z]{6,12}$/);
+    var phoneReg = new RegExp(/^1[34578]\d{9}$/);
+    var regCaptchaPart = new RegExp(/^[0-9]{6}$/);
+    // 密码只允许数字和字母
+    $("html").on("input", ".psw-line input", function(e) {
+        var $ele = $(e.target);
+        $ele.val($ele.val().replace(/[^\da-zA-Z]/g, ''));
+        if($ele.val().length > 12) {
+            $ele.val($ele.val().substring(0, 12));
+        }
+    });
+    // 手机只允许数字和字母
+    $("html").on("input", ".phone-line input", function(e) {
+        var $ele = $(e.target);
+        $ele.val($ele.val().replace(/[^0-9]/g, ''));
+        if($ele.val().length > 11) {
+            $ele.val($ele.val().substring(0, 11));
+        }
+    });
+    $("body").on("click", ".get-captcha-btn-can", function() {
+        var psw = $("input[name=password]").val();
+        var phone = $("input[name=phone]").val();
+        if(!psw) {
+            commonS.pageTipControl("请输入账户密码");
+            return false;
+        }
+        if(!pwdReg.test(psw)) {
+            commonS.pageTipControl("密码由6到12位数字和字母组成");
+            return false;
+        }
+        if(!phone) {
+            commonS.pageTipControl("请输入绑定手机号");
+            return false;
+        }
+        if(!phoneReg.test(phone)) {
+            commonS.pageTipControl("请输入正确手机号");
+            return false;
+        }
+        $(".get-captcha-btn").removeClass("get-captcha-btn-can").html('<span class="count-time">120</span>s后重试');
+        var countDownRest = 120;
+        clearInterval(captchaInterval);
+        captchaInterval = setInterval(function() {
+            if(countDownRest > 1) {
+                countDownRest--;
+                $(".count-time").html(countDownRest)
+            }
+            else {
+                $(".get-captcha-btn").html("获取验证码").addClass("get-captcha-btn-can");
+                clearInterval(captchaInterval)
+            }
+
+        }, 1000);
+//        commonM.ajax({
+//            url: "/get_sms_code.php",
+//            type: "post",
+//            data: {
+//                mobile: phone,
+//                psw: psw.MD5(32)
+//            },
+//            dataType: "text",
+//            success: function (res) {
+                var res = {
+                    code: 1,
+                    msg: "验证消息发送成功",
+                    res: "123456"
+                };
+                var code = res.code;
+                // code 2密码错误，其他如1 发送成功，3操作频繁或异常等
+                if (code == 2) {
+                    commonS.pageTipControl(res.msg);
+                    $(".get-captcha-btn").html("获取验证码").addClass("get-captcha-btn-can");
+                    clearInterval(captchaInterval);
+                } else {
+                    briefTipControl(res.msg);
+                }
+
+//            },
+//            error: function (req) {
+//                briefTipControl("请求出错：" + req.status + "," + req.statusText);
+//                $(".get-captcha-btn").html("获取验证码").addClass("get-captcha-btn-can");
+//                clearInterval(captchaInterval);
+//            }
+//        });
+
+
+
+    });
+    $("body").on("click", ".phone-bind-btn-can", function() {
+        $(".phone-bind-btn").removeClass("phone-bind-btn-can");
+        commonS.btnTimeOutControl(".phone-bind-btn", "phone-bind-btn-can", submitTimeout, 2000);
+        var psw = $("input[name=password]").val();
+        var phone = $("input[name=phone]").val();
+        var captcha = $("input[name=captcha]").val();
+        if(!psw) {
+            commonS.pageTipControl("请输入账户密码");
+            return false;
+        }
+        if(!pwdReg.test(psw)) {
+            commonS.pageTipControl("密码由6到12位数字和字母组成");
+            return false;
+        }
+        if(!phone) {
+            commonS.pageTipControl("请输入手机号");
+            return false;
+        }
+        if(!phoneReg.test(phone)) {
+            commonS.pageTipControl("请输入正确手机号");
+            return false;
+        }
+        if(!captcha) {
+            commonS.pageTipControl("请输入验证码");
+            return false;
+        }
+        if(!regCaptchaPart.test(captcha)) {
+            commonS.pageTipControl("请输入正确验证码");
+            return false;
+        }
+        var psw = psw.MD5(32);
+//        commonM.ajax({
+//            url: "bind_phone.php",
+//            data: {
+//                psw: psw,
+//                phone: phone,
+//                captcha: captcha
+//            },
+//            type: 'post',
+//            dataType: 'text',
+//            success: function (res) {
+                var res = {
+                    code: 1,
+                    desc: '有错'
+                };
+                var code = res.code;
+                if (code == 1) {
+
+                }
+                else {
+                    commonS.pageTipControl(res.desc);
+                }
+            <!--}-->
+        <!--});-->
+//
+//
+    });
+</script>
+{/literal}
+</html>

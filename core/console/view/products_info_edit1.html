@@ -1,0 +1,236 @@
+<script>
+    $(document).ready(function(){
+//        $('#channel').change(function() {
+//            $("input[name=serv_name]").val($(this).children('option:selected').attr("rel"))
+//        });
+
+        $("select[name=game_id]").chosen().change(function(){
+            $("input[name=game_id]").val($(this).val());
+        });
+        //$("select[name=serv_id]").chosen();
+        $("select[name=channel_id]").chosen();
+    })
+    function channel_select(id){
+        game_id = $("input[name=game_id]").val();
+        if(game_id=='' || game_id == 0){
+            alert("请选择游戏"+game_id);
+            return false;
+        }
+        if(id=='' || id==0){
+            alert("请选择渠道");
+            return false;
+        }
+
+        $.ajax({
+            type:'get',
+            url:"/products_info.php?act=game_ch_servs&game_id="+game_id+"&ch_id="+id,
+            data:{},
+            dataType: 'json',
+            beforeSend:function(){
+                $("select[name=serv_id]").html('<option vlaue="0">全区全服</option>');
+            },
+            success: function (json) {
+                console.log(json)
+                $(json).each(function(){
+                    $("select[name=serv_id]").append('<option vlaue="'+this.id+'">'+this.serv_name+'</option>');
+                });
+            }
+        });
+    }
+</script>
+<div class="bjui-pageContent">
+    <form action="products_info.php?act=do_products_edit"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label class="control-label x120">商品类型：</label>
+                         {if $product.type eq '1'}首充号{/if}
+                         {if $product.type eq '2'}首充号续充{/if}
+                         {if $product.type eq '3'}代充{/if}
+                         {if $product.type eq '4'}账号{/if}
+                         {if $product.type eq '5'}游戏币{/if}
+                         {if $product.type eq '6'}道具{/if}
+                    <input type="hidden" name="type" value="{$product.type}" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">商品名：</label>
+                    <input type="text" name="title" value="{$product.title}" cols="60" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">副标题：</label>
+                    <input type="text" name="sub_title" value="{$product.sub_title}" cols="60" rows="1"  class="form-control">
+                    <span class="text-muted">例：赠|66173额外赠送.青骓5W礼包</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">库存：</label>
+                    <input type="number" name="stock" value="{$product.stock}" cols="60" rows="1"  class="form-control" maxlength="66173">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">游戏ID：</label>
+                    <select name="game_id" data-rule="required">
+                        <option value="" {if $product.game_id eq ''}selected="selected"{/if}>请选择</option>
+                        {foreach from=$game_list item=game}
+                        <option value="{$game.id}" {if $product.game_id eq $game.id}selected="selected"{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                    </select>&nbsp;
+                    <input type="hidden" name="game_id" value="{$product.game_id}" />
+                </td>
+            </tr>
+            {if $product.type>3}
+            <tr>
+                <td>
+                    <label class="control-label x120">渠道：</label>
+                    <select name="channel_id" data-rule="required" onchange="channel_select(this.value);">
+                        <option value="">请选择</option>
+                        {foreach from=$channels_list item=c}
+                        <option value="{$c.id}"{if $c.id eq $product.channel_id} selected{/if}>{$c.channel_name}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            {else}
+            <input type="hidden" name="channel_id" value="0">
+            {/if}
+            <tr>
+                <td>
+                    <label class="control-label x120">区服：</label>
+                    <select name="serv_id" id="channel" data-rule="required">
+                        <option value="0">全区全服</option>
+                        {foreach from=$servs_list item=s}
+                        <option value="{$s.id}"{if $s.id eq $product.serv_id} selected{/if}>{$s.serv_name}</option>
+                        {/foreach}
+                    </select>&nbsp;
+                    <input type="hidden" name="serv_name" value="全区全服">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">商品价格：</label>
+                    <input type="text" name="price" value="{$product.price}" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">赠送礼包：</label>
+                    <select name="attach_gift">
+                        <option value="0">无</option>
+                        {foreach from=$gifts item=g}<option value="{$g.id}"{if $g.id eq $product.attach_gift} selected{/if}>[{$g.id}]{$g.title}</option>{/foreach}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_form_content" class="control-label x120">商品描述：</label>
+                    <div style="display: inline-block; vertical-align: middle;">
+                        <textarea name="intro" id="j_form_content" class="j-content" style="width: 700px;" data-toggle="kindeditor" data-minheight="200"
+                                  data-items="fontname, fontsize,
+                                  |, forecolor, hilitecolor, bold, italic, underline, removeformat,
+                                  |, justifyleft, justifycenter, justifyright, insertorderedlist, insertunorderedlist,
+                                  |, emoticons, image, multiimage, link">
+                           {$product.intro}
+                        </textarea>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_form_content" class="control-label x120">截图：</label>
+                    <input id="fileImage_edit" type="file" name="imgs[]"  style="display: none"  multiple/>
+                    <span id="preview_edit" style="color: #ff0000">
+                          {foreach key=key item=img from=$imgs}
+                            <img src="http://static.66173.cn{$img.img_url}" style="height: 120px;width: 100px;margin-right: 10px">
+                          {/foreach}
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120"></label>
+                    <a href="javascript:void(0)" class="btn btn-default btn-sm Huploadify-button" id="pic_edit">选择图片</a>
+                    <span style="color: red">重新上传将覆盖原有图片</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">商品到期时间：</label>
+                    <input type="text" name="end_time" value="{$product.end_time|date_format:'%Y-%m-%d %H:%M:%S'}" cols="18" rows="1"  class="form-control" data-toggle="datepicker" data-pattern="yyyy-MM-dd H:m:s" size="20"  data-rule="required" readonly>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">立即上架：</label>
+                    <select name="is_pub"   data-toggle="selectpicker">
+                        <option value="0" {if $product.is_pub eq '0'}selected="selected"{/if} >否</option>
+                        <option value="1" {if $product.is_pub eq '1'}selected="selected"{/if}>是</option>
+                    </select>&nbsp;
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <input type="hidden" name="old_img" value="{$product.img}">
+        <input type="hidden" name="id" value="{$product.id}">
+        <input type="hidden" name="discount" value="{$product.discount}" />
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+<script>
+    $(function(){
+        $("#pic_edit").bind('click',function(){
+            var ie=navigator.appName=="Microsoft Internet Explorer" ? true : false;
+            if(ie){
+                $("#fileImage_edit").click;
+            }else{
+                var a=document.createEvent("MouseEvents");
+                a.initEvent("click", true, true);
+                document.getElementById("fileImage_edit").dispatchEvent(a);
+            }
+        })
+
+        rFilter = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/jpeg|image\/jpeg|image\/png|)$/i;
+        (function () {
+            var viewFiles = document.getElementById("fileImage_edit");
+            function viewFile (file,i) {
+                html = $("#preview_edit").html();
+                //通过file.size可以取得图片大小
+                var reader = new FileReader();
+                reader.onload = function(evt){
+                    html +="<img style='height: 120px;width: 100px;margin-right: 10px;'  src=\""+evt.target.result+"\" />";
+                    $("#preview_edit").html(html);
+                }
+                reader.readAsDataURL(file);
+            }
+            viewFiles.addEventListener("change", function () {
+                for(i=0;imgFile = document.getElementById("fileImage_edit").files[i];i++){
+                    /*if(i>9){
+                     document.getElementById("fileImage").value="";
+                     $("#preview").html("一次最多10张图片");
+                     return;
+                     }*/
+                    if (!rFilter.test(imgFile.type)) {
+                        document.getElementById("fileImage_edit").value="";
+                        $("#preview_edit").html("图片格式不对，支持jpg、png、gif!");
+                        return;
+                    }
+                }
+                $("#preview_edit").html('');
+                for (var i = 0; file = this.files[i]; i++) {
+                    viewFile(file,i);
+                }
+            }, false);
+        })();
+    })
+</script>

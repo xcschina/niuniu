@@ -1,0 +1,50 @@
+<div class="bjui-pageHeader">
+    <form id="pagerForm" action="user_withdraw_info.php?act=user_withdraw_list" method="post" data-toggle="ajaxsearch">
+        <div class="bjui-searchBar">
+            <label>姓名：</label><input type="text" name="login_name"  value="{$params.login_name}" class="form-control" size="10">&nbsp;
+            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+            <tr align="center">
+                <th>No.</th>
+                <th>姓名</th>
+                <th>支付宝账号</th>
+                <th>提现金额</th>
+                <th>手续费</th>
+                <th>到账金额</th>
+                <th>状态</th>
+                <th>时间</th>
+                <th width="120">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=data from=$dataList}
+        <tr align="center">
+            <td>{$data.id}</td>
+            <td>{$data.login_name}</td>
+            <td>{$data.pay_account}</td>
+            <td>{$data.money}</td>
+            <td>{$data.charge_money}</td>
+            <td>{$data.actual_money}</td>
+            <td>{if $data.status eq 1}提现中{elseif $data.status eq 2}提现成功{elseif $data.status eq 3}提现失败{/if}</td>
+            <td>{$data.add_time|date_format:"%Y-%m-%d %H:%M:%S"}</td>
+            <td>
+                {if $data.status eq 1}
+                <a href="user_withdraw_info.php?act=upload_view&id={$data.id}" class="btn btn-green" data-id="upload_view" data-toggle="dialog" data-mask="true" data-width="600"  data-height="420" data-title="上传图片">上传图片</a>
+                <a href="user_withdraw_info.php?act=refuse&id={$data.id}" class="btn btn-red" data-toggle="dialog" data-mask="true" data-width="300"  data-height="200" data-title="拒绝">拒绝</a>
+                {/if}
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

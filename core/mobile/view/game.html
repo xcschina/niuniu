@@ -1,0 +1,150 @@
+<!doctype html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+        <title>{$game.game_name}_手游交易_66173手游交易平台</title>
+        <meta name="keywords" content="{$game.game_name}、66173、手游交易平台" />
+        <meta name="description" content="66173提供{$game.game_name}首充号，{$game.game_name}首充号续充，{$game.game_name}代充，{$game.game_name}账号，{$game.game_name}游戏币，{$game.game_name}苹果代充，玩{$game.game_name}就上66173，66173(m.66173.cn)是国内权威的游戏交易平台，安全快捷有保障的手游充值中心。" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/common.css?t={rand(10,15)}" media="screen" />
+        <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/pay.css?t={rand(10,15)}" media="screen" />
+    </head>
+    <body>
+    <header class="page-header clearfix">
+        <h1 class="page-h1">{$game.game_name}</h1>
+        <a class="p2-back" href="javascript:history.back();">返回</a>
+        <a class="p2-back ml-40" href="http://m.66173.cn">首页</a>
+        {if $smarty.session.user_id}
+        <a class="login-on" href="/account.php?act=user_center">个人中心</a>
+        {else}
+        <a class="login-link" href="/account.php?act=user_center" id="login-btn">登录</a>
+        {/if}
+    </header>
+    <nav class="pay-nav clearfix">
+    <ul class="pay-nav-list clearfix">
+        <li class="on"><a href="#" rel="1">商品购买</a></li>
+        <li><a href="#gift_get" rel="2">礼包领取</a></li>
+
+        <li><a href="#game_infos" rel="4">游戏资讯</a></li>
+        <li>
+            <!--<a href="#game_download" rel="3">游戏下载</a>-->
+        </li>
+    </ul>
+</nav>
+<div id="sec1" class="game_box">
+    <section class="pay-game clearfix">
+        <img src="http://cdn.66173.cn/{$game.game_icon}" alt="{$game.game_name}" />
+        <h2 class="pay-game-name">{$game.game_name}</h2>
+    </section>
+    <section class="clearfix">
+        <header class="pay-tit clearfix">
+            <h3 class="pay-tit-h">选择需要购买的类型:</h3>
+        </header>
+        <div class="cate-box clearfix">
+            <a class="buy-cate" href="/game{$game.id}/character">首充号</a>
+            <a class="buy-cate" href="/game{$game.id}/recharge">首充号续充</a>
+            <!--<a class="buy-cate" href="/game{$game.id}/topup">代充</a>-->
+            <a class="buy-cate" href="/game{$game.id}/account">账号</a>
+            <a class="buy-cate" href="/game{$game.id}/coin">游戏币</a>
+            {if $game.iap_game_id neq 0}
+            <!--<a class="buy-cate" href="/game{$game.id}/iap">苹果代充</a>-->
+            {/if}
+            <!--<a class="buy-cate" href="/game{$game.id}/props">装备</a>-->
+        </div>
+    </section>
+</div>
+<div id="sec2" style="display: none" class="game_box">
+    <ul class="lb-list clearfix">
+        {foreach from=$gifts item=g}
+        <li>
+            <a href="/gift{$g.id}">
+                <img src="http://cdn.66173.cn/{$g.game_icon}" alt="name"><em>{$g.game_name}</em><span class="lb-stxt">{$g.title}</span><span class="lb-sinfo">{$g.content}</span>
+            </a>
+            {if $g.is_get}
+                <a href="/gift{$g.id}" class="chart chart-2{if $g.remain<1} over{/if}" data-percent="{($g.remain/$g.num)*100}">已领<canvas height="45" width="45"></canvas></a>
+            {else}
+                {if $g.remain<1}
+                <a href="/gift{$g.id}" class="chart chart-1 over" data-percent="0">已结束<canvas height="45" width="45"></canvas></a>
+                {else}
+                <a href="/gift{$g.id}" class="chart chart-1" data-percent="{($g.remain/$g.num)*100}">领取<canvas height="45" width="45"></canvas></a>
+                {/if}
+            {/if}
+        </li>
+        {/foreach}
+    </ul>
+</div>
+<div id="sec3" style="display: none" class="game_box">
+    <ul class="gm-list clearfix">
+        {foreach from=$downs item=d}
+        <li><a id="mgame" onclick="_hmt.push(['_trackEvent', 'game', 'dld', '{$d.title}']);"  href="{$d.url}" target="_blank" rel="noopener noreferrer"><img src="http://cdn.66173.cn/{$d.icon}" /><em>{$d.title}</em></a><a id="mgame" onclick="_hmt.push(['_trackEvent', 'game', 'dld', '{$d.title}']);" href="{$d.url}" class="gm-btn">下载</a></li>
+        {/foreach}
+    </ul>
+</div>
+<div id="sec4" style="display: none" class="game_box">
+    <ul class="zx-list clearfix">
+        {foreach from=$news item=n}
+        <li><a href="/info/{$n.id}"><span>{"m-d"|date:$n.add_time}</span>{$n.title}</a></li>
+        {/foreach}
+    </ul>
+</div>
+{include file="include/footer.html"}
+<script src="http://cdn.66173.cn/mobile/v2/scripts/zeptio.min.js"></script>
+<script src="http://cdn.66173.cn/mobile/v2/scripts/script.js"></script>
+{literal}
+<script>
+
+    $(document).ready(function(){
+        $("ul.pay-nav-list a").click(function(){
+            game_box_nav(this);
+        });
+        
+    });
+
+    $(window).load(function() {
+        var hash = window.location.hash.split("?")[0];
+        var hashArr = ["#gift_get", "#game_download", "#game_infos"];
+        for(var i = 0;i < hashArr.length;i++) {
+            if(hash == hashArr[i]) {
+                game_box_nav($('a[href="'+hash+'"]'));
+                return;
+            }
+        }
+    })
+    function game_box_nav(obj){
+        $("div.game_box").hide();
+        $("ul.pay-nav-list li").removeClass("on");
+        $(obj).parent("li").attr("class","on");
+        $("#sec"+$(obj).attr("rel")).show();
+    }
+    var optionsg = {
+        scaleColor: false,
+        trackColor: '#ccc',
+        barColor: '#30b66f',
+        lineWidth: 3,
+        lineCap: 'butt',
+        size: 45
+    };
+    var optionsb = {
+        scaleColor: false,
+        trackColor: '#ccc',
+        barColor: '#317ee7',
+        lineWidth: 3,
+        lineCap: 'butt',
+        size: 45
+    };
+    window.addEventListener('DOMContentLoaded', function() {
+        var charts = [];
+        [].forEach.call(document.querySelectorAll('.chart-1'),  function(el) {
+            charts.push(new EasyPieChart(el, optionsg));
+        });
+        [].forEach.call(document.querySelectorAll('.chart-2'),  function(el) {
+            charts.push(new EasyPieChart(el, optionsb));
+        });
+    });
+
+</script>
+{/literal}
+</body>
+</html>

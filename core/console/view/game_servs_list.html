@@ -1,0 +1,56 @@
+<script type="text/javascript">
+    $(function(){
+        $("select[name=game_id]").chosen();
+    })
+</script>
+<div class="bjui-pageHeader">
+    <form id="pagerForm" action="game_servs.php?act=game_servs_list" method="post" data-toggle="ajaxsearch">
+        <div class="bjui-searchBar">
+            <a href="game_servs.php?act=serv_add_view" class="btn btn-green" data-toggle="dialog" data-mask="true" data-width="500"  data-height="360" data-id="form" data-title="新建区服">新建</a>
+            <a href="game_servs.php?act=import_view" class="btn btn-green" data-toggle="dialog" data-mask="true" data-width="500"  data-height="360" data-id="form" data-title="区服批量导入">批量导入</a>
+            <label>游戏：</label>
+            <select name="game_id">
+                <option value="" {if $params.game_id eq ''}selected="selected"{/if}>请选择</option>
+                {foreach from=$game_list item=game}
+                <option value="{$game.id}" {if $params.game_id eq $game.id}selected="selected"{/if}>{$game.game_name}-{$game.id}</option>
+                {/foreach}
+            </select>&nbsp;
+            <label>区服名：</label><input type="text" name="serv_name"  value="{$params.serv_name}" class="form-control" size="8">&nbsp;
+            <label>区服ID：</label><input type="text" name="serv_id"  value="{$params.serv_id}" class="form-control" size="8">&nbsp;
+            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th>No.</th>
+            <th>游戏名</th>
+            <th>游戏ID</th>
+            <th>区服名称</th>
+            <th>区服ID</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=data from=$dataList}
+        <tr align="center">
+            <td>{$data.id}</td>
+            <td>{$data.game_name}</td>
+            <td>{$data.game_id}</td>
+            <td>{$data.serv_name}</td>
+            <td>{$data.serv_id}</td>
+            <td>
+                <a href="game_servs.php?act=serv_edit_view&id={$data.id}" class="btn btn-green" data-toggle="dialog" data-mask="true" data-width="500"  data-height="160"  data-id="form" data-title="区服编辑">编辑</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

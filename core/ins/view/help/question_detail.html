@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="width=device-width; initial-scale=0.5; minimum-scale=0.5; maximum-scale=0.5; user-scalable=0" id="viewport" name="viewport" />
+    <title>客服记录</title>
+    <link rel="stylesheet" href="//static.66173.cn/ins/css/help.css">
+    <script src="//libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <script type="application/javascript">
+        $(window).on('resize', function (e) {
+            var wWidth = document.documentElement.clientWidth || document.body.clientWidth;
+            var size = wWidth / 6.4 ;
+            document.getElementsByTagName('html')[0].style.fontSize = size + 'px';
+        }).trigger('resize');
+    </script>
+</head>
+<body>
+<div class="question_container">
+    <section class="m-l-12 bor-b-sol">
+        <h5 class="title"><span>Q:</span>{$info.content}</h5>
+        {if $info.imgs}
+        <p class="question_img both">
+            {foreach $info.imgs as $img}
+            <img class="left" src="//static.66173.cn/{$img}"/>
+            {/foreach}
+        </p>
+        {/if}
+    </section>
+    <section class="m-l-12 question">
+        <span class="time">{$info.create_time|substr:5:11}</span>
+    </section>
+    <section class="m-l-12 question">
+        <span class="time">{$info.type_name}&nbsp;>&nbsp;{$info.app_name}&nbsp;>&nbsp;{$info.server_name}</span>
+    </section>
+</div>
+{if $info.feedback}
+<div class="reply-info">
+    <h5 class="title"><span>A:</span>{$info.feedback}</h5>
+    <p class="reply-user"><i></i>Lucy&nbsp;&nbsp;&nbsp;{$info.feedback_time|substr:5:11}</p>
+</div>
+{/if}
+</body>
+</html>

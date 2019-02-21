@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NNSDK_h5_merit_game_page</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <style>
+        html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            background: #fff;
+            font-size: 16px;
+        }
+        body {
+            height: 100%;
+            background-color: #ddd;
+            padding: 0;
+            border: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+        #gameWrapper {
+            margin: auto;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+            transform: translateZ(0px);
+        }
+        #gameCanvas {
+            cursor: inherit;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+
+        }
+        .call-zone {
+            margin: 100px 10px 0;
+        }
+        .result-block .line {
+            margin: 5px 0;
+        }
+        button {
+            min-width: 80px;
+            padding: 5px 5px;
+            background-color: #009999;
+            color: white;
+            border: 0;
+            margin: 5px;
+        }
+    </style>
+    <script src="//cdn.66173.cn/www/js/jquery-1.8.3.min.js"></script>
+    <script src="//cdn.66173.cn/mobile/scripts/sdk/js/jsencrypt.min.js?y=2"></script>
+    <script src="//cdn.66173.cn/mobile/scripts/sdk/js/md5.min.js?y=2"></script>
+</head>
+<body>
+<div id="gameWrapper">
+    <div id="gameCanvas">
+
+        <div class="call-zone">
+            <div class="result-block"></div>
+            <div class="operation-block">
+                <div class="desc">必须接入：</div>
+                <button id="login">登录</button>
+                <button id="pay">支付</button>
+                <button id="roleReport">角色报道</button>
+            </div>
+            <div class="operation-block">
+                <div class="desc">可选接入：</div>
+                <button id="setLogoutCb">退出账号回调设置</button>
+                <button id="showFloatBall">显示悬浮球</button>
+                <button id="hideFloatBall">隐藏悬浮球</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<!-- <script src="http://cdn.66173.cn/mobile/scripts/sdkmrt/js/nn_h5game_sdk_self.js?t=191oo0"></script> -->
+<script>
+    var timestamp = (new Date()).getTime();
+    $.getScript("//cdn.66173.cn/mobile/scripts/sdkmrt/js/nn_h5game_sdkmrt.js", function(e) {
+        var uinfo0;
+        /* function:  NMRTSDK.init(params, callback)
+         params为json对象：
+         channel: cp在牛牛的渠道名
+         appId: cp游戏在牛牛的id
+         debug: 是否开启调试模式， true 为调试模式，在调用支付/角色报道等时会提示框打出cp传递的信息
+         isLocal: 是否在非'华为'，'小米等渠道环境中打开'， true 则在调用其他接口时
+         只做调用提示并不真正做相应请求
+         callback为初始化成功后的回调函数
+         */
+        NMRTSDK.init({
+            appId: 12,
+            debug: true,
+            isLocal: true
+        }, initCb);
+        document.getElementById("login").addEventListener("click", login, false);
+        document.getElementById("setLogoutCb").addEventListener("click", setLogoutCb, false);
+        document.getElementById("pay").addEventListener("click", pay, false);
+        document.getElementById("roleReport").addEventListener("click", roleReport, false);
+        document.getElementById("showFloatBall").addEventListener("click", showFloatBall, false);
+        document.getElementById("hideFloatBall").addEventListener("click", hideFloatBall, false);
+        function login() {
+            NMRTSDK.login(loginCb);
+        }
+        function setLogoutCb() {
+            NMRTSDK.setLogoutCb(logoutCb);
+        }
+        function pay() {
+            var info = {
+                appId: "12",
+                platform: "huawei",
+                userId: "12",
+                roleId: "1091",
+                roleName: "1091",
+                roleLevel: "121",
+                serverId: "3",
+                serverName: "区服1",
+                sdkgoodsid: "122",
+                billno: "2017011111111",
+                amount: "2",
+                count: "5",
+                productName: "商品名称",
+                productDesc: "商户对商品的自定义描述",
+                subject: "goods info",
+                extraInfo: encodeURIComponent("1233|11"),
+                screenOrient: 2
+            };
+            NMRTSDK.pay(info);
+
+        }
+        function roleReport() {
+            var info = {
+                roleId: "1",
+                roleName: "角色名称",
+                roleLevel: "1",
+                serverId: "1",
+                serverName: "区服1",
+                roleReportType: "2",
+                roleCreatedTime: "1523872712567",
+                roleLevelMTime: "10000000",
+                power: "100",
+                partyName: "工会社团",
+                guildId: "1",
+                guildName: "工会名称",
+                guildLevel: "1",
+                guildLeaderId: "1",
+                roleAttachParams: "",
+                restCoinNum: "100"
+            };
+            NMRTSDK.roleReport(info);
+        }
+        function showFloatBall() {
+            NMRTSDK.showFloatBall();
+        }
+        function hideFloatBall() {
+            NMRTSDK.hideFloatBall();
+        }
+        function initCb() {
+            console.log("sdk完成初始化");
+        }
+        function loginCb(params) {
+            alert("登录回调：\n"+JSON.stringify(params))
+        }
+        function logoutCb() {
+            alert("logout");
+        }
+    })
+
+</script>
+</html>

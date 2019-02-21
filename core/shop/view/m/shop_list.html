@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>店铺列表</title>
+    <meta name="keywords" content="游戏店铺" />
+    <meta name="description" content="" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://static.66173.cn/shop/m/css/common.css?t={rand(1,10000)}" media="screen" />
+</head>
+<body>
+    {include file="{$TPL}/include/shop_header.html" title='店铺列表'}
+    <!-- 店铺信息 -->
+    <div id='shop_list'>
+        {foreach from=$shops item=shop}
+        <section class='s_container'>
+            <div class="fl_img">
+                <a href="/{$shop.s_id}.html">
+                    {if $shop.s_icon}
+                    <img src="http://static.66173.cn/{$shop.s_icon}" alt="店铺图标" >
+                    {else}
+                    <img src="http://static.66173.cn/images/shop_icon.jpg" alt="店铺图标" >
+                    {/if}
+                </a>
+            </div>
+            <div class="fr_info">
+                <ul>
+                    <li class='shop_name'>{$shop.s_name}</li>
+                    <li>成交订单：<span>{$shop.order_num}</span></li>
+                    <li>经营范围：{$shop.s_intro}</li>
+                    <li>营业时间：{$shop.open_time} - {$shop.close_time}</li>
+                </ul>
+            </div>
+            <a href="/{$shop.s_id}.html" class="s_right"></a>
+            <div class="ehr"></div>
+        </section>
+        {/foreach}
+    </div>
+
+    {if $shops|@count eq 6}
+    <div class="s_getmore" id='get_more_shops'><span>加载更多...</span></div>
+    {/if}
+    <input type="hidden" id='pageNow' value='1'>
+    {include file="{$TPL}/include/footer.html"}
+
+    {literal}
+    <script>
+        $(function(){
+        // 加载更多
+        $('#get_more_shops').on('click',function(){
+            var $pageNum = 6; // 每页加载数量
+            var $pageNow = parseInt($('#pageNow').val());
+            $.post('/index.php?act=ajax_more_shops',{'pageNow':$pageNow},function(data){
+                if(data.length>0){
+                    var $shop = '';
+                    for(var i in data){
+                        $shop += "<section class='s_container'>";
+                        $shop += "<div class='fl_img'>"
+                        $shop += "    <a href='/"+data[i]['s_id']+".html'><img src='http://static.66173.cn/"+data[i]['s_icon']+"' alt='"+data[i]['s_name']+"'></a>";
+                        $shop += "</div>";
+                        $shop += "<div class='fr_info'><ul>";
+                        $shop += "    <li class='shop_name'>"+data[i]['s_name']+"</li>";
+                        $shop += "    <li>成交订单：<span>"+data[i]['s_id']+"</span></li>";
+                        $shop += "    <li>经营范围："+data[i]['s_intro']+"</li>";
+                        $shop += "    <li>营业时间："+data[i]['open_time']+" - "+data[i]['close_time']+"</li>";
+                        $shop += "</ul></div><a href='/"+data[i]['s_id']+".html' class='s_right'></a><div class='ehr'></div>";
+                        $shop += "</section>";
+                    }
+                    $('#shop_list').append($shop);
+                    if(data.length < $pageNum){
+                        $('#get_more_shops').remove(); // 没有更多了
+                    }else{
+                        $('#pageNow').val($pageNow+1); // 还有更多
+                    }
+                }
+            },'json');
+        })
+    })
+</script>
+{/literal}
+</body>
+</html>

@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>现在下载大圣归来，即可获得牛牛六大豪华礼包！</title>
+    <meta name="description" content="下载大圣归来赢全服独家豪华礼包，机不可失失不再来，速速点击下载吧~"/>
+    <meta name="keywords" content="西游记之大圣归来，手游活动，大圣归来"/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/common.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/m_common.css?t=6173">
+    <link rel="stylesheet" href="http://cdn.66173.cn/mobile/css/prize_fetch.css?t={$smarty.now}">
+    <script src="http://cdn.66173.cn/www/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="http://cdn.66173.cn/mobile/scripts/prize_fetch_func.js?t={$smarty.now}"></script>
+    <script>
+        function judgeIELower() {
+            var b_appName = navigator.appName;
+            var b_version = navigator.appVersion;
+            var reg = new RegExp(/.+MSIE\s+([5678])\.0;.+/);
+            reg.test(b_version);
+            return b_appName == "Microsoft Internet Explorer" && reg.test(b_version);
+        }
+
+        if(judgeIELower()) {
+            alert("您使用的浏览器版本过低，为了您的浏览体验，请使用360浏览器或Chrome浏览器");
+        }
+    </script>
+</head>
+<body class="m-station prize-fetch">
+<input type="hidden" id="user_id" value="{$smarty.session.user_id}">
+<input type="hidden" id="has_role" value="{$info}">
+<input type="hidden" value="{$noncestr}" id="noncestr"/>
+<input type="hidden" value="{$timestamp}" id="timestamp"/>
+<input type="hidden" value="{$signature}" id="signature" />
+<input type="hidden" id="pagehash" value="{$pagehash}">
+<div style="display:none;"><img src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/icon.png?t=1" alt=""/></div>
+<div class="page-top">
+    <a href="http://apk.66173.cn/1047/dsgl_66173.apk">
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/fix.png"/>
+    </a>
+</div>
+<section class="sec sec1">
+    <img src="http://cdn.66173.cn/mobile/css/img/dsgl/bg_01.png" alt="" class="sec_bg"/>
+    {if $smarty.session.user_id}
+    <a class="act-log-out" href="/website.php?act=do_logout">退出登录</a>
+    {/if}
+    <div class="top-btn-zone">
+        {if $smarty.session.user_id}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/my_role.png" alt="" class="btn my_role">
+        {else}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/top_get_btn.png" alt="" class="btn top-get-gift">
+        {/if}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/my_bag_btn.png" alt="" class="btn my-bag-btn my-bag-btn-can">
+    </div>
+    <span class="rule-btn">规则说明</span>
+</section>
+<section class="sec sec2">
+    <img src="http://cdn.66173.cn/mobile/css/img/dsgl/bg_02.png?t=1111" alt="" class="sec_bg"/>
+    <div class="get-btn-zone get-btn-zone1">
+        {if $smarty.session.user_id}
+        {if $user_game_info.RoleLevel>=1 }
+        {if !in_array('411',$gift_id)}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/get_can_btn.png" alt="" class="btn get-gift get-gift-can" data-type="411">
+        {else}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/get_already_btn.png" alt="" class="btn">
+        {/if}
+        {else}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/get_not_reach_btn.png" alt="" class="btn">
+        {/if}
+        {else}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/get_can_btn.png" alt="" class="btn get-gift get-gift-can" >
+        {/if}
+
+    </div>
+    <div class="get-btn-zone get-btn-zone2">
+        {if $smarty.session.user_id}
+        {if $user_game_info.RoleLevel>=35 }
+        {if !in_array('419',$gift_id)}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/get_can_btn.png" alt="" class="btn get-gift get-gift-can" data-type="419">
+        {else}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/get_already_btn.png" alt="" class="btn">
+        {/if}
+        {else}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/get_not_reach_btn.png" alt="" class="btn">
+        {/if}
+        {else}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/get_can_btn.png" alt="" class="btn get-gift get-gift-can" >
+        {/if}
+    </div>
+    <div class="get-btn-zone get-btn-zone3">
+        {if $smarty.session.user_id}
+        {if $user_game_info.RoleLevel>=70 }
+        {if !in_array('413',$gift_id)}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/get_can_btn.png" alt="" class="btn get-gift get-gift-can" data-type="413">
+        {else}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/get_already_btn.png" alt="" class="btn">
+        {/if}
+        {else}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/get_not_reach_btn.png" alt="" class="btn">
+        {/if}
+        {else}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/get_can_btn.png" alt="" class="btn get-gift get-gift-can" >
+        {/if}
+    </div>
+</section>
+<section class="sec sec3">
+    <img src="http://cdn.66173.cn/mobile/css/img/dsgl/bg_03.png?t=1111" alt="" class="sec_bg"/>
+    <div class="get-btn-zone get-btn-zone4">
+        {if $smarty.session.user_id}
+        {if $user_game_info.pay_money>=200 }
+        {if !in_array('414',$gift_id)}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/get_can_btn.png" alt="" class="btn get-gift get-gift-can" data-type="414">
+        {else}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/get_already_btn.png" alt="" class="btn">
+        {/if}
+        {else}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/get_not_reach_btn.png" alt="" class="btn">
+        {/if}
+        {else}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/get_can_btn.png" alt="" class="btn get-gift get-gift-can" >
+        {/if}
+
+    </div>
+    <div class="get-btn-zone get-btn-zone5">
+        {if $smarty.session.user_id}
+        {if $user_game_info.pay_money>=500 }
+        {if !in_array('415',$gift_id)}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/get_can_btn.png" alt="" class="btn get-gift get-gift-can" data-type="415">
+        {else}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/get_already_btn.png" alt="" class="btn">
+        {/if}
+        {else}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/get_not_reach_btn.png" alt="" class="btn">
+        {/if}
+        {else}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/get_can_btn.png" alt="" class="btn get-gift get-gift-can" >
+        {/if}
+
+    </div>
+    <div class="get-btn-zone get-btn-zone6">
+        {if $smarty.session.user_id}
+        {if $user_game_info.pay_money>=1000 }
+        {if !in_array('416',$gift_id)}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/get_can_btn.png" alt="" class="btn get-gift get-gift-can" data-type="416">
+        {else}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/get_already_btn.png" alt="" class="btn">
+        {/if}
+        {else}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/get_not_reach_btn.png" alt="" class="btn">
+        {/if}
+        {else}
+        <img src="http://cdn.66173.cn/mobile/css/img/dsgl/get_can_btn.png" alt="" class="btn get-gift get-gift-can">
+        {/if}
+
+    </div>
+</section>
+<section class="contact-zone">
+    <div class="qr-block">
+        <img class="contact-qr" src="http://cdn.66173.cn/mobile/css/img/dsgl/qr_niuniu_wx.png"/>
+        <div class="desc">官方微信公众号</div>
+    </div>
+    <div class="qr-block">
+        <img class="contact-qr" src="http://cdn.66173.cn/mobile/css/img/dsgl/qr_weibo.png"/>
+        <div class="desc">官方微博</div>
+    </div>
+    <div class="right">
+        <div>活动QQ群：498033610</div>
+        <div>客服QQ: 252432349 </div>
+        <div>客服热线：0591-87766173</div>
+    </div>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?1f0a1f65ba01082e76f89fd1b54a087a";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</section>
+<div class="brief-tip-pop"><div class="con"></div></div>
+<div class="mask">
+    <div class="pop-wrapper">
+        <div class="background-img pop-bg pop-bg-large" style="background-image: url(http://cdn.66173.cn/mobile/css/img/dsgl/pop_bg_large.png)">
+            <a class="close-pop"></a>
+            <div class="pop-title">我的礼包</div>
+            <div class="con">
+                <div class="has-my-gifts">
+                    <ul class="my-gifts-list"></ul>
+                    <div class="btn-zone">
+                        <img class="bt-btn exchange-way-btn" src="http://cdn.66173.cn/mobile/css/img/dsgl/exchange_way_btn.png"/>
+                    </div>
+                </div>
+                <div class="common-width rules-tip">
+                    【活动时间】2017年6月12日12:00-6月25日00:00。<br>
+                    1、本活动仅限牛牛端《西游记之大圣归来》（以下简称《大圣》）玩家参与，活动仅针对个人消费者，谢绝各类经销商参与活动。为方便奖励发放，本活动仅限手机注册用户参与。<br>
+                    2、66173将会对参加活动的用户信息进行排查，用户不得修改页面参数，不得以任何机器人软件、蜘蛛软件、爬虫软件、刷屏软件或其它非人工方式访问或登录本网站或参与本活动， 一经发现，不予发奖；对已发奖的，66173有权要求用户返还。<br>
+                    3、活动期间暨《大圣》公测期间，玩家满足以下条件皆可获得对应奖励<br>
+                    ①玩家只要创建牛牛端《大圣》游戏角色，即可领取新手礼包一份<br>
+                    ②玩家等级达到35级即可领取欢乐冲级大礼包一份<br>
+                    ③玩家角色等级达到70级，即可领取冲级激励礼包一份<br>
+                    ④累计充值200元，可领取达康幸福礼包一份<br>
+                    ⑤累计充值满500元，即可领取富豪奖励包一份<br>
+                    ⑥累计充值满1000元，即可获得牛牛独家专享礼包一份<br>
+                    所有礼包数量有限，先到先得，领完即止。礼包内容以游戏内实际领取情况为准。<br>
+                    4、用户在活动中所得礼包不得退换、转让他人，也不得用于代购、出售等用途、不可用于任何形式的变现。<br>
+                    5、凡参加活动者，即视为同意接受本活动规则，并同时遵守66173公布的《用户协议》及其他服务规则，用户违反国家相关法律、本活动规则、《用户协议》或6173其他规则，不予发奖并追究其相应责任。<br>
+                    6、如遇不可抗力影响，66173平台有权暂停、修改或终止本次活动；本活动解释权在法律允许范围内归66173市场运营团队所有。<br>
+                </div>
+            </div>
+        </div>
+        <div class="background-img pop-bg pop-bg-small" style="background-image: url(http://cdn.66173.cn/mobile/css/img/dsgl/pop_bg_small.png)">
+            <a class="close-pop"></a>
+            <div class="pop-title"></div>
+            <div class="con">
+                <div class="common-width no-my-gifts">
+                    <img src="http://cdn.66173.cn/mobile/css/img/dsgl/no_sad.png" class="no-sad-img"/>
+                    <div class="msg">您还未领取礼包哦~</div>
+                </div>
+                <div class="common-width has-prize-pop">
+                    <div class="msg-title"></div>
+                    <div class="msg-con"></div>
+                    <div class="btn-zone"></div>
+                </div>
+                <div class="common-width no-prize-pop">
+                    <img src="http://cdn.66173.cn/mobile/css/img/dsgl/no_sad.png" class="no-sad-img"/>
+                    <div class="msg"></div>
+                </div>
+                <div class="common-width exchange-way-pop">
+                    1.人物等级达到10级；<br/>
+                    2.点击游戏界面“福利”；<br/>
+                    3.点击激活码，输入“礼包码”确认领取。
+                </div>
+                <div class="has-role-pop">
+                    <div class="pop-form-wrap">
+                        <div class="pop-form-line">
+                            <label>所在区服&nbsp;:</label>
+                            <span class="background-img text-overflow role-desc" style="background-image: url(http://cdn.66173.cn/mobile/css/img/dsgl/gift_code_bg.png)">{$user_game_info.AreaServerName}</span>
+                        </div>
+                        <div class="pop-form-line">
+                            <label>角色名&nbsp;:</label>
+                            <span class="background-img text-overflow role-desc" style="background-image: url(http://cdn.66173.cn/mobile/css/img/dsgl/gift_code_bg.png)">{$user_game_info.RoleName}</span>
+                        </div>
+                        <div class="pop-form-line">
+                            <label>角色等级&nbsp;:</label>
+                            <span class="background-img text-overflow role-desc" style="background-image: url(http://cdn.66173.cn/mobile/css/img/dsgl/gift_code_bg.png)">{$user_game_info.RoleLevel}级</span>
+                        </div>
+                        <div class="pop-form-line">
+                            <label>累计消费金额&nbsp;:</label>
+                            <span class="background-img text-overflow role-desc" style="background-image: url(http://cdn.66173.cn/mobile/css/img/dsgl/gift_code_bg.png)">{$user_game_info.pay_money}元</span>
+                        </div>
+                        <div class="text-center can-get-tip">您可以领取{$user_game_info.gift}个礼包</div>
+                    </div>
+                </div>
+                <div class="common-width no-role-pop">
+                    <div class="msg-title">很抱歉，您的账号还未创建角色，赶紧下载游戏，创建角色修炼吧!</div>
+                    <div class="btn-zone">
+                        <a style="display:inline-block;" href="http://apk.66173.cn/1047/dsgl_66173.apk"><img src="http://cdn.66173.cn/mobile/css/img/dsgl/download_game_btn.png" class="bt-btn"/></a>
+                    </div>
+                </div>
+                <div class="to-login-pop">
+                    <div class="pop-form-wrap">
+                        <div class="pop-form-line">
+                            <label>手机号&nbsp;:</label>
+                            <input type="tel" class="tel-input" placeholder="请输入您的手机号"/>
+                        </div>
+                        <div class="pop-form-line">
+                            <label>验证码&nbsp;:</label>
+                            <input type="number" class="captcha-input" placeholder="请输入收到的验证码"/>
+                            <span class="captcha-tip to-get-captcha">获取验证码</span>
+                        </div>
+                        <div class="pop-form-line">
+                            <label>图形码&nbsp;:</label>
+                            <input type="text" class="graphic-input" placeholder="请输入图形码"/>
+                            <img id="graphic-image" class="graphic-image" />
+                            <!-- <span class="graphic-tip">换一换</span> -->
+                        </div>
+                        <div class="btn-zone">
+                            <img class="bt-btn go-login go-login-can" src="http://cdn.66173.cn/mobile/css/img/dsgl/tip_login.png"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+{literal}
+<script >
+    if(judgeIELower()) {
+        var body = document.body;
+        body.style.display = "none";
+        var a = document.createElement('a');
+        a.setAttribute('href', "http://www.66173.cn");
+        a.setAttribute('id', "jumpToHome");
+        // 防止反复添加
+        if(!document.getElementById("jumpToHome")) document.body.appendChild(a);
+        a.click();
+    }
+</script>
+<script src="http://cdn.66173.cn/mobile/v2/scripts/clipboard1.6.1.min.js"></script>
+<script>
+    var clipboardGift; //礼包码复制功能
+    var clipboardGetSuccessGift; //领取礼包成功礼包码复制功能
+    var pageMyBagTimeout; //页面上我的礼包定时
+    var popMyBagTimeout; //弹窗中我的礼包定时
+    var goLoginTimeout; //弹窗中登录定时
+    var getGiftTimeout; //领取礼包定时
+    var captchaInterval;//验证倒计时
+    var regContact = new RegExp(/(^[1-9][0-9]{5,9}$)|(^1[34578]\d{9}$)/);
+    var regCaptchaPart = new RegExp(/^[0-9]{6}$/);
+    var userId = $("#user_id").val();
+    var hasRole = $("#has_role").val();
+    var hash = $('#pagehash').val();
+    $(document).ready(function() {
+        if(userId) {
+            rolePopControl();
+        }
+    });
+    function rolePopControl() {
+        if(hasRole == 1) {
+            popControl(".pop-bg-small", ".has-role-pop", "您的角色信息");
+        }
+        else {
+            $(".no-role-pop .msg-title").html("很抱歉，您的账号还未创建角色，赶紧下载游戏，创建角色修炼吧!");
+            popControl(".pop-bg-small", ".no-role-pop", "温馨提示");
+        }
+    }
+    // 生成图形验证码
+    function createCode() {
+        var rand = Math.floor(Math.random()*9999);
+        $(".graphic-image").attr("src", "/verifycode.php?t="+rand);
+    }
+    // 登录弹框弹出生成图形验证码
+    function loginControl() {
+        createCode();
+        $.ajax({
+            url: "/website.php?act=login_control",
+            type: "post",
+            dataType: "json"
+        }).success(function(res) {
+            popControl(".pop-bg-small", ".to-login-pop", "登录");
+        });
+
+    }
+    // 点击页面上或弹窗中的我的礼包
+    $(".prize-fetch").on("click", ".my-bag-btn-can, .tip-bag-btn-can", function(e) {
+        if(!userId) {
+            loginControl();
+        }
+        else {
+            if($(e.target).hasClass("my-bag-btn-can")) {
+                $(".my-bag-btn").removeClass("my-bag-btn-can");
+                btnTimeOutControl(".my-bag-btn","my-bag-btn-can", pageMyBagTimeout);
+            }
+            else {
+                $(".tip-bag-btn").removeClass("tip-bag-btn-can");
+                btnTimeOutControl(".tip-bag-btn","tip-bag-btn-can", popMyBagTimeout);
+            }
+            $.ajax({
+                url: "/website.php?act=my_gift",
+                type: "post",
+                data:{user_id:userId,pagehash:hash},
+                dataType: "json"
+            }).success(function(res) {
+                if(res.code == 0) {
+                    loginControl();
+                }
+                if (res.code == 1) {
+                    if (res.data &&  res.data.length != 0) {
+                        var content = '';
+                        for (var i = 0, l = res.data.length; i < l; i++) {
+                            var item = res.data[i];
+                            var title = item['draw_desc'] || '';
+                            content += '<li>'
+                                + '<span class="text-overflow title">' + title.split("-")[0] + '</span>'
+                                + '<span class="background-img text-overflow gift-code" style="background-image: url(http://cdn.66173.cn/mobile/css/img/dsgl/gift_code_bg.png)">'+item['gift_code']+'</span>'
+                                + '<img src="http://cdn.66173.cn/mobile/css/img/dsgl/copy_gift_code.png" class="gift-pop-copy-btn" data-clipboard-text="'+item['gift_code']+'"/>'
+                                + '</li>';
+                        }
+                        $(".my-gifts-list").html(content);
+                        popControl(".pop-bg-large", ".has-my-gifts", "我的礼包");
+                        // 先销毁之前的礼包复制功能以免会重复调用
+                        if (clipboardGift) {
+                            clipboardGift.destroy();
+                        }
+                        clipboardGift = new Clipboard(".gift-pop-copy-btn");
+                        clipboardGift.on('success', function (e) {
+                            briefTipControl("礼包码: " + e.text + " 已复制");
+                            e.clearSelection();
+                        });
+                        clipboardGift.on('error', function(e) {
+                            briefTipControl("此功能不支持当前浏览器，请手工复制");
+                        });
+                    } else {
+                        popControl(".pop-bg-small", ".no-my-gifts", "我的礼包")
+                    }
+                }
+                if(res.code == 2) {
+                    briefTipControl(res.msg);
+                }
+            })
+        }
+    })
+    // 点击活动规则
+    $(".prize-fetch").on("click", ".rule-btn", function() {
+        popControl(".pop-bg-large", ".rules-tip", "活动规则")
+    })
+    // 点击关闭弹窗
+    $(".close-pop").on("click", function() {
+        $(".prize-fetch .mask").hide();
+    })
+    // 填好表单后点击登录
+    $(".prize-fetch").on("click", ".go-login-can", function() {
+        $(".go-login:visible").removeClass("go-login-can");
+        btnTimeOutControl(".go-login", "go-login-can", goLoginTimeout);
+        var resData = checkInput({
+            ".tel-input": "mobile",
+            ".captcha-input": "sms_code"
+        });
+        var graphicCode = $(".graphic-input").val();
+        if(resData.pass && !graphicCode) {
+            briefTipControl("请输入正确的图形码");
+            return false;
+        }
+        var sendData = resData.res;
+        sendData.pagehash = hash;
+        sendData.verifyCode = graphicCode;
+        if(resData.pass) {
+            // 请求登录过后直接刷页面
+            $.ajax({
+                url: "/website.php?act=do_login",
+                type: "post",
+                dataType: "json",
+                data: sendData
+            }).success(function(data) {
+                if(data.code == 1){
+                    window.location.reload();
+                }else if(data.code == 2){
+                    $(".no-role-pop .msg-title").html(data.msg);
+                    popControl(".pop-bg-small", ".no-role-pop", "温馨提示");
+                }else{
+                    briefTipControl(data.msg);
+                }
+            })
+        }
+    })
+    //    // 点击页头登录跳登录弹窗
+    //    $(".login-in-link").on("click", function() {
+    //        loginControl();
+    //        // popControl(".pop-bg-small", ".select-pop", "登录");
+    //    })
+    // 获取验证码
+    $(".prize-fetch").on("click", ".to-get-captcha", function() {
+        if(!regContact.test($(".tel-input:visible").val())) {
+            briefTipControl("请填写正确的手机号码！");
+            $(".captcha-tip").removeClass("to-get-captcha");
+            setTimeout(function() {
+                $(".captcha-tip").addClass("to-get-captcha");
+            }, 2000);
+        }
+        else {
+            $(".captcha-tip").removeClass("to-get-captcha").html('<span class="count-time">120</span>s后获取');
+            var countDownRest = 120;
+            clearInterval(captchaInterval);
+            captchaInterval = setInterval(function() {
+                if(countDownRest > 1) {
+                    countDownRest--;
+                    $(".count-time").html(countDownRest)
+                }
+                else {
+                    $(".captcha-tip").html("获取验证码").addClass("to-get-captcha");
+                    clearInterval(captchaInterval)
+                }
+
+            }, 1000)
+            var phone = $(".tel-input:visible").val();
+            $.ajax({
+                url: "/website.php?act=sms_code",
+                type: "post",
+                data: {mobile: phone,pagehash:hash},
+                dataType: "json"
+            }).success(function(json) {
+                briefTipControl(json.msg);
+            })
+        }
+    })
+    // 点击立即领取
+    $(".prize-fetch").on("click", ".top-get-gift", function() {
+        if(!userId) {
+            loginControl();
+        }
+        else {
+            rolePopControl();
+        }
+    });
+    // 点击我的角色
+    $(".prize-fetch").on("click", ".my_role", function() {
+        rolePopControl();
+    })
+    // 点击领取礼包
+    $(".prize-fetch").on("click", ".get-gift-can", function(e) {
+        if(!userId) {
+            loginControl();
+        }
+        else {
+            btnTimeOutControl(".get-gift","get-gift-can", getGiftTimeout);
+            var $ele = $(e.currentTarget);
+            var batch_id = $ele.data("type");
+            var hash = $("#pagehash").val();
+            $.ajax({
+                url: "/website.php?act=receive_gift",
+                type: "post",
+                dataType: "json",
+                data: {
+                    user_id: userId,
+                    batch_id: batch_id,
+                    pagehash:hash
+                }
+            }).success(function(res) {
+                var code = res.code;
+                var con = "";
+                if(code == 0) {
+                    loginControl();
+                } else if(code == 1) {
+                    con = '<div class="pop-code-desc">'
+                        + '<span>礼包码:</span>'
+                        + '<span class="background-img text-overflow gift-code" style="background-image: url(http://cdn.66173.cn/mobile/css/img/dsgl/gift_code_bg.png)">'+res.data.code+'</span>'
+                        + '</div>';
+                    $(".has-prize-pop .msg-title").html(res.data.title);
+                    $(".has-prize-pop .msg-con").html(con);
+                    $(".has-prize-pop .btn-zone").html('<img class="bt-btn get-success-copy-gift-btn" src="http://cdn.66173.cn/mobile/css/img/dsgl/get_success_copy_gift.png" data-clipboard-text="'+res.data.code+'"/><img class="bt-btn tip-bag-btn tip-bag-btn-can" src="http://cdn.66173.cn/mobile/css/img/dsgl/tip_my_bag.png"/>');
+                    popControl(".pop-bg-small", ".has-prize-pop", "温馨提示");
+                    // 先销毁之前的礼包复制功能以免会重复调用
+                    if (clipboardGetSuccessGift) {
+                        clipboardGetSuccessGift.destroy();
+                    }
+                    clipboardGetSuccessGift = new Clipboard(".get-success-copy-gift-btn");
+                    clipboardGetSuccessGift.on('success', function (e) {
+                        briefTipControl("礼包码: " + e.text + " 已复制");
+                        e.clearSelection();
+                    });
+                    clipboardGetSuccessGift.on('error', function(e) {
+                        briefTipControl("此功能不支持当前浏览器，请手工复制");
+                    });
+                    $(e.currentTarget).parent(".get-btn-zone").html('<img src="http://cdn.66173.cn/mobile/css/img/dsgl/get_already_btn.png" alt="" class="btn">');
+
+                } else if(code == 2) {
+                    $(".has-prize-pop .msg-title").html(res.msg);
+                    popControl(".pop-bg-small", ".has-prize-pop", "温馨提示");
+                } else {
+                    briefTipControl(res.msg);
+                }
+
+            })
+        }
+    })
+    // 点击兑换方法
+    $(".prize-fetch").on("click", ".exchange-way-btn", function() {
+        popControl(".pop-bg-small", ".exchange-way-pop", "礼包兑换方法");
+    })
+    // 刷新图形验证码
+    $(".prize-fetch").on("click", ".graphic-image, .graphic-tip", function() {
+        createCode();
+    });
+</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script>
+    var userid = $("#user_id").val();
+    var noncestr = $("#noncestr").val();
+    var timestamp = $("#timestamp").val();
+    var signature = $("#signature").val();
+    //    if(userid == "166755" || userid == "15659155505") {
+    document.addEventListener('WeixinJSBridgeReady', function() {
+        wx.config({
+            debug: false,
+            appId: "wxbaed68c7f2f3a62c",
+            timestamp: parseInt(timestamp),
+            nonceStr: noncestr,
+            signature: signature,
+            jsApiList: [
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'onMenuShareQQ',
+                'onMenuShareWeibo',
+                'onMenuShareQZone'
+            ]
+        });
+        wx.ready(function() {
+            var shareData = {
+                title: '现在下载大圣归来，即可获得牛牛六大豪华礼包！',
+                desc: '下载大圣归来赢全服独家豪华礼包，机不可失失不再来，速速点击下载吧~',
+                link: window.location.href,
+                imgUrl: 'http://cdn.66173.cn/mobile/v2/css/img/dsgl/icon.png?t=1',
+                success: function() {
+                    briefTipControl("分享成功");
+                    $(".wx-share-mask").hide();
+                },
+                cancel: function() {
+                    briefTipControl("取消分享");
+                }
+            };
+            // 分享给朋友事件绑定
+            wx.onMenuShareAppMessage(shareData);
+            // 分享到朋友圈
+            wx.onMenuShareTimeline(shareData);
+            // 分享到QQ
+            wx.onMenuShareQQ(shareData);
+            // 分享到QZone
+            wx.onMenuShareQZone(shareData);
+            // 分享到微博
+            wx.onMenuShareWeibo(shareData);
+        });
+    });
+    //    }
+</script>
+{/literal}
+</html>

@@ -1,0 +1,98 @@
+<script type="text/javascript">
+    $(function(){
+        $("select[name=game_id]").chosen();
+        $("select[name=serv_id]").chosen();
+        $("select[name=channel_id]").chosen();
+    })
+</script>
+<div class="bjui-pageHeader">
+    <form id="pagerForm" action="orders_info.php?act=artificial_orders" method="post" data-toggle="ajaxsearch">
+        <div class="bjui-searchBar">
+            <label>订单号：</label>
+            <input type="text" name="order_id" value="{$params.order_id}"  class="form-control" size="10">&nbsp;
+            <label>订单状态：</label>
+            <select name="status"   data-toggle="selectpicker">
+                <option value="" {if $params.status eq ''}selected="selected"{/if}>请选择</option>
+                <option value="1" {if $params.status eq '1'}selected="selected"{/if}>待处理</option>
+                <option value="2" {if $params.status eq '2'}selected="selected"{/if}>处理中</option>
+                <option value="3" {if $params.status eq '3'}selected="selected"{/if}>处理成功</option>
+                <option value="4" {if $params.status eq '4'}selected="selected"{/if}>处理失败</option>
+            </select>&nbsp;
+            <label>游戏：</label>
+            <select name="game_id">
+                <option value="" {if $params.game_id eq ''}selected="selected"{/if}>请选择</option>
+                {foreach from=$game_list item=game}
+                <option value="{$game.id}" {if $params.game_id eq $game.id}selected="selected"{/if}>{$game.game_name}-{$game.id}</option>
+                {/foreach}
+            </select>&nbsp;
+            <label>区服：</label>
+            <select name="serv_id">
+                <option value="" {if $params.serv_id eq ''}selected="selected"{/if}>请选择</option>
+                {foreach from=$servs_list item=servs}
+                <option value="{$servs.serv_id}" {if $params.serv_id eq $servs.serv_id}selected="selected"{/if}>{$servs.serv_name}-{$servs.serv_id}</option>
+                {/foreach}
+            </select>&nbsp;
+            <label>渠道：</label>
+            <select name="channel_id"   data-toggle="selectpicker">
+                <option value="" {if $params.channel_id eq ''}selected="selected"{/if}>请选择</option>
+                {foreach from=$channels_list item=channel}
+                <option value="{$channel.id}" {if $params.channel_id eq $channel.id}selected="selected"{/if}>{$channel.channel_name}-{$channel.id}</option>
+                {/foreach}
+            </select>&nbsp;
+            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th width="50px">No.</th>
+            <th width="100px">购买人ID</th>
+            <th width="150px">订单ID</th>
+            <th width="50px">游戏ID</th>
+            <th width="50px">区服ID</th>
+            <th width="50px">渠道ID</th>
+            <th width="100px">联系手机</th>
+            <th width="100px">联系QQ</th>
+            <th width="250px">购买描述</th>
+            <th width="100px">订单时间</th>
+            <th width="100px">处理时间</th>
+            <th width="100px">订单状态</th>
+            <th width="100px">备注</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=data from=$dataList}
+        <tr align="center">
+            <td>{$data.id}</td>
+            <td>{$data.buyer_id}</td>
+            <td>{$data.order_id}</td>
+            <td>{$data.game_id}</td>
+            <td>{$data.serv_id}</td>
+            <td>{$data.channel_id}</td>
+            <td>{$data.moblie}</td>
+            <td>{$data.qq}</td>
+            <td>{$data.buyer_desc}</td>
+            <td>{'Y-m-d H:i:s'|date:$data.add_time}</td>
+            <td>{if $data.op_time}{'Y-m-d H:i:s'|date:$data.op_time}{/if}</td>
+            <td>{if $data.status eq '1'}待处理{elseif $data.status eq '2'}处理中{elseif $data.status eq '3'}处理成功{else}处理失败{/if}</td>
+            <td>{$data.remark}</td>
+            <td>
+                {if  $data.status neq '3' && $data.status neq '4'}
+                <a href="orders_info.php?act=order_examine_view&id={$data.id}" class="btn btn-green" data-toggle="dialog" data-mask="true" data-width="400"  data-height="230" data-id="order_examine_view" data-title="处理订单">处理订单</a>
+                {else}
+                订单已处理完毕
+                {/if}
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

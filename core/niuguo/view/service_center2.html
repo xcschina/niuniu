@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>牛果游戏_new游戏 new快乐-客服中心页</title>
+    <!--顶部开始了-->
+    <meta charset="UTF-8">
+    <!--<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">-->
+    <meta name="description" content="牛果游戏是一个致力于提供优质手游的应用平台。实时同步市场热门手游,与玩家一起发现精品游戏,享受真福利与真特权，只为带给您高品质的游戏体验。"/>
+    <meta name="keywords" content="牛果游戏官网,手游下载,热门手游,官方正版手游,安卓免费手游,手游免费下载,好玩的手游下载"/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no"/>
+    <link href="http://www.66173.cn/favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <script>
+        if(judgeIELower()) {
+            alert("您使用的浏览器版本过低，为了您的浏览体验，请使用360浏览器或Chrome浏览器");
+        }
+        function judgeIELower() {
+            var b_appName = navigator.appName;
+            var b_version = navigator.appVersion;
+            var reg = new RegExp(/.+MSIE\s+([5678])\.0;.+/);
+            reg.test(b_version);
+            return b_appName == "Microsoft Internet Explorer" && reg.test(b_version);
+        }
+        function judgeIE() {
+            var b_appName = navigator.appName;
+            return b_appName == "Microsoft Internet Explorer";
+        }
+    </script>
+    <link href="http://cdn.66173.cn/niuguo/css/bootstrap3.3.6.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdn.66173.cn/niuguo/css/common.css?t={$smarty.now}">
+    <link rel="stylesheet" href="http://cdn.66173.cn/niuguo/css/service_center.css?t={$smarty.now}">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+</head>
+<body class="service-rel-page service-center">
+<!--头部开始了-->
+<div style="display:none;">
+    <img src="http://cdn.66173.cn/niuguo/img/icon.png?t=11" alt=""/>
+    <span>牛果游戏,海量游戏资源!为玩家提供海量游戏免费下载,最新手游排行榜,最热门手游推荐,最好玩的手游分享。</span>
+</div>
+<div class="page-top">
+    <div class="top-user-bar">
+        {if $smarty.session.user_id}
+        <div class="pull-right log-already">
+            <span>hi,<span class="name">{if $smarty.session.nick_name}{$smarty.session.nick_name}{else}{$smarty.session.mobile}{/if}</span></span>
+            <span class="seperator">|</span>
+            <a href="/account.php?act=user_center">个人中心</a>
+            <span class="seperator">|</span>
+            <a href="/account.php?act=logout">退出</a>
+            <span class="seperator">|</span>
+            <a href="http://m.66173.cn/website.php?act=app_promote" target="_blank">牛果APP</a>
+        </div>
+        {else}
+        <div class="pull-right log-not">
+            <a href="/account.php?act=login">登录</a>
+            <span class="seperator">|</span>
+            <a href="/account.php?act=register">注册</a>
+            <span class="seperator">|</span>
+            <a href="http://m.66173.cn/website.php?act=app_promote" target="_blank">牛果APP</a>
+        </div>
+        {/if}
+    </div>
+    <nav class="main-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="/index.php"><img src="http://cdn.66173.cn/niuguo/img/NewGameImg/logo.png"/></a>
+            <ul class="navbar-list">
+                <li class="home-li"><a class="font-lger" href="indexNew.html"><span class="icon-main nav-right-icon home"></span><span>首页</span></a></li>
+                <li class="game-li"><a class="font-lger" href="game_center2.html"><span class="icon-main nav-right-icon game"></span><span>游戏中心</span></a></li>
+                <li class="service-li"><a class="font-lger" href="service_center2.html"><span class="icon-main nav-right-icon service"></span><span>客服中心</span></a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<!--问题反馈与常见问题开始了-->
+<div class="top-banner"><img src="http://cdn.66173.cn/niuguo/img/service_banner.jpg" alt=""></div>
+<div class="bg-white minHeight700 container">
+    <div class="text-center service-fast-link">
+        <div class="link-block go-feedback">
+            <div class="img-wrapper go-feedback-img-wrapper"><a href="/feedback" target="_blank"><img src="http://cdn.66173.cn/niuguo/img/go_feedback.png"/></a></div>
+            <div class="font-md text">游戏问题反馈</div>
+        </div>
+        <div class="link-block online-service">
+            <div class="img-wrapper online-service-img-wrapper">
+                <a href="http://wpa.qq.com/msgrd?v=3&uin=270772735&site=qq&menu=yes" target="_blank">
+                    <img src="http://cdn.66173.cn/niuguo/img/go_online_service.png"/>
+                </a>
+            </div>
+            <div class="font-md text">在线客服</div>
+        </div>
+    </div>
+    <div class="common-wrapper">
+        <ul class="font-lg common-tab">
+            <li class="active">常见问题</li>
+        </ul>
+        <div class="tab-border-grey"></div>
+        <ul class="question-list"></ul>
+        <!--<div class="more-zone">-->
+        <!--<span class="font-md more more-can">加载更多&gt;&gt;</span>-->
+        <!--</div>-->
+    </div>
+</div>
+<!--底部footer开始,====================网页底部代码都一样，不用管它-->
+<div class="mask mobile-mask">
+    <div class="mask-inner-wrapper">
+        <div class="mobile-pop">
+            <div class="top">
+                <div class="font-lg title">提示</div>
+                <div class="close">x</div>
+            </div>
+            <div class="tip1">牛果游戏官网暂时只提供电脑版，您可以继续浏览或下载牛果游戏安卓app畅享更多游戏~</div>
+            <div class="btn-zone">
+                <span class="font-lg btn0 go-on-view-btn">继续浏览</span>
+                <a class="font-lg btn0 download-btn" href="http://imtt.dd.qq.com/16891/A9ACD8808B63B7E2370C36A63572C427.apk?csr=1bbd&fsname=com.niuniu.market_3.0.0.2_4.apk">下载app</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="text-wrapper font-sm">
+        <p>海南牛牛网络信息技术有限公司 Copyright©2016（琼ICP备16002140号）</p>
+        <p>网络文化经营许可证 琼网文[2016]4099-040号&nbsp;&nbsp;&nbsp;增值电信业务经营许可证琼B2-20160073</p>
+        <p>单位地址：海南省老城高新技术产业示范区海南生态软件园</p>
+        <!--<p>联系方式：0898-67200139&nbsp;&nbsp;&nbsp;投诉电话：0898-67200139</p>-->
+    </div>
+</div>
+<div class="brief-tip-pop"><div class="con"></div></div>
+<input type="hidden" value="{$noncestr}" id="noncestr"/>
+<input type="hidden" value="{$timestamp}" id="timestamp"/>
+<input type="hidden" value="{$signature}" id="signature" />
+{literal}
+<script>
+    // 昵称校验
+    var regAddress = new RegExp(/^.{0,50}$/);
+    // 昵称校验
+    var regNickname = new RegExp(/^.{2,20}$/);
+    // 手机号校验
+    var regContact = new RegExp(/^1[34578]\d{9}$/);
+    // 密码校验
+    var regPasswordLoose = new RegExp(/^.{6,18}$/);
+    var regPassword = new RegExp(/^[0-9a-zA-Z!_\-=\+#\.\,\?:;\(\)\[\]\{\}@\$%\^\*`~/\'\"\\]{6,18}$/);
+    // 图形码校验
+    var regCaptchaPic = new RegExp(/^[0-9a-zA-Z]{3,6}$/);
+    // 手机验证码校验
+    var regCaptchaTel = new RegExp(/^[0-9]{6}$/);
+    //身份证校验
+    var regIDcard = new RegExp(/^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/);
+    //带点的中文姓名校验
+    var regNameWithDot = new RegExp(/^[\u4e00-\u9fa5]{1,5}[·•][\u4e00-\u9fa5]{2,15}$/);
+    //不带点的中文姓名校验
+    var regNameNoDot = new RegExp(/^[\u4e00-\u9fa5]{2,15}$/);
+    var formMsgTip = {
+        nickname: {required: "请输入您的昵称", error: "请输入2~20位昵称"},
+        address: {required: "请输入地址", error: ""},
+        account: {required: "请输入您的账号", error: ""},
+        telephone: {required: "请输入手机号码", error: "请输入正确的11位手机号码"},
+        telcaptcha: {required: "请输入验证码", error: "请输入正确的验证码"},
+        captcha: {required: "请输入验证码", error: "请输入正确的验证码"},
+        passwordLoose: {required: "请输入密码", error: "请输入6-18位的密码"},
+        password: {required: "请输入密码", error: "请输入6-18位由数字、字母、字符组成的密码"},
+        confirmpassword: {required: "请确认密码", error: "请输入6-18位由数字、字母、字符组成的密码", equalTo: "两次输入密码不一致"},
+        realname: {required: "请输入真实姓名", error: "请输入正确的真实姓名"},
+        IDcard: {required: "请输入身份证号", error: "请输入正确的身份证号"},
+        sex: {required: "请选择性别", error: ""},
+        address: {required: "请填写地址", error: "地址长度在0~50之间"},
+        agree: {required: "您还未同意协议"}
+    };
+    var _hmt = _hmt || [];
+    // 统计
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f4f222b9599b20b45ffba412ca533efd";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+    // 移动端显示弹窗
+    if(isMobileNotPad() && ($("body").hasClass("home-page") || $("body").hasClass("login-page"))) {
+        $(".mobile-mask").show();
+    }
+    // 页脚是否固定
+    $(document).ready(function() {
+        footerFixControl();
+    });
+    $(window).resize(function() {
+        footerFixControl();
+    });
+    // 若是苹果手机，暂不提供下载app
+    $("body").on("click", ".mobile-mask .download-btn", function(e) {
+        if(isMobileIOS()) {
+            e.preventDefault();
+            briefTipControl("暂无苹果版app,此为安卓版~")
+        }
+    });
+    // 关闭手机提示弹窗
+    $("body").on("click", ".mobile-mask .close, .mobile-mask .go-on-view-btn", function() {
+        $(".mobile-mask").hide();
+    });
+    // 判断是否手机或平板
+    function isMobile() {
+        var mobileAgent = new Array("iphone", "ipod", "ipad", "android", "mobile", "blackberry", "webos", "incognito", "webmate", "bada", "nokia", "lg", "ucweb", "skyfire");
+        var browser = navigator.userAgent.toLowerCase();
+        for (var i=0; i<mobileAgent.length; i++){
+            if (browser.indexOf(mobileAgent[i])!=-1) {
+                return true;
+            }
+        }
+    }
+    // 判断是否手机且不是平板
+    function isMobileNotPad() {
+        var u= navigator.userAgent;
+        var Mobile = u.indexOf('Mobi')>0||u.indexOf('iPh')>0||u.indexOf('480')>0;
+        var Tablet =u.indexOf('Tablet')>0||u.indexOf('iPad')>0||u.indexOf('Nexus 7')>0;
+        var mobileAgent = new Array("iphone", "ipod", "ipad", "android", "mobile", "blackberry", "webos", "incognito", "webmate", "bada", "nokia", "lg", "ucweb", "skyfire");
+        if(Mobile && !Tablet) {
+            return true;
+        }
+    }
+    // 是否苹果手机
+    function isMobileIOS() {
+        var isIOS =(/iPhone|iPod|iPad/i).test(navigator.userAgent);
+        return isIOS ? true : false;
+    }
+    // 简单提示控制
+    function briefTipControl(text) {
+        $(".brief-tip-pop .con").html(text);
+        $(".brief-tip-pop").fadeIn(500).delay(1000).fadeOut(500);
+    }
+    // 按钮定时加class控制
+    function btnTimeOutControl(ele, cls, timeoutClient, timeout) {
+        clearTimeout(timeoutClient);
+        timeoutClient = setTimeout(function() {
+            $(ele).addClass(cls);
+        }, timeout || 2000);
+    }
+    // 固定底部
+    function footerFixControl() {
+//        console.log('window.innerHeight:'+window.innerHeight+',html:' + $("html").height()+',footer + margin-top:'+($(".footer").height() + parseInt($(".footer").css("margin-top"))));
+//        if($("body").hasClass("footer-fix-control-page")) {
+//            if ($(".footer").hasClass("footer-fix") && (window.innerHeight - $("html").height()) < ($(".footer").height() + parseInt($(".footer").css("margin-top")))) {
+//                $(".footer").removeClass("footer-fix");
+//            } else if (!$(".footer").hasClass("footer-fix") && window.innerHeight - $("html").height() > 0) {
+//                $(".footer").addClass("footer-fix");
+//            }
+//        }
+    }
+</script>
+{/literal}
+<!--微信分享-->
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script>
+    var noncestr = $("#noncestr").val();
+    var timestamp = $("#timestamp").val();
+    var signature = $("#signature").val();
+    document.addEventListener('WeixinJSBridgeReady', function() {
+        wx.config({
+            debug: false,
+            appId: "wxbaed68c7f2f3a62c",
+            timestamp: parseInt(timestamp),
+            nonceStr: noncestr,
+            signature: signature,
+            jsApiList: [
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'onMenuShareQQ',
+                'onMenuShareWeibo',
+                'onMenuShareQZone'
+            ]
+        });
+        wx.ready(function() {
+            var shareData = {
+                title: '牛果游戏_new游戏 new快乐',
+                desc: '牛果游戏是一个致力于提供优质手游的应用平台。实时同步市场热门手游,与玩家一起发现精品游戏,享受真福利与真特权，只为带给您高品质的游戏体验。',
+                link: window.location.href,
+                imgUrl: 'http://cdn.66173.cn/niuguo/img/icon.png?t=11',
+                success: function() {
+                    briefTipControl("分享成功");
+                },
+                cancel: function() {
+                    briefTipControl("取消分享");
+                }
+            };
+            // 分享给朋友事件绑定
+            wx.onMenuShareAppMessage(shareData);
+            // 分享到朋友圈
+            wx.onMenuShareTimeline(shareData);
+            // 分享到QQ
+            wx.onMenuShareQQ(shareData);
+            // 分享到QZone
+            wx.onMenuShareQZone(shareData);
+            // 分享到微博
+            wx.onMenuShareWeibo(shareData);
+        });
+    });
+</script>
+</body>
+<script>
+    var quesAnsArr = [{
+        question: "Q1:如何进入牛果游戏?",
+        answer: "1、【推荐】移动设备下载牛果游戏APP，通过下载进入游戏<br/>2、通过官网下载游戏，使用模拟器加载进入牛果游戏"
+    },{
+        question: "Q2:牛果账号怎么找回?",
+        answer: "1、密码忘记：可以通过手机绑定和邮箱绑定进行修改<br/>2、账号找回：向客服人员进行申诉找回，申诉提交成功后一般24小时内处理完毕"
+    },{
+        question: "Q3:无法登录游戏怎么办?",
+        answer: "1、判断有无维护更新并检查网络环境良好<br/>2、查看手机或设备内存是否不足<br/>3、卸载游戏重新安装"
+    },{
+        question: "Q4:我网银充值已经扣费了，为什么没到帐呢?",
+        answer: "您好，请您先退出游戏查看相应的游戏币是否到帐，若仍未到帐，请联系我们充值客服提供游戏帐号和银行扣费订单号码协助您查询。"
+    },{
+        question: "Q5:充值成功后多久才能到帐?",
+        answer: "银行卡充值成功后，充值金额会立即增加到您的帐户内。但有时可能会因为网络传输情况而稍有延迟。重新登录后，到充值管理中心,即可查询充值记录。"
+    }, {
+        question: "Q6:什么情况下会被纳入防沉迷系统?",
+        answer: "1、没有登记真实姓名及身份证号<br/>2、登记了虚假的身份证号及姓名<br/>3、您填写的身份证号未满18周岁<br/>提示：只有您填写真实的身份证号和对应真实姓名，并且该身份证对应的公民年满18岁才不受防沉迷系统的限制"
+    }];
+    $(".main-navbar .navbar-right a").eq(2).addClass("active");
+    addQuestions(0, quesAnsArr.length - 1, quesAnsArr);
+    function addQuestions(start, end, arr) {
+        var con = "";
+        for(var i = start || 0; i <= end; i++) {
+            con += '<li class="item">'
+                +'<div class="font-lg question">'+arr[i].question+'</div>'
+                +'<div class="shape-wrapper">'
+                +'<img class="answer-icon" src="http://cdn.66173.cn/niuguo/img/A.png"/>'
+                +'<div class="font-sm answer">'+arr[i].answer+'</div>'
+                +'</div>'
+                +'</li>';
+        }
+        $(".question-list").append(con);
+        console.log(con)
+    }
+
+    $(".service-center").on("click", ".more-can", function() {
+        $(".service-center .more").removeClass("more-can").html("");
+        addQuestions(3, quesAnsArr.length - 2, quesAnsArr);
+    })
+</script>
+<script src="http://cdn.66173.cn/niuguo/scripts/bootstrap3.3.6.min.js"></script>
+</html>

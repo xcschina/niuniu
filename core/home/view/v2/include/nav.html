@@ -1,0 +1,24 @@
+<div class="nav">
+    <div class="w1000  relative">
+        <ul class="nav_list">
+            <li class="nav_index"><a {if $nav eq ''}class="" {/if}href="/">首页</a></li>
+            <li><a {if $nav eq 'character'}class="on" {/if}href="/games.html">首充号</a></li>
+            <!--<li><a {if $nav eq 'topup'}class="on" {/if}href="/games.html">苹果代充</a></li>-->
+            <li><a {if $nav eq 'game'}class="on" {/if}href="/games.html">游戏列表</a></li>
+            <li><a {if $nav eq 'gift'}class="on" {/if}href="/gift.php">游戏礼包</a></li>
+            <!--<li><a {if $nav eq 'down'}class="on" {/if}href="/download.html">游戏下载</a></li>-->
+            <li><a {if $nav eq 'activity'}class="on" {/if}href="#;">活动中心</a></li>
+            <li class="nav_last"><a href="#">&nbsp;</a></li>
+        </ul>
+        {if $notices}
+        <div class="top_news" >
+            <span class="icon-gg"></span>
+            <ul>
+                {foreach from=$notices item=notice}
+                <li><a href="{$notice.go_url}">{$notice.title}</a></li>
+                {/foreach}
+            </ul>
+        </div>
+        {/if}
+    </div>
+</div>

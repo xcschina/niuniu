@@ -1,0 +1,178 @@
+<script type="text/javascript">
+    $(function(){
+        $("select[name=game_id]").chosen();
+    })
+</script>
+<div class="bjui-pageContent">
+    <form action="app_gifts.php?act=do_edit" enctype="multipart/form-data" data-toggle="validate" data-alertmsg="false">
+        <table class="table table-condensed table-hover" width="100%">
+            <input type="hidden" name="remain" value="{$data.remain}"/>
+            <input type="hidden" name="id" value="{$data.id}"/>
+            <tbody>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">礼包名(必填)：</label>
+                    <input type="text" cols="18" rows="1" name="title" class="form-control" data-rule="required;" value="{$data.title}" >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">礼包类型：</label>
+                    <select name="type"  data-toggle="selectpicker" data-rule="required">
+                            <option value="0" {if $data.type eq '0'}selected="selected"{/if}>新手礼包</option>
+                            <option value="1" {if $data.type eq '1'}selected="selected"{/if}>特权礼包</option>
+                            <option value="2" {if $data.type eq '2'}selected="selected"{/if}>白银礼包</option>
+                            <option value="3" {if $data.type eq '3'}selected="selected"{/if}>专属礼包</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏：</label>
+                    <select name="game_id"  data-rule="required">
+                        <option value="">请选择</option>
+                        {foreach from=$game_list item=game}
+                        <option value="{$game.id}"  {if $data.game_id eq $game.id}selected="selected"{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">渠道：</label>
+                    <select name="channel_id"   data-toggle="selectpicker">
+                        <option value="">通用</option>
+                        <!--{foreach from=$channels_list item=channel}-->
+                        <!--<option value="{$channel.id}" {if $data.channel_id eq $channel.id}selected="selected"{/if}>{$channel.channel_name}-{$channel.id}</option>-->
+                        <!--{/foreach}-->
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">附属销售品：</label>
+                    <select name="is_attach">
+                        <option value="0"{if $data.is_attach eq 0} selected{/if}>否</option>
+                        <option value="1"{if $data.is_attach eq 1} selected{/if}>是</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">是否置顶：</label>
+                    <select name="is_top">
+                        <option value="0"{if $data.is_top eq 0} selected{/if}>否</option>
+                        <option value="1"{if $data.is_top eq 1} selected{/if}>是</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">价格(必填)：</label>
+                    <input type="text" cols="18" rows="1" name="price" class="form-control" data-rule="required;" value="{$data.price}" >
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">积分：</label>
+                    <input type="text" cols="18" rows="1" name="integral" class="form-control"  value="{$data.integral}" >
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">礼包数：</label>
+                    <input type="text" cols="18" rows="1" name="num" class="form-control" data-rule="required;" value="{$data.num}" readonly>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" hidden="hidden">
+                    <label  class="control-label x120">有效时间：</label>
+                    <input type="text"  name="effective_time" data-toggle="datepicker" data-pattern="yyyy-MM-dd H:m:s" size="20" value="{'Y-m-d H:i:s'|date:$data.effective_time}" >
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" hidden="hidden">
+                    <label  class="control-label x120">过期时间：</label>
+                    <input type="text" name="expired_time" data-toggle="datepicker" data-pattern="yyyy-MM-dd H:m:s" size="20" value="{'Y-m-d H:i:s'|date:$data.expired_time}" >
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">礼包内容(必填)：</label>
+                    <textarea name="content" id="content" style="width:860px;height:200px;">{$data.content}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">领取方式：</label>
+                    <textarea name="get_way"  style="width:860px;height:150px;">{$data.get_way}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">开始时间(必填)：</label>
+                    <input type="text"  name="start_time" data-toggle="datepicker" data-pattern="yyyy-MM-dd H:m:s" size="20" value="{'Y-m-d H:i:s'|date:$data.start_time}">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">结束时间(必填)：</label>
+                    <input type="text"  name="end_time" data-toggle="datepicker" data-pattern="yyyy-MM-dd H:m:s" size="20" value="{'Y-m-d H:i:s'|date:$data.end_time}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">是否推荐：</label>
+                    <select name="is_recomm"   data-toggle="selectpicker" data-rule="required">
+                        <option value="0" {if $data.is_recomm eq '0'}selected{/if}>否</option>
+                        <option value="1"  {if $data.is_recomm eq '1'}selected{/if}>是</option>
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">是否关闭：</label>
+                    <select name="is_del"   data-toggle="selectpicker" data-rule="required">
+                        <option value="0" {if $data.is_del eq '0'}selected{/if}>否</option>
+                        <option value="1"  {if $data.is_del eq '1'}selected{/if}>是</option>
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+                <thead>
+                <tr align="center">
+                    <th>No.</th>
+                    <th>批次ID</th>
+                    <th>编码</th>
+                    <th>价格</th>
+                    <th>导入时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach key=key item=dt from=$data.gift_codes}
+                <tr align="center">
+                    <td>{$dt.id}</td>
+                    <td>{$dt.batch_id}</td>
+                    <td>
+                        ({if $dt.is_use eq '1'}<span class="orange">售出</span>
+                        {elseif $dt.is_use eq 2}<span class="gray">下架</span>
+                        {else}<span class="green">在库</span>
+                        {/if}) {$dt.code}</td>
+                    <td>{$dt.price}</td>
+                    <td>{'Y-m-d H:i:s'|date:$dt.create_time}</td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+        <li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+    </ul>
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

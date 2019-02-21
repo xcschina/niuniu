@@ -1,0 +1,114 @@
+{literal}
+<script type="text/javascript">
+    $(function(){
+        $("select[name=group_id]").chosen({width:"120px"});
+    })
+</script>
+{/literal}
+<div class="bjui-pageHeader"  style="height:80px;">
+    <form id="pagerForm" action="user_info.php?act=user_info_list" method="post" data-toggle="ajaxsearch">
+        <div class="bjui-searchBar">
+
+            <label>分组：</label>
+            <select name="group_id">
+                <option value="" {if $params.group_id eq ''}selected="selected"{/if}>请选择</option>
+                {foreach from=$groups item=group}
+                <option value="{$group.ID}" {if $params.group_id eq $group.ID}selected="selected"{/if}>{$group.ID}-{$group.GroupName}</option>
+                {/foreach}
+            </select>&nbsp;
+            <label>身份认证: </label>
+            <select name="has_id_number" data-toggle="selectpicker">
+            <option value="" {if $params.has_id_number eq ''}selected="selected"{/if}>全部</option>
+            <option value="1" {if $params.has_id_number eq '1'}selected="selected"{/if}>未认证</option>
+            <option value="2" {if $params.has_id_number eq '2'}selected="selected"{/if}>已认证</option>
+            </select>&nbsp;
+            <label>注册时间：</label>
+            <input type="text" name="time" data-toggle="datepicker" value="{$params.time}" placeholder="开始时间">-
+            <input type="text" name="time2" data-toggle="datepicker"  value="{$params.time2}" placeholder="结束时间">&nbsp;
+            <label>用户ID：</label><input type="text" name="user_id"  value="{$params.user_id}" class="form-control" size="8">&nbsp;
+            <label>性别：</label>
+            <select name="sex"   data-toggle="selectpicker">
+                <option value="" {if $params.sex eq ''}selected="selected"{/if}>请选择</option>
+                <option value="0" {if $params.sex eq '0'}selected="selected"{/if}>男</option>
+                <option value="1" {if $params.sex eq '1'}selected="selected"{/if}>女</option>
+            </select>&nbsp;
+            <label>注册类型：</label>
+            <select name="reg_from"   data-toggle="selectpicker">
+                <option value="" {if $params.reg_from eq ''}selected="selected"{/if}>请选择</option>
+                <option value="1" {if $params.reg_from eq '1'}selected="selected"{/if}>66PC</option>
+                <option value="2" {if $params.reg_from eq '2'}selected="selected"{/if}>M站</option>
+                <option value="3" {if $params.reg_from eq '3'}selected="selected"{/if}>微信</option>
+                <option value="4" {if $params.reg_from eq '4'}selected="selected"{/if}>SDK</option>
+                <option value="5" {if $params.reg_from eq '5'}selected="selected"{/if}>乐8</option>
+                <option value="7" {if $params.reg_from eq '7'}selected="selected"{/if}>牛果PC</option>
+                <option value="10" {if $params.reg_from eq '10'}selected="selected"{/if}>酷游</option>
+            </select>&nbsp;
+            <br> <br>
+            <label>手机号：</label><input type="text" name="mobile"  value="{$params.mobile}" class="form-control" size="11">&nbsp;
+            <label>昵称：</label><input type="text" name="nick_name"  value="{$params.nick_name}" class="form-control" size="8">&nbsp;
+            <label>姓名：</label><input type="text" name="user_name"  value="{$params.user_name}" class="form-control" size="8">&nbsp;
+            <label>身份证：</label><input type="text" name="id_number"  value="{$params.id_number}" class="form-control" size="18">&nbsp;
+            <label>邮箱：</label><input type="text" name="email"  value="{$params.email}" class="form-control" size="8">&nbsp;
+
+            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
+            <!-- <a type="button" class="btn btn-default" href="javascript:;" data-url="shop_info.php?act=shop_order_list_export_do&id={$smarty.session.shop_id}" data-toggle="doexport" data-confirm-msg="确定要导出吗？">导出</a> -->
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+            <tr align="center">
+                <th>用户ID.</th>
+                <th>类别</th>
+                <th>昵称</th>
+                <th>手机号</th>
+                <th>姓名</th>
+                <th>身份证</th>
+                <th>邮箱</th>
+                <th>性别</th>
+                <th>注册时间</th>
+                <th>注册IP</th>
+                <th>注册类型</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=data from=$dataList}
+        <tr align="center">
+            <td>{$data.user_id}</td>
+            <td>
+                {if $data.user_type eq 1}普通{/if}
+                {if $data.user_type eq 2}<span class="text-danger">代理商人</span>{/if}
+                {if $data.user_type eq 3}<span class="text-danger">商户</span>{/if}
+            </td>
+            <td>{$data.nick_name}</td>
+            <td>{$data.mobile}</td>
+            <td>{$data.user_name}</td>
+            <td>{$data.id_number}</td>
+            <td>{$data.email}</td>
+            <td>{if $data.sex eq '0'}男{else if $data.sex eq '1'}女{else}未设置{/if}</td>
+            <td>{'Y-m-d H:i:s'|date:$data.reg_time}</td>
+            <td>{$data.reg_ip}</td>
+            <td>{if $data.reg_from eq '2'}M站
+            {elseif $data.reg_from eq '3'}微信
+            {elseif $data.reg_from eq '4'}SDK
+            {elseif $data.reg_from eq '5'}乐8
+            {elseif $data.reg_from eq '10'}酷游PC
+            {else}66PC{/if}</td>
+            <td><a href="user_info.php?act=user_info_detail&id={$data.user_id}" class="btn btn-green" data-toggle="dialog" data-mask="true" data-width="700" data-height="420" data-id="" data-title="用户详细信息表">详细信息</a>
+            &nbsp;
+            <a href="user_info.php?act=user_pay_list&id={$data.user_id}" class="btn btn-green" data-toggle="navtab" data-id="form" data-reload-warn="本页已有打开的内容，确定将刷新本页内容，是否继续？" data-title="用户消费记录表">消费记录</a>
+            &nbsp;
+            <a href="user_info.php?act=user_login_list&id={$data.user_id}" class="btn btn-green" data-toggle="navtab" data-id="formm" data-reload-warn="本页已有打开的内容，确定将刷新本页内容，是否继续？" data-title="用户登录记录表">登录记录</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

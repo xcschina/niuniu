@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>我的订单页</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/common.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/pay.css" media="screen" />
+</head>
+
+<body>
+<header class="page-header clearfix">
+    <h1 class="h1-txt">我的订单</h1>
+    <a class="back-link" href="javascript:history.back()"></a></header>
+    <a class="idv-link" href="/account.php?act=user_center"></a>
+</header>
+<form action="?" method="get" id="order-list">
+    <input type="hidden" name="act" value="my_orders">
+    <section class="clearfix">
+        <div class="md-tit-box clearfix"><h3 class="pay-tit">订单信息</h3></div>
+        <div class="md-selbox clearfix">
+            <input type="hidden" id="page" value="1">
+            <input type="hidden" name="status" value="{$params.status}">
+        </div>
+        <ul class="md-tnav clearfix">
+            <li {if $params.status eq ''}class="on"{/if} rel=''><a>全部</a></li>
+            <li {if $params.status eq '2'}class="on"{/if} rel='2'><a>已成交</a></li>
+            <li {if $params.status eq '0'}class="on"{/if} rel='0'><a>待付款</a></li>
+            <li {if $params.status eq '9'}class="on"{/if} rel='9'><a>已取消</a></li>
+            <!--<li {if $params.status eq '3'}class="on"{/if} rel='3'><a></a></li>-->
+        </ul>
+        <div class="md-list-box clearfix">
+            <ul class="md-list clearfix">
+                {foreach from=$order_list item=order}
+                <li><a href="my.php?act=order_detail&id={$order.id}">
+                <span class="md-name">
+                    {if $order.status eq '0'}
+                    <i class="md-state-4"></i>
+                    {elseif $order.status eq '1'}
+                    <i class="md-state-3"></i>
+                    {elseif $order.status eq '2'}
+                    <i class="md-state-2"></i>
+                    {elseif $order.status eq '3'}
+                    <i class="md-state-5"></i>
+                    {elseif $order.status eq '9'}
+                    <i class="md-state-9"></i>
+                    {else}
+                    <i class="md-state-1"></i>
+                    {/if}
+                    {$order.title}</span>
+                    <em class="md-price">￥{$order.money}</em>
+                    <em class="md-num">{$order.amount}件</em>
+                    <span class="md-service">{$order.game_name} /{$order.serv_name}</span>
+                    <span class="md-date">{$order.date}</span>
+                    <span class="md-time">{$order.time}</span></a>
+                </li>
+                {/foreach}
+                <div id="content_befor"></div>
+            </ul>
+
+            {if count($order_list)<10}
+            <a class="info-more-btn" href="javascript:;">没有更多了</a>
+            {else}
+            <a class="info-more-btn" id="more" href="javascript:;">显示更多</a>
+            {/if}
+        </div>
+    </section>
+</form>
+<!--Str 页面通用底部-->
+{include file="include/footer.html"}
+<!--End 页面通用底部-->
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+    !window.jQuery && document.write('<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"><\/script>');
+</script>
+<script src="http://cdn.66173.cn/mobile/scripts/zepto.min.js"></script>
+<script src="http://cdn.66173.cn/mobile/scripts/script.js"></script>
+<script src="http://cdn.66173.cn/mobile/scripts/order.js"></script>
+</body>
+</html>

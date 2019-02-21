@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>用户登录_{if $domain_name eq 1}66173{else if $domain_name eq 2}u2590{/if}手游交易平台</title>
+    <meta name="description" content="{if $domain_name eq 1}66173(www.66173.cn){else if $domain_name eq 2}u2590(www.u2590.com){/if}是国内权威的游戏交易平台，安全快捷有保障的手游充值中心，{if $domain_name eq 1}66173{else if $domain_name eq 2}u2590{/if}是提供手游账号交易、首充号购买、游戏充值、苹果iOS代充、手游退游、装备及道具、游戏币交易的游戏交易平台。">
+    <meta name="keywords" content="{if $domain_name eq 1}66173{else if $domain_name eq 2}u2590{/if}登录，用户登录，手游交易，{if $domain_name eq 1}66173{else if $domain_name eq 2}u2590{/if}手游交易平台">
+    <link href="http://cdn.66173.cn/wwwv2/css/style.css?t=11" type="text/css" rel="stylesheet" />
+</head>
+<body>
+{include file="include/top.html"}
+{include file="include/header.html"}
+{include file="include/nav.html"}
+<div class="wrapper clearfix">
+    <div class="login">
+        <div class="w1000 relative">
+            <a href="/games/8.html" class="ad" target="_blank" rel="noopener noreferrer"><img src="http://cdn.66173.cn/images/login_ad.jpg" alt="天龙八部3D_手游交易_66173手游交易平台"/></a>
+            <form action="account.php?act=do_login" method="post" id="do_login">
+            <div class="login_box absolute">
+                <div class="login_txt">
+                    <div class="title">{if $domain_name eq 1}66173{else if $domain_name eq 2}u2590{/if}用户登录</div>
+                    <div class="row" style="color:#C7162B">{$smarty.session.do_login_error}</div>
+                    <div class="row">
+                        <span class="icon_user"></span>
+                        <input type="text"  class="txt" placeholder="手机号/用户名" name="mobile" value="" />
+                    </div>
+                    <div class="row">
+                        <span class="icon_pw"></span>
+                        <input type="password" class="txt" placeholder="您的密码" name="password" value="" />
+                    </div>
+                    <div class="row">
+                        <label><input type="checkbox" name="cookie_check"  {if $smarty.session.cookie_check eq 1}checked{/if} value="1" style="float: left; margin: 0 5px 0 0 ;"/>记住我的登录状态</label>
+                        <a href="account.php?act=forget">忘记密码</a>
+                        <div class="clear_both"></div>
+                    </div>
+                    <div style="margin-top: 40px; height: 45px;">
+                        <a href="#;" onclick="$('#do_login').submit()"  class="btn_red_big"  style="padding: 10px 125px;">登录</a>
+                    </div>
+                    <div style="text-align: center;">还没有{if $domain_name eq 1}66173{else if $domain_name eq 2}u2590{/if}账号？<a href="account.php?act=register" class="color_red">立即注册</a></div>
+                </div>
+                <div style="text-align: center; line-height: 24px; padding: 25px 0 0 0;">您还可以使用合作方账号登录<br />
+                    <a href="account.php?act=qq_login" class="color_red">QQ账号登录</a>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--footer-->
+{include file="include/footer.html"}
+<!--//footer-->
+</body>
+</html>

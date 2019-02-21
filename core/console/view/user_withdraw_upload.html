@@ -1,0 +1,27 @@
+
+
+<div class="bjui-pageContent">
+    <form action="user_withdraw_info.php?act=do_upload_view"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">选择图片：</label>
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="special_product_img.click()">选择图片</button>
+                    <input type="file" name="special_product_img" style="display: none;" onchange="special_p_img.value=value" />
+                    <input type="text" name="special_p_img" placeholder="None file" class="form-control" size="15" readonly />&nbsp;
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <input name="id" value="{$id}" type="hidden">
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+
+

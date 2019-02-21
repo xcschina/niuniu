@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>{$game.game_name}账号购买_账号_手游交易_66173手游交易平台</title>
+    <meta name="keywords" content="{$game.game_name}、{$game.game_name}、{$game.game_name}账号交易、66173、手游交易平台" />
+    <meta name="description" content="66173(m.66173.cn)是国内权威的游戏交易平台，安全快捷有保障的手游充值中心，66173提供{$game.game_name}账号交易，购买{$game.game_name}账号就上66173。" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/common.css?t={rand(1,10000)}" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/pay.css?t={rand(1,10000)}" media="screen" />
+</head>
+<body>
+<header class="page-header clearfix">
+    <h1 class="page-h1">购买详情</h1>
+    <a onclick="javascript:history.back();" class="p2-back">返回</a>
+    <a class="p2-back ml-40" href="http://m.66173.cn">首页</a>
+    {if $smarty.session.user_id}
+    <a class="login-on" href="/account.php?act=user_center">个人中心</a>
+    {else}
+    <a class="login-link" href="/account.php?act=user_center" id="login-btn">登录</a>
+    {/if}
+</header>
+<section class="pay-game clearfix"><img src="http://cdn.66173.cn{$game.game_icon}" alt="{$game.game_name}" />
+    <h2 class="pay-game-name">{$game.game_name}</h2>
+</section>
+<!-- Str交易类型 -->
+<section class="clearfix">
+    <header class="pay-tit clearfix">
+        <h3 class="pay-tit-h">商品类型:</h3>
+        <span class="pay-type-txt">游戏账号</span>
+    </header>
+</section>
+<section class="mt-10 clearfix">
+    <header class="pay-tit clearfix">
+        <h3 class="pay-tit-h">商品列表</h3>
+        <ul class="pay-tit-tab clearfix">
+            <li><a href="#;" onclick="select_ch();" id="txt-channel">{if $ch_name}{$ch_name}{else}平台{/if}</a></li>
+            <li><a href="#;" onclick="select_servs();">{if $serv_name}{$serv_name}{else}区服{/if}</a></li>
+            {if $params.price eq 'desc'}
+            <li><a href="#;" class="down" onclick="price_set();">价格</a></li>
+            {else}
+            <li><a href="#;" class="up" onclick="price_set();">价格</a></li>
+            {/if}
+        </ul>
+    </header>
+    <ul class="acnt-list clearfix">
+        {foreach from=$products item=p}
+        <li{if $p.user_id eq 1} class="sp"{/if}>
+            <a href="/shop{$p.id}" data-txt="官">
+                <span class="acnt-img"><img src="http://cdn.66173.cn/{$p.img}" alt=""><em>{$p.title}</em></span>
+                {if $p.serv_id>0}
+                <span class="acnt-name"><img src="http://cdn.66173.cn/{$p.icon}" alt="{$p.channel_name}" />{$p.channel_name}/{$p.serv_name}</span>
+                {else}
+                <span class="acnt-name"><img src="http://cdn.66173.cn/{$p.icon}" alt="{$p.channel_name}" />{$p.channel_name}/全区全服</span>
+                {/if}
+                <span class="acnt-price">¥{$p.price}</span></a>
+        </li>
+        {/foreach}
+    </ul>
+    {if $products|count eq 10}
+    <a class="g-more" onclick="load_more('account');">查看更多...</a>
+    {/if}
+</section>
+<input type="hidden" name="ch_id" value="{$params.ch_id}" />
+<input type="hidden" name="serv_id" value="{$params.serv_id}" />
+<input type="hidden" name="price" value="{$params.price}" />
+<input type="hidden" name="game_id" value="{$game.id}" />
+<input type="hidden" name="page" value="{$page}" />
+{include file="include/footer.html"}
+<div class="side-bg" id="servs"></div>
+<div class="side-bg" id="products"></div>
+<div class="side-bg" id="login"></div>
+{literal}
+<script>
+    function price_set(obj){
+        serv_id = $("input[name='serv_id']").val();
+        ch_id = $("input[name='ch_id']").val();
+        price = $("input[name='price']").val();
+        if(price=='desc'){
+            window.location.href="?ch_id="+ch_id+"&serv_id="+serv_id;
+        }else{
+            window.location.href="?ch_id="+ch_id+"&serv_id="+serv_id+"&price=desc";
+        }
+    }
+</script>
+{/literal}
+<script src="http://cdn.66173.cn/mobile/v2/scripts/buy_static_other.js"></script>
+</body>
+</html>

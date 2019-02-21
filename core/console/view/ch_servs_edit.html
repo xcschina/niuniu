@@ -1,0 +1,50 @@
+<div class="bjui-pageContent">
+    <form action="ch_servs.php?act=save&id={$game_id}&ch_id={$ch.id}"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+            <thead>
+                <tr align="center">
+                    <th colspan="7">{$game_name} - {$ch.channel_name}渠道配置 <input name="choose" type="button" value="全选" rel="1" id="choose" /></th>
+                </tr>
+            </thead>
+            <tbody id="chs">{$servs}</tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+{literal}
+<script type="text/javascript">
+    $(function(){
+        $("#choose").click(function(){choose_ch(this)});
+        $("#chs input[name='choose']").click(function(){choose_ch_row(this)});
+    })
+    function choose_ch(obj){
+        rel = $(obj).attr("rel");
+        if(rel==1){
+            $("input[name='serv[]']").attr("checked",true);
+            $("input[name='choose']").attr("rel",0);
+            $("input[name='choose']").val("反选");
+        }else{
+            $("input[name='serv[]']").attr("checked",false);
+            $("input[name='choose']").attr("rel",1);
+            $("input[name='choose']").val("全选");
+        }
+    }
+    function choose_ch_row(obj){
+        rel = $(obj).attr("rel");
+        if(rel==1){
+            $(obj).parents("tr").find("input[name='serv[]']").attr("checked",true);
+            $(obj).attr("rel",0);
+            $(obj).val("反选");
+        }else{
+            $(obj).parents("tr").find("input[name='serv[]']").attr("checked",false);
+            $(obj).attr("rel",1);
+            $(obj).val("全选");
+        }
+    }
+</script>
+{/literal}

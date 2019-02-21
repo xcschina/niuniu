@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>问题详情</title>
+    {include file="web/include/head_common.html"}
+    {if $orientation != "p"}
+        <link rel="stylesheet" href="//cdn.66173.cn/ins/css/web_h/service_rel.css?t={$smarty.now}">
+    {else}
+        <link rel="stylesheet" href="//cdn.66173.cn/ins/css/web_v/service_rel.css?t={$smarty.now}">
+    {/if}
+    {include file="web/include/head_script.html"}
+</head>
+<body class="service-rel service-detail">
+{include file="web/include/menu_bar.html"}
+<div class="main-wrapper">
+    <div class="detail-wrapper">
+        <div class="detail-head">
+            <div class="line1">
+                <div class="left"><img src="//cdn.66173.cn/ins/img/web_h/icon_question.png" class="icon_question" ></div>
+                <div class="font-mder right">{$info.content}</div>
+            </div>
+            <div class="line2">
+                <span class="font-sm base-desc base-desc1">反馈时间：<span class="time">{$info.create_time}</span></span>
+                <span class="font-sm text-overflow base-desc base-desc2">{$info.server_name}</span>
+                {if $info.mobile}
+                <span class="font-sm base-desc base-desc3">手机：<span class="telphone">{substr($info.mobile,0,3)}*****{substr($info.mobile,-3)}</span></span>
+                {/if}
+            </div>
+        </div>
+        <div class="interaction-zone">
+            {if $reply_list}
+            {foreach item=data from=$reply_list}
+            <div class="card-wrapper {if $data.user_id}my-card{elseif $data.operator_id} server-card{/if}">
+                <div class="font-mder card-title">{if $data.user_id}我的回复{elseif $data.operator_id} 客服回复{/if}</div>
+                <div class="font-md text">
+                   {$data.desc}
+                </div>
+                <div class="font-md time">{'Y-m-d H:i:s'|date:$data.add_time}</div>
+            </div>
+            {/foreach}
+            {else}
+            <div class="card-wrapper server-card">
+                <div class="font-mder card-title">客服回复</div>
+                <div class="no-response">
+                    <img class="no-response-img" src="//cdn.66173.cn/ins/img/web_h/smile.png"/>
+                    <div class="font-md text">客服MM正火速赶来，请您耐心等待~</div>
+                </div>
+            </div>
+            {/if}
+        </div>
+
+        <div class="fill-form reply-zone">
+            <div class="head">回复：</div>
+            {if $info.question_status eq 1}
+            <textarea class="reply-container" placeholder="点击输入马上回复" readonly></textarea>
+            <div class="font-sm page-tip"></div>
+            <div class="font-lg submit-btn submit-close">反馈已关闭</div>
+            {else}
+            <textarea class="reply-container" id="reply" placeholder="点击输入马上回复"></textarea>
+            <div class="font-sm page-tip"></div>
+            <div class="font-lg submit-btn submit-btn-can" id="submit">回复</div>
+            {/if}
+        </div>
+        <input name="system" type="hidden" id="system" value="{$system}">
+        <input name="system" type="hidden" id="pid" value="{$info.id}">
+    </div>
+</div>
+</body>
+{literal}
+<script type="text/javascript">
+    var submitTimeout;
+    var system = $("#system").val() || 50;
+    var pid = $("#pid").val();
+    var regPhone = new RegExp(/^1[34578]\d{9}$/);
+    var regQQ = new RegExp(/^[1-9][0-9]{5,9}$/);
+    var reloadUrl = window.location.protocol + "//" + window.location.hostname + '/web.php?act=account_find';
+    $('body').on("blur input", "textarea", function(e){
+        var $ele = $(e.target);
+        if($ele.val()) {
+            $ele.removeClass("find-miss-border");
+            $(".page-tip").html("");
+        }
+    });
+    function check_submit() {
+        var $reply = $("#reply");
+        var con = $reply.val().trim();
+        if(!con){
+            errorFillProcess($reply, "请填写回复内容");
+            return false;
+        }
+        if(con.length < 10 || con.length > 500) {
+            errorFillProcess($reply, "请控制回复内容在10~500字之间");
+            return false;
+        }
+        commonM.ajax({
+            url: "web.php?act=reply_question",
+            type: "post",
+            dataType: "text",
+            data: {
+                desc: con,
+                pid: pid
+            },
+            success: function (res) {
+                var code = res.code;
+                if (code == 1) {
+                    commonS.tip(res.desc);
+                    $(".submit-btn").removeClass("submit-btn-can");
+                    commonS.btnTimeOutControl(".submit-btn", "submit-btn-can", submitTimeout, 5000);
+                    setTimeout(function () {
+                        window.location.href = 'web.php?act=service_center';
+                    }, 1000);
+                } else {
+                    commonS.tip(res.desc);
+                }
+            }
+        });
+    }
+    function errorFillProcess(ele, text) {
+        $(".page-tip").html(text);
+        ele.addClass("find-miss-border");
+        ele.focus();
+    }
+    $("body").on("click", ".submit-btn-can", function() {
+        $(".submit-btn").removeClass("submit-btn-can");
+        commonS.btnTimeOutControl(".submit-btn", "submit-btn-can", submitTimeout, 3000);
+        check_submit();
+    });
+    $("body").on("keydown", function (e) {
+        if(e.keyCode == 13) {
+            $(".submit-btn-can").click();
+        }
+    })
+</script>
+{/literal}
+</html>

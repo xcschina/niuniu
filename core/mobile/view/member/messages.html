@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>站内信</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/common.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/list.css" media="screen" />
+</head>
+
+<body>
+<header class="page-header clearfix">
+    <h1 class="h1-txt">站内信</h1>
+    <a href="javascript:history.back();" class="back-link"></a> </header>
+{if $unread_num>0}
+<section class="info-box clearfix">
+    <span><em>{$unread_num}</em>封未读站内信</span>
+    <a class="info-tbtn" href="my.php?act=my_msgs&is_read=0">查看未读</a>
+</section>
+{/if}
+<section class="shelp-con clearfix">
+    <ul class="info-alist clearfix">
+        {foreach from=$msg_list item=msg}
+        <li><a href="my.php?act=msg_detail&id={$msg.id}">{$msg.title}</a><em>{$msg.add_time}</em></li>
+        {/foreach}
+        <div id="content_befor"></div>
+    </ul>
+    {if count($msg_list)<10}
+    <a class="info-more-btn">没有更多了</a>
+    {else}
+    <a class="info-more-btn" id="more">显示更多</a>
+    {/if}
+    <input type="hidden" id="page" value="1">
+    <input type="hidden" id="is_read" value="{$is_read}">
+</section>
+{include file="include/footer.html"}
+<script src="http://cdn.66173.cn/mobile/scripts/zepto.min.js"></script>
+<script src="http://cdn.66173.cn/mobile/scripts/script.js"></script>
+<script src="http://cdn.66173.cn/mobile/scripts/message.js"></script>
+</body>
+</html>

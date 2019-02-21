@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>买家订单</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link href="http://static.kuyoo.com/kuyoo/wwwv2/css/style.css?t=109" type="text/css" rel="stylesheet" />
+    <link href="http://static.kuyoo.com/www/css/page.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="http://static.kuyoo.com/www/js/jquery-1.7.1.min.js" ></script>
+</head>
+<body>
+{include file="include/top.html"}
+{include file="include/header.html"}
+{include file="include/nav.html"}
+<div id="BlackBox" style="display:none;">
+    <div id="BBOverlay" style="opacity: 0.6; width: 3000px; height: 3000px;">
+    </div>
+    <div class="BlackBoxContent"  style="opacity: 1;  width: 450px;"><!--控制弹窗大小-->
+        <p class="title">系统提示</p><!--弹窗标题-->
+        <div class="Inner">
+            <div style="text-align: center; font-size: 20px; padding: 20px 0 10px 0;">您确定要取消订单吗？</div>
+            <div id="BlackBoxAction">
+                <button class="submit">确定</button>
+                <button class="cancel">取消</button>
+            </div>
+        </div>
+        <div class="close">×</div>
+    </div>
+</div>
+<div class="wrapper clearfix">
+    <div class="w1000">
+        <div class="current_nav ">
+            当前位置：<a href="/">酷游手游交易平台</a>&nbsp;>&nbsp;我的酷游
+        </div>
+            {include file="include/user-side.html"}
+            <div class="user_center_right">
+                <div class="integral_detail">
+                    <form action="?" method="get" id="order-list">
+                        <input type="hidden" name="act" value="my_orders">
+                        <input class="text" type="hidden"  name="status" value="" />
+                        <div class="user_center_title">买家订单</div>
+                        <div class="select_filter">
+                            <ul>
+                                <li>选择游戏：
+                                    <select name="game_id">
+                                        <option value="">全部游戏</option>
+                                        {foreach from=$all_games item=game}
+                                        <option value="{$game.id}"  {if $params.game_id eq $game.id}selected{/if}>{$game.game_name}</option>
+                                        {/foreach}
+                                    </select>
+                                </li>
+                                <li>游戏区服：
+                                    <select name="serv_id">
+                                        <option value="">全部分区</option>
+                                        {if $serv_list}
+                                        {foreach from=$serv_list item=serv}
+                                        <option value="{$serv.serv_id}" {if $params.serv_id eq $serv.serv_id}selected{/if}>{$serv.serv_name}</option>
+                                        {/foreach}
+                                        {/if}
+                                    </select>
+                                </li>
+                            </ul>
+                        </div>
+                    <div class="buy_list">
+                        <div class="buy_tab_title">
+                            <ul id="order_tab">
+                                <li rel=""  {if $params.status eq ''}class="on"{/if}>所有订单</li>
+                                <li rel="1" {if $params.status eq '1'}class="on"{/if}>已支付</li>
+                                <li rel="0" {if $params.status eq '0'}class="on"{/if}>待付款</li>
+                                <li rel="2" {if $params.status eq '2'}class="on"{/if}>已成交</li>
+                                <li rel="9" {if $params.status eq '9'}class="on"{/if}>已取消</li>
+                            </ul>
+                        </div>
+                        <div class="buy_subtitle">
+                            <table border="0" cellspacing="0" cellpadding="0">
+                                <tr><td class="name">商品名称</td>
+                                    <td class="money">单价(元)</td>
+                                    <td class="num">数量(件)</td>
+                                    <td class="total">总价(元)</td>
+                                    <td class="state">交易状态</td>
+                                    <td class="operation"> 交易操作</td></tr>
+                            </table>
+                        </div>
+                        <div id="buy_content">
+                            {foreach from=$order_list item=order}
+                            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                <tr><th  colspan="6"><span>订单编号：{$order.order_id}</span><span>创建时间：{$order.buy_time|date_format:'%Y-%m-%d %H:%M:%S'}</span></th></tr>
+                                <tr>
+                                    <td class="name"><a href="my.php?act=order_detail&id={$order.id}" class="title">{$order.title}</a></td>
+                                    <td class="money"  valign="middle">¥{$order.money}</td>
+                                    <td  class="num"  valign="middle">{$order.amount}</td>
+                                    <td class="total color_red"  valign="middle">¥{$order.unit_price}</td>
+                                    {if $order.status eq '0'}
+                                    <td class="state"  valign="middle"><span class="color_red">等待买家付款</span><br/><a href="my.php?act=order_detail&id={$order.id}">订单详情</a></td>
+                                    <td class="operation"  valign="middle">
+                                        <a target="_blank" rel="noopener noreferrer" href="my.php?act=order_pay&id={$order.id}" class="btn">立即付款</a><br />
+                                        <a href="#;" class="batch_change" rel="{$order.id}">取消付款</a>
+                                    </td>
+                                    {elseif $order.status eq '1'}
+                                    <td class="state"  valign="middle"><span class="color_green">正在配货</span><br/><a href="my.php?act=order_detail&id={$order.id}">订单详情</a></td>
+                                    <td class="operation"  valign="middle">已付款</td>
+                                    {elseif $order.status eq '2'}
+                                    <td class="state"  valign="middle"><span class="color_green">已完成</span><br/><a href="my.php?act=order_detail&id={$order.id}">订单详情</a></td>
+                                    <td class="operation"  valign="middle">交易成功</td>
+                                    {else}
+                                    <td class="state"  valign="middle"><span class="color_gray">已取消</span><br/><a href="my.php?act=order_detail&id={$order.id}">订单详情</a></td>
+                                    <td class="operation"  valign="middle">已取消</td>
+                                    {/if}
+                                </tr>
+                            </table>
+                            {/foreach}
+                        </div>
+                        <div class="clear_both"></div>
+                    </div>
+                    <div class="clear_both"></div>
+                    {if $order_list|@count neq 0}<div id="pagebar">{$pageBar}</div>{/if}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" name="cancel_id" value="0" />
+<!--footer-->
+{include file="include/footer.html"}
+<!--//footer-->
+<script type="text/javascript" src="http://static.kuyoo.com/www/js/plugin.js"></script>
+<script type="text/javascript" src="http://static.kuyoo.com/www/js/v2/order.js?t={$smarty.now}"></script>
+</body>
+</html>

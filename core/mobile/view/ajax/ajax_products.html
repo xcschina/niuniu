@@ -1,0 +1,14 @@
+<link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/side.css?t={rand(1,10000)}" media="screen" />
+<div class="side-box">
+    <header class="side-title"><h2>商品选择</h2></header>
+    <ul class="side-list clearfix">
+        {foreach from=$products item=p}
+        {if $game_user_id>0}
+        <li><a href="/shop{$p.id}?game_user={$game_user_id}" rel="{$p.id}">{$p.title}</a></li>
+        {else}
+        <li><a href="/shop{$p.id}" rel="{$p.id}">{$p.title}</a></li>
+        {/if}
+        {/foreach}
+    </ul>
+    <a class="side-btn">确定</a>
+</div>

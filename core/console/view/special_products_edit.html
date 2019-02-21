@@ -1,0 +1,70 @@
+<div class="bjui-pageContent">
+    <form action="products_info.php?act=do_special_products_edit"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <input type="hidden" name="id" value="{$info.id}">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏名称：</label>
+                    {$info.game_name}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏ID：</label>
+                    {$info.game_id}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">商品名称：</label>
+                    {$info.ptitle}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">商品ID：</label>
+                    {$info.product_id}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">促销文案：</label>
+                    <input type="text" name="title" cols="30" rows="1" value="{$info.title}" class="form-control" data-rule="required" maxlength="20">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">截止时间：</label>
+                    <input type="text"  name="end_time" data-toggle="datepicker" data-pattern="yyyy-MM-dd H:m:s" size="20" value="{$info.end_time|date_format:'%Y-%m-%d %H:%M:%S'}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">选择图片：</label>
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="special_product_img.click()">选择图片</button>
+                    <input type="file" name="special_product_img" style="display: none;" onchange="special_p_img.value=value" />
+                    <input type="text" name="special_p_img" placeholder="None file" class="form-control" size="15" readonly/>&nbsp;
+                    <input type="hidden" value="{$info.img}" name="old_img">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">立即上架：</label>
+                    <select name="is_del"   data-toggle="selectpicker">
+                        <option value="1" {if $info.is_del eq '1'}selected{/if}>否</option>
+                        <option value="0" {if $info.is_del eq '0'}selected{/if}>是</option>
+                    </select>&nbsp;
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+

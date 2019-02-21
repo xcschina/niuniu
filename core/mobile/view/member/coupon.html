@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>我的优惠券</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/common.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/pay.css?t=1102" media="screen" />
+</head>
+<body>
+<header class="page-header clearfix">
+    <h1 class="h1-txt">我的优惠卷</h1>
+    <a class="back-link" href="javascript:history.back()"></a></header>
+    <a class="idv-link" href="/account.php?act=user_center"></a>
+</header>
+<form action="?" method="get" id="coupon_list">
+    <input type="hidden" name="act" value="coupon_list">
+    <input class="text" type="hidden"  name="coupon_status" value=""/>
+    <section class="clearfix">
+        <div class="md-tit-box clearfix"><h3 class="pay-tit">我的优惠券</h3></div>
+        <div class="md-selbox clearfix">
+            <input type="hidden" id="page" value="1">
+            <input type="hidden" name="status" value="{$params.status}">
+        </div>
+        <ul class="md-tnav clearfix">
+            <li {if $status eq ''}class="on"{/if} rel=''><a>全部</a></li>
+            <li {if $status eq '1'}class="on"{/if} rel='1'><a>已使用</a></li>
+            <li {if $status eq '2'}class="on"{/if} rel='2'><a>已过期</a></li>
+        </ul>
+                {if  $data_list|@count eq 0}
+                    <div class="clear"></div>
+                     <div class="none_pic"></div>
+                {else}
+                {foreach from=$data_list item=data}
+                    {if $data.type eq "1"}
+                        {if $data.gift_state eq "1"}
+                            <a class="coupon_box bgc_blue" href="#" style="width:90%;margin-left:5%;margin-top:10px;">
+                            <section class="coupon_bg_blue1"></section>
+                            <section class="coupon_bg_blue2"></section>
+                                <section class="coupon_info_box">
+                        {else if $data.gift_state eq '2'}
+                            <a class="coupon_box bgc_gray" href="#" style="width:90%;margin-left:5%;margin-top:10px;">
+                            <section class="coupon_bg_gray1"></section>
+                            <section class="coupon_bg_gray4"></section>
+                            <section class="coupon_bg_gray2"></section>
+                                <section class="coupon_info_box coupon_info_box_2">
+                        {else if $data.gift_state eq '3'}
+                            <a class="coupon_box bgc_gray" href="#" style="width:90%;margin-left:5%;margin-top:10px;">
+                            <section class="coupon_bg_gray1"></section>
+                            <section class="coupon_bg_gray3"></section>
+                            <section class="coupon_bg_gray2"></section>
+                            <section class="coupon_info_box coupon_info_box_2">
+                        {/if}
+                            <h3>{$data.name}</h3>
+                            <p>实付满{$data.total_amount}元打{$data.discount}折</p>
+                            <p>有效期:截止{$data.end_time|date_format:"%Y.%m.%d"}</p>
+                        </section>
+                        </a>
+                    {/if}
+                   {if $data.type eq "2"}
+                            {if $data.gift_state eq "1"}
+                                <a class="coupon_box bgc_red" href="#" style="width:90%;margin-left:5%;margin-top:10px;">
+                                    <section class="coupon_bg_red1"></section>
+                                    <section class="coupon_bg_red2"></section>
+                                    <section class="coupon_info_box">
+                            {else if $data.gift_state eq '2'}
+                                <a class="coupon_box bgc_gray" href="#" style="width:90%;margin-left:5%;margin-top:10px;">
+                                    <section class="coupon_bg_gray1"></section>
+                                    <section class="coupon_bg_gray4"></section>
+                                    <section class="coupon_bg_gray2"></section>
+                                    <section class="coupon_info_box coupon_info_box_2">
+                            {else if $data.gift_state eq '3'}
+                                <a class="coupon_box bgc_gray" href="#" style="width:90%;margin-left:5%;margin-top:10px;">
+                                    <section class="coupon_bg_gray1"></section>
+                                    <section class="coupon_bg_gray3"></section>
+                                    <section class="coupon_bg_gray2"></section>
+                                    <section class="coupon_info_box coupon_info_box_2">
+                                    {/if}
+                                <h3>{$data.name}</h3>
+                                <p>实付满{$data.total_amount}元减{$data.discount_amount}</p>
+                                <p>有效期:截止{$data.end_time|date_format:"%Y.%m.%d"}</p>
+                            </section>
+                        </a>
+                    {/if}
+                {/foreach}
+                {/if}
+        </div>
+    </section>
+</form>
+{if $data|@count > 0}
+<div id="pagebar" class="pagelimit">{$pageBar}</div>
+{/if}
+<!--Str 页面通用底部-->
+{include file="include/footer.html"}
+<!--End 页面通用底部-->
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+    !window.jQuery && document.write('<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"><\/script>');
+    $(document).ready(function(){
+        $(".md-tnav li").click(function(){
+            rel = $(this).attr("rel");
+            $("input[name='coupon_status']").val(rel);
+            $('#coupon_list').submit();
+        });
+    })
+</script>
+<script src="http://cdn.66173.cn/mobile/scripts/zepto.min.js"></script>
+<script src="http://cdn.66173.cn/mobile/scripts/script.js"></script>
+<script src="http://cdn.66173.cn/mobile/scripts/order.js"></script>
+</body>
+</html>

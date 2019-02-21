@@ -1,0 +1,278 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>首充号_首充号购买_手游交易平台_                                                                             6173手游交易平台！</title>
+    <meta name="keywords" content="首充号、热门游戏、手游首充号、手机游戏首充号、66173、手游交易平台" />
+    <meta name="description" content="66173提供各类热门手机游戏首充号充值，只需要官网的2~5折即可购买。66173(m.66173.cn)是国内权威的游戏交易平台，安全快捷有保障的手游充值中心。" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/common.css?t={rand(100,150)}" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/m_common.css?t={rand(100,150)}">
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/first_charge.css?t={rand(100,150)}">
+
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script type="application/javascript">
+        function initHTMLSize() {
+            var wWidth = document.documentElement.clientWidth || document.body.clientWidth;
+            var size = wWidth / 7.5;
+            document.getElementsByTagName('html')[0].style.fontSize = (size > 55 ? 55 : size) + 'px';
+        }
+        $(document).ready(function () {
+            initHTMLSize();
+        });
+        $(window).resize(function() {
+            initHTMLSize()
+        });
+    </script>
+</head>
+<body>
+
+
+<div class="m-station m-charge first-charge">
+    <header class="page-head clearfix">
+        <h1 class="page-title">首充号购买</h1>
+        <a class="page-back" href="javascript:history.back();"></a>
+        <a class="page-home" href="http://m.66173.cn">首页</a>
+        {if $smarty.session.user_id}
+        <a class="login-on-link" href="/account.php?act=user_center"></a>
+        {else}
+        <a class="login-in-link" href="/account.php?act=user_center" id="login-btn">登录</a>
+        {/if}
+    </header>
+    <section class="background-white search-block">
+        <a class="no-tap-highlight sub-search-link" href="/index.php?act=main_search">请输入游戏名称</a>
+        <span class="icon-block">
+            <span class="common-icon search-icon"></span>
+        </span>
+    </section>
+        <section class="background-white game-platform">
+            <ul>
+                <li data-platform="1">
+                    <span class="common-icon platform-icon android"></span>
+                    <span class="platform-name">安卓游戏</span>
+                </li>
+                <li data-platform="2">
+                    <span class="common-icon platform-icon ios"></span>
+                    <span class="platform-name">iOS游戏</span>
+                </li>
+                <li data-platform="">
+                    <span class="common-icon platform-icon all"></span>
+                    <span class="platform-name">全部游戏</span>
+                </li>
+            </ul>
+        </section>
+        <div class="platform-trans">
+            <section class="alpha-block">
+                <div class="up-control">
+                        <span class="control-block">
+                            <span>收起</span>
+                            <span class="up-icon">»</span>
+                        </span>
+                </div>
+                <ul class="m-border-bottom-grey alpha-list">
+                    <li><a class="alpha on" rel="hot">热</a></li>
+                    {assign var=i value=0}
+                    {section name=total loop=26}{assign var=i value=$i+1}<li><a class='alpha' href="#;" rel="{($i+64)|chr}">{($i+64)|chr}</a></li>{/section}
+                </ul>
+            </section>
+            <section class="game-collect">
+                <ul class="game-brief-list platform-game-list">
+                </ul>
+                <div class="no-game platform-no-game">
+                    <img src='http://cdn.66173.cn/mobile/v2/css/img/no-game.png'/>
+                    <div>没有找到哦,看看其他的吧~</div>
+                </div>
+                <div class="game-loading platform-game-loading">
+                    加载中...
+                </div>
+            </section>
+
+        </div>
+    <section class="background-white hot-buy">
+        <div class="m-border-bottom-grey up-title">
+            <div class="common-icon up-title-icon"></div>
+        </div>
+        <ul class="list game-desc-list">
+            {foreach from=$special_sells item=special}
+            <li class="m-border-bottom-grey">
+                <a href='/game{$special.game_id}/character'>
+                <img src="http://cdn.66173.cn/{$special.game_icon}" class="game-img">
+                <div class="center">
+                    <div class="title text-overflow">{$special.game_name}</div>
+                    <div class="grey desc text-overflow">{$special.game_intr}</div>
+                    <div class="grey pack">安装包大小：<span>{$special.game_size}</span></div>
+                    <div class="classify">
+                        {if $special.android==1}
+                        <span class="classify-item classify-android">安卓</span>
+                        {/if}
+                        {if $special.iOS==1}
+                        <span class="classify-item classify-iOS">iOS</span>
+                        {/if}
+                    </div>
+                </div>
+                <div class="common-icon right">
+                    <div>充值</div>
+                    <div><span class="discount">{if $special.char_min_rate}{$special.char_min_rate}{else}10{/if}</span>折起</div>
+                </div>
+                </a>
+            </li>
+            {/foreach}
+        </ul>
+    </section>
+    <section class="background-white bargin">
+        <div class="m-border-bottom-grey up-title">
+            <span class="common-icon up-title-icon"></span>
+            <span class="text">全站特价</span>
+        </div>
+        <ul class="list game-desc-list">
+            {foreach from=$total_special key=$k item=total}
+
+            <li class="m-border-bottom-grey">
+                <a href='/game{$total.id}/character'>
+                <img src="http://cdn.66173.cn/{$total.game_icon}" class="game-img">
+                <div class="center">
+                    <div class="title text-overflow">{$total.game_name}</div>
+                    <div class="grey desc text-overflow">{$total.game_intr}
+                    </div>
+                    <div class="grey pack">安装包大小：<span>{$total.game_size}</span></div>
+                    <div class="classify">
+                        {if $total.android==1}
+                        <span class="classify-item classify-android">安卓</span>
+                        {/if}
+                        {if $total.iOS==1}
+                        <span class="classify-item classify-iOS">iOS</span>
+                        {/if}
+                    </div>
+                </div>
+                <div class="common-icon right">
+                    <span class="text">充值<span class="discount">{if $total.char_min_rate}{$total.char_min_rate}{else}10{/if}</span>折起</span>
+                </div>
+                </a>
+            </li>
+            {/foreach}
+        </ul>
+    </section>
+    <section class="background-white newshelf">
+        <div class="m-border-bottom-grey up-title">
+            <span class="common-icon up-title-icon"></span>
+            <span>最新上架</span>
+        </div>
+        <ul class="newshelf-list game-with-sub-list">
+            {foreach from=$newest item=new}
+            <li class="m-border-bottom-grey">
+                <a  href='/game{$new.id}/character'>
+                    <img src="http://cdn.66173.cn/{$new.product_img}" class="main-img"/>
+                    <div class="sub-and-desc-block">
+                        <div class="sub-block">
+                            <img src="http://cdn.66173.cn/{$new.game_icon}" class="sub-img">
+                            <div class="center">
+                                <div class="text-overflow title">{$new.game_name}</div>
+                                <div class="text-overflow grey">安装包大小：<span>{$new.game_size}</span></div>
+                                <div class="classify">
+                                    {if $new.android==1}
+                                    <span class="classify-item classify-android">安卓</span>
+                                    {/if}
+                                    {if $new.iOS==1}
+                                    <span class="classify-item classify-iOS">iOS</span>
+                                    {/if}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grey desc">{$new.game_intr}</div>
+                    </div>
+                </a>
+            </li>
+            {/foreach}
+        </ul>
+    </section>
+    {include file="include/footer.html"}
+</div>
+
+
+{literal}
+<script src="http://cdn.66173.cn/mobile/v2/scripts/script.js"></script>
+<script src="http://cdn.66173.cn/mobile/v2/scripts/m_main_search.js?t=11"></script>
+<script type="text/javascript">
+    var platform = null;
+    var alpha = null;
+    $(".first-charge .alpha-list").show();
+    // 点击某个游戏平台事件
+    $(".first-charge").on("click", ".game-platform li", function(e) {
+        var $ele = $(e.currentTarget);
+        var nextPlatform = $ele.data("platform");
+        // 点击的不是同一个游戏平台
+        if(nextPlatform != platform) {
+            alpha = "hot";
+            $ele.addClass("active").siblings().removeClass("active");
+            platform = nextPlatform;
+            // 展示平台游戏区块
+            $(".platform-trans").slideUp(200, function() {
+                getPlatformLetterGames(platform, alpha);
+            }).slideDown(500);
+            // 字母表块的第一个标红,其他的取消标红
+            if($(".alpha-list").length) {
+                $(".alpha-list .alpha").removeClass("active");
+                $(".alpha-list .alpha:first").addClass("active")
+            }
+        }
+        // 点击的同一个游戏平台则收起
+        else {
+            platfromTransUp();
+        }
+    })
+    // 点击收起块
+    $(".first-charge").on("click", ".control-block", platfromTransUp);
+    // // 点击字母事件
+    $(".first-charge").on("click", ".alpha-list .alpha", function(e) {
+        var $ele = $(e.currentTarget);
+        var alphaNext = $ele.attr("rel");
+        // 点击的字母不是当前字母才有下一步动作
+        if(alphaNext != alpha) {
+            alpha = alphaNext;
+            $(".alpha-list .alpha").removeClass("active");
+            $ele.addClass("active");
+            getPlatformLetterGames(platform, alpha);
+        }
+    })
+    // 收起平台游戏
+    function platfromTransUp() {
+        platform = null;
+        $(".platform-trans").slideUp(500);
+        $(".game-platform li").removeClass("active");
+    }
+    // 获取某平台某字母游戏
+    function getPlatformLetterGames(platform, letter) {
+        var con = '';
+        // 先放出正在加载的提示
+        $(".platform-game-loading").show().siblings().hide();
+       //  请求该字母该游戏平台下的游戏
+         $.ajax({
+         	url: 'character.php?act=get_games',
+         	data: {
+         		platform: platform,
+         		letter: letter
+         	},
+             dataType: "json",
+             type: "get"
+         }).success(function(res) {
+             var arr=res.games;
+             if (res.code=="1") {
+                 for (var i=0;i<arr.length;i++)
+                 {
+                     con +="<li><a  href='/game"+arr[i].id+"/character'><img class='game-img' src='http://cdn.66173.cn/" + arr[i].game_icon + "'/>" + "<div class='text-overflow name'>" + arr[i].game_name + "</div><div class='discount-block'><img src='http://cdn.66173.cn/mobile/v2/css/img/discount-block.png' class='discount-block-img'/><span class='discount'>" + arr[i].char_min_rate + "</span></div></a></li>";
+                 }
+                 $(".game-brief-list").show().html(con).siblings().hide();
+             }
+             else {
+                 $(".platform-no-game").show().siblings().hide();
+             }
+
+         });
+    }
+</script>
+{/literal}
+<input type="hidden" name="cate_type" value="1" />
+</body>
+</html>

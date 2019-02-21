@@ -1,0 +1,61 @@
+<div class="bjui-pageContent">
+    <form action="reserve.php?act=do_save_prize" method="post"   data-toggle="validate" data-alertmsg="false">
+        <input type="hidden" name="act_id" value="{$info.id}">
+        <table class="table table-condensed table-hover" width="100%">
+            <thead align="center">
+            <tr>
+                <th width="120">{$info.name}</th>
+                <th width="180">奖品名称</th>
+                <th width="120">中奖概率</th>
+                <th width="120">奖品类型</th>
+                <th width="120">关联ID</th>
+                <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+            {if $prize_list}
+                {foreach item=prize from=$prize_list}
+                <tr align="center">
+                    <td>{$prize.sort_name}</td>
+                    <td><input name="prize{$prize.sort_id}[title]" value="{$prize.title}" maxlength="" size="10" /></td>
+                    <td><input name="prize{$prize.sort_id}[chance]" value="{$prize.chance}" maxlength="3" size="6" />%</td>
+                    <td>
+                        <select name="prize{$prize.sort_id}[type]" style="width:100px;"  data-toggle="selectpicker">
+                            <option value="">请选择</option>
+                            <option value="1" {if $prize.type ==1}selected="selected"{/if} >实物</option>
+                            <option value="2" {if $prize.type ==2}selected="selected"{/if}>礼包</option>
+                            <option value="3" {if $prize.type ==3}selected="selected"{/if}>优惠券</option>
+                        </select>
+                    </td>
+                    <td><input name="prize{$prize.sort_id}[prize_id]" value="{$prize.prize_id}" maxlength="" size="6" /></td>
+                </tr>
+                {/foreach}
+            {else}
+                {for $i = 1; $i < 9; $i++ }
+                <tr align="center">
+                    <td>奖品{$i}</td>
+                    <td><input name="prize{$i}[title]" value="" maxlength="" size="10" /></td>
+                    <td><input name="prize{$i}[chance]" value="0" maxlength="3" size="6" />%</td>
+                    <td>
+                        <select name="prize{$i}[type]" style="width:100px;"  data-toggle="selectpicker">
+                            <option value="">请选择</option>
+                            <option value="1" >实物</option>
+                            <option value="2" >礼包</option>
+                            <option value="3" >优惠券</option>
+                        </select>
+                    </td>
+                    <td><input name="prize{$i}[prize_id]" value="0" maxlength="" size="6" /></td>
+                </tr>
+                {/for}
+            {/if}
+            </tbody>
+        </table>
+        <p>ps:中将概率相加总数不得超过100</p>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>

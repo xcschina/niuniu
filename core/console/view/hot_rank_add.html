@@ -1,0 +1,71 @@
+<script>
+    $(document).ready(function(){
+        $("select[name=game_id]").chosen().change(function(){
+            $("input[name=game_id]").val($(this).val());
+            $("input[name=game_name]").val($(this).find("option:selected").attr("rel"));
+        });
+        $("select[name=type]").chosen().change(function(){
+            $("input[name=type]").val($(this).val());
+        });
+        $("select[name=status]").chosen().change(function(){
+            $("input[name=status]").val($(this).val());
+        });
+    })
+</script>
+<div class="bjui-pageContent">
+    <form action="/web_rank.php?act=hot_save" id="j_custom_form" data-toggle="validate" data-alertmsg="false">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label class="control-label x120">游戏ID：</label>
+                    <select name="game_id" data-rule="required" style="width: 180px!important;">
+                        <option value="" rel="" selected="selected">请选择</option>
+                        {foreach from=$game_list item=game}
+                        <option value="{$game.id}" rel="{$game.game_name}">{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                    </select>&nbsp;
+                    <input type="hidden" name="game_id" value="" />
+                    <input type="hidden" name="game_name" value="" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">分类：</label>
+                    <select name="type" data-rule="required" style="width: 180px!important;">
+                        <option value="" selected="selected">请选择</option>
+                        {foreach from=$game_type key=k item=type}
+                        <option value="{$k}">{$type}</option>
+                        {/foreach}
+                    </select>&nbsp;
+                    <input type="hidden" name="type" value="" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">状态：</label>
+                    <select name="status" data-rule="required" style="width: 180px!important;">
+                        <option value="" selected="selected">请选择</option>
+                        {foreach from=$game_status key=k item=status}
+                        <option value="{$k}">{$status}</option>
+                        {/foreach}
+                    </select>&nbsp;
+                    <input type="hidden" name="status" value="" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">订单数：</label>
+                    <input type="text" name="order_num" value="" cols="18" rows="1" onkeyup="this.value=this.value.replace(/\D/g,'')" class="form-control" data-rule="required">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+        <li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+    </ul>
+</div>

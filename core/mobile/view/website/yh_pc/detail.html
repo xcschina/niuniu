@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" class="detail-page-html">
+    <head>
+        <meta charset="UTF-8">
+        <title>{$info.title}</title>
+        <meta name="description" content="预约《英魂外传》即可获得价值188元大礼包，内含橙色英雄碎片、培养丹、神石、钻石等稀有礼品"/>
+        <meta name="keywords" content="英魂外传"/>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="format-detection" content="telephone=no">
+        <!-- uc强制竖屏 -->
+        <meta name="screen-orientation" content="portrait">
+        <!-- QQ强制竖屏 -->
+        <meta name="x5-orientation" content="portrait">
+        <link rel="stylesheet" href="//cdn.66173.cn/mobile/css/yhwz_pc.css?t={$smarty.now}">
+        <!--<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>-->
+        <!--<script type="application/javascript" src="http://cdn.66173.cn/mobile/v2/scripts/activity_yh_pc_func.js?t={$smarty.now}"></script>-->
+    </head>
+    <body class="detail-page">
+        <div class="page-top">
+            <img class="top-img" src="//cdn.66173.cn/mobile/css/img/yhwz_pc/img_detail_banner.png?t={$smarty.now}" alt="">
+            <div class="path">
+                <span class="item first"><a href="/"><span class="background-img icon"></span><span class="text">首页</span></a></span>
+                <span class="item second"><a href="#"><span class="arrow-right">&gt;</span><span class="text">文章详情</span></a></span>
+            </div>
+            <div class="article-title">{$info.title}</div>
+            <div class="time-line">发布时间：<span class="time">{'Y-m-d H:i:s'|date:$info.add_time}</span></div>
+        </div>
+        <div class="arcticle-con">
+            {$info.intro|htmlspecialchars_decode}
+        </div>
+        <img class="img-footer" src="//cdn.66173.cn/mobile/css/img/yhwz_pc/foot.jpg?t={$smarty.now}" alt="">
+    </body>
+</html>

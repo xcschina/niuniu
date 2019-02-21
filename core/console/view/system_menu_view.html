@@ -1,0 +1,204 @@
+{literal}
+<script type="text/javascript">
+    function changeZtree(t) {
+        var $panel = $.CurrentNavtab
+        var $t = $('#ztree1'),$span  = $('#ztree-'+ t),$log = $('#ztree-log'),op = $t.data()
+        var add    = op.addHoverDom ? null : 'edit',remove = op.removeHoverDom ? null : 'edit'
+        $t.data('addHoverDom', add).data('removeHoverDom', remove)
+        $panel.initui()
+    }
+    //单击事件
+    function ztree_click(event, treeId, treeNode) {
+        event.preventDefault()
+        var $detail = $('#ztree-detail')
+        //if ($detail.attr('tid') == treeNode.tId) return
+        if (treeNode.name) $('#j_menu_name').val(treeNode.name)
+
+        if (treeNode.url) {
+            $('#j_menu_url').val(treeNode.url)
+        } else {
+            $('#j_menu_url').val('')
+        }
+        if (treeNode.tabid) {
+            $('#j_menu_tabid').val(treeNode.tabid)
+        } else {
+            $('#j_menu_tabid').val('')
+        }
+        //alert(JSON.stringify(treeNode));
+        if (treeNode.target) {
+            $('#j_menu_target').selectpicker('val', treeNode.target)
+        } else {
+            $('#j_menu_target').selectpicker('val', '')
+        }
+
+        if (treeNode.class) {
+            $('#j_menu_class').selectpicker('val', treeNode.class)
+        } else {
+            $('#j_menu_class').selectpicker('val', '')
+        }
+        if(treeNode.mid){
+            $('#j_menu_mid').val(treeNode.mid)
+        }else{
+            $('#j_menu_mid').val(0)
+        }
+
+
+        if(treeNode.id){
+            $('#j_menu_id').val(treeNode.id);
+            $('#j_menu_pid').val(treeNode.id)
+        }else{
+            $('#j_menu_id').val("");
+        }
+        $detail.attr('tid', treeNode.tId)
+        $detail.show()
+    }
+    //保存属性
+    function save_menu() {
+        var zTree  = $.fn.zTree.getZTreeObj("ztree1");
+        var name   = $('#j_menu_name').val()
+        var url    = $('#j_menu_url').val()
+        var tabid  = $('#j_menu_tabid').val()
+        var target = $('#j_menu_target').val()
+        var pid    = $('#j_menu_pid').val();
+        var id     = $('#j_menu_id').val();
+        var clas   = $('#j_menu_class').val();
+        var mid    = $('#j_menu_mid').val();
+        var upNode = zTree.getSelectedNodes()[0]
+        if (!upNode) {
+            $("#save").alertmsg('error','请重新选中菜单！')
+            return
+        }
+        if ($.trim(name).length == 0) {
+            $("#save").alertmsg('error','菜单名称不能为空！');
+            return;
+        }
+        $.ajax({
+            type:'post',
+            url:'system_setting.php?act=sava_menu',
+            data:{
+                name:name,
+                url:url,
+                tabid:tabid,
+                target:target,
+                pid:pid,
+                id:id,
+                mid:mid,
+                class:clas
+            },
+            dataType: 'json',
+            success: function (json) {
+                if(json.statusCode=='200'){
+                    $("#save").alertmsg('correct',json.message);
+                    $("#save").navtab('refresh', 'menu_view')
+                }else{
+                    $("#save").alertmsg('error',json.message);
+                }
+            },
+            error:function(){
+                $("#save").alertmsg('error','保存异常');
+            }
+        })
+    }
+
+    function del_menu() {
+        var id     = $('#j_menu_id').val();
+        $.ajax({
+            type:'post',
+            url:'system_setting.php?act=del_menu',
+            data:{
+                id:id
+            },
+            dataType: 'json',
+            success: function (json) {
+                if(json.statusCode=='200'){
+                    $("#del").alertmsg('correct',json.message);
+                    $("#del").navtab('refresh', 'menu_view')
+                }else{
+                    $("#del").alertmsg('error',json.message);
+                }
+            },
+            error:function(){
+                $("#del").alertmsg('error','删除异常');
+            }
+        })
+    }
+</script>
+{/literal}
+<div class="bjui-pageContent">
+    <div style="margin:15px auto 0; width:800px;">
+        <fieldset>
+            <legend>菜单设置</legend>
+            <div class="clearfix">
+                <div style="float:left; width:300px;  overflow:auto;">
+                    <ul id="ztree1" class="ztree" data-toggle="ztree" data-expand-all="false" data-on-click="ztree_click" data-divid="#ztree1">
+                        {foreach from=$menus key=i item=menu}
+                        <li data-id="{$menu.id}" data-pid="0" data-class="{$menu.class}" data-mid="{$menu.mid}" data-tabid="{$menu.tabid}" data-url="{$menu.url}">{$menu.name}</li>
+                        {foreach from=$menu['p_menu'] key=k item=p_menu}
+                        <li data-id="{$p_menu.id}" data-pid="{$p_menu.pid}"  data-class="{$p_menu.class}" data-target="{$p_menu.target}" data-mid="{$p_menu.mid}" data-tabid="{$p_menu.tabid}" data-url="{$p_menu.url}">{$p_menu.name}</li>
+                        {foreach from=$p_menu['c_menu'] key=j item=c_menu}
+                        <li data-id="{$c_menu.id}" data-pid="{$c_menu.pid}" data-class="{$c_menu.class}"  data-target="{$c_menu.target}" data-mid="{$c_menu.mid}" data-tabid="{$c_menu.tabid}" data-url="{$c_menu.url}">{$c_menu.name}</li>
+                        {/foreach}
+                        {/foreach}
+                        {/foreach}
+                    </ul>
+                </div>
+                <div id="ztree-detail" style="display:none; margin-left:330px; width:400px;margin-top: 10px">
+                    <div class="bs-example" data-content="详细信息">
+                        <div class="form-group">
+                            <label for="j_menu_name" class="control-label x85">菜单名称：</label>
+                            <input type="text" class="form-control validate[required] required" id="j_menu_name" size="15" placeholder="名称" />
+                        </div>
+                        <div class="form-group">
+                            <label for="j_menu_url" class="control-label x85">URL：</label>
+                            <input type="text" class="form-control"  id="j_menu_url" size="20" placeholder="Url" />
+                        </div>
+                        <div class="form-group">
+                            <label for="j_menu_tabid" class="control-label x85">tabid：</label>
+                            <input type="text" class="form-control"  id="j_menu_tabid" size="15" placeholder="tabid" />
+                        </div>
+                        <div class="form-group">
+                            <label  class="control-label x85">target：</label>
+                            <select data-toggle="selectpicker" id="j_menu_target" data-width="auto">
+                                <option value="">无</option>
+                                <option value="navTab">navTab</option>
+                                <option value="dialog">dialog</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label x85">标签样式：</label>
+                            <select id="j_menu_class" data-toggle="selectpicker" data-width="auto">
+                                <option value="">无</option>
+                                <option value="fa fa-check-square-o">fa fa-check-square-o</option>
+                                <option value="fa fa-table">fa fa-table</option>
+                                <option value="fa fa-plane">fa fa-plane</option>
+                                <option value="fa fa-image">fa fa-image</option>
+                                <option value="fa fa-coffee">fa fa-coffee</option>
+                                <option value="fa fa-bug">fa fa-bug</option>
+                                <option value="fa fa-database">fa fa-database</option>
+                                <option value="fa fa-cog">fa fa-cog</option>
+                            </select>
+                            <span class="red">顶级菜单时可选</span>
+                        </div>
+                        <input type="hidden" id="j_menu_pid" value="">
+                        <input type="hidden" id="j_menu_id" value="">
+                        <input type="hidden" id="j_menu_mid" value="">
+                        <div class="form-group" style="padding-top:8px;">
+                            <label class="control-label x85"></label>
+                            <button class="btn btn-green" onclick="save_menu();" id="save">保存菜单</button>
+                            <button class="btn btn-red" onclick="del_menu();" id="del">删除菜单</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="btn-group" style="margin-top:5px;">
+                <button type="button" class="btn btn-green" onclick="changeZtree(1);">编辑</button>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+    </ul>
+</div>

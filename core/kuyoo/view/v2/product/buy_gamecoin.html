@@ -1,0 +1,71 @@
+<!-- 游戏币 -->
+<div class="game_recharge">
+	<!-- 标题 -->
+	<div class="title">[{$gameinfo.game_name}]</div>
+	<div class="color_red">购买即可获得酷游送出的专属礼包</div>
+	{include file="v2/product/buy_type.html"}
+	<div class="color_red fontsize_16">【代币】就是游戏中的虚拟货币交易，以供玩家在游戏中进行买卖道具及材料等。
+	<br/>
+	</div>
+</div>
+<div class="title_sub mt_30">
+	<strong class="name">选购商品</strong>
+	<div class="r_item">
+
+		<select name='game_unit' id="game_unit">
+			{if $units[0] neq ''}
+				<option value="">所有代币</option>
+				{foreach from=$units item=unit}
+				<option value="{$unit}">{$unit}</option>
+				{/foreach}
+			{else}
+				<option value="">暂无代币</option>
+			{/if}
+		</select>
+		
+		<select name="pt_id" id="choose_pt">
+			<option value="">所有平台</option>
+			<option value="1">安卓平台</option>
+			<option value="2">苹果平台</option>
+		</select>
+
+		<select name="ch_id" id="choose_ch" disabled>
+			<option value="">所有渠道</option>
+		</select>
+
+		<select name="serv_id" id="choose_serv" disabled>
+			<option value="">所有区服</option>
+		</select>
+
+		<select name="price_order" id="price_order">
+			<!-- <option value="">价格顺序</option> -->
+			<option value="desc">价格由高到低</option>
+			<option value="asc">价格由低到高</option>
+		</select>
+
+	</div>
+</div>
+
+<ul class="game_money_list">
+	{if $products|@count neq 0}
+	{foreach from=$products item=pro}
+	<li>
+		<span class="r_price color_red">{$pro.disprice}元</span>
+		<a target="_blank" rel="noopener noreferrer" href="/buy{$gameinfo.id}/501/{$pro.product.id}/{$pro.product.channel_id}">{$pro.product.title} </a>
+		<div class="small_word">虚拟游戏币/{$pro.product.serv_name}/{if $pro.channel.platform eq '1'}安卓平台{elseif $pro.channel.platform eq '2'}苹果平台{/if}</div>						
+	</li>
+	{/foreach}
+	{else}
+	<li>
+		<span class="r_price color_red"></span>
+		<a href="#">抱歉，本游戏暂无游戏币商品供您选购！</a>
+		<div class="small_word"></div>						
+	</li>
+	{/if}
+</ul>
+
+<div class="clear_both"></div>
+{if $products|@count neq 0}
+    <div id="page">{$page_show}</div>
+{/if}
+<div class="clear_both"></div>

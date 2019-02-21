@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <title>1{$info.title}</title>
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/website/css/add_page.css?t=213">
+    <script src="http://cdn.66173.cn/www/js/jquery-1.8.3.min.js"></script>
+    <style>
+        .video-zone {
+            position: absolute;
+            width: 55%;
+            z-index: 9;
+            left: 3%;
+            top: 27.1%;
+            font-size: 0;
+            background-color: rgba(0,0,0,0.9);
+        }
+        .poster {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            cursor: pointer;
+        }
+        .mask {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 99;
+            display: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="page-bg">
+<div class="page-game-box">
+    <a class="link-rel page-top" href="http://ad.66173yx.com/website.php?act=general_down&id={$info.id}">
+        <img src="http://cdn.66173.cn/{$info.banner}"/>
+    </a>
+    <div class="page-center">
+        <div class="relative maxFullWidth">
+            {if $info.is_video == 1}
+            <div class="video-zone"></div>
+            {/if}
+            <a class="link-rel block" href="http://ad.66173yx.com/website.php?act=general_down&id={$info.id}">
+                <img src="http://cdn.66173.cn/{$info.top_img}"/>
+            </a>
+        </div>
+        <a class="link-rel block" href="http://ad.66173yx.com/website.php?act=general_down&id={$info.id}">
+            <div class="slideshow-zone" style="background-image: url(http://cdn.66173.cn/{$info.middle_img})">
+                <ul class="img-ul">
+                    {foreach from=$bg_img key=$k item=bg}
+                    <li data-index="{$k}" {if $k==0}class="show"{/if}><img src="http://cdn.66173.cn/{$bg}"></li>
+                    {/foreach}
+                </ul>
+                {if sizeof($bg_img) > 1}
+                    <ul class="dot-ul">
+                        {foreach from=$bg_img key=$k item=bg}
+                        <li data-index="{$k}" {if $k==0}class="cur"{/if}><span class="dot"></span></li>
+                        {/foreach}
+                    </ul>
+                {/if}
+            </div>
+            {if $info.bottom_img} <img src="http://cdn.66173.cn/{$info.bottom_img}"/>{/if}
+        </a>
+    </div>
+
+</div>
+{if $info.is_footer eq 1}
+{if $info.id >'317' and  $info.id <'338'}
+<div class="bottom-foot">杭州道盟网络科技有限公司</br>浙网文（2016）0298-168号</div>
+{else}
+<div class="bottom-foot">{$info.page_info}</div>
+{/if}
+{/if}
+<div class="mask" >
+    <div>
+        <img src="http://cdn.66173.cn/www/img/activity/mask.png" style="width:100%">
+    </div>
+</div>
+<input type="hidden" id="video_url" value="{$info.video_url}"/>
+<input type="hidden" id="video_img" value="{$info.video_img}"/>
+<input type="hidden" id="ios_link" value="{$info.ios_link}"/>
+<input type="hidden" id="gId" value="{$info.id}"/>
+</body>
+{literal}
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?5ca85ebd5d5f3d3bb94c4af02ef57a81";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+<script type="text/javascript">
+    var cur = 0;
+    var slideInterval;
+    var video = null;
+    var videoSrc = $("#video_url").val();
+    var maskSrc = $("#video_img").val();
+    var imgUlLen = $(".img-ul li").length;
+    var gId = $("#gId").val();
+    function isWeiXin() {
+        var ua = window.navigator.userAgent.toLowerCase();
+        console.log(ua);//mozilla/5.0 (iphone; cpu iphone os 9_1 like mac os x) applewebkit/601.1.46 (khtml, like gecko)version/9.0 mobile/13b143 safari/601.1
+        if(ua.match(/MicroMessenger/i)== 'micromessenger') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    if(isWeiXin() && !isIOS()){
+        $(".link-rel").attr("href",'').addClass("is-weixin");
+    }
+    $('body').on("click",'.is-weixin',function(){
+        $(".mask").show();
+    });
+    $('body').on("click",'.mask',function(){
+        $(".mask").hide();
+    });
+
+    if(isIOS()){
+        $(".link-rel").attr("href",$("#ios_link").val());
+    }
+    function slideControl(cur) {
+        $('.img-ul li[data-index="'+cur+'"]').addClass("show").siblings().removeClass("show");
+        $('.dot-ul li[data-index="'+cur+'"]').addClass("cur").siblings().removeClass("cur");
+    }
+    function sizeControl() {
+        $(".img-ul img").css("height", $(".img-ul img:visible").width()*0.6+'px');
+        $(".video-zone").css("height", $(".video-zone").width()*0.5625);
+        $(".page-game-box").css("margin-top", $(".page-top img").height());
+    }
+    function addVideo() {
+        if($(".video-zone").length > 0) {
+            var con = '<img class="poster" src="http://cdn.66173.cn'+maskSrc+'" alt="">'
+                +'<video width="100%" height="100%" style="object-fit:fill;z-index: 1" controls="controls"'
+                +'webkit-playsinline playsinline id="video" src="' + videoSrc + '">not support</video>';
+            $(".video-zone").html(con);
+            video = document.getElementById("video");
+            $(".video-zone").css("height", $(".video-zone").width()*0.5625);
+            video.addEventListener("ended", function() {
+                $(".poster").show();
+            },false)
+            video.addEventListener("pause", function() {
+                $(".poster").show();
+            },false)
+        }
+    }
+    function isIOS() {
+        var isIOS =(/iPhone|iPod|iPad|mac/i).test(navigator.userAgent);
+        return isIOS ? true : false;
+    }
+    function loadScript(url, id) {
+        var hm = document.createElement("script");
+        id && (hm.id = id);
+        hm.src = url;
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+        return hm;
+    }
+    $(window).load(function() {
+        sizeControl();
+        if(gId == 1130) {
+            loadScript("https://hm.baidu.com/hm.js?60558fc06cee7a77b6646955051c67f2", "bMonitorJs");
+        }
+        addVideo();
+        slideInterval = setInterval(function() {
+            cur < imgUlLen ? cur++ : cur = 0;
+            slideControl(cur);
+        }, 2000)
+    });
+    $(window).resize(function() {
+        sizeControl();
+    });
+    $(".page-bg").on("click", ".poster", function(e) {
+        $(e.target).hide();
+        video.play();
+    });
+</script>
+{/literal}
+</html>

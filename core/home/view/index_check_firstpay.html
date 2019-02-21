@@ -1,0 +1,27 @@
+{include file="include/head.html" web_title='文章内容'}
+    <body>
+        {include file="include/top.html"}
+        {include file="include/header.html"}
+        {include file="include/nav.html" nav=""}
+		
+        <!--首充号验证-->
+        <div class="w1000">
+        	<p class="bt"><b>66173交易平台</b> > 首充号验证</p>
+            <p class="jieshao">首充号续充：就是对您在66173购买的首充号进行后续充值，折扣约为6折左右。</p>
+            <div class="input_w">
+            	<div class="ov">
+                    <input type="text" placeholder="请输入您在66173购买的首充号" class="fl input_text">
+                    <input type="button" value="验证" class="fl input_button" id="search_btn">
+                </div>
+                <p id="res_msg">验证失败，该账号不是66173首充号，如果输入错误请重新输入</p>
+                <div class="button ov">
+                	<a class="fl" href="/games.html">购买首充号</a>
+                    <a class="fr" href="/games.html">为其他账号代充</a>
+                </div>
+            </div>
+        
+        </div>
+	
+		{include file="include/footer.html"}
+	</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<title>游戏搜索</title>
+	<!-- <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/common.css" media="screen" /> -->
+	<link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/m_common.css" media="screen" />
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="application/javascript">
+		function initHTMLSize() {
+			var wWidth = document.documentElement.clientWidth || document.body.clientWidth;
+			var size = wWidth / 7.5;
+			document.getElementsByTagName('html')[0].style.fontSize = (size > 55 ? 55 : size) + 'px';
+		}
+		$(document).ready(function () {
+			initHTMLSize();
+		});
+		$(window).resize(function() {
+			initHTMLSize()
+		});
+	</script>
+</head>
+<body>
+	<div class="m-station">
+		<section class="main-search">
+			<div class="main-search-bar">
+				<a class="back" href="javascript:history.back(-1)"></a>
+				<div class="search-zone">
+					<input placeholder="请输入您要的游戏"/>
+					<img class="clear-search" src="http://cdn.66173.cn/mobile/v2/css/img/clear_search.png" />
+					<img class="go-search" src="http://cdn.66173.cn/mobile/v2/css/img/main_search.png" />
+				</div>
+			</div>
+			<div class="main-search-con">
+				<div class="background-white main-search-tip"></div>
+				<div class="background-white main-search-result">
+					<ul class="has-result game-desc-list"></ul>
+					<div class="default-result"></div>
+				</div>
+				<div class="get-status"></div>
+			</div>
+		</section>
+	</div>
+</body>
+<script src="http://cdn.66173.cn/mobile/v2/scripts/m_main_search.js?t=11"></script>
+</html>

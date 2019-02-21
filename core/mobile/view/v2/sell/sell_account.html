@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>我要卖-{$info.game_name}-账号</title>
+    <meta name="keywords" content="{$info.game_name}账号" />
+    <meta name="description" content="66173交易平台为玩家提供手机游戏[{$info.game_name}]账号交易服务,欢迎来到66173卖[{$info.game_name}]的账号,这里有很多[{$info.game_name}]的忠实玩家." />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/common.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/sale.css?t=2015121412345" media="screen" />
+</head>
+<body>
+<header class="page-header clearfix">
+    <h1 class="page-h1">{$info.game_name}商品发布</h1>
+    <a class="p2-back" href="javascript:history.back();">返回</a>
+    {if $smarty.session.user_id}
+    <a class="login-on" href="/account.php?act=user_center">个人中心</a>
+    {else}
+    <a class="login-link" href="/account.php?act=user_center" id="login-btn">登录</a>
+    {/if}
+</header>
+<section class="clearfix">
+    <form action="/game{$info.id}/sell?act=account" method="post" enctype="multipart/form-data" name="form_account" id="form">
+    <div class="sale-info-box sale-info-box-t sel-type clearfix">
+        <label>商品类型：</label>
+        <a href="#;" class="on">账号</a>
+        <a href="/game{$info.id}/sell?act=props">装备</a>
+        <a href="/game{$info.id}/sell?act=coin">游戏币</a>
+    </div>
+    <div class="error">
+        {if $smarty.session.sell_error}
+            {foreach from=$smarty.session.sell_error item=error}
+            <li>{$error}</li>
+            {/foreach}
+        {/if}
+    </div>
+    <div class="sale-info-box clearfix">
+        <label>游戏平台：</label>
+        <select name="ch">
+            <option value="0">请选择渠道</option>
+            {foreach from=$chs item=ch}
+            <option value="{$ch.id}">{$ch.channel_name}</option>
+            {/foreach}
+        </select>
+    </div>
+    <div class="sale-info-box clearfix">
+        <label>商品标题：</label>
+        <input name="title" maxlength="50" type="text" placeholder="请输入标题" class="sale-input" />
+    </div>
+    <div class="sale-info-box clearfix">
+        <label>商品描述：</label>
+        <textarea name="desc" placeholder="请详细描述你的账号信息" class="sale-input"></textarea>
+    </div>
+    <!--<div class="sale-info-box-pic clearfix">
+        <label>商品图片：</label>
+        <section class="img">
+            <h3 class="error"></h3>
+            <div id="preview"></div>
+            <div class="img">
+                <input id="fileImage" type="file" name="imgs[]"  style="display: none"  multiple/>
+                <a href="#;" class="img"></a>
+            </div>
+            <div style="clear: both"></div>
+        </section>
+    </div>-->
+    <div class="sale-info-box clearfix">
+        <label>出售价格：</label>
+        <input name="price" maxlength="5" type="text" placeholder="请输入您想出售的 价格" class="sale-input" />元
+    </div>
+    <a class="b-btn" href="#;" onclick="do_account();">下一步</a>
+        <input type="hidden" name="game_id" value="{$info.id}" />
+        <input type="hidden" name="pagehash" value="{$pagehash}" />
+        <input type="hidden" name="do" value="account" />
+        <input type="hidden" name="game_storage" value="" />
+        <input type="hidden" name="unit" value="" />
+        <input type="hidden" name="stock" value="1" />
+        <input type="hidden" name="pernum" value="1" />
+    </form>
+</section>
+{include file="../include/footer.html"}
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+    !window.jQuery && document.write('<script src=http://lib.sinaapp.com/js/jquery/2.0.0/jquery.min.js><\/script>');
+</script>
+<script src="http://cdn.66173.cn/mobile/v2/scripts/sell_account.js?t=20161301119"></script>
+</body>
+</html>

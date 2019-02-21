@@ -1,0 +1,598 @@
+<!doctype html>
+<html id="html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>牛牛感恩大回馈 免费充值等你来</title>
+    <meta name="keywords" content="首充号续充、手游首充号续充、66173、手游交易平台" />
+    <meta name="description" content="木有南瓜也木有火鸡。只有免费充值！"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <script src="http://cdn.66173.cn/mobile/scripts/11_activity.js?t=3"></script>
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/11_activity.css?t=7" media="screen" />
+    <script type="application/javascript">
+        $(window).on('resize', function (e) {
+            var wWidth = $(window).width();
+            if(wWidth>750){
+                wWidth=750;
+            }
+            var size = wWidth /7.5 ;
+            document.getElementsByTagName('html')[0].style.fontSize = size + 'px';
+            if(wWidth < 400){
+                $("#red1").attr("class","red1");
+            }else{
+                $("#red1").attr("class","");
+            }
+        }).trigger('resize');
+    </script>
+</head>
+<body style="width:100%">
+<div style="margin: 0 auto;max-width: 750px;position: relative">
+    <!--弹出盒子-->
+    <div id="black" style="display:none"></div>
+    <div id="hide_alert" style="display:none">
+        <div id="b_box">
+            <div id="alert_box">
+                <img id="red1" src="http://cdn.66173.cn/mobile/css/img/11/red1.png?t=4" alt="">
+                <div id="close"><img style="width:30px;height:30px;margin-top:-50px!important;margin-right:20px!important;" src="http://cdn.66173.cn/mobile/css/img/11/close.png?t=4" alt=""></div>
+                <div style="clear:both;height:10px;"></div>
+                <span id="desc_1_1"></span><br>
+                <span id="desc_2_1"></span><br>
+                <span id="desc_3_1"></span>
+                <a id="url" href=""><div id="now_list" style="width:100px;height:40px;background:orangered;color:white;margin-top:5px!important;margin:0 auto;line-height:40px;display:none">立即使用</div></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="weixin_show"><i>X</i></div>
+    <div class="draw_alert draw_1" style="display:none">
+        <div class="draw_alert_box">
+            <div class="close close1"><img style="width:30px;height:30px;margin-top:-50px!important;margin-right:20px!important;" src="http://cdn.66173.cn/mobile/css/img/11/close.png?t=4" alt=""></div>
+            <span>恭喜客官!</span>
+            <p><name class="prize_name">6元代金券</name>已放入您的账户中</p>
+            <p>可在<red style="color:red;">我的优惠券中</red>查看</p>
+            <a href="http://m.66173.cn"><div style="width:100px;height:40px;background:orangered;color:white;margin-top:5px!important;margin:0 auto;line-height:40px;">立即使用</div></a>
+            <div style="width:20px;height:10px;"></div>
+            <div class="bog_box">
+                <span style="font-size:12px;line-height:12px;">分享可自动获得一次抽奖机会！</span>
+                <a class="share_draw click_weixin" href="#;"><li id="weixin"></li></a>
+                <a class="share_draw" target="_blank" href="http://service.weibo.com/share/share.php?url=http%3A%2F%2Fm.66173.cn%2F%2Factivity.php%3Fact%3Dindex%23box_game2%230-tsina-1-33350-397232819ff9a47a7b7e80a40613cfe1&title=牛牛感恩大回馈 免费充值等你来&appkey=1343713053&searchPic=true#_loginLayer_1478681942893" title="分享到微博"><li id="weibo"></li></a>
+                <a class="share_draw" target="_blank" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http%3A%2F%2Fm.66173.cn%2F%2Factivity.php%3Fact%3Dindex%23box_game2%230-qzone-1-5208-d020d2d2a4e8d1a374a433f596ad1440&title=牛牛感恩大回馈 免费充值等你来&desc=&summary=木有南瓜也木有火鸡。只有免费充值！&site=" title="分享到空间"><li id="qqkj"></li></a>
+                <a class="share_draw" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http%3A%2F%2Fm.66173.cn%2F%2Factivity.php%3Fact%3Dindex%23box_game2%230-sqq-1-61392-9737f6f9e09dfaf5d3fd14d775bfee85&title=牛牛感恩大回馈 免费充值等你来&desc=&summary=木有南瓜也木有火鸡。只有免费充值！&site=baidu" title="分享到"><li id="qq"></li></a>
+            </div>
+        </div>
+    </div>
+    <div class="draw_alert draw_2" style="display:none">
+        <div class="draw_alert_box">
+            <div class="close close2"><img style="width:30px;height:30px;margin-top:-50px!important;margin-right:20px!important;" src="http://cdn.66173.cn/mobile/css/img/11/close.png?t=4" alt=""></div>
+            <img src="http://cdn.66173.cn/mobile/css/img/thanksgiving/ku.png?t=4" width="80px" style="margin-top:20px" alt="">
+            <p>哎呀，你离奖品仅查0.1厘米。</p>
+            <p>还有机会哦</p>
+            <div style="width:20px;height:10px;"></div>
+            <div class="bog_box">
+                <span style="font-size:12px;line-height:12px;">分享可自动获得一次抽奖机会！</span>
+                <a class="share_draw click_weixin" href="#;"><li id="weixin"></li></a>
+                <a class="share_draw" target="_blank" href="http://service.weibo.com/share/share.php?url=http%3A%2F%2Fm.66173.cn%2F%2Factivity.php%3Fact%3Dindex%23box_game2%230-tsina-1-33350-397232819ff9a47a7b7e80a40613cfe1&title=牛牛感恩大回馈 免费充值等你来&appkey=1343713053&searchPic=true#_loginLayer_1478681942893" title="分享到微博"><li id="weibo"></li></a>
+                <a class="share_draw" target="_blank" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http%3A%2F%2Fm.66173.cn%2F%2Factivity.php%3Fact%3Dindex%23box_game2%230-qzone-1-5208-d020d2d2a4e8d1a374a433f596ad1440&title=牛牛感恩大回馈 免费充值等你来&desc=&summary=木有南瓜也木有火鸡。只有免费充值！&site=" title="分享到空间"><li id="qqkj"></li></a>
+                <a class="share_draw" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http%3A%2F%2Fm.66173.cn%2F%2Factivity.php%3Fact%3Dindex%23box_game2%230-sqq-1-61392-9737f6f9e09dfaf5d3fd14d775bfee85&title=牛牛感恩大回馈 免费充值等你来&desc=&summary=木有南瓜也木有火鸡。只有免费充值！&site=baidu" title="分享到"><li id="qq"></li></a>
+                <div class="weixin_show"><i>X</i></div>
+            </div>
+        </div>
+    </div>
+    <div class="draw_alert draw_3" style="display:none">
+        <div class="draw_alert_box">
+            <div class="close close3"><img style="width:30px;height:30px;margin-top:-50px!important;margin-right:20px!important;" src="http://cdn.66173.cn/mobile/css/img/11/close.png?t=4?t=3" alt=""></div>
+            <img src="http://cdn.66173.cn/mobile/css/img/thanksgiving/ku.png?t=4" width="80px" style="margin-top:20px" alt="">
+            <div style="width:20px;height:20px;"></div>
+            <p>万水千山总是情</p>
+            <p>下次再来行不行</p>
+            <p>66173活动不停歇，大奖在下次等你</p>
+        </div>
+    </div>
+    <div class="draw_alert draw_4" style="display:none">
+        <div class="draw_alert_box">
+            <div class="close close4"><img style="width:30px;height:30px;margin-top:-50px!important;margin-right:20px!important;" src="http://cdn.66173.cn/mobile/css/img/11/close.png?t=4?t=3" alt=""></div>
+            <div style="clear:both;height:30px;"></div>
+            <span>恭喜客官!</span>
+            <p><name class="prize_name">6元代金券</name>已放入您的账户中</p>
+            <p>可在<red style="color:red;">我的优惠券中</red>查看</p>
+            <div style="width:20px;height:20px;"></div>
+            <a href="http://m.66173.cn"><div style="width:100px;height:40px;background:orangered;color:white;margin-top:5px!important;margin:0 auto;line-height:40px;">立即使用</div></a>
+        </div>
+    </div>
+    <div class="draw_alert draw_5" style="display:none;">
+        <div class="draw_alert_box">
+            <div class="close close5"><img style="width:30px;height:30px;margin-top:-50px!important;margin-right:20px!important;" src="http://cdn.66173.cn/mobile/css/img/11/close.png?t=4" alt=""></div>
+            <img src="http://cdn.66173.cn/mobile/css/img/thanksgiving/ku.png?t=4" width="80px" style="margin-top:20px" alt="">
+            <p>没有抽奖机会了。</p>
+            <div style="width:20px;height:10px;"></div>
+            <div class="bog_box">
+                <span style="font-size:12px;line-height:12px;">分享可自动获得一次抽奖机会！</span>
+                <a class="share_draw_1 click_weixin" href="#;"><li id="weixin"></li></a>
+                <a class="share_draw" target="_blank" href="http://service.weibo.com/share/share.php?url=http%3A%2F%2Fm.66173.cn%2F%2Factivity.php%3Fact%3Dindex%23box_game2%230-tsina-1-33350-397232819ff9a47a7b7e80a40613cfe1&title=牛牛感恩大回馈 免费充值等你来&appkey=1343713053&searchPic=true#_loginLayer_1478681942893" title="分享到微博"><li id="weibo"></li></a>
+                <a class="share_draw" target="_blank" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http%3A%2F%2Fm.66173.cn%2F%2Factivity.php%3Fact%3Dindex%23box_game2%230-qzone-1-5208-d020d2d2a4e8d1a374a433f596ad1440&title=牛牛感恩大回馈 免费充值等你来&desc=&summary=木有南瓜也木有火鸡。只有免费充值！&site=" title="分享到空间"><li id="qqkj"></li></a>
+                <a class="share_draw" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http%3A%2F%2Fm.66173.cn%2F%2Factivity.php%3Fact%3Dindex%23box_game2%230-sqq-1-61392-9737f6f9e09dfaf5d3fd14d775bfee85&title=牛牛感恩大回馈 免费充值等你来&desc=&summary=木有南瓜也木有火鸡。只有免费充值！&site=baidu" title="分享到"><li id="qq"></li></a>
+                <div class="weixin_show"><i>X</i></div>
+            </div>
+        </div>
+    </div>
+    <div class="draw_alert draw_6" style="display:none">
+        <div class="draw_alert_box">
+            <div class="close close6"><img style="width:30px;height:30px;margin-top:-50px!important;margin-right:20px!important;" src="http://cdn.66173.cn/mobile/css/img/11/close.png?t=4?t=3" alt=""></div>
+            <img src="http://cdn.66173.cn/mobile/css/img/thanksgiving/ku.png?t=4" width="80px" style="margin-top:20px" alt="">
+            <p>没有抽奖机会了。</p>
+            <div style="width:20px;height:10px;"></div>
+            <div class="bog_box">
+                <span style="font-size:12px;line-height:12px;">点击分享让更多小伙伴参与!!!</span>
+                <a class="share_draw_1 click_weixin" href="#;"><li id="weixin"></li></a>
+                <a class="share_draw_1" target="_blank" href="http://service.weibo.com/share/share.php?url=http%3A%2F%2Fm.66173.cn%2F%2Factivity.php%3Fact%3Dindex%23box_game2%230-tsina-1-33350-397232819ff9a47a7b7e80a40613cfe1&title=牛牛感恩大回馈 免费充值等你来&appkey=1343713053&searchPic=true#_loginLayer_1478681942893" title="分享到微博"><li id="weibo"></li></a>
+                <a class="share_draw_1" target="_blank" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http%3A%2F%2Fm.66173.cn%2F%2Factivity.php%3Fact%3Dindex%23box_game2%230-qzone-1-5208-d020d2d2a4e8d1a374a433f596ad1440&title=牛牛感恩大回馈 免费充值等你来&desc=&summary=木有南瓜也木有火鸡。只有免费充值！&site=" title="分享到空间"><li id="qqkj"></li></a>
+                <a class="share_draw_1" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http%3A%2F%2Fm.66173.cn%2F%2Factivity.php%3Fact%3Dindex%23box_game2%230-sqq-1-61392-9737f6f9e09dfaf5d3fd14d775bfee85&title=牛牛感恩大回馈 免费充值等你来&desc=&summary=木有南瓜也木有火鸡。只有免费充值！&site=baidu" title="分享到"><li id="qq"></li></a>
+                <div class="weixin_show"><i>X</i></div>
+            </div>
+        </div>
+    </div>
+<!--<div id="bbbox"><span>敬请期待......</span></div>-->
+    <img id="ac_header" src="http://cdn.66173.cn/mobile/css/img/thanksgiving/banner.jpg?t=2222" alt="">
+    <div id="box_game1" class="all_box">
+        <div class="box_left">
+            <div class="header">
+                <span>放开那三国2</span>
+            </div>
+            <div class="left-box">
+                {if $g_rod_1 eq null and $game_1 eq null}
+                <div class="cover">
+                    <img class="cover1" src="http://cdn.66173.cn/mobile/css/img/11/qiangg.png?t=4" alt="">
+                </div>
+                {/if}
+                {if $game_1 eq null}
+
+                     <a class="coupon_hide" href="javascript:get_gifts_game(241);"><img class="click_1" src="http://cdn.66173.cn/mobile/css/img/11/check_1.png?t=4" alt=""></a>
+                {else}
+                     <a href="javascript:get_gifts_game(241);"><img class="click_1" src="http://cdn.66173.cn/mobile/css/img/11/use.png?t=4" alt=""></a>
+                {/if}
+                     <a class="coupon_show" href="javascript:get_gifts_game(241);"><img class="click_1" src="http://cdn.66173.cn/mobile/css/img/11/use.png?t=4" alt=""></a>
+            </div>
+            <div class="right-box" id="m_1">
+                <i>5.5折优惠劵</i>
+                {if $c_rod_1 eq null and $coupun_1 eq null}
+                <div class="cover">
+                    <img class="cover1" src="http://cdn.66173.cn/mobile/css/img/11/qiangg.png?t=4" alt="">
+                </div>
+                {/if}
+                {if $coupon_1 eq null}
+                     <a class="coupon_hide" href="javascript:receive_coupon(80)"><img class="click_2" src="http://cdn.66173.cn/mobile/css/img/11/check_1.png?t=4" alt=""></a>
+                {else}
+                     <a onclick="_hmt.push(['_trackEvent', 'nav', 'click', 'literature'])" href="http://m.66173.cn/game1600/character"><img class="click_2" src="http://cdn.66173.cn/mobile/css/img/11/use.png?t=4" alt=""></a>
+                {/if}
+                     <a class="coupon_show" onclick="_hmt.push(['_trackEvent', 'nav', 'click', 'literature'])" href="http://m.66173.cn/game1600/character"><img class="click_2" src="http://cdn.66173.cn/mobile/css/img/11/use.png?t=4" alt=""></a>
+            </div>
+        </div>
+        <div class="box_right">
+            <div class="game_img"><img src="http://cdn.66173.cn/mobile/css/img/11/game1.png?t=4" alt=""></div>
+            <a href="http://apk.66173.cn/1012/FKNSG2_20161020_v1.0_66173.apk">
+            <div class="down_1">
+                <img src="http://cdn.66173.cn/mobile/css/img/11/andorpic.png?t=4" alt="">
+                <p id="cccc">安卓端下载</p>
+            </div>
+            </a>
+        </div>
+    </div>
+
+    <div id="box_game2" class="all_box">
+        <div class="box_left box_left_new">
+            <div class="header">
+                <span>全民奇迹</span>
+            </div>
+            <div class="new_box">
+                {if $g_rod_2 eq null and $game_2 eq null}
+                <div class="cover">
+                    <img class="cover1" src="http://cdn.66173.cn/mobile/css/img/11/qiangg.png?t=4" alt="">
+                </div>
+                {/if}
+                {if $game_2 eq null}
+                     <a class="coupon_hide" href="javascript:get_gifts_game(277);"><img class="click_1" src="http://cdn.66173.cn/mobile/css/img/11/check_1.png?t=4" alt=""></a>
+                {else}
+                     <a href="javascript:get_gifts_game(277);"><img class="click_1" src="http://cdn.66173.cn/mobile/css/img/11/use.png?t=4" alt=""></a>
+                {/if}
+                     <a class="coupon_show" href="javascript:get_gifts_game(277);"><img class="click_1" src="http://cdn.66173.cn/mobile/css/img/11/use.png?t=4" alt=""></a>
+            </div>
+            <div class="right-box rnew_box">
+                <i style="margin-top:.3rem;">4.5折优惠劵</i>
+                <i style="margin-top:.6rem;font-size:.14rem;">限IOS端使用</i>
+                {if $c_rod_2 eq null and $coupun_2 eq null}
+                <div class="cover">
+                    <img class="cover1" src="http://cdn.66173.cn/mobile/css/img/11/qiangg.png?t=4" alt="">
+                </div>
+                {/if}
+                {if $coupon_2 eq null}
+                    <a class="coupon_hide" href="javascript:receive_coupon(132)"><img class="click_2" src="http://cdn.66173.cn/mobile/css/img/11/check_1.png?t=4" alt=""></a>
+                {else}
+                    <a onclick="_hmt.push(['_trackEvent', 'nav', 'click', 'literature'])" href="http://m.66173.cn/game84/character"><img class="click_2" src="http://cdn.66173.cn/mobile/css/img/11/use.png?t=4" alt=""></a>
+                {/if}
+                    <a onclick="_hmt.push(['_trackEvent', 'nav', 'click', 'literature'])" class="coupon_show" href="http://m.66173.cn/game84/character"><img class="click_2" src="http://cdn.66173.cn/mobile/css/img/11/use.png?t=4" alt=""></a>
+            </div>
+        </div>
+        <div class="box_right box_right_new">
+            <div class="game_img"><img src="http://cdn.66173.cn/mobile/css/img/11/game2.png?t=3" alt=""></div>
+            <a href="http://down.52tt.com/gamed?game_id=201508375&chnl_id=2441459&cp_id=Y2441459">
+                <div class="down_1">
+                    <img src="http://cdn.66173.cn/mobile/css/img/11/andorpic.png?t=3" alt="">
+                    <p>安卓端下载</p>
+                </div>
+            </a>
+            <a href="http://gh.le890.com/channel/install.php?cid=youxi1115&bid=8bdc2a8743d86f3ee105d2ba690e7699">
+                <div class="down_2">
+                    <img src="http://cdn.66173.cn/mobile/css/img/11/iospic.png?t=4" alt="">
+                    <p>IOS端下载</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div id="box_game3" class="all_box">
+        <div class="box_left box_left_new">
+            <div class="header">
+                <span>阴阳师</span>
+            </div>
+            <div class="left-box">
+                {if $g_rod_3 eq null and $game_3 eq null}
+                <div class="cover">
+                    <img class="cover1" src="http://cdn.66173.cn/mobile/css/img/11/qiangg.png?t=4" alt="">
+                </div>
+                {/if}
+                {if $game_3 eq null}
+                     <a class="coupon_hide" href="javascript:get_gifts_game(273);"><img class="click_1" src="http://cdn.66173.cn/mobile/css/img/11/check_1.png?t=4" alt=""></a>
+                {else}
+                     <a href="javascript:get_gifts_game(273);"><img class="click_1" src="http://cdn.66173.cn/mobile/css/img/11/use.png?t=4" alt=""></a>
+                {/if}
+                     <a class="coupon_show" href="javascript:get_gifts_game(273);"><img class="click_1" src="http://cdn.66173.cn/mobile/css/img/11/use.png?t=4" alt=""></a>
+            </div>
+            <div class="right-box">
+                <i>5.5折优惠劵</i>
+                {if $c_rod_3 eq null and $coupun_3 eq null}
+                <div class="cover">
+                    <img class="cover1" src="http://cdn.66173.cn/mobile/css/img/11/qiangg.png?t=4" alt="">
+                </div>
+                {/if}
+                {if $coupon_3 eq null}
+                    <a class="coupon_hide" href="javascript:receive_coupon(118)"><img class="click_2" src="http://cdn.66173.cn/mobile/css/img/11/check_1.png?t=4" alt=""></a>
+                {else}
+                    <a onclick="_hmt.push(['_trackEvent', 'nav', 'click', 'literature'])" href="http://m.66173.cn/game1566/character"><img class="click_2" src="http://cdn.66173.cn/mobile/css/img/11/use.png?t=4" alt=""></a>
+                {/if}
+                    <a class="coupon_show" onclick="_hmt.push(['_trackEvent', 'nav', 'click', 'literature'])" href="http://m.66173.cn/game1566/character"><img class="click_2" src="http://cdn.66173.cn/mobile/css/img/11/use.png?t=4" alt=""></a>
+            </div>
+        </div>
+        <div class="box_right box_right_new">
+            <div class="game_img"><img src="http://cdn.66173.cn/mobile/css/img/11/game3.png?t=4" alt=""></div>
+            <a href="http://apk.66173.cn/1017/yys_kp_66173.apk">
+                <div class="down_1">
+                    <img src="http://cdn.66173.cn/mobile/css/img/11/andorpic.png?t=4" alt="">
+                    <p>安卓端下载</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div id="box_game4" class="all_box">
+        <div class="box_left box_left_new">
+            <div class="header">
+                <span>天龙八部3D</span>
+            </div>
+            <div class="left-box">
+                {if $g_rod_4 eq null and $game_4 eq null}
+                <div class="cover">
+                    <img class="cover1" src="http://cdn.66173.cn/mobile/css/img/11/qiangg.png?t=4" alt="">
+                </div>
+                {/if}
+                {if $game_4 eq null}
+                    <a class="coupon_hide" href="javascript:get_gifts_game(270);"><img class="click_1" src="http://cdn.66173.cn/mobile/css/img/11/check_1.png?t=4" alt=""></a>
+                {else}
+                    <a href="javascript:get_gifts_game(270);"><img class="click_1" src="http://cdn.66173.cn/mobile/css/img/11/use.png?t=4" alt=""></a>
+                {/if}
+                    <a class="coupon_show" href="javascript:get_gifts_game(270);"><img class="click_1" src="http://cdn.66173.cn/mobile/css/img/11/use.png?t=4" alt=""></a>
+            </div>
+            <div class="right-box">
+                <i style="margin-top:.3rem;">4.5折优惠劵</i>
+                <i style="margin-top:.6rem;font-size:.14rem;">限IOS端使用</i>
+                {if $c_rod_4 eq null and $coupun_4 eq null}
+                <div class="cover">
+                    <img class="cover1" src="http://cdn.66173.cn/mobile/css/img/11/qiangg.png?t=4" alt="">
+                </div>
+                {/if}
+                {if $coupon_4 eq null}
+                     <a class="coupon_hide" href="javascript:receive_coupon(119)"><img class="click_2" src="http://cdn.66173.cn/mobile/css/img/11/check_1.png?t=4" alt=""></a>
+                {else}
+                    <a onclick="_hmt.push(['_trackEvent', 'nav', 'click', 'literature'])" href="http://m.66173.cn/game8/character"><img class="click_2" src="http://cdn.66173.cn/mobile/css/img/11/use.png?t=4" alt=""></a>
+                {/if}
+                    <a class="coupon_show" style="display:none;" onclick="_hmt.push(['_trackEvent', 'nav', 'click', 'literature'])" href="http://m.66173.cn/game8/character"><img class="click_2" src="http://cdn.66173.cn/mobile/css/img/11/use.png?t=4" alt=""></a>
+            </div>
+        </div>
+        <div class="box_right box_right_new">
+            <div class="game_img"><img src="http://cdn.66173.cn/mobile/css/img/11/game4.png?t=4" alt=""></div>
+            <a href="http://down.52tt.com/gamed?game_id=201607046&chnl_id=3157177&cp_id=Y3157177">
+                <div class="down_1">
+                    <img src="http://cdn.66173.cn/mobile/css/img/11/andorpic.png?t=4" alt="">
+                    <p>安卓端下载</p>
+                </div>
+            </a>
+            <a href="http://gh.le890.com/channel/install.php?cid=youxi1115&bid=1e5806e038a29349e8a32fa06b7a2db5">
+                <div class="down_2">
+                    <img src="http://cdn.66173.cn/mobile/css/img/11/iospic.png?t=4" alt="">
+                    <p>IOS端下载</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div id="box_game5" class="all_box">
+        <div class="box_left box_left_new">
+            <div class="header">
+                <span>口袋妖怪重制</span>
+            </div>
+            <div class="left-box">
+                {if $g_rod_5 eq null and $game_5 eq null}
+                <div class="cover">
+                    <img class="cover1" src="http://cdn.66173.cn/mobile/css/img/11/qiangg.png?t=4" alt="">
+                </div>
+                {/if}
+                {if $game_5 eq null}
+                    <a  class="coupon_hide" href="javascript:get_gifts_game(276);"><img class="click_1" src="http://cdn.66173.cn/mobile/css/img/11/check_1.png?t=4" alt=""></a>
+                {else}
+                    <a href="javascript:get_gifts_game(276);"><img class="click_1" src="http://cdn.66173.cn/mobile/css/img/11/use.png?t=4" alt=""></a>
+                {/if}
+                    <a class="coupon_show" href="javascript:get_gifts_game(276);"><img class="click_1" src="http://cdn.66173.cn/mobile/css/img/11/use.png?t=4" alt=""></a>
+            </div>
+            <div class="right-box">
+                <i style="margin-top:.3rem;">4.5折优惠劵</i>
+                <i style="margin-top:.6rem;font-size:.14rem;">限IOS端使用</i>
+                {if $c_rod_5 eq null and $coupun_5 eq null}
+                <div class="cover">
+                    <img class="cover1" src="http://cdn.66173.cn/mobile/css/img/11/qiangg.png?t=4" alt="">
+                </div>
+                {/if}
+                {if $coupon_5 eq null}
+                    <a class="coupon_hide" href="javascript:receive_coupon(133)"><img class="click_2" src="http://cdn.66173.cn/mobile/css/img/11/check_1.png?t=4" alt=""></a>
+                {else}
+                    <a onclick="_hmt.push(['_trackEvent', 'nav', 'click', 'literature'])" href="http://m.66173.cn/game1519/character"><img class="click_2" src="http://cdn.66173.cn/mobile/css/img/11/use.png?t=4" alt=""></a>
+                {/if}
+                    <a class="coupon_show" onclick="_hmt.push(['_trackEvent', 'nav', 'click', 'literature'])" href="http://m.66173.cn/game1519/character"><img class="click_2" src="http://cdn.66173.cn/mobile/css/img/11/use.png?t=4" alt=""></a>
+            </div>
+        </div>
+        <div class="box_right box_right_new">
+            <div class="game_img"><img src="http://cdn.66173.cn/mobile/css/img/11/game5.png?t=3" alt=""></div>
+            <a href="http://down.52tt.com/gamed?game_id=201606015&chnl_id=2441459&cp_id=Y2441459">
+                <div class="down_1">
+                    <img src="http://cdn.66173.cn/mobile/css/img/11/andorpic.png?t=4" alt="">
+                    <p>安卓端下载</p>
+                </div>
+            </a>
+            <a href="http://dl.guopan.cn/iosweb/d.php?appid=104881&cid=13705">
+                <div class="down_2">
+                    <img src="http://cdn.66173.cn/mobile/css/img/11/iospic.png?t=4" alt="">
+                    <p>IOS端下载</p>
+                </div>
+            </a>
+        </div>
+</div>
+
+    <div id="draw_box">
+        <div class="draw_content">
+            <div id="lottery" class="lottery_box">
+                <table>
+                    <tr>
+                        <td class="lottery-unit lottery-unit-0"><img  src="http://cdn.66173.cn/mobile/css/img/thanksgiving/198.png?t=4"></td>
+                        <td class="lottery-unit lottery-unit-1"><img style="width:.8rem!important;height:1rem!important;" src="http://cdn.66173.cn/mobile/css/img/thanksgiving/ku.png?t=4"></td>
+                        <td class="lottery-unit lottery-unit-2"><img  src="http://cdn.66173.cn/mobile/css/img/thanksgiving/98.png?t=4"></td>
+                    </tr>
+                    <tr>
+                        <td class="lottery-unit lottery-unit-7"><img src="http://cdn.66173.cn/mobile/css/img/thanksgiving/6.png?t=4"></td>
+                        <td class="now_draw"><a id="click" href="#;"><img src="http://cdn.66173.cn/mobile/css/img/thanksgiving/nowcheck.png?t=4"></a></td>
+                        <td class="lottery-unit lottery-unit-3"><img  src="http://cdn.66173.cn/mobile/css/img/thanksgiving/648.png?t=4"></td>
+                    </tr>
+                    <tr>
+                        <td class="lottery-unit lottery-unit-6"><img height="75" src="http://cdn.66173.cn/mobile/css/img/thanksgiving/30.png?t=4"></td>
+                        <td class="lottery-unit lottery-unit-5"><img style="width:.8rem!important;height:1rem!important;" height="75" src="http://cdn.66173.cn/mobile/css/img/thanksgiving/ku.png?t=4"></td>
+                        <td class="lottery-unit lottery-unit-4"><img height="75" src="http://cdn.66173.cn/mobile/css/img/thanksgiving/328.png?t=4"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!--关注好礼 一键加群-->
+    <div id="foot">
+        <div id="foot_box">
+            <img src="http://cdn.66173.cn/mobile/css/img/11/code2.png?t=4" alt="">
+            <ul>
+                <li>1.打开微信，搜索公众号，</li>
+                <li>2.输入66173手游交易平台，点击关注</li>
+                <li>3.或者长按二维码关注微信公众号，</li>
+                <li>4.点击游戏礼包，代金券等你拿！</li>
+            </ul>
+            <div style="clear:both"></div>
+            <div id="foot_bottom">
+                <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=91a4fb37373cc4fbdfc88d06cf0a61149c2ff54da8b87af5d8e0472ef7fe5c5b"><span>一键加群</span></a>
+                <p>&nbsp;&nbsp;&nbsp;(9463101)“裙内”福利，好礼相送</p>
+            </div>
+        </div>
+    </div>
+    <div class="activity_rule">
+        <div class="rule_box">
+            <ul>
+                <li>活动规则</li>
+                <li>活动参与方式：</li>
+                <li>1、活动期间，登录即可领取游戏礼包、游戏充值折扣券，数量有限，领完即止。</li>
+                <li>2、活动期间，登录即可参加一次抽奖活动，有几率获得优惠劵，可充值任意游戏！每人</li>
+                <li>一次，分享可额外增加一次。</li>
+                <li></li>
+                <li>使用方式:</li>
+                <li>1、游戏礼包码将发放到您的66173账号，进入游戏→使用礼包码→兑换相应礼包。</li>
+                <li>2、活动代金券，将直接发放至您的66173账户中，购买商品时选择优惠劵即可使用！</li>
+                <li>本次活动最终解释权归66173所有。</li>
+            </ul>
+        </div>
+    </div>
+    <!--登入弹窗-->
+    <div id="login"></div>
+
+
+    <!--活动页尾部-->
+    <div id="footer">
+        <ul>
+            <li style="list-style:none">用心创造安全交易 © m.66173.cn</li>
+            <li style="list-style:none">客服热线：0591-87766173</li>
+        </ul>
+    </div>
+
+
+    {literal}
+    <script src="http://static.66173.cn/mobile/v2/scripts/script.js"></script>
+    <script src="http://static.66173.cn/mobile/v2/scripts/index.js"></script>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        $(function(){
+            var timer;
+            $(window).scroll(function (){
+                clearInterval(timer);
+                var topScroll=getScroll();
+                var topDiv="160px";
+                var top=topScroll+parseInt(topDiv);
+                timer=setInterval(function(){
+                    $("#alert_box,.draw_alert_box").stop(true).animate({"top":top},50);
+                },50)
+            })
+        });
+        function getScroll(){
+            var bodyTop = 0;
+            if (typeof window.pageYOffset != 'undefined') {
+                bodyTop = window.pageYOffset;
+            } else if (typeof document.compatMode != 'undefined' && document.compatMode != 'BackCompat') {
+                bodyTop = document.documentElement.scrollTop;
+            }
+            else if (typeof document.body != 'undefined') {
+                bodyTop = document.body.scrollTop;
+            }
+            return bodyTop
+        }
+
+        $(".click_weixin").click(function(){
+            $(".weixin_show").show();
+        });
+        $(".close1").click(function(){
+            $(".draw_1").hide();
+            $("#black").hide();
+        });
+
+        $(".close2").click(function(){
+            $(".draw_2").hide();
+            $("#black").hide();
+        });
+
+        $(".close3").click(function(){
+            $(".draw_3").hide();
+            $("#black").hide();
+        });
+
+        $(".close4").click(function(){
+            $(".draw_4").hide();
+            $("#black").hide();
+        });
+
+        $(".close5").click(function(){
+            $(".draw_5").hide();
+            $("#black").hide();
+        });
+
+        $(".close6").click(function(){
+            $(".draw_6").hide();
+            $("#black").hide();
+        });
+
+        $("#nav a").click(function(){
+            $("#nav a li span").attr("class","");
+            $(this).children("li").children("span").attr("class","click_on");
+        });
+        $("#close").click(function(){
+            $("#hide_alert").hide();
+            $("#black").hide();
+        });
+        $(".weixin_show i").click(function(){
+            $(".weixin_show").hide();
+            $("#black").hide();
+        });
+
+        $(window).scroll(function(){
+            var v =  $("#ac_header").height();
+            var aa = $(document).scrollTop();
+            if(aa>v){
+                $("#float_box").attr("class","fiexd");
+            }else{
+                $("#float_box").attr("class","");
+            }
+        });
+        var wWidth = $(window).width();
+        if(wWidth < 400){
+            $("#red1").attr("class","red1");
+        }else{
+            $("#red1").attr("class","");
+        }
+        $(".coupon_hide").click(function(){
+            var user_id = $('#user_id').val();
+            if(user_id){
+                $(this).next(".coupon_show").show();
+                $(this).remove();
+            }
+        });
+        $(".share_click").click(function(){
+            var user_id = $('#user_id').val();
+            //判断user_id
+            if(!user_id){
+                $('body,html').animate({scrollTop:0},0);
+                $("#login").load("/ajax/login",function(responseTxt,statusTxt,xhr){
+                    if(statusTxt=="error"){
+                        $("#login").html("<h5>加载数据失败</h5>");
+                    }
+                }).css("display","block");
+                $("#login").find("input[name='mobile']").focus();
+                return false;
+            }
+            $.ajax({
+                type:'post',
+                url:'/activity.php?act=ajax_get_coupon',
+                data:{
+                    user_id: user_id,
+                    coupon_id: 120
+                },
+                dataType: 'json',
+                success: function (json) {
+                    if(json.msg==1){
+                        $("#desc_1_1").html("恭喜您成功领取6元通用卷!").attr("style","line-hight:16px;font-size:16px;");
+                        $("#desc_2_1").html("请至66173官网使用").attr("style","line-hight:16px;font-size:16px;");
+                        $("#desc_3_1").html("");
+                        setTimeout(alert,20000);
+                        function alert(){
+                            $("#hide_alert").show();
+                            $("#black").show();
+                        }
+                    }
+                }
+            })
+        })
+    </script>
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "//hm.baidu.com/hm.js?1f0a1f65ba01082e76f89fd1b54a087a";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"32"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+    {/literal}
+    <input type="hidden" name="cate_type" value="2" />
+    <input type="hidden" name="user_id" value="{$user_id}" id="user_id">
+</div>
+</body>
+</html>

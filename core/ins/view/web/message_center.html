@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>消息中心</title>
+    {include file="web/include/head_common.html"}
+    {if $orientation != "p"}
+        <link rel="stylesheet" href="//cdn.66173.cn/ins/css/web_h/message_rel.css?t={$smarty.now}">
+    {else}
+        <link rel="stylesheet" href="//cdn.66173.cn/ins/css/web_v/message_rel.css?t={$smarty.now}">
+    {/if}
+    {include file="web/include/head_script.html"}
+</head>
+<body class="message-rel message-center">
+{include file="web/include/menu_bar.html"}
+<div class="main-wrapper  main-wrapper-verticle-middle">
+    {if $info}
+    <div class="message-wrapper">
+        <ul class="message-ul">
+            {foreach from=$info item=data}
+            <a href="/web.php?act=message_detail&id={$data.id}">
+                <li class="message-item">
+                    <div class="left">
+                        {if $data.type eq 1}
+                        <span class="message-icon {if $data.is_read neq 1}message-system-unread{else} message-system{/if} "></span>
+                        {else if $data.type eq 2}
+                        <span class="message-icon {if $data.is_read neq 1}message-service-unread{else} message-service{/if} "></span>
+                        {else if $data.type eq 3}
+                        <span class="message-icon {if $data.is_read neq 1}message-activity-unread{else} message-activity{/if} "></span>
+                        {/if}
+                    </div>
+                    {if $orientation != "p"}
+                        <div class="center">
+                            <div class="text-overflow title font-mder">{if $data.type eq 1}[系统]{else if $data.type eq 2}[客服]{else if $data.type eq 3}[活动]{/if}{$data.title}</div>
+                            <div class="text-overflow desc font-md">{$data.subtitle}</div>
+                        </div>
+                        <div class="right">
+                            <div class="text-overflow time font-md">{$data.push_time|date_format:"%Y-%m-%d"}</div>
+                            <span class="box"></span>
+                        </div>
+                    {else}
+                        <div class="center">
+                            <div class="text-overflow title font-mder">{if $data.type eq 1}[系统]{else if $data.type eq 2}[客服]{else if $data.type eq 3}[活动]{/if}{$data.title}</div>
+                            <div class="line2">
+                                <div class="text-overflow desc font-md">{$data.subtitle}</div>
+                                <div class="text-overflow time font-md">{$data.push_time|date_format:"%Y-%m-%d"}</div>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <span class="box"></span>
+                        </div>
+                    {/if}
+                </li>
+            </a>
+            {/foreach}
+        </ul>
+        {if count($info) eq 10}
+        <div class="font-md get-status"><span class="more-btn more-btn-can">加载更多</span></div>
+        {else}
+        <div class="font-md get-status">没有了~</div>
+        {/if}
+    </div>
+    {else}
+    <div class="no-message">
+        <div class="main-inner">
+            <div class="done-img-zone img-zone"><img class="no-list-img" src="//cdn.66173.cn/ins/img/web_h/no_record.png"/></div>
+            <div class="font-mder text">您暂时没有消息~</div>
+        </div>
+    </div>
+    {/if}
+</div>
+</body>
+<script>
+    var orientation = $("#orientation").val();
+    var curPage = 1;
+    var getMoreTimeout;
+    var ajaxInstance;
+    // 加载更多
+    // getMessage();
+    // 点击加载更多按钮
+    $(".message-center").on("click", ".more-btn-can", function() {
+        $(".more-btn").removeClass("more-btn-can").html("加载中...");
+        getMessage();
+        commonS.btnTimeOutControl(".more-btn", "more-btn-can", getMoreTimeout, 3000);
+    })
+    // 获取消息列表
+    function getMessage() {
+        var reqPage = curPage + 1;
+        ajaxInstance = commonM.ajax({
+            url: "/web.php?act=more",
+            type: 'post',
+            dataType: 'text',
+            data: {
+                page:reqPage
+            },
+            success: function(res){
+                // type : 1是活动消息，1是客服消息，3是系统消息
+                var code = res.result;
+                var messages = res.info || [];
+                if(code == 1) {
+                    var content = "";
+                    // 返回有消息，无论是第一页还是其他页
+                    if (messages.length != 0) {
+                        for(var i = 0; i < messages.length; i++) {
+                            content += '<a  href="/web.php?act=message_detail&id='+messages[i]['id']+'"><li class="message-item">'
+                                + '<div class="left"><span class="message-icon ';
+                            if(messages[i]['type'] == 1) {
+                                if(messages[i]['is_read'] == '1'){
+                                    content += 'message-system'
+                                }else{
+                                    content += 'message-system-unread'
+                                }
+                            } else if(messages[i]['type'] == 2) {
+                                if(messages[i]['is_read'] == '1'){
+                                    content += 'message-service'
+                                }else{
+                                    content += 'message-service-unread'
+                                }
+                            } else if(messages[i]['type'] == 3) {
+                                if(messages[i]['is_read'] == '1'){
+                                    content += 'message-activity'
+                                }else{
+                                    content += 'message-activity-unread'
+                                }
+                            }
+                            content += '" ></span></div>';
+                            if(orientation != 'p') {
+                                content += '<div class="center">'
+                                    + '<div class="text-overflow title font-mder">' + messages[i]['title'] + '</div>'
+                                    + '<div class="text-overflow desc font-md">' + messages[i]['subtitle'] + '</div></div>'
+                                    + '<div class="right">'
+                                    + '<div class="text-overflow font-md time">' + getLocalTime(messages[i]['push_time'], 1) + '</div>'
+                                    + '<span class="box"></span>'
+                                    + '</div>';
+                            } else {
+                                content += '<div class="center">'
+                                        + '<div class="text-overflow title font-mder">' + messages[i]['title'] + '</div>'
+                                        + '<div class="line2">'
+                                        + '<div class="text-overflow desc font-md">' + messages[i]['subtitle'] + '</div>'
+                                        + '<div class="text-overflow font-md time">' + getLocalTime(messages[i]['push_time'],1) + '</div>'
+                                        + '</div></div>'
+                                        + '<div class="right">'
+                                        + '<span class="box"></span>'
+                                        + '</div>';
+                            }
+                            content += '</li></a>'
+                        }
+                        $(".message-ul").append(content);
+                        if(messages.length < 10) {
+                            $(".get-status").html("没有了~");
+                        }
+                        else {
+                            $(".get-status").html('<span class="more-btn more-btn-can">加载更多</span>');
+                        }
+                        curPage++;
+                    }
+                    // 第一页就没有消息或者其他页没有更多了
+                    else {
+                        $(".get-status").html("没有了~").show();
+                    }
+                }
+                else {
+                    commonS.tip(res.desc);
+                }
+            }
+        }, ajaxInstance)
+    }
+</script>
+</html>

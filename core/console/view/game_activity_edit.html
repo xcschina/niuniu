@@ -1,0 +1,347 @@
+<link href="kindeditor/plugins/select2/multi-select.css"  rel="stylesheet" type="text/css" />
+<link href="kindeditor/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="kindeditor/plugins/select2/bootstrap-select.min.css" rel="stylesheet" />
+<script type="text/javascript" src="kindeditor/plugins/select2/jquery.multi-select.js"></script>
+<script type="text/javascript" src="kindeditor/plugins/select2/jquery.quicksearch.js"></script>
+<script src="kindeditor/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="kindeditor/plugins/select2/bootstrap-select.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(".coupon-select").select2();
+    $(function(){
+        $("select[name=game_id]").chosen();
+        $("select[name=discount]").chosen();
+    })
+</script>
+<style>
+    .option{
+        width:55px;
+    }
+</style>
+<div class="bjui-pageContent">
+    <form action="game_activity.php?act=activity_edit"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">活动名：</label>
+                    <input type="text" name="activity_name" value="{$info.activity_name}" cols="18" rows="1"  class="form-control" data-rule="required">
+                    <input type="hidden" name="id" value="{$info.id}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">关联游戏：</label>
+                    <select class="type" name="game_id">
+                        <option value="{$info.game_id}" {if $params.game_id eq ''}selected="selected"{/if}>{if $info.game_id= '' }请选择{else}{$info.game_name}{/if}</option>
+                        {foreach from=$game_list item=play}
+                        <option value="{$play.id}" {if $params.game_id eq $play.id}selected="selected"{/if}>{$play.game_name}-{$play.id}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">关联礼包：</label>
+                    <select class="select2 select2-multiple coupon-select" id="select2-multiple" multiple="multiple" data-placeholder="请选择礼包"  style="width:291px;" name="gift_id[]">
+                        {foreach from=$gifts item=gift}
+                        <option value="{$gift.id}" {if in_array($gift.id,$gift_id)}selected='selected'{/if}>{$gift.title}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">关联优惠券：</label>
+                    <select class="select2 select2-multiple coupon-select" id="select2" multiple="multiple" data-placeholder="请选择优惠券" style="width:291px;"  name="coupon_id[]">
+                        {foreach from=$coupons  item=cou}
+                        <option value="{$cou.coupon_id}"{if in_array($cou.coupon_id,$coupon_id)}selected='selected'{/if} >{$cou.name}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">关联全场优惠券：</label>
+                    <select class="select2 select2-multiple coupon-select" multiple="multiple" data-placeholder="请选择优惠券" style="width:291px;" name="full_id[]">
+                        {foreach from=$full_list item=full}
+                        <option value="{$full.coupon_id}" {if in_array($full.coupon_id,$full_id)}selected='selected'{/if} >{$full.name}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">PC背景图：</label>
+                    <input id="game_img_add" type="file" name="pc_img[]"  style="display: none"  multiple/>
+                    <span id="game_add_preview" style="color: #ff0000">
+                         {foreach from=$pc_img item=pc}
+                          <img src="http://cdn.66173.cn/{$pc}" width="100px" height="120px">
+                        {/foreach}
+                    </span>
+                    <input type="hidden" name="old_pc_img" value="{$info.pc_img}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120"></label>
+                    <a href="javascript:void(0)" class="btn btn-default btn-sm Huploadify-button" id="game_img_bnt">选择图片</a><label style="color:red">(布图顺序：左图，中上图，中下图，右图)</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">M站背景图：</label>
+                    <input id="game_m_add" type="file" name="m_img[]"  style="display: none"  multiple/>
+                    <span id="game_preview" style="color: #ff0000" >
+                            {foreach from=$m_img item=m}
+                            <img src="http://cdn.66173.cn{$m}" width="100px" height="120px">
+                            {/foreach}
+                    </span>
+                    <input type="hidden" name="old_m_img" value="{$info.m_img}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120"></label>
+                    <a href="javascript:void(0)" class="btn btn-default btn-sm Huploadify-button" id="game_m_bnt">选择图片</a><label  style="color:red">(布图顺序：上图，下图)</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">宝箱产品展示图：</label>
+                    <input id="game_box_add" type="file" name="box_img[]"  style="display: none"multiple/>
+                    <span id="game_box_preview" style="color: #ff0000">
+                            {foreach from=$box_img item=box}
+                            <img src="http://cdn.66173.cn{$box}" width="100px" height="120px">
+                            {/foreach}
+                    </span>
+                    <input type="hidden" name="old_box_img" value="{$info.box_img}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120"></label>
+                    <a href="javascript:void(0)" class="btn btn-default btn-sm Huploadify-button" id="game_box_bnt">选择图片</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏下载地址：</label>
+                    <input type="text" name="down_url" value="{$info.down_url}" cols="18" rows="1"  class="form-control" data-rule="required">
+                    <label style="color:red">(请以http://开头)</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">活动规则：</label>
+                    <textarea name="activity_rules" cols="80" data-toggle="autoheight" class="form-control" data-rule="required">{$info.activity_rules}</textarea>
+                </td>
+            </tr>
+            <tr >
+                <td colspan="4">
+                    <label  class="control-label x120">活动起始时间：</label>
+                    <input type="text"  name="start_time" value="{'Y-m-d H:i:s'|date:$info.start_time}" data-toggle="datepicker" data-rule="required" data-pattern="yyyy-MM-dd H:m:s" size="20" >
+                </td>
+            </tr>
+            <tr >
+                <td colspan="4">
+                    <label  class="control-label x120">活动结束时间：</label>
+                    <input type="text"  value="{'Y-m-d H:i:s'|date:$info.end_time}" name="end_time" data-toggle="datepicker" data-rule="required" data-pattern="yyyy-MM-dd H:m:s" size="20" >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">分享标题：</label>
+                    <input type="text" name="share_title" value="{$info.share_title}" cols="20" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">分享附送的消息：</label>
+                    <textarea type="text" name="share_msg" value="" cols="30" rows="1"  class="form-control" data-rule="required">{$info.share_msg}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">分享简介：</label>
+                    <textarea name="share_desc" cols="30" data-toggle="autoheight" class="form-control" data-rule="required">{$info.share_desc}</textarea>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+<script>
+    $(function(){
+        $(".type").change(function(e){
+                $('li.select2-search-choice').remove();
+                var game_id = e.target.value;
+                $.ajax({
+                    url: 'game_activity.php?act=gift_info',
+                    data: {
+                        game_id: game_id,
+                    },
+                    dataType: "json",
+                    type: "get"
+                }).success(function(res) {
+                    var arr = "";
+                    var str ="";
+                    var gif = res.gift;
+                    var cou = res.coupon;
+                    for (var i=0;i<gif.length;i++)
+                    {
+                        arr +=" <option value="+gif[i].id+" >"+gif[i].title+"</option>"
+                    }
+                    for (var i=0;i<cou.length;i++)
+                    {
+                        str +=" <option value="+cou[i].coupon_id+" >"+cou[i].name+"</option>"
+                    }
+                    $("#select2-multiple").html(arr);
+                    $("#select2").html(str);
+                });
+
+            })
+            $("#game_img_bnt").bind('click',function(){
+            var ie=navigator.appName=="Microsoft Internet Explorer" ? true : false;
+            if(ie){
+                $("#game_img_add").click;
+            }else{
+                var a=document.createEvent("MouseEvents");
+                a.initEvent("click", true, true);
+                document.getElementById("game_img_add").dispatchEvent(a);
+            }
+        })
+
+        rFilter = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/jpeg|image\/jpeg|image\/png|)$/i;
+        (function () {
+            var viewFiles = document.getElementById("game_img_add");
+            function viewFile (file,i) {
+                html = $("#game_add_preview").html();
+                //通过file.size可以取得图片大小
+                var reader = new FileReader();
+                reader.onload = function(evt){
+                    html +="<img style='height: 120px;width: 100px;margin-right: 10px;'  src=\""+evt.target.result+"\" />";
+                    $("#game_add_preview").html(html);
+                }
+                reader.readAsDataURL(file);
+            }
+            viewFiles.addEventListener("change", function () {
+                for(i=0;imgFile = document.getElementById("game_img_add").files[i];i++){
+                    if(i>3){
+                        document.getElementById("game_img_add").value="";
+                        $("#game_add_preview").html("最多4张图片");
+                        return;
+                    }
+                    if (!rFilter.test(imgFile.type)) {
+                        document.getElementById("game_img_add").value="";
+                        $("#game_add_preview").html("图片格式不对，支持jpg、png、gif!");
+                        return;
+                    }
+                }
+                $("#game_add_preview").html('');
+                for (var i = 0; file = this.files[i]; i++) {
+                    viewFile(file,i);
+                }
+            }, false);
+        })();
+
+
+        $("#game_m_bnt").bind('click',function(){
+            var ie=navigator.appName=="Microsoft Internet Explorer" ? true : false;
+            if(ie){
+                $("#game_m_add").click;
+            }else{
+                var a=document.createEvent("MouseEvents");
+                a.initEvent("click", true, true);
+                document.getElementById("game_m_add").dispatchEvent(a);
+            }
+        })
+
+        rFilter = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/jpeg|image\/jpeg|image\/png|)$/i;
+        (function () {
+            var viewFiles = document.getElementById("game_m_add");
+            function viewFile (file,i) {
+                html = $("#game_preview").html();
+                //通过file.size可以取得图片大小
+                var reader = new FileReader();
+                reader.onload = function(evt){
+                    html +="<img style='height: 120px;width: 100px;margin-right: 10px;'  src=\""+evt.target.result+"\" />";
+                    $("#game_preview").html(html);
+                }
+                reader.readAsDataURL(file);
+            }
+            viewFiles.addEventListener("change", function () {
+
+                for(i=0;imgFile = document.getElementById("game_m_add").files[i];i++){
+                    if(i>1){
+                        document.getElementById("game_m_add").value="";
+                        $("#game_preview").html("最多2张图片");
+                        return;
+                    }
+                    if (!rFilter.test(imgFile.type)) {
+                        document.getElementById("game_m_add").value="";
+                        $("#game_preview").html("图片格式不对，支持jpg、png、gif!");
+                        return;
+                    }
+                }
+                $("#game_preview").html('');
+                for (var i = 0; file = this.files[i]; i++) {
+                    viewFile(file,i);
+                }
+            }, false);
+        })();
+
+
+        $("#game_box_bnt").bind('click',function(){
+            var ie=navigator.appName=="Microsoft Internet Explorer" ? true : false;
+            if(ie){
+                $("#game_box_add").click;
+            }else{
+                var a=document.createEvent("MouseEvents");
+                a.initEvent("click", true, true);
+                document.getElementById("game_box_add").dispatchEvent(a);
+            }
+        })
+
+        rFilter = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/jpeg|image\/jpeg|image\/png|)$/i;
+        (function () {
+            var viewFiles = document.getElementById("game_box_add");
+            function viewFile (file,i) {
+                html = $("#game_box_preview").html();
+                //通过file.size可以取得图片大小
+                var reader = new FileReader();
+                reader.onload = function(evt){
+                    html +="<img style='height: 120px;width: 100px;margin-right: 10px;'  src=\""+evt.target.result+"\" />";
+                    $("#game_box_preview").html(html);
+                }
+                reader.readAsDataURL(file);
+            }
+            viewFiles.addEventListener("change", function () {
+                for(i=0;imgFile = document.getElementById("game_box_add").files[i];i++){
+                    if(i>7){
+                        document.getElementById("game_box_add").value="";
+                        $("#game_box_preview").html("最多8张图片");
+                        return;
+                    }
+                    if (!rFilter.test(imgFile.type)) {
+                        document.getElementById("game_box_add").value="";
+                        $("#game_box_preview").html("图片格式不对，支持jpg、png、gif!");
+                        return;
+                    }
+                }
+                $("#game_box_preview").html('');
+                for (var i = 0; file = this.files[i]; i++) {
+                    viewFile(file,i);
+                }
+            }, false);
+        })();
+    })
+</script>
+
+

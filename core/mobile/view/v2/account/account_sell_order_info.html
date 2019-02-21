@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>{$info.title} - 我的66173</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/common.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/pay.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/my.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/sale.css" media="screen" />
+</head>
+<body>
+<header class="page-header clearfix">
+    <h1 class="page-h1">商品详情</h1>
+    <a onclick="javascript:history.back();" class="p2-back">返回</a>
+    {if $smarty.session.user_id}
+    <a class="login-on" href="/account.php?act=user_center">个人中心</a>
+    {else}
+    <a class="login-link" href="/account.php?act=user_center" id="login-btn">登录</a>
+    {/if}
+</header>
+<section class="clearfix" id="sell-main">
+    <h1>{$info.title}
+        {if $info.is_del eq 2}
+            <em class="red">已退款</em>
+        {else}
+            {if $info.status eq 1}<em class="red">待发货</em>{/if}
+            {if $info.status eq 2}<em class="green">交易成功</em>{/if}
+        {/if}
+    </h1>
+    <div id="sell-detail" class="sell-box">
+        <p>商品名称：{$info.title}</p>
+        <p>商品描述：{$info.intro}</p>
+        <p>交易金额：<strong class="red">￥{$info.money}</strong></p>
+        <p>游戏名称：{$info.game_name}</p>
+        <p class="img-box">商品图片：<br />
+        <div id="preview">
+            {foreach from=$imgs item=img}
+            <img src="http://cdn.66173.cn/{$img.img_url}" />
+            {/foreach}
+        </div>
+        </p>
+        <div class="step">&nbsp;</div>
+        <p>游戏区服：{$info.serv_name}</p>
+        <p>游戏账号：{$info.game_user}</p>
+        <p>游戏密码：{$info.game_pwd}</p>
+        <p>角色名字：{$info.role_name}</p>
+        <p>角色等级：{$info.role_level}</p>
+        <p>安全锁：{$info.game_user_lock}</p>
+        <p>手机号码：{$info.tel}</p>
+        <p>QQ：{$info.qq}</p>
+        <div class="sale-tit-box clearfix">
+            <h3 class="sale-tit">买家信息</h3>
+        </div>
+        <br />
+        <p>联系电话：{$info.tel}</p>
+        <p>QQ：{$info.qq}</p>
+    </div>
+</section>
+<!--Str 页面通用底部-->
+{include file="include/footer.html"}
+<!--End 页面通用底部-->
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+    !window.jQuery && document.write('<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"><\/script>');
+</script>
+{literal}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#preview img").each(function(){
+            if(this.width>=this.height){
+                $(this).css({"width":"auto","height":"90px"});
+            }
+        });
+    });
+</script>
+{/literal}
+</body>
+</html>

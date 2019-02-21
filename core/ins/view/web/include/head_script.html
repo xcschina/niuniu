@@ -1,0 +1,278 @@
+<script src="//cdn.66173.cn/www/js/jquery-1.8.3.min.js"></script>
+{if $orientation != "p"}
+<script type="application/javascript">
+    var remSize;
+    var menuIconShowTimeout;
+    var menuIconHideTimeout;
+    var menuFocusInterval;
+    function menuBarWhenFocus() {
+        clearTimeout(menuIconShowTimeout);
+        clearInterval(menuFocusInterval);
+        menuFocusInterval = setInterval(function() {
+            if ($(".menu-bar").height() < 3.5 * remSize) {
+                $(".menu-bar .account-common-icon").hide();
+            }
+            else {
+                $(".menu-bar .account-common-icon").show();
+            }
+//            $(".menu-item.user .text").html(($(".menu-bar").height()/remSize).toFixed(2));
+        }, 100)
+    }
+    function menuBarWhenBlur() {
+        clearInterval(menuFocusInterval);
+        menuIconShowTimeout = setTimeout(function() {
+            $(".menu-bar .account-common-icon").show();
+        }, 200);
+    }
+    function initHTMLSize() {
+        var wWidth = document.body.clientWidth || document.documentElement.clientWidth;
+        remSize = wWidth / 10 > 90 ? 90 : wWidth / 10;
+        document.getElementsByTagName('html')[0].style.fontSize = remSize + 'px';
+    }
+    $(document).ready(function () {
+        initHTMLSize();
+    });
+    $(window).resize(function() {
+        initHTMLSize();
+    });
+    // 输入框输入过程或获取焦点时由于键盘弹出可能会使左侧菜单拥挤，此时小屏幕上去掉图标
+    $("html").on("focus", "input,textarea", function(e) {
+        menuBarWhenFocus();
+    });
+    // 输入框失去焦点小屏幕上加上图标
+    $("html").on("blur", "input,textarea", function(e) {
+        menuBarWhenBlur();
+    });
+</script>
+{else}
+<script type="application/javascript">
+    var remSize;
+    var menuIconShowTimeout;
+    function menuBarWhenFocus() {
+        clearTimeout(menuIconShowTimeout);
+        $(".menu-bar").hide();
+    }
+    function menuBarWhenBlur() {
+        menuIconShowTimeout = setTimeout(function() {
+            $(".menu-bar").show();
+        }, 200);
+    }
+    function initHTMLSize() {
+        var wWidth = document.body.clientWidth || document.documentElement.clientWidth;
+        remSize = wWidth / 10 > 60 ? 60 : wWidth / 10;
+        document.getElementsByTagName('html')[0].style.fontSize = remSize + 'px';
+    }
+    $(document).ready(function () {
+        initHTMLSize();
+    });
+    $(window).resize(function() {
+        initHTMLSize();
+    });
+    // 输入框输入过程或获取焦点时由于键盘弹出会使顶部菜单上飘，此时去掉菜单
+    $("html").on("focus", "input,textarea", function(e) {
+        menuBarWhenFocus();
+    });
+    // 输入框失去焦点加上底部菜单
+    $("html").on("blur", "input,textarea", function(e) {
+        menuBarWhenBlur();
+    });
+</script>
+{/if}
+{literal}
+<script type="application/javascript">
+    // 时间戳格式化
+    function getLocalTime(timestamp, noTime) {
+        var date, Y, M, D, h, m, s;
+        date = new Date(parseInt(timestamp)*1000);
+        Y = date.getFullYear() + '-';
+        M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        D = date.getDate() < 10 ?'0'+date.getDate() : date.getDate();
+        if(!noTime) {
+            h = ' ' + (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+            m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes())+ ':';
+            s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+        }
+        return !noTime ? Y + M + D + h + m + s : Y + M + D;
+    }
+    var ele1;
+    var ele2;
+    function toggleEles(ele01, ele02) {
+        if(!ele1) {
+            ele1 = ele01;
+            ele2 = ele02;
+        }
+        if($(".ele-toggle-btn").css("display") == "none") {
+            $(".ele-toggle-btn").show();
+        }
+        if($(ele1).css("display") == "block"){
+            $(ele2).show();
+            $(ele1).hide();
+        }
+        else {
+            $(ele1).show();
+            $(ele2).hide();
+        }
+    }
+    $("html").on("click", ".ele-toggle-btn", function() {
+        toggleEles(ele1, ele2);
+    });
+    // 输入框清除功能
+    $("html").on("click", ".input-with-clear-zone .clear", function(e) {
+        var $ele = $(e.target);
+        $ele.parents(".input-with-clear-zone").find("input").val("").focus();
+    });
+    // 输入框输入过程或获取焦点中判断清除按钮是否出现
+    $("html").on("input focus", ".input-with-clear-zone input", function(e) {
+        var $ele = $(e.target);
+        var $clear = $ele.parents(".input-with-clear-zone").find(".clear");
+        if($ele.val() != '') {
+            $clear.show();
+        }
+        else {
+            $clear.hide();
+        }
+    });
+    // 失去焦点时显示图标及去掉清除按钮，之所以设置延时是因为点击清除时也会触发blur事件导致来不及触发清除就已经没有了清除键
+    $("html").on("blur", ".input-with-clear-zone input", function(e) {
+        var $ele = $(e.target);
+        setTimeout(function() {
+            $ele.parents(".input-with-clear-zone").find(".clear").hide();
+        }, 200);
+    });
+    var commonC = {
+        regContact: new RegExp(/^1[34578]\d{9}$/),
+        regCaptchaPart: new RegExp(/^[0-9]{6}$/)
+    };
+    var commonM = {
+        LOGLEVEL: {
+            INFO: 0,
+            WARNING: 1,
+            ERROR: 2
+        },
+        ajax: function (a, b) {
+            if(b) {
+                b.abort();
+            }
+            var sendData = {}, c = this, ua1Str = "";
+            if (!c.isPureObject(a)) {
+                return false;
+            }
+            sendData.url = a.url;
+            sendData.type = (a.type || "get");
+            sendData.data = a.data;
+            sendData.dataType = (a.dataType || "json");
+            return $.ajax(sendData)
+                .success(function (res) {
+                    if (typeof res == "string") {
+                        res = JSON.parse(c.base64.decode(res.substr(1)));
+                    }
+                    a.success && a.success(res)
+                }).error(function (res2) {
+                    if (res2.statusText == 'abort') {
+                        return false;
+                    }
+                    if (typeof res2 == "string") {
+                        res2 = JSON.parse(c.base64.decode(res2.substr(1)));
+                    }
+                    if (!a.error) {
+                        commonS.tip("请求出错：" + res2.status + "," + res2.statusText)
+                    } else {
+                        a.error(res2);
+                    }
+                });
+        },
+        base64: {
+            _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+            decode: function (a) {
+                var b, c, d, e, f, g, h, i = this,
+                    j = "",
+                    k = 0;
+                for (a = a.replace(/[^A-Za-z0-9\+\/\=]/g, ""); k < a.length;) e = i._keyStr.indexOf(a.charAt(k++)), f = i._keyStr.indexOf(a.charAt(k++)), g = i._keyStr.indexOf(a.charAt(k++)), h = i._keyStr.indexOf(a.charAt(k++)), b = e << 2 | f >> 4, c = (15 & f) << 4 | g >> 2, d = (3 & g) << 6 | h, j += String.fromCharCode(b), 64 != g && (j += String.fromCharCode(c)), 64 != h && (j += String.fromCharCode(d));
+                return j = i._utf8_decode(j)
+            },
+            // private method for UTF-8 encoding
+            _utf8_decode: function (a) {
+                for (var b = "", c = 0, d = c1 = c2 = 0; c < a.length;) d = a.charCodeAt(c), 128 > d ? (b += String.fromCharCode(d), c++) : d > 191 && 224 > d ? (c2 = a.charCodeAt(c + 1), b += String.fromCharCode((31 & d) << 6 | 63 & c2), c += 2) : (c2 = a.charCodeAt(c + 1), c3 = a.charCodeAt(c + 2), b += String.fromCharCode((15 & d) << 12 | (63 & c2) << 6 | 63 & c3), c += 3);
+                return b
+            },
+            encode: function (input) {
+                var c = this, output = "", chr1, chr2, chr3, enc1, enc2, enc3, enc4, i = 0, input = c._utf8_encode(input);
+                while (i < input.length) {
+                    chr1 = input.charCodeAt(i++);
+                    chr2 = input.charCodeAt(i++);
+                    chr3 = input.charCodeAt(i++);
+                    enc1 = chr1 >> 2;
+                    enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+                    enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+                    enc4 = chr3 & 63;
+                    if (isNaN(chr2)) {
+                        enc3 = enc4 = 64;
+                    } else if (isNaN(chr3)) {
+                        enc4 = 64;
+                    }
+                    output = output + this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) + this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
+                }
+
+                return output;
+            },
+            // private method for UTF-8 encoding
+            _utf8_encode: function (string) {
+                string = string.replace(/\r\n/g, "\n"), utftext = "";
+                for (var n = 0; n < string.length; n++) {
+                    var c = string.charCodeAt(n);
+                    if (c < 128) {
+                        utftext += String.fromCharCode(c);
+                    }
+                    else if ((c > 127) && (c < 2048)) {
+                        utftext += String.fromCharCode((c >> 6) | 192);
+                        utftext += String.fromCharCode((c & 63) | 128);
+                    }
+                    else {
+                        utftext += String.fromCharCode((c >> 12) | 224);
+                        utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+                        utftext += String.fromCharCode((c & 63) | 128);
+                    }
+                }
+                return utftext;
+            }
+
+        },
+        isPureObject: function(a) {
+            return a && typeof a == "object" ? true : false;
+        }
+    };
+    var commonS = {
+        // 简单提示控制
+        tip: function(text) {
+            $(".brief-tip-pop .con").html(text);
+            $(".brief-tip-pop").fadeIn(500).delay(1000).fadeOut(500);
+        },
+        btnTimeOutControl: function(ele, cls, timeoutClient, timeout) {
+            clearTimeout(timeoutClient);
+            timeoutClient = setTimeout(function() {
+                $(ele).addClass(cls);
+            }, timeout || 2000);
+        },
+        loadingToggle: function(ifShow) {
+            if(ifShow) {
+                $(".loading-mask").show();
+            } else {
+                $(".loading-mask").hide();
+            }
+
+        },
+        popTip: function (text) {
+            $(".common-pop-tip-zone .tip1").html(text);
+            $(".common-pop-tip-zone").show().siblings().hide();
+            $(".mask").show();
+        },
+        pageTipControl: function(text) {
+            if(text) {
+                $(".page-tip").html(text);
+            } else {
+                $(".page-tip").html("");
+            }
+        }
+    };
+</script>
+{/literal}

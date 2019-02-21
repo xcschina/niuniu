@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>用户注册</title>
+    <link href="http://static.kuyoo.com/kuyoo/wwwv2/css/style.css?t=109" type="text/css" rel="stylesheet" />
+</head>
+<body>
+{include file="include/top.html"}
+{include file="include/header.html"}
+{include file="include/nav.html"}
+<div class="wrapper clearfix">
+    <div class="reg">
+        <div class="w1000 relative">
+            <a href="http://shouyou.kuyoo.com/game8" class="ad" target="_blank" rel="noopener noreferrer"><img src="http://static.kuyoo.com/images/login_ad.jpg" /></a>
+            <div class="reg_box absolute">
+                <form action="account.php?act=do_register" method="post" id="register">
+                <div class="reg_txt">
+                    <div class="title">注册酷游新用户</div>
+                    <em id="m_error">{$smarty.session.m_error}</em>
+                    <em id="code_error">{$smarty.session.code_error}</em>
+                    <em id="p_error">{$smarty.session.p_error}</em>
+                    <em id="cp_error">{$smarty.session.cp_error}</em>
+                    <table border="0" cellspacing="0" cellpadding="0">
+                        <tr><td align="right">手机号码：</td><td><input id="mobile" class="text" type="text" placeholder="请输入您正在使用的手机号" name="mobile" value="{$smarty.session.mobile}" />
+                        </td></tr>
+                        <tr><td align="right">验证码：</td><td><input id="sms_code" class="text" type="text" placeholder="请输入收到的验证码" name="sms_code" value="" style="width: 180px;"/><a href="#;" rel="1" id="send_code" style="padding: 7px 12px; background: #C7162B; color: #fff;">验证码</a>
+                        </td></tr>
+                        <tr><td align="right">设置密码：</td><td><input id="password" class="text" type="password" placeholder="6~12位数字与字母组合" name="password" value="" />
+                        </td></tr>
+                        <tr><td align="right">确认密码：</td><td><input id="cpassword" class="text" type="password" placeholder="重复上面的密码" name="cpassword" value="" />
+                        </td></tr>
+                    </table>
+                    <div style="margin:15px 0 10px 75px;">
+                        <label><input type="checkbox"  checked="checked" name="i-read" value="1" style="float: left; margin: 0 5px 0 0 ;"/>我已阅读并同意<a href="http://shouyou.kuyoo.com/info/4363" class="color_red">《酷游用户服务协议》</a></label>
+                    </div>
+                    <div style="margin-top: 30px; height: 35px;">
+                        <a href="javascript:register();" class="btn_red_big"  style="padding: 10px 88px;">同意以上协议，立即注册</a>
+                    </div>
+                </div>
+                    <input name="vv-code" type="hidden" value="{$smarty.session.c}"/>
+                </form>
+                <div style="text-align: center; line-height: 22px; padding: 10px 0 0 0;">已有酷游平台账号？<br />
+                    <a href="account.php?act=login" class="color_red">酷游账号登陆</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--footer-->
+{include file="include/footer.html"}
+<!--//footer-->
+</body>
+{literal}
+<script type="text/javascript" src="http://static.kuyoo.com/www/js/plugin.js"></script>
+<script type="text/javascript">
+    var InterValObj; //timer变量，控制时间
+    var count = 60; //间隔函数，1秒执行
+    var curCount;//当前剩余秒数
+    $("input[name=mobile]").blur(function(){
+        reg=/^13[0-9]{9}$|14[0-9]{9}|15[0-9]{9}$|18[0-9]{9}$|17[0-9]{9}$/;
+        if(!reg.test($(this).val())){ $("#m_error").html("手机号码格式不正确"); return ;}
+        $("#m_error").html("");
+    });
+    $("input[name='verifycode']").blur(function(){
+        if($('input[name=verifycode]').val()==""){
+            $("#vcode_error").html("请填写验证码");
+            return ;
+        }
+        $("#vcode_error").html("");
+    });
+
+    $('input[name=password]').focus(function () { $('input[name=password]').keyup(); });
+    $('input[name=cpassword]').focus(function () { $('input[name=cpassword]').keyup();});
+    $('input[name=sms_code]').blur(function(){if($('input[name=sms_code]').val()!=""){$("#code_error").html("");}})
+
+    $('input[name=password]').keyup(function () {
+        var __th = $(this);
+        var cpsw=$('input[name=cpassword]').val();
+        if(!cpsw && cpsw==__th.val()){$("#cp_error").html("");}
+        if (!__th.val()) { $("#p_error").html("密码不能为空");return;}
+        if (__th.val().length < 6) { $("#p_error").html("密码为字母和数字，支持大小写，长度6-18个字符");return; }
+        var _r = checkPassword(__th);
+        if (_r < 1) { $("#p_error").html("密码为字母和数字，支持大小写，长度6-18个字符"); return;}
+        $("#p_error").html("");
+    });
+
+    function checkPassword(pwdinput) {
+        var maths, smalls, bigs, corps, cat, num;
+        var str = $(pwdinput).val()
+        var len = str.length;
+
+        var cat = /.{18}/g
+        if (len == 0) return 1;
+        if (len > 16) { $(pwdinput).val(str.match(cat)[0]); }
+        cat = /.*[\u4e00-\u9fa5]+.*$/
+        if (cat.test(str)) {
+            return -1;
+        }
+        cat = /\d/;
+        var maths = cat.test(str);
+        cat = /[a-z]/;
+        var smalls = cat.test(str);
+        cat = /[A-Z]/;
+        var bigs = cat.test(str);
+        var corps = corpses(pwdinput);
+        var num = maths + smalls + bigs + corps;
+
+        if (len < 6) { return 1; }
+
+        if (len >= 6 && len <= 8) {
+            if (num == 1) return 1;
+            if (num == 2 || num == 3) return 2;
+            if (num == 4) return 3;
+        }
+
+        if (len > 8 && len <= 11) {
+            if (num == 1) return 2;
+            if (num == 2) return 3;
+            if (num == 3) return 4;
+            if (num == 4) return 5;
+        }
+
+        if (len > 11) {
+            if (num == 1) return 3;
+            if (num == 2) return 4;
+            if (num > 2) return 5;
+        }
+    }
+
+    function corpses(pwdinput) {
+        var cat = /./g
+        var str = $(pwdinput).val();
+        var sz = str.match(cat)
+        for (var i = 0; i < sz.length; i++) {
+            cat = /\d/;
+            maths_01 = cat.test(sz[i]);
+            cat = /[a-z]/;
+            smalls_01 = cat.test(sz[i]);
+            cat = /[A-Z]/;
+            bigs_01 = cat.test(sz[i]);
+            if (!maths_01 && !smalls_01 && !bigs_01) { return true; }
+        }
+        return false;
+    }
+
+    $('input[name=cpassword]').keyup(function () {
+        var psw=$('input[name=password]').val();
+        var __th = $(this).val();;
+        if(!psw){$("#cp_error").html("重复密码不能为空");  return;}
+        if(__th!=psw){$("#cp_error").html("两次密码不一致"); return;}
+        $("#cp_error").html("");
+    });
+
+    //点击获取验证码按钮
+    $("#send_code").bind("click",function(){
+        var v_code = $("input[name='verifycode']").val();
+        console.log(v_code)
+        var _th=$(this);
+        if(_th.attr("rel")=="0"){
+            return ;
+        }
+        if($.trim(v_code)==''){
+            $("#code_error").html("请先填写图形码");
+            _th.css("background","#999");
+            return ;
+        }
+        _th.css("background","#a5a5a5");
+        var second = parseInt(179);//倒计时总秒数量
+        time=window.setInterval(function(){
+            _th.attr("rel","0");
+            // var s="重新获取("+second+")";
+            //_th.html(s);
+            second--;
+            if(second<1){
+                window.clearTimeout(time);
+                _th.css("background","#a5a5a5");
+                _th.attr("rel","1");
+                _th.html("重新发送");
+                //_th.html("获取验证码");
+            }else{
+                _th.css("background","#999");
+                _th.attr("rel","0");
+                _th.html(second+"秒");
+            }
+        }, 1000);
+
+        $.ajax({
+            type:'post',
+            url:'account.php?act=register_sms_ky',
+            data:{
+                mobile:$("input[name=mobile]").val().trim()
+            },
+            dataType: 'json',
+            success: function (json) {
+                if(json.res==0){
+                    window.clearTimeout(time);
+                    $("#code_error").html(json.msg);
+                    _th.css("background","#999");
+                }
+            }
+        });
+    })
+    function register(){
+        $("#m_error").html("");
+        $("#code_error").html("");
+        $("#p_error").html("");
+        $("#cp_error").html("");
+        reg=/^13[0-9]{9}$|14[0-9]{9}|15[0-9]{9}$|18[0-9]{9}$|17[0-9]{9}$/;
+        if(!reg.test($("input[name=mobile]").val())){ $("#m_error").html("手机号码格式不正确"); return;}
+        if(!$("input[name=sms_code]").val()){$("#code_error").html("短信验证码不能为空"); return;}
+        var pass=$('input[name=password]').val();
+        var cpass=$('input[name=cpassword]').val();
+        if(pass.length<6 || pass.length>18){$("#p_error").html("密码为字母和数字，支持大小写，长度6-18个字符"); return ;}
+        if(pass!=cpass){$("#cp_error").html("两次密码不一致"); return;}
+        if(!$("input[name=i-read]").is(':checked')){ return;}
+        $("#register").submit();
+    }
+</script>
+{/literal}
+</html>

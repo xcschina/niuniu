@@ -1,0 +1,29 @@
+<div class="bjui-pageContent">
+    <form action="orders_info.php?act=do_gift_code_save"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x80">礼包码：</label>
+                    <input type="text" name="gift_code" class="form-control" data-rule="required"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x80">&nbsp;</label>
+                    <span class="red">注意：礼包码保存后不可修改，请谨慎操作！</span>
+                </td>
+            </tr>
+            <input type="hidden" name="id" value="{$id}">
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+
+

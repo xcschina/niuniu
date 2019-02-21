@@ -1,0 +1,134 @@
+{include file="include/head.html" web_title=$web_title}
+<body>
+	{include file="include/top.html"}
+	<div class="wrapper clearfix">
+		{include file="include/header.html"}
+		{include file="include/nav.html" nav="game"}
+		<div class="w1000">
+			<div class="current_nav ">
+				当前位置：<a href="/">66173交易平台</a>&nbsp;>&nbsp;<a href="/games.html">游戏列表</a>&nbsp;>&nbsp;{$gameinfo.game_name}&nbsp;>&nbsp;{$info.product.title}
+			</div>
+			<div class="left_w260">
+				<img src="http://cdn.66173.cn/{$gameinfo.product_img}" class="left_imgthumb" />
+
+				{if $type neq 0}
+				<div id='weixin'>
+					<div class="title_sub">
+						<strong class="name">礼包领取</strong>
+					</div>
+					<img src="{$IMG_PATH}webchat.png" class="left_imgwebchat" />
+					<div class="left_msgbox">
+						<p>关注66173微信号，随时随地领取<strong>手机游戏礼包</strong>！</p>
+						<p>微信名称：66173手游平台</p>
+					</div>
+				</div>
+				{/if}
+
+			</div>
+
+
+			<!-- right main -->
+			<!-- 商品 -->
+			<form id="buyfrm" method='post'>
+				<input type="hidden" name="game_id" value="{$gameinfo.id}" id='gid'/>
+				<div class="pro_info">
+					<div class="r_box">
+						<div class="title">{$info.product.title}</div>
+						<ul class="info">
+							<li class="price">折扣价：<strong class="color_red">{$info.disprice}元</strong>　原价：<s class="color_red">{$info.product.price}元</s></li>
+							<li><label>商品类型：</label>
+							{if $info.product.unit neq ""}
+							{$info.product.unit}
+							{else}
+							虚拟游戏币
+							{/if}
+							</li>
+							<li><label>游戏区服：</label>{$info.product.serv_name}</li>
+							<li class="channel_img">
+								<label style="">游戏渠道：</label>
+								<div class="charge_platform">
+									{if $info.channels.platform eq 1}
+										<label class="icon_android"></label>
+									{else $info.channels.platform eq 2}
+										<label class="icon_ios"></label>
+									{/if}
+									<div class="item" style="border: 2px solid red; ">
+										<div class="img">
+											<img src="http://cdn.66173.cn{$info.channels.icon}">
+											<span>{$info.channels.channel_name}</span>
+										</div>
+										<span class="num">{$info.channels.discount}折</span>
+									</div>
+								</div>
+							</li>
+						</ul>
+						<div class="title_sub">
+							<strong class="name">填写账户信息</strong>
+						</div>
+						<ul class="game_form">
+							{if $info.product.serv_id eq 0}
+							<li>
+								<label><span class="color_red">*</span>区服：</label>
+								<select class="select" name="serv_id" id="choose_serv">
+									{if $servs neq ""}
+									<option value="">请选择区服</option>
+									{foreach from=$servs item=serv}
+									<option value="{$serv.id}">{$serv.serv_name}</option>
+									{/foreach}
+									{else}
+									<option value="">暂无可选区服</option>
+									{/if}
+								</select>
+							</li>
+							{else}
+							<input type="hidden" name="serv_id" value="{$info.product.serv_id}">
+							{/if}
+							<li>
+								<label><span class="color_red">*</span>角色名：</label>
+								<input type="text" class="txt" placeholder="请输入角色名" name="role_name" />
+							</li>
+						</ul>
+						<div class="title_sub">
+							<strong class="name">联系方式</strong>
+						</div>
+						<ul class="game_form">
+							<li><label><span class="color_red">*</span>手机号码：</label><input type="text" class="txt" name="tel" placeholder="请输入手机号码" value="{if $smarty.session.buy_mobile neq ''}{$smarty.session.buy_mobile}{/if}"/></li>
+							<li><label><span class="color_red">*</span>QQ：</label><input type="text" class="txt" placeholder="请输入QQ号" name="qq" value="{$smarty.session.buy_qq}"/></li>
+							<li><a class="btn" id="gamecoin">立即购买</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="title_sub">
+					<strong class="name">商品信息</strong>
+				</div>
+				<div class="pro_details">
+					商品名称：{$info.product.title}<br/>价格：{$info.product.price}元
+				</div>
+
+				<input type="hidden" name="product_id" value="{$info.product.product_id}">
+				<input type="hidden" name="channel_id" value="{$info.product.channel_id}">
+				<input type="hidden" name="game_user">
+				<input type="hidden" name="price" value="{$info.price}"/>
+				<input type="hidden" name="do" value="gamecoin" />
+				
+			</form>
+
+
+			<div class="error" style="display: none;"></div>
+
+			<!-- 公用底部 -->
+			<div class="clear_both"></div><br/><br/>
+			{include file="product/buy_bottom.html"}
+			{include file="include/footer.html"}
+
+			<script> var $uu = {$smarty.session.user_id}+''; </script>
+			{include file="include/login.html"}
+
+			<script type="text/javascript" src="{$JS_PATH}zbc_check.js" ></script>
+			<script type="text/javascript" src="{$JS_PATH}zbc_buy.js" ></script>
+			<script type="text/javascript" src="{$JS_PATH}product/buy_gamecoin2.js" ></script>
+
+
+
+		</body>
+		</html>

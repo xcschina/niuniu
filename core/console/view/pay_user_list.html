@@ -1,0 +1,107 @@
+{literal}
+<script type="text/javascript" xmlns="http://www.w3.org/1999/html">
+    $(function(){
+        $("select[name=group_id]").chosen({width:"120px"});
+    })
+</script>
+{/literal}
+<div class="bjui-pageHeader"  style="height:80px;">
+    <form id="pagerForm" action="user_info.php?act=pay_user_list" method="post" data-toggle="ajaxsearch">
+        <div class="bjui-searchBar">
+            <label>身份认证: </label>
+            <select name="has_id_number" data-toggle="selectpicker">
+            <option value="" {if $params.has_id_number eq ''}selected="selected"{/if}>全部</option>
+            <option value="1" {if $params.has_id_number eq '1'}selected="selected"{/if}>未认证</option>
+            <option value="2" {if $params.has_id_number eq '2'}selected="selected"{/if}>已认证</option>
+            </select>&nbsp;
+            <label>vip等级: </label>
+            <select name="vip" data-toggle="selectpicker">
+                <option value="" {if $params.vip eq ''}selected="selected"{/if}>全部</option>
+                <option value="1" {if $params.vip eq '1'}selected="selected"{/if}>vip1</option>
+                <option value="2" {if $params.vip eq '2'}selected="selected"{/if}>vip2</option>
+                <option value="3" {if $params.vip eq '3'}selected="selected"{/if}>vip3</option>
+            </select>&nbsp;
+            <!--<label>注册时间：</label>-->
+            <!--<input type="text" name="time" data-toggle="datepicker" value="{$params.time}" placeholder="开始时间">- -->
+            <!--<input type="text" name="time2" data-toggle="datepicker"  value="{$params.time2}" placeholder="结束时间">&nbsp;-->
+            <label>用户ID：</label><input type="text" name="user_id"  value="{$params.user_id}" class="form-control" size="8">&nbsp;
+            <label>性别：</label>
+            <select name="sex"   data-toggle="selectpicker">
+                <option value="" {if $params.sex eq ''}selected="selected"{/if}>请选择</option>
+                <option value="0" {if $params.sex eq '0'}selected="selected"{/if}>男</option>
+                <option value="1" {if $params.sex eq '1'}selected="selected"{/if}>女</option>
+            </select>&nbsp;
+            <label>手机号：</label><input type="text" name="mobile"  value="{$params.mobile}" class="form-control" size="11">&nbsp;
+            <label>昵称：</label><input type="text" name="nick_name"  value="{$params.nick_name}" class="form-control" size="8">&nbsp;
+            <label>姓名：</label><input type="text" name="user_name"  value="{$params.user_name}" class="form-control" size="8">&nbsp;
+            <label>身份证：</label><input type="text" name="id_number"  value="{$params.id_number}" class="form-control" size="18">&nbsp;
+            <label>邮箱：</label><input type="text" name="email"  value="{$params.email}" class="form-control" size="8">&nbsp;
+            <br> <br>
+            <label>年龄：</label><input type="text" name="age"  value="{$params.age}" class="form-control" size="5">&nbsp;
+            <label>地区：</label><input type="text" name="area"  value="{$params.area}" class="form-control" size="11">&nbsp;
+            <label>总消费：</label><input type="text" name="count_pay1"  value="{$params.count_pay1}" class="form-control" size="8">&nbsp;至&nbsp;<input type="text" name="count_pay2"  value="{$params.count_pay2}" class="form-control" size="8">&nbsp;
+            <label>消费次数：</label><input type="text" name="count1"  value="{$params.count1}" class="form-control" size="8">&nbsp;至&nbsp;<input type="text" name="count2"  value="{$params.count2}" class="form-control" size="8">&nbsp;
+            <label>客单价：</label><input type="text" name="unit_price1"  value="{$params.unit_price1}" class="form-control" size="8">&nbsp;至&nbsp;<input type="text" name="unit_price2"  value="{$params.unit_price2}" class="form-control" size="8">&nbsp;
+            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+            <tr align="center">
+                <th>用户ID.</th>
+                <th>类别</th>
+                <th>昵称</th>
+                <th>手机号</th>
+                <th>姓名</th>
+                <th>身份证</th>
+                <th>邮箱</th>
+                <th>性别</th>
+                <th>地区</th>
+                <th>年龄</th>
+                <!--<th>注册时间</th>-->
+                <!--<th>注册IP</th>-->
+                <th>总消费金额</th>
+                <th>消费总数</th>
+                <th>客单价</th>
+                <th>最后消费时间</th>
+                <th>所消费游戏以及渠道</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=data from=$dataList}
+        <tr align="center">
+            <td>{$data.user_id}</td>
+            <td>vip{$data.vip_level}</td>
+            <td>{$data.nick_name}</td>
+            <td>{$data.mobile}</td>
+            <td>{$data.user_name}</td>
+            <td>{$data.id_number}</td>
+            <td>{$data.email}</td>
+            <td>{if $data.sex eq '0'}男{else if $data.sex eq '1'}女{else}未设置{/if}</td>
+            <td>{$data.area}</td>
+            <td>{$data.age}</td>
+            <!--<td>{'Y-m-d H:i:s'|date:$data.reg_time}</td>-->
+            <!--<td>{$data.reg_ip}</td>-->
+            <td>￥{$data.pay}</td>
+            <td>{$data.count}</td>
+            <td>￥{$data.unit_price}</td>
+            <td>{'Y-m-d H:i:s'|date:$data.last_buy_time}</td>
+            <td>{$data.game_name}</td>
+            <td>
+                <a href="user_info.php?act=game_info_detail&id={$data.user_id}" class="btn btn-green" data-toggle="dialog" data-mask="true" data-width="1000" data-height="750" data-id="" data-title="游戏信息查询">游戏信息</a></br>
+                <a href="user_info.php?act=user_info_detail&id={$data.user_id}" class="btn btn-green" data-toggle="dialog" data-mask="true" data-width="700" data-height="420" data-id="" data-title="用户详细信息表">详细信息</a></br>
+                <a href="user_info.php?act=user_pay_list&id={$data.user_id}" class="btn btn-green" data-toggle="navtab" data-id="form" data-reload-warn="本页已有打开的内容，确定将刷新本页内容，是否继续？" data-title="用户消费记录表">消费记录</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

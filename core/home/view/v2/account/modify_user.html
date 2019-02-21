@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>个人资料</title>
+    <link href="http://cdn.66173.cn/wwwv2/css/style.css?t=109" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="http://cdn.66173.cn/www/js/jquery-1.7.1.min.js" ></script>
+</head>
+<body>
+{include file="include/top.html"}
+<div class="wrapper clearfix">
+    {include file="include/header.html"}
+    {include file="include/nav.html"}
+    <div class="w1000">
+        <div class="current_nav ">
+            当前位置：<a href="#">66173交易平台</a>&nbsp;>&nbsp;账户设置
+        </div>
+        <div class="user_center">
+            {include file="include/user-side.html"}
+            <div class="user_center_right">
+                <div class="integral_detail">
+                    <div class="user_center_title">
+                        个人资料
+                    </div>
+                    <div class="account_setup">
+                        <form action="account.php?act=do_modify_user" method="post" id="do_modify_user">
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            {if $user_info.nick_name}
+                            <tr><td>昵称：</td><td><span class="orange">{$user_info.nick_name}</span>&nbsp;&nbsp;（昵称设置完成后不可修改）</td></tr>
+                            <input class="text" type="hidden"  name="nick_name" value="{$user_info.nick_name}" />
+                            {else}
+                            <tr><td>昵称：</td><td><span class="color_red">未设置</span>&nbsp;&nbsp;（昵称设置完成后不可修改）</td></tr>
+                            <tr><td>*昵称：</td><td>
+                                <input type="text" name="nick_name" value=""  style="width:200px"/>
+                                <em class="cor_red" id="modify_user_error">{$smarty.session.modify_user_error}</em>
+                            </td></tr>
+                            {/if}
+                            <tr><td>*生日：</td><td>
+                                <input type="hidden" name="birthday" value="{if $user_info.birthday neq '1900-01-01'}{$user_info.birthday}{/if}"/>
+                                <select class="s-input first-select"  id="year" data-type="year">
+                                    <option>2014</option>
+                                    <option>2013</option>
+                                    <option>2012</option>
+                                    <option>2011</option>
+                                </select>&nbsp;年&nbsp;&nbsp;
+                                <select class="s-input" id="month" data-type="month">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                </select>&nbsp;月&nbsp;&nbsp;
+                                <select  class="s-input" id="day" data-type="day">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                </select>&nbsp;日</td></tr>
+                            <tr><td>*性别：</td>
+                                <td  valign="middle">
+                                    <label><input type="radio" name="sex" value="0" {if $user_info.sex eq 0}checked{/if}/>&nbsp;男</label>&nbsp;&nbsp;
+                                    <label>&nbsp;&nbsp; &nbsp;&nbsp;<input type="radio" name="sex" value="1" {if $user_info.sex eq 1}checked{/if}/>&nbsp;女</label>
+                                </td>
+                            </tr>
+                        </table>
+                        <div style=" text-align: center; margin: 30px;">
+                            <a href="javascript:do_modify_user();" class="btn_red_big">确认修改</a>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="clear_both"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="include/footer.html"}
+<script type="text/javascript">
+    function do_modify_user(){
+        var nick_name=$("input[name=nick_name]").val();
+        if(nick_name.length < 4 ||nick_name.length>16){
+            $("#modify_user_error").html("昵称支持字母、数字，长度4-16个字符");
+            return ;
+        }
+        $("input[name=birthday]").val(DateComponent.is_modify ? DateComponent.getFullDay() :
+                ( $("input[name=birthday]").val().length == 0 ? DateComponent.getFullDay() : $("input[name=birthday]").val() ) );
+        $("#do_modify_user").submit();
+    }
+
+    $(function() {
+        var year = document.getElementById("year");
+        var month = document.getElementById("month");
+        var day = document.getElementById("day");
+
+        DateComponent.init({
+            dom_year     : year,
+            dom_month    : month,
+            dom_day      : day,
+        {if $user_info.birthday neq '1900-01-01'}
+        default_year : '{$user_info.birthday|substr:0:4}',
+                default_month: '{$user_info.birthday|substr:5:2}',
+                default_day  : '{$user_info.birthday|substr:8:2}'
+        {else}
+        default_year : '',
+                default_month: '',
+                default_day  : ''
+        {/if}
+        });
+    })
+
+    var DateComponent = {
+        date            : new Date(),
+        fullDay         : '',
+        is_modify       : false,
+        doAppendOptions : function(dom, val){
+            var d = document.createElement("option");
+            d.text = val;
+            d.value = val;
+            dom.add(d,null);
+        },
+        doInitOptions : function(dom, default_val){
+            var that = this;
+            var data_type = dom.getAttribute("data-type");
+            var maxValue = 31;
+            var minValue = 1;
+            var default_val = default_val || undefined;
+
+            if(0 != dom.options.length){  //清空选项
+                dom.options.length = 0;
+            }
+
+            if( data_type == "year" ){
+                maxValue = this.date.getFullYear();
+                minValue = 1930;
+                default_val = this.default_year;
+            }else if( data_type == "month" ){
+                maxValue = 12;
+                default_val = this.default_month;
+            }else if( data_type == "day" ){
+                var month = this.dom_month.value;
+                var year = this.dom_year.value;
+                if( 2 == month ){
+                    if( ( 0 == ( year % 4) && 0 != ( year % 100) ) || 0 == ( year % 400) ){  //闰年
+                        maxValue = 29;
+                    }else{
+                        maxValue = 28;
+                    }
+                }else if( 4 == month || 6== month || 9 == month || 11 == month ){
+                    maxValue = 30;
+                }
+
+                if ((!default_val && this.default_day > maxValue) || default_val > maxValue){
+                    default_val = maxValue;
+                }else if (!default_val){
+                    default_val = this.default_day;
+                }
+            }
+
+            if ( data_type == "year" ){
+                //this.doAppendOptions(dom,'');
+                for(var i = maxValue ;i >= minValue ; i -- ){
+                    if(i < 10){
+                        i = "0" + i;
+                    }
+                    this.doAppendOptions(dom, i);
+                }
+            }else{
+                for(var i = minValue ;i <= maxValue ; i ++ ){
+                    if(i < 10){
+                        i = "0" + i;
+                    }
+                    this.doAppendOptions(dom, i);
+                }
+            }
+
+            dom.value = default_val;
+            if( data_type == "year" || data_type == "month"){
+                dom.onchange = function(){
+                    that.is_modify = true;
+                    that.doInitOptions(that.dom_day, that.dom_day.value);
+                    that.getFullDay();
+                };
+            }else{
+                dom.onchange = function(){
+                    that.is_modify = true;
+                    that.getFullDay();
+                };
+            }
+        },
+        getFullDay : function (){
+            this.fullDay = this.dom_year.value + "-" + this.dom_month.value + "-" + this.dom_day.value;
+            return this.fullDay;
+        },
+        init : function(options){
+            this.dom_year = options.dom_year || document.createElement("select");
+            this.dom_month = options.dom_month || document.createElement("select");
+            this.dom_day = options.dom_day || document.createElement("select");
+            this.default_year = options.default_year || this.date.getFullYear();
+            this.default_month = options.default_month || this.date.getMonth() + 1;
+            if(this.default_month < 10 && typeof this.default_month == 'number'){
+                this.default_month = '0' + this.default_month;
+            }
+            this.default_day = options.default_day || this.date.getDate();
+            if(this.default_day < 10 && typeof this.default_day == 'number'){
+                this.default_day = '0' + this.default_day;
+            }
+            this.doInitOptions(this.dom_year);
+            this.doInitOptions(this.dom_month);
+            this.doInitOptions(this.dom_day);
+            this.getFullDay();
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>礼包领取</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/app/swiper/swiper3-4-1-min.css">
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/app/css/app-main.css">
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="http://cdn.66173.cn/weixin/js/script.js"></script>
+    <script type="text/javascript" src="http://cdn.66173.cn/app/swiper/swiper3-4-1-min.js"></script>
+    <script type="text/javascript" src="http://cdn.66173.cn/app/js/app-main.js"></script>
+    <script type="text/javascript" src="http://cdn.66173.cn/mobile/scripts/clipBoard.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/m_common.css?t={rand(1,10000)}" media="screen" />
+    <!--<link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/pay.css?t={rand(1,10000)}" media="screen" />-->
+    <script type="application/javascript">
+        function initHTMLSize() {
+            var wWidth = document.documentElement.clientWidth || document.body.clientWidth;
+            var size = wWidth / 7.5;
+            document.getElementsByTagName('html')[0].style.fontSize = (size > 55 ? 55 : size) + 'px';
+        }
+        $(document).ready(function () {
+            console.log("ready");
+            initHTMLSize();
+        });
+        $(window).resize(function() {
+            console.log("resize");
+            initHTMLSize()
+        });
+    </script>
+</head>
+<body>
+<div class="m-station m-charge first-charge">
+    <header class="page-head clearfix">
+        <h1 class="page-title">礼包领取</h1>
+        <a class="page-back" href="javascript:history.back();"></a>
+        <a class="page-home" style="margin-left: 15px;" href="http://m.66173.cn">首页</a>
+        {if $smarty.session.user_id}
+        <a class="login-on-link" href="/account.php?act=user_center"></a>
+        {else}
+        <a class="login-in-link" href="/account.php?act=user_center" id="login-btn">登录</a>
+        {/if}
+
+        <!-- <a class="login-on-link" href="/account.php?act=user_center"></a> -->
+    </header>
+</div>
+<div class="gift-detail">
+    <div class="gift-detail-top">
+        <img src="http://static.66173.cn/{$info.game_icon}"/>
+        <div class="center">
+            <div class="title">{$info.game_name}</div>
+            <div class="gift-name">{$info.title}</div>
+        </div>
+    </div>
+    <div class="swiper-container gift-detail-wrapper">
+        <div class="swiper-pagination2 clearfix"></div>
+        <div class="swiper-wrapper">
+            <!--Str 礼包内容-->
+            <div class="swiper-slide gift-content-con">
+                <div class="block">
+                    <div class="title">礼包内容</div>
+                    <div class="desc">{$info.content|nl2br}</div>
+                </div>
+                <div class="block">
+                    <div class="title">领取方式</div>
+                    <div class="desc">{$info.get_way|nl2br}</div>
+                </div>
+            </div>
+            <!--End 礼包内容-->
+            <!--Str 推荐礼包-->
+            <div class="swiper-slide recommend-gift-con">
+                {if $gifts}
+                <div class="gift-list gift-list-with-get">
+                    {foreach from=$gifts item=g}
+                    <a href="/gifts.php?act=item&id={$g.id}">
+                        <div class="gift-item">
+
+                            <div class="left">
+                                <img src="http://cdn.66173.cn/{$g.game_icon}"/>
+                            </div>
+                            <div class="center">
+                                <div class="title text-overflow">{$info.game_name}</div>
+                                <div class="gift-name text-overflow">{$g.title}</div>
+                                <div class="gift-content text-overflow">{$g.content}</div>
+                            </div>
+                            <div class="right">
+                                <a class="chart chart-1" data-percent="81" href="/gifts.php?act=item&id={$g.id}" >领取</a>
+                            </div>
+                        </div>
+                    </a>
+                    {/foreach}
+                </div>
+                {else}
+                <p class="mascot-outer">
+                    <img src="http://cdn.66173.cn/app/css/img/mascot.png" class="mascot"/>
+                </p>
+                <p class="nogift">暂时木有礼包了<br />您可以查看更多其他游戏的礼包哦～</p>
+                {/if}
+            </div>
+            <!--End 推荐礼包-->
+            <div class="swiper-slide game-download">
+                <section class="download-horizon-box clearfix">
+                    <ul class="swiper-wrapper clearfix">
+                        <li class="swiper-slide"><img src="http://cdn.66173.cn/{$game_info.img1}" alt="" /></li>
+                        <li class="swiper-slide"><img src="http://cdn.66173.cn/{$game_info.img2}" alt="" /></li>
+                        <li class="swiper-slide"><img src="http://cdn.66173.cn/{$game_info.img3}" alt="" /></li>
+                        <li class="swiper-slide"><img src="http://cdn.66173.cn/{$game_info.img4}" alt="" /></li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </div>
+    <div class="get-gift">
+        {if $info.remain<1}
+        <a class="get-button no-get">已被领光</a>
+        {else}
+        {if $is_get eq 1}
+        <a class="get-button no-get">已领取</a>
+        {else}
+        <a class="get-button to-get" >领取</a>
+        {/if}
+        {/if}
+        <input type="hidden" name="page-hash" value="{$pagehash}">
+        <input type="hidden" name="id" value="{$info.id}">
+
+    </div>
+    <div class="get-mask">
+        <div class="get-tip-window">
+            <div class="close">x</div>
+            <div class="tip">礼包领取成功</div>
+            <div class="gift-code"></div>
+            <input id="code" type="hidden" value="" />
+            <div class="copy-code-zone">
+                <span class="copy-code" data-code="">复制礼包码</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="side-bg" id="login"></div>
+<div class="tip-pop-zone"><div class="tip-pop"></div></div>
+</body>
+<script>
+
+    var tabList = ["礼包内容", "推荐礼包", "游戏截图"];
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination2',
+        paginationClickable: true,
+        paginationBulletRender: function(swiper, index, className) {
+            return '<span class="' + className + '">' + tabList[index] + '</span>';
+        },
+        onSlideChangeEnd: function() {
+            // 推荐礼包的tab页内隐藏底部的领取礼包,其他的tab页显示
+            if($(".recommend-gift-con.swiper-slide-active").length !== 0) {
+                $(".get-gift").hide();
+            } else {
+                $(".get-gift").show();
+            }
+        }
+    });
+    var swiper2 = new Swiper('.download-horizon-box', {
+        slidesPerView: 'auto',
+        paginationClickable: true,
+        spaceBetween: 10,
+        slideToClickedSlide: true
+    });
+    // 推荐礼包中的占比环形圆
+    var optionsg = {
+        scaleColor: false,
+        trackColor: '#ccc',
+        barColor: '#30b66f',
+        lineWidth: 3,
+        lineCap: 'butt',
+        size: 45
+    };
+    var optionsb = {
+        scaleColor: false,
+        trackColor: '#ccc',
+        barColor: '#317ee7',
+        lineWidth: 3,
+        lineCap: 'butt',
+        size: 45
+    };
+    window.addEventListener('DOMContentLoaded', function() {
+        var charts = [];
+        [].forEach.call(document.querySelectorAll('.chart-1'),  function(el) {
+            charts.push(new EasyPieChart(el, optionsg));
+        });
+        [].forEach.call(document.querySelectorAll('.chart-2'),  function(el) {
+            charts.push(new EasyPieChart(el, optionsb));
+        });
+    });
+
+
+    // 底部的领取礼包相关
+    $(".get-button.to-get").click(function() {
+        // $(".get-mask").fadeIn();
+        var code = $("input[name='page-hash']").val();
+        var id = $("input[name='id']").val();
+        try{
+            $.ajax({
+                type: 'get',
+                url: 'gifts.php?act=get_code',
+                data: {
+                    csrf: code,
+                    id: id
+                },
+                dataType: 'json',
+                success: function (result) {
+                    if(result.res == 2) {
+                        $(this).blur();
+                        login_mask();
+                        return false;
+//                        $(".get-tip-window .tip").html("领取失败");
+//                        $(".get-tip-window .gift-code").html("<a class='login-in-btn'>"+result.msg+"</a>");
+//                        $(".get-tip-window .copy-code-zone").hide();
+                    }else if (result.res == 0){
+                        $(".get-tip-window .tip").html("领取失败");
+                        $(".get-tip-window .gift-code").html("<a class='login-in-btn'>"+result.msg+"</a>");
+                        $(".get-tip-window .copy-code-zone").hide();
+                    } else if(result.res == 1){
+                        $(".get-tip-window .tip").html(result.msg);
+                        $(".get-tip-window .gift-code").html("礼包码：" + result.code);
+                        $(".get-tip-window #code").val(result.code);
+                        $(".get-tip-window .copy-code").data("code",result.code);
+                        $(".get-tip-window .copy-code-zone").show();
+                        $(".get-button").removeClass("to-get").addClass("no-get").html("已领取");
+                    }
+
+                    $(".get-mask").fadeIn();
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    alert(XMLHttpRequest.status + "," + XMLHttpRequest.readyState + "," + textStatus)
+                }
+            })
+        } catch (e) {
+            alert(e.name + ":" + e.message)
+        }
+    });
+    $(".get-tip-window .close").click(function() {
+        $(".get-mask").fadeOut();
+    });
+    $(".copy-code").click(function() {
+
+            var test = new clipBoard(document.getElementById('code'), {
+                copy: function () {
+                    return document.getElementById('code').value;
+                },
+                afterCopy: function () {
+                    $(".get-mask").hide();
+                    $(".tip-pop").html("复制成功");
+                    $(".tip-pop-zone").fadeIn(500).delay(2000).fadeOut(1000);
+                }
+            });
+    });
+</script>
+<script src="http://cdn.66173.cn/mobile/v2/scripts/common.js"></script>
+</html>

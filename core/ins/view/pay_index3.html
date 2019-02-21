@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="expires" content="{$expires}" />
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta content="width=device-width; initial-scale=1; minimum-scale=1, maximum-scale=1; user-scalable=1" name="viewport">
+    <title>游戏充值</title>
+    <link rel="stylesheet" href="//static.66173.cn/ins/css/sdk_pay.css?t={$smarty.now}">
+    {literal}
+    <script src="//libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        !window.jQuery && document.write('<script src="https://libs.baidu.com/jquery/1.9.1/jquery.min.js"><\/script>');
+    </script>
+    {/literal}
+    <script type="text/javascript" src="https://static.66173.cn/ins/js/android.mobile.pay.js?t={$smarty.now}"></script>
+</head>
+<body>
+<div class="tips"></div>
+<form action="payto.php" method="post" name="pay_form">
+    <div class="account_box">
+        <ul>
+            <li>账户:&nbsp;<span class="user_name_box">{$param.nickname}</span></li>
+            <li>区服:<span>{$param.serv_name}</span></li>
+            <li>角色名:<span>{$param.player_name}</span></li>
+        </ul>
+    </div>
+    <div class="goods_box">
+        <ul>
+            <li>商品名称<span>{$goods_info.good_name}({$goods_info.good_intro})</span></li>
+            {if $param.goodmultiple}
+            <li>数量:&nbsp;&nbsp;{$param.goodmultiple}</li>
+            {/if}
+            <li class="c-999"><s>原价:&nbsp;&nbsp;{$goods_info.good_price}元</s></li>
+            <li>折扣价:<span class="c-e9696b f-18">{$goods_info.pay_price}</span>元</li>
+        </ul>
+    </div>
+    <div class="pay_box">
+        <div class="pay_title"><span></span>支付方式:</div>
+        <div class="pay_body">
+            <ul>
+                <li class="active nnb_pay" id="nnb_pay">
+                    <a href="javascript:void(0)" onclick="select_pay_type('nnb_pay');">
+                        <section class="nnb_icon"><img width="33px" height="33px" src="https://cdn.66173.cn/ins/css/img/niu_icon.png"></section>
+                        <section class="f-l m-l-6">
+                            <p class="niu_zf">牛币支付</p>
+                            <p class="balance">余额:<span class="c-e9696b">{$user_info.nnb}</span>牛币</p>
+                        </section>
+                        <i class="selected"></i>
+                    </a>
+                </li>
+                <li class="zfb_pay" id="zfb_pay">
+                    <a href="javascript:void(0)" onclick="select_pay_type('zfb_pay');">
+                        <section class="zfb_icon"><img width="50px" height="20px" src="https://cdn.66173.cn/ins/css/img/zfb_icon.png"></section>
+                        <section class="f-l m-l-6">
+                            <p class="zfb_zf">支付宝支付</p>
+                        </section>
+                        <i class="selected" style="display: none"></i>
+                    </a>
+                </li>
+                {if $sdkver > '3.0.0.2' and ($ip eq '117.25.82.246' or $ip eq '117.27.76.225' or $ip eq '117.25.83.163')}
+                <li class="wx_pay" id="wx_pay">
+                    <a href="javascript:void(0)" onclick="select_pay_type('wx_pay');">
+                        <section class="wx_icon"><img width="29px" height="29px" src="https://cdn.66173.cn/ins/css/img/wx_icon.png"></section>
+                        <section class="f-l m-l-6">
+                            <p class="wx_zf">微信支付</p>
+                        </section>
+                        <i class="selected" style="display: none"></i>
+                    </a>
+                </li>
+                <!--<li class="wx_pay" id="qq_pay">-->
+                    <!--<a href="javascript:void(0)" onclick="select_pay_type('qq_pay');">-->
+                        <!--<section class="wx_icon"><img width="29px" height="29px" src="https://cdn.66173.cn/ins/css/img/qq_icon.png"></section>-->
+                        <!--<section class="f-l m-l-6">-->
+                            <!--<p class="wx_zf">QQ钱包</p>-->
+                        <!--</section>-->
+                        <!--<i class="selected" style="display: none"></i>-->
+                    <!--</a>-->
+                <!--</li>-->
+                {/if}
+            </ul>
+        </div>
+        <input type="hidden" name="status" value="{$status}" />
+        <input type="hidden" name="money_id" value="{$goods_info.id}" />
+        <input type="hidden" name="mode" value="2" />
+        <input type="hidden" id="pay_type" name="pay_type" value="nnb_pay" />
+        <input type="hidden" id="pay_money" name="pay_money" value="{$goods_info.pay_price}" />
+    </div>
+    <div class="btn_box">
+        <a href="#;" class="recharge_btn" onclick="go_niu_pay();" {if $status neq 1}style="display: none"{/if} id="niu_pay">当前牛币不足，去充值牛币</a>
+        <a href="#;" class="confirm_btn" onclick="android_pay();" {if $status eq 1}style="display: none"{/if} id="sure_pay">确定支付</a>
+    </div>
+</form>
+<script>
+    function select_pay_type($id){
+        var status = $("input[name='status']").val();
+
+        $(".pay_body li").each(function () {
+            $(this).removeClass("active");
+            $(this).find('i').css('display','none');
+        });
+        $("#"+$id).addClass("active");
+        $("#"+$id).find('i').css('display','block');
+        if(status==1 && $id=='nnb_pay'){
+            $('#niu_pay').show();
+            $('#sure_pay').hide();
+        }else{
+            $('#sure_pay').show();
+            $('#niu_pay').hide();
+        }
+        $("#pay_type").val($id);
+
+    }
+    function android_pay(){
+        var goodid = $("input[name='money_id']").val();
+        var mode = $("input[name='mode']").val();
+        if(goodid == "" || goodid == "0"){
+            alert('请选择需要充值的金额');
+            return;
+        }
+        if(mode==2){
+            if($("#pay_type") == undefined || $("#pay_type").length == 0){
+                alert("请选择充值方式");
+                return;
+            }else if($("#pay_type").val() == 'nnb_pay'){
+                var pay_money = $("input[name='pay_money']").val();
+                if(pay_money == "" || pay_money == "0" || pay_money.length== 0 ){
+                    alert('充值金额异常.');
+                    return;
+                }
+                window.nsdk_obj.nnb_pay(String(goodid),String(pay_money));
+                return;
+            }else if($("#pay_type").val() == 'zfb_pay'){
+                window.nsdk_obj.onpay(String(goodid));
+                return;
+            }else if($("#pay_type").val() == 'wx_pay'){
+                window.nsdk_obj.wx_pay(String(goodid));
+                return;
+            }else if($("#pay_type").val() == 'qq_pay'){
+            window.nsdk_obj.qq_pay(String(goodid));
+            return;
+        }
+        }else if(mode==1){
+            $("form[name='pay_form']").submit();
+            return;
+        }
+    }
+    function go_niu_pay(){
+        window.nsdk_obj.go_niu_pay();
+        return;
+    }
+</script>
+</body>
+</html>

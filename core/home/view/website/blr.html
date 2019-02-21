@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>不良人</title>
+    <meta name="Description" content="" />
+    <meta name="Keywords" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link href="http://cdn.66173.cn/website/css/blr.css?t={$smarty.now}" rel="stylesheet">
+</head>
+<body>
+<div class="warpbox">
+    <div class="pagebox1 pagebox">
+        <div class="page1 pages">
+            <div class="qr_box">
+                <h5 class="l-h-30">扫描二维码下载游戏到手机</h5>
+                {if $info}
+                <img class="m-b-10" width="122" height="122" src="http://cdn.66173.cn/{$info.qr_url}">
+                <a href="{$info.down_url}"><img src="http://cdn.66173.cn/website/imgs/down_btn.png"></a>
+                {else}
+                <img class="m-b-10" src="http://cdn.66173.cn/website/imgs/qr.png">
+                <a href="#"><img src="http://cdn.66173.cn/website/imgs/down_btn.png"></a>
+                {/if}
+            </div>
+        </div>
+    </div>
+    <div class="pagebox2 pagebox">
+        <div class="page2 pages">
+            <div class="guide_box">
+                <div class="nav" id="tab">
+                    <ul>
+                        <li class="cur">姬如雪</li>
+                        <li>张子凡</li>
+                        <li>陆林轩</li>
+                        <li>李星云</li>
+                    </ul>
+                </div>
+                <div id="con" class="img_box">
+                    <div class="con" style="display:block"><img width="700" style="margin-top: 30px;" src="http://cdn.66173.cn/website/imgs/blr/jrx.png"/></div>
+                    <div class="con"><img width="700" src="http://cdn.66173.cn/website/imgs/blr/zzf.png"/></div>
+                    <div class="con"><img width="700" src="http://cdn.66173.cn/website/imgs/blr/llx.png"/></div>
+                    <div class="con"><img width="700" style="margin-top: 40px;" src="http://cdn.66173.cn/website/imgs/blr/lxy.png"/></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pagebox3 pagebox">
+    <div class="page3 pages">
+        <div class="game_box">
+            <div class="screenshot_box">
+                <ul>
+                    <li><img width="240" src="http://cdn.66173.cn/website/imgs/blr/slider1.png" /></li>
+                    <li><img width="240" src="http://cdn.66173.cn/website/imgs/blr/slider2.png" /></li>
+                    <li><img width="240" src="http://cdn.66173.cn/website/imgs/blr/slider3.png" /></li>
+                    <li><img width="240" src="http://cdn.66173.cn/website/imgs/blr/slider4.png" /></li>
+                </ul>
+            </div>
+        </div>
+        {if $links}
+        <div class="yl_div">
+            <p>友情链接：</p>
+            <div class="yl_box">
+                {if $links}<span>|</span>{/if}
+                {foreach from=$links item=link}
+                <a href="{$link.go_url}" target="_blank" rel="noopener noreferrer">{$link.title}</a>
+                <span>|</span>
+                {/foreach}
+            </div>
+        </div>
+        {/if}
+    </div>
+</div>
+<div class="pagebox4 pagebox">
+    <div class="page4 pages">
+        <div class="copyright">
+            <div>Copyright &copy; 2015 66173.cn 版权所有 ICP证：闽ICP备15010904号-1 文网文许可备案号： 闽网文〔2016〕1554-024号</div>
+            <div>
+                <p class="honor-list">
+                    <a href="http://sq.ccm.gov.cn/ccnt/sczr/service/business/emark/toDetail/5ffb075bf30c4fdbb5bdc7b2a7a57694" target="_blank" rel="noopener noreferrer" rel="nofollow"><img border="0" src="http://cdn.66173.cn/images/footer-5.jpg"/></a>
+                    <a href="http://www.miibeian.gov.cn/publish/query/indexFirst.action" target="_blank" rel="noopener noreferrer" rel="nofollow"><img border="0" src="http://cdn.66173.cn/images/footer-2.jpg"/></a>
+                    <a href="http://t.knet.cn/index_new.jsp" target="_blank" rel="noopener noreferrer" rel="nofollow"><img border="0" src="http://cdn.66173.cn/images/footer-3.jpg"/></a>
+                    <a href="http://61.154.18.10:3080/observed/" target="_blank" rel="noopener noreferrer" rel="nofollow"><img border="0" src="http://cdn.66173.cn/images/footer-4.jpg"/></a>
+                    <a href="http://webscan.360.cn/index/checkwebsite/url/66173.cn" target="_blank" rel="noopener noreferrer" rel="nofollow"><img border="0" src="http://cdn.66173.cn/images/footer-1.jpg"/></a>
+                    <a href="http://v.pinpaibao.com.cn/authenticate/cert/?site=www.66173.cn&at=business" target="_blank" rel="noopener noreferrer" rel="nofollow"><img border="0" src="http://cdn.66173.cn/images/footer-6.png"/></a>
+                    <a href="http://si.trustutn.org/info?sn=828160711022825664830&certType=1" target="_blank" rel="noopener noreferrer" rel="nofollow"><img border="0" src="http://cdn.66173.cn/images/footer-7.png"/></a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script language="javascript">
+    window.onload=function(){
+        var nav=document.getElementById("tab").getElementsByTagName("li");
+        var con=document.getElementById("con").getElementsByTagName("div");
+        for(i=0;i < nav.length;i++){
+            nav[i].index = i;
+            nav[i].onmouseover=function(){
+                for(var n = 0; n < con.length; n++) {
+                    con[n].style.display = "none";
+                    nav[n].className = "";
+                }
+                con[this.index].style.display = "block";
+                nav[this.index].className = "cur";
+            }
+
+        }
+    }
+</script>
+</html>

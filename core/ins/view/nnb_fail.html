@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="pragma" content="no-cache" />
+	<meta http-equiv="Cache-Control" content="no-cache" />
+	<meta http-equiv="expires" content="{$expires}" />
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<meta content="width=device-width; initial-scale=1; minimum-scale=1, maximum-scale=1; user-scalable=1" name="viewport">
+	<link rel="stylesheet" href="http://static.66173.cn/ins/css/sdk_pay.css?t={$smarty.now}">
+	<title>牛币充值失败</title>
+</head>
+<body>
+<div class="result_box">
+	<p class="result_fail"><i></i>充值失败!</p>
+	<p class="c-999">{$errmsg}</p>
+</div>
+<div class="result_btn_box"  style="text-align:center">
+	<a href="#;" onclick="go_to_game()" class="red_btn">返回游戏</a>
+</div>
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script>
+	function go_to_game(){
+		window.nsdk_obj.goto_game();
+	}
+</script>
+</body>
+</html>

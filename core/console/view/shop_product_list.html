@@ -1,0 +1,58 @@
+<script type="text/javascript">
+    $(function(){
+        $("select[name=product_id]").chosen();
+    })
+</script>
+<div class="bjui-pageHeader">
+    <form id="pagerForm" action="shop_info.php?act=shop_product_list_view&id={$params.game_id}&shop_id={$params.shop_id}" method="post" data-toggle="ajaxsearch">
+        <div class="bjui-searchBar">
+            <label>商品：</label>
+            <select name="product_id" class="form-control">
+                <option value="">请选择</option>
+                {foreach from=$master_products item=mp}
+                <option value="{$mp.id}">{$mp.title}-{$mp.id}</option>
+                {/foreach}
+            </select>&nbsp;
+            <label>价格：</label>
+            <select name="is_shop" style="width:120px" class="form-control">
+                <option value="0">所有商品</option>
+                <option value="1" {if $params.is_shop eq '1'}selected="selected"{/if}>店内特价商品</option>
+            </select>&nbsp;
+            <label>类型：</label>
+            <select name="sp_type" style="width:120px"  class="form-control">
+                <option value="" {if $params.sp_type eq ''}selected="selected"{/if}>全部</option>
+                <option value="1" {if $params.sp_type eq '1'}selected="selected"{/if}>首充号</option>
+                <option value="2" {if $params.sp_type eq '2'}selected="selected"{/if}>首充号续充</option>
+            </select>&nbsp;
+            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th>No.</th> <th>类型</th> <th>商品标题</th> <th>原价</th> <th>库存</th> <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=product from=$products}
+        <tr align="center">
+            <td>{$product.id}</td>
+            <td>{if $product.type eq '1'}首充号{elseif $product.type eq '2'}首充号续充{/if}</td>
+            <td><span class="green">[ 正常 ]</span> {$product.title}</td>
+            <td>{$product.price} 元</td>
+            <td>{$product.stock}</td>
+            <td>
+                <a href="shop_info.php?act=shop_product_ch_edit_view&id={$product.id}&shop_id={$params.shop_id}" class="btn btn-green" data-id="shop_product_ch_edit_view" data-toggle="dialog" data-mask="true" data-width="600"  data-height="420" data-title="{$product.id} - {$product.title} - 渠道折扣">渠道折扣</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

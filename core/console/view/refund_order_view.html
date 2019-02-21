@@ -1,0 +1,31 @@
+<div class="bjui-pageContent">
+    <form action="orders_info.php?act=do_order_refund"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x80">退款截图：</label>
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="refund_img.click()">选择图片</button>
+                    <input type="file" name="refund_img" style="display: none;" onchange="input_refund_img.value=value" />
+                    <input type="text" name="input_refund_img" placeholder="None file" class="form-control" size="15" readonly />&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x80">&nbsp;</label>
+                    <span class="red">注意：退款截图保存后不可修改！</span>
+                </td>
+            </tr>
+            <input type="hidden" name="id" value="{$id}">
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">退款</button></li>
+    </ul>
+</div>
+
+

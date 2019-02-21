@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>66173登录页</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/account.css?t={$smarty.now}" media="screen" />
+</head>
+
+<body>
+<header class="login-header clearfix">
+    <h1 class="h1-tit">登录</h1>
+    <a class="close-icon" href="javascript:history.back();"></a>
+    <a class="h-btn" href="account.php?act=register">注册</a>
+</header>
+<section class="input-con clearfix">
+    <form action="account.php?act=do_login" method="post">
+        <div class="inp-box"><label class="login-spr-1">用户名</label><input name="mobile" type="text" placeholder="请输入手机号" class="l-input-1" /></div>
+        <div class="inp-box"><label class="login-spr-2">密码</label><input name="password" type="password" placeholder="请输入密码" class="l-input-2" /></div>
+        <a class="f-password" href="account.php?act=forget">忘记密码</a>
+        {if $smarty.session.m_login_error}
+        <div class="lg_error">{$smarty.session.m_login_error}</div>
+        {/if}
+        <input type="hidden" name="pagehash" value="{$pagehash}">
+        <input type="submit" class="b-btn" value="登录">
+    </form>
+</section>
+<footer class="login-footer clearfix">
+    <h3 class="tx-tit">第三方账号登录</h3>
+    <a class="tx-login" href="account.php?act=qq_login"></a>
+</footer>
+</body>
+{literal}
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?1f0a1f65ba01082e76f89fd1b54a087a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+{/literal}
+</html>

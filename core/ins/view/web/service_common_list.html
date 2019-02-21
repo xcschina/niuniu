@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>常见问题</title>
+    {include file="web/include/head_common.html"}
+    {if $orientation != "p"}
+        <link rel="stylesheet" href="//cdn.66173.cn/ins/css/web_h/service_rel.css?t={$smarty.now}">
+    {else}
+        <link rel="stylesheet" href="//cdn.66173.cn/ins/css/web_v/service_rel.css?t={$smarty.now}">
+    {/if}
+    {include file="web/include/head_script.html"}
+</head>
+<body class="service-rel service-common-list">
+{include file="web/include/menu_bar.html"}
+<div class="main-wrapper">
+    <div class="list-outer-wrapper">
+        <div class="common-list-wrapper">
+            <div class="common-list">
+                {foreach item=data from=$question}
+                <a href="web.php?act=common_detail&id={$data.id}" class="li">
+                    <div class="font-md text-overflow li-con">{$data.title}</div>
+                </a>
+                {/foreach}
+            </div>
+            {if count($question) eq 10}
+            <div class="font-md get-status"><span class="more-btn more-btn-can">加载更多</span></div>
+            {else}
+            <div class="font-md get-status">没有了~</div>
+            {/if}
+        </div>
+        <div class="font-md bottom">
+            <div class="left"></div><div class="center">客服妹妹在线相随,在线时间：09:00&nbsp;-&nbsp;18:00</div><div class="right"></div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var curPage = 1;
+    var getMoreTimeout;
+    var ajaxInstance;
+    $("body").on("click", ".more-btn-can", function() {
+        $(".more-btn").removeClass("more-btn-can");
+        getServiceList();
+        commonS.btnTimeOutControl(".more-btn", "more-btn-can", getMoreTimeout, 3000);
+    });
+    // 获取消息列表
+    function getServiceList() {
+        var reqPage = curPage + 1;
+        ajaxInstance = commonM.ajax({
+            url: '/web.php?act=common_more',
+            type: 'post',
+            data: {
+                page: reqPage
+            },
+            dataType: 'text',
+            success: function (res) {
+                var code = res.result;
+                var list = res.info || [];
+                if (code == 1) {
+                    var content = "";
+                    // 返回有消息
+                    if (list.length != 0) {
+                        for (var i = 0; i < list.length; i++) {
+                            content += '<a href="web.php?act=common_detail&id=' + list[i]['id'] + '" class="li">'
+                                + '<div class="font-md text-overflow li-con">' + list[i]['title'] + '</div>'
+                                + '</a>';
+                        }
+                        $(".common-list").append(content);
+                        if (list.length < 10) {
+                            $(".get-status").html("没有了~");
+                        }
+                        else {
+                            $(".get-status").html('<span class="more-btn more-btn-can">加载更多</span>');
+                        }
+                        curPage++;
+                    }
+                    // 没有更多了
+                    else {
+                        $(".get-status").html("没有了~");
+                    }
+                }
+                else {
+                    commonS.tip(res.desc);
+                }
+            }
+        }, ajaxInstance);
+    }
+</script>
+</html>

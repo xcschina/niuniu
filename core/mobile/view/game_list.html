@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>游戏列表页</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/common.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/list.css" media="screen" />
+</head>
+
+<body>
+<header class="page-header clearfix">
+    <h1 class="h1-txt">游戏列表</h1>
+    <a href="javascript:history.back();" class="back-link"></a> <a class="idv-link" href="/account.php?act=user_center"></a> </header>
+<section class="shelp-con clearfix">
+    <div class="label-box clearfix">
+        <ul class="label-list clearfix">
+            <li {if $params.is_hot eq '1'}class="on"{/if}><a href="game.php?act=game_list&id=1&is_hot=1">热</a></li>
+            <li {if $params.first_letter eq 'A'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=A">A</a></li>
+            <li {if $params.first_letter eq 'B'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=B">B</a></li>
+            <li {if $params.first_letter eq 'C'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=C">C</a></li>
+            <li {if $params.first_letter eq 'D'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=D">D</a></li>
+            <li {if $params.first_letter eq 'E'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=E">E</a></li>
+            <li {if $params.first_letter eq 'F'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=F">F</a></li>
+            <li {if $params.first_letter eq 'G'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=G">G</a></li>
+            <li {if $params.first_letter eq 'H'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=H">H</a></li>
+            <li {if $params.first_letter eq 'I'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=I">I</a></li>
+            <li {if $params.first_letter eq 'J'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=J">J</a></li>
+            <li {if $params.first_letter eq 'K'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=K">K</a></li>
+            <li {if $params.first_letter eq 'L'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=L">L</a></li>
+            <li {if $params.first_letter eq 'M'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=M">M</a></li>
+            <li {if $params.first_letter eq 'N'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=N">N</a></li>
+            <li {if $params.first_letter eq 'O'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=O">O</a></li>
+            <li {if $params.first_letter eq 'P'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=P">P</a></li>
+            <li {if $params.first_letter eq 'Q'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=Q">Q</a></li>
+            <li {if $params.first_letter eq 'R'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=R">R</a></li>
+            <li {if $params.first_letter eq 'S'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=S">S</a></li>
+            <li {if $params.first_letter eq 'T'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=T">T</a></li>
+            <li {if $params.first_letter eq 'U'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=U">U</a></li>
+            <li {if $params.first_letter eq 'V'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=V">V</a></li>
+            <li {if $params.first_letter eq 'W'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=W">W</a></li>
+            <li {if $params.first_letter eq 'X'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=X">X</a></li>
+            <li {if $params.first_letter eq 'Y'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=Y">Y</a></li>
+            <li {if $params.first_letter eq 'Z'}class="on"{/if}><a href="game.php?act=game_list&id=1&first_letter=Z">Z</a></li>
+        </ul>
+    </div>
+    <ul class="sgame-list clearfix">
+        {foreach from=$game_list item=game}
+        <li><a>{$game.game_name}</a></li>
+        {/foreach}
+    </ul>
+</section>
+{include file="include/footer.html"}
+<script src="http://cdn.66173.cn/mobile/scripts/zepto.min.js"></script>
+<script src="http://cdn.66173.cn/mobile/scripts/script.js"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        /*autoplay: 3000,
+         effect: 'fade',
+         crossFade: true,*///控制是否自动播放
+        paginationClickable: true
+    });
+
+    var swiper = new Swiper('.swiper-container-2', {
+        direction: 'vertical',
+        autoplay: 4000,
+        loop: true,
+        autoplayDisableOnInteraction: false
+    });
+</script>
+</body>
+</html>

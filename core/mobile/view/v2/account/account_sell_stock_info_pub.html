@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>{$info.title} - 我的66173</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/common.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/pay.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/my.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/sale.css" media="screen" />
+    {literal}
+    <style>
+        .md-tnav li{width: 50%}
+    </style>
+    {/literal}
+</head>
+<body>
+<header class="page-header clearfix">
+    <h1 class="page-h1">商品修改</h1>
+    <a onclick="javascript:history.back();" class="p2-back">返回</a>
+    {if $smarty.session.user_id}
+    <a class="login-on" href="/account.php?act=user_center">个人中心</a>
+    {else}
+    <a class="login-link" href="/account.php?act=user_center" id="login-btn">登录</a>
+    {/if}
+</header>
+<section class="clearfix">
+    <form action="/my_sell.php?act=stock-item-edit-pub&id={$info.id}" method="post" enctype="multipart/form-data" name="form_pub" id="form">
+        <div class="sale-money clearfix"><span class="fr"><em>¥{$sell.price}</em></span><span>{$sell.title}</span></div>
+        <div class="error">
+            {if $smarty.session.publishu_error}
+            {foreach from=$smarty.session.publishu_error item=error}
+            <li>{$error}</li>
+            {/foreach}
+            {/if}
+        </div>
+        <div class="sale-info-box clearfix">
+            <label>选择区服：</label>
+            <a class="sel-sev" onclick="select_servs();">{$info.serv_name}</a>
+        </div>
+        <div class="sale-info-box clearfix">
+            <label>游戏账号：</label>
+            <input name="game_user" type="text" placeholder="请输入游戏账号" class="sale-input" value="{$info.game_user}" />
+        </div>
+        <div class="sale-info-box clearfix">
+            <label>游戏密码：</label>
+            <input name="game_pwd" type="text" placeholder="请输入游戏密码" class="sale-input" value="{$info.game_pwd}" />
+        </div>
+        <div class="sale-info-box clearfix">
+            <label>确认密码：</label>
+            <input name="game_pwd_again" type="text" placeholder="请再次输入游戏密码" class="sale-input" value="" />
+        </div>
+        <div class="sale-info-box clearfix">
+            <label>游戏角色：</label>
+            <input name="role_name" type="text" placeholder="请输入游戏角色" class="sale-input" value="{$info.role_name}" />
+        </div>
+        <div class="sale-info-box clearfix">
+            <label>游戏等级：</label>
+            <input name="role_level" type="number" placeholder="请输入游戏等级" class="sale-input" value="{$info.role_level}" />
+        </div>
+        <div class="sale-info-box clearfix">
+            <label>安全锁：</label>
+            <input name="game_user_lock" type="text" placeholder="如未设置,可不填" class="sale-input" value="{$info.game_user_lock}" />
+        </div>
+        <div class="sale-info-box-pic clearfix">
+            <label>商品图片：</label>
+            <section class="img">
+                <h3 class="error"></h3>
+                <div id="preview">
+                    {foreach from=$imgs item=img}<div class='item'><img src="http://cdn.66173.cn/{$img.img_url}" /></div>{/foreach}
+                </div>
+                <div class="img">
+                    <input id="fileImage" type="file" name="imgs[]"  style="display: none"  multiple/>
+                    <a href="#;" class="img"></a>
+                </div>
+                <div style="clear: both"></div>
+            </section>
+        </div>
+        <div class="sale-tit-box clearfix">
+            <h3 class="sale-tit">联系方式</h3>
+        </div>
+        <div class="sale-info-box clearfix">
+            <label>手机号码：</label>
+            <input name="tel" type="text" placeholder="请输入手机号码" class="txt-input" value="{$info.tel}" />
+        </div>
+        <div class="sale-info-box clearfix">
+            <label>QQ号码：</label>
+            <input name="qq" type="text" placeholder="请输入QQ号码" class="txt-input" value="{$info.qq}" />
+        </div>
+        <div class="sale-tit-box clearfix">
+            <h3 class="sale-tit">交易选项</h3>
+        </div>
+        <div class="sale-info-box-2 clearfix" id="overdue">
+            <label>发布有效期：</label>
+            <a rel="1"{if $info.overdue eq 1} class="on"{/if}>1天</a><a rel="3"{if $info.overdue eq 3} class="on"{/if}>3天</a>
+            <a rel="7"{if $info.overdue eq 7} class="on"{/if}>7天</a><a rel="30"{if $info.overdue eq 30} class="on"{/if}>30天</a>
+        </div>
+        <a class="b-btn" onclick="do_publish();">提交审核</a>
+        <input type="hidden" name="game_id" value="{$info.game_id}" />
+        <input type="hidden" name="pagehash" value="{$pagehash}" />
+        <input type="hidden" name="do" value="{$sell.do}" />
+        <input type="hidden" name="overdue" value="{$info.overdue}" />
+        <input type="hidden" name="serv_id" value="{$info.serv_id}" />
+        <input type="hidden" name="id" value="{$info.id}" />
+    </form>
+</section>
+{include file="../include/footer.html"}
+<div class="side-bg" id="servs"></div>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+    !window.jQuery && document.write('<script src=http://lib.sinaapp.com/js/jquery/2.0.0/jquery.min.js><\/script>');
+</script>
+<script src="http://cdn.66173.cn/mobile/v2/scripts/up_img.js?t=20151221143"></script>
+<script src="http://cdn.66173.cn/mobile/v2/scripts/sell_account.js?t=20161191119"></script>
+</body>
+</html>

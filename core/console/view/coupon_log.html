@@ -1,0 +1,61 @@
+<div class="bjui-pageHeader">
+    <form id="pagerForm" action="coupon.php?act=coupon_log&id={$id}" method="post" data-toggle="ajaxsearch">
+        <div class="bjui-searchBar">
+            <label>用户ID：</label>
+            <input type="text" name="user_id"  value="{$params.user_id}" class="form-control" size="8">&nbsp;
+            <label>排序：</label>
+            <select name="sort" data-toggle="selectpicker">
+                <option value="" {if $params.sort eq ''}selected="selected"{/if}>id</option>
+                <option value="receive_time" {if $params.sort eq 'receive_time'}selected="selected"{/if}>领取时间</option>
+                <option value="use_time" {if $params.sort eq 'use_time'}selected="selected"{/if}>使用时间</option>
+                <option value="start_time" {if $params.sort eq 'start_time'}selected="selected"{/if}>开始时间</option>
+                <option value="end_time" {if $params.sort eq 'end_time'}selected="selected"{/if}>结束时间</option>
+            </select>&nbsp;
+            <label>时间类型：</label>
+            <select name="time_name" data-toggle="selectpicker">
+                <option value="" {if $params.time_name eq ''}selected="selected"{/if}>请选择</option>
+                <option value="add_time" {if $params.time_name eq 'add_time'}selected="selected"{/if}>创建时间</option>
+                <option value="receive_time" {if $params.time_name eq 'receive_time'}selected="selected"{/if}>领取时间</option>
+                <option value="use_time" {if $params.time_name eq 'use_time'}selected="selected"{/if}>使用时间</option>
+                <option value="start_time" {if $params.time_name eq 'start_time'}selected="selected"{/if}>开始时间</option>
+                <option value="end_time" {if $params.time_name eq 'end_time'}selected="selected"{/if}>结束时间</option>
+            </select>&nbsp;
+            <label>使用时间：</label>
+            <input type="text" name="time" data-toggle="datepicker" value="{if $params.time}{'Y-m-d'|date:$params.time}{/if}" placeholder="开始时间">-
+            <input type="text" name="time2" data-toggle="datepicker"  value="{if $params.time2}{'Y-m-d'|date:$params.time2}{/if}" placeholder="结束时间">
+            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th>No</th>
+            <th>用户ID</th>
+            <th>创建时间</th>
+            <th>领取时间</th>
+            <th>开始时间</th>
+            <th>结束时间</th>
+            <th>使用时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=data from=$coupon_logs}
+        <tr align="center">
+            <td>{$data.id}</td>
+            <td>{$data.user_id}</td>
+            <td>{if $data.add_time}{'Y-m-d H:i:s'|date:$data.add_time}{/if}</td>
+            <td>{if $data.receive_time}{'Y-m-d H:i:s'|date:$data.receive_time}{/if}</td>
+            <td>{if $data.start_time}{'Y-m-d H:i:s'|date:$data.start_time}{/if}</td>
+            <td>{if $data.end_time}{'Y-m-d H:i:s'|date:$data.end_time}{/if}</td>
+            <td>{if $data.use_time}{'Y-m-d H:i:s'|date:$data.use_time}{/if}</td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

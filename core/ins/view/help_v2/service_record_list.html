@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>客服记录</title>
+    {include file="help_v2/include/head_common.html"}
+    <link rel="stylesheet" href="//cdn.66173.cn/ins/css/help_v2/service_rel.css?t={$smarty.now}">
+    {include file="help_v2/include/head_script.html"}
+</head>
+<body class="service-rel service-record-list">
+{include file="help_v2/include/menu_bar.html"}
+<div class="main-wrapper">
+    <div class="list-outer-wrapper">
+        <div class="service-record-wrapper">
+            <div class="has-list">
+                <div class="service-list">
+                    {foreach item=data from=$info}
+                    <a href="feedback.php?act=question_detail&id={$data.id}&read_status={$data.read_status}" class="li {if $data.read_status eq '0'}unread{/if}">
+                        <div class="left">
+                            <div class="line1">
+                                <img src="//cdn.66173.cn/ins/img/web_h/icon_question.png" class="icon_question">
+                                <span class="font-md text-overflow question">
+                                        【<span class="type">{if $data.type eq '1'}其他问题{elseif $data.type eq '2'}账号问题{elseif $data.type eq '3'}充值问题{elseif $data.type eq '4'}游戏内问题{/if}</span>】
+                                        {$data.content}
+                                    </span>
+                            </div>
+                            <div class="line2">
+                                <span class="font-sm base-desc base-desc1">反馈时间：<span class="time">{$data.create_time}</span></span>
+                                <span class="font-sm text-overflow base-desc base-desc2">{$data.server_name}</span>
+                                {if $data.mobile}
+                                <span class="font-sm base-desc base-desc3">手机：<span class="telphone">{substr($data.mobile,0,3)}*****{substr($data.mobile,-3)}</span></span>
+                                {/if}
+                            </div>
+                        </div>
+                        <div class="right"><span class="font-sm status {if $data.question_status eq '1'}close{elseif !$data.feedback_time}no{elseif $data.question_status eq '0'}going{/if}">
+                                {if $data.question_status eq '1'}已关闭{elseif !$data.feedback_time}待回复{elseif $data.question_status eq '0'}提问中{/if}
+                            </span></div>
+                    </a>
+                    {/foreach}
+                </div>
+            </div>
+            {if count($info) eq 10}
+            <div class="font-md get-status"><span class="more-btn more-btn-can">加载更多</span></div>
+            {else}
+            <div class="font-md get-status">没有了~</div>
+            {/if}
+        </div>
+        <div class="font-md bottom">
+            <div class="left"></div><div class="center">客服妹妹在线相随,在线时间：09:00&nbsp;-&nbsp;18:00</div><div class="right"></div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var orientation = $("#orientation").val();
+    var curPage = 1;
+    var getMoreTimeout;
+    var ajaxInstance;
+    $("body").on("click", ".more-btn-can", function() {
+        $(".more-btn").removeClass("more-btn-can");
+        getServiceList();
+        commonS.btnTimeOutControl(".more-btn", "more-btn-can", getMoreTimeout, 3000);
+    });
+    // 获取消息列表
+    function getServiceList() {
+        var reqPage = curPage + 1;
+        if(ajaxInstance) {
+            ajaxInstance.abort();
+        }
+        ajaxInstance = commonM.ajax({
+            url: '/feedback.php?act=more_record',
+            type: 'post',
+            data: {
+                page: reqPage
+            },
+            dataType: 'text',
+            success: function (res) {
+                var code = res.code;
+                var list = res.list || [];
+                if(code == 1) {
+                    var content = "";
+                    // 返回有消息
+                    if (list.length != 0) {
+                        for(var i = 0; i < list.length; i++) {
+                            content += '<a href="feedback.php?act=question_detail&id='+list[i]['id']+'&read_status='+list[i]['read_status']+'" class="li">'
+                                + '<div class="left">'
+                                + '<div class="line1">'
+                                +'<img src="//cdn.66173.cn/ins/img/web_h/icon_question.png" class="icon_question">'
+                                + '<span class="font-md text-overflow question">' ;
+                            '【'+list[i]['type'] + '】'+ list[i]['content'] + '</span>'
+                            if(list[i]['type'] == 1){
+                                content +='【其他问题】';
+                            }else if(list[i]['type'] == 2){
+                                content +='【账号问题】';
+                            }else if(list[i]['type'] == 3){
+                                content +='【充值问题】';
+                            }else if(list[i]['type'] == 4){
+                                content +='【游戏内问题】';
+                            }
+                            content += list[i]['content']
+                                +'</span></div><div class="line2">'
+                                + '<span class="font-sm base-desc base-desc1">反馈时间：<span class="time">'+list[i]['create_time'] + '</span></span>'
+                                + '<span class="font-sm text-overflow base-desc base-desc2">'+list[i]['server_name'] + '</span>';
+                            if(list[i]['mobile']){
+                                content += '<span class="font-sm base-desc base-desc3">手机：<span class="telphone">'+list[i]['mobile'].slice(0,3) + '*****' + list[i]['mobile'].substring(8) +'</span></span>';
+                            }
+                            content += '</div></div>'
+                                + '<div class="right"><span class="font-sm status ';
+                            if(list[i]['question_status'] == 1) {
+                                content += 'close">已关闭';
+                            } else if (!list[i]['feedback_time'] ){
+                                content += 'no">待回复';
+                            } else if(list[i]['question_status'] == 0){
+                                content += 'going">提问中';
+                            }
+                            content += '</span></div></a>';
+                        }
+                        $(".service-list").append(content);
+                        if(list.length < 10) {
+                            $(".get-status").html("没有了~");
+                        }
+                        else {
+                            $(".get-status").html('<span class="more-btn more-btn-can">加载更多</span>');
+                        }
+                        curPage++;
+                    }
+                    // 没有更多了
+                    else {
+                        $(".get-status").html("没有了~");
+                    }
+                }
+                else {
+                    commonS.tip(res.desc);
+                }
+            }
+        }, ajaxInstance);
+    }
+</script>
+
+</html>

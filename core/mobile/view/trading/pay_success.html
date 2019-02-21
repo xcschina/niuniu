@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>支付结果</title>
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/comment.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/pay_success.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+</head>
+<body>
+<div class="page_top2">
+    <div class="page_top_left2">
+    </div>
+    <div class="page_top_center2">
+       支付结果
+    </div>
+    <a class="page_top_right2">
+    </a>
+</div>
+<div class="pay_result_contant margin_t">
+</div>
+<div class="pay_result_top">
+    <img class="success_img" src="//cdn.66173.cn/mobile/trading/image/person_center/success.png" alt=""><span class="success_text">订单支付成功</span>
+</div>
+<a class="link_chat foot_kefu_success">
+  <span>稍后客服会与您联系或点此联系客服发货</span><img class="kefu_chat" src="//cdn.66173.cn/mobile/trading/image/person_center/kefu.png" alt="">
+</a>
+<div class="success_btn">
+    <a href="/moyu">回到首页</a>
+    <a href="/accountCenter">个人中心</a>
+</div>
+<div class="link_guide">
+    <a href="/tradingGuide">交易指南</a>
+</div>
+</body>
+<script>
+    $('.foot_kefu_success').click(function(){
+        var u = navigator.userAgent;
+        if(/Safari/.test(u) && !/Chrome/.test(u)){
+            alert('请添加客服QQ：3001082900');
+        }else{
+            window.location.href = 'http://wpa.qq.com/msgrd?v=3&uin=3001082900&site=qq&menu=yes';
+        }
+    });
+</script>
+</html>

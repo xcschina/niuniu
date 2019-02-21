@@ -1,0 +1,35 @@
+<div class="bjui-pageContent">
+    <form action="game_info.php?act=do_save_ch"  data-toggle="validate" data-alertmsg="false">
+        <table class="table table-condensed table-hover" width="100%">
+            <thead align="center">
+            <tr>
+                <th width="180">{$info.game_name}</th>
+                <th width="120">首充号折扣</th>
+                <th width="120">首充号续充折扣</th>
+                <th width="120">代充折扣</th>
+                <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach from=$game_channels item=gc key=k}
+            <tr align="center">
+                <td>{$gc[0].name}</td>
+                {foreach from=$gc item=g}
+                <td><input name="{$g.d_type}" value="{$g.discount}" maxlength="3" size="6" /></td>
+                {/foreach}
+
+                <!--<td><a class="btn btn-green" href="game_info.php?act=do_save_ch">保存</a></td>-->
+                <td>&nbsp;</td>
+            </tr>
+            {/foreach}
+            </tbody>
+            <input type="hidden" name="game_id" value="{$info.id}" />
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <meta name="robots" content="all">
+    <meta name="author" content="Tencent-TGideas">
+    <meta name="Copyright" content="Tencent">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="Mon, 20 Jul 2013 23:00:00 GMT"/> <!--//设置页面缓存-->
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,maximum-scale=1" />
+    <meta name="Description" content="《传奇世界手游》由同名端游IP改编，延续经典战法道三职业设定，复刻落霞夺宝、热血攻沙等经典玩法，带你重返记忆中的传世。召集兄弟，加入行会，随时随地，热血PK！" />
+    <meta name="keywords" content="龙城战歌，传奇世界手游，传奇手游，经典传奇，炫彩传世" />
+    <script>
+        ! function(e, n) {
+            function t() {
+                var e = d.clientWidth,
+                    n = d.clientHeight;
+                d.style.fontSize = 375 / 667 < e / n ? e / 375 * 100 + "px" : n / 667 * 100 + "px";
+            }
+            if (e.addEventListener) {
+                var d = document.documentElement;
+                e.addEventListener("resize", t, !1), n.addEventListener("DOMContentLoaded", t, !1)
+            }
+        }(window, document);
+    </script>
+    <script src="https://cdn.66173.cn/mobile/website/lczg/js/swiper.js"></script>
+    <title>龙城战歌手游官网</title>
+    <link rel="stylesheet" href="https://cdn.66173.cn/mobile/css/yhwz_m.css?t={$smarty.now}">
+    <link href="https://cdn.66173.cn/mobile/website/lczg/css/index.css?t={$smarty.now}" rel="stylesheet">
+    <link href="https://cdn.66173.cn/mobile/website/lczg/css/index2.css?t={$smarty.now}" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.66173.cn/mobile/website/lczg/js/zepto.js?t={$smarty.now}"  ></script>
+    <script src="https://cdn.66173.cn/mobile/website/lczg/js/motion.js?t={$smarty.now}"></script>
+</head>
+<body>
+<!--顶端头部-->
+<div class="w_global" id="w_global">
+    <div class="index_div_top ttt"></div>
+    <header class="w_menu ggg">
+        <div class="topBox">
+            <a style=" visibility:hidden;" ontouchend="PTTSendClick('btn','menu','menu');" href="#" data-open="0" id="b_menuBox" class="b_menuBox">
+            </a>
+        </div>
+    </header>
+    <div id="w_face" class="w_face">
+        <img class="w_face_img1" src="https://cdn.66173.cn/mobile/website/lczg/images/bg/bg_01.png" alt="">
+        <div class="new_active">
+            <img class="news_img" src="https://cdn.66173.cn/mobile/website/lczg/images/news.png" alt="">
+            <div class="w_face_space"></div>
+        </div>
+    </div>
+    <!--中心新闻活动轮播图加tab切换开始-->
+    <div class="contant_body">
+        <div class="rotator clearfix bbb" >
+            <div class="swiper-container lunbo_c" >
+                <div class="swiper-wrapper lunbo_c">
+                    <div class="swiper-slide"><img class="imgimg" src="https://cdn.66173.cn/mobile/website/lczg/images/lunbo2.jpg" alt=""/></div>
+                    <div class="swiper-slide"><img class="imgimg" src="https://cdn.66173.cn/mobile/website/lczg/images/lunbo1.jpg" alt=""/></div>
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination">
+                    <span class="swiper-pagination-bullet swiper-pagination-bullet-active" data-seq="0"></span>
+                    <span class="swiper-pagination-bullet" data-seq="1"></span>
+                </div>
+            </div>
+        </div>
+        <!--tab切换开始-->
+        <div id="w_raiders" class="w_raiders m_tab">
+            <ul class="tab clearfix c">
+                <li class="current">最新</li>
+                <li >活动</li>
+                <li>新闻</li>
+                <li>公告</li>
+            </ul>
+            <div class="con">
+                <div class="item">
+                    <ul class="ul_two">
+                        {foreach from=$activity_list item=activity}
+                        <li>
+                            <a class="tit" href="/detail/{$activity.id}">
+                                <span class="main ell">{$activity.title}</span>
+                                <span class="time">{'m/d'|date:$activity.lastupdate}</span>
+                            </a>
+                        </li>
+                        {/foreach}
+                    </ul>
+                </div>
+                <div class="item">
+                    <ul class="ul_two">
+                        {foreach from=$new_article item=latest}
+                        <li>
+                            <a class="tit" href="/detail/{$latest.id}">
+                                <span class="main ell">{$latest.title}</span>
+                                <span class="time">{'m/d'|date:$latest.lastupdate}</span>
+                            </a>
+                        </li>
+                        {/foreach}
+                    </ul>
+                </div>
+                <div class="item">
+                    <ul class="ul_two">
+                        {foreach from=$news_list item=news}
+                        <li>
+                            <a class="tit" href="/detail/{$news.id}">
+                                <span class="main ell">{$news.title}</span>
+                                <span class="time">{'m/d'|date:$news.lastupdate}</span>
+                            </a>
+                        </li>
+                        {/foreach}
+                    </ul>
+                </div>
+                <div class="item">
+                    <ul class="ul_two">
+                        {foreach from=$notice_list item=notice}
+                        <li>
+                            <a class="tit" href="/detail/{$notice.id}">
+                                <span class="main ell">{$notice.title}</span>
+                                <span class="time">{'m/d'|date:$notice.lastupdate}</span>
+                            </a>
+                        </li>
+                        {/foreach}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="game_jietu">
+        <div class="gama_jietu_img">
+            <img class="gama_jietu_img_i"  src="https://cdn.66173.cn/mobile/website/lczg/images/jietu.png" alt="">
+        </div>
+    </div>
+    <!--游戏截图加底部开始游戏截图开始-->
+    <div class="bottom_jietu">
+        <div class="w_features">
+            <div class="con">
+                <ul id="features_list" class="list clearfix">
+                    <li class="current" style="list-style: none">
+                        <span>
+                            <img class="width"  src="https://cdn.66173.cn/mobile/website/lczg/images/game_jietu/1.jpg" alt="">
+                        </span>
+                    </li>
+                    <li class="lll" >
+                        <span>
+                            <img class="width" src="https://cdn.66173.cn/mobile/website/lczg/images/game_jietu/2.jpg" alt="">
+                        </span>
+                    </li>
+                    <li class="lll">
+                        <sapn>
+                            <img class="width" src="https://cdn.66173.cn/mobile/website/lczg/images/game_jietu/3.jpg" alt="">
+                        </sapn>
+                    </li>
+                    <li class="lll">
+                    <span>
+                           <img class="width" src="https://cdn.66173.cn/mobile/website/lczg/images/game_jietu/4.jpg" alt="">
+                    </span>
+                    </li>
+                    <li class="lll">
+                    <span>
+                      <img class="width" src="https://cdn.66173.cn/mobile/website/lczg/images/game_jietu/5.jpg" alt="">
+                    </span>
+                    </li>
+                </ul>
+                <i id="features_pre" class="pre i hide"></i>
+                <i id="features_next" href="#" class="next i"></i>
+                <ul id="features_controller" class="controller">
+                    <li class="current"></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+        </div>
+        <div class="jiaqun">
+            <img class="width"  src="https://cdn.66173.cn/mobile/website/lczg/images/jiaqun.png" alt="">
+        </div>
+        <!--底部二维码-->
+        <div class="erweima">
+            <img class="erweima_img" src="https://cdn.66173.cn/mobile/website/lczg/images/qqerweima.png" alt="">
+        </div>
+        <div class="erweima_txt">
+            扫描二维码关注官方QQ群
+        </div>
+        <div class="erweima_txt2">
+            或者搜索官方官方QQ群: <span class="mobile_txt">833690336</span>
+        </div>
+        <div class="footer_enjoy">
+            <img class="width"  src="https://cdn.66173.cn/mobile/website/lczg/images/enjoy.png" alt="">
+        </div>
+    </div>
+</div>
+<!--微信分享的时间戳==============-->
+<input type="hidden" value="{$noncestr}" id="noncestr"/>
+<input type="hidden" value="{$timestamp}" id="timestamp"/>
+<input type="hidden" value="{$signature}" id="signature" />
+<input type="hidden" id="pagehash" value="{$pagehash}">
+<!--微信分享的时间戳结束===============-->
+<!--一下为脚本部分内容-->
+<script src="https://cdn.66173.cn/mobile/website/lczg/js/index.js"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        mode: 'horizontal',
+        autoplay: 4000,
+        crossFade: true ,///控制是否自动播放
+        preloadImages: false, //是否初始时将所有轮播图加载完,
+        lazyLoading: true, //是否图片懒加载，要和preloadImages: false一起使用
+        paginationClickable: true,
+        autoplayDisableOnInteraction: false //控制用户滑动或点击到其他图后是否不再轮播
+    });
+</script>
+<!--判断用户安卓手机还是苹果手机并且跳转相应的下载地址============================================-->
+<script>
+    function isMobileIOS() {
+        var isIOS =(/iPhone|iPod|iPad/i).test(navigator.userAgent);
+        return isIOS ? true : false;
+    }
+    $(".index_div_top").on("touchend",function () {
+        if(isMobileIOS()){
+            alert("ios版本正在内测中，后期开放")
+        }else{
+            console.log("安卓手机")
+            window.location.href=""            //这里为下载地址链接
+        }
+    })
+    //    截取li中指定的文字数以防被超出
+    $(".main").each(function(){
+        var len=$(this).text()
+        if( len.length<=10){
+            $(this).html($(this).text())
+        }else{
+            $(this).html($(this).text().substring(0,12)+'...')
+        }
+    })
+    $("#close").bind("touchstart",function(){
+        $("#w_global").show();
+        $("#pop").hide();
+    });
+    <!--判断手机端还是pc端-->
+    $(document).ready(function () {
+        browserRedirect()
+    })
+    function browserRedirect() {
+        var sUserAgent = navigator.userAgent.toLowerCase();
+        var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+        var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+        var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+        var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+        var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+        var bIsAndroid = sUserAgent.match(/android/i) == "android";
+        var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+        var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+        if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+            // window.location.href="pc_index.html"
+        } else {
+            window.location.href="pc_index.html"
+        }
+    }
+</script>
+<!--引入微信分享在线cdn的js微信分享-->
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script>
+    // <!--获取到签名-->
+    var noncestr = $("#noncestr").val();
+    var timestamp = $("#timestamp").val();
+    var signature = $("#signature").val();
+    document.addEventListener('WeixinJSBridgeReady', function() {
+        wx.config({
+            debug: false,
+            appId: "wxbaed68c7f2f3a62c",// 必填，公众号的唯一标识
+            timestamp: parseInt(timestamp),// 必填，生成签名的时间戳
+            nonceStr: noncestr,// 必填，生成签名的随机串
+            signature: signature,// 必填，签名
+            jsApiList: [
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'onMenuShareQQ',
+                'onMenuShareWeibo',
+                'onMenuShareQZone'
+            ]
+        });
+
+        //通过ready接口处理成功验证
+        wx.ready(function() {
+            var shareData = {
+                title: '龙城战歌',
+                desc: '《龙城战歌》一款热门手游,与玩家一起体验精品游戏,享受真福利与真特权，只为带给您高品质的游戏体验。',
+                link: window.location.href,
+                imgUrl: "https://cdn.66173.cn/mobile/website/lczg/images/logo.png",// 分享图标
+                type: '',
+                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                success: function() {
+                    alert("分享成功")
+                },
+                cancel: function() {
+                    alert("取消分享");
+                }
+            };
+            // 分享给朋友事件绑定
+            wx.onMenuShareAppMessage(shareData);
+            // 分享到朋友圈
+            wx.onMenuShareTimeline(shareData);
+            // 分享到QQ
+            wx.onMenuShareQQ(shareData);
+            // 分享到QZone
+            wx.onMenuShareQZone(shareData);
+            // 分享到微博
+            wx.onMenuShareWeibo(shareData);
+        });
+    });
+</script>
+</body>
+</html>

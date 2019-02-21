@@ -1,0 +1,76 @@
+{literal}
+<script type="text/javascript">
+    $(function(){
+        $("#links").chosen();
+        $("select[name=game_id]").chosen();
+        $("select[name=batch_id]").chosen();
+    })
+</script>
+{/literal}
+
+<div class="bjui-pageHeader" style="height:130px">
+    <a href="weekactivity.php?act=add_activity" class="btn btn-green" data-toggle="navtab" data-id="add_view" data-title="添加游戏">新建游戏活动</a>
+    <div style="clear: both;width:20px;height:10px;"></div>
+    <form action="weekactivity.php?act=update_weekactivity" id="j_custom_form" data-toggle="validate" data-alertmsg="false">
+        <label  class="control-label">选择游戏活动：</label>
+        <select id="links" name="activity[]" multiple="true" style="width:900px;" data-placeholder="请选择上线的活动">
+            {foreach item=data from=$lists}
+                <option value="{$data.id}">{$data.game_name}</option>
+            {/foreach}
+        </select>
+        <div class="bjui-searchBar">
+            <label>选择活动批次:</label>
+            <select name="batch_id">
+                <option>请选择</option>
+                {foreach item=batch from=$batchs}
+                <option style="width:300px!important;" value="{$batch.id}">{$batch.batch_name}</option>
+                {/foreach}
+            </select>&nbsp;
+            <button type="submit" class="btn-default">上线</button>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th width="20">No.</th>
+            <th>ICON</th>
+            <th>商品名称</th>
+            <th>商品原价</th>
+            <th>商品折扣价</th>
+            <th>商品库存量</th>
+            <th>游戏简介</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach item=data from=$datas}
+        <tr align="center">
+            <td>{$data.id}</td>
+            <td><img width="50px;" height="50px;" src="http://static.66173.cn/{$data.game_icon}" alt=""></td>
+            <td>{$data.game_name}</td>
+            <td>{$data.old_price}</td>
+            <td>{$data.new_price}</td>
+            <td>{$data.repertory}</td>
+            <td width="200">{$data.game_desc}</td>
+            <td>{if $data.status eq 3}<span style="color:green">正在使用</span>
+            <br><span style="color:red;">活动时间:{$data.time}</span><br>
+            批次ID:{$data.batch_id}
+            {elseif $data.status eq 2}已绑定
+                <br>活动时间:{$data.time}<br>
+                批次ID:{$data.batch_id}
+                {elseif $data.status eq 1}<span style="color:grey;">活动结束</span>{elseif $data.status eq 4}<span style="color:red">未绑定</span>{/if}</td>
+            <td>
+                <a href="weekactivity.php?act=activity_edit&id={$data.id}" class="btn btn-green" data-toggle="navtab"  data-height="550" data-id="game_edit_view"  data-title="活动编辑">修改活动</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

@@ -1,0 +1,31 @@
+<div class="user_center_left no_indent">
+	<dl>
+		<dt>使用帮助</dt>
+
+		<dd class="module_title">新手指南</dd>
+		{foreach from=$data.guiders item=guider}
+		<dd><a href="/info/{$guider.id}"  {if ($pid eq '1') and ($sid eq $guider['id'])}class="color_red"{/if}>{$guider.title}</a></dd>
+		{/foreach}
+
+
+		<dd class="module_title">客服中心</dd>
+		{foreach from=$data.servers item=server}
+		<dd><a href="/info/{$server.id}" {if ($pid eq '4') and ($sid eq $server['id'])}class="color_red"{/if}>{$server.title}</a></dd>
+		{/foreach}
+
+		<dd class="module_title">游戏资讯</dd>
+		<dd> <a href="/info/list16" {if $pid eq '16'}class="color_red"{/if}>网站公告</a></dd>
+		<!-- <dd class="border_bottom_none"> <a href="#">官方新闻</a></dd> -->
+		
+		<dd class="module_title">了解66173</dd>
+		{foreach from=$data.aboutus item=about}
+		<dd><a href="/info/{$about.id}" {if ($pid eq '5') and ($sid eq $about['id'])}class="color_red"{/if}>{$about.title}</a></dd>
+		{/foreach}
+		
+		<dd class="module_title">常见问题</dd>
+		{foreach from=$data.questions item=question}
+		<dd><a href="/info/{$question.id}" title="{$question.title}"  {if ($pid eq '6') and ($sid eq $question['id'])}class="color_red"{/if}>{$question.title|mb_substr:0:12}</a></dd>
+		{/foreach}
+		
+	</dl>
+</div>

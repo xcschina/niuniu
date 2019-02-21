@@ -1,0 +1,58 @@
+<div id="tab2_box" style="display:none;">
+	<div class="game_down">
+		<div class="info">
+			<a href="/game{$gameinfo.id}/down" target="_blank" rel="noopener noreferrer"><img src="http://cdn.66173.cn/{$gameinfo.game_icon}" class="img" /></a>
+			<div class="word">
+				<a href="/game{$gameinfo.id}/down" target="_blank" rel="noopener noreferrer">{$gameinfo.game_name}</a><br/>
+				<!-- 游戏大小：159.5MB -->
+			</div>
+		</div>
+
+        {if $game_ch_downs.android|@count neq 0}
+        <div class="downaddr">
+            <i class="icon_android"></i>
+            {foreach from=$game_ch_downs.android item=down}
+            <a class="item" id="games" onclick="_hmt.push(['_trackEvent', 'game', 'dl', '{$gameinfo.game_name}+{$down.channel_name}']);" href="{$down.url}">
+                {$down.channel_name}<br/>点击下载
+                <div class="smallcode">
+                    <div class="code">
+                        <i></i>
+                        <img src="/game{$down.game_id}/qr{$down.id}" />扫一扫下载到手机
+                    </div>
+                    <img src="/game{$down.game_id}/qr{$down.id}" />
+                </div>
+            </a>
+            {/foreach}
+        </div>
+        {else}
+        <div class="downaddr">
+            <i class="icon_android"></i>
+            <a class="item"> <span >敬请期待...</span> </a>
+        </div>
+        {/if}
+
+        {if $game_ch_downs.ios|@count neq 0}
+        <div class="downaddr">
+            <i class="icon_ios"></i>
+            {foreach from=$game_ch_downs.ios item=down}
+            <a class="item" id="games" onclick="_hmt.push(['_trackEvent', 'game', 'dl', '{$gameinfo.game_name}+{$down.channel_name}']);" href="{$down.url}">
+                {$down.channel_name}<br/>点击下载
+                <div class="smallcode">
+                    <div class="code">
+                        <i></i>
+                        <img src="/game{$down.game_id}/qr{$down.id}" />扫一扫下载到手机
+                    </div>
+                    <img src="/game{$down.game_id}/qr{$down.id}" />
+                </div>
+            </a>
+            {/foreach}
+        </div>
+        {else}
+        <div class="downaddr">
+            <i class="icon_ios"></i>
+            <a class="item"> <span >敬请期待...</span> </a>
+        </div>
+        {/if}
+
+    </div>
+</div>

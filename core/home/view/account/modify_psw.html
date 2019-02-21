@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>修改密码</title>
+    <link href="http://cdn.66173.cn/wwwv2/css/style.css?t=109" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="http://cdn.66173.cn/www/js/jquery-1.7.1.min.js" ></script>
+</head>
+<body>
+{include file="include/top.html"}
+<div class="wrapper clearfix">
+    {include file="include/header.html"}
+    {include file="include/nav.html"}
+    <div class="w1000">
+        <div class="current_nav ">
+            当前位置：<a href="/">{if $domain_name eq 1}66173{else if $domain_name eq 2}u2590{/if}交易平台</a>&nbsp;>&nbsp;账户设置
+        </div>
+        {include file="include/user-side.html"}
+        <div class="user_center_right">
+            <form action="account.php?act=do_modify_psw" method="post" id="modify_psw">
+                <div class="integral_detail">
+                    <div class="user_center_title">修改登录密码</div>
+                    <div class="account_setup">
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            <tr><td>*旧&nbsp;密&nbsp;码：</td>
+                                <td><input style="width:200px" placeholder="请输入旧密码" id="opassword" type="password" name="opassword" value="" />
+                                <em class="color_red" id="op_error">{$smarty.session.modify_psw_op_error}</em></td>
+                            </tr>
+                            <tr>
+                                <td>*新&nbsp;密&nbsp;码：</td>
+                                <td><input style="width:200px" placeholder="请输入新密码" id="password" type="password" name="password" value="" />
+                                <em class="color_red" id="p_error">{$smarty.session.modify_psw_p_error}</em></td>
+                            </tr>
+                            <tr>
+                                <td>*重复密码：</td>
+                                <td><input style="width:200px" placeholder="再次输入新密码" id="cpassword" type="password" name="cpassword" value="" />
+                                <em class="color_red" id="cp_error">{$smarty.session.modify_psw_cp_error}</em></td>
+                            </tr>
+                        </table>
+                        <div style=" text-align: center; margin: 30px;">
+                            <a href="javascript:modify_psw();" class="btn_red_big">确认修改</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="clear_both"></div>
+    </div>
+</div>
+<!--footer-->
+{include file="include/footer.html"}
+<!--//footer-->
+<script type="text/javascript">
+    function modify_psw(){
+        $("#op_error").html("");
+        $("#p_error").html("");
+        $("#cp_error").html("");
+        var opass=$('input[name=opassword]').val();
+        var pass=$('input[name=password]').val();
+        var cpass=$('input[name=cpassword]').val();
+        if(opass.length==0){
+            $("#op_error").html("旧密码不能为空");
+            return;
+        }
+        if(opass.length < 6){
+            $("#op_error").html("旧密码不正确");
+            return;
+        }
+        if(pass.length < 6 || pass.length>18){
+            $("#p_error").html("密码为字母和数字，支持大小写，长度6-18个字符");
+            return ;
+        }
+        if(pass!=cpass){
+            $("#cp_error").html("两次密码不一致");
+            return;
+        }
+        $('#modify_psw').submit();
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<script type="text/javascript">
+    $(function(){
+        $("select[name=first_letter]").chosen();
+        $("select[name=channel_id]").chosen();
+    })
+</script>
+<div class="bjui-pageHeader">
+    <form id="pagerForm" action="game_info.php?act=game_list" method="post" data-toggle="ajaxsearch">
+        <div class="bjui-searchBar">
+            <a href="game_info.php?act=game_add_view" class="btn btn-green" data-toggle="navtab" data-id="game_add_view" data-title="游戏新建">新建</a>
+            <a href="game_info.php?act=import_view" class="btn btn-green" data-toggle="dialog" data-mask="true" data-width="500"  data-height="160" data-id="import_view" data-title="游戏批量导入">批量导入</a>
+            <label>渠道：</label>
+            <select name="channel_id">
+                <option value="" {if $params.channel_id eq ''}selected="selected"{/if}>请选择</option>
+                {foreach from=$channels_list item=channel}
+                <option value="{$channel.id}" {if $params.channel_id eq $channel.id}selected="selected"{/if}>{$channel.channel_name}-{$channel.id}</option>
+                {/foreach}
+            </select>&nbsp;
+            <label>游戏名：</label><input type="text" name="game_name"  value="{$params.game_name}" class="form-control" size="8">&nbsp;
+            <label>首字母：</label>
+            <select name="first_letter">
+                <option value="" {if $params.first_letter eq ''}selected="selected"{/if}>请选择</option>
+                <option value="A" {if $params.first_letter eq 'A'}selected="selected"{/if}>A</option>
+                <option value="B" {if $params.first_letter eq 'B'}selected="selected"{/if}>B</option>
+                <option value="C" {if $params.first_letter eq 'C'}selected="selected"{/if}>C</option>
+                <option value="D" {if $params.first_letter eq 'D'}selected="selected"{/if}>D</option>
+                <option value="E" {if $params.first_letter eq 'E'}selected="selected"{/if}>E</option>
+                <option value="F" {if $params.first_letter eq 'F'}selected="selected"{/if}>F</option>
+                <option value="J" {if $params.first_letter eq 'J'}selected="selected"{/if}>J</option>
+                <option value="H" {if $params.first_letter eq 'H'}selected="selected"{/if}>H</option>
+                <option value="I" {if $params.first_letter eq 'I'}selected="selected"{/if}>I</option>
+                <option value="Z" {if $params.first_letter eq 'Z'}selected="selected"{/if}>Z</option>
+                <option value="K" {if $params.first_letter eq 'K'}selected="selected"{/if}>K</option>
+                <option value="L" {if $params.first_letter eq 'L'}selected="selected"{/if}>L</option>
+                <option value="M" {if $params.first_letter eq 'M'}selected="selected"{/if}>M</option>
+                <option value="N" {if $params.first_letter eq 'N'}selected="selected"{/if}>N</option>
+                <option value="O" {if $params.first_letter eq 'O'}selected="selected"{/if}>O</option>
+                <option value="P" {if $params.first_letter eq 'P'}selected="selected"{/if}>P</option>
+                <option value="Q" {if $params.first_letter eq 'Q'}selected="selected"{/if}>Q</option>
+                <option value="R" {if $params.first_letter eq 'R'}selected="selected"{/if}>R</option>
+                <option value="S" {if $params.first_letter eq 'S'}selected="selected"{/if}>S</option>
+                <option value="T" {if $params.first_letter eq 'T'}selected="selected"{/if}>T</option>
+                <option value="U" {if $params.first_letter eq 'U'}selected="selected"{/if}>U</option>
+                <option value="V" {if $params.first_letter eq 'V'}selected="selected"{/if}>V</option>
+                <option value="W" {if $params.first_letter eq 'W'}selected="selected"{/if}>W</option>
+                <option value="X" {if $params.first_letter eq 'X'}selected="selected"{/if}>X</option>
+                <option value="Y" {if $params.first_letter eq 'Y'}selected="selected"{/if}>Y</option>
+                <option value="Z" {if $params.first_letter eq 'Z'}selected="selected"{/if}>Z</option>
+            </select>&nbsp;
+            <label>热门：</label>
+            <select name="is_hot"   data-toggle="selectpicker">
+                <option value="" {if $params.is_hot eq ''}selected="selected"{/if}>请选择</option>
+                <option value="1" {if $params.is_hot eq '0'}selected="selected"{/if}>是</option>
+                <option value="0" {if $params.is_hot eq '1'}selected="selected"{/if}>否</option>
+            </select>&nbsp;
+            <label>状态：</label>
+            <select name="status"   data-toggle="selectpicker">
+                <option value="" {if $params.status eq ''}selected="selected"{/if}>请选择</option>
+                <option value="1" {if $params.status eq '1'}selected="selected"{/if}>启用</option>
+                <option value="0" {if $params.status eq '0'}selected="selected"{/if}>暂停</option>
+            </select>&nbsp;
+            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
+            <a type="button" class="btn btn-default" href="javascript:;" data-url="game_info.php?act=export" data-toggle="doexport" data-confirm-msg="确定要导出吗？">导出</a>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th width="12">No.</th>
+            <th width="160">游戏名称</th>
+            <th width="100">英文名</th>
+            <th width="120">ICON</th>
+            <th width="100">渠道折扣</th>
+            <th width="80">首字母</th>
+            <th width="80">状态</th>
+            <th width="100">商品模板</th>
+            <th width="100">渠道区服</th>
+            <th>标签</th>
+            <th width="100">截图</th>
+            <th width="120">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=data from=$dataList}
+        <tr align="center">
+            <td>{$data.id}</td>
+            <td>
+                {$data.game_name}
+                {if $data.subtitle}<br /><span class="text-danger">{$data.subtitle}</span>{/if}
+            </td>
+            <td>{$data.en_name}</td>
+            <td>{if $data.game_icon}<img src="http://static.66173.cn/{$data.game_icon}" width="50px" height="50px">{/if}</td>
+            <td><a href="game_info.php?act=channel_view&id={$data.id}" data-toggle="dialog" data-mask="true" data-width="450"  data-height="500" data-id="game_edit_view" data-title="{$data.game_name}渠道编辑">查看/编辑</a></td>
+            <td>{$data.first_letter}</td>
+            <td>{if $data.status eq '1'}启用{else}暂停{/if}</td>
+            <td>
+                <a href="products_info.php?act=intro_img_list&id={$data.id}" class="btn btn-green" data-toggle="navtab" data-id="intro_img_list" data-title="商品套图">商品套图</a>
+            </td>
+            <td>
+                <a href="ch_servs.php?act=view&id={$data.id}" class="btn btn-green" data-toggle="navtab" data-id="ch_servs" tabid="ch_servs" data-title="渠道区服">渠道区服</a>
+            </td>
+            <td>{$data.tags|nl2br}</td>
+            <td>{if $data.img1 || $data.img2 || $data.img3 || $data.img4}<span class="green">已上传</span>{else}未上传{/if}</td>
+            <td>
+                <a href="game_info.php?act=game_edit_view&id={$data.id}" class="btn btn-green" data-toggle="navtab"  data-height="550" data-id="game_edit_view" data-title="游戏编辑">编辑</a>
+                <a type="button" href="game_info.php?act=del_game&id={$data.id}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要删除该行信息吗？">删除</a>
+                <a href="game_info.php?act=config_view&id={$data.id}" class="btn btn-green"  data-toggle="dialog" data-mask="true" data-width="500"  data-height="450" data-id="game_config" data-title="技术配置">技术配置</a>
+                <a href="game_info.php?act=game_introduce&id={$data.id}" class="btn btn-green"  data-toggle="navtab" data-id="game_introduce" data-title="商品介绍">商品介绍</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

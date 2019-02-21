@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{if $details.type eq '1'}系统消息{else if $details.type eq '2'}客服消息{else if $details.type eq '3'}活动消息{else}消息中心{/if}</title>
+    {include file="web/include/head_common.html"}
+    {if $orientation != "p"}
+        <link rel="stylesheet" href="//cdn.66173.cn/ins/css/web_h/message_rel.css?t={$smarty.now}">
+    {else}
+        <link rel="stylesheet" href="//cdn.66173.cn/ins/css/web_v/message_rel.css?t={$smarty.now}">
+    {/if}
+    {include file="web/include/head_script.html"}
+</head>
+<body class="message-rel message-detail">
+{include file="web/include/menu_bar.html"}
+<div class="main-wrapper">
+    <div class="main-width">
+        <div class="detail-head ">
+            <div class="detail-title font-lg ">{$details.title}</div>
+            <div class="detail-time font-md">{$details.push_time|date_format:"%Y-%m-%d"}</div>
+        </div>
+        <div class="detail-text font-mder">
+            <!--{$details.desc|htmlspecialchars_decode}-->
+        </div>
+        <input type="hidden" value="{$details.desc}" id="con"/>
+    </div>
+</div>
+</body>
+{literal}
+<script>
+    var con = $("#con").val();
+    var regUrl = new RegExp(/(http:\/\/)(static|cdn)(\.66173\.cn.*\.)(jpg|png|jpeg|gif)/ig);
+    var conFormat = con.replace(regUrl ,"//$2$3$4");
+    $(".detail-text").html(conFormat);
+</script>
+{/literal}
+</html>

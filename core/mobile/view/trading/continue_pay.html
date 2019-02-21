@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>继续支付</title>
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/comment.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/paylist_confirm.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+</head>
+<body>
+<div class="page_top2">
+    <div class="page_top_left2">
+        <img class="margin_two" src="//cdn.66173.cn/mobile/trading/image/index_image/back.png" alt="">
+    </div>
+    <div class="page_top_center2">
+        继续支付
+    </div>
+    <a class="page_top_right2" href="/moyu">
+        <span class="login_my">
+            <img class="page_top_r_img" src="//cdn.66173.cn/mobile/trading/image/person_center/index2.png" alt="">
+        </span>
+    </a>
+</div>
+<div class="top_div margin_t">
+    <div class="top_confirm_infor ">
+        请确认订单信息
+    </div>
+    <div class="top_div_bttom">
+        <div class="top_confirm_li">
+            <div class="top_confirm_li_div">
+                <li>
+                    <span class="game_type">所属游戏:</span><span class="game_type_result">{$info.game_name}</span>
+                </li>
+                <li>
+                    <span class="game_type">商品类型:</span><span class="game_type_result">{if $info.type eq '4'}账号{elseif $info.type eq '5'}游戏币{elseif $info.type eq '6'}道具{/if}</span>
+                </li>
+                <li>
+                    <span class="game_type">应用系统:</span><span class="game_type_result">{if $info.platform eq '2'}IOS{else}安卓{/if}</span>
+                </li>
+                <li>
+                    <span class="game_type">客户端:</span><span class="game_type_result">{$info.channel_name}</span>
+                </li>
+                <li>
+                    <span class="game_type">服务器:</span><span class="game_type_result">{$info.product_serv_name}</span>
+                </li>
+            </div>
+        </div>
+    </div>
+    <!--========-->
+    <div class="top_confirm_infor ">
+        填写购买信息
+    </div>
+    <div class="top_div_bttom">
+        <div class="top_confirm_li">
+            <div class="top_confirm_li_div2">
+                <li>
+                    <span class="game_type2"><img class="star" src="//cdn.66173.cn/mobile/trading/image/pay_image/star.png" alt=""><span class="margin_left">手机号码</span></span>
+                    <span class="game_type2_result">
+                        <span class="result_input">
+                               {$info.tel}
+                        </span>
+                    </span>
+                </li>
+                <li>
+                    <span class="game_type2"><img class="star" src="//cdn.66173.cn/mobile/trading/image/pay_image/star.png" alt=""><span class="margin_left">联系QQ</span></span>
+                    <span class="game_type2_result">
+                        <span class="result_input">
+                               {$info.qq}
+                        </span>
+                    </span>
+                </li>
+                {if $info.type eq '5' || $info.type eq '6'}
+                <li>
+                    <span class="game_type2"><img class="star" src="//cdn.66173.cn/mobile/trading/image/pay_image/star.png" alt=""><span class="margin_left">角色名</span></span>
+                    <span class="game_type2_result">
+                        <span class="result_input">
+                              {$info.role_name}
+                        </span>
+                    </span>
+                </li>
+                <li>
+                    <span class="game_type2"><img class="star" src="//cdn.66173.cn/mobile/trading/image/pay_image/star.png" alt=""><span class="margin_left">职业</span></span>
+                    <span class="game_type2_result">
+                        <span class="result_input">
+                            {$info.job}
+                        </span>
+                    </span>
+                </li>
+                {/if}
+                {if $info.type eq '5'}
+                <li>
+                    <span class="game_type2"><img class="star" src="//cdn.66173.cn/mobile/trading/image/pay_image/star.png" alt=""><span class="margin_left">性别</span></span>
+                    <span class="game_type2_result">
+                      <span class="result_input">
+                            {if $info.role_sex eq '1'}男{elseif $info.role_sex eq '2'}女{else}未知{/if}
+                        </span>
+                    </span>
+                </li>
+                {if $info.server_id eq '0'}
+                <li>
+                    <span class="game_type2"><img class="star" src="//cdn.66173.cn/mobile/trading/image/pay_image/star.png" alt=""><span class="margin_left">服务器</span></span>
+                    <span class="game_type2_result">
+                        <span class="result_input">
+                              {$info.serv_name}
+                        </span>
+                    </span>
+                </li>
+                {/if}
+                {/if}
+            </div>
+        </div>
+    </div>
+    <!--=======-->
+    <div class="top_confirm_infor ">
+        支付清单
+    </div>
+    <div class="top_div_bttom">
+        <div class="top_confirm_li">
+            <div class="top_confirm_li_div3">
+                <li>
+                    <span class="game_type3"><img class="star" src="//cdn.66173.cn/mobile/trading/image/pay_image/star.png" alt=""><span class="margin_left">购买数量</span></span>
+                    <span class="game_type_result3">{$info.amount}</span>
+                </li>
+                <li>
+                    <span class="game_type3"><span class="margin_left2">商品价格</span></span>
+                    <span class="game_type_result3">{$info.unit_price}元</span>
+                </li>
+                <li>
+                    <span class="game_type3"><span class="margin_left2">实际支付</span></span>
+                    <span class="game_type_result3 color_c">￥{$info.pay_money}</span>
+                </li>
+            </div>
+        </div>
+    </div>
+    <!--=======-->
+    <div class="top_confirm_infor ">
+        支付方式
+    </div>
+    <div class="comfirm_top_pay">
+        <div class="itempay1" onclick="alipay()">
+            <label class="itempay_div1"><img class="pay_img" src="//cdn.66173.cn/mobile/trading/image/pay_image/alipy.png" alt=""><span class="pay_way">支付宝支付</span></label>
+            <div class="itempay_div2">
+                <img class="cheeck_img_img" src="//cdn.66173.cn/mobile/trading/image/pay_image/choose.png" alt="">
+                <img class="cheeck_img_img2" src="//cdn.66173.cn/mobile/trading/image/pay_image/u_choose.png" alt="">
+            </div>
+        </div>
+        <!--<div class="itempay1" onclick="wechat()">-->
+            <!--<label class="itempay_div1"><img class="pay_img" src="//cdn.66173.cn/mobile/trading/image/pay_image/weixin.png" alt=""><span class="pay_way">微信支付</span></label>-->
+            <!--<div class="itempay_div2">-->
+                <!--<img class="cheeck_img_img3 yyy" src="//cdn.66173.cn/mobile/trading/image/pay_image/choose.png" alt="">-->
+                <!--<img class="cheeck_img_img4 ddd" src="//cdn.66173.cn/mobile/trading/image/pay_image/u_choose.png" alt="">-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+</div>
+<div class="confirm_footer">
+    <div class="agree">
+        <label class="label_agree">
+            <img class="continue_pay_agree_txt" src="//cdn.66173.cn/mobile/trading/image/pay_image/choose.png" alt="">
+            <span class="agree_txt2">已经阅读并同意</span>
+        </label>
+        <span class="span_color"><a class="agreement" href="/agreement">《66173商品购买协议》</a></span>
+    </div>
+    <div class="pay_btn">
+        确认购买
+    </div>
+    <input type="hidden" name="pagehash" class="pagehash" value="{$pagehash}">
+    <input type="hidden" name="order_id" class="order_id" value="{$info.id}">
+    <input type="hidden" name="pay_mode" class="pay_mode" value="1">
+</div>
+</body>
+<script src="//cdn.66173.cn/mobile/trading/js/base64_a.js?t={$smarty.now|date_format:'%Y%m%d'}"></script>
+<script src="//cdn.66173.cn/mobile/trading/js/getUrlParam.js?t={$smarty.now|date_format:'%Y%m%d'}"></script>
+<script src="//cdn.66173.cn/mobile/trading/js/continue_pay.js?t={$smarty.now|date_format:'%Y%m%d'}"></script>
+<script>
+    $(".page_top_left2").click(function () {
+        history.back()
+    })
+</script>
+</html>

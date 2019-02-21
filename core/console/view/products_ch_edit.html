@@ -1,0 +1,26 @@
+<div class="bjui-pageContent">
+    <form action="products_info.php?act=do_save_ch"  data-toggle="validate" data-alertmsg="false">
+    <table class="table table-condensed table-hover" width="100%">
+        <thead>
+        <tr align="left">
+            <th width="120" colspan="2">【{$types[$info.type-1]}】{$info.title}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach from=$discounts item=d key=k}
+        <tr align="center">
+            <td width="100">{$d.name}</td>
+            <td width="120"><input name="{$k}" value="{$d.discount}" maxlength="3" size="6"></td>
+        </tr>
+        {/foreach}
+        </tbody>
+        <input type="hidden" name="product_id" value="{$info.id}" />
+    </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>

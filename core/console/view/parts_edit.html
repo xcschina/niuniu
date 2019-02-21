@@ -1,0 +1,21 @@
+<div class="bjui-pageContent">
+    <form action="articles_info.php?act=do_part_edit"  data-toggle="validate" method="post">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">模块名称：</label>
+                    <input type="text" name="name" value="{$info.name}" cols="18" rows="1"  class="form-control" data-rule="required">
+                    <input type="hidden" name="id" value="{$info.id}">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>

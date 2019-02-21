@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>用户中心-设置邮箱绑定</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/common.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/peo.css" media="screen" />
+</head>
+
+<body>
+<header class="page-header clearfix">
+    <h1 class="h1-txt">消息</h1>
+    <a href="javascript:history.back();" class="back-link"></a><a class="idv-link" href="/account.php?act=user_center"></a></header>
+{if $type eq 'email_info'}
+<section class="change-box clearfix">
+    <ul class="change-list change-list-3 clearfix">
+        <li><span><i class="xicon"></i>{if $smarty.session.email}您已绑定邮箱{else}您还未绑定邮箱{/if}</span></li>
+        {if $smarty.session.email}
+        <li> <span>当前绑定的邮箱</span><em>{$smarty.session.email}</em> </li>
+        {/if}
+    </ul>
+    <a class="pb-btn" href="?act=modify_email">{if $smarty.session.email}更 改{else}绑 定{/if}</a>
+</section>
+{else}
+<form action="account.php?act=do_modify_email" method="post" id="modify_email_form">
+    <section class="change-box clearfix">
+        <ul class="change-list change-list-2 clearfix">
+            <li>
+                {if $smarty.session.email}
+                <label class="ltit2">当前邮箱</label>
+                <span class="change-name">{$smarty.session.email}</span>
+                {else}
+                <label class="ltit2">请填写你需要绑定的邮箱</label>
+                {/if}
+            </li>
+            <li>
+                <label class="ltit">登录密码</label>
+                <input type="password" name="password" class="input-txt" placeholder="请输入您的登录密码" />
+            </li>
+            <li>
+                <label class="ltit">新邮箱</label>
+                <input class="input-txt" type="text" placeholder="请输入邮箱" name="email" value="" />
+            </li>
+            <li>
+                <label class="ltit">验 证 码</label>
+                <input type="text" name="sms_code" class="input-txt" placeholder="输入验证码" maxlength="6" />
+                <a class="cget-code"  rel="1" id="send_code">获取验证码</a>
+            </li>
+            <div class="error_tip" id="error" {if $smarty.session.m_modify_email_error}style="display: block"{/if}>{$smarty.session.m_modify_email_error}</div>
+        </ul>
+        <a class="pb-btn"  name="sub">确认修改</a>
+    </section>
+</form>
+{/if}
+{include file="include/footer.html"}
+</body>
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+    !window.jQuery && document.write('<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"><\/script>');
+</script>
+{literal}
+<script>
+    //点击获取验证码按钮
+    $("#send_code").bind("click",function(){
+        var _th=$(this);
+        if(_th.attr("rel")=="0"){
+            return ;
+        }
+        _th.css("background","#a5a5a5");
+        var second = parseInt(179);//倒计时总秒数量
+        time=window.setInterval(function(){
+            _th.attr("rel","0");
+            // var s="重新获取("+second+")";
+            //_th.html(s);
+            second--;
+            if(second==0){
+                window.clearTimeout(time);
+                _th.css("background","#f60");
+                _th.attr("rel","1");
+                //_th.html("获取验证码");
+            }
+        }, 1000);
+
+        $.ajax({
+            type:'post',
+            url:'account.php?act=email_sms',
+            data:{
+                email:$("input[name=email]").val().trim()
+            },
+            dataType: 'json',
+            success: function (json) {
+                if(json.res==0){
+                    window.clearTimeout(time);
+                    $("#error").html(json.msg).show();
+                    _th.css("background","#f60");
+                }
+            }
+        })
+
+        $("a[name=sub]").bind("click",function(){
+            $("#error").html("").hide();
+            $("#modify_email_form").submit();
+        })
+    })
+</script>
+{/literal}
+</html>

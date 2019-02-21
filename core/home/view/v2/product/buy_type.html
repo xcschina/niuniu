@@ -1,0 +1,9 @@
+<div class="type" id='paytype'>
+	<label class="label">交易类型：</label>
+	<a class="item {if $type eq 1}cur{/if}" href="/buy/{$gameinfo.id}-character.html"><i></i>首充号</a>
+	<a class="item {if in_array($type,array(2,201))}cur{/if}" href="/buy/{$gameinfo.id}-recharge.html"><i></i>首充号续充</a>
+	<a class="item {if $type eq 8}cur{/if}" href="/buy/{$gameinfo.id}-appstore.html"><i></i>苹果代充</a>
+	<a class="item {if $type eq 5}cur{/if}" href="/buy/{$gameinfo.id}-coin.html"><i></i>游戏币</a>
+	<a class="item {if $type eq 4}cur{/if}" href="/buy/{$gameinfo.id}-account.html"><i></i>账号</a>
+	<a class="item {if $type eq 3}cur{/if}" href="/buy/{$gameinfo.id}-topup.html"><i></i>代充</a>
+</div>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>登顶通天塔，赢魔石大奖！</title>
+    <meta name="description" content="牛果游乐场，英雄登顶通天，魔石抽奖等你来！" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/scripts/sdkYA/css/NNSDK3.css?t={$smarty.now}" />
+    <script src="//cdn.66173.cn/www/js/jquery-1.8.3.min.js"></script>
+    <script src="//cdn.66173.cn/mobile/scripts/sdk/js/jsencrypt.min.js?y=3"></script>
+    <script src="//cdn.66173.cn/mobile/scripts/sdk/js/md5.min.js?y=3"></script>
+    <script src="//cdn.66173.cn/mobile/scripts/sdkYA/js/nn_h5game_sdk_auto_screen.js?t={$smarty.now}"></script>
+    <script src="//cdn.66173.cn/mobile/scripts/sdkYA/js/nn_h5game_sdk_common.js?t={$smarty.now}"></script>
+</head>
+<body>
+    <div class="page-header">
+        <span class="left"><span class="text back">返回</span></span>
+        <span class="text text-overflow center">牛果游乐场</span>
+        <div class="right">
+            <img class="item share-m" src="//cdn.66173.cn/mobile/scripts/sdkYA/img/icon_share.png" alt="">
+            <div class="item text prize-record-entry">抽奖记录</div>
+        </div>
+    </div>
+{if $user_info.user_id}
+    <div class="brief-tip-pop"><div class="con"></div></div>
+    <div style="display:none;"><img class="share-img" src="http://cdn.66173.cn/mobile/v2/css/img/qtzs/icon.png" alt=""/></div>
+    <!--<div class="before-mask"><div class="tip"><span class="time">3</span>s<a class="go-game">进入游戏</a></div><img class="start-img" src="//cdn.66173.cn/mobile/scripts/sdk/img/start_km_cqll.png" alt=""></div>-->
+    <div class="loading-mask"><img class="loading-img" src="//cdn.66173.cn/mobile/v2/css/img/loading_grey_bling.gif" alt=""></div>
+    <div class="mask">
+        <div class="pop-wrapper">
+            <div class="background-img pop-bg pop-stripe pop-stripe-red pop-stripe-red-fireworks">
+                <img class="close-pop" src="//cdn.66173.cn/mobile/scripts/sdkYA/img/btn_close_grey.png" alt="">
+                <div class="pop-top">
+                    <img class="img-stripe img-stripe-red" src="//cdn.66173.cn/mobile/scripts/sdkYA/img/pop_stripe_red.png" alt="">
+                    <div class="title"></div>
+                </div>
+                <div class="con">
+                    <div class="block-everyday">
+                        <img class="img-top" src="//cdn.66173.cn/mobile/scripts/sdkYA/img/img_gold.png" alt="">
+                        <div class="tip-font-mder tip1">积分+<span class="num">{$addIntegral}</span></div>
+                        <div class="list">
+                            {foreach item=data from=$data_list}
+                            <div class="item">
+                                <span class="text-overflow title">{$data.title}</span>
+                                {if $data.type == 1}
+                                <span class="right"><a class="go go-game" data-gameid="{$data.app_id}">去游戏</a></span>
+                                {elseif $data.type == 2}
+                                <span class="right"><a  class="go go-prize">去抽取</a></span>
+                                {/if}
+                            </div>
+                            {/foreach}
+                        </div>
+                    </div>
+                    <div class="block-get-prize">
+                        <img class="img-top" src="//cdn.66173.cn/mobile/scripts/sdkYA/img/img_happy_cow.png" alt="">
+                        <div class="tip-font-lg tip1"></div>
+                        <div class="tip-font-md tip2"></div>
+                        <div class="btn-zone">
+                            <span class="btn btn-grey back">返回</span>
+                            <span class="btn btn-red go-game">开启游戏</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pop-bg pop-stripe pop-stripe-grey pop-stripe-grey-small">
+                <img class="close-pop" src="//cdn.66173.cn/mobile/scripts/sdkYA/img/btn_close_grey.png" alt="">
+                <div class="pop-top">
+                    <img class="img-stripe img-stripe-grey" src="//cdn.66173.cn/mobile/scripts/sdkYA/img/pop_stripe_grey.png" alt="">
+                    <div class="title"></div>
+                </div>
+                <div class="con">
+                    <div class="block-integral-lack">
+                        <img class="img-top" src="//cdn.66173.cn/mobile/scripts/sdkYA/img/img_sad_cow.png" alt="">
+                        <div class="tip-font-lg tip1">您的积分不足</div>
+                        <div class="tip-font-mder tip2">充值牛币可立即获赠大量积分</div>
+                        <div class="btn-zone">
+                            <span class="btn btn-grey back">返回</span>
+                            <span class="btn btn-red go-charge">去充值牛币</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-main">
+        <div id="gameFrameDiv"></div>
+        <img class="btn-float-prize" src="//cdn.66173.cn/mobile/scripts/sdkYA/img/btn_prize_entry.png" alt="" id="touchZone">
+        <div class="like-page-wrapper">
+            <div class="like-page-section prize-exchange-section">
+                <img class="img-top" src="//cdn.66173.cn/mobile/scripts/sdkYA/img/img_prize_top.png" alt="">
+                <div class="wrapper">
+                    <div class="prize-select-zone">
+                        <div class="line game-line">
+                            <label class="label">选择游戏:</label>
+                            <select class="item yes choose game-choose"></select>
+                            <span class="item no">未创建游戏区服</span>
+                        </div>
+                        <div class="line account-line">
+                            <label class="label">充值账号:</label>
+                            <select class="item yes choose account-choose"></select>
+                            <span class="item no">未创建游戏区服</span>
+                        </div>
+                    </div>
+                    <div class="choose-goods-label">请选择面值：</div>
+                    <div class="goods-list"></div>
+                    <div class="integral-tip">我的积分:<span class="num"></span><span class="not-enough">积分不足</span></div>
+                    <div class="go-prize">立即抽奖</div>
+                    <div class="prize-tip">中奖后，游戏币直接发放至游戏账户，不中奖则随机返还积分</div>
+                </div>
+            </div>
+            <div class="like-page-section prize-record-section">
+                <img class="img-top" src="//cdn.66173.cn/mobile/scripts/sdkYA/img/img_prize_top.png" alt="">
+                <div class="prize-record-list">
+                    {foreach item=order from=$order_list}
+                    <div class="item">
+                        <div class="left">
+                            <img class="icon-prize" src="//cdn.66173.cn/mobile/scripts/sdkYA/img/icon_prize_item.png" alt="">
+                            <div class="l-c">
+                                <div class="text-overflow goods-name">{$order.title}</div>
+                                <div class="time">{'Y-m-d H:i:s'|date:$order.pay_time}</div>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <div class="line status-line">{if $order.status == 2}<span class="status-get done">已中奖</span>{else $order.status == 1}<span class="status-get doing">兑换中</span>{/if}</div>
+                            <div class="line consume-line">消耗<span class="num">{$order.consume}</span>积分</div>
+                        </div>
+                    </div>
+                    {/foreach}
+                </div>
+                <div class="get-more"></div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="mAddress" value="">
+    <input type="hidden" id="integral" value="{$user_info.integral}">
+    <input type="hidden" id="isFirstLogin" value="{$isFirstLogin}">
+    <input type="hidden" id="mobile" value="{$user_info.mobile}">
+    <input type="hidden" id="userId" value="{$user_info.user_id}">
+    <input type="hidden" id="userName" value="{$user_info.nick_name}">
+    <input type="hidden" id="token" value="{$user_info.token}">
+    <input type="hidden" id="channel" value="{$user_info.channel}">
+    <input type="hidden" id="appId" value="{$app_info.app_id}">
+    <input type="hidden" id="gameUrl" value="{$app_info.version_url}">
+    <input type="hidden" id="ifdu" value="{$if_du}">
+    <input type="hidden" id="img" value="">
+    <input type="hidden" id="sex" value="">
+{else}
+    <div class="page-main">
+        <span class="please-login">请登录</span>
+    </div>
+{/if}
+</body>
+<script>
+    $("body").on("click", ".please-login", function() {
+        if(window.local_obj) {
+            window.local_obj.goto_login();
+            try {
+                window.local_obj.goto_login();
+            } catch(e) {
+                alert("调起登录失败~");
+            }
+        } else {
+            alert("调起登录失败~");
+        }
+    })
+</script>
+<script src="//cdn.66173.cn/mobile/scripts/sdkYA/js/nn_h5game_sdk_self.js?t={$smarty.now}"></script>
+<script src="//cdn.66173.cn/mobile/scripts/sdkYA/js/nn_h5game_sdk_cp.js?t={$smarty.now}"></script>
+<script type="text/javascript" >
+    window._du = $("#ifdu").val() == 1 ? true : false;
+</script>
+<script>
+
+
+//    c(0);
+    function c(i) {
+        switch (i) {
+            case 0:
+                commonS.popControl(".pop-stripe-red-fireworks", ".block-get-prize", "您已成功预定该奖品");
+                break;
+            case 1:
+                commonS.popControl(".pop-stripe-grey-small", ".block-integral-lack", "积分不足", true);
+                break;
+            case 2:
+                commonS.likePageControl(".like-page-wrapper", ".prize-exchange-section");
+                $(".page-header .center").html("奖品详情");
+                $(".page-header .prize-record-entry").show().siblings().hide();
+                nn.getPrizeInit();
+                break;
+            case 3:
+                commonS.likePageControl(".like-page-wrapper", ".prize-record-section");
+                $(".page-header .center").html("我的奖品");
+                $(".page-header .item").hide();
+                break;
+            case 4:
+                $(".block-get-prize .tip1").html("恭喜语句标题");
+                $(".block-get-prize .tip2").html("抽中奖项");
+                commonS.popControl(".pop-stripe-red-fireworks", ".block-get-prize", "恭喜您，中奖了！");
+                break;
+            case 5:
+                commonS.popControl(".pop-stripe-red-fireworks", ".block-everyday", "每日登陆");
+                break;
+        }
+    }
+</script>
+
+</html>
+
+
+
+

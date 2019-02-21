@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no,viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <title></title>
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/moyu/css/common.css">
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/moyu/css/index.css">
+    <script src="//cdn.66173.cn/mobile/moyu/js/setFontSize.min.js  " type="text/javascript"></script>
+</head>
+
+<body>
+    <header class="header">
+        <a href="" class="logo"></a>
+        <h1>魔域交易中心</h1>
+        <div class="header-right">
+            {if $smarty.session.user_id}
+            <a href="/accountCenter" class="user-center"></a>
+            {else}
+            <a href="/Login" class="my-buying"></a>
+            {/if}
+        </div>
+    </header>
+    <div class="swiper-container swiper-container-banner">
+        <div class="swiper-wrapper">
+            {foreach from=$banners key=$k item=data}
+            <div class="swiper-slide">
+                <a href="" style="background-image:url(http://cdn.66173.cn/{$data.img})"></a>
+            </div>
+            {/foreach}
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+    <div class="game-list bgc mb20">
+        <div class="mod-tit">
+            <h2>游戏列表</h2>
+        </div>
+        <ul>
+            {foreach from=$games key=$k item=data}
+            <li>
+                <a href="/product/{$data.id}">
+                    <img class="img-block" src="//cdn.66173.cn/{$data.game_icon}" alt="">
+                    <div class="content">
+                        <div class="tit">
+                            <h2>{$data.game_name}</h2>
+                            <span class="android">安卓</span>
+                            <span class="ios">ios</span>
+                        </div>
+                        <span class="btn">魔石</span>
+                    </div>
+                </a>
+            </li>
+           {/foreach}
+        </ul>
+    </div>
+    <div class="notice-board bgc">
+        <div class="mod-tit">
+            <h2>公告栏</h2>
+        </div>
+        <ul>
+            {foreach from=$notices key=$k item=data}
+            <li><a href="/articleDetail/{$data.id}">{$data.title}</a></li>
+            {/foreach}
+        </ul>
+    </div>
+    <footer class="footer">
+        <p>
+            {foreach from=$links key=$k item=data}
+            {if $k >= 0 && $k<=3}
+            <a href="">{$data.title}</a>
+            <em>|</em>
+            {/if}
+            {/foreach}
+
+        </p>
+        <p>
+            {foreach from=$links key=$k item=data}
+            {if $k >= 4 && $k<=8}
+            <a href="">{$data.title}</a>
+            <em>|</em>
+            {/if}
+            {/foreach}
+        </p>
+        <p class="txt"><img src="//cdn.66173.cn/mobile/moyu/images/footer_txt.png" alt=""></p>
+        <a class="customer-btn" href="http://wpa.qq.com/msgrd?v=3&uin=3001082900&site=qq&menu=yes"></a>
+    </footer>
+    <script src="//cdn.66173.cn/mobile/moyu/js/jquery.min.js" type="text/javascript"></script>
+    <script src="//cdn.66173.cn/mobile/moyu/js/swiper.3.4.2.min.js" type="text/javascript"></script>
+    <script src="//cdn.66173.cn/mobile/moyu/js/index.js" type="text/javascript"></script>
+</body>
+
+</html>

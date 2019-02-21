@@ -1,0 +1,66 @@
+<div class="bjui-pageContent">
+    <form action="orders_info.php?act=do_order_imgs_add"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="order_id" value="{$order_id}">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <input id="order_img_add" type="file" name="imgs[]"  style="display: none"  multiple/>
+                    <span id="order_add_preview" style="color: #ff0000"></span>
+                    <a href="javascript:void(0)" class="btn btn-default btn-sm Huploadify-button" id="order_img_bnt">选择图片</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+<script>
+    $(function(){
+        $("#order_img_bnt").bind('click',function(){
+            var ie=navigator.appName=="Microsoft Internet Explorer" ? true : false;
+            if(ie){
+                $("#order_img_add").click;
+            }else{
+                var a=document.createEvent("MouseEvents");
+                a.initEvent("click", true, true);
+                document.getElementById("order_img_add").dispatchEvent(a);
+            }
+        })
+
+        rFilter = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/jpeg|image\/jpeg|image\/png|)$/i;
+        (function () {
+            var viewFiles = document.getElementById("order_img_add");
+            function viewFile (file,i) {
+                html = $("#order_add_preview").html();
+                //通过file.size可以取得图片大小
+                var reader = new FileReader();
+                reader.onload = function(evt){
+                    html +="<img style='max-height: 400px;max-width: 500px;margin-bottom : 10px;'  src=\""+evt.target.result+"\" /></br>";
+                    $("#order_add_preview").html(html);
+                }
+                reader.readAsDataURL(file);
+            }
+            viewFiles.addEventListener("change", function () {
+                for(i=0;imgFile = document.getElementById("order_img_add").files[i];i++){
+                    if (!rFilter.test(imgFile.type)) {
+                        document.getElementById("game_img_add").value="";
+                        $("#order_add_preview").html("图片格式不对，支持jpg、png、gif!");
+                        return;
+                    }
+                }
+                $("#order_add_preview").html('');
+                for (var i = 0; file = this.files[i]; i++) {
+                    viewFile(file,i);
+                }
+            }, false);
+        })();
+    })
+</script>
+
+

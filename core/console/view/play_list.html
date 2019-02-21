@@ -1,0 +1,83 @@
+<script type="text/javascript">
+    $(function(){
+        $("select[name=first_letter]").chosen();
+        $("select[name=game_name]").chosen();
+    })
+</script>
+<div class="bjui-pageHeader">
+    <form id="pagerForm" action="app.php?act=play_list" method="post" data-toggle="ajaxsearch">
+        <div class="bjui-searchBar">
+            <a href="app.php?act=play_add_view" class="btn btn-green" data-toggle="navtab" data-id="game_add_view" data-title="游戏新建">新建</a>
+            <label>游戏名：</label>&nbsp;
+            <select name="game_name" style="width:200px">
+                <option value="" {if $params.game_name == ''}selected="selected"{/if}>请选择</option>
+                {foreach from=$game_list item=play}
+                <option value="{$play.game_name}" {if $params.game_name eq $play.game_name}selected="selected"{/if}>{$play.game_name}</option>
+                {/foreach}
+            </select>
+            <label>状态：</label>
+            <select name="is_state"   data-toggle="selectpicker">
+                <option value="" {if $params.is_state eq ''}selected="selected"{/if}>请选择</option>
+                <option value="is_hot" {if $params.is_state eq 'is_hot'}selected="selected"{/if}>热门</option>
+                <option value="is_new" {if $params.is_state eq 'is_new'}selected="selected"{/if}>新游</option>
+                <option value="is_rate" {if $params.is_state eq 'is_rate'}selected="selected"{/if}>超低折扣</option>
+                <option value="is_top" {if $params.is_state eq 'is_top'}selected="selected"{/if}>推荐</option>
+                <option value="hot_search" {if $params.is_state eq 'hot_search'}selected="selected"{/if}>热门搜索</option>
+            </select>
+            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th width="12">No.</th>
+            <th width="160">游戏名称</th>
+            <th width="120">ICON</th>
+            <th width="120">游戏图片</th>
+            <th width="20">关联ID</th>
+            <th width="80">状态</th>
+            <th width="100">热门搜索</th>
+            <th width="100">折扣</th>
+            <th width="100">下载地址</th>
+            <th width="120">标签</th>
+            <th width="100">描述</th>
+            <th width="120">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=data from=$data_list}
+        <tr align="center">
+            <td>{$data.id}</td>
+            <td>
+                {$data.game_name}
+            </td>
+            <td>{if $data.game_icon}<img src="http://static.66173.cn{$data.game_icon}" width="50px" height="50px">{/if}</td>
+            <td>{if $data.banner_url}<img src="http://static.66173.cn{$data.banner_url}" width="50px" height="50px">{/if}</td>
+            <td>{$data.game_id}</td>
+            <td>{if $data.is_hot==1}热门 &nbsp; {/if}{if $data.is_new==1}新游  &nbsp;{/if}{if $data.is_rate}超低折扣 &nbsp; {/if}{if $data.is_top==1}推荐{/if}</td>
+            <td>{if $data.hot_search==1}是{else}否{/if}</td>
+            <td>{$data.rate}</td>
+            <td>
+                <a href="http://{$data.down_url}">{$data.down_url}</a>
+            </td>
+            <td>{$data.new_tags}</td>
+            <td>
+                {$data.desc}
+            </td>
+
+            <td>
+                <a href="app.php?act=play_edit_view&id={$data.id}" class="btn btn-green" data-toggle="navtab"  data-height="550" data-id="game_edit_view" data-title="游戏编辑">编辑</a>
+                <a type="button" href="app.php?act=del_play&id={$data.id}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要删除该行信息吗？">删除</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

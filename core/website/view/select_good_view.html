@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>官方充值</title>
+    <meta name="keywords" content="{$info.app_name}" />
+    <meta name="description" content="《{$info.app_name}》唯一官方网站,{$info.app_name}正版苹果appstore充值。" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <link href="http://static.66173.cn/website/index.css?t=333" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="http://static.66173.cn/website/layer.css?t=11">
+    <style>
+        .pay_input_server div.link_hover >#sub_search{ width:100%;height:40px; background-color:#ff4939; opacity:0.8; line-height: 42px; }
+        .link_hover > #confirm{
+            width:100%;height:40px; background-color:#ff4939; opacity:0.8;
+        }
+        .content {
+            top: 0!important;
+        }
+        .pay-res {
+            top: 0!important;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <!--<div class="tips">{if isset($smarty.session.msg)}{$smarty.session.msg}{/if}</div>-->
+    <form action="goods_pay.php" method="post" name="pay_form_info">
+        <!--<div class="pay_input_server">-->
+            <!--&lt;!&ndash;<p>&ndash;&gt;-->
+                <!--&lt;!&ndash;<span>服务器</span>&ndash;&gt;-->
+                <!--&lt;!&ndash;<select name="serv_id">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<option value="">==请选择服务器==</option>&ndash;&gt;-->
+                    <!--&lt;!&ndash;{foreach from=$servers item=server}<option value="{$server.serv_id}">{$server.serv_name}</option>{/foreach}&ndash;&gt;-->
+                <!--&lt;!&ndash;</select>&ndash;&gt;-->
+            <!--&lt;!&ndash;</p>&ndash;&gt;-->
+            <!--<p>-->
+                <!--<span>服务器</span>-->
+                <!--<select name="serv_id">-->
+                    <!--<option value="{$serv_id}">{$serv_name}</option>-->
+                <!--</select>-->
+            <!--</p>-->
+            <!--<p><span>角色ID</span><input type="text" name="user" id="user" value="{$player_id}"/></p>-->
+            <!--<div class="usr_err" style="display: none"></div>-->
+            <!--<div class="bnt link"><div name="sub_search" id="sub_search">查找角色</div></div>-->
+        <!--</div>-->
+        <div class="pay-res">
+            <span>请选择充值金额</span>
+            <p>{if $info.pay_message}({$info.pay_message|htmlspecialchars_decode}{else}{$info.web_tip}{/if}</p>
+        </div>
+        <div class="pay_money_sel">
+            {foreach from=$exchanges item=exchange key=k}
+            <section><div id="money_id">
+                <a href="#;" rel="{$exchange.id}" title="{$exchange.good_intro}"><span class="orange">￥{$exchange.good_price}</span> [{$exchange.good_name}]</a></div>
+            </section>
+            {/foreach}
+        </div>
+        <input type="hidden" name="money_id" value="0" />
+        <input type="hidden" name="pagehash" value="{$pagehash}" />
+        <div class="sub_bnt link" onclick="select_to_pay()"><div id="confirm">确认</div></div>
+        <div class="foot"> &copy;2010-2017 </div>
+    </form>
+</div>
+
+<script type="text/javascript" src="http://static.66173.cn/website/jquery.min.js"></script>
+<script src="http://static.66173.cn/website/wap_pay.js?t=231321"></script>
+<script>
+    function select_to_pay(){
+        money_id = $("input[name='money_id']").val();
+
+        if($.trim(money_id)=='' || $.trim(money_id)==0){
+            var t = $(".pay-res>p").html("请点击您需要充值的金额").show(500).offset().top;
+            $(window).scrollTop(t - 200);
+            return false;
+        }
+        $("form[name='pay_form_info']").submit();
+    }
+</script>
+</body>
+</html>

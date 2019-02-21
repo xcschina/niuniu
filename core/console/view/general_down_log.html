@@ -1,0 +1,47 @@
+<script type="text/javascript">
+    $(function(){
+        $("select[name=general_id]").chosen();
+        $("select[name=game_id]").chosen();
+    })
+</script>
+<div class="bjui-pageHeader">
+    <form id="pagerForm" action="general.php?act=down_log&id={$id}" method="post" data-toggle="ajaxsearch">
+        <div class="bjui-searchBar">
+            <label>IP地址：</label>&nbsp;
+            <input type="text" name="ip" value="{$params.ip}" style="width: 135px;">
+            <label>访问时间</label>
+            <input type="text" name="start_time" data-toggle="datepicker" value="{if $params.start_time}{'Y-m-d'|date:$params.start_time}{/if}" placeholder="开始时间">-
+            <input type="text" name="end_time" data-toggle="datepicker"  value="{if $params.end_time}{'Y-m-d'|date:$params.end_time}{/if}" placeholder="结束时间">
+            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent">
+        <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+            <thead>
+            <tr align="center">
+                <th width="12">No.</th>
+                <th width="100">下载IP</th>
+                <th width="100">下载地址</th>
+                <th width="130">下载时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach item=data from=$down_log}
+            <tr align="center">
+                <td>{$data.id}</td>
+                <td>{$data.ip}</td>
+                <!--<td>http://ad.66173yx.com/website.php?act=general_down&id={$id}</td>-->
+                <td>http://www.66173.cn/website.php?act=general_down&id={$id}</td>
+                <td>{'Y-m-d H:i:s'|date:$data.add_time}</td>
+            </tr>
+            {/foreach}
+            </tbody>
+        </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>
+
+

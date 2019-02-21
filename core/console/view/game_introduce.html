@@ -1,0 +1,104 @@
+<div class="bjui-pageContent">
+    <form action="game_info.php?act=do_introduce_save"  data-toggle="validate" data-alertmsg="false" method="post">
+        <input type="hidden" name="id" value="{$id}">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">其他名称：</label>
+                    <input type="text" name="other_name" value="{$game_info.other_name}" cols="30" rows="1"  class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">运营状态：</label>
+                    <select name="status">
+                        <option value="1" {if $game_info.status eq 1}selected="selected"{/if}>内测</option>
+                        <option value="2" {if $game_info.status eq 2}selected="selected"{/if}>公测</option>
+                        <option value="3" {if $game_info.status eq 3}selected="selected"{/if}>不删档内测</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">首发时间：</label>
+                    <input type="text" name="s_time" value="{$game_info.s_time|date_format:'%Y-%m-%d'}" cols="18" rows="1"  class="form-control" data-toggle="datepicker" data-pattern="yyyy-MM-dd" size="20">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">发行商：</label>
+                    <input type="text" name="publisher" value="{$game_info.publisher}" cols="30" rows="1"  class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏类型：</label>
+                    <select name="game_type">
+                        {foreach key=key item=type from=$game_type}
+                        <option value="{$key}" {if $game_info.game_type eq $key}selected="selected"{/if}>{$type}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏平台：</label>
+                    <select name="platform">
+                        <option value="1" {if $game_info.platform eq 1}selected="selected"{/if}>苹果(Ios)</option>
+                        <option value="2" {if $game_info.platform eq 2}selected="selected"{/if}>安卓</option>
+                        <option value="3" {if $game_info.platform eq 3}selected="selected"{/if}>全平台</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏画面：</label>
+                    <input type="text" name="game_screen" value="{$game_info.game_screen}" cols="30" rows="1"  class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">内容主题：</label>
+                    <input type="text" name="game_theme" value="{$game_info.game_theme}" cols="30" rows="1"  class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">混服情况：</label>
+                    <input type="text" name="server" value="{$game_info.server}" cols="30" rows="1"  class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">首充号购买须知：</label>
+                    <div style="display: inline-block; vertical-align: middle;">
+                        <textarea name="notice" id="j_form_content1" class="j-content" style="width: 700px;" data-toggle="kindeditor"  data-minheight="200">
+                            {$game_info.notice}
+                        </textarea>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">首充商品介绍：</label>
+                    <div style="display: inline-block; vertical-align: middle;">
+                        <textarea name="com_desc" id="j_form_content" class="j-content" style="width: 700px;" data-toggle="kindeditor"  data-minheight="200">
+                            {$game_info.com_desc}
+                        </textarea>
+                    </div>
+                    <!--<textarea name="com_desc" id="j_form_content" class="j-content" style="width: 700px;" data-toggle="kindeditor">{$game_info.notice}</textarea>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+
+

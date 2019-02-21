@@ -1,0 +1,43 @@
+<script type="text/javascript">
+    $(function(){
+        $("select[name=game_id]").chosen();
+    })
+</script>
+<div class="bjui-pageContent">
+    <form action="game_servs.php?act=do_serv_edit"  data-toggle="validate" data-alertmsg="false" method="post" >
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏ID：</label>
+                    <select name="game_id" >
+                        <option value="" {if $serv_info.game_id eq ''}selected="selected"{/if}>请选择</option>
+                        {foreach from=$game_list item=game}
+                        <option value="{$game.id}" {if $serv_info.game_id eq $game.id}selected="selected"{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">区服名：</label>
+                    <input type="text" name="serv_name" value="{$serv_info.serv_name}" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">区服ID：</label>
+                    <input type="text" name="serv_id" value="{$serv_info.serv_id}" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <input type="hidden" name="id" value="{$serv_info.id}">
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>

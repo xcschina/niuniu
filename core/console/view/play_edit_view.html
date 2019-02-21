@@ -1,0 +1,188 @@
+<link href="kindeditor/plugins/select2/multi-select.css"  rel="stylesheet" type="text/css" />
+<link href="kindeditor/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="kindeditor/plugins/select2/bootstrap-select.min.css" rel="stylesheet" />
+<script type="text/javascript" src="kindeditor/plugins/select2/jquery.multi-select.js"></script>
+<script type="text/javascript" src="kindeditor/plugins/select2/jquery.quicksearch.js"></script>
+<script src="kindeditor/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="kindeditor/plugins/select2/bootstrap-select.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(".play-edit-select").select2();
+    $(function(){
+        $("select[name=game_id]").chosen();
+        $("select[name=discount]").chosen();
+    })
+</script>
+<style>
+    .option{
+        width:55px;
+    }
+</style>
+<div class="bjui-pageContent">
+    <form action="app.php?act=edit_play"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏名：</label>
+                    <input type="text" name="play_name" value="{$play_info.game_name}" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">关联游戏：</label>
+                    <select name="game_id">
+                         <option value="{$play_info.game_id}" {if $params.game_id ==''} selected="selected" {/if}>{if $play_info.game_id== 0}请选择{else}{$play_info.game_id}{/if}</option>
+                        {foreach from=$data item=play}
+                        <option value="{$play.id}" {if $params.game_id eq $play.id}selected="selected"{/if}>{$play.game_name}-{$play.id}</option>
+                        {/foreach}
+                    </select>
+
+                </td>
+            </tr>
+            {if $play_info.game_icon}
+            <tr>
+                <td>
+                    <label  class="control-label x120">&nbsp;</label>
+                    <img src="http://static.66173.cn{$play_info.game_icon}" width="50px" height="50px"><br>
+                    <input type="hidden" name="old_game_icon" value="{$play_info.game_icon}">
+                </td>
+            </tr>
+            {/if}
+            <tr>
+                <td>
+                    <label  class="control-label x120">ICON：</label>
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="play_icon.click()">选择图片</button>
+                    <input type="file" name="play_icon" style="display: none;"    onchange="g_icon.value=value"/>
+                    <input type="text" name="g_icon" placeholder="None file" class="form-control"  size="15" {if !$play_info.game_icon}data-rule="required" readonly {/if}/>&nbsp;
+                    <input type="hidden" name="id" value="{$play_info.id}">
+                </td>
+            </tr>
+            {if $play_info.banner_url}
+            <tr>
+                <td>
+                    <label  class="control-label x120">&nbsp;</label>
+                    <img src="http://static.66173.cn{$play_info.banner_url}" width="50px" height="50px"><br>
+                    <input type="hidden" name="old_banner_url" value="{$play_info.banner_url}">
+                </td>
+            </tr>
+            {/if}
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏图片：</label>
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="play_banner.click()">选择图片</button>
+                    <input type="file" name="play_banner" style="display: none;"   onchange="file.value=value"/>
+                    <input type="text" name="file" placeholder="None file" value="" class="form-control" size="15" readonly/>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">热门：</label>
+                    <select name="is_hot"   data-toggle="selectpicker" >
+                        <option value="0" class="option" >否</option>
+                        <option value="1" {if $play_info.is_hot==1}selected="selected"{/if} class="option">是</option>
+                    </select>&nbsp;
+                    <label class="control-label x120">新游：</label>
+                    <select name="is_new"   data-toggle="selectpicker">
+                        <option value="0" class="option">否</option>
+                        <option value="1" {if $play_info.is_new==1}selected="selected"{/if} class="option">是</option>
+                    </select>&nbsp;
+                    <label class="control-label x120">超低折扣：</label>
+                    <select name="is_rate"   data-toggle="selectpicker">
+                        <option value="0" class="option">否</option>
+                        <option value="1" {if $play_info.is_rate==1}selected="selected"{/if} class="option">是</option>
+                    </select>&nbsp;
+                    <label class="control-label x120">推荐：</label>
+                    <select name="is_top"   data-toggle="selectpicker" style="width:50px;">
+                        <option value="0" class="option">否</option>
+                        <option value="1" {if $play_info.is_top==1}selected="selected"{/if} class="option">是</option>
+                    </select>&nbsp;
+                    <label class="control-label x120">热门搜索：</label>
+                    <select name="hot_search"   data-toggle="selectpicker" style="width:50px;">
+                        <option value="0" class="option">否</option>
+                        <option value="1" {if $play_info.hot_search==1}selected="selected"{/if} class="option">是</option>
+                    </select>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label class="control-label x120">标签：</label>
+                    <select class="select2 select2-multiple play-edit-select" multiple="multiple" data-placeholder="请选择标签" style="width:291px;" name="tags[]">
+                        {foreach from=$tags key=k item=play}
+                        <option value="{$k}" {if in_array($k,$arr)}selected="selected"{/if}>{$play}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">折扣：</label>
+                    <input type="text" name="rate" value="{$play_info.rate}" cols="18" rows="1"  class="form-control" ><label>(0-10之间)</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">折扣标签：</label>
+                    <select name="discount" style="width:100px;">
+                        <option value="">请选择</option>
+                        <option value="201" {if $play_info.discount==201}selected="selected"{/if}>游戏内折扣</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏包名：</label>
+                    <input type="text" name="game_packname" value="{$play_info.game_packname}" cols="18" rows="1"  class="form-control"><label>(必须是英文，格式如：xxx.xxx.xxx.xxx)</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">包体大小：</label>
+                    <input type="text" name="game_size" value="{$play_info.game_size}" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">应用下载地址：</label>
+                    <input type="text" name="down_url" value="{$play_info.down_url}" cols="18" rows="1"  class="form-control"  data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">下载次数：</label>
+                    <input type="text" name="download" value="{$play_info.download}" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏评分：</label>
+                    <input type="text" name="score" value="{$play_info.score}" cols="18" rows="1"  class="form-control" data-rule="required"><label>(0-5之间)</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">产品描述：</label>
+                    <input type="text" name="desc" value="{$play_info.desc}" cols="18" rows="1"  class="form-control"  data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏介绍：</label>
+                    <input type="text" name="introduce" value="{$play_info.introduce}" cols="18" rows="1"  class="form-control"  data-rule="required">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+
+
+

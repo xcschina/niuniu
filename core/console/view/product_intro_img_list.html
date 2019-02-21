@@ -1,0 +1,53 @@
+<div class="bjui-pageHeader">
+    <form action="products_info.php?act=intro_img_list&id={$game_id}" method="post" data-toggle="ajaxsearch" id="pagerForm">
+        <div class="bjui-searchBar">
+            <a href="products_info.php?act=intro_img_add_view&game_id={$game_id}" class="btn btn-green" data-toggle="dialog" data-mask="true" data-width="800"  data-height="700" data-id="orders_img_add_view" data-title="添加图片">添加图片</a>&nbsp;
+            <label>商品类型：</label>
+            <select name="type"   data-toggle="selectpicker">
+                <option value="" {if $params.type eq ''}selected{/if}>请选择</option>
+                <option value="1" {if $params.type eq '99'}selected{/if}>通用</option>
+                <option value="1" {if $params.type eq '1'}selected{/if}>首充号</option>
+                <option value="2" {if $params.type eq '2'}selected{/if}>首充号代充</option>
+                <option value="3" {if $params.type eq '3'}selected{/if}>代充</option>
+            </select>&nbsp;
+            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th width="100px">No.</th>
+            <th width="100px">商品类型</th>
+            <th>图片</th>
+            <th width="80px">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=data from=$img_list}
+        <tr align="center">
+            <td>{$data.id}</td>
+            <td>
+                {if $data.type eq '1'}
+                首充号
+                {elseif $data.type eq '2'}
+                首充号代充
+                {elseif $data.type eq 99}
+                通用
+                {else}
+                代充
+                {/if}
+            </td>
+            <td>
+                <img src="http://static.66173.cn{$data.img_url}" style="max-width: 500px;max-height: 300px">
+            </td>
+            <td>
+                <a type="button" href="products_info.php?act=del_intro_img&id={$data.id}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要删除该行信息吗？">删除</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>

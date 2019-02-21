@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>登录</title>
+    {include file="../include/head.html"}
+    <link href="//cdn.66173.cn/niuguo/css/bootstrap3.3.6.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.66173.cn/niuguo/css/common.css?t={$smarty.now}">
+    <link rel="stylesheet" href="//cdn.66173.cn/niuguo/css/account.css?t={$smarty.now}">
+    <script src="//libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+</head>
+<body class="footer-fix-control-page login-page">
+    <input type="hidden" value="{$login_num}" id="loginCount"/>
+    {include file="../include/header.html"}
+    <div class="top-banner">
+        <img src="//cdn.66173.cn/niuguo/img/login_bg.png?t={$smarty.now}" alt="">
+        <div class="container main-container">
+            <div class="login-box">
+                <div class="common-box-top top">
+                    <div class="font-lg title">登录</div>
+                    <a class="font-md pull-right link-register" href="/account.php?act=register">快速注册</a>
+                </div>
+                <form class="account-form login-form" id="myForm">
+                    <div class="line">
+                        <div class="input-wrapper account-wrapper"><img src="//cdn.66173.cn/niuguo/img/icon_account.png" alt=""/><input type="text" class="font-md common-input" name="account" id="account" placeholder="请输入您的账号"/></div>
+                        <label for="account" class="font-sm msg-label error"></label>
+                    </div>
+                    <div class="line">
+                        <div class="input-wrapper password-wrapper"><img src="//cdn.66173.cn/niuguo/img/icon_psw.png" alt=""/><input type="password" class="font-md common-input" name="password" id="password" placeholder="请输入您的密码"/></div>
+                        <label for="password" class="font-sm msg-label error"></label>
+                    </div>
+                    <div class="{if $login_num <= 3}hide-block {/if}line captcha-line">
+                        <div class="input-wrapper captcha-wrapper">
+                            <img src="//cdn.66173.cn/niuguo/img/icon_captcha.png" alt=""/>
+                            <input type="text" class="font-md common-input" name="captcha" id="captcha" placeholder="请输入图中的验证码"/>
+                            <img src="/verifycode.php" class="captcha-code-img" alt=""/>
+                        </div>
+                        <label for="captcha" class="font-sm msg-label error"></label>
+                    </div>
+                    <span class="font-lg account-submit go-login go-login-can">登录</span>
+                    <a class="font-md pull-right link-password-forget" href="/account.php?act=password_forget">忘记密码</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="back_url" value="{$smarty.session.login_back_url}">
+    {include file="../include/footer.html"}
+</body>
+<script src="//cdn.66173.cn/niuguo/scripts/bootstrap3.3.6.min.js"></script>
+{literal}
+<script>
+    var goLoginTimeout; //登录定时
+    var $label_account = $("label[for=account]");
+    var $label_password = $("label[for=password]");
+    var $label_captcha = $("label[for=captcha]");
+    var loginCount = $("#loginCount").val();
+    var login_back = $("input[name=back_url]").val();
+    $("body").on("click", ".captcha-code-img", function(e) {
+        var rand = Math.ceil(Math.random() * 1000);
+        $(e.target).attr("src", "/verifycode.php?t=" + rand);
+//        console.log("rand"+rand)
+    });
+    $("body").on("input", ".common-input", function(e) {
+        $(e.target).parents(".line").find(".msg-label").html("");
+    });
+    $("body").on("click", ".go-login-can", function(e) {
+        var account = $("input[name=account]").val();
+        var password = $("input[name=password]").val();
+        var captcha = $("input[name=captcha]").val();
+        var hasCaptcha = loginCount >= 3 ? true : false;
+        var pass = true;
+//        console.log(loginCount);
+        if(!account) {
+            pass = false;
+            $label_account.html(!account ? formMsgTip.account.required:formMsgTip.account.error);
+        }
+        if(!password || !regPasswordLoose.test(password)) {
+            pass = false;
+            $label_password.html(!password ? formMsgTip.passwordLoose.required:formMsgTip.passwordLoose.error);
+        }
+        if(hasCaptcha && (!captcha || !regCaptchaPic.test(captcha))) {
+            pass = false;
+            $label_captcha.html(!captcha ? formMsgTip.captcha.required:formMsgTip.captcha.error);
+        }
+        if(!pass) {
+            loginCount++;
+            console.log(loginCount);
+            if(loginCount > 3 ){
+                $(".captcha-line").show();
+            }
+            return false;
+        } else {
+            loginCount++;
+            btnTimeOutControl(".go-login", "go-login-can", goLoginTimeout);
+            var sendData = {
+                mobile: account,
+                password: password,
+                count: loginCount,
+                verifyCode:captcha
+            };
+            hasCaptcha ? sendData.captcha = captcha : null;
+
+            $.ajax({
+                url: "/account.php?act=do_login",
+                type: "post",
+                dataType: "json",
+                data: sendData
+            }).success(function(data) {
+                var type = data.type;
+                var msg = data.msg;
+                if(data.code == 1){
+                    if(login_back){
+                       window.location.href = login_back;
+                    }else{
+                        window.location.href = "/account.php?act=user_center";
+                    }
+                }
+                if(type == 1) {
+                    $label_account.html(msg);
+                } else if(type == 2) {
+                    $label_password.html(msg);
+                } else if(type == 3) {
+                    $label_captcha.html(msg);
+                } else {
+                    briefTipControl(msg);
+                }
+                loginCount = parseInt(data.count) ?  parseInt(data.count) : loginCount;
+                if(loginCount > 3) {
+                    $(".captcha-line").show();
+                }
+            })
+        }
+    })
+
+</script>
+{/literal}
+
+</html>

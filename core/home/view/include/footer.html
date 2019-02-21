@@ -1,0 +1,98 @@
+    <div class="w1000">
+        <div class="ensure">
+            <img src="http://cdn.66173.cn/wwwv2/css/img/ensure.jpg"/>
+        </div>
+        <div class="foot_a_z">
+            <dl>
+                <dt>选择游戏：</dt>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_A">A</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_B">B</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_C">C</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_D">D</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_E">E</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_F">F</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_G">G</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_H">H</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_I">I</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_J">J</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_K">K</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_L">L</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_M">M</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_N">N</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_O">O</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_P">P</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_Q">Q</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_R">R</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_S">S</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_T">T</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_U">U</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_V">V</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_W">W</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_X">X</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_Y">Y</a></dd>
+                <dd><a target="_blank" rel="noopener noreferrer" href="/games.php#game_Z">Z</a></dd>
+            </dl>
+        </div>
+        {if $links}
+        <div class="yl_div">
+            <p>友情链接：</p>
+            <div class="yl_box">
+                {if $links}<span>|</span>{/if}
+                {foreach from=$links item=link}
+                <a href="{$link.go_url}" target="_blank" rel="noopener noreferrer">{$link.title}</a>
+                <span>|</span>
+                {/foreach}
+            </div>
+        </div>
+        {/if}
+    </div>
+    <div class="w1000">
+        <div class="right_fixed">
+            <div class="title">{if $domain_name eq 1}66173{else if $domain_name eq 2}u2590{/if}</div>
+            <!--<a class="item" href="#;" rel="nofollow"><div class="icon_1"></div>我要卖</a>-->
+            <a class="item" href="/games.html" rel="nofollow" target="_blank" rel="noopener noreferrer"><div class="icon_2"></div>我要买</a>
+            <a class="item" rel="nofollow" href="http://wpa.qq.com/msgrd?v=3&uin=252432349&site=qq&menu=yes" target="_blank" rel="noopener noreferrer"><div class="icon_3"></div>联系客服</a>
+            {if $domain_name eq 1}
+            <a href="/info/20" class="item" target="_blank" rel="noopener noreferrer"><div class="icon_4"></div>商务洽谈</a>
+            {/if}
+            <div class="goto_top" style="display:none;"><a rel="nofollow" href="#">返回顶部</a></div>
+        </div>
+    </div>
+</div>
+<!--底部版权-->
+<div class="copyright">
+    {if $domain_name eq 1}
+    <div>Copyright &copy; 2015 66173.cn 版权所有 ICP证：闽ICP备15010904号-1 文网文许可备案号： 闽网文〔2016〕1554-024号</div>
+    <span>公司名称:福建牛牛网络信息技术有限公司&nbsp;&nbsp;&nbsp;&nbsp;联系电话:0591-87766173&nbsp;&nbsp;&nbsp;&nbsp;地址:福建省福州市仓山区金山大道618号橘园创意广场67号楼517</span>
+    {else if $domain_name eq 2}
+    <div>Copyright &copy; 2018 u2590.cn 版权所有 ICP证：琼ICP备18001791号</div>
+    <span>公司名称:海南跃畅网络信息技术有限公司&nbsp;&nbsp;&nbsp;&nbsp;地址:海南省老城高新技术产业示范区海南生态软件园A17栋一层1001室</span>
+    {/if}
+    {if $domain_name eq 1}
+    <div>
+        <p class="honor-list">
+            <a href="http://sq.ccm.gov.cn/ccnt/sczr/service/business/emark/toDetail/5ffb075bf30c4fdbb5bdc7b2a7a57694" target="_blank" rel="noopener noreferrer" rel="nofollow"><img border="0" src="http://cdn.66173.cn/images/footer-5.jpg"/></a>
+            <a href="http://www.miibeian.gov.cn/publish/query/indexFirst.action" target="_blank" rel="noopener noreferrer" rel="nofollow"><img border="0" src="http://cdn.66173.cn/images/footer-2.jpg"/></a>
+            <!--<a href="http://t.knet.cn/index_new.jsp" target="_blank" rel="noopener noreferrer" rel="nofollow"><img border="0" src="http://cdn.66173.cn/images/footer-3.jpg"/></a>-->
+            <a target="_blank" href="http://www.cn-ecusc.org.cn/cert/aqkx/site/?site=www.66173.cn" ><img src="https://static.anquan.org/static/outer/image/aqkx_124x47.png"></img></a>
+            <a href="http://61.154.18.10:3080/observed/" target="_blank" rel="noopener noreferrer" rel="nofollow"><img border="0" src="http://cdn.66173.cn/images/footer-4.jpg"/></a>
+            <a href="http://webscan.360.cn/index/checkwebsite/url/66173.cn" target="_blank" rel="noopener noreferrer" rel="nofollow"><img border="0" src="http://cdn.66173.cn/images/footer-1.jpg"/></a>
+            <a target="_blank" href="https://v.pinpaibao.com.cn/cert/site/?site=www.66173.cn&at=business" ><img src="https://static.anquan.org/static/outer/image/hy_124x47.png"></img></a>
+            <a href="http://si.trustutn.org/info?sn=102170503028297534744&certType=1" target="_blank" rel="noopener noreferrer" rel="nofollow"><img border="0" src="http://cdn.66173.cn/images/footer-7.png"/></a>
+        </p>
+    </div>
+    {/if}
+    <script type="text/javascript">
+        var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F0323a07bab41ef36312f92afd8dd1b20' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+{literal}
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+    !window.jQuery && document.write('<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"><\/script>');
+</script>
+<script type="text/javascript" src="http://cdn.66173.cn/www/js/service.js"></script>
+<script type="text/javascript" src="http://cdn.66173.cn/wwwv2/js/jquery.SuperSlide.2.1.1.js"></script>
+<script type="text/javascript" src="http://cdn.66173.cn/wwwv2/js/zbc_common.js" ></script>
+{/literal}

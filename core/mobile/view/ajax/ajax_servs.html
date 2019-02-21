@@ -1,0 +1,68 @@
+<link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/side.css?t={rand(1,10000)}" media="screen" />
+<div class="side-box">
+    <header class="side-title"><h2>区服选择</h2></header>
+    <ul class="sev-sel clearfix">
+        <!--{foreach from=$servs item=serv key=k}
+        <li><a href="#;"{if $k eq 0} class="on"{/if} rel="{$k}">{$k*50+1}区-{($k+1)*50}区</a></li>
+        {/foreach}-->
+        {section step=-1 loop=$servs name=n}
+        <li><a href="#;"{if $smarty.section.n.index eq $smarty.section.n.total-1} class="on"{/if} rel="{$smarty.section.n.index}">{$smarty.section.n.index*50+1}区-{($smarty.section.n.index+1)*50}区</a></li>
+        {/section}
+        <li><a href="#;" id="other" rel="1">其他区服</a></li>
+    </ul>
+
+    {section step=-1 loop=$servs name=n}
+        <ul class="sev-list clearfix"{if $smarty.section.n.index neq 0} style="display:none"{/if}>
+        {foreach from=$servs[$smarty.section.n.index] item=s}
+        <li><a href="#;" rel="{$s.id}">{$s.serv_name}</a></li>
+        {/foreach}
+        </ul>
+    {/section}
+    <!--<a href="#;" class="side-btn" onclick="slt_serv();">确定</a>-->
+    <a href="#;" class="side-btn" onclick="$('#servs').hide(500);">取消</a>
+    <input type="hidden" name="buy_type" value="{$buy_type}" />
+    <input type="hidden" name="tmp_serv_id" value="0" />
+    <input type="hidden" name="tmp_serv_name" value="" />
+</div>
+{literal}
+<script>
+    $(document).ready(function(){
+        $("ul.sev-list a").click(function(obj){
+            /*$("ul.sev-list a").removeClass("on");
+            $(this).addClass("on");
+            $("input[name='tmp_serv_id']").val($(this).attr("rel"));
+            $("input[name='tmp_serv_name']").val($(this).html());*/
+            slt_serv(this);
+            $("#other_ser").hide();
+        });
+        $("#other").click(function(){
+            slt_serv(this);
+            $("#other_ser").show();
+        });
+        $("ul.sev-sel a").click(function(){
+            rel = $(this).attr("rel");
+            $("ul.sev-sel a").removeClass("on");
+            $(this).addClass("on");
+            $("ul.sev-list").hide();
+            $("ul.sev-list:eq("+rel+")").show();
+        });
+    })
+    function slt_serv(obj){
+        buy_type = $("input[name='buy_type']").val();
+        serv_id = $(obj).attr("rel");
+        serv_name = $(obj).html();
+        if(buy_type<4 || buy_type==8){
+            $("input[name='serv_id']").val(serv_id);
+            $("a.sel-sev").html(serv_name).css("color","#888");
+            $("#servs").hide(500);
+        }else{
+            if(serv_id>0){
+                channel_id = $("input[name='ch_id']").val();
+                window.location.href="?ch_id="+channel_id+"&serv_id="+serv_id;
+            }else{
+                $("#servs").hide(500);
+            }
+        }
+    }
+</script>
+{/literal}

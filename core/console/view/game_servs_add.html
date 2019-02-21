@@ -1,0 +1,77 @@
+<script type="text/javascript">
+    $(function(){
+        $("select[name=game_id]").chosen();
+    })
+
+    $("#game_id").on("change",function(){
+        game_id = $("#_game_id").val()
+        $.ajax({
+            url: "/game_servs.php?act=game_game_channel_list",
+            type: "post",
+            data: {
+                game_id: game_id,
+            },
+            dataType: "json"
+        }).success(function (res) {
+            if (res.code == 0) {
+
+                return false;
+            } else {
+                var data = res.data;
+                $("input[name='real_ngb']").val(data.need_ngb);
+            }
+        });
+
+    })
+
+</script>
+<div class="bjui-pageContent">
+    <form action="game_servs.php?act=do_serv_add"  data-toggle="validate" data-alertmsg="false" method="post">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏ID：</label>
+                    <select name="game_id" id="game_id">
+                        <option value="">请选择</option>
+                        {foreach from=$game_list item=game}
+                        <option value="{$game.id}" id="_game_id">{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">区服名：</label>
+                    <input type="text" name="serv_name" value="" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">区服ID：</label>
+                    <input type="text" name="serv_id" value="" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">渠道：</label>
+                    <select name="ch_id" id="ch_id">
+                        <option value="">请选择</option>
+                        {foreach from=$channels item=server}
+                        <option value="{$server.id}">{$server.channel_name}-{$server.id}</option>
+                        {/foreach}
+                    </select>&nbsp;
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+
+

@@ -1,0 +1,122 @@
+<div class="bjui-pageHeader">
+    <form id="pagerForm" action="coupon.php?act=coupon_list" method="post" data-toggle="ajaxsearch">
+        <div class="bjui-searchBar">
+            <a href="coupon.php?act=coupon_add" class="btn btn-green" data-toggle="navtab" data-id="coupon_add"
+               data-reload-warn="本页已有打开的内容，确定将刷新本页内容，是否继续？" data-title="新建优惠券">新建优惠券</a>
+            <label>NO.：</label>
+            <input type="text" name="id" value="{$params.id}" class="form-control" size="8">&nbsp;
+            <label>券名：</label>
+            <input type="text" name="coupon_name" value="{$params.coupon_name}" class="form-control" size="10">&nbsp;
+            <label>优惠券类型：</label>
+            <select name="coupon_type" data-toggle="selectpicker">
+                <option value="" {if $params.coupon_type eq ''}selected="selected"{/if}>请选择</option>
+                <option value="1" {if $params.coupon_type eq '1'}selected="selected"{/if}>打折券</option>
+                <option value="2" {if $params.coupon_type eq '2'}selected="selected"{/if}>满减券</option>
+            </select>&nbsp;
+            <label>发送方式：</label>
+            <select name="send_type" data-toggle="selectpicker">
+                <option value="" {if $params.send_type eq ''}selected="selected"{/if}>请选择</option>
+                <option value="1" {if $params.send_type eq '1'}selected="selected"{/if}>活动页展示</option>
+                <option value="2" {if $params.send_type eq '2'}selected="selected"{/if}>站内信</option>
+            </select>&nbsp;
+            <label>审核状态：</label>
+            <select name="review_status" data-toggle="selectpicker">
+                <option value="" {if $params.review_status eq ''}selected="selected"{/if}>请选择</option>
+                <option value="1" {if $params.review_status eq '1'}selected="selected"{/if}>待审核</option>
+                <option value="2" {if $params.review_status eq '2'}selected="selected"{/if}>审核通过</option>
+                <option value="3" {if $params.review_status eq '3'}selected="selected"{/if}>审核不通过</option>
+            </select>&nbsp;
+            <label>上线/发券状态：</label>
+            <select name="issue_status" data-toggle="selectpicker">
+                <option value="" {if $params.issue_status eq ''}selected="selected"{/if}>请选择</option>
+                <option value="1" {if $params.issue_status eq '1'}selected="selected"{/if}>活动上线</option>
+                <option value="2" {if $params.issue_status eq '2'}selected="selected"{/if}>活动下线</option>
+                <option value="3" {if $params.issue_status eq '3'}selected="selected"{/if}>站内信发券</option>
+            </select>&nbsp;
+            <button type="submit" class="btn-default" data-icon="search">查询</button>
+            &nbsp;
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true"
+               data-icon="undo">清空查询</a>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th>No.</th>
+            <th width="200">券名</th>
+            <th width="200">优惠券描述</th>
+            <th>优惠方式</th>
+            <th>有效期</th>
+            <th>发送方式</th>
+            <th>总发行数量</th>
+            <th>领取情况</th>
+            <th>审核状态</th>
+            <th>上线/发券状态</th>
+            <th>查看详情</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=data from=$coupon_list}
+        <tr align="center">
+            <td>{$data.id}</td>
+            <td>{$data.name}</td>
+            <td>{if $data.type eq 1}满{$data.total_amount}打{$data.discount}折[打折券]
+                {else if $data.type eq 2}满{$data.total_amount}减{$data.discount_amount}[满减券]{else}错误类型{/if}</td>
+            <td>{if $data.discount_type eq 1}原价打折
+                {else if $data.discount_type eq 2}折上折{else}未知类型{/if}</td>
+            <td>{if $data.valid_type eq 2}从{$data.start_time|date_format:'%Y-%m-%d %H:%M:%S'}</br>至{$data.end_time|date_format:'%Y-%m-%d %H:%M:%S'}
+                {else if $data.valid_type eq 1}自领劵起{$data.valid_days}日内有效{else}错误类型{/if}</td>
+            <td>{if $data.send_type eq 1}活动中心展示
+                {elseif $data.send_type eq 2}站内信
+                {else}未知类型{/if}</td>
+            <td>{$data.count_total}</td>
+            <td>{$data.count_receive}</td>
+            <td>{if $data.review_status eq 1}待审核
+                {elseif $data.review_status eq 2}审核通过
+                {elseif $data.review_status eq 3}审核不通过
+                {else}未知状态{/if}</td>
+            <td>{if $data.issue_status eq 1}
+                从{$data.issue_start_time|date_format:'%Y-%m-%d %H:%M:%S'}</br>至{$data.issue_end_time|date_format:'%Y-%m-%d %H:%M:%S'}
+                {elseif $data.issue_status eq 2}手动下线
+                {elseif $data.issue_status eq 3}
+                     <a href="coupon.php?act=send_view&id={$data.id}" class="btn btn-green"  data-toggle="dialog" data-mask="true" data-width="600" data-height="250" data-title="选择用户发券">发券</a>
+                {elseif $data.issue_status eq 0}
+                {if $data.review_status eq 2}
+                    {if $data.send_type eq 1 && $data.issue_status eq 0}
+                    <a href="coupon.php?act=coupon_show&id={$data.id}" class="btn btn-green"  data-toggle="dialog" data-mask="true" data-width="600" data-height="150" data-title="活动页上线">上线</a>
+                    {elseif $data.send_type eq 2}
+                    <a href="coupon.php?act=send_view&id={$data.id}" class="btn btn-green"  data-toggle="dialog" data-mask="true" data-width="600" data-height="250" data-title="选择用户发券">发券</a>
+                    <!--<a href="coupon.php?act=send_coupon&id={$data.id}" class="btn btn-green" data-toggle="doajax"  data-confirm-msg="确定发送优惠券给指定玩家？">发券</a>-->
+                    {/if}
+                {/if}
+                {else}未知状态{/if}</td>
+            <td>
+                <a href="coupon.php?act=details&id={$data.id}" class="btn btn-green" data-toggle="dialog" data-width="1000" data-height="600" data-id="coupon_details" data-title="优惠券详情">详情</a>
+                <a href="coupon.php?act=coupon_log&id={$data.id}" class="btn btn-green" data-toggle="dialog" data-width="1000" data-height="600" data-id="coupon_details" data-title="优惠券领取日志">日志</a>
+            </td>
+            <td>
+                {if $data.issue_status eq 1}
+                <a href="coupon.php?act=coupon_hide&id={$data.id}" class="btn btn-green" data-toggle="doajax"  data-confirm-msg="确定要下线该优惠券?">下线</a>
+                {/if}
+                {if $data.review_status eq 1}
+                    {if '76_2'|in_array:$smarty.session.perm_arr}
+                    <a href="coupon.php?act=coupon_edit&id={$data.id}" class="btn btn-green" data-toggle="navtab" data-id="coupon_edit" data-title="优惠券编辑">编辑</a>
+                    {/if}
+                    {if '76_3'|in_array:$smarty.session.perm_arr}
+                    <a href="coupon.php?act=coupon_review&id={$data.id}" class="btn btn-green" data-toggle="dialog" data-mask="true" data-width="1000"  data-height="600" data-id="coupon_review" data-title="优惠券审核">审核</a>
+                    {/if}
+                {/if}
+            </td>
+        </tr>
+        {/foreach}
+
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

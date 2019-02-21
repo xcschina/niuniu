@@ -1,0 +1,64 @@
+<!-- 账号 -->
+<div class="game_recharge">
+	<!-- 标题 -->
+	<div class="title">[{$gameinfo.game_name}]</div>
+	<div class="color_red">购买即可获得66173送出的专属礼包</div>
+	{include file="v2/product/buy_type.html"}
+	<div class="color_red fontsize_16">【账号】66173专门为游戏账号提供相关交易服务，让您账号交易更放心。 <br/>
+	</div>
+</div>
+
+<div class="title_sub mt_30">
+	<strong class="name">选购商品</strong>
+	<div class="r_item" id='choose_condition'>
+
+		<select name="platform" id="choose_pt" >
+			<option value="1">安卓平台</option>
+			<option value="2">苹果平台</option>
+		</select>
+
+		<select name="ch_id" id="choose_ch">
+			<option value="0">选择渠道</option>
+			{foreach from=$info.channels item=channel}
+			<option value="{$channel.id}">{$channel.channel_name}</option>
+			{/foreach}
+		</select>
+
+		<select name="serv_id" id="choose_serv">
+			<option value="0">选择区服</option>
+			{foreach from=$info.servs item=serv}
+			<option value="{$serv.id}">{$serv.serv_name}</option>
+			{/foreach}
+		</select>
+
+		<select name="price_order" id="price_order">
+			<option value="desc">价格由高到低</option>
+			<option value="asc">价格由低到高</option>
+		</select>
+
+	</div>
+</div>
+
+<ul class="game_account_list">
+	{if $info.products|@count neq 0}
+	{foreach from=$info.products item=pro}
+	<li>
+		<i class="icon-flag"></i>
+		<div class="desc">{$pro.title}</div>
+		<a target="blank" href="/buy{$gameinfo.id}/401/{$pro.id}/{$pro.channel_id}"><img src="http://cdn.66173.cn/{$pro.img}" class="img"></a>
+		<a target="blank" href="/buy{$gameinfo.id}/401/{$pro.id}/{$pro.channel_id}">{$pro.channel_name}/{$pro.sname}</a><br>
+		售价：<span class="color_red">¥{$pro.price}</span>
+	</li>
+	{/foreach}
+	{else}
+	<li> 抱歉，本游戏暂无账号商品供您选购！ </li>
+	{/if}
+</ul>
+
+<div class="clear_both"></div>
+
+{if $info.products|@count neq 0}
+    <div id="page">{$page_show}</div>
+{/if}
+
+<div class="clear_both"></div>

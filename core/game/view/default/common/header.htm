@@ -1,0 +1,1 @@
+<div id="header">{foreach $column as $val}<a href="{$val[1]}" {if $val[0] == '游戏论坛'}{/if} class="first {if $webtitle==$val[0]}visited{/if}" {if $val@last}id="last"{/if} style="width:{$width-2}px">{$val[0]}</a>{/foreach}</div>

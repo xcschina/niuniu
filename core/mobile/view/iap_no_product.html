@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>{$game.game_name}苹果代充_代充_手游交易_66173手游交易平台</title>
+    <meta name="keywords" content="{$game.game_name}、{$game.game_name}苹果代充、66173、手游交易平台" />
+    <meta name="description" content="苹果代充就上66173，66173支持appstore代充。66173(m.66173.cn)是国内权威的游戏交易平台，安全快捷有保障的手游充值中心。" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/common.css?t={rand(1,10000)}" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/pay.css?t={rand(1,10000)}" media="screen" />
+</head>
+<body>
+<header class="page-header clearfix">
+    <h1 class="page-h1">购买详情</h1>
+    <a onclick="javascript:history.back();" class="p2-back">返回</a>
+    <a class="p2-back ml-40" href="http://m.66173.cn">首页</a>
+    {if $smarty.session.user_id}
+    <a class="login-on" href="/account.php?act=user_center">个人中心</a>
+    {else}
+    <a class="login-link" href="/account.php?act=user_center" id="login-btn">登录</a>
+    {/if}
+</header>
+<section class="pay-game clearfix"><img src="http://cdn.66173.cn{$game.game_icon}" alt="{$game.game_name}" />
+    <h2 class="pay-game-name">{$game.game_name}</h2>
+</section>
+<section class="no-product">
+    <p>该游戏商品暂时缺货</p>
+    <a href="/game{$game.id}">去看看其他商品</a>
+</section>
+{include file="include/footer.html"}
+<div class="side-bg" id="servs"></div>
+<div class="side-bg" id="products"></div>
+<div class="side-bg" id="login"></div>
+</body>
+</html>

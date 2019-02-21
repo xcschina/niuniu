@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>注册</title>
+    {include file="../include/head.html"}
+    <link href="//cdn.66173.cn/niuguo/css/bootstrap3.3.6.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.66173.cn/niuguo/css/common.css?t={$smarty.now}">
+    <link rel="stylesheet" href="//cdn.66173.cn/niuguo/css/account.css?t={$smarty.now}">
+    <script src="//libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+</head>
+<body class="footer-fix-control-page register-page">
+    {include file="../include/header.html"}
+    <div class="bg-white mt70 container pd0 register-box">
+        <div class="common-box-top top">
+            <div class="font-lg title">注册</div>
+        </div>
+        <div class="register-main">
+            <form class="left-box account-form register-form" id="myForm">
+                <div class="line">
+                    <div class="input-wrapper telephone-wrapper"><img src="//cdn.66173.cn/niuguo/img/icon_account.png" alt=""/><input type="text" class="font-md common-input" name="telephone" id="telephone" placeholder="请输入您的手机号码"/></div>
+                    <label for="telephone" class="font-sm msg-label error"></label>
+                </div>
+                <div class="line">
+                    <div class="input-wrapper telcaptcha-wrapper">
+                        <img src="//cdn.66173.cn/niuguo/img/icon_captcha.png" alt=""/>
+                        <input type="text" class="font-md common-input" name="telcaptcha" id="telcaptcha" placeholder="请输入收到的验证码"/>
+                        <span class="captcha-tip to-get-captcha">发送验证码</span>
+                    </div>
+                    <label for="telcaptcha" class="font-sm msg-label error"></label>
+                </div>
+                <div class="line">
+                    <div class="input-wrapper password-wrapper"><img src="//cdn.66173.cn/niuguo/img/icon_psw.png" alt=""/><input type="password" class="font-md common-input" name="password" id="password" placeholder="请输入您的密码"/></div>
+                    <label for="password" class="font-sm msg-label error"></label>
+                </div>
+                <div class="line">
+                    <div class="input-wrapper captcha-wrapper">
+                        <img src="//cdn.66173.cn/niuguo/img/icon_captcha.png" alt=""/>
+                        <input type="text" class="font-md common-input" name="captcha" id="captcha" placeholder="请输入图中的验证码"/>
+                        <img src="/verifycode.php" class="captcha-code-img" alt=""/>
+                    </div>
+                    <label for="captcha" class="font-sm msg-label error"></label>
+                </div>
+                <div class="line protocol-line">
+                    <div><input type="checkbox" name="agree" id="agree"/><span class="font-sm tip">我已阅读并同意《<span class="red protocol-pop-btn">牛果服务协议</span>》</span></div>
+                    <label class="font-sm msg-label error"></label>
+                </div>
+                <span class="font-lg account-submit go-register go-register-can">注册</span>
+            </form>
+            <div class="right-box">
+                <div class="registered-already">已经注册过账号</div>
+                <a class="font-md link-login" href="/account.php?act=login">直接登录</a>
+            </div>
+        </div>
+    </div>
+    <div class="mask agreeement-mask">
+        <div class="mask-inner-wrapper">
+            <div class="agreement-pop">
+                <div class="top">
+                    <div class="font-lg title">牛果服务协议</div>
+                    <div class="close">x</div>
+                </div>
+                <div class="font-md content-box">
+                    {include file="../include/niuguo_agreement.html"}
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="pagehash" value="{$pagehash}" name="pagehash">
+
+    {include file="../include/footer.html"}
+</body>
+<script src="//cdn.66173.cn/niuguo/scripts/bootstrap3.3.6.min.js"></script>
+{literal}
+<script>
+    var goRegisterTimeout; //登录定时
+    var telCaptchaTimeout; //手机验证码定时
+    var captchaInterval; // 手机验证码倒计时
+    var $label_telephone = $("label[for=telephone]");
+    var $label_telcaptcha = $("label[for=telcaptcha]");
+    var $label_password = $("label[for=password]");
+    var $label_captcha = $("label[for=captcha]");
+    var $label_agree = $(".protocol-line .msg-label");
+    var hash = $('#pagehash').val();
+    // 点击验证图换图
+    $("body").on("click", ".captcha-code-img", function(e) {
+        var rand = Math.ceil(Math.random() * 1000);
+        $(e.target).attr("src", "/verifycode.php?t=" + rand);
+        console.log("rand"+rand)
+    });
+    // 输入时取消该提示
+    $("body").on("input", ".common-input", function(e) {
+        $(e.target).parents(".line").find(".msg-label").html("");
+    });
+    // 同意协议状态改变时取消该提示
+    $("body").on("change", "input[name=agree]", function(e) {
+        $(e.target).parents(".line").find(".msg-label").html("");
+    });
+    // 注册
+    $("body").on("click", ".go-register-can", function(e) {
+        var telephone = $("input[name=telephone]").val();
+        var telcaptcha = $("input[name=telcaptcha]").val();
+        var password = $("input[name=password]").val();
+        var captcha = $("input[name=captcha]").val();
+        var agree = $("input[name=agree]").is(":checked");
+        var pass = true;
+        if(!telephone || !regContact.test(telephone)) {
+            pass = false;
+            $label_telephone.html(!telephone ? formMsgTip.telephone.required:formMsgTip.telephone.error);
+        }
+        if(!telcaptcha || !regCaptchaTel.test(telcaptcha)) {
+            pass = false;
+            $label_telcaptcha.html(!telcaptcha ? formMsgTip.telcaptcha.required:formMsgTip.telcaptcha.error);
+        }
+        if(!password || !regPassword.test(password)) {
+            pass = false;
+            $label_password.html(!password ? formMsgTip.password.required:formMsgTip.password.error);
+        }
+        if(!captcha || !regCaptchaPic.test(captcha)) {
+            pass = false;
+            $label_captcha.html(!captcha ? formMsgTip.captcha.required:formMsgTip.captcha.error);
+        }
+        if(!agree) {
+            pass = false;
+            $label_agree.html(formMsgTip.agree.required)
+        }
+        if(!pass) {
+            return false;
+        } else {
+            btnTimeOutControl(".go-register", "go-register-can", goRegisterTimeout);
+            var sendData = {
+                mobile: telephone,
+                sms_code: telcaptcha,
+                password: password,
+                verify_code: captcha,
+                agree:agree
+            };
+            $.ajax({
+                url: "/account.php?act=do_register",
+                type: "post",
+                dataType: "json",
+                data: sendData
+            }).success(function(data) {
+                var type = data.type;
+                var msg = data.msg;
+                if(data.code == 1){
+                    window.location.href = "/account.php?act=user_center";
+                }
+                if(type == 1) {
+                    $label_telephone.html(msg);
+                } else if(type == 2) {
+                    $label_telcaptcha.html(msg);
+                } else if(type == 3) {
+                    $label_password.html(msg);
+                } else if(type == 4) {
+                    $label_captcha.html(msg);
+                } else {
+                    briefTipControl(msg);
+                }
+            })
+        }
+    })
+    // 获取验证码
+    $("body").on("click", ".to-get-captcha", function() {
+        if(!regContact.test($("input[name=telephone]").val())) {
+            $label_telephone.html(formMsgTip.telephone.error);
+            $(".captcha-tip").removeClass("to-get-captcha");
+            btnTimeOutControl(".captcha-tip", "to-get-captcha", telCaptchaTimeout);
+        }
+        else {
+            $(".captcha-tip").removeClass("to-get-captcha").html('<span class="count-time">120</span>s后获取');
+            var countDownRest = 120;
+            clearInterval(captchaInterval);
+            captchaInterval = setInterval(function() {
+                if(countDownRest > 1) {
+                    countDownRest--;
+                    $(".count-time").html(countDownRest)
+                }
+                else {
+                    $(".captcha-tip").html("发送验证码").addClass("to-get-captcha");
+                    clearInterval(captchaInterval)
+                }
+
+            }, 1000)
+            var phone = $("input[name=telephone]").val();
+             $.ajax({
+                 url: "/account.php?act=sms_code",
+                 type: "post",
+                 data: {mobile: phone,pagehash:hash},
+                 dataType: "json"
+             }).success(function(json) {
+                briefTipControl(json.msg);
+             })
+        }
+    });
+    // 打开协议
+    $("body").on("click", ".protocol-line .protocol-pop-btn", function() {
+        $(".agreeement-mask").show();
+    });
+    // 关闭协议
+    $("body").on("click", ".agreeement-mask .close, .agreeement-mask", function() {
+        $(".agreeement-mask").hide();
+    });
+</script>
+{/literal}
+
+</html>

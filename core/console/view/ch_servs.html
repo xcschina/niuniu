@@ -1,0 +1,15 @@
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th>{$game_name}</th>
+            {foreach from=$chs item=c}
+            <th width="100px">
+                <a href="ch_servs.php?act=edit&id={$game_id}&ch_id={$c.id}" style="color: white" data-toggle="dialog" data-mask="true" data-width="1000"  data-height="800" data-id="ch_serv">{$c.channel_name}</a>
+            </th>
+            {/foreach}
+        </tr>
+        </thead>
+        <tbody>{$servs}</tbody>
+    </table>
+</div>

@@ -1,0 +1,27 @@
+{if !$smarty.session.shop_id}
+<div class="bjui-pageHeader">
+    <div class="bjui-searchBar">
+        <a href="orders_info.php?act=order_imgs_add_view&order_id={$order_id}" class="btn btn-green" data-toggle="dialog" data-mask="true" data-width="800"  data-height="700" data-id="orders_img_add_view" data-title="添加图片">添加图片</a>
+    </div>
+</div>
+{/if}
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th width="100px">No.</th>
+            <th>图片</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=data from=$img_list}
+        <tr align="center">
+            <td>{$data.id}</td>
+            <td>
+                <img src="http://cdn.66173.cn{$data}" style="max-width: 500px;max-height: 300px">
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>

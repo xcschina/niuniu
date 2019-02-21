@@ -1,0 +1,44 @@
+<div class="bjui-pageContent">
+    <form action="friendly_link.php?act=do_link_edit"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="old_link_icon" value="{$link_info.icon}">
+        <input type="hidden" name="id" value="{$link_info.id}">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">标题：</label>
+                    <input type="text" name="title" value="{$link_info.title}"  class="form-control" size="25" data-rule="required">
+                </td>
+            </tr>
+            {if $link_info}
+            <tr>
+                <td>
+                    <label  class="control-label x120">&nbsp;</label>
+                    <img src="http://static.66173.cn{$link_info.icon}" width="50px" height="50px"><br>
+                </td>
+            </tr>
+            {/if}
+            <tr>
+                <td>
+                    <label  class="control-label x120">ICON：</label>
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="link_icon.click()">选择图片</button>
+                    <input type="file" name="link_icon" style="display: none;" onchange="l_icon.value=value"/>
+                    <input type="text" name="l_icon" placeholder="None file" class="form-control" size="15" readonly/>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">跳转URL：</label>
+                    <input type="text" name="go_url" value="{$link_info.go_url}"  class="form-control" size="30" data-rule="required">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>

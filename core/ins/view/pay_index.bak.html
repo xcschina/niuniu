@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="expires" content="{$expires}" />
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta content="width=device-width; initial-scale=1; minimum-scale=1, maximum-scale=1; user-scalable=1" name="viewport">
+    <title>游戏充值</title>
+    <link rel="stylesheet" href="http://static.66173.cn/ins/css/mpay.css?t={$smarty.now}">
+    {literal}
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        !window.jQuery && document.write('<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"><\/script>');
+    </script>
+    {/literal}
+    <script type="text/javascript" src="http://static.66173.cn/ins/js/android.mobile.pay.js?t={$smarty.now}"></script>
+</head>
+<body>
+<div class="tips"></div>
+<form action="payto.php" method="post" name="pay_form">
+    {if $msg}<section class="mod tips">{$msg}</section>{/if}
+    {if $success}<section class="mod tips success">{$success}</section>{/if}
+    <section class="mod">账户名：{$param.nickname}</section>
+    <section class="mod">服务器：<span class="green">{$param.serv_name}</span></section>
+    <section class="mod">角色：<span class="green">{$param.player_name}</span></section></section>
+    <header>请选择充值金额：</header>
+    <section class="mod payitem">
+        <article id="money_id">
+            {foreach from=$goods item=good}
+            <a href="#;" rel="{$good.id}"{if $good_id eq $good.good_code} class="hover"{/if} data-paymoney="{$good.good_price}"
+                    data-goodname="{$good.good_intro}"><strong>{$good.good_price}元</strong>[{$good.good_name}]
+            </a>
+            {/foreach}
+        </article>
+    </section>
+    <header>请选择支付方式：</header>
+    <section class="mod pay" id="alipay_short"><a href="#;" rel="2" class="select">快捷支付(支付宝)</a></section>
+    <a href="#;" class="sub_pay" onclick="android_pay();">确认付款</a>
+    <input type="hidden" name="money_id" value="0" />
+    <input type="hidden" name="mode" value="2" />
+    {if $pay_result}<input type="hidden" name="pay_result" value="{$pay_result}" />{/if}
+</form>
+</body>
+</html>

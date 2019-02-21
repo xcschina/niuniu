@@ -1,0 +1,43 @@
+<div class="bjui-pageContent">
+    <form action="orders_info.php?act=do_edit"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x80">首充号：</label>
+                    <input type="text" name="game_user" class="form-control" data-rule="required"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x80">密码：</label>
+                    <input type="text" name="game_pwd"  class="form-control"  data-rule="required"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x80">支付截图：</label>
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="pay_img.click()">选择图片</button>
+                    <input type="file" name="pay_img" style="display: none;" onchange="input_pay_img.value=value" />
+                    <input type="text" name="input_pay_img" placeholder="None file" class="form-control" size="15" readonly />&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x80">&nbsp;</label>
+                    <span class="red">注意：首充号、密码、支付截图保存后不可修改，请谨慎操作！</span>
+                </td>
+            </tr>
+            <input type="hidden" name="id" value="{$id}">
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+
+

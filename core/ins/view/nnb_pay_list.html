@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="expires" content="{$expires}" />
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta content="width=device-width; initial-scale=1; minimum-scale=1, maximum-scale=1; user-scalable=1" name="viewport">
+    <link rel="stylesheet" href="//static.66173.cn/ins/css/sdk_pay.css?t=11">
+    <title>{if $app_id neq '6023'}牛币充值记录{else}平台币{/if}</title>
+</head>
+<body class="nnb_pay">
+{if $app_id eq '6023'}
+该功能还未开放！
+{else}
+<div class="nnb_title">
+    <section class="nnb_s_fri">
+        <p>牛币余额</p>
+        <p class="nnb_p"><span class="nnb_num">{if $user_info.nnb}{$user_info.nnb}{else}0{/if}</span>牛币
+            <!--&nbsp;|&nbsp;含赠送牛币100-->
+        </p>
+    </section>
+    {if $app_id eq '5001'}
+    <section class="nnb_s_sec">
+        <a href="#;" onclick="go_pay();" class="nnb_pay_btn">充值</a>
+    </section>
+    {/if}
+</div>
+<div class="title_desc">
+    <i class="details_icon"></i>资金明细
+</div>
+<div class="nnb_list_title">
+    <section class="f-l" style="width: 30%">时间</section>
+    <section class="f-l" style="width: 40%">金额</section>
+    <section class="f-l" style="width: 30%">类型</section>
+</div>
+{if $nnb_log}
+    <ul class="nnb_ul">
+    {foreach from=$nnb_log item=nnb}
+    <li class="nnb_li">
+        <span class="f-l" style="width: 30%">{'Y-m-d H:i:s'|date:$nnb.add_time}</span>
+        <span class="f-l" style="width: 40%">
+            {if $nnb.do eq '2' or $nnb.do eq '3'}-{/if}{$nnb.amount}
+        </span>
+        {if $nnb.do eq '1'}
+        <span class=" pay_btn_status bc-e4393c">充值牛币</span>
+        {elseif $nnb.do eq '2'}
+        <span class=" pay_btn_status bc-ff6600">购买商品</span>
+        {elseif $nnb.do eq '3'}
+        <span class=" pay_btn_status bc-1799dd">牛币提现</span>
+        {elseif $nnb.do eq '4'}
+        <span class=" pay_btn_status bc-1799dd">转币操作</span>
+        {/if}
+    </li>
+    {/foreach}
+    </ul>
+{else}
+    <div class="center no-list">
+        <img class="no-pic" src="//cdn.66173.cn/ins/css/news/message_no.png"/>
+        <div class="tip">暂无记录</div>
+    </div>
+{/if}
+{if count($nnb_log) eq 10}
+<div class="get-status">
+    <span class="more-btn more-btn-can">加载更多</span>
+</div>
+{else if $nnb_log}
+<div class="get-status">
+    <span>没有了~</span>
+</div>
+{/if}
+{/if}
+<div class="brief-tip-pop"><div class="con"></div></div>
+<script src="//libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    function go_pay(){
+        window.local_obj.go_nnb_recharge();
+    }
+</script>
+<script>
+    var curPage = 1;
+    var getMoreTimeout;
+    // 加载更多
+    // getMessage();
+    // 点击加载更多按钮
+    $(".nnb_pay").on("click",".more-btn-can",function() {
+        $(".more-btn").removeClass("more-btn-can");
+        getMessage();
+        btnTimeOutControl(".more-btn", "more-btn-can", getMoreTimeout, 3000);
+
+    })
+    // 获取消息列表
+    function getMessage() {
+        var reqPage = curPage + 1;
+        $.ajax({
+            url: "nnb_rechagre_list.php?act=more",
+            type: 'post',
+            dataType: 'json',
+            data: {
+                page:reqPage
+            }
+        }).success(function(res){
+            // type : 1是活动消息，1是客服消息，3是系统消息
+            var code = res.result;
+            var nnb_log = res.info || [];
+            if(code == 1) {
+                var content = "";
+                // 返回有消息，无论是第一页还是其他页
+                if (nnb_log.length != 0) {
+                    for(var i = 0; i < nnb_log.length; i++) {
+                        content += '<li class="nnb_li"> <span class="f-l" style="width: 30%">'+getLocalTime(nnb_log[i]['add_time'])+'</span> <span class="f-l" style="width: 40%">'
+                        if(nnb_log[i]['do'] == 2 || nnb_log[i]['do'] == 3) {
+                            content += '-'
+                        }
+                        content += nnb_log[i]['amount']+'</span>'
+                        if(nnb_log[i]['do'] == '1') {
+                            content += ' <span class=" pay_btn_status bc-e4393c">充值牛币</span>'
+                        }else if(nnb_log[i]['do'] == '2'){
+                            content += ' <span class=" pay_btn_status bc-ff6600">购买商品</span>'
+                        }else if(nnb_log[i]['do'] == '3'){
+                            content += ' <span class=" pay_btn_status bc-1799dd">牛币提现</span>'
+                        }else if(nnb_log[i]['do'] == '4'){
+                            content += ' <span class=" pay_btn_status bc-1799dd">转币操作</span>'
+                        }
+                        content +='</li>'
+
+                    }
+                    if(nnb_log.length < 10) {
+                        $(".get-status").html("没有了~").show();
+                    } else {
+                        $(".get-status").html('<span class="more-btn more-btn-can">加载更多</span>').show();
+                    }
+                    $(".nnb_ul").append(content).show();
+                    curPage++;
+                }
+                // 第一页就没有消息或者其他页没有更多了
+                else {
+                    $(".get-status").html("没有了~").show();
+                }
+            }
+            else {
+                briefTipControl(res.desc);
+            }
+        }).error(function(req) {
+            briefTipControl("请求出错:"+req.status+","+req.statusText);
+        })
+    }
+    // 简单提示控制
+    function briefTipControl(text) {
+        $(".brief-tip-pop .con").html(text);
+        $(".brief-tip-pop").fadeIn(500).delay(1000).fadeOut(500);
+    }
+    // 按钮定时加class控制
+    function btnTimeOutControl(ele, cls, timeoutClient, timeout) {
+        clearTimeout(timeoutClient);
+        timeoutClient = setTimeout(function() {
+            $(ele).addClass(cls);
+        }, timeout || 2000);
+    }
+    function getLocalTime(timestamp) {
+        var date = new Date(parseInt(timestamp)*1000);
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var D = (date.getDate() < 10 ? '0'+(date.getDate()) : date.getDate()) + ' ';
+        var H = (date.getHours() < 10 ? '0'+(date.getHours()) : date.getHours()) + ':';
+        var I = (date.getMinutes() < 10 ? '0'+(date.getMinutes()) : date.getMinutes()) + ':';
+        var S = (date.getSeconds() < 10 ? '0'+(date.getSeconds()) : date.getSeconds()) ;
+        return Y + M + D + H + I + S;
+    }
+</script>
+</body>
+</html>

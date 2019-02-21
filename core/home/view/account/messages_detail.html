@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>站内信</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link href="http://cdn.66173.cn/wwwv2/css/style.css?t=109" type="text/css" rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" href="http://cdn.66173.cn/www/css/page.css" />
+    <script type="text/javascript" src="http://cdn.66173.cn/www/js/jquery-1.7.1.min.js" ></script>
+</head>
+<body>
+{include file="include/top.html"}
+{include file="include/header.html"}
+{include file="include/nav.html"}
+<div class="wrapper clearfix">
+    <div class="w1000">
+        <div class="current_nav ">
+            当前位置：<a href="#">{if $domain_name eq 1}66173{else if $domain_name eq 2}u2590{/if}交易平台</a>&nbsp;>&nbsp;我的{if $domain_name eq 1}66173{else if $domain_name eq 2}u2590{/if}
+        </div>
+        <div class="user_center">
+            {include file="include/user-side.html"}
+            <div class="user_center_right">
+                <div class="integral_detail">
+                    <div class="user_center_title">我的站内信</div>
+                    <div class="letter_details">
+                        <div class="title"><h2>{$detail.title}</h2>
+                            <span>发布时间：{'Y-m-d H:i:s'|date:$detail.add_time}</span>
+                        </div>
+                        <div>
+                            <p>{$detail.content|htmlspecialchars_decode}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear_both"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--footer-->
+{include file="include/footer.html"}
+{literal}
+<script type="text/javascript">
+    function receive_coupon(id){
+        $.ajax({
+            type:'post',
+            url:'coupon.php?act=get_coupon',
+            data:{
+                id:id
+            },
+            dataType: 'json',
+            success: function (json) {
+                if(json.res){
+                    alert(json.msg);
+                }
+            }
+        });
+    }
+
+</script>
+<!--<script type="text/javascript" src="http://cdn.66173.cn/wwwv2/js/zbc_common.js" ></script>-->
+{/literal}
+<!--//footer-->
+</body>
+</html>

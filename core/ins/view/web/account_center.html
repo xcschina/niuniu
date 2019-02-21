@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>账户</title>
+    {include file="web/include/head_common.html"}
+    {if $orientation != "p"}
+        <link rel="stylesheet" href="//cdn.66173.cn/ins/css/web_h/account_rel.css?t={$smarty.now}">
+    {else}
+        <link rel="stylesheet" href="//cdn.66173.cn/ins/css/web_v/account_rel.css?t={$smarty.now}">
+    {/if}
+    {include file="web/include/head_script.html"}
+</head>
+<body class="account-rel account-center">
+    {include file="web/include/menu_bar.html"}
+    <div class="main-wrapper main-wrapper-verticle-middle">
+        <div class="main-inner">
+            <div class="account-top">
+                <div class="left">
+                    {if $user_info.photo_url}
+                    <img class="head-icon" src="//cdn.66173.cn/{$user_info.photo_url}" alt="">
+                    {else if $user_info.sex eq '1'}
+                    <img class="head-icon" src="//cdn.66173.cn/ins/img/web_h/account_head_boy_icon.png" alt="">
+                    {else if $user_info.sex eq '2'}
+                    <img class="head-icon" src="//cdn.66173.cn/ins/img/web_h/account_head_girl_icon.png" alt="">
+                    {else}
+                    <img class="head-icon" src="//cdn.66173.cn/ins/img/web_h/account_head_boy_icon.png" alt="">
+                    {/if}
+                    <span class="font-lg text-overflow account-name">{if $user_info.nick_name}{$user_info.nick_name}{else}{$user_info.mobile}{/if}</span>
+                </div>
+                <div class="right"><button class="font-mder account-logout">退出账号</button></div>
+            </div>
+            <div class="account-menu">
+                <a class="font-mder item-border-right item-border-bottom account-menu-item niubi" href="web_account.php?act=niubi">
+                    <span class="account-common-icon"></span>
+                    <div class="text1">牛币</div>
+                    <div class="font-sm text2 red">{$user_info.nnb}</div>
+                </a>
+                <a class="font-mder item-border-right item-border-bottom account-menu-item bill" href="web_account.php?act=bill">
+                    <span class="account-common-icon"></span>
+                    <div class="text1">账单</div>
+                </a>
+                <a class="font-mder item-border-bottom account-menu-item change-password" href="web_account.php?act=change_password">
+                    <span class="account-common-icon"></span>
+                    <div class="text1">修改密码</div>
+                </a>
+                <a class="font-mder item-border-right account-menu-item phone-bind" href="web_account.php?act=phone_bind">
+                    <span class="account-common-icon"></span>
+                    <div class="text1">绑定手机</div>
+                    {if $user_info.mobile}
+                    <div class="font-sm text2 green">（已绑定）</div>
+                    {else}
+                    <div class="font-sm text2 red">（未绑定）</div>
+                    {/if}
+                </a>
+                <a class="font-mder item-border-right account-menu-item real-verify {if $user_info.id_number}already-real-verify{else}wait-real-verify{/if}" href="web_account.php?act=real_verify">
+                    <span class="account-common-icon"></span>
+                    <div class="text1">实名认证</div>
+                    {if $user_info.id_number}
+                    <div class="font-sm text2 green">（已认证）</div>
+                    {else}
+                    <div class="font-sm text2 red">（未认证）</div>
+                    {/if}
+                </a>
+                {if $nd_info && $nd_info.nd_lock eq 0}
+                    <a class="font-mder account-menu-item niudian"href="web_account.php?act=niudian" >
+                        <img class="account-niudian" src="//cdn.66173.cn/ins/img/web_h/niudian.png">
+                        <div class="text1">牛点</div>
+                        <div class="font-sm text2 red">{$nd_info.nd_num}</div>
+                    </a>
+                {else}
+                    <a class="font-mder account-menu-item to-wait">
+                        <span class="account-common-icon"></span>
+                        <div class="text1">牛点</div>
+                    </a>
+                {/if}
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    function cancelFlex() {
+        if(window.innerHeight < 5*remSize) {
+            $(".main-inner").addClass("cancel-flex");
+        }
+        else {
+            $(".main-inner").removeClass("cancel-flex");
+        }
+    }
+    $(document).ready(function () {
+        cancelFlex();
+    });
+    $(window).resize(function() {
+        cancelFlex();
+    });
+    // 退出账号
+    $("body").on("click", ".account-logout", function() {
+        window.local_obj && window.local_obj.do_logout("已退出");
+    });
+    // 修改密码
+    $("body").on("click", ".change-password", function(e) {
+        e.preventDefault();
+        window.local_obj && window.local_obj.change_pwd();
+    });
+    // 绑定手机
+    $("body").on("click", ".phone-bind", function(e) {
+        e.preventDefault();
+        window.local_obj && window.local_obj.bind_phone();
+    });
+    // 实名认证
+    $("body").on("click", ".wait-real-verify", function(e) {
+        e.preventDefault();
+        window.local_obj && window.local_obj.bind_IdCard();
+    });
+</script>
+</html>

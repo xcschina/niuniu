@@ -1,0 +1,238 @@
+<link href="kindeditor/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="kindeditor/plugins/select2/jquery.multi-select.js"></script>
+<script src="kindeditor/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(".select2").select2();
+</script>
+<div class="bjui-pageContent">
+    <form action="game_info.php?act=do_game_edit"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏名：</label>
+                    <input type="text" name="game_name" value="{$game_info.game_name}" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">副标题：</label>
+                    <input type="text" name="subtitle" value="{$game_info.subtitle}" cols="18" rows="1"  class="form-control" >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">英文名：</label>
+                    <input type="text" name="en_name" value="{$game_info.en_name}" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">关键字：</label>
+                    <input type="text" name="keyword" value="{$game_info.keyword}" cols="50" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            {if $game_info.game_icon}
+            <tr>
+                <td>
+                    <label  class="control-label x120">&nbsp;</label>
+                    <img src="http://static.66173.cn/{$game_info.game_icon}" width="50px" height="50px"><br>
+                    <input type="hidden" name="old_game_icon" value="{$game_info.game_icon}">
+                </td>
+            </tr>
+            {/if}
+            <tr>
+                <td>
+                    <label  class="control-label x120">ICON：</label>
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="game_icon.click()">选择图片</button>
+                    <input type="file" name="game_icon" style="display: none;" onchange="g_icon.value=value"/>
+                    <input type="text" name="g_icon" placeholder="None file" class="form-control" size="15" readonly/>&nbsp;
+                    <input type="hidden" name="id" value="{$game_info.id}">
+                </td>
+            </tr>
+            {if $game_info.product_img}
+            <tr>
+                <td>
+                    <label  class="control-label x120">&nbsp;</label>
+                    <img src="http://static.66173.cn/{$game_info.product_img}" width="50px" height="50px"><br>
+                </td>
+            </tr>
+            {/if}
+            <tr>
+                <td>
+                    <label  class="control-label x120">默认商品图片：</label>
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="product_img.click()">选择图片</button>
+                    <input type="file" name="product_img" style="display: none;" onchange="p_img.value=value"/>
+                    <input type="text" name="p_img" placeholder="None file" class="form-control" size="15" readonly/>&nbsp;
+                    <input type="hidden" name="old_product_img" value="{$game_info.product_img}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">包下载地址：</label>
+                    <input type="text" name="down_url" value="{$game_info.down_url}" cols="30" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">热门：</label>
+                    <select name="is_hot"   data-toggle="selectpicker">
+                        <option value="1" {if $game_info.is_hot eq '1'}selected="selected"{/if}>是</option>
+                        <option value="0" {if $game_info.is_hot eq '0'}selected="selected"{/if}>否</option>
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">平台：</label>
+                    <select name="apply"   data-toggle="selectpicker">
+                        <option value="0" {if $game_info.apply eq '0'}selected="selected"{/if}>请选择应用平台</option>
+                        <option value="1" {if $game_info.apply eq '1'}selected="selected"{/if}>魔域交易平台</option>
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">状态：</label>
+                    <select name="status"   data-toggle="selectpicker">
+                        <option value="1" {if $game_info.status eq '1'}selected="selected"{/if}>启用</option>
+                        <option value="0" {if $game_info.status eq '0'}selected="selected"{/if}>暂停</option>
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">标签：</label>
+                    <textarea name="tags" cols="30" data-toggle="autoheight" class="form-control">{$game_info.tags}</textarea>(例：性别：男|女，多个请换行)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">代币种类：</label>
+                    <input type="text" name="game_units" value="{$game_info.game_units}" cols="50" rows="1"  class="form-control" data-rule="required">
+                    (例：元宝|宝石|钻石，多个请换行.主要是我要卖部分给玩家选择使用)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">仓库种类：</label>
+                    <input type="text" name="game_storages" value="{$game_info.game_storages}" cols="50" rows="1"  class="form-control" data-rule="required">
+                    (例：交易所|仓库|邮箱|包裹，多个请换行.主要是我要卖部分给玩家选择使用)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">星级：</label>
+                    <input type="text" name="stars" value="{$game_info.stars}" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">礼包说明：</label>
+                    <textarea name="gift_guide" cols="30" rows="5" class="form-control">{$game_info.gift_guide}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">游戏标签：</label>
+                    <select class="select2 select2-multiple" multiple="multiple" data-placeholder="请选择标签" style="width:291px;" name="game_tags[]">
+                        {foreach from=$tags key=k item=play}
+                        <option value="{$k}" {if in_array($k,$arr)}selected="selected"{/if}>{$play}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">包体大小：</label>
+                    <input type="text" name="game_size" value="{$game_info.game_size}" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏介绍：</label>
+                    <textarea name="game_intr" cols="30" data-toggle="autoheight" class="form-control" data-rule="required">{$game_info.game_intr}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">截图预览：</label>
+                    <input id="game_img_edit" type="file" name="imgs[]"  style="display: none"  multiple/>
+                    <span id="game_edit_preview" style="color: #ff0000">
+                        {if $game_info.img1}<img src="http://static.66173.cn/{$game_info.img1}" width="100px" height="120px">{/if}
+                        {if $game_info.img2}<img src="http://static.66173.cn/{$game_info.img2}" width="100px" height="120px">{/if}
+                        {if $game_info.img3}<img src="http://static.66173.cn/{$game_info.img3}" width="100px" height="120px">{/if}
+                        {if $game_info.img4}<img src="http://static.66173.cn/{$game_info.img4}" width="100px" height="120px">{/if}
+                    </span>
+                    <input type="hidden" name="old_img1" value="{$game_info.img1}">
+                    <input type="hidden" name="old_img2" value="{$game_info.img2}">
+                    <input type="hidden" name="old_img3" value="{$game_info.img3}">
+                    <input type="hidden" name="old_img4" value="{$game_info.img4}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120"></label>
+                    <a href="javascript:void(0)" class="btn btn-default btn-sm Huploadify-button" id="img_edit_bnt">选择图片</a>
+                </td>
+            </tr>
+            </tbody>
+            <input type="hidden" name="is_del" value="0" />
+            <input type="hidden" name="channel_id" value="0" />
+            <input type="hidden" name="discount" value="0" />
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+<script>
+    $(function(){
+        $("#img_edit_bnt").bind('click',function(){
+            var ie=navigator.appName=="Microsoft Internet Explorer" ? true : false;
+            if(ie){
+                $("#game_img_edit").click;
+            }else{
+                var a=document.createEvent("MouseEvents");
+                a.initEvent("click", true, true);
+                document.getElementById("game_img_edit").dispatchEvent(a);
+            }
+        })
+
+        rFilter = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/jpeg|image\/jpeg|image\/png|)$/i;
+        (function () {
+            var viewFiles = document.getElementById("game_img_edit");
+            function viewFile (file,i) {
+                html = $("#game_edit_preview").html();
+                //通过file.size可以取得图片大小
+                var reader = new FileReader();
+                reader.onload = function(evt){
+                    html +="<img style='height: 120px;width: 100px;margin-right: 10px;'  src=\""+evt.target.result+"\" />";
+                    $("#game_edit_preview").html(html);
+                }
+                reader.readAsDataURL(file);
+            }
+            viewFiles.addEventListener("change", function () {
+                for(i=0;imgFile = document.getElementById("game_img_edit").files[i];i++){
+                    if(i>3){
+                        document.getElementById("game_img_edit").value="";
+                        $("#game_edit_preview").html("最多4张图片");
+                        return;
+                    }
+                    if (!rFilter.test(imgFile.type)) {
+                        document.getElementById("game_img_edit").value="";
+                        $("#game_edit_preview").html("图片格式不对，支持jpg、png、gif!");
+                        return;
+                    }
+                }
+                $("#game_edit_preview").html('');
+                for (var i = 0; file = this.files[i]; i++) {
+                    viewFile(file,i);
+                }
+            }, false);
+        })();
+    })
+</script>

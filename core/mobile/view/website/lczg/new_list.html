@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="Mon, 20 Jul 2013 23:00:00 GMT" /> <!--//设置页面缓存-->
+    <meta name="robots" content="all">
+    <meta name="author" content="Tencent-TGideas">
+    <meta name="Copyright" content="Tencent">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#333333">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,maximum-scale=1" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.js"></script>
+    <title>新闻列表</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link href="css/news_detail.css" rel="stylesheet">
+    <link href="css/new_list_x.css" rel="stylesheet">
+</head>
+<script>
+    (function(doc, win) {
+        var docEl = doc.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function() {
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth) return;
+                docEl.style.fontSize = 20 * (clientWidth / 420) + 'px';
+                console.log("您当前字体大小是"+docEl.style.fontSize)
+            };
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+    })(document, window);
+</script>
+<body>
+<div class="all_boby">
+    <div class="index_div_top">
+        <img class="index_div_top_img"  src="https://cdn.66173.cn/mobile/website/lczg/images/bg/fix.jpg" alt="">
+    </div>
+    <div class="nav_top">
+        <div class="nav_top_icon">
+            <a  onclick="goBack()">< 返回</a>
+        </div>
+        <div class="nav_top_title">新闻列表</div>
+    </div>
+   <div class="tab_list">
+      <div class="tab_list_nav2">
+          <ul class="tab_list_nav" style="padding-left: 0">
+              <li class="active_c">最新</li>
+              <li>活动</li>
+              <li>新闻</li>
+              <li>公告</li>
+          </ul>
+      </div>
+       <div>
+           <ul class="tab_new_list clearAfter ul1">
+               <li><a href="news_detail.html"><span style="float: left;color: #333333"> 八月二十号（打宝服）开服计划</span> <span style="float: right;color: #333333">2018/8/16</span></a></li>
+               <li><a href="news_detail.html"><span style="float: left;color: #333333"> 《龙城战歌》跨服攻沙燃情来袭 最强...</span> <span style="float: right;color: #333333">2018/8/16</span></a></li>
+               <li><a href="news_detail.html"><span style="float: left;color: #333333"> 八月活动盛宴，狂欢你一夏</span> <span style="float: right;color: #333333">2018/8/16</span></a></li>
+               <li><a href="news_detail.html"><span style="float: left;color: #333333"> 八月二十号（打宝服）开服计划</span> <span style="float: right;color: #333333">2018/8/16</span></a></li>
+               <li><a href="news_detail.html"><span style="float: left;color: #333333"> 八月二十号（打宝服）开服计划</span> <span style="float: right;color: #333333">2018/8/16</span></a></li>
+               <li><a href="news_detail.html"><span style="float: left;color: #333333"> 八月二十号（打宝服）开服计划</span> <span style="float: right;color: #333333">2018/8/16</span></a></li>
+               <li><a href="news_detail.html"><span style="float: left;color: #333333"> 《龙城战歌》跨服攻沙燃情来袭 最强...</span> <span style="float: right;color: #333333">2018/8/16</span></a></li>
+               <li><a href="news_detail.html"><span style="float: left;color: #333333"> 八月活动盛宴，狂欢你一夏</span> <span style="float: right;color: #333333">2018/8/16</span></a></li>
+               <li><a href="news_detail.html"><span style="float: left;color: #333333"> 八月二十号（打宝服）开服计划</span> <span style="float: right;color: #333333">2018/8/16</span></a></li>
+               <li><a href="news_detail.html"><span style="float: left;color: #333333"> 八月二十号（打宝服）开服计划</span> <span style="float: right;color: #333333">2018/8/16</span></a></li>
+           </ul>
+           <ul class="tab_new_list clearAfter ul2" style="display: none">
+               <li><a href="news_detail.html"><span style="float: left;color: #333333"> 八月二十号（打宝服）开服计划</span> <span style="float: right;color: #333333">2018/8/16</span></a></li>
+           </ul>
+           <ul class="tab_new_list clearAfter ul3" style="display: none">
+               <li><a href="news_detail.html"><span style="float: left;color: #333333"> 《龙城战歌》跨服攻沙燃情来袭 最强...</span> <span style="float: right;color: #333333">2018/8/16</span></a></li>
+               <li><a href="news_detail.html"><span style="float: left;color: #333333"> 八月活动盛宴，狂欢你一夏</span> <span style="float: right;color: #333333">2018/8/16</span></a></li>
+           </ul>
+           <ul class="tab_new_list clearAfter ul4" style="display: none">
+               <li><a href="news_detail.html"><span style="float: left;color: #333333"> 八月活动盛宴，狂欢你一夏</span> <span style="float: right;color: #333333">2018/8/16</span></a></li>
+               <li><a href="news_detail.html"><span style="float: left;color: #333333"> 八月二十号（打宝服）开服计划</span> <span style="float: right;color: #333333">2018/8/16</span></a></li>
+               <li><a href="news_detail.html"><span style="float: left;color: #333333"> 八月二十号（打宝服）开服计划</span> <span style="float: right;color: #333333">2018/8/16</span></a></li>
+           </ul>
+       </div>
+           <!--<div class="next_page">下一页></div>-->
+           <div class="next_page2 clearAfter" style="color: #333333;text-align: center">
+               <a class="next_page_a1" style="color:#333333;text-decoration: underline;float: left;" onclick="prePage()"><span><</span>上一页</a>
+               <a class="next_page_a2" style="color:#333333;text-decoration: underline;float: right;" onclick="nextPage()">下一页<span>></span></a>
+           </div>
+   </div>
+</div>
+<!--微信分享的时间戳==============-->
+<input type="hidden" value="" id="noncestr"/>
+<input type="hidden" value="" id="timestamp"/>
+<input type="hidden" value="" id="signature" />
+<!--微信分享的时间戳结束===============-->
+</body>
+
+<!--轮播swiper.js-->
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        mode: 'horizontal',
+        autoplay: 4000,
+        crossFade: true ,///控制是否自动播放
+        preloadImages: false, //是否初始时将所有轮播图加载完,
+        lazyLoading: true, //是否图片懒加载，要和preloadImages: false一起使用
+        paginationClickable: true,
+        autoplayDisableOnInteraction: false //控制用户滑动或点击到其他图后是否不再轮播
+    });
+    function goBack(){
+        window.history.back()
+    }
+</script>
+
+<!--判断用户安卓手机还是苹果手机并跳转相应的下载地址-->
+<script>
+    function isMobileIOS() {
+        var isIOS =(/iPhone|iPod|iPad/i).test(navigator.userAgent);
+        return isIOS ? true : false;
+    }
+    $(".index_div_top").on("touchend",function () {
+        if(isMobileIOS()){
+            console.log("苹果系统手机")
+            window.location.href=""
+        }else{
+            console.log("安卓手机")
+            window.location.href=""
+        }
+    })
+</script>
+
+<!--相关点击事件的逻辑-->
+<script>
+    $('.tab_list_nav li').on("touchend",function () {
+        $(this).addClass("active_c").siblings().removeClass("active_c")
+    })
+    $('.tab_list_nav li:nth-child(1)').on("touchend",function () {
+        $(".ul1").show().siblings().hide()
+
+    })
+    $('.tab_list_nav li:nth-child(2)').on("touchend",function () {
+        $(".ul2").show().siblings().hide()
+
+    })
+    $('.tab_list_nav li:nth-child(3)').on("touchend",function () {
+        $(".ul3").show().siblings().hide()
+
+    })
+    $('.tab_list_nav li:nth-child(4)').on("touchend",function () {
+        $(".ul4").show().siblings().hide()
+
+    })
+</script>
+<script>
+    $('.tab_list_nav li').on("click",function () {
+        $(this).addClass("active_c").siblings().removeClass("active_c")
+    })
+    $('.tab_list_nav li:nth-child(1)').on("click",function () {
+        $(".ul1").show().siblings().hide()
+
+    })
+    $('.tab_list_nav li:nth-child(2)').on("click",function () {
+        $(".ul2").show().siblings().hide()
+
+    })
+    $('.tab_list_nav li:nth-child(3)').on("click",function () {
+        $(".ul3").show().siblings().hide()
+
+    })
+    $('.tab_list_nav li:nth-child(4)').on("click",function () {
+        $(".ul4").show().siblings().hide()
+
+    })
+</script>
+
+<!--引入微信分享在线cdn的js微信分享-->
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script>
+    // <!--获取到签名-->
+    var noncestr = $("#noncestr").val();
+    var timestamp = $("#timestamp").val();
+    var signature = $("#signature").val();
+    document.addEventListener('WeixinJSBridgeReady', function() {
+        wx.config({
+            debug: false,
+            appId: "wxbaed68c7f2f3a62c",// 必填，公众号的唯一标识
+            timestamp: parseInt(timestamp),// 必填，生成签名的时间戳
+            nonceStr: noncestr,// 必填，生成签名的随机串
+            signature: signature,// 必填，签名
+            jsApiList: [
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'onMenuShareQQ',
+                'onMenuShareWeibo',
+                'onMenuShareQZone'
+            ]
+        });
+
+        //通过ready接口处理成功验证
+        wx.ready(function() {
+            var shareData = {
+                title: '龙城战歌',
+                desc: '《龙城战歌》一款热门手游,与玩家一起体验精品游戏,享受真福利与真特权，只为带给您高品质的游戏体验。',
+                link: window.location.href,
+                imgUrl: "indexImage/logo.png",// 分享图标
+                type: '',
+                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                success: function() {
+                    alert("分享成功")
+                },
+                cancel: function() {
+                    alert("取消分享");
+                }
+            };
+            // 分享给朋友事件绑定
+            wx.onMenuShareAppMessage(shareData);
+            // 分享到朋友圈
+            wx.onMenuShareTimeline(shareData);
+            // 分享到QQ
+            wx.onMenuShareQQ(shareData);
+            // 分享到QZone
+            wx.onMenuShareQZone(shareData);
+            // 分享到微博
+            wx.onMenuShareWeibo(shareData);
+        });
+    });
+</script>
+
+<!--点击下一页获取对应的十条数据-->
+<script>
+    var flag;   // flag为true的时候可以点击请求，否则说明数据没有那么多
+    var num;    //  数据请求时的第几页，默认从0开始
+    $(function() {
+        // 页面初始化的时候请求数据，默认num为0
+        num = 0;
+        getData(num);
+    })
+    //请求数据的函数，参数num为请求第几页，动态传入
+    function getData(num) {
+        // 当触发了请求函数时必须将flag设为false以阻止连续被触发
+        flag = false;
+        $.ajax({
+            url: "",
+            type: "GET",
+            data: {
+                num: num
+            },
+            dataType: "JSON",
+            success: function (res) {
+                //假数据模拟遍历数组
+                // var data=[{title:"1",time:"2018/6/11"},{title:"2",time:"2018/6/12"},{title:"3",time:"2018/6/13"},
+                //     {title:"4",time:"2018/6/23"},{title:"5",time:"2018/6/12"},{title:"6",time:"2018/6/14"},{title:"7",time:"2018/6/19"}
+                //     ,{title:"8",time:"2018/6/22"},{title:"9",time:"2018/6/15"},{title:"10",time:"2018/6/11"}]
+                // var res =data
+                // for(var i=0;i<res.length;i++){
+                //     var myli = "<li><span style='float:left;color:#333333'>"+res[i].title+"</span><span style='float: right;color: #333333'>"+res[i].time+"</span></li>";
+                //     $('.tab_new_list').append(myli)
+                // }
+                if(res.data.length == 10) {  // 假设后台一次返回数据10条
+                    // 如果返回的值数量等于10条的时候证明还有其他数据
+                    // 那么可以吧flag设为true，
+                    flag = true;
+                }else if(res.data.length<= 10){
+                    alert("已经是最后一页了")
+                    flag =false;
+                }
+                console.log(res.data);
+            }
+        })
+    }
+    //点击下一页的函数
+    function  nextPage(){
+        if(flag) {  // flag为true时，可以调用请求数据的函数，请求更多的数据
+            ++num;  //  num自增1
+            console.log(num)
+            getData(num);
+        }else{
+            alert("没有更多数据了")
+        }
+    }
+    //点击上一页的函数
+    function  prePage(){
+        if(flag) {  // flag为true时，可以调用请求数据的函数，请求更多的数据
+            --num;  //  num自减一
+            console.log(num)
+            if(num<0){
+                alert("已经是最新一页数据了")
+            }else{
+                getData(num);
+            }
+        }else{
+            alert("没有更多数据了")
+        }
+    }
+</script>
+</html>

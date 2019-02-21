@@ -1,0 +1,162 @@
+<link href="kindeditor/plugins/select2/multi-select.css"  rel="stylesheet" type="text/css" />
+<link href="kindeditor/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="kindeditor/plugins/select2/bootstrap-select.min.css" rel="stylesheet" />
+<script type="text/javascript" src="kindeditor/plugins/select2/jquery.multi-select.js"></script>
+<script type="text/javascript" src="kindeditor/plugins/select2/jquery.quicksearch.js"></script>
+<script src="kindeditor/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="kindeditor/plugins/select2/bootstrap-select.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(".reserve-edit-select").select2();
+    $(function(){
+        $("select[name=game_id]").chosen();
+    })
+</script>
+<style>
+    .option{
+        width:55px;
+    }
+</style>
+<div class="bjui-pageContent">
+    <form action="reserve.php?act=reserve_edit"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">活动名：</label>
+                    <input type="text" name="name" value="{$reserve.name}" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">关联游戏：</label>
+                    <select class="type" name="game_id">
+                        <option value="" {if $reserve.game_id eq ''}selected="selected"{/if}>请选择</option>
+                        {foreach from=$game_list item=play}
+                        <option value="{$play.id}" {if $reserve.game_id eq $play.id}selected="selected"{/if}>{$play.game_name}-{$play.id}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">预约礼包：</label>
+                    <select class="select2 select2-multiple reserve-edit-select" id="select2-multiple" multiple="multiple" data-placeholder="请选择礼包"  style="width:291px;" name="gift_id[]">
+                        {foreach from=$gifts item=gift}
+                        <option value="{$gift.id}" {if in_array($gift.id,$gifts_id)}selected='selected'{/if}>{$gift.title}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">虚拟人数：</label>
+                    <input type="text" name="virtual_num" value="{$reserve.virtual_num}" cols="18" rows="1"  class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏下载地址：</label>
+                    <input type="text" name="down_url" value="{$reserve.down_url}" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr >
+                <td colspan="4">
+                    <label  class="control-label x120">游戏解封时间：</label>
+                    <input type="text"  name="undo_time" value="{'Y-m-d H:i:s'|date:$reserve.undo_time}" data-toggle="datepicker" data-rule="required" data-pattern="yyyy-MM-dd H:m:s" size="20" >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">活动规则：</label>
+                    <textarea name="activity_rules" cols="80" data-toggle="autoheight" class="form-control" data-rule="required">{$reserve.activity_rules}</textarea>
+                </td>
+            </tr>
+            <tr >
+                <td colspan="4">
+                    <label  class="control-label x120">活动起始时间：</label>
+                    <input type="text"  name="start_time" value="{'Y-m-d H:i:s'|date:$reserve.start_time}" data-toggle="datepicker" data-rule="required" data-pattern="yyyy-MM-dd H:m:s" size="20" >
+                </td>
+            </tr>
+            <tr >
+                <td colspan="4">
+                    <label  class="control-label x120">活动结束时间：</label>
+                    <input type="text"  name="end_time" value="{'Y-m-d H:i:s'|date:$reserve.end_time}" data-toggle="datepicker" data-rule="required" data-pattern="yyyy-MM-dd H:m:s" size="20" >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">分享标题：</label>
+                    <input type="text" name="share_title" value="{$reserve.share_title}" cols="20" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            {if $reserve.share_img}
+            <tr>
+                <td>
+                    <label  class="control-label x120">&nbsp;</label>
+                    <img src="http://cdn.66173.cn{$reserve.share_img}" width="50px" height="50px"><br>
+                    <input type="hidden" name="old_share_img" value="{$reserve.share_img}">
+                </td>
+            </tr>
+            {/if}
+            <tr>
+                <td>
+                    <label  class="control-label x120">分享图片：</label>
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="share_img.click()">选择图片</button>
+                    <input type="file" name="share_img" style="display: none;" onchange="file.value=value"/>
+                    <input type="text" name="file" placeholder="None file" class="form-control" size="15" readonly/>&nbsp;
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">分享附送的消息：</label>
+                    <textarea type="text" name="share_msg" value="{$reserve.share_msg}" cols="30" rows="1"  class="form-control" data-rule="required">{$reserve.share_msg}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">分享简介：</label>
+                    <textarea name="share_desc" cols="30" data-toggle="autoheight" class="form-control" data-rule="required">{$reserve.share_desc}</textarea>
+                </td>
+            </tr>
+            <input type="hidden" name="id" value="{$reserve.id}">
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+<script>
+    $(function() {
+        $(".type").change(function (e) {
+            $('li.select2-search-choice').remove();
+            var game_id = e.target.value;
+            $.ajax({
+                url: 'reserve.php?act=gift_info',
+                data: {
+                    game_id: game_id,
+                },
+                dataType: "json",
+                type: "get"
+            }).success(function (res) {
+                var arr = "";
+                var str = "";
+                var gif = res.gift;
+                var cou = res.coupon;
+                for (var i = 0; i < gif.length; i++) {
+                    arr += " <option value=" + gif[i].id + " >" + gif[i].title + "</option>"
+                }
+                for (var i = 0; i < cou.length; i++) {
+                    str += " <option value=" + cou[i].coupon_id + " >" + cou[i].name + "</option>"
+                }
+                $("#select2-multiple").html(arr);
+                $("#select2").html(str);
+            });
+
+        })
+    })
+</script>
+

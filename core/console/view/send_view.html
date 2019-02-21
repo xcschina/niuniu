@@ -1,0 +1,21 @@
+<div class="bjui-pageContent">
+    <form action="coupon.php?act=send_coupon&id={$id}"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td colspan="3">
+                    <label class="control-label x120">玩家ID:</label>
+                    <textarea name="user_id" cols="40" rows="1" data-toggle="autoheight" class="form-control autosize" placeholder="请输入玩家ID"></textarea>
+                    <br><span style="margin-left: 420px;color:red;">多个用户用","隔开.</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">确定</button></li>
+    </ul>
+</div>

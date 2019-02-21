@@ -1,0 +1,29 @@
+<div class="user_center_left no_indent">
+	<dl>
+		<dt>使用帮助</dt>
+        <dd class="module_title">新手指南</dd>
+        {foreach from=$data.guiders item=article}
+        <dd><a href="/info/{$article.id}"  {if ($pid eq '1') and ($sid eq $article['id'])}class="color_red"{/if}>{$article.title}</a></dd>
+        {/foreach}
+        <dd class="module_title">客服中心</dd>
+        {foreach from=$data.servicies item=article}
+        <dd><a href="/info/{$article.id}" {if ($pid eq '4') and ($sid eq $article['id'])}class="color_red"{/if}>{$article.title}</a></dd>
+        {/foreach}
+        <dd class="module_title">关于我们</dd>
+        {foreach from=$data.aboutus item=article}
+        <dd><a href="/info/{$article.id}"  {if ($pid eq '1') and ($sid eq $article['id'])}class="color_red"{/if}>{$article.title}</a></dd>
+        {/foreach}
+        <dd class="module_title">积分、代金券系统</dd>
+        {foreach from=$data.vouchers item=article}
+        <dd><a href="/info/{$article.id}"  {if ($pid eq '1') and ($sid eq $article['id'])}class="color_red"{/if}>{$article.title}</a></dd>
+        {/foreach}
+        <dd class="module_title">保障系统</dd>
+        {foreach from=$data.guarantees item=article}
+        <dd><a href="/info/{$article.id}"  {if ($pid eq '1') and ($sid eq $article['id'])}class="color_red"{/if}>{$article.title}</a></dd>
+        {/foreach}
+        <dd class="module_title">常见问题</dd>
+        {foreach from=$data.questions item=article}
+        <dd><a href="/info/{$article.id}"  {if ($pid eq '1') and ($sid eq $article['id'])}class="color_red"{/if}>{$article.title}</a></dd>
+        {/foreach}
+	</dl>
+</div>

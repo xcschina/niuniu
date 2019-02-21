@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="expires" content="{$expires}" />
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta content="width=device-width; initial-scale=1; minimum-scale=1, maximum-scale=1; user-scalable=1" name="viewport">
+    <link rel="stylesheet" href="http://static.go.cc/css/sdk/android_pay_list.css?t={$smarty.now}">
+    <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.2 + 'px';
+    </script>
+</head>
+<body>
+<div class="nav_list">
+    <form action="pay_list.php" method="post" name="pay_list">
+    <ul>
+        <li class="label"><label>请选择状态:</label></li>
+        <li class="select">
+            <div class="select" autofocus>
+                <select  {if $status eq -1 || $status eq '' && $status neq 0} class="light_gray "{/if}  name="status" id="pay_status" onChange ="javascript: document.pay_list.submit();" >
+                    <option value="-1">充值状态</option>
+                    <option value="2" {if $status eq 2}selected{/if}>订单完成</option>
+                    <option value="1" {if $status eq 1}selected{/if}>已充值</option>
+                    <option value="4" {if $status eq 4}selected{/if}>交易取消</option>
+                    <option value="3" {if $status eq 3}selected{/if}>支付失败</option>
+                    <option value="0" {if $status eq 0}selected{/if}>未充值</option>
+                </select>
+                <i></i>
+            </div>
+        </li>
+        <!--<li class="start_time">-->
+            <!--<input type="datetime-local" placeholder="请选择时间" name="start_time" maxlength="300" value="{$params.bug_time}" />-->
+        <!--</li>-->
+        <!--<li class="hg">-->
+            <!-- - -->
+        <!--</li>-->
+        <!--<li class="start_time">-->
+            <!--<input type="datetime-local" placeholder="请选择时间" name="end_time" maxlength="300" value="{$params.bug_time}" />-->
+        <!--</li>-->
+    </ul>
+    </form>
+</div>
+<div class="wrap_list">
+    {foreach from=$order_list item=order}
+    <div class="main_list">
+        <table>
+            <tr>
+                <td class="left gray" >订单号:{$order.OrderId}</td>
+                <td class="right gray">{$order.CreateTime}</td>
+            </tr>
+            <tr>
+                <td class="left bottom">￥{$order.TotalPay}（{$order.Subject}）</td>
+                {if $order.Status eq '1'}
+                <td class="right bottom green">已充值</td>
+                {else if $order.Status eq '2' }
+                <td class="right bottom green">订单完成</td>
+                {else if $order.Status eq '4'}
+                <td class="right bottom ff9922">交易取消</td>
+                {else if $order.Status eq '3'}
+                <td class="right bottom red">支付失败</td>
+                {else}
+                <td class="right bottom red">未充值</td>
+                {/if}
+            </tr>
+        </table>
+    </div>
+    {/foreach}
+</div>
+</body>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="http://static.go.cc/js/wap/common.js"></script>
+<!--<script type="text/javascript">
+    $("#pay_status").on("change",function(){
+        document.pay_list.submit();
+        $("select[name=status]").removeClass("light_gray");
+        //$(".select>select").removeClass("light_gray");
+    })
+</script>-->
+</html>

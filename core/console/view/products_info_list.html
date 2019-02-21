@@ -1,0 +1,113 @@
+<script type="text/javascript">
+    $(function(){
+        $("select[name=game_id]").chosen();
+        $("select[name=serv_id]").chosen();
+        $("select[name=channel_id]").chosen();
+    })
+</script>
+<div class="bjui-pageHeader" style="height:80px;">
+    <form id="pagerForm" action="products_info.php?act=products_list" method="post" data-toggle="ajaxsearch">
+        <div class="bjui-searchBar">
+            <a href="products_info.php?act=products_add_view" class="btn btn-green" data-toggle="navtab" data-id="products_add_view" data-reload-warn="本页已有打开的内容，确定将刷新本页内容，是否继续？" data-title="添加商品">新建</a>
+            <label>商品名：</label><input type="text" name="title"  value="{$params.title}" class="form-control" size="10">&nbsp;
+            <label>游戏：</label>
+            <select name="game_id">
+                <option value="" {if $params.game_id eq ''}selected="selected"{/if}>请选择</option>
+                {foreach from=$game_list item=game}<option value="{$game.id}"{if $params.game_id eq $game.id} selected="selected"{/if}>{$game.game_name}-{$game.id}</option>{/foreach}
+            </select>&nbsp;
+            <a href="products_info.php?act=import_view" class="btn btn-green" data-toggle="dialog" data-mask="true" data-width="500"  data-height="160" data-id="products_import_view" data-title="商品批量导入">批量导入</a>
+            <a href="products_info.php?act=product_batch_pub" class="btn btn-green"  data-toggle="doajaxchecked" data-group="ids" >批量上架</a>&nbsp;
+            <a href="products_info.php?act=product_batch_unpub" class="btn btn-green" data-toggle="doajaxchecked" data-group="ids">批量下架</a>&nbsp;
+            <label>商品类型：</label>
+            <select name="type"   data-toggle="selectpicker">
+                <option value="" {if $params.type eq ''}selected="selected"{/if}>请选择</option>
+                <option value="1" {if $params.type eq '1'}selected="selected"{/if}>首充号</option>
+                <option value="2" {if $params.type eq '2'}selected="selected"{/if}>首充号续充</option>
+                <option value="3" {if $params.type eq '3'}selected="selected"{/if}>代充</option>
+                <option value="4" {if $params.type eq '4'}selected="selected"{/if}>账号</option>
+                <option value="5" {if $params.type eq '5'}selected="selected"{/if}>游戏币</option>
+                <option value="6" {if $params.type eq '6'}selected="selected"{/if}>道具</option>
+                <option value="8" {if $params.type eq '8'}selected="selected"{/if}>苹果代充</option>
+            </select>&nbsp;
+            <label>区服：</label>
+            <select name="serv_id">
+                <option value="" {if $params.serv_id eq ''}selected="selected"{/if}>请选择</option>
+                {foreach from=$servs_list item=servs}
+                <option value="{$servs.serv_id}" {if $params.serv_id eq $servs.serv_id}selected="selected"{/if}>{$servs.serv_name}-{$servs.serv_id}</option>
+                {/foreach}
+            </select>&nbsp;
+            <label>渠道：</label>
+            <select name="channel_id">
+                <option value="" {if $params.channel_id eq ''}selected="selected"{/if}>请选择</option>
+                {foreach from=$channels_list item=channel}
+                <option value="{$channel.id}" {if $params.channel_id eq $channel.id}selected="selected"{/if}>{$channel.channel_name}-{$channel.id}</option>
+                {/foreach}
+            </select>&nbsp;
+            <select name="sort">
+                <option value="" {if $params.sort eq ''}selected="selected"{/if}>请选择</option>
+                <option value="2" {if $params.sort eq 2}selected="selected"{/if}>已上架</option>
+                <option value="1" {if $params.sort eq 1}selected="selected"{/if}>已下架</option>
+            </select>&nbsp;
+            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th width="26"><input type="checkbox" class="checkboxCtrl" data-group="ids" data-toggle="icheck"></th>
+            <th>No.</th>
+            <th width="200">标题</th>
+            <th width="100">类型</th>
+            <th width="200">游戏名</th>
+            <th width="200">区服</th>
+            <th width="200">渠道</th>
+            {if !$smarty.session.shop_id} <th>渠道折扣</th> {/if}
+            <th>库存</th>
+            <th>价格</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=data from=$dataList}
+        <tr align="center">
+            <td><input type="checkbox" name="ids" data-toggle="icheck" value="{$data.id}"></td>
+            <td>{$data.id}</td>
+            <td>{if $data.is_pub eq 0}<span class="orange">[下架]</span>{elseif $data.is_pub eq 6}<span class="red">[已取消]</span>{elseif $data.is_pub eq 5}<span class="green">[发布中]</span>{elseif $data.is_pub eq 3}<span class="red">[审核不通过]</span>{elseif $data.is_pub eq 1}<span class="green">[上架]</span></span>{/if}{if $data.type neq 5}{$data.title}{else}{$data.num}魔石(1魔石={$data.proportion}元){/if}</td>
+            <td>{if $data.type eq '1'}首充号
+                {elseif $data.type eq '2'}首充号续充
+                {elseif $data.type eq '3'}代充
+                {elseif $data.type eq '4'}账号
+                {elseif $data.type eq '5'}游戏币
+                {elseif $data.type eq '6'}道具{/if}
+            </td>
+            <td>[{$data.game_id}]{$data.game_name}</td>
+            <td>{if $data.server_name}{$data.server_name}{else}全区全服{/if}</td>
+            <td>{$data.channel_name}</td>
+            {if !$smarty.session.shop_id}
+            <td>{if $data.type>0}
+                <a href="products_info.php?act=products_ch_view&id={$data.id}" class="btn btn-green" data-toggle="dialog" data-mask="true" data-width="300"  data-height="450" data-reload-warn="本页已有打开的内容，确定将刷新本页内容，是否继续？" data-title="渠道折扣设置">查看/编辑</a>
+                {/if}
+            </td>
+            {/if}
+            <td>{$data.stock}</td>
+            <td>{$data.price}</td>
+            <td>
+                <a href="products_info.php?act=products_edit_view&id={$data.id}" class="btn btn-green" data-toggle="navtab" data-id="form" data-reload-warn="本页已有打开的内容，确定将刷新本页内容，是否继续？" data-title="商品编辑">编辑</a>
+                <a href="products_info.php?act=products_del_view&id={$data.id}" class="btn btn-red" data-toggle="dialog" data-mask="true" data-width="300"  data-height="200" data-title="商品删除">删除</a>
+                {if $data.is_pub eq 5}
+                <a href="products_info.php?act=products_audit&id={$data.id}" class="btn btn-green" data-toggle="dialog" data-mask="true" data-width="300"  data-height="200" data-title="发布商品通过">通过</a>
+                <a href="products_info.php?act=refuse&id={$data.id}" class="btn btn-red" data-toggle="dialog" data-mask="true" data-width="300"  data-height="200" data-title="发布商品拒绝">拒绝</a>
+                {/if}
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

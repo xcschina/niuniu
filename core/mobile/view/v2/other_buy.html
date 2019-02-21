@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>{$info.title} - {$info.game_name}</title>
+    <meta name="keywords" content="{$info.title}【{$info.game_name}】" />
+    <meta name="description" content="{$info.game_name}{$info.title}，只要{$info.price}元" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/common.css?t={rand(1,10000)}" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/pay.css?t={rand(1,10000)}" media="screen" />
+</head>
+<body>
+<header class="page-header clearfix">
+    <h1 class="page-h1">购买详情</h1>
+    <a onclick="javascript:history.back();" class="p2-back">返回</a>
+    {if $smarty.session.user_id}
+    <a class="login-on" href="/account.php?act=user_center">个人中心</a>
+    {else}
+    <a class="login-link" href="/account.php?act=user_center" id="login-btn">登录</a>
+    {/if}
+</header>
+<section class="rotator clearfix">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <!--{foreach from=$thumbs item=t}
+            <div class="swiper-slide"><a><img src="http://cdn.66173.cn/{$t.img_url}" /></a></div>
+            {/foreach}-->
+            <div class="swiper-slide"><a href="#;"><img src="http://cdn.66173.cn/{$info.img}" /></a></div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+</section>
+<!--End 轮播-->
+<div class="zb-detail-txt clearfix">
+    <span class="fr"><em>¥{$info.price}</em></span>
+    {if $serv_info}
+    <span>{$serv_info.serv_name}</span>
+    {else}
+    <span>全区全服</span>
+    {/if}
+</div>
+<div class="zb-detail-top clearfix">
+    <p>{$info.title}</p>
+    {if $info.user_id eq 1}
+    <p class="txt-right"> —— 官方</p>
+    {else}
+    <p class="txt-right"> —— 个人卖家 【{$seller.nick_name}】</p>
+    {/if}
+</div>
+<form action="/order/{$info.id}" method="post" name="payform">
+<section class="mt-10 clearfix">
+    <h3 class="zb-detail-tit">商品详情</h3>
+    <ul class="zb-detail-list clearfix">
+        <li>游戏平台：{$ch_info.channel_name}</li>
+        {if $serv_info}
+        <li>游戏区服：{$info.game_name}/{$serv_info.serv_name}</li>
+        <input name="serv_id" value="{$info.serv_id}" id="serv_id" type="hidden" />
+        {else}
+        <li>游戏名字：{$info.game_name}</li>
+        <li>游戏区服：<select name="serv_id" id="serv_id">
+            <option value="0">请选择</option>
+            {foreach from=$servs item=s}<option value="{$s.id}">{$s.serv_name}</option>{/foreach}
+        </select></li>
+        {/if}
+        {if $info.type eq 5}
+        <li>角色名称：<input type="text" name="role_name" placeholder="请输入游戏角色" class="card-input" style="width: 40%" maxlength="30" /></li>
+        {/if}
+        <!--<li>商家在线 : 00:00-23:59</li>
+        <li>交易次数 : 首次交易</li>-->
+    </ul>
+</section>
+{if $info.stock<1}
+    <section class="mt-10 outstock clearfix">
+    <a class="b-btn" href="#;">该商品正在交易中...</a>
+    </section>
+{else}
+<section class="mt-10 clearfix">
+    <header class="clearfix">
+        <h3 class="zb-detail-tit-2">联系方式</h3>
+    </header>
+
+    <div class="card-info-box clearfix">
+        <label><i>*</i>手机：</label>
+        <input type="text" name="tel" placeholder="请输入您的手机号" class="card-input" value="{$smarty.session.buy_mobile}"/>
+    </div>
+    <div class="card-info-box clearfix">
+        <label><i>*</i>QQ：</label>
+        <input type="text" name="qq" placeholder="请输入联系QQ" class="card-input" value="{$smarty.session.buy_qq}"/>
+    </div>
+    {if $info.type eq 5}
+    <div class="card-info-box card-info-box-txt clearfix"><em>购买数量：</em>
+        <select name="num" onchange="buy_num(this)" id="num">
+            {section name=loop loop=$max_stock}
+            <option value="{$smarty.section.loop.index+1}">{$smarty.section.loop.index+1}</option>
+            {/section}
+        </select>
+    </div>
+    {else}
+    <input type="hidden" name="num" value="1" id="num"/>
+    {/if}
+    <div class="card-info-box card-info-box-txt clearfix">
+        <em>应付金额:</em><span class="cor-red" id="money">{$info.price}元</span>
+    </div>
+    <a class="b-btn"href="#;" onclick="go_pay();">填好了 去支付</a>
+</section>
+    {/if}
+<input type="hidden" name="buy_type" value="{$info.type}" />
+<input type="hidden" name="id" value="{$info.id}" />
+<input type="hidden" name="game_id" value="{$info.game_id}" />
+<input type="hidden" name="is_rand_user" value="1" />
+<input type="hidden" name="service_id" value="1" />
+<input type="hidden" name="channel_id" value="{$info.channel_id}" />
+<input type="hidden" name="price" value="{$info.price}" />
+<input type="hidden" name="pagehash" value="{$pagehash}" />
+<input type="hidden" name="do" value="other" />
+<input type="hidden" name="is_agent" value="{$smarty.session.is_agent}" />
+<input type="hidden" name="role_level" value="0" />
+<input type="hidden" name="user_id" value="{$smarty.session.user_id}" />
+</form>
+{include file="include/footer.html"}
+<div class="side-bg" id="servs"></div>
+<div class="side-bg" id="products"></div>
+<div class="side-bg" id="login"></div>
+{if !$smarty.session.buy_mobile}
+{literal}
+<script>
+//    $(document).ready(function(){
+//        $("input").on("click", function (e) {
+//            $(this).blur();
+//            login_mask();
+//        });
+//    })
+    function login_mask(){
+        url = "/ajax/login";
+        if($("input[name='user_id']").val()){
+            window.location.href="http://m.66173.cn/account.php?act=mobile_info";
+            return;
+        }
+        $('body,html').animate({scrollTop:0},0);
+        $("#login").load("/ajax/login",function(responseTxt,statusTxt,xhr){
+            if(statusTxt=="error"){
+                $("#login").html("<h5>加载数据失败</h5>");
+            }
+        }).css("display","block");
+        $("#login").find("input[name='mobile']").focus();
+        return false;
+    }
+</script>
+{/literal}
+{/if}
+<script src="http://cdn.66173.cn/mobile/v2/scripts/buy_static_other.js"></script>
+</body>
+</html>

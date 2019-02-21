@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>{$game.game_name}首充号_手游交易_66173手游交易平台</title>
+    <meta name="keywords" content="首充号、{$game.game_name}首充号、66173、手游交易平台" />
+    <meta name="description" content="66173提供{$game.game_name}首充号，购买{$game.game_name}首充号就上66173，只需官网原价的2~5折。66173(m.66173.cn)是国内权威的游戏交易平台，安全快捷有保障的手游充值中心。" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/common.css?t={rand(1,10000)}" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/pay.css?t={rand(1,10000)}" media="screen" />
+</head>
+<body>
+<header class="page-header clearfix">
+    <h1 class="page-h1">购买详情</h1>
+    <a onclick="javascript:history.back();" class="p2-back">返回</a>
+    {if $smarty.session.user_id}
+    <a class="login-on" href="/account.php?act=user_center">个人中心</a>
+    {else}
+    <a class="login-link" href="/account.php?act=user_center" id="login-btn">登录</a>
+    {/if}
+</header>
+<!--<nav class="pay-nav clearfix">
+    <ul class="pay-nav-list clearfix">
+        <li class="on"><a>商品详情</a></li>
+        <li><a>礼包领取</a></li>
+        <li><a>游戏下载</a></li>
+        <li><a>游戏资讯</a></li>
+    </ul>
+</nav>-->
+<section class="pay-game clearfix"><img src="http://cdn.66173.cn/{$game.game_icon}" alt="{$game.game_name}" />
+    <h2 class="pay-game-name">{$game.game_name}</h2>
+</section>
+<!-- Str交易类型 -->
+<section class="clearfix">
+    <header class="pay-tit clearfix">
+        <h3 class="pay-tit-h">商品类型:</h3>
+        <span class="pay-type-txt">首充号</span>
+    </header>
+</section>
+<!-- End交易类型 -->
+<!-- Str商品选择 -->
+<section class="com-choose clearfix">
+    <header class="com-choose-h clearfix">
+        <h3 class="pay-tit-h">商品选择：</h3>
+        <span class="com-choose-s" id="slt-product">{$info.title}<em>点击更换</em></span>
+    </header>
+    {if $sub_title}
+    <ul class="com-choose-list clearfix">
+        <li><a data-txt="{$sub_title[0]}">{$sub_title[1]}</a></li>
+    </ul>
+    {/if}
+</section>
+<!-- End商品选择 -->
+<form action="/order/{$info.id}" method="post" name="payform">
+<!-- Str渠道选择 -->
+<section class="mt-10 clearfix">
+    <header class="pay-tit clearfix"><h3 class="pay-tit-h">渠道选择：</h3></header>
+    {if $android_chs}
+    <h5 class="android">安卓版</h5>
+    <ul class="gver-list clearfix">
+        {foreach from=$android_chs item=ch key=k}
+        <li rel="{$ch.discount}">
+            <a href="#;" rel="{$ch.id}">
+                <span><img src="http://cdn.66173.cn/{$ch.icon}" /><label>{$ch.channel_name}</label></span>
+                <em>{$ch.discount}折</em>
+            </a>
+        </li>
+        {/foreach}
+    </ul>
+    {/if}
+    {if $ios_chs}
+    <h5 class="ios">苹果iOS版</h5>
+    <ul class="gver-list clearfix">
+        {foreach from=$ios_chs item=ch key=k}
+        <li rel="{$ch.discount}">
+            <a href="#;" rel="{$ch.id}">
+                <span><img src="http://cdn.66173.cn/{$ch.icon}" /><label>{$ch.channel_name}</label></span>
+                <em>{$ch.discount}折</em>
+            </a>
+        </li>
+        {/foreach}
+    </ul>
+    {/if}
+    <div class="pay-money clearfix"><span>折扣价：<em id="dprice">￥{$info.price}</em></span><span class="fr">原价：￥{$info.price}</span> </div>
+</section>
+<!-- End渠道选择 -->
+<!-- Str填写账户信息 -->
+<section class="clearfix">
+    <header class="pay-tit clearfix"><h3 class="pay-tit-h">填写账户信息</h3></header>
+    <div class="card-info-box clearfix">
+        <label><i>*</i>选择区服：</label>
+        <a class="sel-sev" href="#;" onclick="select_servs();">点击选择服务器</a>
+    </div>
+    {foreach from=$tags item=tag key=k}
+    <div class="card-info-box">
+        <label><i>*</i>{$k}：</label>
+        <select name="attr[]">
+            {foreach from=$tag item=t}
+            <option value="{$k}:{$t}">{$t}</option>
+            {/foreach}
+        </select>
+    </div>
+    {/foreach}
+    <div class="card-info-box-2 clearfix" id="is-rand-game-user">
+        <label>随机角色名：</label>
+        <a href="#;" rel="1">是</a><a href="#;" class="on">否</a>
+    </div>
+    <div class="card-info-box-3 clearfix rand-user">
+        <div class="card3-con">
+            <label><i>*</i>角色名：</label>
+            <input name="role_name" type="text" placeholder="请输入您想要的角色名" class="card-input" />
+        </div>
+    </div>
+
+    <div class="card-info-box-3 clearfix rand-user">
+        <p class="card3-con-txt">备用角色名不能与角色名一样</p>
+        <div class="card3-con">
+            <label><i>*</i>备用角色名：</label>
+            <input name="role_back_name" type="text" placeholder="如角色名被占用 将使用备用名" class="card-input" />
+        </div>
+    </div>
+</section>
+<!-- End填写账户信息 -->
+<!-- Str联系方式 -->
+<section class="mt-10 clearfix">
+    <header class="pay-tit clearfix">
+        <h3 class="pay-tit-h">联系方式</h3>
+    </header>
+    <div class="card-info-box clearfix">
+        <label><i>*</i>手机：</label>
+        <input name="tel" type="text" placeholder="{if !$smarty.session.buy_mobile}请输入联系手机{/if}" class="card-input" value="{$smarty.session.buy_mobile}" />
+        <a class="card-close-1"></a>
+    </div>
+    <div class="card-info-box clearfix">
+        <label><i>*</i>QQ：</label>
+        <input name="qq" type="number" class="card-input" value="{$smarty.session.buy_qq}" />
+        <a class="card-close-2"></a>
+    </div>
+    <a class="b-btn" href="#;" id="character" onclick="go_pay();">提交订单</a>
+</section>
+<!-- End联系方式 -->
+<section class="clearfix">
+    <header class="pay-tit clearfix"><h3 class="pay-tit-h">购买流程</h3></header>
+    <ul class="shop-rule clearfix">
+        <li><i>1.</i>选择充值类型</li>
+        <li><i>2.</i>完善账号信息</li>
+        <li><i>3.</i>提交订单</li>
+    </ul>
+</section>
+<input type="hidden" name="channel_id" value="0">
+<input type="hidden" name="service_id" value="1">
+<input type="hidden" name="price" value="{$info.price}" />
+<input type="hidden" name="stprice" value="{$info.price}" />
+<input type="hidden" name="pagehash" value="{$pagehash}" />
+<input type="hidden" name="game_id" value="{$game.id}" />
+<input type="hidden" name="is_login" value="{$is_login}" />
+<input type="hidden" name="id" value="{$info.id}" />
+<input type="hidden" name="is_rand_user" value="0" />
+<input type="hidden" name="serv_id" value="0" />
+<input type="hidden" name="buy_type" value="1" />
+<input type="hidden" name="do" value="character" />
+<input type="hidden" name="num" value="1" />
+<input type="hidden" name="is_agent" value="{$smarty.session.is_agent}" />
+<input type="hidden" name="role_level" value="0" />
+    <input type="hidden" name="user_id" value="{$smarty.session.user_id}" />
+</form>
+{include file="include/footer.html"}
+<div class="side-bg" id="servs"></div>
+<div class="side-bg" id="products"></div>
+<div class="side-bg" id="login"></div>
+{if !$smarty.session.buy_mobile}
+{literal}
+<script>
+    $(document).ready(function(){
+        $("input").on("click", function (e) {
+            $(this).blur();
+//            login_mask();
+        });
+    })
+    function login_mask(){
+        url = "/ajax/login";
+        if($("input[name='user_id']").val()){
+            window.location.href="http://m.66173.cn/account.php?act=mobile_info";
+            return;
+        }
+        $('body,html').animate({scrollTop:0},0);
+        $("#login").load("/ajax/login",function(responseTxt,statusTxt,xhr){
+            if(statusTxt=="error"){
+                $("#login").html("<h5>加载数据失败</h5>");
+            }
+        }).css("display","block");
+        $("#login").find("input[name='mobile']").focus();
+        return false;
+    }
+</script>
+{/literal}
+{/if}
+<script src="http://cdn.66173.cn/mobile/v2/scripts/buy_static.js"></script>
+</body>
+</html>

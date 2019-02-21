@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!--<input type="hidden" id="platform" value="{$platform}"/>-->
+    <!--<input type="hidden" id="platform" value="{$platform}"/>-->
+    <!--<input type="hidden" id="isND" value="{$isND}"/>-->
+    <!--<input type="hidden" id="isNL" value="{$isNL}"/>-->
+    <!--<input type="hidden" id="gameUrl" value="{$gameUrl}"/>-->
+
+
+    <input type="hidden" id="platform" value="nntest"/>
+    <input type="hidden" id="isND" value="1"/>
+    <input type="hidden" id="isNL" value="2"/>
+    <input type="hidden" id="gameUrl" value="http://rk.lyzbh5.jiulingwan.com/59/login_web.php"/>
+</body>
+{literal}
+<script>
+    var platform = document.getElementById("platform").value;
+    var isND = document.getElementById("isND").value;
+    var isNL = document.getElementById("isNL").value;
+    var gameUrl = document.getElementById("gameUrl").value;
+    if(gameUrl) {
+        var a = "platform=" + platform + "&isND=" + isND + "&isNL=" + isNL;
+        gameUrl = gameUrl.indexOf("?") > 0 ? gameUrl + "&" + a : gameUrl + "?" + a;
+        alert(gameUrl)
+//        window.location.href = gameUrl;
+        window.location.replace(gameUrl);
+    }
+</script>
+{/literal}
+</html>

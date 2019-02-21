@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>找回密码</title>
+    <link href="http://cdn.66173.cn/wwwv2/css/style.css?t=109" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="http://cdn.66173.cn/www/js/jquery-1.7.1.min.js" ></script>
+</head>
+<body>
+{include file="include/top.html"}
+<div class="wrapper clearfix">
+    <!--header-->
+    {include file="include/header.html"}
+    {include file="include/nav.html"}
+    <!--//header-->
+    <div class="w1000">
+        <div style="padding: 20px;">
+            <div class="bottomline_title">
+                <div>{if $domain_name eq 1}66173{else if $domain_name eq 2}u2590{/if}找回密码</div>
+            </div>
+            <div class="find_pw">
+                <form action="account.php?act=do_forget" method="post" id="forget">
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr><td align="right"></td><td><em style="color:#C7162B" id="f_error">{$smarty.session.f_error}</em></td></tr>
+                    <tr><td align="right">手机号码：</td><td><input id="username" class="text" type="text" placeholder="请输入手机号" name="mobile" value="{$smarty.session.f_mobile}" /></td></tr>
+                    <tr><td align="right">验证码：</td><td><input id="sms_code" class="text vcode" type="text" name="sms_code" value="" placeholder="请输入收到的验证码" style="width: 283px;"/>
+                        <a href="javascript:;" rel="1"  id="send_code" style="padding: 7px 12px; background: #C7162B; color: #fff;">验证码</a>
+                    <tr><td align="right">设置密码：</td><td><input id="password" class="text" type="password" placeholder="输入新密码" name="password" value="" placeholder="6~12位数字与字母组合" /></td></tr>
+                    <tr><td align="right">确认密码：</td><td><input id="cpassword" class="text" type="password" placeholder="重新输入新密码" name="cpassword" value=""  placeholder="重复上面的密码"  /></td></tr>
+                    <tr><td align="right"></td><td style="padding: 40px 0;"><a href="javascript:forget();" type="button" name="sub"  class="btn_red_big" style="padding: 10px 162px; font-size: 16px;">提交</a></td></tr>
+                </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="height: 1px; width: 100%; background: #ddd; overflow: hidden;"></div>
+<!--footer-->
+{include file="include/footer.html"}
+<!--//footer-->
+{literal}
+<script type="text/javascript">
+    function forget(){
+        reg=/^13[0-9]{9}$|14[0-9]{9}|15[0-9]{9}$|18[0-9]{9}$/;
+        if(!reg.test($("input[name=mobile]").val())){ $("#f_error").html("手机号码格式不正确"); return;}
+        if(!$("input[name=sms_code]").val()){$("#f_error").html("短信验证码不能为空"); return;}
+        var pass=$('input[name=password]').val();
+        var cpass=$('input[name=cpassword]').val();
+        if(pass.length<6 || pass.length>18){$("#f_error").html("密码格式错误"); return ;}
+        if(pass!=cpass){$("#f_error").html("两次密码不一致"); return;}
+        $("#forget").submit();
+    }
+
+    $("input[name=mobile]").blur(function(){
+        reg=/^13[0-9]{9}$|14[0-9]{9}|15[0-9]{9}$|18[0-9]{9}$/;
+        if(!reg.test($(this).val())){ $("#f_error").html("手机号码格式不正确"); return ;}
+        $("#f_error").html("");
+    });
+    $("input[name=password]").blur(function(){$('input[name=password]').keyup();});
+    $("input[name=cpassword]").blur(function(){$('input[name=cpassword]').keyup();});
+
+    //$('input[name=sms_code]').blur(function(){if($('input[name=sms_code]').val()!=""){$("#error").html("");}})
+
+    $('input[name=password]').keyup(function () {
+        var __th = $(this);
+        var cpsw=$('input[name=cpassword]').val();
+        if(!cpsw && cpsw==__th.val()){$("#f_error").html("");}
+        if (__th.val().length < 6 || __th.val().length >18) { $("#f_error").html("密码格式错误");return; }
+        var _r = checkPassword(__th);
+        if (_r < 1) { $("#f_error").html("密码格式错误"); return;}
+        $("#f_error").html("");
+    });
+
+    function checkPassword(pwdinput) {
+        var maths, smalls, bigs, corps, cat, num;
+        var str = $(pwdinput).val()
+        var len = str.length;
+
+        var cat = /.{18}/g
+        if (len == 0) return 1;
+        if (len > 16) { $(pwdinput).val(str.match(cat)[0]); }
+        cat = /.*[\u4e00-\u9fa5]+.*$/
+        if (cat.test(str)) {
+            return -1;
+        }
+        cat = /\d/;
+        var maths = cat.test(str);
+        cat = /[a-z]/;
+        var smalls = cat.test(str);
+        cat = /[A-Z]/;
+        var bigs = cat.test(str);
+        var corps = corpses(pwdinput);
+        var num = maths + smalls + bigs + corps;
+
+        if (len < 6) { return 1; }
+
+        if (len >= 6 && len <= 8) {
+            if (num == 1) return 1;
+            if (num == 2 || num == 3) return 2;
+            if (num == 4) return 3;
+        }
+
+        if (len > 8 && len <= 11) {
+            if (num == 1) return 2;
+            if (num == 2) return 3;
+            if (num == 3) return 4;
+            if (num == 4) return 5;
+        }
+
+        if (len > 11) {
+            if (num == 1) return 3;
+            if (num == 2) return 4;
+            if (num > 2) return 5;
+        }
+    }
+
+    function corpses(pwdinput) {
+        var cat = /./g
+        var str = $(pwdinput).val();
+        var sz = str.match(cat)
+        for (var i = 0; i < sz.length; i++) {
+            cat = /\d/;
+            maths_01 = cat.test(sz[i]);
+            cat = /[a-z]/;
+            smalls_01 = cat.test(sz[i]);
+            cat = /[A-Z]/;
+            bigs_01 = cat.test(sz[i]);
+            if (!maths_01 && !smalls_01 && !bigs_01) { return true; }
+        }
+        return false;
+    }
+
+    $('input[name=cpassword]').keyup(function () {
+        var psw=$('input[name=password]').val();
+        var __th = $(this).val();;
+        if(!psw){$("#f_error").html("密码格式错误");  return;}
+        if(__th!=psw){$("#f_error").html("两次密码不一致"); return;}
+        $("#f_error").html("");
+    });
+
+    //点击获取验证码按钮
+    $("#send_code").bind("click",function(){
+        var _th=$(this);
+        if(_th.attr("rel")=="0"){
+            return ;
+        }
+        _th.css("background","#a5a5a5");
+        var second = parseInt(179);//倒计时总秒数量
+        time=window.setInterval(function(){
+            _th.attr("rel","0");
+            //$('#sec').html(second);
+            second--;
+            if(second<1){
+                window.clearTimeout(time);
+                _th.css("background","#a5a5a5");
+                _th.attr("rel","1");
+                _th.html("重新发送");
+                //_th.html("获取验证码");
+            }else{
+                _th.css("background","#999");
+                _th.attr("rel","0");
+                _th.html(second+"秒");
+            }
+        }, 1000);
+
+        $.ajax({
+            type:'post',
+            url:'account.php?act=register_sms_pc',
+            data:{
+                mobile:$("input[name=mobile]").val().trim()
+            },
+            dataType: 'json',
+            success: function (json) {
+                if(json.res==0){
+                    window.clearTimeout(time);
+                    $("#f_error").html(json.msg);
+                    _th.css("background","#999");
+                }
+            }
+        })
+    })
+
+
+
+</script>
+{/literal}
+</body>
+</html>

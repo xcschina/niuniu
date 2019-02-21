@@ -1,0 +1,34 @@
+{include file="include/head.html" web_title="微信扫码支付"}
+<body>
+    {include file="include/top.html"}
+    {include file="include/header.html"}
+    {include file="include/nav.html"}
+    <style>
+    .f_wx_tip{ color:#c81623;font-size:10pt;  }
+    .f_wx_warp{ width:600px;margin:0 auto; }
+    .f_wx_img{ display:inline-block;float:left;margin-top:20px; }
+    .f_wx_img img{ width:200px;height: 200px;}
+    .f_wx_order{ display:inline-block;margin-left: 40px;margin-top:40px; line-height: 30px; font-size: 14px; }
+    </style>
+    <div class="w1000">
+        <div class="title_sub mt_20">
+            <strong class="name">微信扫码支付&nbsp;&nbsp;<span class="f_wx_tip">↓↓↓&nbsp;请打开您的微信“扫一扫” 扫描下方二维码进行付款&nbsp;↓↓↓</span></strong>
+        </div>
+        <div class='f_wx_warp'>
+            <div class='f_wx_img'>
+                <img src="/wx_pc_pay.php?act=qr&url={$wx_pay_url}" alt="扫码支付">
+            </div>
+            <div class='f_wx_order'>
+                订单编号：{$info.order_id}<br/>
+                商品名称：{$order_relation.title}<br/>
+                游戏区服：{$order_relation.game_name} - {$info.serv_name}<br/>
+                购买数量：{$info.amount}<br/>
+                应付金额：<span class="fontsize_16 fontbold color_red">{$info.pay_money}</span> 元&nbsp;&nbsp;(原价：{$info.money}元)<br/>
+            </div>
+        </div>
+        {include file="include/footer.html"}
+    </div>
+</div>
+
+</body>
+</html>

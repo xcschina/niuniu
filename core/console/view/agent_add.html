@@ -1,0 +1,62 @@
+<script type="text/javascript">
+    $(function(){
+        $("select[name=game_id]").chosen();
+    })
+</script>
+<div class="bjui-pageContent">
+    <form action="agent.php?act=do_save"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label class="control-label x120">用户ID：</label>
+                    <input type="text" name="user_id" value="" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td><label  class="control-label x120">游戏ID：</label>
+                    <select name="game_id" data-rule="required">
+                        <option value="">请选择</option>
+                        {foreach from=$games item=game}
+                        <option value="{$game.id}">{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">商人状态：</label>
+                    <select name="is_agent" data-rule="required">
+                        <option value="0">关闭</option>
+                        <option value="1">开启</option>
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">首冲号折扣：</label>
+                    <input type="text" name="discount_1" value="0" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">续充折扣：</label>
+                    <input type="text" name="discount_2" value="0" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">代充折扣：</label>
+                    <input type="text" name="discount_3" value="0" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>

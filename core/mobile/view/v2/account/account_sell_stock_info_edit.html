@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>{$info.title} - 我的66173</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/common.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/pay.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/my.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/sale.css" media="screen" />
+    {literal}
+    <style>
+        .md-tnav li{width: 50%}
+    </style>
+    {/literal}
+</head>
+<body>
+<header class="page-header clearfix">
+    <h1 class="page-h1">商品修改</h1>
+    <a onclick="javascript:history.back();" class="p2-back">返回</a>
+    {if $smarty.session.user_id}
+    <a class="login-on" href="/account.php?act=user_center">个人中心</a>
+    {else}
+    <a class="login-link" href="/account.php?act=user_center" id="login-btn">登录</a>
+    {/if}
+</header>
+<section class="clearfix">
+    <form action="/my_sell.php?act=stock-item-edit-check&id={$info.id}" method="post" enctype="multipart/form-data" name="form_account" id="form">
+        <div class="sale-info-box sale-info-box-t sel-type clearfix"><label>商品类型：</label>[{$info.game_name}]{$sell_type}</div>
+        <div class="error">
+            {if $smarty.session.sell_error}
+            {foreach from=$smarty.session.sell_error item=error}<li>{$error}</li>{/foreach}
+            {/if}
+        </div>
+        <div class="sale-info-box clearfix">
+            <label>游戏平台：</label>
+            <select name="ch">
+                <option value="0">请选择渠道</option>
+                {foreach from=$chs item=ch}
+                <option value="{$ch.id}"{if $ch.id eq $info.channel_id} selected{/if}>{$ch.channel_name}</option>
+                {/foreach}
+            </select>
+        </div>
+        {if $info.type eq 4}{include file="include/account/sell_edit_account.html"}
+        {elseif $info.type eq 5}{include file="include/account/sell_edit_coins.html"}
+        {elseif $info.type eq 6}{include file="include/account/sell_edit_props.html"}
+        {/if}
+        <input type="hidden" name="id" value="{$info.id}" />
+        <input type="hidden" name="game_id" value="{$info.game_id}" />
+        <input type="hidden" name="pagehash" value="{$pagehash}" />
+        <input type="hidden" name="unit" value="{$info.unit}" />
+    </form>
+</section>
+<!--Str 页面通用底部-->
+{include file="include/footer.html"}
+<!--End 页面通用底部-->
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+    !window.jQuery && document.write('<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"><\/script>');
+</script>
+<script src="http://cdn.66173.cn/mobile/v2/scripts/sell_account.js?t=20161191119"></script>
+</body>
+</html>

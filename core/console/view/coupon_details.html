@@ -1,0 +1,155 @@
+<div class="bjui-pageContent">
+    <form action="coupon.php?act=coupon_update"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">优惠券名称：</label>
+                    {$info.name}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">优惠券类型：</label>
+                    {if $info.type eq '1'}打折券{else $info.type eq '2'}满减券{/if}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">优惠类型：</label>
+                    {if $info.discount_type eq '1'}原价打折{else $info.discount_type eq '2'}折上折{/if}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">优惠券折扣：</label>
+                    {if $info.type eq '1'}
+                    满{$info.total_amount}打{$info.discount}折
+                    {else $info.type eq '2'}
+                    满{$info.total_amount}减{$info.discount_amount}
+                    {/if}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">有效期：</label>
+                    {if $info.valid_type eq '2'}
+                    {$info.start_time|date_format:'%Y-%m-%d %H:%M:%S'}&nbsp;到&nbsp;{$info.end_time|date_format:'%Y-%m-%d %H:%M:%S'}
+                    {else $info.valid_type eq '1'}
+                    自领劵起&nbsp;{$info.valid_days}&nbsp;日内有效
+                    {/if}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">适用范围：</label>
+                    {if $info.apply_type eq '1'}全站通用{elseif $info.apply_type eq '2'}单款游戏配置{elseif $info.apply_type eq '3'}批量游戏配置{/if}
+                </td>
+            </tr>
+            {if $info.apply_type neq '1'}
+            <tr id="sel_ch">
+                <td colspan="4">
+                    <label class="control-label x120">指定渠道：</label>
+                    {foreach from=$channel_list item=ch}
+                        {if in_array($ch.id, $channel_id)}[{$ch.channel_name}] {/if}
+                    {/foreach}
+                </td>
+            </tr>
+            {if $info.apply_type eq '2'}
+            <tr id="sel_game">
+                <td>
+                    <label  class="control-label x120">指定游戏：</label>
+                    {foreach from=$game_list item=game}
+                        {if $info.game_id eq $game.id}{$game.game_name}{/if}
+                    {/foreach}
+                </td>
+            </tr>
+            {/if}
+            {if $info.apply_type eq '3'}
+            <tr id="sel_games">
+                <td colspan="4">
+                    <label class="control-label x120">指定游戏：</label>
+                    {foreach from=$game_list item=game}
+                        {if in_array($game.id, $game_id)}[{$game.game_name}] {/if}
+                    {/foreach}
+                </td>
+            </tr>
+            {/if}
+            <tr id="sel_type">
+                <td>
+                    <label  class="control-label x120">指定类型：</label>
+                    {if $info.pay_type eq '0'}所有类型{/if}
+                    {if $info.pay_type eq '1'}首充号{/if}
+                    {if $info.pay_type eq '2'}首充号续充{/if}
+                    {if $info.pay_type eq '3'}游戏币{/if}
+                    {if $info.pay_type eq '4'}账号{/if}
+                    {if $info.pay_type eq '5'}代充{/if}
+                    {if $info.pay_type eq '6'}游戏充值（代充、续充、游戏币）{/if}
+                </td>
+            </tr>
+            {if $info.apply_type eq '2'}
+            <tr id="sel_goods">
+                <td>
+                    <label  class="control-label x120">指定商品id：</label>
+                    {foreach from=$goods_list item=goods}
+                        {if $info.goods_id eq $goods.id}{$goods.title}
+                        {if $goods.type eq '1'}-首充号{/if}
+                        {if $goods.type eq '2'}-首充号续充{/if}
+                        {if $goods.type eq '3'}-游戏币{/if}
+                        {if $goods.type eq '4'}-账号{/if}
+                        {if $goods.type eq '5'}-代充{/if}
+                        {if $goods.type eq '6'}-道具{/if}
+                    {/if}
+                    {/foreach}
+                </td>
+            </tr>
+            {/if}
+            {/if}
+            <tr>
+                <td>
+                    <label class="control-label x120">发送方式：</label>
+                    {if $info.send_type eq '1'}活动中心展示(所有用户){elseif $info.send_type eq '2'}站内信(指定用户){/if}
+                </td>
+            </tr>
+            {if $info.send_type eq '1'}
+            <tr id="total">
+                <td>
+                    <label  class="control-label x120">发行数量：</label>
+                    {$info.total}
+                </td>
+            </tr>
+            {/if}
+            <!--{if $info.send_type eq '2'}-->
+            <!--<tr id="user_id">-->
+                <!--<td colspan="3">-->
+                    <!--<label class="control-label x120">玩家ID:</label>-->
+                    <!--<textarea name="user_id" cols="80" rows="1" data-toggle="autoheight" class="form-control autosize" placeholder="请输入玩家ID" readonly>{$info.user_id}</textarea>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--{/if}-->
+            <tr>
+                <td colspan="4">
+                    <label class="control-label x120">领取提示：</label>{$info.content}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label class="control-label x120">审核状态：</label>
+                    {if $info.review_status eq 1}待审核{elseif $info.review_status eq 2}审核通过{elseif $info.review_status eq 3}审核不通过{else}未知状态{/if}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label class="control-label x120">审核理由：</label>{$info.reason}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<!--<div class="bjui-pageFooter">-->
+    <!--<ul>-->
+        <!--<li><button type="button" class="btn-close">关闭</button></li>-->
+        <!--<li><button type="submit" class="btn-default">保存</button></li>-->
+    <!--</ul>-->
+<!--</div>-->

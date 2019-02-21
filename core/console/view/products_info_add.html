@@ -1,0 +1,286 @@
+<script>
+    $('#channel').change(function () {
+        $("input[name=serv_name]").val($('#channel option:selected').attr('data-name'));
+    });
+    $("select[name=game_id]").chosen();
+    $("select[name=channel_id]").chosen();
+</script>
+<style>
+    #channel_chosen ,#channel_id_chosen{
+        width:180px !important;
+    }
+    .channel-select{
+        display: none;
+    }
+</style>
+<div class="bjui-pageContent">
+    <form action="products_info.php?act=do_products_add" data-toggle="validate" data-alertmsg="false" method="post"
+          enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label class="control-label x120">商品类型：</label>
+                    <select id="type" name="type" data-toggle="selectpicker" data-rule="required" onchange="channel_type(this.value)">
+                        <option value="">请选择</option>
+                        <option value="1">首充号</option>
+                        <option value="2">首充号续充</option>
+                        <option value="3">代充</option>
+                        <option value="4">账号</option>
+                        <option value="5">游戏币</option>
+                        <option value="6">道具</option>
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">商品名：</label>
+                    <input type="text" name="title" value="" cols="18" rows="1" class="form-control"
+                           data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">游戏ID：</label>
+                    <select name="game_id" data-rule="required" id="game_id" onchange="channel_select();">
+                        <option value="">请选择</option>
+                        {foreach from=$game_list item=game}
+                        <option value="{$game.id}">{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr class="channel-select">
+                <td>
+                    <label class="control-label x120">渠道：</label>
+                    <select name="channel_id" id="channel_id" onchange="channel_select();">
+                        <option value="0">请选择</option>
+                        {foreach from=$channels_list item=c}
+                        <option value="{$c.id}">{$c.channel_name}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">区服：</label>
+                    <select name="serv_id" id="channel" data-rule="required">
+                        <option value="0">全区全服</option>
+                        <!--{foreach from=$servs_list item=servs}
+                        <option value="{$servs.serv_id}" rel="{$servs.serv_name}">{$servs.serv_name}-{$servs.serv_id}</option>
+                        {/foreach}-->
+                    </select>&nbsp;
+                    <input type="hidden" name="serv_name" value="全区全服">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">商品价格：</label>
+                    <input type="text" name="price" value="" cols="18" rows="1" class="form-control"
+                           data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_form_content" class="control-label x120">商品描述：</label>
+                    <div style="display: inline-block; vertical-align: middle;">
+                        <textarea name="intro" id="j_form_content" class="j-content" style="width: 700px;"
+                                  data-toggle="kindeditor" data-minheight="200"
+                                  data-items="fontname, fontsize,
+                                  |, forecolor, hilitecolor, bold, italic, underline, removeformat,
+                                  |, justifyleft, justifycenter, justifyright, insertorderedlist, insertunorderedlist,
+                                  |, emoticons, multiimage, link"></textarea>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_form_content" class="control-label x120">截图预览：</label>
+                    <input id="fileImage_add" type="file" name="imgs[]" style="display: none" multiple/>
+                    <span id="preview_add" style="color: #ff0000"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120"></label>
+                    <a href="javascript:void(0)" class="btn btn-default btn-sm Huploadify-button" id="pic_add">选择图片</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">商品到期时间：</label>
+                    <input type="text" name="end_time" value="" cols="18" rows="1" class="form-control"
+                           data-toggle="datepicker" data-pattern="yyyy-MM-dd H:m:s" size="20" data-rule="required"
+                           readonly>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">立即上架：</label>
+                    <select name="is_pub" data-toggle="selectpicker">
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr id="isType">
+                <td>
+                    <label class="control-label x120">魔石数量：</label>
+                    <input type="text" name="num" value="" cols="18" rows="1" class="form-control"
+                    >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">库存：</label>
+                    <input type="text" name="stock" value="" cols="18" rows="1" class="form-control"
+                    >
+                </td>
+            </tr>
+            <tr id="role_level">
+                <td>
+                    <label class="control-label x120">角色等级：</label>
+                    <input type="text" name="role_level" value="" cols="18" rows="1" class="form-control"
+                    >
+                </td>
+            </tr>
+            <tr id="role_job">
+                <td>
+                    <label class="control-label x120">职业：</label>
+                    <input type="text" name="role_job" value="" cols="18" rows="1" class="form-control"
+                    >
+                </td>
+            </tr>
+            <tr id="role_sex">
+                <td>
+                    <label class="control-label x120">性别：</label>
+                    男: <input type="radio" checked="checked" name="role_sex" value="1" >&nbsp;&nbsp;&nbsp;&nbsp;
+                    女: <input type="radio" name="role_sex" value="2"/>
+                    未知: <input type="radio" name="role_sex" value="3"/>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        <!--<input type="hidden" name="channel_id" value="0">-->
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li>
+            <button type="button" class="btn-close">关闭</button>
+        </li>
+        <li>
+            <button type="submit" class="btn-default">保存</button>
+        </li>
+    </ul>
+</div>
+<script>
+    $("#type").change(function () {
+        var ss = $(this).children('option:selected').val();
+        if (ss == 5) {
+            $('#isType').show();
+        } else{
+            $('#isType').hide();
+        }
+        if (ss == 4) {
+            $('#role_level').show();
+            $('#role_job').show();
+            $('#role_sex').show();
+        } else{
+            $('#role_level').hide();
+            $('#role_job').hide();
+            $('#role_sex').hide();
+        }
+    });
+
+    function channel_select(){
+        var game_id = $("#game_id").val();
+        var id = $("#channel_id").val();
+        console.log(id);
+        if(game_id=='' || game_id == 0 || !game_id){
+            alert("请选择游戏"+game_id);
+            return false;
+        }
+        if(id=='' || id==0){
+            $("#channel_chosen .chosen-single span").html('全区全服');
+            $('#channel').empty().append('<option value="0">全区全服</option>');
+            $("#channel").trigger("chosen:updated").chosen();
+            return false;
+        }
+        $.ajax({
+            type:'get',
+            url:"/products_info.php?act=game_ch_servs&game_id="+game_id+"&ch_id="+id,
+            data:{},
+            dataType: 'json',
+            beforeSend:function(){
+                $("#channel_chosen .chosen-single span").html('全区全服');
+                $('#channel').empty().append('<option value="0">全区全服</option>');
+
+            },
+            success: function (json) {
+                $(json).each(function(){
+                    $('#channel').append('<option value="'+this.id+'" data-name="'+ this.serv_name+'">'+this.serv_name+'</option>');
+                });
+                $("#channel").trigger("chosen:updated").chosen();
+            }
+        });
+    }
+
+    function channel_type(type){
+        if(type>3){
+            $('.channel-select').show();
+        }else{
+            $('.channel-select').hide();
+        }
+    }
+
+    $(function () {
+        $("#pic_add").bind('click', function () {
+            var ie = navigator.appName == "Microsoft Internet Explorer" ? true : false;
+            if (ie) {
+                $("#fileImage_add").click;
+            } else {
+                var a = document.createEvent("MouseEvents");
+                a.initEvent("click", true, true);
+                document.getElementById("fileImage_add").dispatchEvent(a);
+            }
+        })
+
+        rFilter = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/jpeg|image\/jpeg|image\/png|)$/i;
+        (function () {
+            var viewFiles = document.getElementById("fileImage_add");
+
+            function viewFile(file, i) {
+                html = $("#preview_add").html();
+                //通过file.size可以取得图片大小
+                var reader = new FileReader();
+                reader.onload = function (evt) {
+                    html += "<img style='height: 120px;width: 100px;margin-right: 10px;'  src=\"" + evt.target.result + "\" />";
+                    $("#preview_add").html(html);
+                }
+                reader.readAsDataURL(file);
+            }
+
+            viewFiles.addEventListener("change", function () {
+                for (i = 0; imgFile = document.getElementById("fileImage_add").files[i]; i++) {
+                    /*if(i>9){
+                     document.getElementById("fileImage").value="";
+                     $("#preview").html("一次最多10张图片");
+                     return;
+                     }*/
+                    if (!rFilter.test(imgFile.type)) {
+                        document.getElementById("fileImage_add").value = "";
+                        $("#preview_add").html("图片格式不对，支持jpg、png、gif!");
+                        return;
+                    }
+                }
+                $("#preview_add").html('');
+                for (var i = 0; file = this.files[i]; i++) {
+                    viewFile(file, i);
+                }
+            }, false);
+        })();
+    })
+</script>
+

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no,viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <title>全部商品</title>
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/moyu/css/common.css">
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/moyu/css/manage.css">
+    <script src="//cdn.66173.cn/mobile/moyu/js/setFontSize.min.js  " type="text/javascript"></script>
+</head>
+
+<body>
+    <div class="ui-page-content">
+        <div class="ui-header">
+            <span class="ui-return-btn"></span>
+            <h1>全部商品</h1>
+            <div class="header-menu">
+                <div class="header-menu-btn"></div>
+                <nav class="header-menu-nav">
+                    <ul>
+                        <li><a href="/moyu"><i class="home"></i>首页</a></li>
+                        <li><a href="/accountCenter"><i class="mine"></i>我的</a></li>
+                        <li><a href="/moyu_product.php?act=publish_product_view"><i class="sell"></i>我要卖</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="goods-all">
+            <ul class="goods-tab">
+                <li class="on">全部</li>
+                <li data-type="5">审核中</li>
+                <li data-type="1">已上架</li>
+                <li data-type="0">已下架</li>
+            </ul>
+            <div class="goods-list">
+                <ul>
+                </ul>
+                <!-- 下拉加载 -->
+                <div class="ui-loading">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <!-- 暂无结果 -->
+                <div class="ui-nores">
+                    <img src="//cdn.66173.cn/mobile/moyu/images/nores.png" alt="">
+                    <p>暂无数据</p>
+                </div>
+            </div>
+            <input type="hidden" name="is_pub" value="{$is_pub}">
+        </div>
+    </div>
+    <script src="//cdn.66173.cn/mobile/moyu/js/jquery.min.js" type="text/javascript"></script>
+    <script src="//cdn.66173.cn/mobile/moyu/js/common.js" type="text/javascript"></script>
+    <script src="//cdn.66173.cn/mobile/moyu/js/layer.js" type="text/javascript"></script>
+    <script src="//cdn.66173.cn/mobile/moyu/js/allGoods.js" type="text/javascript"></script>
+</body>
+
+</html>

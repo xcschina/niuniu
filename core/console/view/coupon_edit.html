@@ -1,0 +1,209 @@
+<script>
+    $(function(){
+        $("#games").chosen();
+        $("#channels").chosen();
+    });
+    $('#channel').change(function() {
+        $("input[name=serv_name]").val($(this).children('option:selected').attr("rel"))
+    });
+    $("select[name=game_id]").chosen();
+    $("select[name=pay_type]").chosen();
+    $("select[name=product_id]").chosen();
+</script>
+<div class="bjui-pageContent">
+    <form action="coupon.php?act=coupon_update"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">优惠券名称：</label>
+                    <input type="text" name="coupon_name" class="form-control" data-rule="required" value="{$info.name}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">优惠券类型：</label>&nbsp;{if $info.type eq '1'}打折券{else $info.type eq '2'}满减券{/if}
+                    <input type="hidden" name="coupon_type" value="{$info.type}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">优惠类型：</label>
+                    {if $info.discount_type eq '1'}原价打折{else $info.discount_type eq '2'}折上折{/if}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">优惠券折扣：</label>
+                    {if $info.type eq '1'}
+                    <span id="discount">
+                        满&nbsp;<input type="text" name="full_amount" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" value="{$info.total_amount}" class="form-control" style="width:70px!important;">&nbsp;打&nbsp;
+                        <input type="text" name="discount" value="{$info.discount}" class="form-control" style="width:50px!important;" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')">&nbsp;折
+                    </span>
+                    {else $info.type eq '2'}
+                    <span id="reduced">
+                        满&nbsp;<input type="text" name="total_amount" value="{$info.total_amount}" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" class="form-control" style="width:70px!important;">&nbsp;减&nbsp;
+                        <input type="text" name="discount_amount" value="{$info.discount_amount}" class="form-control" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" style="width:70px!important;">(单位:RMB)
+                    </span>
+                    {/if}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">有效期：</label>
+                    {if $info.valid_type eq '2'}
+                    <span id="valid_time">
+                        <input type="text"  name="start_time" data-toggle="datepicker" data-pattern="yyyy-MM-dd 00:00:00" value="{$info.start_time|date_format:'%Y-%m-%d %H:%M:%S'}" size="20">&nbsp;到&nbsp;<input type="text"  name="end_time" data-toggle="datepicker" value="{$info.end_time|date_format:'%Y-%m-%d %H:%M:%S'}" data-pattern="yyyy-MM-dd 23:59:59" size="20">
+                    </span>
+                    {else $info.valid_type eq '1'}
+                    <span id="deadline">
+                        自领劵起&nbsp;<input type="text" name="valid_days" value="{$info.valid_days}" onkeyup="this.value=this.value.replace(/\D/g,'')" class="form-control" style="width:50px!important;">&nbsp;日内有效
+                    </span>
+                    {/if}
+                    <input type="hidden" name="valid_type" value="{$info.valid_type}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">适用范围：</label>
+                    {if $info.apply_type eq '1'}全站通用{elseif $info.apply_type eq '2'}单款游戏配置{elseif $info.apply_type eq '3'}批量游戏配置{/if}
+                    <input type="hidden" name="applicable" value="{$info.apply_type}">
+                </td>
+            </tr>
+            {if $info.apply_type neq '1'}
+            <tr id="sel_ch">
+                <td colspan="4">
+                    <label class="control-label x120">指定渠道：</label>
+                    <select id="channels" name="channel[]" multiple="true" style="width:800px" data-placeholder="请选择指定的渠道">
+                        {foreach from=$channel_list item=ch}
+                        <option value="{$ch.id}" {if in_array($ch.id, $channel_id)}selected="selected"{/if}>{$ch.channel_name}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            {if $info.apply_type eq '2'}
+            <tr id="sel_game">
+                <td>
+                    <label  class="control-label x120">指定游戏：</label>
+                    <select name="game_id" style="width: 200px!important;">
+                        {foreach from=$game_list item=game}
+                        <option value="{$game.id}" {if $info.game_id eq $game.id}selected="selected"{/if}>{$game.game_name}</option>
+                        {/foreach}
+                    </select>&nbsp;
+                </td>
+            </tr>
+            {/if}
+            {if $info.apply_type eq '3'}
+            <tr id="sel_games">
+                <td colspan="4">
+                    <label class="control-label x120">指定游戏：</label>
+                    <select id="games" name="game_ids[]" multiple="true" style="width:800px" data-placeholder="请选择指定的游戏">
+                        {foreach from=$game_list item=game}
+                        <option value="{$game.id}" {if in_array($game.id, $game_id)}selected="selected"{/if}>{$game.game_name}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            {/if}
+            <tr id="sel_type">
+                <td>
+                    <label  class="control-label x120">指定类型：</label>
+                    <select name="pay_type" style="width: 200px!important;">
+                        <option value="0" {if $info.pay_type eq '0'}selected="selected"{/if}>所有类型</option>
+                        <option value="1" {if $info.pay_type eq '1'}selected="selected"{/if}>首充号</option>
+                        <option value="2" {if $info.pay_type eq '2'}selected="selected"{/if}>首充号续充</option>
+                        <option value="3" {if $info.pay_type eq '3'}selected="selected"{/if}>游戏币</option>
+                        <option value="4" {if $info.pay_type eq '4'}selected="selected"{/if}>账号</option>
+                        <option value="5" {if $info.pay_type eq '5'}selected="selected"{/if}>代充</option>
+                        <option value="6" {if $info.pay_type eq '6'}selected="selected"{/if}>游戏充值（代充、续充、游戏币）</option>
+                    </select>&nbsp;
+                </td>
+            </tr>
+            {if $info.apply_type eq '2'}
+            <tr id="sel_goods">
+                <td>
+                    <label  class="control-label x120">指定商品id：</label>
+                    <select name="product_id" style="width: 200px!important;">
+
+                        <option value="" {if $info.goods_id eq '0'}selected="selected"{/if}>请选择</option>
+                        {foreach from=$goods_list item=goods}
+                        <option value="{$goods.id}" {if $info.goods_id eq $goods.id}selected="selected"{/if}>{$goods.title}
+                        {if $goods.type eq '1'}-首充号{/if}
+                        {if $goods.type eq '2'}-首充号续充{/if}
+                        {if $goods.type eq '3'}-游戏币{/if}
+                        {if $goods.type eq '4'}-账号{/if}
+                        {if $goods.type eq '5'}-代充{/if}
+                        {if $goods.type eq '6'}-道具{/if}</option>
+                        {/foreach}
+                    </select>&nbsp;
+                </td>
+            </tr>
+            {/if}
+            {/if}
+            <tr>
+                <td>
+                    <label class="control-label x120">发送方式：</label>
+                    {if $info.send_type eq '1'}活动中心展示(所有用户){elseif $info.send_type eq '2'}站内信(指定用户){/if}
+                    <input type="hidden" name="send_type" value="{$info.send_type}">
+                </td>
+            </tr>
+            {if $info.send_type eq '1'}
+            <tr id="total">
+                <td>
+                    <label  class="control-label x120">发行数量：</label>
+                    <input type="text" name="total" class="form-control" value="{$info.total}" onkeyup="this.value=this.value.replace(/\D/g,'')" style="width:100px!important;">&nbsp;
+                </td>
+            </tr>
+            {/if}
+            <!--{if $info.send_type eq '2'}-->
+            <!--<tr id="user_id">-->
+                <!--<td colspan="3">-->
+                    <!--<label class="control-label x120">玩家ID:</label>-->
+                    <!--<textarea name="user_id" cols="80" rows="1" data-toggle="autoheight" class="form-control autosize" placeholder="请输入玩家ID">{$info.user_id}</textarea>&nbsp;多个用户用","隔开.-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--{/if}-->
+            <tr>
+                <td colspan="4">
+                    <label class="control-label x120">领取提示：</label>
+                    <textarea name="content" id="content" style="width:800px;height:80px;">{$info.content}</textarea>
+                </td>
+            </tr>
+            <input type="hidden" name="id" value="{$info.id}">
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+<script type="text/javascript">
+    $(function(){
+        $("select[name=game_id]").chosen().change(function(){
+            var game_id = $(this).find("option:selected").val();
+            var product_id = $("select[name=product_id]").chosen();
+            $.ajax({
+                type:'post',
+                url:'products_info.php?act=products_bygame_id',
+                data:{
+                    game_id:game_id
+                },
+                dataType: 'json',
+                success: function (json) {
+                    product_id.empty();
+                    product_id.append("<option value='0'>请选择</option>");
+                    $(json).each(function(){
+                        product_id.append("<option value=\"" + this.id + "\">" + this.title + "—"+ this.type_name +"</option>")
+                    });
+                    product_id.trigger("chosen:updated");
+                },
+                error:function(){
+                }
+            });
+        });
+
+    })
+</script>

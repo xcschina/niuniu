@@ -1,0 +1,54 @@
+<script>
+    $("select[name=game_id]").chosen();
+    $("select[name=channel_id]").chosen();
+</script>
+
+<div class="bjui-pageContent">
+    <form action="game_info.php?act=do_game_download_add"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">标题：</label>
+                    <input type="text" name="title" value="" cols="25" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏：</label>
+                    <select name="game_id" data-rule="required">
+                        <option value="">请选择</option>
+                        {foreach from=$game_list item=game}
+                        <option value="{$game.id}">{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">渠道：</label>
+                    <select name="channel_id" data-rule="required" id="product_ids"  style="width: 200px">
+                        <option value="">请选择</option>
+                        {foreach from=$channels_list item=channel}
+                        <option value="{$channel.id}">{$channel.channel_name}-{$channel.id}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">下载地址：</label>
+                    <input type="text" name="url" value="" cols="25" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+

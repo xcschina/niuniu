@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>首充号续充_首充号_手游交易平台 _66173手游交易平台！</title>
+    <meta name="keywords" content="首充号续充、手游首充号续充、66173、手游交易平台" />
+    <meta name="description" content="66173提供各类热门手机游戏首充号续充，续充可低至6折。66173(m.66173.cn)是国内权威的游戏交易平台，安全快捷有保障的手游充值中心。" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/common.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/pay.css" media="screen" />
+</head>
+<body>
+<header class="page-header clearfix">
+    <h1 class="page-h1">首冲号续充游戏充值列表</h1>
+    <a class="p2-back" href="javascript:history.back();">返回</a>
+    {if $smarty.session.user_id}
+    <a class="login-on" href="/account.php?act=user_center">个人中心</a>
+    {else}
+    <a class="login-link" href="/account.php?act=user_center" id="login-btn">登录</a>
+    {/if}
+</header>
+<!--<section class="pay-search clearfix">
+    <div class="pay-search-box clearfix">
+        <input type="search" placeholder="请输入游戏名称" class="search-input" />
+        <a class="search-icon"></a>
+    </div>
+</section>-->
+<section class="pay-notice clearfix">[首充号续充]就是对您在66173购买的首充号进行后续充值，折扣约为6折左右。</section>
+<section class="pay-gd clearfix">
+    <div class="swiper-container-4">
+        <ul class="swiper-wrapper pay-gd-list clearfix">
+            {foreach from=$notices item=notice}
+            <li class="swiper-slide"><a href="{$notice.go_url}">{$notice.title}</a></li>
+            {/foreach}
+        </ul>
+    </div>
+</section>
+<section class="clearfix">
+    <h3 class="sel-h3">选择游戏</h3>
+    <div class="game-index clearfix" id="gameIndex">
+        <ul class="index-list clearfix">
+            <li><a class="on" rel="hot">热</a></li>
+            {assign var=i value=0}
+            {section name=total loop=26}{assign var=i value=$i+1}<li><a href="#;" rel="{($i+64)|chr}">{($i+64)|chr}</a></li>{/section}
+        </ul>
+    </div>
+    <div class="ibox-con clearfix">
+        <ul class="soft-list clearfix hotgame">
+            {foreach from=$games item=game}
+            <li><a href="/game{$game.id}/recharge"><img src="http://cdn.66173.cn/{$game.game_icon}" alt="{$game.game_name}"/><span>{$game.game_name}</span></a></li>
+            {/foreach}
+        </ul>
+        <ul class="soft-list soft-list2 othergame" style="display:none"></ul>
+    </div>
+</section>
+{include file="include/footer.html"}
+{literal}
+<script src="http://cdn.66173.cn/mobile/v2/scripts/script.js"></script>
+<script src="http://cdn.66173.cn/mobile/v2/scripts/index.js"></script>
+<script>
+    var swiper = new Swiper('.swiper-container-4', {
+        direction: 'vertical',
+        autoplay: 4000,
+        loop: true,
+        autoplayDisableOnInteraction: false
+    });
+</script>
+{/literal}
+<input type="hidden" name="cate_type" value="2" />
+</body>
+</html>

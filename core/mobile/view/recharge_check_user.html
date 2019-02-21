@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>{$game.game_name}首冲号续充</title>
+    <meta name="keywords" content="{$game.game_name}充值,{$game.game_name}首冲号续充" />
+    <meta name="description" content="找{$game.game_name}首冲号续充吗？很多玩家都在66173交易坦克风云首充号，只需官网原价的2~5折。欢迎您到66173，66173是知名的手游交易平台。" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/common.css?t={rand(1,10000)}" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/pay.css?t={rand(1,10000)}" media="screen" />
+</head>
+<body>
+<header class="page-header clearfix">
+    <h1 class="page-h1">购买详情</h1>
+    <a onclick="javascript:history.back();" class="p2-back">返回</a>
+    <a class="p2-back ml-40" href="http://m.66173.cn">首页</a>
+    {if $smarty.session.user_id}
+    <a class="login-on" href="/account.php?act=user_center">个人中心</a>
+    {else}
+    <a class="login-link" href="/account.php?act=user_center" id="login-btn">登录</a>
+    {/if}
+</header>
+<!--<nav class="pay-nav clearfix">
+    <ul class="pay-nav-list clearfix">
+        <li class="on"><a>商品详情</a></li>
+        <li><a>礼包领取</a></li>
+        <li><a>游戏下载</a></li>
+        <li><a>游戏资讯</a></li>
+    </ul>
+</nav>e4393c-->
+<section class="pay-game clearfix"><img src="http://cdn.66173.cn{$game.game_icon}" alt="{$game.game_name}" />
+    <h2 class="pay-game-name">{$game.game_name}</h2>
+</section>
+<!-- Str交易类型 -->
+<section class="clearfix">
+    <header class="pay-tit clearfix">
+        <h3 class="pay-tit-h">商品类型:</h3>
+        <span class="pay-type-txt">首充号续充</span>
+    </header>
+</section>
+{if $result}
+<section class="yz-result">
+    <strong>Halo，这是您搜索到的搜索结果</strong>
+    <a href="#;">
+        <p>区服：{$result.serv_name}</p>
+        <p>角色：{$result.role_name}</p>
+        <p>账号：{$result.game_user}</p>
+    </a>
+</section>
+<a class="b-btn" href="/game{$game.id}/recharge?game_user={$result.id}">OK，马上去充值</a>
+{elseif $noresult eq 'yes'}
+<div class="yz-noinbox clearfix">
+    <span>该账号不是在66173购买的首充号哦~<br />您可以选择购买首充号或代充</span>
+</div>
+<section class="none-box clearfix">
+<!--<a class="xc-btn" href="/game{$game.id}/topup"/>使用代充进行充值</a>-->
+<a class="xc-btn" href="/game{$game.id}/character"/>购买首充号</a>
+<a class="xc-btn" href="/game{$game.id}/gameuser" />为其他账号进行续充</a>
+</section>
+{else}
+<form action="/game{$game_id}/gameuser" method="post" name="check_form" onsubmit="return game_user_check();">
+<section class="yz-box clearfix">
+    <div class="yz-inbox clearfix">
+        <label>游戏账号：</label>
+        <input name="game_user" type="text" placeholder="请输入您在66173购买的首充号" class="yz-input" />
+    </div>
+    <input type="hidden" name="pagehash" value="{$pagehash}">
+    <input class="btn" type="submit" value="验证" />
+</section>
+</form>
+{/if}
+{include file="include/footer.html"}
+<script type="text/javascript">
+function game_user_check(){
+    game_user = $("input[name='game_user']").val();
+    if(game_user==''){
+        $("input[name='game_user']").addClass("form-warning").focus();
+        return false;
+    }
+    return true;
+}
+</script>
+</body>
+</html>

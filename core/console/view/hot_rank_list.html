@@ -1,0 +1,37 @@
+<div class="bjui-pageHeader">
+    <form id="pagerForm" action="#" method="post" data-toggle="ajaxsearch">
+        <div class="bjui-searchBar">
+            <a href="web_rank.php?act=hot_add" class="btn btn-green" data-id="hot_add" data-toggle="dialog" data-mask="true" data-width="500"  data-height="250" data-title="添加热卖榜">新建</a>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th>编号</th>
+            <th>游戏名称</th>
+            <th>分类</th>
+            <th>状态</th>
+            <th>已售订单</th>
+            <th>更新时间</th>
+            <th width="100">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=data from=$dataList}
+        <tr align="center">
+            <td>{$data.id}</td>
+            <td>{$data.game_name}-{$data.game_id}</td>
+            <td>{if $data.type}{$game_type[$data.type]}{/if}</td>
+            <td>{if $data.status}{$game_status[$data.status]}{/if}</td>
+            <td>{$data.order_num}</td>
+            <td>{$data.time|date_format: '%Y-%m-%d %H:%M'}</td>
+            <td>
+                <a href="web_rank.php?act=hot_edit&id={$data.id}" class="btn btn-green" data-id="hot_edit" data-toggle="dialog" data-mask="true" data-width="500"  data-height="280" data-title="热卖榜编辑">编辑</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>

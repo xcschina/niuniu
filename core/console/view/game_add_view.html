@@ -1,0 +1,409 @@
+<link href="kindeditor/plugins/select2/multi-select.css"  rel="stylesheet" type="text/css" />
+<link href="kindeditor/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="kindeditor/plugins/select2/bootstrap-select.min.css" rel="stylesheet" />
+<script type="text/javascript" src="kindeditor/plugins/select2/jquery.multi-select.js"></script>
+<script type="text/javascript" src="kindeditor/plugins/select2/jquery.quicksearch.js"></script>
+<script src="kindeditor/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="kindeditor/plugins/select2/bootstrap-select.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(".game-add-select").select2();
+    Kindeditor();
+    function Kindeditor() {
+        var $editor = $(".j-content");
+        if ($editor.length > 0) {
+            var options = $editor.data();
+            if (options.items) options.items = options.items.replaceAll('\'', '').replaceAll(' ', '').split(',');
+            if (options.afterUpload) options.afterUpload = options.afterUpload.toFunc();
+            if (options.afterSelectFile) options.afterSelectFile = options.afterSelectFile.toFunc();
+            if (options.confirmSelect) options.confirmSelect = options.confirmSelect.toFunc();
+
+            var htmlTags = {
+                span: ['.color', '.background-color', '.font-size', '.font-family'],
+                div : ['.margin', '.padding', '.text-align'],
+                table: [
+                    'align',
+                    'width'
+                ],
+                'td,th': [
+                    'align', 'valign', 'width', 'height', 'colspan', 'rowspan'
+                ],
+                a : [
+                    'href', 'target', 'name'],
+                embed: ['src', 'width', 'height', 'type', 'loop', 'autostart', 'quality', '.width', '.height', 'align', 'allowscriptaccess'],
+                img: ['src', 'width', 'height', 'border', 'alt', 'title', 'align', '.width', '.height', '.border'],
+                'p,ol,ul,li,blockquote,h1,h2,h3,h4,h5,h6': [
+                    'class', 'align', '.text-align', '.color',
+                    '.font-weight', '.font-style', '.text-decoration', '.vertical-align', '.text-indent', '.margin-left'
+                ],
+                pre: ['class'],
+                hr: ['class', '.page-break-after'],
+                'br,tbody,tr,strong,b,sub,sup,em,i,u,strike,s,del': []
+            };
+
+            KindEditor.create($editor, {
+                pasteType: options.pasteType,
+                minHeight: options.minHeight || 260,
+                width: options.width ||"auto",
+                autoHeightMode: options.autoHeight || false,
+                items: [
+                    'source','bold', 'italic', 'underline',
+                    '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                    'insertunorderedlist', '|', 'emoticons', 'image','multiimage','strikethrough',
+                    'lineheight','hilitecolor','forecolor', 'fontsize','fontname','formatblock',
+                    'fullscreen','selectall','quickformat','clearhtml','copy','paste','cut'
+                ],
+                uploadJson: options.uploadJson,
+                fileManagerJson: options.fileManagerJson,
+                allowFileManager: options.allowFileManager || true,
+                fillDescAfterUploadImage: options.fillDescAfterUploadImage || true, //上传图片成功后转到属性页，为false则直接插入图片[设为true方便自定义函数(X_afterSelect)]
+                afterUpload: options.afterUpload,
+                afterSelectFile: options.afterSelectFile,
+                X_afterSelect: options.confirmSelect,
+                htmlTags: htmlTags,
+                cssPath: [
+                    "http://cdn.66173.cn/console/BJUI/plugins/" + 'kindeditor_4.1.10/editor-content.css',
+                    "http://cdn.66173.cn/console/BJUI/plugins/" + 'kindeditor_4.1.10/plugins/code/prettify.css'
+                ],
+                afterBlur: function () {
+                    this.sync()
+                }
+            });
+        }
+    }
+    $(function(){
+        $("select[name=game_id]").chosen();
+        $("select[name=discount]").chosen();
+    })
+</script>
+<style>
+    .option{
+        width:75px;
+    }
+    .disc_rec_img{
+        display: none;
+    }
+</style>
+<div class="bjui-pageContent">
+    <form action="66market.php?act=add_game"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">主标题：</label>
+                    <input type="text" name="m_title" value="" cols="18" rows="1"  class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏名：</label>
+                    <input type="text" name="game_name" value="" cols="18" rows="1"  class="form-control" data-rule="required"><label style="color:red"> &nbsp;*</label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label  class="control-label x120">ICON：</label>
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="game_icon.click()">选择图片</button>
+                    <input type="file" name="game_icon" style="display: none;" onchange="g_icon.value=value"/>
+                    <input type="text" name="g_icon" placeholder="None file" class="form-control" size="15" data-rule="required" readonly/>&nbsp;<label style="color:red"> &nbsp;*</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏图片：</label>
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="game_banner.click()">选择图片</button>
+                    <input type="file" name="game_banner" style="display: none;" onchange="file.value=value"/>
+                    <input type="text" name="file" placeholder="None file" class="form-control" size="15" readonly/>&nbsp;
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">礼包：</label>
+                    <select name="is_gift"   data-toggle="selectpicker" >
+                        <option value="0" class="option" >否</option>
+                        <option value="1" class="option">是</option>
+                    </select>&nbsp;
+                    <label class="control-label x120">置顶：</label>
+                    <select name="is_top"   data-toggle="selectpicker" >
+                        <option value="0" class="option" >否</option>
+                        <option value="1" class="option">是</option>
+                    </select>&nbsp;
+                    <label class="control-label x120">语言：</label>
+                    <select name="language"   data-toggle="selectpicker" >
+                        <option value="0" style="width:85px;" >中文</option>
+                        <option value="1" style="width:85px;">English</option>
+                    </select>&nbsp;
+                    <label class="control-label x120">平台：</label>
+                    <select name="channel"   data-toggle="selectpicker" >
+                        <option value="1" class="option" >安卓</option>
+                        <option value="2" class="option">IOS</option>
+                        <!--<option value="3" class="option">WP</option>-->
+                        <option value="4" class="option">全平台</option>
+                    </select>&nbsp;
+                    <label class="control-label x120">类型：</label>
+                    <select name="type" data-toggle="selectpicker">
+                        <option value="" style="width:90px;">请选择</option>
+                        <option value="1"  style="width:90px;">66精品</option>
+                        <option value="2" style="width:90px;">腾讯精品</option>
+                    </select>
+                    <label class="control-label x120">新发现：</label>
+                    <select name="is_disc_new" data-toggle="selectpicker">
+                        <option value="0"  style="width:90px;">否</option>
+                        <option value="1"  style="width:90px;">是</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">每月新游：</label>
+                    <select name="is_new_game" data-toggle="selectpicker">
+                        <option value="0"  style="width:90px;">否</option>
+                        <option value="1"  style="width:90px;">是</option>
+                    </select>
+                    <label class="control-label x120">热门搜索：</label>
+                    <select name="is_hot_search" data-toggle="selectpicker">
+                        <option value="0"  style="width:90px;">否</option>
+                        <option value="1"  style="width:90px;">是</option>
+                    </select>
+                    <label class="control-label x120">游戏类别：</label>
+                    <select name="app_type" data-toggle="selectpicker">
+                        <option value="1" style="width:90px;">新游</option>
+                        <option value="2" style="width:90px;">单机</option>
+                    </select>
+                    <label class="control-label x120">是否首页推荐：</label>
+                    <select name="app_recommend" data-toggle="selectpicker">
+                        <option value="0" style="width:90px;">否</option>
+                        <option value="1" style="width:90px;">是</option>
+                    </select>
+                    <label class="control-label x120">小编精选：</label>
+                    <select name="is_chosen" data-toggle="selectpicker">
+                        <option value="0"  style="width:90px;">否</option>
+                        <option value="1"  style="width:90px;">是</option>
+                    </select>
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    <label class="control-label x120">推荐手游：</label>
+                    <input type="radio" name="is_disc_rec"  data-toggle="icheck" value="0" data-rule="checked" checked="checked">否&nbsp;&nbsp;
+                    <input type="radio" name="is_disc_rec"  data-toggle="icheck" value="1">&nbsp;是&nbsp;&nbsp;
+                </td>
+            </tr>
+            <tr class="disc_rec_img">
+                <td>
+                    <label  class="control-label x120">游戏横排图：</label>
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="disc_img.click()">选择图片</button>
+                    <input type="file" name="disc_img" style="display: none;" onchange="disc.value=value"/>
+                    <input type="text" name="disc" placeholder="None file" class="form-control" size="15" readonly/>&nbsp;
+            </tr>
+            <tr class="disc_rec_img">
+                <td>
+                    <label class="control-label x120">游戏展示图片：</label>
+                    <input id="rec_img_add" type="file" name="disc_rec_img[]"  style="display: none"  multiple/>
+                    <span id="rec_img_preview" style="color: #ff0000"></span>
+                </td>
+            </tr>
+            <tr class="disc_rec_img">
+                <td>
+                    <label class="control-label x120"></label>
+                    <a href="javascript:void(0)" class="btn btn-default  Huploadify-button" id="rec_img_bnt">选择图片</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">标签：</label>
+                    <select class="select2 select2-multiple game-add-select" multiple="multiple" data-placeholder="请选择标签" style="width:291px;" name="tags[]">
+                        {foreach from=$tags key=k item=play}
+                        <option value="{$k}" >{$play}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏包名：</label>
+                    <input type="text" name="apk_name" value="" cols="18" rows="1"  class="form-control"><label>(必须是英文，格式如：xxx.xxx.xxx.xxx)</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">包体大小：</label>
+                    <input type="text" name="apk_size" value="" cols="18" rows="1"  class="form-control" data-rule="required"><label style="color:red"> &nbsp;*</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">应用下载地址：</label>
+                    <input type="text" name="down_url" value="" cols="18" rows="1"  class="form-control"  data-rule="required"><label style="color:red"> &nbsp;*</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">下载次数：</label>
+                    <input type="text" name="down_num" value="" cols="18" rows="1"  class="form-control" data-rule="required"><label style="color:red"> &nbsp;*</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏描述：</label>
+                    <textarea name="game_desc" cols="50" data-toggle="autoheight" class="form-control" data-rule="required"></textarea><label style="color:red"> &nbsp;*</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏短描述：</label>
+                    <textarea name="game_title" cols="25" data-toggle="autoheight" class="form-control" data-rule="required"></textarea><label style="color:red"> &nbsp;*</label>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">系统信息：</label>
+                    <input type="text" name="system" value="" cols="18" rows="1"  class="form-control" >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">版本信息：</label>
+                    <input type="text" name="version" value="" cols="18" rows="1"  class="form-control" >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏更新时间：</label>
+                    <input type="text" name="update_time" value="" cols="18" rows="1"  class="form-control" data-toggle="datepicker" data-pattern="yyyy-MM-dd" size="20"  data-rule="required" readonly><label style="color:red"> &nbsp;*</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_form_content" class="control-label x120">小编吐槽：</label>
+                    <div style="display: inline-block; vertical-align: middle;">
+                        <textarea name="disc_img_text" id="j_form_content" class="j-content" style="width: 700px;" data-toggle="kindeditor" data-minheight="200"></textarea>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">截图预览：</label>
+                    <input id="game_img_add" type="file" name="imgs[]"  style="display: none"  multiple/>
+                    <span id="game_add_preview" style="color: #ff0000"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120"></label>
+                    <a href="javascript:void(0)" class="btn btn-default  Huploadify-button" id="game_img_bnt">选择图片</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+<script>
+    $(function(){
+        $("input[name='is_disc_rec']").on('ifChecked', function(e) {
+            var type = $(this).val();
+            if(type==1){
+                $(".disc_rec_img").show();
+            }else if(type==0){
+                $(".disc_rec_img").hide();
+            }
+        });
+
+        $("#game_img_bnt").bind('click',function(){
+            var ie=navigator.appName=="Microsoft Internet Explorer" ? true : false;
+            if(ie){
+                $("#game_img_add").click;
+            }else{
+                var a=document.createEvent("MouseEvents");
+                a.initEvent("click", true, true);
+                document.getElementById("game_img_add").dispatchEvent(a);
+            }
+        });
+
+        rFilter = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/jpeg|image\/jpeg|image\/png|)$/i;
+        (function () {
+            var viewFiles = document.getElementById("game_img_add");
+            function viewFile (file,i) {
+                html = $("#game_add_preview").html();
+                //通过file.size可以取得图片大小
+                var reader = new FileReader();
+                reader.onload = function(evt){
+                    html +="<img style='height: 120px;width: 100px;margin-right: 10px;'  src=\""+evt.target.result+"\" />";
+                    $("#game_add_preview").html(html);
+                }
+                reader.readAsDataURL(file);
+            }
+            viewFiles.addEventListener("change", function () {
+                for(i=0;imgFile = document.getElementById("game_img_add").files[i];i++){
+                    if(i>3){
+                        document.getElementById("game_img_add").value="";
+                        $("#game_add_preview").html("最多4张图片");
+                        return;
+                    }
+                    if (!rFilter.test(imgFile.type)) {
+                        document.getElementById("game_img_add").value="";
+                        $("#game_add_preview").html("图片格式不对，支持jpg、png、gif!");
+                        return;
+                    }
+                }
+                $("#game_add_preview").html('');
+                for (var i = 0; file = this.files[i]; i++) {
+                    viewFile(file,i);
+                }
+            }, false);
+        })();
+
+        $("#rec_img_bnt").bind('click',function(){
+            var ie=navigator.appName=="Microsoft Internet Explorer" ? true : false;
+            if(ie){
+                $("#rec_img_add").click;
+            }else{
+                var a=document.createEvent("MouseEvents");
+                a.initEvent("click", true, true);
+                document.getElementById("rec_img_add").dispatchEvent(a);
+            }
+        })
+
+        rFilter = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/jpeg|image\/jpeg|image\/png|)$/i;
+        (function () {
+            var viewFiles = document.getElementById("rec_img_add");
+            function viewFile (file,i) {
+                html = $("#rec_img_preview").html();
+                //通过file.size可以取得图片大小
+                var reader = new FileReader();
+                reader.onload = function(evt){
+                    html +="<img style='height: 100px;width: 120px;margin-right: 10px;'  src=\""+evt.target.result+"\" />";
+                    $("#rec_img_preview").html(html);
+                }
+                reader.readAsDataURL(file);
+            }
+            viewFiles.addEventListener("change", function () {
+                for(i=0;imgFile = document.getElementById("rec_img_add").files[i];i++){
+                    if(i>2){
+                        document.getElementById("rec_img_add").value="";
+                        $("#rec_img_preview").html("最多3张图片");
+                        return;
+                    }
+                    if (!rFilter.test(imgFile.type)) {
+                        document.getElementById("rec_img_add").value="";
+                        $("#rec_img_preview").html("图片格式不对，支持jpg、png、gif!");
+                        return;
+                    }
+                }
+                $("#rec_img_preview").html('');
+                for (var i = 0; file = this.files[i]; i++) {
+                    viewFile(file,i);
+                }
+            }, false);
+        })();
+    })
+</script>
+
+

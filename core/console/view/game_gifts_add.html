@@ -1,0 +1,139 @@
+<script type="text/javascript">
+    $(function(){
+        $("select[name=game_id]").chosen();
+    })
+</script>
+<div class="bjui-pageContent">
+    <form action="game_gifts.php?act=do_save" enctype="multipart/form-data" data-toggle="validate" data-alertmsg="false">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">礼包名(必填)：</label>
+                    <input type="text" cols="18" rows="1" name="title" class="form-control" data-rule="required;" >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">礼包类型：</label>
+                    <select name="type"  data-toggle="selectpicker" data-rule="required">
+                        <option value="0" selected="selected">礼包码</option>
+                        <option value="1">新手卡</option>
+                        <option value="2">微信礼包</option>
+                        <option value="3">预约礼包</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏：</label>
+                    <select name="game_id"  data-rule="required">
+                        <option value="">请选择</option>
+                        {foreach from=$game_list item=game}
+                        <option value="{$game.id}">{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">渠道：</label>
+                    <select name="channel_id"   data-toggle="selectpicker" data-rule="required">
+                        <option value="">请选择</option>
+                        {foreach from=$channels_list item=channel}
+                        <option value="{$channel.id}">{$channel.channel_name}-{$channel.id}</option>
+                        {/foreach}
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">附属销售品：</label>
+                    <select name="is_attach">
+                        <option value="0">否</option>
+                        <option value="1">是</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">价格(必填)：</label>
+                    <input type="text" cols="18" rows="1" name="price" class="form-control" data-rule="required;" value="0" >
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">积分：</label>
+                    <input type="text" cols="18" rows="1" name="integral" class="form-control"  value="0" >
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">礼包数(必填)：</label>
+                    <input type="text" cols="18" rows="1" name="num" class="form-control" data-rule="required;" value="0">
+                </td>
+            </tr>
+            <tr hidden="hidden">
+                <td colspan="4">
+                    <label  class="control-label x120">有效时间：</label>
+                    <input type="text"  name="effective_time" data-toggle="datepicker" data-pattern="yyyy-MM-dd H:m:s" size="20" >
+                </td>
+            </tr>
+            <tr  hidden="hidden">
+                <td colspan="4">
+                    <label  class="control-label x120">过期时间：</label>
+                    <input type="text" name="expired_time" data-toggle="datepicker" data-pattern="yyyy-MM-dd H:m:s" size="20" >
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">礼包内容(必填)：</label>
+                    <textarea name="content" id="content" style="width:860px;height:200px;"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">领取方式：</label>
+                    <textarea name="get_way"  style="width:860px;height:200px;"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">开始时间(必填)：</label>
+                    <input type="text"  name="start_time" data-toggle="datepicker" data-pattern="yyyy-MM-dd H:m:s" size="20">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">结束时间(必填)：</label>
+                    <input type="text"  name="end_time" data-toggle="datepicker" data-pattern="yyyy-MM-dd H:m:s" size="20">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <label class="control-label x120">礼包码文件：</label>
+                    <input  type="file"  name="codes"  style="display: none;"  onchange="gift.value=value" />
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="codes.click()">上传</button>
+                    <input  type="text" name="gift" placeholder="None file" class="form-control" size="15" readonly/>&nbsp;
+                    <span></span>文件格式：只支持txt格式。
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">是否推荐：</label>
+                    <select name="is_recomm"   data-toggle="selectpicker" data-rule="required">
+                        <option value="0" selected>否</option>
+                        <option value="1" >是</option>
+                    </select>&nbsp;
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+        <li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+    </ul>
+</div>

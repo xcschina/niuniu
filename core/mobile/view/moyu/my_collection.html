@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no,viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <title></title>
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/moyu/css/common.css">
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/moyu/css/userCenter.css">
+    <script src="//cdn.66173.cn/mobile/moyu/js/setFontSize.min.js" type="text/javascript"></script>
+</head>
+
+<body class="bgf">
+<div class="ui-page-content">
+    <div class="ui-header">
+        <span class="ui-return-btn"></span>
+        <h1>我的收藏</h1>
+        <a href="" class="ui-right-link collect-edit-btn">编辑</a>
+    </div>
+    <div class="m-goods-list goods-list-editor">
+
+        <div class="m-goods-pancel">
+            <div class="goods-check-all">全选</div>
+            <div class="goods-delete-btn">删除</div>
+        </div>
+
+        <ul>
+
+        </ul>
+    </div>
+
+    <div class="m-goods-list goods-list-lose">
+
+        <div class="m-goods-lose">
+            <span>失效商品 {count($invalid_list)} 件</span>
+            <div class="empty-goods-btn">清空失效商品</div>
+        </div>
+
+        <ul>
+        </ul>
+    </div>
+    <div class="ui-loading">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <div class="ui-nores">
+        <img src="//cdn.66173.cn/mobile/moyu/images/nores.png" alt="">
+        <p>暂无收藏记录~</p>
+    </div>
+
+    <input type="hidden" name="pagehash" value="{$pagehash}">
+    <input type="hidden" name="user_id" value="{$user_id}">
+</div>
+<script src="//cdn.66173.cn/mobile/moyu/js/jquery.min.js" type="text/javascript"></script>
+<script src="//cdn.66173.cn/mobile/moyu/js/common.js" type="text/javascript"></script>
+<script src="//cdn.66173.cn/mobile/moyu/js/layer.js" type="text/javascript"></script>
+<script src="//cdn.66173.cn/mobile/moyu/js/collectEditor.js" type="text/javascript"></script>
+<!-- Code injected by live-server -->
+<script type="text/javascript">
+    // <![CDATA[  <-- For SVG support
+    if ('WebSocket' in window) {
+        (function () {
+            function refreshCSS() {
+                var sheets = [].slice.call(document.getElementsByTagName("link"));
+                var head = document.getElementsByTagName("head")[0];
+                for (var i = 0; i < sheets.length; ++i) {
+                    var elem = sheets[i];
+                    head.removeChild(elem);
+                    var rel = elem.rel;
+                    if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+                        var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+                        elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+                    }
+                    head.appendChild(elem);
+                }
+            }
+            var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+            var address = protocol + window.location.host + window.location.pathname + '/ws';
+            var socket = new WebSocket(address);
+            socket.onmessage = function (msg) {
+                if (msg.data == 'reload') window.location.reload();
+                else if (msg.data == 'refreshcss') refreshCSS();
+            };
+            if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+                console.log('Live reload enabled.');
+                sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+            }
+        })();
+    }
+    else {
+        console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+    }
+    // ]]>
+</script></body>
+
+</html>

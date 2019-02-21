@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>实名认证</title>
+    {include file="../include/head.html"}
+    <link href="//cdn.66173.cn/niuguo/css/bootstrap3.3.6.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.66173.cn/niuguo/css/common.css?t={$smarty.now}">
+    <link rel="stylesheet" href="//cdn.66173.cn/niuguo/css/account.css?t={$smarty.now}">
+    <script src="//libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+</head>
+<body class="realname-verify-page">
+    <input type="hidden" value="15008459999" id="loginAccount"/>
+    {include file="../include/header.html"}
+    <div class="with-top-user-nav-mg container pd0 account-with-menu-container">
+        {include file="../include/user_side_menu.html" user_icon="//cdn.66173.cn/niuguo/img/{if $info.sex eq 2}account_head_girl_icon.png{else}account_head_boy_icon.png{/if}" name="{if $info.nick_name}{$info.nick_name}{else}{$info.mobile}{/if}"}
+        <div class="bg-white container-main">
+            <div class="common-box-top top">
+                <div class="font-lg title">实名认证</div>
+            </div>
+            <div class="realname-verify-form">
+                {if !$is_checked}
+                <div class="realname-verify-not">
+                    <div class="top-tip1">根据国家相关规定，所有游戏用户必须完成实名认证</div>
+                    <div class="font-md top-tip2">提交后不能修改，请认真填写真实的个人信息</div>
+                    <div class="line">
+                        <div class="input-wrapper realname-wrapper">
+                            <label class="font-lg common-input-label">姓名：</label>
+                            <input type="text" class="font-md common-input"  id="realname" name="realname" placeholder="请输入您的真实姓名"/>
+                        </div>
+                        <label for="realname" class="font-sm msg-label"></label>
+                    </div>
+                    <div class="line">
+                        <div class="input-wrapper realname-wrapper">
+                            <label class="font-lg common-input-label">身份证号：</label>
+                            <input type="text" class="font-md common-input"  id="IDcard" name="IDcard" placeholder="请输入您的身份证号码"/>
+                        </div>
+                        <label for="IDcard" class="font-sm msg-label"></label>
+                    </div>
+                    <div class="font-lg common-account-step-btn-zone">
+                        <span class="step-btn next-step-btn step1-btn step1-btn-can">立即实名</span>
+                    </div>
+                </div>
+                {else}
+                <div class="realname-verify-already">
+                    <div class="img-zone"><img class="verify-already-img" src="//cdn.66173.cn/niuguo/img/img_realname_verify.png" alt=""></div>
+                    <div class="line already-realname-line">
+                        <label class="font-lg common-input-label">姓名：</label>
+                        <span class="font-lg common-line-info">{$idcard.user_name}</span>
+                    </div>
+                    <div class="line already-IDcard-line">
+                        <label class="font-lg common-input-label">身份证号：</label>
+                        <span class="font-lg common-line-info">{$idcard.id_number}</span>
+                    </div>
+                    <div class="tip-zone"><div class="font-md pass-tip">您已通过实名认证</div></div>
+                </div>
+                {/if}
+            </div>
+        </div>
+    </div>
+    {include file="../include/side_float.html"}
+    {include file="../include/footer.html"}
+</body>
+<script src="//cdn.66173.cn/niuguo/scripts/bootstrap3.3.6.min.js"></script>
+{literal}
+<script>
+    var step1BtnTimeout;
+    var $label_realname = $("label[for=realname]");
+    var $label_IDcard = $("label[for=IDcard]");
+    var loginAccount = $("#loginAccount").val(); // 登录账号
+    // 输入时取消该提示
+    $("body").on("input", ".common-input", function(e) {
+        $(e.target).parents(".line").find(".msg-label").html("");
+    });
+    $("body").on("click", ".step1-btn-can", function(e) {
+        var realname = $("input[name=realname]").val();
+        var IDcard = $("input[name=IDcard]").val();
+        var pass = true;
+        if(!realname || (!/[·•]/.test(realname) && !regNameNoDot.test(realname)) || (/[·•]/.test(realname) && !regNameWithDot.test(realname))) {
+            pass = false;
+            $label_realname.html(!realname ? formMsgTip.realname.required:formMsgTip.realname.error);
+        }
+        if(!IDcard || !regIDcard.test(IDcard)) {
+            pass = false;
+            $label_IDcard.html(!IDcard ? formMsgTip.IDcard.required:formMsgTip.IDcard.error);
+        }
+        if(!pass) {
+            return false;
+        } else {
+            btnTimeOutControl(".step1-btn", "step1-btn-can", step1BtnTimeout);
+            var sendData = {
+                user_name: realname,
+                id_number: IDcard
+            };
+            $.ajax({
+                url: "/account.php?act=do_real_verify",
+                type: "post",
+                dataType: "json",
+                data: sendData
+            }).success(function(data) {
+                // type: 1 姓名有问题，2 身份账号有问题 ，其他数字则为其他异常
+//                var data = {
+//                    code: 1,
+//                    msg: "姓名填写不对",
+//                    type: 1
+//                };
+                var type = data.type;
+                var msg = data.msg;
+                if(data.code == 1){
+                    window.location.reload();
+                }
+                if(type == 1) {
+                    $label_realname.html(msg);
+                } else if(type == 2) {
+                    $label_IDcard.html(msg);
+                } else {
+                    briefTipControl(msg);
+                }
+            })
+        }
+    });
+</script>
+{/literal}
+
+</html>

@@ -1,0 +1,111 @@
+{literal}
+<script type="text/javascript">
+    $(function(){
+        $("select[name=part_id]").chosen({width:"200px"});
+        $("select[name=game_id]").chosen({width:"200px"});
+    })
+</script>
+{/literal}
+<div class="bjui-pageContent">
+    <form action="articles_info.php?act=do_articles_edit"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label class="control-label x120">所属模块：</label>
+                    <select name="part_id">
+                        <option value="" {if $article.part_id eq ''}selected="selected"{/if}>请选择</option>
+                        {foreach from=$parts_list item=part}
+                        <option value="{$part.id}" {if $article.part_id eq $part.id}selected="selected"{/if}>{$part.name}-{$part.id}</option>
+                        {/foreach}
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">关联游戏：</label>
+                    <select name="game_id">
+                        <option value="0">&nbsp;&nbsp;&nbsp;&nbsp;请选择&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+                        {foreach from=$games item=game}
+                        <option value="{$game.id}" {if $article.game_id eq $game.id}selected="selected"{/if}>{$game.game_name}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">标题：</label>
+                    <input type="text" name="title" value="{$article.title}" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            {if $article.img}
+            <tr>
+                <td>
+                    <label  class="control-label x120">&nbsp;</label>
+                    <img src="http://static.66173.cn{$article.img}" width="50%" height="50%">
+                </td>
+            </tr>
+            {/if}
+            <tr>
+                <td>
+                    <label  class="control-label x120">IMG：</label>
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="img.click()">选择图片</button>
+                    <input type="file" name="img" style="display: none;" onchange="u_img.value=value"/>
+                    <input type="text" name="u_img" placeholder="None file" class="form-control" size="15" readonly/>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">跳转URL：</label>
+                    <input type="text" name="go_url" value="{$article.go_url}" cols="18" rows="1"  class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">来源：</label>
+                    <input type="text" name="source" value="{$article.source}" cols="18" rows="1"  class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">标签(半角逗号分隔)：</label>
+                    <input type="text" name="tags" value="{$article.tags}" cols="18" rows="1"  class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">摘要(100字以内)：</label>
+                    <textarea name="summary" cols="30" rows="4"  class="form-control">{$article.summary}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_form_content" class="control-label x120">文章内容：</label>
+                    <div style="display: inline-block; vertical-align: middle;">
+                        <textarea name="intro" id="j_form_content" class="j-content" style="width: 700px;" data-toggle="kindeditor"  data-minheight="200">
+                            {$article.intro}
+                        </textarea>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">立即发布：</label>
+                    <select name="is_pub"   data-toggle="selectpicker">
+                        <option value="0"{if $article.is_pub eq 0} selected{/if}>否</option>
+                        <option value="1"{if $article.is_pub eq 1} selected{/if}>是</option>
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <input type="hidden" name="id" value="{$article.id}">
+            <input type="hidden" name="old_img" value="{$article.img}">
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>

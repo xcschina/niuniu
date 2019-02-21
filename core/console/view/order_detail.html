@@ -1,0 +1,301 @@
+<div class="bjui-pageContent">
+    <form action="orders_info.php?act=detail_edit"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label class="control-label x120">ID：</label>{$order_detail.id}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">订单号：</label>{$order_detail.order_id}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">购买人ID：</label>{$order_detail.buyer_id}
+                    {if $order_detail.is_agent>0}
+                        <span class="text-danger">商人</span>
+                    {/if}
+                </td>
+            </tr>
+            {if $smarty.session.usr_id eq 1}
+            <tr>
+                <td>
+                    <label class="control-label x120">客服：</label>
+                    <select name="service_id">
+                        {foreach from=$services item=s}
+                        <option value="{$s.id}"{if $s.id eq $order_detail.service_id} selected{/if}>{$s.real_name}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            {else}
+            <input type="hidden" name="service_id" value="{$order_detail.service_id}" />
+            {/if}
+            <tr>
+                <td>
+                    <label class="control-label x120">商人：</label>
+                    {if $order_detail.is_agent>0}<span class="text-success">是</span>{else}否{/if}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">数量*单价：</label>{$order_detail.amount}*{$order_detail.unit_price}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">游戏：</label>{$order_detail.game_name}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">区服：</label>
+                    {if $order_detail.status neq 2}
+                    <select name="serv_id">
+                        {foreach from=$servs item=serv}
+                        <option value="{$serv.id}"{if $serv.id eq $order_detail.serv_id} selected{/if}>{$serv.serv_name}</option>
+                        {/foreach}
+                    </select>
+                    {else}
+                    {$order_detail.serv_name}<input type="hidden" name="serv_id" value="{$order_detail.serv_id}" />
+                    {/if}
+                </td>
+            </tr>
+            {if $order_detail.serv_id eq '1'}
+            <tr>
+                <td>
+                    <label class="control-label x120">其他区服：</label>{$order_detail.other_ser}
+                </td>
+            </tr>
+            {/if}
+            <tr>
+                <td>
+                    <label class="control-label x120">渠道：</label>
+                    {$order_detail.channel_name}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">实际折扣：</label>
+                    {$order_detail.discount} 折
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">订单来源：</label>
+                    {if $order_detail.platform eq 7}<span class='red'>酷游</span>{else}66173{/if}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">应付金额：</label>
+                    {$order_detail.pay_money}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">QQ：</label>
+                    <input type="text" name="qq" value="{$order_detail.qq}" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">电话：</label>
+                    <input type="text" name="tel" value="{$order_detail.tel}" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            {if $order_detail.type eq "1"}
+            <tr>
+                <td>
+                    <label class="control-label x120">角色名：</label>
+                    <input type="text" name="role_name" value="{$order_detail.role_name}" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">备用角色名：</label>
+                    <input type="text" name="role_back_name" value="{$order_detail.role_back_name}" cols="18" rows="1"  class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">附加属性标准：</label>
+                    <span>{$tags}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">附加属性：</label>
+                    <input type="text" name="attr" value="{$order_detail.attr}" cols="30" rows="1"  class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">首充账号：</label>
+                    <span class="red">{$order_detail.game_user}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">首充账号密码：</label>
+                    <span class="red">{$order_detail.game_psw}</span>
+                </td>
+            </tr>
+            {/if}
+            {if $order_detail.type eq 2 or $order_detail.type eq 3}
+            <tr>
+                <td>
+                    <label class="control-label x120">代充账号：</label>
+                    <input type="text" name="game_user" value="{$order_detail.game_user}" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">代充密码：</label>
+                    <input type="text" name="game_pwd" value="{$order_detail.game_pwd}" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">代充角色名：</label>
+                    <input type="text" name="role_name" value="{$order_detail.role_name}" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            {/if}
+            <tr>
+                <td>
+                    <label class="control-label x120">买家备注：</label>
+                    <div style="display: inline-block; vertical-align: middle;">
+                        <textarea type="text" name="remarks" cols="50" rows="5"  class="form-control" data-rule="required">{$order_detail.remarks}</textarea>
+                    </div>
+                </td>
+            </tr>
+            {if $order_detail.shop_id}
+            <tr>
+                <td><label class="control-label x120">店铺ID：</label><span class="green">{$order_detail.shop_id}</span></td>
+            </tr>
+            {/if}
+            {if $order_detail.type eq 5}<tr>
+                <td><label class="control-label x120">角色名：</label><span class="green">{$order_detail.role_name}</span></td>
+            </tr>
+            {/if}
+            <!--<tr>
+                <td>
+                    <label class="control-label x120">销售人ID：</label>
+                    {$order_detail.seller_id}
+                </td>
+            </tr>-->
+            <tr>
+                <td>
+                    <label class="control-label x120">订单状态：</label>
+                    {if $order_detail.status eq '0'} 已下单
+                    {elseif $order_detail.is_del eq '2' || $order_detail.status eq '4'}已退款
+                    {elseif $order_detail.status eq '1'}已付款
+                    {elseif $order_detail.status eq '9'}已取消
+                    {elseif $order_detail.status eq '2'}已发货
+                    {elseif $order_detail.status eq '3'}已完成
+                    {elseif $order_detail.status eq '5'}已关闭
+                    {/if}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">购买时间：</label>
+                    {'Y-m-d H:i:s'|date:$order_detail.buy_time}
+                </td>
+            </tr>
+            <!--<tr>
+                <td>
+                    <label class="control-label x120">支付时间：</label>
+                    {'Y-m-d H:i:s'|date:$order_detail.pay_time}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">发货时间：</label>
+                    {'Y-m-d H:i:s'|date:$order_detail.ship_time}
+                </td>
+            </tr>-->
+            <tr>
+                <td>
+                    <label class="control-label x120">支付渠道：</label>
+                    {if $order_detail.pay_channel eq 1}支付宝{/if}
+                    {if $order_detail.pay_channel eq 2}网银{/if}
+                    {if $order_detail.pay_channel eq 3}财付通{/if}
+                    {if $order_detail.pay_channel eq 5}微信支付{/if}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">支付渠道订单号：</label>
+                    {$order_detail.channel_order_id}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">银行单号：</label>
+                    {$order_detail.bank_order_id}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">支付人：</label>
+                    {$order_detail.payer}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">发货备注：</label>
+                    {$order_detail.ship_memo}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">支付备注：</label>
+                    {$order_detail.pay_memo}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">赠送礼包码：</label>
+                    {$order_detail.gift_code}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">支付截图：</label>
+                    {if $order_detail.pay_img}
+                        <a href="http://static.66173.cn{$order_detail.pay_img}" target="_blank" rel="noopener noreferrer"><img src="http://static.66173.cn{$order_detail.pay_img}" style="width: 500px" /></a>
+                    {else}无{/if}
+                </td>
+            </tr>
+            {if $order_detail.refund_img}
+            <tr>
+                <td>
+                    <label class="control-label x120">退款截图：</label>
+                    <a href="http://static.66173.cn{$order_detail.refund_img}" target="_blank" rel="noopener noreferrer"><img src="http://static.66173.cn{$order_detail.refund_img}" style="width: 500px" /></a>
+                </td>
+            </tr>{/if}
+            <input type="hidden" name="type" value="{$order_detail.type}">
+            <input type="hidden" name="id" value="{$order_detail.id}">
+            </tbody>
+        </table>
+        <br />
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+{literal}
+<script type="text/javascript">
+    $(function(){
+        $("select[name=serv_id]").chosen({width:"150px"});
+    })
+</script>
+{/literal}

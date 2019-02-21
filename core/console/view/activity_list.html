@@ -1,0 +1,67 @@
+<script type="text/javascript">
+    $(function(){
+        $("select[name=title]").chosen();
+    })
+</script>
+<div class="bjui-pageHeader">
+    <form id="pagerForm" action="activity.php?act=activity_list" method="post" data-toggle="ajaxsearch">
+        <div class="bjui-searchBar">
+            <a href="activity.php?act=activity_add_view" class="btn btn-green" data-toggle="navtab" data-id="activity_add_view" data-title="游戏活动新建">新建</a>
+            <label>活动标题：</label>&nbsp;
+            <select name="title" style="width:200px">
+                <option value="" {if $params.title == ''}selected="selected"{/if}>请选择</option>
+                {foreach from=$activity_name item=activity}
+                <option value="{$activity.title}" {if $params.title eq $activity.title}selected="selected"{/if}>{$activity.title}</option>
+                {/foreach}
+            </select>
+            <label>活动时间：</label>
+            <input type="text" name="start_time" data-toggle="datepicker" value="{$params.start_time}" placeholder="{$params.start_time}开始时间">-
+            <input type="text" name="end_time" data-toggle="datepicker"  value="{$params.end_time}" placeholder="{$params.end_time}结束时间">
+            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th width="12">No.</th>
+            <th width="160">活动标题</th>
+            <th width="120">活动图片</th>
+            <th width="50">类型</th>
+            <th width="100">开始时间</th>
+            <th width="100">结束时间</th>
+            <th width="100">活动地址</th>
+            <th width="200">活动内容</th>
+            <th width="120">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=data from=$data_list}
+        <tr align="center">
+            <td>{$data.id}</td>
+            <td>
+                {$data.title}
+            </td>
+            <td>{if $data.banner}<img src="http://cdn.66173.cn{$data.banner}" width="50px" height="50px">{/if}</td>
+            <td>{if $data.type==0}内置浏览器打开{elseif $data.type==1}游戏详情打开{/if}</td>
+            <td>{$data.start_time|date_format:'%Y-%m-%d'}</td>
+            <td>{$data.end_time|date_format:'%Y-%m-%d'}</td>
+            <td>
+                <a href="http://{$data.url}">{$data.url}</a>
+            </td>
+            <td>{$data.content}</td>
+            <td>
+                <a href="activity.php?act=activity_edit_view&id={$data.id}" class="btn btn-green" data-toggle="navtab"  data-height="550" data-id="activity_edit_view" data-title="活动编辑">编辑</a>
+                <a type="button" href="activity.php?act=del_activity&id={$data.id}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要删除该行信息吗？">删除</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

@@ -1,0 +1,43 @@
+<div class="bjui-pageHeader">
+    <form id="pagerForm" action="game_info.php?act=game_download_list" method="post" data-toggle="ajaxsearch">
+        <div class="bjui-searchBar">
+            <a href="game_info.php?act=game_download_add_view" class="btn btn-green" data-id="game_download_add_view" data-toggle="dialog" data-mask="true" data-width="500"  data-height="250" data-title="添加游戏下载">新建</a>
+            <label>游戏名：</label><input type="text" name="game_name"  value="{$params.game_name}" class="form-control" size="10">&nbsp;
+            <label>渠道名：</label><input type="text" name="channel_name"  value="{$params.channel_name}" class="form-control" size="10">&nbsp;
+            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th>No.</th>
+            <th width="200">标题</th>
+            <th width="200">游戏名</th>
+            <th width="200">渠道名</th>
+            <th>下载地址</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=data from=$dataList}
+        <tr align="center">
+            <td>{$data.id}</td>
+            <td>{if $data.is_del eq 1}<span class="orange">[关闭]</span>{else}<span class="green">[开启]</span>{/if}{$data.title}</td>
+            <td>[{$data.game_id}]{$data.game_name}</td>
+            <td>[{$data.channel_id}]{$data.channel_name}</td>
+            <td>{$data.url}</td>
+            <td>
+                <a href="game_info.php?act=game_download_edit_view&id={$data.id}" class="btn btn-green" data-id="game_download_edit_view" data-toggle="dialog" data-mask="true" data-width="500"  data-height="280" data-title="编辑下载地址">编辑</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

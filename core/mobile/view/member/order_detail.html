@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>订单详情</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/common.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/pay.css?t=201606021830" media="screen" />
+</head>
+
+<body>
+<header class="page-header clearfix">
+    <h1 class="h1-txt">订单详情</h1>
+    <a class="back-link" href="javascript:history.back()"></a>
+</header>
+<section class="dd-header clearfix">
+    <div class="dd-header-txt">订单号：<span>{$detail.order_id}</span>
+        <em>
+        {if $detail.status eq '0'}
+        等待付款
+        {elseif $detail.status eq '1'}
+        等待发货
+        {elseif $detail.status eq '2'}
+        交易成功
+        {elseif $detail.status eq '3'}
+        已退款
+        {elseif $detail.status eq '9'}
+        已取消
+        {else}
+        未支付
+        {/if}
+        </em>
+    </div>
+</section>
+<section class="dd-detail-box clearfix">
+    <div class="dd-detail-top clearfix">{$detail.title}<span>{$detail.unit_price}元X{$detail.amount}</span></div>
+    <ul class="dd-detail-list clearfix">
+        <li>游戏区服：{$detail.game_name}/{$detail.channel_name}/{if $detail.serv_id eq '1'}{$detail.other_ser}{else}{$detail.serv_name}{/if}</li>
+        <li>商品类型：{$detail.title_desc}</li>
+        <li>下单时间：{'Y-m-d H:i:s'|date:$detail.buy_time}</li>
+        {if $detail.type eq "1"}
+        <li>角色名：{$detail.role_name}</li>
+        <li>备用角色名：{$detail.role_back_name}</li>
+        <li>附加属性：{$detail.$order_detail}</li>
+        <li>首充账号：{$detail.game_user}</li>
+        <li>账号密码：{$detail.game_pwd}</li>
+        {/if}
+        {if $detail.type eq 2 or $detail.type eq 3}
+        <li>代充账号：{$detail.game_user}</li>
+        <li>代充角色名：{$detail.role_name}</li>
+        {/if}
+    </ul>
+    <div class="dd-detail-btm">应付金额<em>{$detail.pay_money}元</em></div>
+</section>
+<section class="dd-detail-box clearfix service">
+    {if $detail.status eq 0}
+    <a href="my.php?act=order_pay&id={$detail.id}" class="btn">去付款</a>
+    <a href="#;" onclick="cancel_order({$detail.id});" class="btn back_gray">取消订单</a>
+    {/if}
+    <a href="mqqwpa://im/chat?chat_type=wpa&uin={$detail.service_qq}&version=1&src_type=web&web_src=oicqzone.com" target="_blank" rel="noopener noreferrer" class="btn service">联系客服</a>
+</section>
+<!--Str 页面通用底部-->
+{include file="include/footer.html"}
+<!--End 页面通用底部-->
+<script>
+    function cancel_order(id){
+        var r=confirm("是否取消订单?");
+        if(r==true){
+            window.location.href='my.php?act=order_cancel&id='+id;
+        }
+    }
+</script>
+</body>
+</html>

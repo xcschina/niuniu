@@ -1,0 +1,29 @@
+<script src="http://cdn.66173.cn/mobile/v2/scripts/share_tenxun_co.js?t=3"></script>
+<script type="text/javascript">
+    // 分享相关
+    var share_link = window.location.href;
+    var share_title = $('title').html();
+    var share_desc = $('meta[name=description]').attr("content");
+    var share_summary = $('meta[name=description]').attr("content");
+    var share_img = "http://cdn.66173.cn/mobile/css/img/yhwz_m/icon_yh.png";
+    var noncestr = $("#noncestr").val();
+    var timestamp = $("#timestamp").val();
+    var signature = $("#signature").val();
+    setShareInfo({
+        title: share_title,
+        summary: share_desc,
+        pic: share_img,
+        url: share_link,
+        WXconfig:       {
+            swapTitleInWX: true,
+            appId: 'wxbaed68c7f2f3a62c',
+            timestamp: timestamp,
+            nonceStr: noncestr,
+            signature: signature,
+            debug: true
+        },
+        callback: function() {
+            briefTipControl("分享成功！");
+        }
+    });
+</script>

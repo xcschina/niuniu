@@ -1,0 +1,13 @@
+<div id="tab3_box" style="display:none;">
+	<ul class="news_list2">
+		{if $article_list|@count eq 0}
+		<div class="nogame_div" style="height: 100px;"><span class="nogame_span" style="top: 50px;">该游戏暂无相关资讯~</span></div>
+		{else}
+		{foreach from=$article_list item=article}
+		<li><i></i><a target="_blank" rel="noopener noreferrer" href="/info/{$article.id}">{$article.title}</a><span class="date">[{$article.lastupdate|date_format:"m-d"}]</span></li>
+		{/foreach}
+		<div class="clear_both"></div>
+		<br>
+		{/if}
+	</ul>
+</div>

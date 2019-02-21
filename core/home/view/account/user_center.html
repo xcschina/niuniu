@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>个人中心</title>
+    <link href="http://cdn.66173.cn/wwwv2/css/style.css?t=109" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="http://cdn.66173.cn/www/js/jquery-1.7.1.min.js" ></script>
+</head>
+<body>
+{include file="include/top.html"}
+<div class="wrapper clearfix">
+    {include file="include/header.html"}
+    {include file="include/nav.html"}
+    <div class="w1000">
+        <div class="current_nav ">
+            当前位置：<a href="/">{if $domain_name eq 1}66173{else if $domain_name eq 2}u2590{/if}交易平台</a>&nbsp;>&nbsp;我的{if $domain_name eq 1}66173{else if $domain_name eq 2}u2590{/if}
+        </div>
+        {include file="include/user-side.html"}
+        <div class="user_center_right">
+            <div class="integral_detail">
+                <div class="user_center_title">个人中心</div>
+                <div class="account bor-bom0">
+                    <div class="account_info">
+                        欢迎您：
+                        {if $smarty.session.nick_name}{$smarty.session.nick_name}
+                            {if $smarty.session.mobile}
+                            [{$smarty.session.mobile|substr:0:3}******{$smarty.session.mobile|substr:9:2}]
+                            {/if}
+                        {else}
+                            {$smarty.session.mobile|substr:0:3}******{$smarty.session.mobile|substr:9:2}
+                        {/if}(<span class="color_orange">用户ID:{$smarty.session.user_id}</span>)<br/>
+                        <!--当前积分：<span>100</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">如何获取积分？</a><br />-->
+                        账户总额：
+                        <span class="color_orange">0.00 </span>元&nbsp;&nbsp;&nbsp;&nbsp;可提现金额：<span class="color_orange">0.00</span>元 &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="my.php?act=my_msgs" class="color_black"><span>站内信</span>{if $unread_msg>0}<span class="color_orange">({$unread_msg})</span>{/if}</a>
+                        <div class="common_btn relative">
+                            <a href="my.php?act=my_orders">［我的订单］</a>
+                            <a href="my.php?act=my_gifts">［我的礼包码］</a>
+                            <!--<a href="#">[交易明细]</a>-->
+                            <!--<a href="#">[我要提现]</a>-->
+                            <!--<a href="#">[我要充值]</a>-->
+                            <!--<a href="#">[已兑换商品]</a>-->
+                            <!--<a href="#" class="important_btn1 absolute">我要买</a>-->
+                            <!--<a href="#" class="important_btn2 absolute">我要卖</a>-->
+                            <a href="/" target="_blank" rel="noopener noreferrer" class="important_btn1 absolute">我要买</a>
+                            <a href="#" class="important_btn2 absolute">我要卖</a>
+                        </div>
+                        <div class="other_info">
+                            {if $smarty.session.mobile}
+                            <dl>
+                                <dt>修改登录密码</dt>
+                                <dd>英文加数字或者符号组合的密码安全性更高，建议定期更换密码。</dd>
+                                <dd class="absolute right0"><a href="account.php?act=modify_psw" class="color_blue">[修改]</a></dd>
+                            </dl>
+                            {/if}
+                            <dl>
+                                <dt>设置支付密码</dt>
+                                <dd>您付款时输入正确的支付密码，保证您的资金安全和账户安全。</dd>
+                                <dd class="absolute right0"><a href="#" class="color_blue">[未设置]</a></dd>
+                            </dl>
+                            {if $smarty.session.mobile}
+                            <dl>
+                                <dt>邮箱绑定</dt>
+                                <dd>将您的邮箱绑定您注册的66173账号上，提高账户资金及交易的安全性。</dd>
+                                <dd class="absolute right0">
+                                    {if $smarty.session.email}
+                                    <a href="account.php?act=email_info">[邮箱绑定修改]</a>
+                                    {else}
+                                    <a href="account.php?act=email_info" class="color_blue">[邮箱绑定]</a>
+                                    {/if}
+                                </dd>
+                            </dl>
+                            {/if}
+                            <dl>
+                                <dt>手机绑定</dt>
+                                <dd>将您的手机号码绑定您注册的66173账户，提高账户资金及交易的安全性。</dd>
+                                <dd class="absolute right0">
+                                    {if $smarty.session.mobile}
+                                    <a href="account.php?act=mobile_info">[已绑定手机]</a>
+                                    {else}
+                                    <a href="account.php?act=mobile_info" class="color_blue">[手机绑定]</a>
+                                    {/if}
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>个人资料</dt>
+                                <dd>完善昵称、生日、邮箱等个人信息。</dd>
+                                <dd class="absolute right0"><a href="account.php?act=modify_user">{if $smarty.session.nick_name && $smarty.session.birthday}[资料修改]{else}[资料填写完整]{/if}</a></dd>
+                                <dd class="absolute right0">
+                                    {if $smarty.session.nick_name && $smarty.session.birthday}
+                                    <a href="account.php?act=modify_user">[资料修改]</a>
+                                    {else}
+                                    <a href="account.php?act=modify_user" class="color_blue">[资料填写完整]</a>
+                                    {/if}
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="clear_both"></div>
+    </div>
+</div>
+<!--footer-->
+{include file="include/footer.html"}
+<!--//footer-->
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>邮箱绑定</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link type="text/css" rel="stylesheet" href="http://cdn.66173.cn/www/css/style.css" />
+    <link href="http://cdn.66173.cn/wwwv2/css/style.css?t=109" type="text/css" rel="stylesheet" />
+</head>
+<body>
+{include file="include/top.html"}
+<div class="wrapper clearfix">
+    {include file="include/header.html"}
+    {include file="include/nav.html" nav=""}
+    <div class="breadcrumbs">您的位置：<a href="/">首页</a> &gt; <span>我的{if $domain_name eq 1}66173{else if $domain_name eq 2}u2590{/if}</span></div>
+    <div class="clearfix">
+        {include file="include/user-side.html"}
+        <div class="account-main">
+            <div class="section section2">
+                <div class="sec-title mt10 mb20"><em></em>邮箱绑定</div>
+                <div class="setting-con">
+                    {if $type eq 'email_info'}
+                    <div class="setting-con-title"><em class="ico-ok"></em>{if $smarty.session.email}您已绑定邮箱{else}您还未绑定邮箱{/if}</div>
+                    <ul class="form-list">
+                        {if $smarty.session.email}
+                        <li class="clearfix">
+                            <p class="ft14">当前绑定的邮箱：<span class="orange">{$smarty.session.email}</span></p>
+                        </li>
+                        {/if}
+                        <li class="clearfix">
+                            <a class="btn-submit-230" href="?act=modify_email">{if $smarty.session.email}更 改{else}绑 定{/if}</a>
+                        </li>
+                    </ul>
+                    {else}
+                    {if $smarty.session.email}
+                    <div class="setting-con-title">当前绑定的邮箱：<span class="orange">  {$smarty.session.email}</span></div>
+                    {else}
+                    <div class="setting-con-title">请填写你需要绑定的邮箱</div>
+                    {/if}
+                    <form action="account.php?act=do_modify_email" method="post">
+                        <ul class="form-list">
+                            <li class="clearfix">
+                                <label for="password">密码验证</label>
+                                <span class="required-flag">*</span>
+                                <input id="password" class="text" type="password" placeholder="" name="password" value="" />
+                                <em class="cor_red" id="p_error">{$smarty.session.modify_email_p_error}</em>
+                            </li>
+                            <li class="clearfix">
+                                <label for="email">邮&nbsp;箱</label>
+                                <span class="required-flag">*</span>
+                                <input id="email" class="text" type="text" placeholder="" name="email" value="" />
+                                <em class="cor_red" id="e_error">{$smarty.session.modify_email_error}</em>
+                            </li>
+                            <li class="clearfix">
+                                <label for="sms_code">验证码</label>
+                                <span class="required-flag">*</span>
+                                <input id="sms_code" class="text" type="text" placeholder="" name="sms_code" value="" />
+                                <a href="javascript:;" class="btn-vcode" rel="1" id="send_code">获取验证码</a>
+                                <em class="cor_red" id="code_error">{$smarty.session.modify_email_code_error}</em>
+                            </li>
+                            <li class="clearfix">
+                                <input type="submit" class="btn-submit-236" value="确定修改" />
+                            </li>
+                        </ul>
+                    </form>
+                    {/if}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--footer-->
+{include file="include/footer.html"}
+<!--//footer-->
+<script type="text/javascript" src="http://cdn.66173.cn/www/js/plugin.js"></script>
+</body>
+{literal}
+<script>
+    //点击获取验证码按钮
+    $("#send_code").bind("click",function(){
+        var _th=$(this);
+        if(_th.attr("rel")=="0"){
+            return ;
+        }
+        _th.css("background","#a5a5a5");
+        var second = parseInt(179);//倒计时总秒数量
+        time=window.setInterval(function(){
+            _th.attr("rel","0");
+            // var s="重新获取("+second+")";
+            //_th.html(s);
+            second--;
+            if(second==0){
+                window.clearTimeout(time);
+                _th.css("background","#317ee7");
+                _th.attr("rel","1");
+                //_th.html("获取验证码");
+            }
+        }, 1000);
+
+        $.ajax({
+            type:'post',
+            url:'account.php?act=email_sms',
+            data:{
+                email:$("input[name=email]").val().trim()
+            },
+            dataType: 'json',
+            success: function (json) {
+                if(json.res==0){
+                    window.clearTimeout(time);
+                    $("#code_error").html(json.msg);
+                    _th.css("background","#317ee7");
+                }
+            }
+        })
+    })
+</script>
+{/literal}
+</html>

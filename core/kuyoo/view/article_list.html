@@ -1,0 +1,33 @@
+{include file="include/head.html" web_title=$title web_key='手机游戏资讯，游戏资讯列表，游戏新闻资讯，酷游手游新闻资讯'}
+    <body>
+        {include file="include/top.html"}
+        {include file="include/header.html"}
+        {include file="include/nav.html" nav=""}
+        <div class="w1000">
+			<div class="current_nav">当前位置：<a href="http://shouyou.kuyoo.com">酷游手游交易平台</a>&nbsp;>&nbsp;游戏资讯&nbsp;>&nbsp;{$title}</div>
+			<div class="user_center">
+				{include file="include/help-side.html" pid=$pid}
+				<div class="user_center_right">
+			        <div class="integral_detail">
+			        	<div class="user_center_title">{$title}</div>
+			        	<ul class="news_list">
+			        		{foreach from=$article_list item=article}
+			        		<li>
+			        			<div class="date">发布时间：{$article.add_time|date_format:"Y-m-d"}</div>
+			        			<a href="/info/{$article.id}" class="title">{$article.title}</a>
+			        			<div class="desc">{$article.intro|htmlspecialchars_decode|strip_tags|mb_substr:0:200} ......</div>
+			        			<a href="/info/{$article.id}" class="more">查看详情》</a>
+			        		</li>
+			        		{/foreach}
+			        	</ul>
+			        	<div class="clear_both"></div>
+			        	{if $article_list|@count neq 0}
+			        	    <div id="page">{$page_show}</div>
+			        	{/if}
+			        </div>
+
+				</div>
+			</div>
+            {include file="include/footer.html"}
+	</body>
+</html>

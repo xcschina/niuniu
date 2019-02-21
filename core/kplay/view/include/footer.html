@@ -1,0 +1,135 @@
+<div class="mask mobile-mask">
+    <div class="mask-inner-wrapper">
+        <div class="mobile-pop">
+            <div class="top">
+                <div class="font-lg title">提示</div>
+                <div class="close">x</div>
+            </div>
+            <div class="tip1">18k玩官网暂时只提供电脑版，您可以继续浏览</div>
+            <div class="btn-zone">
+                <span class="font-lg btn0 go-on-view-btn">继续浏览</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="img-zone">
+        <img class="logo" src="//cdn.66173.cn/kplay/img/logo.png"/>
+    </div>
+    <div class="text-wrapper font-sm">
+        <p><img class="line-icon" src="//cdn.66173.cn/kplay/img/icon_address.png"/><span class="text">海南省老城高新技术产业示范区海南生态软件园</span></p>
+        <p><img class="line-icon" src="//cdn.66173.cn/kplay/img/icon_call.png"/><span class="text">0898-32277505&nbsp;&nbsp;版权所有&nbsp;©&nbsp;海南奥米加网络信息技术有限公司|琼ICP备18000860号</span></p>
+        <p><a style="color: white" href="http://cdn.66173.cn/images/18kwan.png" target="_blank" rel="noopener noreferrer">网络文化经营许可证 琼网文[2018]3404-326号</a></p>
+    </div>
+</div>
+<div class="brief-tip-pop"><div class="con"></div></div>
+<input type="hidden" value="{$noncestr}" id="noncestr"/>
+<input type="hidden" value="{$timestamp}" id="timestamp"/>
+<input type="hidden" value="{$signature}" id="signature" />
+{literal}
+<script>
+    // 昵称校验
+    var regAddress = new RegExp(/^.{0,50}$/);
+    // 昵称校验
+    var regNickname = new RegExp(/^.{2,20}$/);
+    // 手机号校验
+    var regContact = new RegExp(/^1[34578]\d{9}$/);
+    // 密码校验
+    var regPasswordLoose = new RegExp(/^.{6,18}$/);
+    var regPassword = new RegExp(/^[0-9a-zA-Z!_\-=\+#\.\,\?:;\(\)\[\]\{\}@\$%\^\*`~/\'\"\\]{6,18}$/);
+    // 图形码校验
+    var regCaptchaPic = new RegExp(/^[0-9a-zA-Z]{3,6}$/);
+    // 手机验证码校验
+    var regCaptchaTel = new RegExp(/^[0-9]{6}$/);
+    //身份证校验
+    var regIDcard = new RegExp(/^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/);
+    //带点的中文姓名校验
+    var regNameWithDot = new RegExp(/^[\u4e00-\u9fa5]{1,5}[·•][\u4e00-\u9fa5]{2,15}$/);
+    //不带点的中文姓名校验
+    var regNameNoDot = new RegExp(/^[\u4e00-\u9fa5]{2,15}$/);
+    var formMsgTip = {
+        nickname: {required: "请输入您的昵称", error: "请输入2~20位昵称"},
+        address: {required: "请输入地址", error: ""},
+        account: {required: "请输入您的账号", error: ""},
+        telephone: {required: "请输入手机号码", error: "请输入正确的11位手机号码"},
+        telcaptcha: {required: "请输入验证码", error: "请输入正确的验证码"},
+        captcha: {required: "请输入验证码", error: "请输入正确的验证码"},
+        passwordLoose: {required: "请输入密码", error: "请输入6-18位的密码"},
+        password: {required: "请输入密码", error: "请输入6-18位由数字、字母、字符组成的密码"},
+        confirmpassword: {required: "请确认密码", error: "请输入6-18位由数字、字母、字符组成的密码", equalTo: "两次输入密码不一致"},
+        realname: {required: "请输入真实姓名", error: "请输入正确的真实姓名"},
+        IDcard: {required: "请输入身份证号", error: "请输入正确的身份证号"},
+        sex: {required: "请选择性别", error: ""},
+        address: {required: "请填写地址", error: "地址长度在0~50之间"},
+        agree: {required: "您还未同意协议"}
+    };
+    var _hmt = _hmt || [];
+    // 统计
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f4f222b9599b20b45ffba412ca533efd";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+    // 移动端显示弹窗
+    if(isMobile() && ($("body").hasClass("home-page") || $("body").hasClass("login-page"))) {
+        $(".mobile-mask").show();
+    }
+    // 页脚是否固定
+    $(document).ready(function() {
+        footerFixControl();
+    });
+    $(window).resize(function() {
+        footerFixControl();
+    });
+    // 若是苹果手机，暂不提供下载app
+    $("body").on("click", ".mobile-mask .download-btn", function(e) {
+        if(isMobileIOS()) {
+            e.preventDefault();
+            briefTipControl("暂无苹果版app,此为安卓版~")
+        }
+    });
+    // 关闭手机提示弹窗
+    $("body").on("click", ".mobile-mask .close, .mobile-mask .go-on-view-btn", function() {
+        $(".mobile-mask").hide();
+    });
+    // 判断是否手机
+    function isMobile() {
+        var mobileAgent = new Array("iphone", "ipod", "ipad", "android", "mobile", "blackberry", "webos", "incognito", "webmate", "bada", "nokia", "lg", "ucweb", "skyfire");
+        var browser = navigator.userAgent.toLowerCase();
+        for (var i=0; i<mobileAgent.length; i++){
+            if (browser.indexOf(mobileAgent[i])!=-1) {
+                return true;
+            }
+        }
+    }
+    // 是否苹果手机
+    function isMobileIOS() {
+        var isIOS =(/iPhone|iPod|iPad/i).test(navigator.userAgent);
+        return isIOS ? true : false;
+    }
+    // 简单提示控制
+    function briefTipControl(text) {
+        $(".brief-tip-pop .con").html(text);
+        $(".brief-tip-pop").fadeIn(500).delay(1000).fadeOut(500);
+    }
+    // 按钮定时加class控制
+    function btnTimeOutControl(ele, cls, timeoutClient, timeout) {
+        clearTimeout(timeoutClient);
+        timeoutClient = setTimeout(function() {
+            $(ele).addClass(cls);
+        }, timeout || 2000);
+    }
+    // 固定底部
+    function footerFixControl() {
+//        console.log('window.innerHeight:'+window.innerHeight+',html:' + $("html").height()+',footer + margin-top:'+($(".footer").height() + parseInt($(".footer").css("margin-top"))));
+//        if($("body").hasClass("footer-fix-control-page")) {
+//            if ($(".footer").hasClass("footer-fix") && (window.innerHeight - $("html").height()) < ($(".footer").height() + parseInt($(".footer").css("margin-top")))) {
+//                $(".footer").removeClass("footer-fix");
+//            } else if (!$(".footer").hasClass("footer-fix") && window.innerHeight - $("html").height() > 0) {
+//                $(".footer").addClass("footer-fix");
+//            }
+//        }
+    }
+</script>
+{/literal}

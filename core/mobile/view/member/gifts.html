@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>我的订单页</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/common.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/pay.css" media="screen" />
+    <style>
+        .md-state-2:before{ content:'领取成功'}
+    </style>
+</head>
+
+<body>
+<header class="page-header clearfix">
+    <h1 class="h1-txt">我的礼包</h1>
+    <a class="back-link" href="javascript:history.back();"></a><a class="idv-link" href="/account.php?act=user_center"></a>
+</header>
+
+<form action="?" method="get" id="gift-list">
+    <input type="hidden" name="act" value="my_gifts">
+    <section class="clearfix">
+        <div class="md-tit-box clearfix"><h3 class="pay-tit">礼包详情</h3><a class="md-tbtn">筛选</a></div>
+        <div class="md-selbox clearfix">
+            <select name="game_id">
+                <option value="">全部游戏</option>
+                {foreach from=$all_games item=game}
+                <option value="{$game.id}"  {if $params.game_id eq $game.id}selected{/if}>{$game.game_name}</option>
+                {/foreach}
+            </select>
+            <input type="hidden" id="page" value="1">
+        </div>
+        <div class="md-list-box clearfix">
+            <ul class="md-list clearfix">
+                {foreach from=$gift_list item=gift}
+                <li>
+                <span class="md-name">
+                    <i class="md-state-2"></i>
+                    {$gift.code}
+                </span>
+                    <em class="md-price">￥{$gift.price}</em>
+                    <span class="md-service">{$gift.gift_title}</span>
+                </li>
+                {/foreach}
+                <div id="content_befor"></div>
+            </ul>
+
+            {if count($gift_list)<10}
+            <a class="info-more-btn" href="javascript:;">没有更多了</a>
+            {else}
+            <a class="info-more-btn" id="more" href="javascript:;">显示更多</a>
+            {/if}
+        </div>
+    </section>
+</form>
+<!--Str 页面通用底部-->
+{include file="include/footer.html"}
+<!--End 页面通用底部-->
+<script type="text/javascript" src="http://cdn.66173.cn/www/js/jquery-1.8.3.min.js"></script>
+<script src="http://cdn.66173.cn/mobile/scripts/zepto.min.js"></script>
+<script src="http://cdn.66173.cn/mobile/scripts/script.js"></script>
+<script src="http://cdn.66173.cn/mobile/scripts/gifts.js?t={rand(1,10000)}"></script>
+<script>
+    $(document).ready(function(){
+        $('select[name=game_id]').change(function () {
+            var game_id=$("select[name=game_id] option:selected").val();
+            $('#gift-list').submit();
+        })
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>客服中心</title>
+    {include file="web/include/head_common.html"}
+    {if $orientation != "p"}
+        <link rel="stylesheet" href="//cdn.66173.cn/ins/css/web_h/service_rel.css?t={$smarty.now}">
+    {else}
+        <link rel="stylesheet" href="//cdn.66173.cn/ins/css/web_v/service_rel.css?t={$smarty.now}">
+    {/if}
+    {include file="web/include/head_script.html"}
+</head>
+<body class="service-rel service-center">
+    {include file="web/include/menu_bar.html"}
+    <div class="main-wrapper">
+        <div class="main-width">
+            <div class="font-mder top-btn-zone">
+                <a href="web.php?act=account_find"><div class="top-btn account-find-btn">找回账号</div></a><a href="web.php?act=work_order"><div class="top-btn work-order-btn">问题反馈</div></a>
+            </div>
+            <div class="card-wrapper service-record-wrapper">
+                <div class="font-mder card-title">我的客服记录{if count($info) >= 3}<a class="font-md link-get-more" href="web.php?act=record_list">查看更多+</a>{/if}</div>
+                {if $info}
+                <div class="has-list">
+                    <div class="service-list">
+                        {foreach item=data from=$info}
+                        <a href="web.php?act=service_detail&id={$data.id}&read_status={$data.read_status}" class="li {if $data.read_status eq '0'}unread{/if}">
+                            <div class="left">
+                                <div class="line1">
+                                    <img src="//cdn.66173.cn/ins/img/web_h/icon_question.png" class="icon_question">
+                                    <span class="font-md text-overflow question">
+                                        【<span class="type">{if $data.type eq '1'}其他问题{elseif $data.type eq '2'}账号问题{elseif $data.type eq '3'}充值问题{elseif $data.type eq '4'}游戏内问题{/if}</span>】
+                                        {$data.content}
+                                    </span>
+                                </div>
+                                <div class="line2">
+                                    <span class="font-sm base-desc base-desc1">反馈时间：<span class="time">{$data.create_time}</span></span>
+                                    <span class="font-sm text-overflow base-desc base-desc2">{$data.server_name}</span>
+                                    {if $data.mobile}
+                                    <span class="font-sm base-desc base-desc3">手机：<span class="telphone">{substr($data.mobile,0,3)}*****{substr($data.mobile,-3)}</span></span>
+                                    {/if}
+                                </div>
+                            </div>
+                            <div class="right"><span class="font-sm status {if $data.question_status eq '1'}close{elseif !$data.feedback_time}no{elseif $data.question_status eq '0'}going{/if}">
+                               {if $data.question_status eq '1'}已关闭{elseif !$data.feedback_time}待回复{elseif $data.question_status eq '0'}提问中{/if}
+                            </span></div>
+                        </a>
+                        {/foreach}
+                    </div>
+                </div>
+                {else}
+                <div class="no-list">
+                    <img class="no-list-img" src="//cdn.66173.cn/ins/img/web_h/smile_blue.png"/>
+                    <div class="font-md text">本系统太完美，小伙伴们无力吐槽~</div>
+                </div>
+                {/if}
+            </div>
+            {if $question_list}
+            <div class="card-wrapper service-common-wrapper">
+                <div class="font-mder card-title">常见问题<a class="font-md link-get-more" href="web.php?act=common_list">查看更多+</a></div>
+                <div class="common-list-wrapper">
+                    {foreach item=common from=$question }
+                    <a href="web.php?act=common_detail&id={$common.id}" class="li">
+                        <div class="font-md text-overflow li-con">{$common.title}</div>
+                    </a>
+                    {/foreach}
+                </div>
+            </div>
+            {/if}
+            <div class="font-md bottom">
+                <div class="left"></div><div class="center">客服妹妹在线相随,在线时间：09:00&nbsp;-&nbsp;18:00</div><div class="right"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

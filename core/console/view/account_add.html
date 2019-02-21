@@ -1,0 +1,57 @@
+<div class="bjui-pageContent">
+    <form action="account_admins.php?act=save"  data-toggle="validate" data-alertmsg="false">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">账号：</label>
+                    <input type="text" name="account" value="" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">姓名：</label>
+                    <input type="text" name="real_name" value="" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">昵称：</label>
+                    <input type="text" name="usr_name" value="" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">密码：</label>
+                    <input type="text" name="usr_pwd" value="" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">QQ：</label>
+                    <input type="text" name="qq" value="" cols="18" rows="1"  class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">组别：</label>
+                    <select name="group"   data-toggle="selectpicker" data-rule="required">
+                        <option value="">未分组</option>
+                        {foreach key=key item=data from=$groupList}
+                        <option value="{$data.GroupName}">{$data.GroupName}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+
+

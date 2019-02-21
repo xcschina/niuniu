@@ -1,0 +1,34 @@
+<div class="bjui-pageContent">
+    <form action="orders_info.php?act=artificial_orders_examine"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label class="control-label x120">订单状态：</label>
+                    <select name="status"   data-toggle="selectpicker">
+                        <option value="1" {if $order_info.status eq '1'}selected="selected"{/if}>待处理</option>
+                        <option value="2" {if $order_info.status eq '2'}selected="selected"{/if}>处理中</option>
+                        <option value="3" {if $order_info.status eq '3'}selected="selected"{/if}>处理成功</option>
+                        <option value="4" {if $order_info.status eq '4'}selected="selected"{/if}>处理失败</option>
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">备注：</label>
+                    <textarea name="remark" id="j_custom_note" data-toggle="autoheight" cols="20" rows="5">
+                        {$order_info.remark}
+                    </textarea>
+                </td>
+            </tr>
+            <input type="hidden" name="id" value="{$order_info.id}">
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>

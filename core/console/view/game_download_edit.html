@@ -1,0 +1,61 @@
+<div class="bjui-pageContent">
+    <form action="game_info.php?act=do_game_download_edit"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <input type="hidden" name="id" value="{$info.id}">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">标题：</label>
+                    <input type="text" name="title" value="{$info.title}" cols="25" rows="1"  class="form-control" data-rule="required" >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏名称：</label>
+                    {$info.game_name}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏ID：</label>
+                    {$info.game_id}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">渠道名称：</label>
+                    {$info.channel_name}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">渠道ID：</label>
+                    {$info.channel_id}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">下载地址：</label>
+                    <input type="text" name="url" value="{$info.url}" cols="25" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">是否开启：</label>
+                    <select name="is_del"   data-toggle="selectpicker">
+                        <option value="1" {if $info.is_del eq '1'}selected{/if}>否</option>
+                        <option value="0" {if $info.is_del eq '0'}selected{/if}>是</option>
+                    </select>&nbsp;
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+

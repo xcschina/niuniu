@@ -1,0 +1,23 @@
+<div class="head-top">
+    <div class="w1000">
+        <dl>
+            {if $smarty.session.user_id}
+            <dt>hi&nbsp;{if $smarty.session.nick_name}{$smarty.session.nick_name}{else}{$smarty.session.mobile}{/if}，欢迎来到酷游手游交易平台</dt>
+            {else}
+            <dd><a href="/account.php?act=login" rel="nofollow"><span class="login_ico"></span>登录</a></dd>
+            <dd><a href="/account.php?act=register" rel="nofollow"><span class="reg_ico"></span>注册</a></dd>
+            <dd><a href="http://shouyou.kuyoo.com/account.php?act=qq_login" rel="nofollow"><span class="qqlogin_ico"></span>QQ登录</a></dd>
+            {/if}
+        </dl>
+        {if $smarty.session.user_id}
+        <dl class="head-top-right">
+            <dd><a href="/my.php?act=my_msgs">站内信</a></dd>
+            <!--<dd><a href="/my.php?act=my_msgs" >站内信<b>9</b>封</a></dd>-->
+            <dd>|</dd>
+            <dd><a href="/account.php?act=user_center">个人中心&nbsp;<span></span></a></dd>
+            <dd>|</dd>
+            <dd><a href="/account.php?act=logout">退出&nbsp;<span></span></a></dd>
+        </dl>
+        {/if}
+    </div>
+</div>

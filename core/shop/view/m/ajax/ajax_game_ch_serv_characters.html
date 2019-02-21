@@ -1,0 +1,22 @@
+{literal}
+<script>
+    function submit_order(){
+        $("form[name='payform']").submit();
+        $('#game_ch_serv').hide();
+    }
+</script>
+{/literal}
+{if $characters|@count gt 0}
+<link rel="stylesheet" type="text/css" href="http://static.66173.cn/shop/m/css/side.css?t={rand(1,10000)}" media="screen" />
+<div class="side-box">
+    <header class="side-title"><h2>您已拥有同渠道同区服的首充号</h2></header>
+    <a href="#;" class="side-btn" onclick="submit_order();">我确定购买新首充号</a>
+    <a href="#;" class="side-btn" onclick="$('#game_ch_serv').hide(500);">取消购买</a>
+    <header class="side-title"><h2>同渠道同区服历史首充号，点击续充</h2></header>
+    {foreach from=$characters item=s}
+        <a href="{if $s.shop_id gt 0}/{$s.shop_id}-{$s.game_id}-recharge.html{else}http://m.66173.cn/game{$s.game_id}/renew{/if}" class="side-btn" style="color:#666;height:auto;">[首充号]{$s.game_user}/[角色名]{$s.role_name}/[区服]{$s.serv_name}</a>
+    {/foreach}
+</div>
+{else} <script> submit_order(); </script>
+{/if}
+

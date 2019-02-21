@@ -1,0 +1,166 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="width=device-width; initial-scale=0.5; minimum-scale=0.5; maximum-scale=0.5; user-scalable=0" id="viewport" name="viewport" />
+    <title>在线客服</title>
+    <link rel="stylesheet" href="//static.66173.cn/ins/css/help.css?t={$smarty.now}">
+    <script src="//libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <script type="application/javascript">
+        $(window).on('resize', function (e) {
+            var wWidth = document.documentElement.clientWidth || document.body.clientWidth;
+            var size = wWidth / 6.4 ;
+            document.getElementsByTagName('html')[0].style.fontSize = size + 'px';
+        }).trigger('resize');
+    </script>
+</head>
+<body>
+<header class="notice">
+    {if $notice neq ""}
+    <p>{$notice}</p>
+    {else}
+    <p class="m-b-15">客服在线时间09:00-24:00</p>
+    {/if}
+</header>
+<div class="btns">
+    <a href="?act=problem_feedback&target=1"><section class="m-r-18">客服工单</section></a>
+    <a href="?act=account_retrieve&target=1"><section>找回账号</section></a>
+</div>
+<div class="service">
+    <h3 class="title">我的客服记录</h3>
+    {if $info.items}
+    <ul class="problem" id="question_list">
+        {foreach $info.items as $item}
+        <li>
+            <a href="?act=question_detail&target=1&id={$item.id}&read_status={$item.read_status}">{$item.content}</a>
+            {if $item.feedback}<span class="l-green">已处理{if $item.read_status == 0}<i></i>{/if}
+            {else}<span class="l-gray">待回复{/if}</span>
+        </li>
+        {/foreach}
+        <input name="more" type="hidden" value="0" id="more">
+    </ul>
+    {if $info.has_more}
+    <div id="divMorePic" class="viewmore" onclick="load_more();">
+        <input name="btnViewMore" type="button" id="btnViewMore" value="下一页" data-value="1">
+        <input name="has_more" type="hidden" value="0">
+    </div>
+    {/if}
+    {else}
+    <!--没有反馈问题的时候显示-->
+    <section class="no_record_tip">
+        <img src="//static.66173.cn/ins/css/img/niuniu.jpg" width="300px"/><br/>
+        <h6>没有提问记录!</h6>
+    </section>
+    <!--/没有反馈问题的时候显示-->
+    {/if}
+    <input name="appid" type="hidden" value="{$appid}">
+    <input name="user_id" type="hidden" value="{$user_id}">
+</div>
+</body>
+<script src="//static.66173.cn/ins/js/app/common.js"></script>
+<script src="//static.66173.cn/ins/js/json_parse.js"></script>
+<script type="application/javascript">
+    document.body.addEventListener('touchstart', function () { });
+    function load_more() {
+        user_id="";
+        appid="";
+        var btn = document.querySelector("#btnViewMore");
+        var div = document.querySelector("#divMorePic");
+        page = btn.getAttribute("data-value");
+        appid = $("input[name='appid']").val();
+        user_id = $("input[name='user_id']").val();
+        $.ajax({
+            type:'post',
+            url:'?act=load_more_record',
+            data:{
+                page:page,
+                appid:appid,
+                user_id:user_id
+            },
+            dataType: 'json',
+            beforeSend : function(){
+                div.classList.add("loading");
+                div.removeAttribute("onclick");
+                btn.value = "加载中";
+            },
+            success : function(json) {
+                var result = json.items;
+                var content = "";
+                $(result).each(function(){
+                    content+='<li><a href="?act=question_detail&target=1&id='+this.id+'&read_status='+this.read_status+'">'+this.content+ '</a>';
+                    if(this.feedback) {
+                        content += '<span class="l-green">已处理';
+                        if(this.read_status == 0) {
+                            content += '<i></i>';
+                        }
+                    } else {
+                        content += '<span class="l-gray">待处理';
+                    }
+                    content +='</li>';
+                });
+                if(content!=""){
+                    $("#more").before(content);
+                }
+                if(json.has_more == 0){   //已经到了最后一页了
+                    div.parentNode.removeChild(div);
+                    document.getElementsByName('has_more')[0].value = 1;
+                    return;
+                }
+                btn.setAttribute("data-value", parseInt(btn.getAttribute("data-value")) + 1 );
+                btn.value = "下一页";
+                div.classList.remove("loading");
+                div.setAttribute("onclick", "load_more()");
+                loading = false;
+            },
+            error : function(){
+                btn.value = "error";
+                div.classList.remove("loading");
+                div.setAttribute("onclick", "load_more()");
+                loading = false;
+            }
+        });
+    }
+
+    window.onscroll = function () {
+        if (reachBottom()) {
+            if(document.getElementsByName('has_more')[0].value == 1) {
+                return;
+            }
+            var t = setTimeout(function () {
+                clearTimeout(t);
+                if (!loading) {
+                    loading = true;
+                    load_more();
+                }
+            }, 500);
+        }
+    }
+
+    // 到达页面底部事件
+    function reachBottom() {
+        var scrollTop = 0;
+        var clientHeight = 0;
+        var scrollHeight = 0;
+        var doc = document.documentElement;
+        var body = document.body;
+        if (doc && doc.scrollTop) {
+            scrollTop = doc.scrollTop;
+        } else if (body) {
+            scrollTop = body.scrollTop;
+        }
+        scrollTop = window.pageYOffset || doc.scrollTop || body.scrollTop;
+        if (body.clientHeight && doc.clientHeight) {
+            clientHeight = (body.clientHeight < doc.clientHeight) ? body.clientHeight : doc.clientHeight;
+        } else {
+            clientHeight = (body.clientHeight > doc.clientHeight) ? body.clientHeight : doc.clientHeight;
+        }
+        scrollHeight = Math.max(body.scrollHeight, doc.scrollHeight);
+        if (scrollTop + clientHeight + 10 >= scrollHeight) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>
+</html>

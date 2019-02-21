@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>用户中心</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/common.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/peo.css" media="screen" />
+</head>
+
+<body>
+<header class="page-header clearfix">
+    <h1 class="h1-txt">用户中心</h1>
+    <a href="{$f_back_url}" class="back-link"></a></header>
+<section class="peo-top clearfix"><i class="peo-icon"></i>欢迎您：{if $smarty.session.nick_name}{$smarty.session.nick_name}{if $smarty.session.mobile}【{$smarty.session.mobile|substr:0:3}******{$smarty.session.mobile|substr:9:2}】{/if}{else}{$smarty.session.mobile|substr:0:3}******{$smarty.session.mobile|substr:9:2}{/if}</section>
+{if $op neq 'setting_view'}
+<section class="peo-box clearfix">
+    <ul class="peo-list clearfix">
+        <li><a href="http://m.66173.cn/my.php?act=my_msgs">站内信</a><em class="cor-org">{$unread_msg}</em></li>
+        <li><a href="my.php?act=my_gifts">我的礼包</a></li>
+        <li><a href="coupon.php?act=coupon_list">我的优惠券</a></li>
+    </ul>
+</section>
+<section class="peo-box clearfix">
+    <ul class="peo-list clearfix">
+        <li><a href="my.php?act=my_orders">我的订单</a></li>
+        <li><a href="my.php?act=qb_orders">Q币订单</a></li>
+    </ul>
+</section>
+<section class="peo-box clearfix">
+    <ul class="peo-list clearfix">
+        <li><a href="my_sell.php?act=selled">已卖出订单</a></li>
+        <li><a href="my_sell.php?act=sell">出售中的商品</a><!--<em>正在出售：0件</em>--></li>
+        <li><a href="my_sell.php?act=stock">仓库中的商品</a></li>
+    </ul>
+</section>
+<section class="peo-box clearfix">
+    <ul class="peo-list clearfix">
+        <li><a href="#;">积分管理</a><em>当前积分：0</em></li>
+    </ul>
+    <ul class="btn-box clearfix">
+        <li><a href="#;">积分商城</a></li>
+        <li><a href="#;">已兑换商品</a></li>
+    </ul>
+</section>
+<section class="peo-box clearfix">
+    <ul class="peo-list clearfix">
+        <li><a href="#;">资金管理</a><em>余额：0.00元</em></li>
+        <li><a href="account.php?act=setting_view">账户设置</a></li>
+        <li><a href="#;">绑定游戏</a><em>一键享受安全快捷交易</em></li>
+        <li><a href="#;">账号回购</a></li>
+    </ul>
+    <a class="pb-btn" href="account.php?act=logout">注 销</a>
+</section>
+{else}
+<section class="peo-box clearfix">
+    <ul class="peo-list clearfix">
+        <li><a>支付密码设置</a></li>
+        <!--<li><a href="account.php?act=mobile_info">手机绑定</a><em> {if $smarty.session.mobile}已绑定手机{else}立即绑定手机{/if}</em></li>-->
+        {if $smarty.session.mobile}
+        <li><a href="account.php?act=email_info">邮箱绑定</a><em>{if $smarty.session.email}已绑定邮箱{else}立即绑定邮箱{/if}</em></li>
+        {/if}
+        <li><a href="account.php?act=modify_user">个人资料</a><em>资料填写完整</em></li>
+        {if $smarty.session.mobile}
+        <li><a href="account.php?act=modify_psw">修改登录密码</a></li>
+        {/if}
+    </ul>
+    <a class="pb-btn" href="account.php?act=logout">注 销</a>
+</section>
+{/if}
+{include file="include/footer.html"}
+</body>
+</html>

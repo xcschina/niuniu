@@ -1,0 +1,76 @@
+{include file="include/head.html" web_title=$title}
+<link href="http://static.kuyoo.com/kuyoo/wwwv2/css/article.css" type="text/css" rel="stylesheet">
+<body>
+	{include file="include/top.html"}
+	{include file="include/header.html"}
+	{include file="include/nav.html" nav=""}
+	<div class="w1000">
+		<div class="current_nav ">
+			当前位置：
+			<a href="http://shouyou.kuyoo.com">酷游手游交易平台</a> &nbsp;>&nbsp;
+			<a href="/info/list{$pid}">{$article.part_name}</a> &nbsp;>&nbsp;
+			{$title}
+		</div>
+		<div class="article_game clearfix">
+            <div class="article_game_left">
+                <h1>{$article.title}</h1>
+                <div class="desc">
+                    <div class="date">发布时间：{'Y-m-d H:i:s'|date:$article.add_time}</div>
+                    <div class="source">来源:{$article.source}</div>
+                </div>
+                {if $article.summary}<p class="summary">{$article.summary}</p>{/if}
+                <div class="details">{$article.intro|htmlspecialchars_decode}</div>
+                {if $article.tags}
+                    <div class="tags clearfix"><label>标签:</label>
+                    {foreach from=$article.tags item=tag}<strong>{$tag}</strong>{/foreach}
+                    </div>
+                {/if}
+                <div class="copy">酷游手游交易平台提供国内外热门手机游戏资讯，热门手游下载、手游充值交易、获取更多游戏资讯就上酷游(shouyou.kuyoo.com)。</div>
+            </div>
+            <div class="article_game_right">
+                {if $game}
+                <h3>{$game.game_name}</h3>
+                <div class="game_info">
+                    <img src="http://static.kuyoo.com/{$game.game_icon}" />
+                    <p>
+                        <a href="/games/{$game.id}.html" class="go_game">我要买</a>
+                        <a href="/download/games{$game.id}.html" class="go_download">游戏下载</a>
+                    </p>
+                </div>
+                {if $game_news}
+                <h3>{$game.game_name}相关资讯</h3>
+                <ul class="news">
+                    {foreach from=$game_news item=item}
+                    <li><a href="/info/{$item.id}">{$item.title}</a></li>
+                    {/foreach}
+                </ul>
+                {/if}
+                {if $game_strategys}
+                <h3>{$game.game_name}相关攻略</h3>
+                <ul class="news">
+                    {foreach from=$game_strategys item=item}
+                    <li><a href="/info/{$item.id}">{$item.title}</a></li>
+                    {/foreach}
+                </ul>
+                {/if}
+                {/if}
+            </div>
+        </div>
+    </div>
+    {include file="include/footer.html"}
+</body>
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+</html>

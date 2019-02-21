@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>微信支付</title>
+    {literal}
+    <script>
+        function recalc() {
+            dpr = Math.round(window.devicePixelRatio || 1), browser.versions.mobile ? clientW = docEl.getBoundingClientRect().width : (clientW = 480, docEl.style.width = "480px"), docEl.setAttribute("data-dpr", dpr);
+            if(clientW > 500){docEl.style.fontSize = '50px';} else {docEl.style.fontSize =clientW / 10 + "px";}
+
+        }
+        var browser = {
+                versions: function() {
+                    var e = navigator.userAgent;
+                    navigator.appVersion;
+                    return {
+                        mobile: !!e.match(/AppleWebKit.*Mobile.*/)
+                    }
+                }(),
+                language: (navigator.browserLanguage || navigator.language).toLowerCase()
+            },
+            doc = window.document, docEl = doc.documentElement,
+            resizeEvt = "orientationchange" in window ? "orientationchange" : "resize",
+            dpr = 1, scale = 1, clientW = 0;
+        doc.addEventListener && (window.addEventListener(resizeEvt, recalc, !1), doc.addEventListener("DOMContentLoaded", recalc, !1));
+    </script>
+    {/literal}
+    <style>
+        * {
+            -webkit-tap-highlight-color: rgba(160,160,160,0.5);
+        }
+        /*弹窗*/
+        /*蒙层*/
+        .mask {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 99;
+            display: none;
+        }
+        .pop-wrapper {
+            max-width: 500px;
+            height: 100%;
+            position: relative;
+            margin: auto;
+        }
+        .pop-bg {
+            margin: auto;
+            width: 80%;
+            position: absolute;
+            left: 50%;
+            margin-left: -40%;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: white;
+            top: 50%;
+            margin-top: -50%;
+            border-radius: 5px;
+        }
+        .pop-bg .pop-title {
+            text-align: center;
+            color: #333;
+            font-size: 0.45rem;
+            padding: 0.6rem 0;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .pop-bg .con {
+            text-align: center;
+            color: #333;
+            font-size: 0.4rem;
+        }
+        .pop-wx-mid .line {
+            height: 1.2rem;
+            line-height: 1.2rem;
+            border-top: 1px solid #d1d1d1;
+            cursor: pointer;
+        }
+        .pop-wx-mid .line1 {
+            color: red;
+        }
+        .pop-wx-mid .line2 {
+            color: #afafaf;
+        }
+        .pop-go-app .line1 {
+            border-top: 1px solid #d1d1d1;
+            padding: 1rem 0;
+            line-height: 0.8rem;
+            color: #afafaf;
+        }
+    </style>
+</head>
+<body>
+<div class="mask">
+    <div class="pop-wrapper">
+        <div class="pop-bg pop-bg-small">
+            <div class="pop-title"></div>
+            <div class="con">
+                <div class="con-main pop-wx-mid">
+                    <div class="line line1">已完成支付</div>
+                    <div class="line line2">退出支付</div>
+                </div>
+                <div class="con-main pop-go-app">
+                    <div class="line line1">您当前不在APP内，请前往APP查看</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var line1 = document.querySelector(".pop-wx-mid .line1");
+    var line2 = document.querySelector(".pop-wx-mid .line2");
+    var title = document.querySelector(".pop-title");
+    var conMain = document.querySelectorAll(".con-main");
+    // 初始化界面
+    setTimeout(function() {
+        init();
+    }, 50)
+//    init();
+//    popControl(".pop-wx-mid","请确认微信支付是否已完成")
+
+    line1.addEventListener("click", closeWebPop, false);
+    line2.addEventListener("click", closeWebPop, false);
+    // 关闭弹窗
+    function closeWebPop() {
+        if(window.closeweb) {
+            closeweb();
+        }else if(window.nsdk_obj) {
+            window.nsdk_obj.closeweb();
+        } else {
+            popControl(".pop-go-app","提示");
+        }
+
+    }
+    // 初始判断所处环境
+    function init() {
+        if(window.closeweb || window.nsdk_obj) {
+            popControl(".pop-wx-mid","请确认微信支付是否已完成")
+        } else {
+            popControl(".pop-go-app","提示");
+        }
+    }
+    // 弹窗控制
+    function popControl(popClass, popTitle) {
+        title.innerHTML = popTitle;
+        for(var i = 0; i < conMain.length; i++) {
+            conMain[i].style.display = "none";
+        }
+        document.querySelector(popClass).style.display = "block";
+        document.querySelector(".mask").style.display = "block";
+        if(popClass == ".pop-go-app") {
+            title.style.padding = "0.3rem";
+        }
+    }
+</script>
+</html>

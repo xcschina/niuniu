@@ -1,0 +1,33 @@
+<link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/side.css?t={rand(1,10000)}" media="screen" />
+<div class="side-box">
+    <header class="side-title"><h2>渠道选择</h2></header>
+    <ul class="sev-sel clearfix">
+        {foreach from=$chs item=ch}
+        <li><a href="#;" rel="{$ch.id}">{$ch.channel_name}</a></li>
+        {/foreach}
+    </ul>
+    <a class="side-btn" href="#;" id="ch_yes">确定</a>
+    <a class="side-btn" href="#;" id="ch_cancel">取消</a>
+    <input name="channel_id" type="hidden" value="0" />
+</div>
+{literal}
+<script>
+    $(document).ready(function(){
+        $("ul.sev-sel a").click(function(obj){
+            $("ul.sev-sel a").removeClass("on");
+            $(this).addClass("on");
+            $("#txt-channel").html($(this).html()).css("color","#888");
+            $("input[name='channel_id']").val($(this).attr("rel"));
+        });
+        $("#ch_yes").click(function(){
+            channel_id = $("input[name='channel_id']").val();
+            window.location.href="?ch_id="+channel_id;
+            if(channel_id>0){
+                $("#servs").hide(500);
+            }else{
+                $("#servs").hide(500);
+            }
+        });
+    })
+</script>
+{/literal}

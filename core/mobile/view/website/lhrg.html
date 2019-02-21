@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>亭台楼阁  古色古香</title>
+    <meta name="description" content="牛果助力《烈火如歌》，壕礼免费领">
+    <meta name="keywords" content="牛果游戏,烈火如歌,手游,游戏礼包"/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!-- QQ 强制竖屏-->
+    <meta name="screen-orientation" content="portrait">
+    <!-- UC 强制竖屏-->
+    <meta name="x5-orientation" content="portrait">
+    <link rel="stylesheet" type="text/css" href="//cdn.66173.cn/mobile/v2/css/activity_lhrg.css?t={$smarty.now}">
+    <script src="//libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script type="application/javascript" src="//cdn.66173.cn/mobile/v2/scripts/activity_lhrg_func.js?t={$smarty.now}"></script>
+</head>
+<body>
+    <div class="share-img-wrapper" style="display:none;"><img src="http://cdn.66173.cn/mobile/v2/css/img/lhrg/icon.png" alt=""/></div>
+    <a class="top-fix">
+        <img src="//cdn.66173.cn/mobile/v2/css/img/lhrg/top_fix.jpg"/>
+    </a>
+    <section class="background-img sec sec1">
+        <img class="img-top" src="//cdn.66173.cn/mobile/v2/css/img/lhrg/bg_01.png" alt="">
+        <div class="place-center self-rel-zone">
+            {if !$smarty.session.user_id}
+            <div class="log-not">
+                <span class="font-md log-in-link">[&nbsp;登录&nbsp;]</span>
+            </div>
+            {else}
+            <div class="font-md log-already">
+                <span class="inline-block-middle">欢迎你,<span class="name">{if $smarty.session.nick_name}{$smarty.session.nick_name}{else}{$smarty.session.mobile}{/if}</span></span>
+                <a href="/website.php?act=logout" class="inline-block-middle log-out-link" >退出</a>
+            </div>
+            {/if}
+        </div>
+
+    </section>
+    <section class="background-img sec sec2" style="background-image:url(//cdn.66173.cn/mobile/v2/css/img/lhrg/bg_02.jpg)">
+        <div class="sub-zone login-gift-zone" name="toGet">
+            <img class="img-title" src="//cdn.66173.cn/mobile/v2/css/img/lhrg/img_login_gift_title.png" alt="">
+            <img class="img-goods" src="//cdn.66173.cn/mobile/v2/css/img/lhrg/img_login_gift_goods.png" alt="">
+            <div class="font-sm gift-get-tip">提示：<span class="sub">活动期间成功登录活动页面即可领取，单账号仅限一次。</span></div>
+            <div class="gift-code-zone" data-type="login">
+                <div class="item not-yet {if !$gift_list_new}active{/if}"><img class="btn-get-go" data-type="login" src="//cdn.66173.cn/mobile/v2/css/img/lhrg/btn_get_go_large.png" alt=""></div>
+                <div class="item font-mder already {if $gift_list_new}active{/if}"><span class="btn btn-copy" data-clipboard-text="{$gift_list_new.code}">礼包码：{$gift_list_new.code}</span></div>
+            </div>
+        </div>
+        <div class="sub-zone share-gift-zone">
+            <img class="img-title" src="//cdn.66173.cn/mobile/v2/css/img/lhrg/img_share_gift_title.png" alt="">
+            <div class="share-zone">
+                <img class="img-goods" src="//cdn.66173.cn/mobile/v2/css/img/lhrg/img_share_gift_goods.png" alt="">
+                <div class="font-sm gift-get-tip">提示：<span class="sub">活动期间成功分享1名好友，单账号仅限一次。</span></div>
+                <div class="gift-code-zone" data-type="privilege">
+                    <div class="item not-yet share-get-zone {if !$gift_list_privilege}active{/if}">
+                        <img class="btn share-btn {if !$share_num.num}active{/if}" src="//cdn.66173.cn/mobile/v2/css/img/lhrg/btn_share_0_1.png" />
+                        <img class="btn btn-get-go {if $share_num.num}active{/if}" data-type="privilege" src="//cdn.66173.cn/mobile/v2/css/img/lhrg/btn_get_go_large.png" alt="">
+                    </div>
+                    <div class="item font-mder already share-get-zone {if $gift_list_privilege}active{/if}">
+                        <div class="copy-line"><span class="btn-copy" data-clipboard-text="{$gift_list_privilege.code}">礼包码：{$gift_list_privilege.code}</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="share-zone2">
+                <img class="img-goods" src="//cdn.66173.cn/mobile/v2/css/img/lhrg/img_share_gift_goods2.png" alt="">
+                <div class="font-sm gift-get-tip">提示：<span class="sub">活动期间成功分享3名好友，单账号仅限一次。</span></div>
+                <div class="gift-code-zone" data-type="unique">
+                    <div class="item not-yet share-get-zone {if !$gift_list_unique}active{/if}">
+                        <img class="btn share-btn {if $share_num.num<3}active{/if}" src="//cdn.66173.cn/mobile/v2/css/img/lhrg/btn_share_{if $share_num.num<3 && $share_num}{$share_num.num}{else}0{/if}_3.png" />
+                        <img class="btn btn-get-go {if $share_num.num >=3}active{/if}" data-type="unique" src="//cdn.66173.cn/mobile/v2/css/img/lhrg/btn_get_go_large.png" alt="">
+                    </div>
+                    <div class="item font-mder already share-get-zone {if $gift_list_unique}active{/if}">
+                        <div class="copy-line"><span class="btn-copy" data-clipboard-text="{$gift_list_unique.code}">礼包码：{$gift_list_unique.code}</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="background-img sec sec3" style="background-image:url(//cdn.66173.cn/mobile/v2/css/img/lhrg/bg_03.png)">
+        <div class="sub-zone game-video-zone">
+            <img class="img-title" src="//cdn.66173.cn/mobile/v2/css/img/lhrg/img_game_special_title.png" alt="">
+            <div class="video-zone"></div>
+        </div>
+        <div class="sub-zone game-screenshot-zone">
+            <div class="shot-zone">
+                <div class="background-img img-zone" >
+                    <img data-index="0" class="active" src="//cdn.66173.cn/mobile/v2/css/img/lhrg/painting_1.png" alt="">
+                    <img data-index="1" src="//cdn.66173.cn/mobile/v2/css/img/lhrg/painting_2.png" alt="">
+                    <img data-index="2" src="//cdn.66173.cn/mobile/v2/css/img/lhrg/painting_3.png" alt="">
+                    <img data-index="3" src="//cdn.66173.cn/mobile/v2/css/img/lhrg/painting_4.png" alt="">
+                </div>
+                <ul class="place-center dot-zone">
+                    <li data-index="0" class="active"></li>
+                    <li data-index="1"></li><li data-index="2"></li><li data-index="3"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="sub-zone rule-zone">
+            <div class="font-mder title">活动规则：</div>
+            <div class="font-md con">
+                1、活动时间：2018.04.20-2018.05.30；</br>
+                2、为方便奖励发放及通知，活动仅限手机号参与；</br>
+                3、每档礼包限单账号领一次，领完为止；</br>
+                4、礼包有效期：2018.04.01-05.30（限安卓使用）；</br>
+                5、用户通过非法途径所获的活动奖励我司有权追回并追求其法律责任；</br>
+                6、本活动解释权在法律规定范围内归66173运营团队所有。</br>
+            </div>
+        </div>
+    </section>
+
+    <div class="mask">
+        <div class="pop-wrapper">
+            <div class="pop-bg pop-bg-small">
+                <img class="btn close-pop" src="//cdn.66173.cn/mobile/v2/css/img/lhrg/pop_close.png" alt="">
+                <div class="background-img font-lg pop-title" style="background-image: url(//cdn.66173.cn/mobile/v2/css/img/lhrg/pop_title_bg.png)">提示</div>
+                <div class="background-img con"style="background-image: url(//cdn.66173.cn/mobile/v2/css/img/lhrg/pop_con_bg.png)">
+                    <div class="fetch-gift-pop">
+                        <div class="font-mder msg-title"></div>
+                        <div class="font-mder msg-con"></div>
+                        <div class="btn-zone">
+                            <img class="bt-btn cancel-btn" src="//cdn.66173.cn/mobile/v2/css/img/lhrg/btn_ok.png"/>
+                        </div>
+                    </div>
+                    <div class="to-login-pop">
+                        <div class="pop-form-wrap">
+                            <div class="pop-form-line">
+                                <input type="tel" class="font-md tel-input" placeholder="请输入您的手机号码"/>
+                            </div>
+                            <div class="pop-form-line">
+                                <input type="number" class="font-md captcha-input" placeholder="请输入验证码"/>
+                                <span class="font-md captcha-tip to-get-captcha">获取验证码</span>
+                            </div>
+                            <div class="btn-zone">
+                                <img class="bt-btn go-login go-login-can" src="//cdn.66173.cn/mobile/v2/css/img/lhrg/btn_go_login.png"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="background-img share-collect-zone" style="background-image: url(//cdn.66173.cn/mobile/v2/css/img/qtzs/share_pop_bg.png)">
+                <div class="share-choose-zone"></div>
+                <div class="cancel-share-btn"></div>
+            </div>
+        </div>
+    </div>
+    <div class="share-mask">
+        <div class="item topRight">
+            <div class="wx-share-arrow"><img src="//cdn.66173.cn/mobile/v2/css/img/wx_share_arrow.png" alt=""></div>
+            <div class="wx-share-text"><img src="//cdn.66173.cn/mobile/v2/css/img/wx_share_text.png" alt=""></div>
+        </div>
+        <div class="item bottomRight" style="font-size:0.5rem;color:red">
+            <div class="share-arrow"><img src="//cdn.66173.cn/mobile/v2/css/img/share_bottom_right.png" alt=""></div>
+        </div>
+        <div class="item bottomCenter" style="font-size:0.5rem;color:red">
+            <div class="share-arrow"><img src="//cdn.66173.cn/mobile/v2/css/img/share_bottom_center.png" alt=""></div>
+        </div>
+    </div>
+    <div class="wx-open-other-mask">
+        <div class="arrow-wrapper"><img src="//cdn.66173.cn/mobile/v2/css/img/wx_share_arrow.png" alt=""></div>
+        <div class="text-wrapper"><img src="//cdn.66173.cn/mobile/v2/css/img/wx_open_other_text.png" alt=""></div>
+    </div>
+    <div class="brief-tip-pop"><div class="font-md con"></div></div>
+
+    <input type="hidden" id="share_code" value="{$smarty.session.user_id}">
+    <input type="hidden" id="user_id" value="{$smarty.session.user_id}">
+    <input type="hidden" id="code" value="{$code}">
+    <input type="hidden" id="act_id" value="{$game_info.id}">
+    <input type="hidden" value="{$noncestr}" id="noncestr"/>
+    <input type="hidden" value="{$timestamp}" id="timestamp"/>
+    <input type="hidden" value="{$signature}" id="signature" />
+    <input type="hidden" id="pagehash" value="{$pagehash}">
+</body>
+{literal}
+<script src="//cdn.66173.cn/mobile/v2/scripts/clipboard1.6.1.min.js"></script>
+<script>
+    var userId = $('#user_id').val();
+    var actId = $('#act_id').val();
+    var code = $('#code').val();
+    var curSlide = 0; // 游戏截图当前显示张
+    var imgUlLen = $(".shot-zone .img-zone img").length;
+    var slideInterval; // 游戏截图变换定时
+    var video = null;
+    var videoSrc = "//apk.66173.cn/mp4/lhrg.mp4";
+    var maskSrc = "//cdn.66173.cn/mobile/v2/css/img/lhrg/video_mask.png";
+    var regContact = new RegExp(/(^[1-9][0-9]{5,9}$)|(^1[34578]\d{9}$)/);
+    var regCaptchaPart = new RegExp(/^[0-9]{6}$/);
+    var captchaInterval;//验证倒计时
+    var getCodeType;
+    var getCodeMap = {
+        "login": {name:"新手礼包","tip":$(".login-gift-zone .sub").html()},
+        "privilege": {name:"特权礼包","tip":$(".share-zone .share-gift-zone .sub").html()},
+        "unique": {name:"独家礼包","tip":$(".share-zone2 .share-gift-zone .sub").html()}
+    };
+    // 分享相关
+    var share_link = setParameterByName("code",$("#share_code").val()||"");
+    var share_title = $('title').html();
+    var share_desc = $('meta[name=description]').attr("content");
+    var share_summary = $('meta[name=description]').attr("content");
+    var share_img = $(".share-img-wrapper img").attr("src");
+    var hash = $('#pagehash').val();
+    var clipboardGift; //礼包码复制
+    var deviceInfo = commonM.browserRel && commonM.browserRel() || {};
+    copySet();
+    // 分享链接
+    shareConInit(share_title, share_desc, share_link, share_summary, share_img);
+    $(window).load(function() {
+        pageBgSize();
+        slideInterval = setInterval(function() {
+            curSlide < imgUlLen ? curSlide++ : curSlide = 0;
+            slideControl(curSlide);
+        }, 2000);
+        addVideo();
+    });
+    // 点击视频遮罩层开始播放视频
+    $("body").on("click", ".poster", function(e) {
+        $(e.target).hide();
+        video.play();
+    });
+
+    // 点击页面上领取礼包
+    $("body").on("click", ".btn-get-go", function(e) {
+        if (!userId) {
+            popControl(".pop-bg-small", ".to-login-pop", "登录")
+        }
+        else {
+            getCodeType = $(e.target).data("type");
+            loadingToggle(true);
+            commonM.ajax({
+                url: "/website.php?act=lhrg_draw_gift",
+                type: "post",
+                data: {
+                    pagehash: hash,
+                    user_id: userId,
+                    act_id: actId,
+                    type: getCodeType
+                },
+                dataType: "text",
+                success: function (res) {
+                    loadingToggle(false);
+                    var code = res.code;
+                    var data = res.data;
+                    var type = res.type;
+                    // type: login 登录礼包， share 分享礼包
+                    //  code 0：未登录；1:有礼包码；2：不能领取，处于未分享或分享未被点击；3：礼包被抢光或活动结束，其他：异常
+                    if (code == 0) {
+                        popControl(".pop-bg-small", ".to-login-pop", "登录");
+                    } else if (code == 1) {
+                        var giftCode = res.giftCode;
+                        popControl(".pop-bg-small", ".fetch-gift-pop", "提示");
+                        $(".pop-bg-small .msg-title").html("恭喜你已成功领取了" + (getCodeMap[type] && getCodeMap[type]["name"]) + "!");
+                        $(".pop-bg-small .msg-con").html('礼包码为：<span class="code">' + giftCode + '</span><br/>请尽快在游戏内，进行兑换');
+                        $('.gift-code-zone[data-type="' + type + '"] .already').html('<span class="btn-copy" data-clipboard-text="' + giftCode + '">礼包码：' + giftCode + '</span>').addClass("active").siblings().removeClass("active");
+                        copySet();
+                    } else if (code == 2) {
+                        popControl(".pop-bg-small", ".fetch-gift-pop", "提示");
+                        $(".pop-bg-small .msg-title").html("很抱歉你还不符合领取条件~ ");
+                        $(".pop-bg-small .msg-con").html((getCodeMap[type] && getCodeMap[type]["tip"]));
+                    } else if (code == 3) {
+                        popControl(".pop-bg-small", ".fetch-gift-pop", "提示");
+                        $(".pop-bg-small .msg-title").html("");
+                        $(".pop-bg-small .msg-con").html(res.msg)
+                    } else {
+                        briefTipControl(res.msg);
+                    }
+                },
+                error: function (res2) {
+                    loadingToggle(false);
+                    briefTipControl("请求出错：" + res2.status + "," + res2.statusText);
+                }
+            })
+        }
+    })
+
+
+
+    // 填好表单后点击登录
+    $("body").on("click", ".go-login-can", function() {
+        var resData = checkInput({
+            ".tel-input": "mobile",
+            ".captcha-input": "sms_code"
+        });
+        resData.res['pagehash'] = hash;
+        resData.res['code'] = code;
+        if(resData.pass) {
+            loadingToggle(true);
+            // 请求登录过后直接刷页面
+            commonM.ajax({
+                url: "/website.php?act=login_secret",
+                type: "post",
+                dataType: "text",
+                data: resData.res,
+                success: function (res) {
+                    loadingToggle(false);
+                    if (res.code == 1) {
+                        window.history.pushState("", "", setParameterByName("code",res.share_code));
+                        window.location.reload();
+                    }
+                    if (res.msg) {
+                        briefTipControl(res.msg);
+                    }
+                },
+                error: function (res2) {
+                    loadingToggle(false);
+                    briefTipControl("请求出错：" + res2.status + "," + res2.statusText);
+                }
+            })
+        }
+    });
+    // 点击页头登录跳登录弹窗
+    $(".log-in-link").on("click", function() {
+        popControl(".pop-bg-small", ".to-login-pop", "登录")
+    })
+    // 获取验证码
+    $("body").on("click", ".to-get-captcha", function() {
+        if(!regContact.test($(".tel-input:visible").val())) {
+            briefTipControl("请填写正确的手机号码！");
+            $(".captcha-tip").removeClass("to-get-captcha");
+            setTimeout(function() {
+                $(".captcha-tip").addClass("to-get-captcha");
+            }, 2000);
+        }
+        else {
+            $(".captcha-tip").removeClass("to-get-captcha").html('<span class="count-time">120</span>s后获取');
+            var countDownRest = 120;
+            clearInterval(captchaInterval);
+            captchaInterval = setInterval(function() {
+                if(countDownRest > 1) {
+                    countDownRest--;
+                    $(".count-time").html(countDownRest)
+                }
+                else {
+                    $(".captcha-tip").html("获取验证码").addClass("to-get-captcha");
+                    clearInterval(captchaInterval)
+                }
+
+            }, 1000);
+            var phone = $(".tel-input:visible").val();
+            commonM.ajax({
+                url: "/website.php?act=sms_code_secret",
+                type: "post",
+                data: {
+                    mobile: phone,
+                    pagehash: hash
+                },
+                dataType: "text",
+                success: function(res) {
+                    briefTipControl(res.msg);
+                },
+                error: function(res2) {
+                    briefTipControl("请求出错：" + res2.status + "," + res2.statusText);
+                    clearInterval(captchaInterval);
+                    $(".captcha-tip").html("获取验证码").addClass("to-get-captcha");
+                }
+            })
+        }
+    });
+    // 点击取消弹窗
+    $("body").on("click", ".cancel-share-btn, .cancel-btn, .close-pop, link-copy-btn", function() {
+        $(".mask").hide();
+    });
+    $("body").on("click", ".link-download-game, .link-download-app", function(e) {
+        if(isMobileIOS()) {
+            e.preventDefault();
+            briefTipControl("暂无苹果版app,此为安卓版~")
+        } else if(deviceInfo.os == 'Android' && isWeixinBrowser()) {
+            e.preventDefault();
+            $(".wx-open-other-mask").show();
+        }
+    });
+    // 点击页面上的分享
+    $("body").on("click", ".share-btn", function() {
+        if(!userId) {
+            popControl(".pop-bg-small", ".to-login-pop", "登录")
+        }
+        else {
+            if(deviceInfo.os == "Android" || deviceInfo.os == "iOS") {
+                window.history.pushState("", "", share_link);
+                var a = commonM.maskPos && commonM.maskPos() || {};
+                if (a.pos) {
+                    $(".share-mask ." + a.pos).show().siblings().hide();
+                } else {
+                    $(".share-mask .bottomCenter").show().siblings().hide();
+                }
+                $(".mask").hide();
+                $(".share-mask").show();
+            } else {
+                sharePopControl();
+            }
+
+//            alert("所在浏览器："+a.browser);
+        }
+    });
+    // 点击引导分享图层
+    $("body").on("click", ".share-mask", function(e) {
+        $(e.currentTarget).hide();
+    });
+    // 点击引导其他浏览器打开图层
+    $("body").on("click", ".wx-open-other-mask", function(e) {
+        $(e.currentTarget).hide();
+    });
+    // 添加视频
+    function addVideo() {
+        if($(".video-zone").length > 0) {
+            var con = '<img class="poster" src="' + maskSrc + '" alt="">'
+                +'<video width="100%" height="100%" style="object-fit:fill;z-index: 10" controls="controls"'
+                +'webkit-playsinline playsinline id="video" src="' + videoSrc + '">not support</video>';
+            $(".video-zone").html(con);
+            video = document.getElementById("video");
+            $(".video-zone").css("height", $(".video-zone").width()*0.5625);
+        }
+    }
+    // 礼包码复制
+    function copySet() {
+        clipboardGift && clipboardGift.destroy();
+        clipboardGift = new Clipboard(".btn-copy"); //链接复制功能
+        clipboardGift.on('success', function(e) {
+            briefTipControl("礼包码: " + e.text + " 已复制");
+            e.clearSelection();
+        });
+        clipboardGift.on('error', function(e) {
+            briefTipControl("暂无复制权限，请手动长按复制~");
+            e.clearSelection();
+        });
+    }
+</script>
+
+<script src="//cdn.66173.cn/mobile/v2/scripts/share_tenxun_co.js?t=3"></script>
+<script type="text/javascript">
+    var noncestr = $("#noncestr").val();
+    var timestamp = $("#timestamp").val();
+    var signature = $("#signature").val();
+    setShareInfo({
+        title: share_title,
+        summary: share_desc,
+        pic: share_img,
+        url: share_link,
+        WXconfig:       {
+            swapTitleInWX: true,
+            appId: 'wxbaed68c7f2f3a62c',
+            timestamp: timestamp,
+            nonceStr: noncestr,
+            signature: signature,
+            debug: true
+        },
+        callback: function() {
+            briefTipControl("分享成功！");
+        },
+        judgeLoginFunc: function() {
+            if(!userId) {
+                alert("登录后的分享链接才有效哦~");
+            }
+        }
+    });
+</script>
+{/literal}
+</html>

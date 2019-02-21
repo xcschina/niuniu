@@ -1,0 +1,38 @@
+<div class="bjui-pageHeader">
+    <form id="pagerForm" action="game_info.php?act=game_list" method="post" data-toggle="ajaxsearch">
+        <div class="bjui-searchBar">
+            <a href="7881.php?act=refresh" class="btn btn-green" data-toggle="navtab" data-title="7881">重新拉取</a>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th width="12">No.</th>
+            <th width="160">7881游戏</th>
+            <th width="100">系统游戏</th>
+            <th width="120">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=data from=$list}
+        <tr align="center">
+            <td>{$data.id}</td>
+            <td>{$data.game_name}【{$data.products}】</td>
+            <td>{if $data.sys_game_id eq 0}未绑定{else}
+                <span class="text-success">{$data.sys_name}</span>
+                {/if}
+            </td>
+            <td>
+                <a href="7881.php?act=edit&id={$data.id}" class="btn btn-green" data-toggle="dialog" data-mask="true" data-width="500"  data-height="200" data-title="游戏详情">编辑</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<!--<div class="bjui-pageFooter">-->
+    <!--<div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>-->
+    <!--<div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>-->
+<!--</div>-->

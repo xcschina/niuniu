@@ -1,0 +1,49 @@
+<div class="bjui-pageContent">
+    <form action="game_info.php?act=do_config_save"  data-toggle="validate" data-alertmsg="false" method="post">
+        <input type="hidden" name="id" value="{$game_info.id}">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr><td><label  class="control-label x120">APP ID：</label><span class="green">{$game_info.id}</span></td></tr>
+            <tr><td><label  class="control-label x120">APP KEY：</label><span class="green">{$game_info.app_key}</span></td></tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">服务器接口URL：</label>
+                    <input type="text" name="api_serv_url" value="{$game_info.api_serv_url}" cols="30" rows="1"  class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">账号授权URL：</label>
+                    <input type="text" name="api_auth_url" value="{$game_info.api_auth_url}" cols="30" rows="1"  class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">用户挂单接口URL：</label>
+                    <input type="text" name="api_put_order_url" value="{$game_info.api_put_order_url}" cols="30" rows="1"  class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">2c订单接口：</label>
+                    <input type="text" name="api_2c_order_url" value="{$game_info.api_2c_order_url}" cols="30" rows="1"  class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">2b订单接口：</label>
+                    <input type="text" name="api_2b_order_url" value="{$game_info.api_2b_order_url}" cols="30" rows="1"  class="form-control">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+
+

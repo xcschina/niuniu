@@ -1,0 +1,54 @@
+<script type="text/javascript">
+    $(function(){
+        $("select[name=game_id]").chosen();
+    })
+</script>
+<div class="bjui-pageContent">
+    <form action="products_info.php?act=do_import"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">游戏：</label>
+                    <select name="game_id"  data-rule="required">
+                        <option value="">请选择</option>
+                        {foreach from=$game_list item=game}
+                        <option value="{$game.id}">{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">商品类型：</label>
+                    <select name="type"   data-toggle="selectpicker">
+                        <option value="">请选择</option>
+                        <option value="1">首充号</option>
+                        <option value="2">首充号续充</option>
+                        <option value="3">代充</option>
+                        <option value="4">账号</option>
+                        <option value="5">游戏币</option>
+                        <option value="6">道具</option>
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">导入文件：</label>
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="products.click()">选择文件</button>
+                    <input type="file" name="products" style="display: none;" onchange="products_import.value=value"/>
+                    <input type="text" name="products_import" placeholder="None file" class="form-control" size="15" readonly/>&nbsp;
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+
+

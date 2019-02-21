@@ -1,0 +1,83 @@
+<script type="text/javascript">
+    $(function(){
+        $("select[name=first_letter]").chosen();
+        $("select[name=game_id]").chosen();
+    })
+</script>
+<div class="bjui-pageHeader">
+    <form id="pagerForm" action="game_activity.php?act=activity_info" method="post" data-toggle="ajaxsearch">
+        <div class="bjui-searchBar">
+            <a href="game_activity.php?act=add_activity_view" class="btn btn-green" data-toggle="navtab" data-id="add_activity_view" data-title="活动新建">新建</a>
+            <label>游戏名：</label>&nbsp;
+            <select name="game_id" style="width:200px">
+                <option value="" {if $params.game_id == ''}selected="selected"{/if}>请选择</option>
+                {foreach from=$game_list item=play}
+                <option value="{$play.id}" {if $params.game_id eq $play.id}selected="selected"{/if}>{$play.game_name}</option>
+                {/foreach}
+            </select>
+            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th width="12">No.</th>
+            <th width="160">活动名称</th>
+            <th width="120">关联游戏</th>
+            <th width="120">关联礼包</th>
+            <th width="120">关联优惠券</th>
+            <th width="120">pc背景图</th>
+            <th width="120">M站背景图</th>
+            <th width="100">下载地址</th>
+            <th width="160">开始时间</th>
+            <th width="160">结束时间</th>
+            <th width="120">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=data from=$activity_list}
+        <tr align="center">
+            <td>{$data.id}</td>
+            <td>
+                {$data.activity_name}
+            </td>
+            <td>{$data.game_name}</td>
+            <td>{$data.gift}</td>
+            <td>{$data.coupon}</td>
+            <td>{if $data['pc_img']}
+                {$pc=explode(",",$data['pc_img'])}
+                {foreach from=$pc item=pc_img}
+                <img src="http://cdn.66173.cn{$pc_img}" width="50px" height="50px">
+                {/foreach}
+                {/if}
+            </td>
+            <td>
+                {if $data['m_img']}
+                {$m=explode(",",$data['m_img'])}
+                {foreach from=$m item=m_img}
+                <img src="http://cdn.66173.cn{$m_img}" width="50px" height="50px">
+                {/foreach}
+                {/if}
+            </td>
+            <td>
+                <a href="{$data.down_url}">点击下载</a>
+            </td>
+            <td>{'Y-m-d H:i:s'|date:$data.start_time}</td>
+            <td>
+                {'Y-m-d H:i:s'|date:$data.end_time}</td>
+            <td>
+                <a href="game_activity.php?act=game_activity_edit&id={$data.id}" class="btn btn-green" data-toggle="navtab"  data-height="550" data-id="game_activity_edit" data-title="游戏活动编辑">编辑</a>
+                <a type="button" href="game_activity.php?act=del_activity&id={$data.id}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要删除该行信息吗？">删除</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

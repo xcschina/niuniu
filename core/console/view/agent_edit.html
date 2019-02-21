@@ -1,0 +1,50 @@
+<div class="bjui-pageContent">
+    <form action="agent.php?act=do_edit&id={$info.id}"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td><label class="control-label x120">用户：</label>{$info.user_id} - {$info.nick_name} - {$info.mobile}</td>
+            </tr>
+            <tr>
+                <td><label  class="control-label x120">游戏：</label>{$info.game_name}</td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">商人状态：</label>
+                    <select name="is_agent">
+                        <option value="0"{if $info.is_agent eq 0} selected{/if}>关闭</option>
+                        <option value="1"{if $info.is_agent eq 1} selected{/if}>开启</option>
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">首冲号折扣：</label>
+                    <input type="text" name="discount_1" value="{$info.discount_1}" cols="18" rows="1"  class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">续充折扣：</label>
+                    <input type="text" name="discount_2" value="{$info.discount_2}" cols="18" rows="1"  class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">代充折扣：</label>
+                    <input type="text" name="discount_3" value="{$info.discount_3}" cols="18" rows="1"  class="form-control">
+                </td>
+            </tr>
+            <input type="hidden" name="id" value="{$info.id}">
+            <input type="hidden" name="user_id" value="{$info.user_id}">
+            <input type="hidden" name="game_id" value="{$info.game_id}">
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>

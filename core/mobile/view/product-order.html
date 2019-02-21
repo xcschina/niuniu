@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>{$info.title}-订单支付-支付宝</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/common.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/pay.css?t={rand(1,100000)}" media="screen" />
+</head>
+<body>
+<header class="page-header clearfix">
+    <h1 class="h1-txt">订单支付</h1>
+    <a href="javascript:history.back();" class="back-link"></a>
+    <a class="idv-link" href="/account.php?act=user_center"></a>
+</header>
+<form action="/pay/{$info.id}" method="post" name="payform">
+<div class="pay-con clearfix">
+    <section class="pay-info clearfix">
+        <ul class="pay-info-list clearfix">
+            <li><em>所买游戏</em><span>{$info.game_name}</span></li>
+            <li><em>商品名称</em><span>{$info.title}</span><i class="pay-spr-1"></i></li>
+            <li><em>所在区服</em><span>{$order.serv_name}</span></li>
+            <li><em>商品单价</em><span id="li_price">￥{$order.price}</span><span id="li_coupon_price"></span></li>
+            <li><em>购买数量</em><span>{$order.num}</span></li>
+            <li><em>订单总价</em><span id="li_original">￥{$order.price*$order.num}</span><span id="li_coupon_original"></span></li>
+        </ul>
+    </section>
+    <section class="pay-money clearfix">
+        <ul class="pay-money-list clearfix">
+            <li><em>总计金额</em><span id="original">￥{$order.price*$order.num}</span><span id="coupon_original"></span><i class="pay-spr-2"></i></li>
+        </ul>
+    </section>
+    <section style="margin: 30px 0;border-bottom: 1px solid #e6e6e6;border-top: 1px solid #e6e6e6;font-size: 16px;overflow:hidden;">
+        <div style="float: left;padding: 10px 0;">优惠券</div>
+        {if $user_coupon|@count > 0}
+        <a href="#" onclick="show_coupon();" style="float: right;padding: 10px 0;"><span id="coupon_num">当前{$user_coupon|@count}张优惠券可用</span><span id="coupon_name" style="display: none"></span></a>
+        {else}
+        <a style="float: right;padding: 10px 0;">无可用优惠券</a>
+        {/if}
+    </section>
+    <section class="pay-method clearfix">
+        <a class="pay-m-1 on" href="#;" rel="1"><i class="paym-icon-1"></i>支付宝支付<em>&nbsp;</em></a>
+        <!--<a class="pay-m-2" href="#;" rel="3"><i class="paym-icon-2"></i>手机充值卡支付<em>&nbsp;</em></a>
+        <a class="pay-m-3" href="#;" rel="4"><i class="paym-icon-3"></i>银联支付<em>&nbsp;</em></a>
+        <a class="pay-m-4" href="#;" rel="2"><i class="paym-icon-4"></i>易宝支付<em>&nbsp;</em></a>-->
+    </section>
+    <a class="pay-btn mt-10" href="#;" onclick="go_pay();">去支付</a>
+    <div class="pay-notice mt-10"><i class="pay-spr-3"></i>!请您在30分钟内完成订单支付，否则系统会自动取消您的订单。</div>
+    <div class="pay-help"><i class="pay-spr-4"></i>任何支付问题请拨打客服热线：<em>020-62334488</em></div>
+</div>
+    <div class="coupon_bg" id="coupon_bg"  {if $user_coupon|@count > 0}style="display: block;"{/if} >
+        <div class="coupon_div">
+            <a href="#" class="no_coupon">不使用优惠券</a>
+            {foreach from=$user_coupon item=data}
+            {if $data.type eq 1}
+            <a class="coupon_box bgc_blue" href="#">
+                <i></i>
+                <section class="coupon_bg_blue1"></section>
+                <section class="coupon_bg_blue2"></section>
+                <section class="coupon_info_box">
+                    <h3>{$data.name}</h3>
+                    <p>实付满{$data.total_amount}元打{$data.discount}折</p>
+                    <p>有效期:截止{$data.end_time|date_format:"Y.m.d"}</p>
+                </section>
+                <input type="hidden" name="coupon_name" value="{$data.name}">
+                <input type="hidden" name="payment" value="{$data.payment}">
+                <input type="hidden" name="discount_amount" value="{$data.discount_amount}">
+                <input type="hidden" name="coupon_id" value="{$data.logs_id}">
+            </a>
+            {elseif $data.type eq 2}
+            <a class="coupon_box bgc_red" href="#">
+                <i></i>
+                <section class="coupon_bg_red1"></section>
+                <section class="coupon_bg_red2"></section>
+                <section class="coupon_info_box">
+                    <h3>{$data.name}</h3>
+                    <p>实付满{$data.total_amount}元减{$data.discount_amount}元</p>
+                    <p>有效期:截止{$data.end_time|date_format:"Y.m.d"}</p>
+                </section>
+                <input type="hidden" name="coupon_name" value="{$data.name}">
+                <input type="hidden" name="payment" value="{$data.payment}">
+                <input type="hidden" name="discount_amount" value="{$data.discount_amount}">
+                <input type="hidden" name="coupon_id" value="{$data.logs_id}">
+            </a>
+            {/if}
+            {/foreach}
+            <input type="hidden" name="payment_amount" value="0">
+            <input type="hidden" name="pay_discount_amount" value="0">
+            <input type="hidden" name="pay_coupon_id"  value="0">
+        </div>
+    </div>
+    <input type="hidden" name="pay-channel" value="1" />
+    <input type="hidden" name="id" value="{$info.id}" />
+</form>
+{include file="include/footer.html"}
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+    !window.jQuery && document.write('<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"><\/script>');
+</script>
+<script type="text/javascript">
+    !window.jQuery && document.write('<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"><\/script>');
+</script>
+<script src="http://cdn.66173.cn/mobile/scripts/order.js"></script>
+{literal}
+<script type="text/javascript">
+    function show_coupon(){
+        $("#coupon_bg").show();
+    }
+    $(".coupon_box").click(function() {
+        var check=$(this).find('i').attr("class");
+        $("#coupon_bg i").each(function(i){
+            $(this).removeClass("is_check");
+            $("#li_price").show();
+            $("#li_original").show();
+            $("#original").show();
+            $("#coupon_num").show();
+            $("#coupon_name").hide();
+            $("#li_coupon_price").hide();
+            $("#coupon_original").hide();
+            $("#li_coupon_original").hide();
+            $("[name='payment_amount']").val(0);
+            $("[name='pay_discount_amount']").val(0);
+            $("[name='pay_coupon_id']").val(0);
+
+        });
+        if(check!='is_check'){
+            $(this).find('i').addClass("is_check");
+            var discount_amount = $(this).find("[name='discount_amount']").val();
+            var payment = $(this).find("[name='payment']").val();
+            var coupon_id = $(this).find("[name='coupon_id']").val();
+            var coupon_name = $(this).find("[name='coupon_name']").val();
+            $("#li_price").hide();
+            $("#li_original").hide();
+            $("#original").hide();
+            $("#coupon_num").hide();
+            $("#coupon_name").show();
+            $("#coupon_name").html('已选择"'+coupon_name+'"');
+            $("#li_coupon_price").show();
+            $("#coupon_original").show();
+            $("#li_coupon_original").show();
+            $("#li_coupon_price").html('￥'+payment +'元');
+            $("#coupon_original").html('￥'+payment +'元');
+            $("#li_coupon_original").html('￥'+payment +'元');
+            $("[name='payment_amount']").val(payment);
+            $("[name='pay_discount_amount']").val(discount_amount);
+            $("[name='pay_coupon_id']").val(coupon_id);
+        }
+        $("#coupon_bg").hide();
+    });
+    $(".no_coupon").click(function() {
+        $("#coupon_bg i").each(function(i){
+            $(this).removeClass("is_check");
+            $("#li_price").show();
+            $("#li_original").show();
+            $("#original").show();
+            $("#coupon_num").show();
+            $("#coupon_name").hide();
+            $("#li_coupon_price").hide();
+            $("#coupon_original").hide();
+            $("#li_coupon_original").hide();
+            $("[name='payment_amount']").val(0);
+            $("[name='pay_discount_amount']").val(0);
+            $("[name='pay_coupon_id']").val(0);
+        });
+        $("#coupon_bg").hide();
+    });
+</script>
+{/literal}
+</body>
+</html>

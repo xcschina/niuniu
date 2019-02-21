@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>用户中心-设置手机绑定-密码修改</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/common.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/peo.css" media="screen" />
+</head>
+
+<body>
+<header class="page-header clearfix">
+    <h1 class="h1-txt">密码修改</h1>
+    <a href="javascript:history.back();" class="back-link"></a><a class="idv-link" href="/account.php?act=user_center"></a>
+</header>
+<form action="account.php?act=do_modify_psw" method="post" id="modify_psw">
+    <section class="change-box clearfix">
+        <ul class="change-list change-list-2 clearfix">
+            <li>
+                <label class="ltit">旧密码</label>
+                <input class="input-txt" type="password" name="opassword" value="" placeholder="请输入旧密码" />
+            </li>
+            <li>
+                <label class="ltit">新密码</label>
+                <input type="password"  class="input-txt" placeholder="6-16位字符，区分大小写"  name="password" value="" />
+            </li>
+            <li>
+                <label class="ltit">重复密码</label>
+                <input class="input-txt" type="password" placeholder="重复输入密码" name="cpassword" value="" />
+            </li>
+            <div class="error_tip" id="error" {if $smarty.session.m_modify_p_error}style="display: block"{/if}>{$smarty.session.m_modify_p_error}</div>
+        </ul>
+        <a class="pb-btn" name="sub" >确认修改</a>
+    </section>
+</form>
+{include file="include/footer.html"}
+</body>
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+    !window.jQuery && document.write('<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"><\/script>');
+</script>
+</body>
+{literal}
+<script>
+    $("a[name=sub]").bind("click",function(){
+        $("#error").html("").hide();
+        var opass=$('input[name=opassword]').val();
+        var pass=$('input[name=password]').val();
+        var cpass=$('input[name=cpassword]').val();
+        if(opass.length==0){ $("#error").html("旧密码不能为空").show(); return;}
+        if(opass.length<6){ $("#error").html("旧密码不正确").show(); return;}
+        if(pass.length<6 || pass.length>18){$("#error").html("密码为字母和数字，支持大小写，长度6-18个字符").show(); return ;}
+        if(pass!=cpass){$("#error").html("两次密码不一致").show(); return;}
+        $("#modify_psw").submit();
+    })
+</script>
+{/literal}
+</html>

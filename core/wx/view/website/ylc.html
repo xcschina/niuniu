@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>登顶通天塔，赢魔石大奖！</title>
+    <meta name="description" content="牛果游乐场，英雄登顶通天，魔石抽奖等你来！" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/scripts/sdkYM/css/NNSDK3.css?t={$smarty.now}" />
+    <script src="//cdn.66173.cn/www/js/jquery-1.8.3.min.js"></script>
+    <script src="//cdn.66173.cn/mobile/scripts/sdk/js/jsencrypt.min.js?y=3"></script>
+    <script src="//cdn.66173.cn/mobile/scripts/sdk/js/md5.min.js?y=3"></script>
+    <script src="//cdn.66173.cn/mobile/scripts/sdkYM/js/nn_h5game_sdk_auto_screen.js?t={$smarty.now}"></script>
+    <script src="//cdn.66173.cn/mobile/scripts/sdkYM/js/nn_h5game_sdk_common.js?t={$smarty.now}"></script>
+</head>
+<body>
+<div class="brief-tip-pop"><div class="con"></div></div>
+<div style="display:none;"><img class="share-img" src="http://cdn.66173.cn/mobile/v2/css/img/qtzs/icon.png" alt=""/></div>
+<!--<div class="before-mask"><div class="tip"><span class="time">3</span>s<a class="go-game">进入游戏</a></div><img class="start-img" src="//cdn.66173.cn/mobile/scripts/sdk/img/start_km_cqll.png" alt=""></div>-->
+<div class="loading-mask"><img class="loading-img" src="//cdn.66173.cn/mobile/v2/css/img/loading_grey_bling.gif" alt=""></div>
+<div class="share-mask">
+    <div class="item topRight">
+        <div class="wx-share-arrow"><img src="http://cdn.66173.cn/mobile/v2/css/img/wx_share_arrow.png" alt=""></div>
+        <div class="wx-share-text"><img src="http://cdn.66173.cn/mobile/v2/css/img/wx_share_text.png" alt=""></div>
+    </div>
+    <div class="item bottomRight" style="font-size:0.5rem;color:red">
+        <div class="share-arrow"><img src="http://cdn.66173.cn/mobile/v2/css/img/share_bottom_right.png" alt=""></div>
+    </div>
+    <div class="item bottomCenter" style="font-size:0.5rem;color:red">
+        <div class="share-arrow"><img src="http://cdn.66173.cn/mobile/v2/css/img/share_bottom_center.png" alt=""></div>
+    </div>
+</div>
+<div class="mask">
+    <div class="pop-wrapper">
+        <div class="background-img pop-bg pop-stripe pop-stripe-red pop-stripe-red-fireworks">
+            <img class="close-pop" src="//cdn.66173.cn/mobile/scripts/sdkYA/img/btn_close_grey.png" alt="">
+            <div class="pop-top">
+                <img class="img-stripe img-stripe-red" src="//cdn.66173.cn/mobile/scripts/sdkYA/img/pop_stripe_red.png" alt="">
+                <div class="title">您已成功预定该奖品</div>
+            </div>
+            <div class="con">
+                <div class="block-order-prize">
+                    <img class="img-top" src="//cdn.66173.cn/mobile/scripts/sdkYA/img/img_happy_cow.png" alt="">
+                    <div class="tip-font-lg tip1">您已成功预定该奖品</div>
+                    <div class="tip-font-mder tip2">下载登录牛果app即可直接领取</div>
+                    <div class="btn-zone">
+                        <img class="btn btn-back-grey" src="//cdn.66173.cn/mobile/scripts/sdkYM/img/btn_back_grey.png" alt="" >
+                        <a class="btn btn-start-game" href=""><img class="" src="//cdn.66173.cn/mobile/scripts/sdkYM/img/btn_start_game.png" alt="" ></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pop-bg pop-stripe pop-stripe-grey pop-stripe-grey-small">
+            <img class="close-pop" src="//cdn.66173.cn/mobile/scripts/sdkYA/img/btn_close_grey.png" alt="">
+            <div class="pop-top">
+                <img class="img-stripe img-stripe-gray" src="//cdn.66173.cn/mobile/scripts/sdkYA/img/pop_stripe_grey.png" alt="">
+                <div class="title">您的积分不足</div>
+            </div>
+            <div class="con">
+                <div class="block-integral-lack">
+                    <img class="img-top" src="//cdn.66173.cn/mobile/scripts/sdkYA/img/img_sad_cow.png" alt="">
+                    <div class="tip-font-lg tip1">您的积分不足</div>
+                    <div class="tip-font-mder tip2">下载登录牛果APP，每日登录即送积分!</div>
+                    <div class="btn-zone">
+                        <img class="btn btn-back-grey" src="//cdn.66173.cn/mobile/scripts/sdkYM/img/btn_back_grey.png" alt="" >
+                        <a class="btn link-download-app" href=""><img class="" src="//cdn.66173.cn/mobile/scripts/sdkYM/img/btn_entry_charge.png" alt="" ></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pop-bg pop-stripe pop-stripe-red pop-stripe-red-small">
+            <img class="close-pop" src="//cdn.66173.cn/mobile/scripts/sdkYA/img/btn_close_grey.png" alt="">
+            <div class="pop-top">
+                <img class="img-stripe img-stripe-red" src="//cdn.66173.cn/mobile/scripts/sdkYA/img/pop_stripe_red.png" alt="">
+                <div class="title">绑定手机</div>
+            </div>
+            <div class="con">
+                <div class="block-bind-phone">
+                    <div class="pop-form-wrap">
+                        <div class="pop-form-line">
+                            <label>手机号&nbsp;:</label>
+                            <input type="tel" class="tel-input" placeholder=""/>
+                        </div>
+                        <div class="pop-form-line">
+                            <label>验证码&nbsp;:</label>
+                            <input type="number" class="captcha-input" placeholder=""/>
+                            <span class="captcha-tip to-get-captcha">获取验证码</span>
+                        </div>
+                        <img class="btn go-bind go-bind-can" src="//cdn.66173.cn/mobile/scripts/sdkYM/img/btn_go_bind.png"/>
+                        <div class="tip-font-md tip1">绑定后，您可直接使用手机登录牛果游戏</div>
+                    </div>
+                </div>
+                <div class="block-already-registered">
+                    <div class="tip-font-md tip1">您的手机号已注册了牛果游戏</div>
+                    <div class="tip-font-md tip2">是否直接登录？</div>
+                    <img class="btn btn-login-with-registered" src="//cdn.66173.cn/mobile/scripts/sdkYM/img/btn_login_with_the_phone.png"/>
+                    <img class="btn btn-bind-another-phone" src="//cdn.66173.cn/mobile/scripts/sdkYM/img/btn_entry_bind_another_phone.png"/>
+                    <img class="btn btn-still-visitor" src="//cdn.66173.cn/mobile/scripts/sdkYM/img/btn_still_visitor.png"/>
+                </div>
+                <div class="block-login">
+                    <div class="pop-form-wrap">
+                        <div class="pop-form-line">
+                            <label>手机号&nbsp;:</label>
+                            <input type="tel" class="tel-input" placeholder=""/>
+                        </div>
+                        <div class="pop-form-line">
+                            <label>验证码&nbsp;:</label>
+                            <input type="number" class="captcha-input" placeholder=""/>
+                            <span class="captcha-tip to-get-captcha">获取验证码</span>
+                        </div>
+                        <img class="btn go-login go-login-can" src="//cdn.66173.cn/mobile/scripts/sdkYM/img/btn_login_with_phone.png"/>
+                        <div class="tip-font-md tip1">*新用户手机登录即可直接注册成功</div>
+                        <img class="btn go-visitor" src="//cdn.66173.cn/mobile/scripts/sdkYM/img/btn_login_with_visitor.png"/>
+                    </div>
+                </div>
+                <div class="block-open-in-wechat">
+                    <div class="scan-zone">
+                        <div id="qrcode" class="qr-img"></div>
+                        <div class="desc">请使用微信打开网页</div>
+                    </div>
+                    <div class="tip-font-md tip1">(手机截图二维码后，使用微信扫一扫打开截图)</div>
+                    <img class="btn back" src="//cdn.66173.cn/mobile/scripts/sdkYM/img/btn_back_light.png"/>
+                </div>
+                <div class="block-wechat-first">
+                    <div class="tip-font-md tip1">亲爱的玩家，游客模式下无法保障游戏数据的安全，清空缓存、更换设备等都有可能被清除</div>
+                    <div class="tip-font-md tip2">为了保障您的财产安全，强烈建议您：</div>
+                    <img class="btn btn-entry-bind-phone" src="//cdn.66173.cn/mobile/scripts/sdkYM/img/btn_entry_bind_phone.png"/>
+                    <img class="btn btn-login-with-visitor" src="//cdn.66173.cn/mobile/scripts/sdkYM/img/btn_still_visitor.png"/>
+                </div>
+            </div>
+        </div>
+        <div class="pop-bg pop-stripe pop-stripe-red pop-stripe-red-large">
+            <img class="close-pop" src="//cdn.66173.cn/mobile/scripts/sdkYA/img/btn_close_grey.png" alt="">
+            <div class="pop-top">
+                <img class="img-stripe img-stripe-red" src="//cdn.66173.cn/mobile/scripts/sdkYA/img/pop_stripe_red.png" alt="">
+                <div class="title">幸福福地</div>
+            </div>
+            <div class="con">
+                <div class="block-prize">
+                    <div class="prize-list">
+                        {foreach item=data from=$goods_list}
+                        <div class="item">
+                            <div class="left">
+                                <img class="icon" src="//cdn.66173.cn{$data.app_icon}" alt="" >
+                                <div class="text-overflow goods-name">{$data.good_name}</div>
+                            </div>
+                            <span class="background-img btn-go-prize" data-goodsid="1">{$data.consume}积分抽</span>
+                        </div>
+                        {/foreach}
+                    </div>
+                    <div class="get-more-prize">更多奖品&gt;&gt;</div>
+                </div>
+            </div>
+        </div>
+        <div class="pop-bg pop-pure pop-pure-small">
+            <a href="" class="close-pop">x</a>
+            <div class="con">
+                <div class="block-more-game">
+                    <div class="tip-font-mder tip1">下载牛果APP，体验更多好玩的游戏</div>
+                    <div class="tip-font-mder tip2">每日登录还可送积分哦！</div>
+                    <div class="btn-zone">
+                        <img class="btn btn-download-later" src="//cdn.66173.cn/mobile/scripts/sdkYM/img/btn_download_later.png" alt="" >
+                        <a class="btn link-download-app" href=""><img class="" src="//cdn.66173.cn/mobile/scripts/sdkYM/img/btn_download_app.png" alt="" ></a>
+                    </div>
+                </div>
+                <div class="block-quit">
+                    <div class="tip-font-mder tip1">退出当前账号？</div>
+                    <div class="btn-zone">
+                        <img class="btn btn-cancel" src="//cdn.66173.cn/mobile/scripts/sdkYM/img/btn_cancel.png" alt="" >
+                        <img class="btn go-quit" src="//cdn.66173.cn/mobile/scripts/sdkYM/img/btn_ensure.png" alt="" >
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pop-bg pop-pure pop-pure-large">
+            <div class="con">
+                <div class="block-open-in-m">
+                    <img class="img-top" src="//cdn.66173.cn/mobile/scripts/sdkYM/img/img_use_mobile.png" alt="">
+                    <div class="tip-font-md tip1">浏览器输入网址：<a class="m-address" target="_blank"></a></div>
+                    <div class="tip-font-md tip2">(手机扫描二维码可直接打开网页)</div>
+                    <div id="qrcode2" class="qr-img"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="touchZone">
+    <img class="btn-float-main" src="//cdn.66173.cn/mobile/scripts/sdkYM/img/btn_float_main.png" alt="" >
+    <div class="float-sub float-more-zone"><img class="btn-float-more" src="//cdn.66173.cn/mobile/scripts/sdkYM/img/btn_float_more.png" alt=""><span class="text">更多游戏</span></div>
+    <div class="float-sub float-prize-zone"><img class="btn-float-prize" src="//cdn.66173.cn/mobile/scripts/sdkYM/img/btn_float_prize.png" alt=""><span class="text">积分抽奖</span></div>
+    <div class="float-sub float-quit-zone"><img class="btn-float-quit" src="//cdn.66173.cn/mobile/scripts/sdkYM/img/btn_float_quit.png" alt=""><span class="text">退出账号</span></div>
+</div>
+<div id="gameFrameDiv"></div>
+
+<input type="hidden" id="mAddress" value="">
+<input type="hidden" id="registerTime" value="{'Y-m-d H:i:s'|date:$user_info.reg_time}">
+<input type="hidden" id="mobile" value="{$mobile}">
+<input type="hidden" id="userId" value="{$user_info.user_id}">
+<input type="hidden" id="userName" value="{$user_info.nick_name}">
+<input type="hidden" id="token" value="{$token}">
+<input type="hidden" id="channel" value="{$channel}">
+<input type="hidden" id="appId" value="{$app_id}">
+<input type="hidden" id="gameUrl" value="{$game_info.version_url}">
+<input type="hidden" id="ifdu" value="{$if_du}">
+<input type="hidden" id="img" value="{$img}">
+<input type="hidden" id="sex" value="{$sex}">
+<input type="hidden" id="integral" value="{$user_info.integral}">
+<input type="hidden" id="relationId" value="{$game_info.relation_id}">
+</body>
+<script src="//cdn.66173.cn/mobile/scripts/sdkYM/js/nn_h5game_sdk_self.js?t={$smarty.now}"></script>
+<script src="//cdn.66173.cn/mobile/scripts/sdkYM/js/nn_h5game_sdk_cp.js?t={$smarty.now}"></script>
+<script type="text/javascript" >
+    window._du = $("#ifdu").val() == 1 ? true : false;
+</script>
+<script>
+//    c(10);
+    function c(i) {
+        switch (i) {
+            case 0:
+                commonS.popControl(".pop-stripe-red-small", ".block-open-in-wechat", "请使用微信打开网页", true);
+                break;
+            case 1:
+                commonS.popControl(".pop-stripe-red-small", ".block-login", "登录牛果账号", true);
+                break;
+            case 2:
+                commonS.popControl(".pop-stripe-red-small", ".block-bind-phone", "绑定手机");
+                break;
+            case 3:
+                commonS.popControl(".pop-pure-small", ".block-more-game");
+                break;
+            case 4:
+                commonS.popControl(".pop-pure-small", ".block-quit");
+                break;
+            case 5:
+                commonS.popControl(".pop-stripe-red-large", ".block-prize", "幸福福地");
+                break;
+            case 6:
+                commonS.popControl(".pop-stripe-red-fireworks", ".block-order-prize", "您已成功预定该奖品");
+                break;
+            case 7:
+                commonS.popControl(".pop-stripe-grey-small", ".block-integral-lack", "积分不足");
+                break;
+            case 8:
+                commonS.popControl(".pop-pure-large", ".block-open-in-m");
+                break;
+            case 9:
+                commonS.popControl(".pop-stripe-red-small", ".block-wechat-first", "温馨提示", true);
+                break;
+            case 10:
+                commonS.popControl(".pop-stripe-red-small", ".block-already-registered", "温馨提示");
+                break;
+        }
+    }
+</script>
+</html>
+
+
+
+

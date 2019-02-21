@@ -1,0 +1,80 @@
+<script type="text/javascript">
+    $(function(){
+        $("select[name=game_id]").chosen();
+        $("select[name=theme_id]").chosen();
+    })
+</script>
+<div class="bjui-pageHeader">
+    <form id="pagerForm" action="activity.php?act=pop_list" method="post" data-toggle="ajaxsearch">
+        <div class="bjui-searchBar">
+            <a href="activity.php?act=pop_add" class="btn btn-green" data-toggle="navtab" data-id="activity_pop_add" data-title="弹屏活动新建">新建</a>
+            <label>关联游戏：</label>&nbsp;
+            <select name="game_id" style="width:200px">
+                <option value="" {if $params.game_id == ''}selected="selected"{/if}>请选择</option>
+                {foreach from=$game item=play}
+                <option value="{$play.id}" {if $params.game_id eq $play.id}selected="selected"{/if}>{$play.game_name}-{$play.id}</option>
+                {/foreach}
+            </select>
+            <label>主题名称：</label>&nbsp;
+            <select name="theme_id" style="width:200px">
+                <option value="" {if $params.theme_id == ''}selected="selected"{/if}>请选择</option>
+                {foreach from=$theme_list item=theme}
+                <option value="{$theme.id}" {if $params.theme_id eq $theme.id}selected="selected"{/if}>{$theme.m_title}-{$theme.id}</option>
+                {/foreach}
+            </select>
+            <label>活动时间：</label>
+            <input type="text" name="start_time" data-toggle="datepicker" data-pattern="yyyy-MM-dd" value="{$params.start_time}" placeholder="开始时间">-
+            <input type="text" name="end_time" data-toggle="datepicker" data-pattern="yyyy-MM-dd" value="{$params.end_time}" placeholder="结束时间">
+            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th width="12">No.</th>
+            <th width="160">活动标题</th>
+            <th width="120">弹屏图片</th>
+            <th width="100">类型</th>
+            <th width="100">开始时间</th>
+            <th width="100">结束时间</th>
+            <th width="100">关联游戏</th>
+            <th width="100">活动地址</th>
+            <th width="200">主题名称</th>
+            <th width="100">活动状态</th>
+            <th width="120">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=data from=$data_list}
+        <tr align="center">
+            <td>{$data.id}</td>
+            <td>
+                {$data.title}
+            </td>
+            <td><img src="http://cdn.66173.cn{$data.img}" width="100px" height="50px"></td>
+            <td>{if ($data.type==1) &&($data.is_disc==1)}文章详情页{elseif $data.type==1}礼包详情页{elseif $data.type==2}活动页
+                {elseif $data.type==3}主题页{elseif $data.type==4}推荐手游详情页{/if}</td>
+            <td>{$data.start_time|date_format:'%Y-%m-%d'}</td>
+            <td>{$data.end_time|date_format:'%Y-%m-%d'}</td>
+            <td>{$data.game_name}</td>
+            <td>
+               {if $data.url} <a href="{$data.url}" target="_blank">点击链接</a>{/if}
+            </td>
+            <td>{if $data.m_title}{$data.m_title}{/if}</td>
+            <td>{if $data.status eq '0'}运行中{elseif $data.status eq '1'}<span style="color:red">停止</span>{/if}</td>
+            <td>
+                <a href="activity.php?act=pop_edit&id={$data.id}" class="btn btn-green" data-toggle="navtab"  data-height="550" data-id="pop_edit" data-title="活动编辑">编辑</a>
+                <a type="button" href="activity.php?act=del_pop&id={$data.id}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要删除该活动吗？">删除</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

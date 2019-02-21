@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>魔石确认订单</title>
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/confirm_paylist.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/comment.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+</head>
+<body>
+<div class="page_top2">
+    <div class="page_top_left2">
+        <img class="margin_two" src="//cdn.66173.cn/mobile/trading/image/index_image/back.png" alt="">
+    </div>
+    <div class="page_top_center2">
+        确认订单
+    </div>
+    <a class="page_top_right2" href="/moyu">
+        <span class="login_my">
+            <img class="page_top_r_img" src="//cdn.66173.cn/mobile/trading/image/person_center/index2.png" alt="">
+        </span>
+    </a>
+</div>
+
+<div class="comfirm_top">
+    <div class="comfirm_top_t">
+        <div class="comfirm_top_title">
+            请确认订单信息
+        </div>
+    </div>
+
+    <div class="comfirm_top_c">
+        <li><span class="span1">所属游戏：</span> <span class="span2">{$info.game_name}</span> </li>
+        <li><span class="span1">商品类型：</span> <span class="span2">{if $info.type eq '4'}账号{elseif $info.type eq '5'}游戏币{elseif $info.type eq '6'}道具{/if}</span> </li>  <!--此处分为三种订单状态需判断哪个显示-->
+        <li><span class="span1">适用系统：</span> <span class="span2">{if $info.platform eq '2'}IOS{else}安卓{/if}</span> </li>
+        <li><span class="span1"><span style="visibility: hidden">空</span>客户端： </span> <span class="span2"> {$info.channel_name}</span></li>
+        <li><span class="span1"><span style="visibility: hidden">空</span>服务器：  </span> <span class="span2">{if $info.serv_id eq 0 }全区全服{else}{$info.serv_name}{/if}</span> </li>
+    </div>
+    <div class="pay_list_detailed">
+        <div class="comfirm_top_t">
+            <div class="comfirm_top_title">
+                填写购买信息
+            </div>
+        </div>
+        <div class="comfirm_top_xinxi">
+            <li class="message_li">
+                <div class="message_title"><img class="icon_star" src="//cdn.66173.cn/mobile/trading/image/pay_image/star.png" alt=""><span class="duiqi">手机号</span></div>
+                <div class="input"><input class="input_i mobile" type="text" placeholder="请输入您的手机号"></div>
+            </li>
+            <li class="message_li">
+                <div class="message_title"><img class="icon_star" src="//cdn.66173.cn/mobile/trading/image/pay_image/star.png" alt=""><span class="duiqi">联系QQ</span></div>
+                <div class="input"><input class="input_i qqq_q" type="text" placeholder="请输入您的QQ号"></div>
+            </li>
+            {if $info.type eq '5' || $info.type eq '6'}
+            <li class="message_li">
+                <div class="message_title"><img class="icon_star" src="//cdn.66173.cn/mobile/trading/image/pay_image/star.png" alt=""><span class="duiqi">角色名</span></div>
+                <div class="input"><input class="input_i role_name" type="text" placeholder="请输入您的角色名"></div>
+            </li>
+            <li class="message_li">
+                <div class="message_title"><img class="icon_star" src="//cdn.66173.cn/mobile/trading/image/pay_image/star.png" alt=""><span class="duiqi">职业</span></div>
+                <div class="input">
+                    <select class="input_i job" name="" >
+                        <option value="亡灵巫师">亡灵巫师</option>
+                        <option value="战士">战士</option>
+                        <option value="魔法师">魔法师</option>
+                        <option value="异能者">异能者</option>
+                        <option value="血族">血族</option>
+                        <option value="黑暗龙骑">黑暗龙骑</option>
+                    </select>
+                </div>
+            </li>
+            {/if}
+            {if $info.type eq '5'}
+            <li class="message_li">
+                <div class="message_title"><img class="icon_star" src="//cdn.66173.cn/mobile/trading/image/pay_image/star.png" alt=""><span class="duiqi">性别</span></div>
+                <div class="input">
+                    <select class="input_i sex" name="" >
+                        <option value="1">男</option>
+                        <option value="2">女</option>
+                    </select>
+                </div>
+            </li>
+            {if $info.serv_id eq 0}
+            <li class="message_li">
+                <div class="message_title"><img class="icon_star" src="//cdn.66173.cn/mobile/trading/image/pay_image/star.png" alt=""><span class="duiqi">服务器</span></div>
+                <div class="input">
+                    <select class="input_i service_id" name="" >
+                        <option value="">请选择您的服务器</option>
+                        {foreach from=$service_list item=list}
+                        <option value="{$list.id}">{$list.serv_name}</option>
+                        {/foreach}
+                    </select>
+                </div>
+            </li>
+            {/if}
+            {/if}
+        </div>
+    </div>
+    <div class="pay_list_detailed">
+        <div class="comfirm_top_t">
+            <div class="comfirm_top_title">
+                支付清单
+            </div>
+        </div>
+        <div class="comfirm_top_qindan">
+            <div class="detailed_list">
+                {if $info.type eq '4'}
+                <li class="detailed_li">
+                    <div class="item_li1">
+                        <img class="icon_star" src="//cdn.66173.cn/mobile/trading/image/pay_image/star.png" alt=""><span class="duiqi2">购买数量</span>
+                    </div>
+                    <div class="item_li2">
+                        <input class="numnum" disabled value="1">
+                    </div>
+                </li>
+                {else}
+                <li class="detailed_li">
+                    <div class="item_li1">
+                        <img class="icon_star" src="//cdn.66173.cn/mobile/trading/image/pay_image/star.png" alt=""><span class="duiqi2">购买数量</span>
+                    </div>
+                    <div class="item_li2"><span class="reduce">-</span>
+                        <input type="number" class="numnum" id="num" value="1">
+                        <span class="add">+</span>
+                    </div>
+                </li>
+                {/if}
+                <li class="detailed_li">
+                    <div class="item_li1">
+                        <div class="item_li1_div"></div><span class="duiqi2">商品价格</span>
+                    </div>
+                    <div class="item_li2"><span class="price" style="color:black">{$info.price}</span><span style="color:black">元</span></div>
+                </li>
+                <li class="detailed_li">
+                    <div class="item_li1">
+                        <div class="item_li1_div"></div><span class="duiqi2">实际支付</span>
+                    </div>
+                    <div class="item_li2"><span style="color: #fc311e">￥</span><span class="color"><span class="num_all">{$info.price}</span> </span></div>
+                </li>
+            </div>
+        </div>
+    </div>
+    <div class="pay_list_detailed">
+        <div class="comfirm_top_t">
+            <div class="comfirm_top_title">
+                支付方式
+            </div>
+        </div>
+        <div class="comfirm_top_pay">
+            <div class="itempay1 aaa" onclick="aaa()">
+                <label class="itempay_div1"><img class="pay_img" src="//cdn.66173.cn/mobile/trading/image/pay_image/alipy.png" alt=""><span class="pay_way">支付宝支付</span></label>
+                <div class="itempay_div2">
+                    <img class="cheeck_img_img" src="//cdn.66173.cn/mobile/trading/image/pay_image/choose.png" alt="">
+                    <img class="cheeck_img_img2" src="//cdn.66173.cn/mobile/trading/image/pay_image/u_choose.png" alt="">
+                </div>
+            </div>
+            <!--<div class="itempay1 bbb" onclick="bbb()">-->
+                <!--<label class="itempay_div1"><img class="pay_img" src="//cdn.66173.cn/mobile/trading/image/pay_image/weixin.png" alt=""><span class="pay_way">微信支付</span></label>-->
+                <!--<div class="itempay_div2">-->
+                    <!--<img class="cheeck_img_img3 yyy" src="//cdn.66173.cn/mobile/trading/image/pay_image/choose.png" alt="">-->
+                    <!--<img class="cheeck_img_img4 ddd" src="//cdn.66173.cn/mobile/trading/image/pay_image/u_choose.png" alt="">-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+    </div>
+    <div class="agree">
+        <label class="label_agree">
+            <img class="agree_txt" src="//cdn.66173.cn/mobile/trading/image/pay_image/choose.png" alt="">
+            <img class="agree_txt4" src="//cdn.66173.cn/mobile/trading/image/pay_image/u_choose.png" alt="">
+            <span href="#" class="agree_txt2">已经阅读并同意</span>
+        </label>
+
+        <span class="agree_span"><a class="agreement" href="/agreement">《66173商品购买协议》</a></span>
+    </div>
+    <div class="pay_btn">
+        确认购买
+    </div>
+</div>
+<input class="pagehash" type="hidden" name="pagehash" value="{$pagehash}">
+<input class="id_id" type="hidden" name="id" value="{$info.id}">
+<input class="type_type" type="hidden" name="type" value="{$info.type}">
+</body>
+<script type="text/javascript" src="//cdn.66173.cn/mobile/trading/js/confirm_paylist.js?t={$smarty.now|date_format:'%Y%m%d'}1"></script>
+</html>

@@ -1,0 +1,41 @@
+<script type="text/javascript">
+    $(function(){
+        $("select[name=game_id]").chosen();
+        $("select[name=batch_id]").chosen();
+    })
+</script>
+<div class="bjui-pageContent">
+    <form action="game_gifts.php?act=do_booking_import"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">选择批次：</label>
+                    <select name="batch_id"  data-rule="required">
+                        <option value="">请选择</option>
+                        {foreach from=$gift_info_list item=gift_info}
+                        <option value="{$gift_info.id}">{$gift_info.title}-{$gift_info.id}</option>
+                        {/foreach}
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">礼包码：</label>
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="codes.click()">选择文件</button>
+                    <input type="file" name="codes" style="display: none;" onchange="code_import.value=value"/>
+                    <input type="text" name="code_import" placeholder="None file" class="form-control" size="15" readonly/>&nbsp;
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+
+

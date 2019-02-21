@@ -1,0 +1,90 @@
+<style> 
+.dialogContent{ height:358px !important; } 
+.bjui-dialog.dialogShadow { height:393px !important; }
+</style>
+<div class="bjui-pageContent">
+    <form action="shop_info.php?act=shop_add_do"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">管理员ID：</label>
+                    <input type="text" name="user_id" cols="30" rows="1"  class="form-control" data-rule="required" maxlength="20">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">店铺名称：</label>
+                    <input type="text" name="s_name" cols="30" rows="1"  class="form-control" data-rule="required" maxlength="20">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">店铺介绍：</label>
+                    <input type="text" name="s_intro" cols="30" rows="1"  class="form-control" data-rule="required" maxlength="20" value="首充号、首充号续充">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">店铺LOGO：</label>
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="shop_icon.click()">选择图片</button>
+                    <input type="file" name="shop_icon" style="display: none;" onchange="s_icon.value=value" />
+                    <input type="text" name="s_icon" placeholder="None file" class="form-control" size="15" readonly />&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">排序：</label>
+                    <input type="text" name="s_sort" cols="20" rows="1"  class="form-control" data-rule="required" maxlength="20" value="0">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">状态：</label>
+                    <select name="s_status" data-toggle="selectpicker" style="width: 200px">
+                        <option value="0">营业</option>
+                        <option value="1">打烊</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">成交订单：</label>
+                    <input type="text" name="order_num" cols="20" rows="1"  class="form-control" data-rule="required" maxlength="20" value="0"> 笔
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">开门时间：</label>
+                    <input type="text" name="open_time" cols="20" rows="1"  class="form-control" data-rule="required" maxlength="20" value="08:00:00">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">关门时间：</label>
+                    <input type="text" name="close_time" cols="20" rows="1"  class="form-control" data-rule="required" maxlength="20" value="23:59:59">
+                </td>
+            </tr>
+             <tr>
+                 <td>
+                     <label  class="control-label x120">客服热线：</label>
+                     <input type="text" name="s_tel" cols="20" rows="1"  class="form-control" data-rule="required" maxlength="20" value="0591-87766173">
+                 </td>
+             </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">客服1：</label>
+                    <input type="text" name="s_qq_1[]" cols="10" rows="1"  class="form-control" data-rule="required" maxlength="20" placeholder='昵称'> -
+                    <input type="text" name="s_qq_1[]" cols="19" rows="1"  class="form-control" data-rule="required" maxlength="20" placeholder="客服QQ">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>

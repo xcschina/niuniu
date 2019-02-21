@@ -1,0 +1,30 @@
+<div class="bjui-pageContent">
+    <form action="shop_info.php?act=shop_game_ch_edit_do"  data-toggle="validate" data-alertmsg="false">
+        <table class="table table-condensed table-hover" width="100%">
+            <thead align="center">
+            <tr>
+                <th width="50"></th>
+                <th width="30">首充号</th>
+                <th width="30">首充号续充</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach from=$game_channels item=gc key=k}
+            <tr align="center">
+                <td>{$gc.channel_name}</td>
+                <td><input type="checkbox" name="firstpay[]" value="{$k+1}" {if $gc.firstpay eq 1} checked {/if} id='{$k}_1'> <label for="{$k}_1">关闭</label></td>
+                <td><input type="checkbox" name="recharge[]" value="{$k+1}" {if $gc.recharge eq 1} checked {/if} id='{$k}_2'> <label for="{$k}_2">关闭</label></td>
+            </tr>
+            {/foreach}
+            </tbody>
+            <input type="hidden" name="sg_id" value="{$game.sg_id}" />
+            <input type="hidden" name="chs_num" value="{count($game_channels)}">
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>

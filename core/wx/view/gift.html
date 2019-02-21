@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>礼包领取</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://static.66173.cn/weixin/css/style.css?t={rand(1,100000)}" media="screen" />
+</head>
+
+<body>
+<header class="page-header clearfix"><h1 class="h1-txt">礼包详情</h1><a class="back-link" href="javascript:history.back();"></a></header>
+{if $info.is_attach eq 1}
+    <a href="http://m.66173.cn/game{$info.game_id}/character" class="page-btn gray">去购买首充号</a>
+{elseif $is_weixin eq 1}
+    {if $info.remain<1}
+        <a href="#;" class="page-btn gray">已被领光</a>
+    {else}
+        {if !$smarty.session.usr_info.user_id}
+            {if !$smarty.session.weixin_code}
+            <a href="{$oauth_url}" class="page-btn gray">请先授权登入</a>
+            {else}
+            <a href="gifts.php?act=do-login&id={$info.id}" class="page-btn gray">请先登入</a>
+            {/if}
+        {elseif $is_get eq 1}
+            <a href="#;" class="page-btn gray">已领取</a>
+        {else}
+            <a href="#;" onclick="get_code('{$info.id}',this);" class="page-btn">领取礼包</a>
+        {/if}
+    {/if}
+{/if}
+<div class="lb-box clearfix">
+    <div class="lb-top clearfix">
+        <p><img src="http://static.66173.cn/{$info.game_icon}" alt="name"><em>{$info.game_name}</em><span>{$info.title}</span>
+            {if $info.is_attach eq 1}
+            <span class="cor-ong">购买首充号获得</span>
+            {else}
+            <span class="cor-ong">{$info.price}积分</span>
+            {/if}
+            {if $is_get eq 1}<i class="rz-icon"></i>{/if}
+        </p>
+    </div>
+    <div class="swiper-container lb-con">
+        <div class="swiper-pagination2"></div>
+        <div class="swiper-wrapper lb-txt">
+            <!--Str 礼包内容-->
+            <div class="swiper-slide">
+                <h3 class="tit">礼包内容</h3>
+                <p>{$info.content|nl2br}</p>
+                <h3 class="tit">领取方式</h3>
+                <p>{$info.get_way|nl2br}</p>
+            </div>
+            <!--End 礼包内容-->
+            <!--Str 推荐礼包-->
+            <div class="swiper-slide recommend">
+                {if $gifts}
+                <ul class="lb-list clearfix">
+                    {foreach from=$gifts item=g}
+                    <li>
+                        <a href="/gift{$g.id}"><img src="http://static.66173.cn/{$g.game_icon}" alt="name">
+                            <em>{$info.game_name}</em><span>{$g.title}</span><span>{$g.content}</span>
+                            <span class="cor-ong">{if $g.is_attach eq 1}购买首充号获得{else}{$g.price}积分{/if}</span>
+                        </a>
+                        <a class="chart chart-1" data-percent="83">领取</a></li>
+                    {/foreach}
+                </ul>
+                {else}
+                <p class="mascot">&nbsp;</p>
+                <p class="nogift">暂时木有礼包了<br />您可以查看更多其他游戏的礼包哦～</p>
+                {/if}
+            </div>
+            <!--End 推荐礼包-->
+            <div class="swiper-slide">
+                <section class="screen-box clearfix">
+                    <ul class="screen-list swiper-wrapper clearfix">
+                        <li class="swiper-slide"><img src="http://static.66173.cn/{$game_info.img1}" alt="" /></li>
+                        <li class="swiper-slide"><img src="http://static.66173.cn/{$game_info.img2}" alt="" /></li>
+                        <li class="swiper-slide"><img src="http://static.66173.cn/{$game_info.img3}" alt="" /></li>
+                        <li class="swiper-slide"><img src="http://static.66173.cn/{$game_info.img4}" alt="" /></li>
+                    </ul>
+                </section>
+                {if $downs}
+                <h3 class="down">请选择渠道下载</h3>
+                <ul class="down{if $is_weixin eq 1} openmask{/if}">
+                    {foreach from=$downs item=d}
+                    <li><img src="http://static.66173.cn/{$d.icon}" /><strong>{$d.title}</strong><a href="{$d.url}">下载</a></li>
+                    {/foreach}
+                </ul>
+                {/if}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="tip-box" style="display: none" onclick="close_tip_box()">
+    <div class="tip-con"><h3></h3><p class="code"></p></div>
+</div>
+<div class="mask"><div class="mask-tip" onclick="close_mask();">&nbsp;</div></div>
+<input type="hidden" name="page-hash" value="{$pagehash}">
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">!window.jQuery && document.write('<script src=http://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js><\/script>');</script>
+<script src="http://static.66173.cn/weixin/js/gift.js?t={rand(1,10000)}"></script>
+<script src="http://static.66173.cn/weixin/js/zepto.min.js"></script>
+<script src="http://static.66173.cn/weixin/js/script.js"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination2',
+        paginationClickable: true,
+        paginationBulletRender: function (index, className) {
+            return '<span class="' + className + '">' + '礼包内容' + '</span><span class="' + className + '">' + '推荐礼包' + '</span><span class="' + className + '">' + '游戏下载' + '</span>';
+        }
+    });
+    var swiper2 = new Swiper('.screen-box', {
+        slidesPerView: 'auto',
+        paginationClickable: true,
+        spaceBetween: 10,
+        preloadImages: false,
+        lazyLoading: true
+    });
+
+    var optionsg = {
+        scaleColor: false,
+        trackColor: '#ccc',
+        barColor: '#30b66f',
+        lineWidth: 3,
+        lineCap: 'butt',
+        size: 45
+    };
+    var optionsb = {
+        scaleColor: false,
+        trackColor: '#ccc',
+        barColor: '#317ee7',
+        lineWidth: 3,
+        lineCap: 'butt',
+        size: 45
+    };
+    window.addEventListener('DOMContentLoaded', function() {
+        var charts = [];
+        [].forEach.call(document.querySelectorAll('.chart-1'),  function(el) {
+            charts.push(new EasyPieChart(el, optionsg));
+        });
+        [].forEach.call(document.querySelectorAll('.chart-2'),  function(el) {
+            charts.push(new EasyPieChart(el, optionsb));
+        });
+    });
+</script>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?7e04c1157689a56872eadeed20c541cb";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+</body>
+</html>

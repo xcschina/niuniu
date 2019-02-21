@@ -1,0 +1,43 @@
+<div class="bjui-pageHeader">
+    <form id="pagerForm" action="website.php?act=promoter_list" method="post" data-toggle="ajaxsearch">
+        <a href="website.php?act=promoter_add" class="btn btn-green" data-toggle="navtab" data-id="add_view" data-title="新建推广人">添加推广人</a>
+        <label>推广人ID：</label><input type="text" name="id"  value="{$params.id}" class="form-control" size="8">&nbsp;
+        <label>推广人姓名：</label><input type="text" name="nick_name"  value="{$params.nick_name}" class="form-control" size="8">&nbsp;
+        <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+        <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
+    </form>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th width="30">ID</th>
+            <th width="160">推广人姓名</th>
+            <th width="160">注册手机号</th>
+            <th width="100">代码</th>
+            <th width="250">推广人专属注册链接</th>
+            <th width="100">推广注册人数</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+       {foreach key=key item=data from=$info}
+        <tr align="center">
+            <td>{$data.id}</td>
+            <td>{$data.name}</td>
+            <td>{$data.phone_num}</td>
+            <td>{$data.code}</td>
+            <td>{$data.url}</td>
+            <td>{$data.count}</td>
+            <td>
+                <a href="user_info.php?act=search_user_info_list&code={$data.code}" class="btn btn-green" data-toggle="navtab" data-id="form"  data-title="注册用户记录表">注册用户记录</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

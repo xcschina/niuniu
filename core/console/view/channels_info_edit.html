@@ -1,0 +1,71 @@
+<script type="text/javascript">
+    $(function(){
+        $("select[name=game_id]").chosen();
+    })
+</script>
+<div class="bjui-pageContent">
+    <form action="channels_info.php?act=do_channel_edit"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label class="control-label x120">渠道名：</label>
+                    <input type="text" name="channel_name" value="{$channel_info.channel_name}" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">&nbsp;</label>
+                    <img src="http://static.66173.cn{$channel_info.icon}" width="50px" height="50px"><br>
+                    <input type="hidden" name="old_channel_icon" value="{$channel_info.icon}">
+                    <input type="hidden" name="id" value="{$channel_info.id}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">ICON：</label>
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="channel_icon.click()">选择图片</button>
+                    <input type="file" name="channel_icon" style="display: none;" onchange="c_icon.value=value"/>
+                    <input type="text" name="c_icon" placeholder="None file" class="form-control" size="15" readonly/>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">平台：</label>
+                    <select name="platform">
+                        <option value="0">未分配</option>
+                        <option value="1"{if $channel_info.platform eq 1} selected{/if}>安卓</option>
+                        <option value="2"{if $channel_info.platform eq 2} selected{/if}>苹果iOS</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">应用平台：</label>
+                    <select name="apply">
+                        <option value="0">请选择应用平台</option>
+                        <option value="1"{if $channel_info.apply eq 1} selected{/if}>魔域交易平台</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">关联游戏：</label>
+                    <select name="game_id">
+                        <option value="" {if $channel_info.game_id eq ''}selected="selected"{/if}>请选择</option>
+                        {foreach from=$game_list item=game}
+                        <option value="{$game.id}" {if $channel_info.game_id eq $game.id}selected="selected"{/if}>{$game.game_name}-{$game.id}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>

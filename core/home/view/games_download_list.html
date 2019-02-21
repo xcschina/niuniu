@@ -1,0 +1,88 @@
+{include file="include/head.html" web_title='手机游戏免费下载_下载列表' web_key='游戏下载列表，手机游戏下载，热门手游下载，手游免费下载，66173手游下载平台'}
+    <body>
+        {include file="include/top.html"}
+        {include file="include/header.html"}
+        {include file="include/nav.html" nav="down"}
+        <div class="w1000">
+            <div class="current_nav ">
+                当前位置：<a href="/">66173交易平台</a>&nbsp;>&nbsp;游戏列表
+            </div>
+            <div class="title_sub"><strong class="name">热门游戏</strong></div>
+            <!-- 热门游戏  -->
+            <div class="hot_game">
+                <i class="icon_hot"></i>
+                {foreach from=$hot_games item=game}
+                <a target='_blank' rel='noopener noreferrer' href="/download/games{$game.id}.html">{$game.game_name}</a>
+                {/foreach}
+            </div>
+            <div class="picScroll">
+            <!-- 游戏轮播 -->
+                <div class="tempWrap">
+                    <ul>
+                        {foreach from=$all_games item=game}
+                        <li><a target='_blank' rel='noopener noreferrer' href="/download/games{$game.id}.html"><img src="http://cdn.66173.cn/{$game.game_icon}" /></a></li>
+                        {/foreach}
+                    </ul>
+                </div>
+                <a class="prev"></a><a class="next"></a>
+            </div>
+             <div class="index_banner">
+                <a target="_blank" rel="noopener noreferrer" href="{$regpic[0]['go_url']}"><img src="http://cdn.66173.cn/{$regpic[0]['img']}" alt="{$regpic[0]['title']}" width="1000" height="90"/></a>
+            </div>
+            <!-- 游戏首字母筛选 -->
+            <div class="game_a_z">
+                <a href="#game_A">A</a>
+                <a href="#game_B">B</a>
+                <a href="#game_C">C</a>
+                <a href="#game_D">D</a>
+                <a href="#game_E">E</a>
+                <a href="#game_F">F</a>
+                <a href="#game_G">G</a>
+                <a href="#game_H">H</a>
+                <a href="#game_I">I</a>
+                <a href="#game_J">J</a>
+                <a href="#game_K">K</a>
+                <a href="#game_L">L</a>
+                <a href="#game_M">M</a>
+                <a href="#game_N">N</a>
+                <a href="#game_O">O</a>
+                <a href="#game_P">P</a>
+                <a href="#game_Q">Q</a>
+                <a href="#game_R">R</a>
+                <a href="#game_S">S</a>
+                <a href="#game_T">T</a>
+                <a href="#game_U">U</a>
+                <a href="#game_V">V</a>
+                <a href="#game_W">W</a>
+                <a href="#game_X">X</a>
+                <a href="#game_Y">Y</a>
+                <a href="#game_Z">Z</a>
+            </div>
+
+            {foreach from=$letter_games item=games}
+            <dl class="game_list" id="game_{$games.first_letter}">
+                <dt class="letter">{$games.first_letter}</dt>
+                {foreach from=$games.list item=game}
+                <dd>
+                    <a target='_blank' rel='noopener noreferrer' class="icon" href="/download/games{$game.id}.html" title="{$game.game_name}下载"><img src="http://cdn.66173.cn/{$game.game_icon}" /></a>
+                    <a target='_blank' rel='noopener noreferrer' class="name" href="/download/games{$game.id}.html">{$game.game_name}</a>
+                    <!--<a target='_blank' rel='noopener noreferrer' class="btn_down" href="/download/games{$game.id}.html" rel="nofollow">游戏下载</a>-->
+                </dd>
+                {/foreach}
+            </dl>
+            {/foreach}
+            {include file="include/footer.html"}
+        </div>
+    </div>
+    </div>
+    {literal}
+    <style>
+        .game_list>dd {height: 150px;margin-bottom: 41px;}
+        .game_list>dd>.name {height:30px;line-height: 22px;}
+    </style>
+    <script type="text/javascript">
+        jQuery(".picScroll").slide({ mainCell:"ul",autoPlay:false, effect:"left", vis:9, scroll:3, autoPage:true, pnLoop:false });
+    </script> 
+    {/literal}
+    </body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>{$detail.title}</title>
+    <meta name="keywords" content="{$game.game_name}、{$game.game_name}资讯、{$game.game_name}攻略、66173、手游交易平台" />
+    <meta name="description" content="66173游戏新闻提供{$game.game_name}游戏攻略、{$game.game_name}游戏公告、{$game.game_name}游戏测评、{$game.game_name}游戏资讯，获取{$game.game_name}相关资讯攻略就上66173。(www.66173.cn)是国内权威的游戏交易平台，安全快捷有保障的手游充值中心。" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/common.css?t={rand(1,10)}" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/css/list.css?t={rand(222,223)}" media="screen" />
+</head>
+<body>
+<header class="page-header clearfix">
+    <h1 class="h1-txt">资讯</h1>
+    <a href="javascript:history.back();" class="back-link"></a>
+    {if $smarty.session.user_id}
+    <a class="idv-link" href="/account.php?act=user_center"></a>
+    {else}
+    <a class="login-link mr-40" href="/account.php?act=register">注册</a>
+    <a class="login-link" href="/account.php?act=user_center">登录</a>
+    {/if}
+</header>
+<article class="art-box clearfix">
+    <header class="art-header clearfix m-b-10">
+        <h2 class="art-tit">{$detail.title}</h2>
+        <span class="art-date">发布时间：{'Y-m-d H:i:s'|date:$detail.add_time}</span>
+    </header>
+    {if $detail.game_id}
+    <section class="art-con-box con-w-h">
+        <div class="fl game_icon">
+        <ul>
+            <li>
+                <a href="http://m.66173.cn//game{$detail.game_id}">
+                    <img src="http://cdn.66173.cn{$detail.game_icon}" alt="{$detail.game_name}" width="60" height="60">
+                </a>
+            </li>
+            <li>
+                <p class="con-p">{$detail.game_name}</p>
+            </li>
+        </ul>
+        </div>
+        <div class="fl">
+            <ul>
+                <li>
+                    <a href="/game{$detail.game_id}/character" class="first_charge">首充号{if $detail.first_charge}{$detail.first_charge}折{/if}</a>
+                </li>
+                <li>
+                    <a href="/game{$detail.game_id}/renew" class="be_charged">续充号{if $detail.be_charged}{$detail.be_charged}折{/if}</a>
+                </li>
+            </ul>
+        </div>
+    </section>
+    {/if}
+    <section class="art-con-box clearfix m-t-0">
+        {$detail.intro|htmlspecialchars_decode}
+    </section>
+    <footer class="art-footer clearfix">
+        <span>客服QQ：3141424712</span>
+        <span>客服热线：0591-87766173</span>
+        <span>工作时间：7*24小时服务</span>
+    </footer>
+</article>
+<section>
+    <a href="{$regpic['go_url']}"><img class='regpic' src="http://cdn.66173.cn/{$regpic['img']}" alt="{$regpic['title']}"/></a>
+</section>
+{include file="include/footer.html"}
+{literal}
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<script type="text/javascript">
+    !window.jQuery && document.write('<script src=http://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js><\/script>');
+    $(document).ready(function(){
+        w = $("section.art-con-box").width();
+        $("section.art-con-box img").css("max-width",(w-60)+"px");
+    })
+</script>
+{/literal}
+</body>
+</html>

@@ -1,0 +1,114 @@
+<div class="bjui-pageHeader">
+	<form id="pagerForm" action="user_info.php?act=user_pay_list&id={$params.user_id}" method="post" data-toggle="ajaxsearch">
+		<div class="bjui-searchBar">
+			<label>消费类型：</label>
+			<select name="type">
+				<option value="" {if $params.type eq ''}selected="selected"{/if}>请选择</option>
+				{foreach from=$p_type item=ptype key=key}
+				<option value="{$key}" {if $params.type eq $key}selected="selected"{/if}>{$ptype}</option>
+				{/foreach}
+			</select>
+			&nbsp;
+			<label>消费游戏：</label>
+			<input type="text" name="game" value="{$params.game}" class="form-control" size="10">
+			<label>渠道：</label>
+			<select name="channel">
+				<option value="" {if $params.channel eq ''}selected="selected"{/if}>请选择</option>
+				{foreach from=$channel_list item=ch }
+				<option value="{$ch.id}" {if $params.channel eq $ch.id}selected="selected"{/if}>{$ch.channel_name}</option>
+				{/foreach}
+			</select>
+			&nbsp;
+			&nbsp;
+			<label>付款时间：</label>
+			<input type="text" name="time" data-toggle="datepicker" value="{$params.time}" placeholder="开始时间">-
+			<input type="text" name="time2" data-toggle="datepicker"  value="{$params.time2}" placeholder="结束时间">
+			&nbsp;
+			<button type="submit" class="btn-default" data-icon="search">查询</button>
+			&nbsp;
+			<a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
+		</div>
+	</form>
+</div>
+<div class="bjui-pageContent">
+	<table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+		<thead>
+			<tr align="center">
+				<th colspan='8'>用户ID: {$params.user_id} 【消费】记录表</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr align="center">
+				<td>付款时间</td>
+				<td>消费游戏</td>
+				<td>渠道</td>
+				<td>消费项目</td>
+				<td>订单编号</td>
+				<td>充值账号</td>
+				<td>消费金额(元)</td>
+				<td>客服</td>
+			</tr>
+			{foreach key=key item=pay from=$pays}
+			<tr align="center">
+				<td>{'Y-m-d H:i:s'|date:$pay.pay_time}</td>
+				<td>{$pay.game_name}</td>
+				<td id="center_td">
+					{if $usr eq 1}
+						{if $pay.is_update eq 0}
+							<div class="click_del">{$pay.channel_name}</div>
+							<select name="channel_id" class="channel_group" style="display:none">
+								{foreach from=$channel_list item=ch }
+									<option value="{$ch.id}" rel="{$pay.order_id}" {if $ch.id eq $pay.id}  selected {/if}>{$ch.channel_name}</option>
+								{/foreach}
+							</select>
+						{else}
+							<div class="click_alert">{$pay.channel_name}</div>
+						{/if}
+					{else}
+						<div>{$pay.channel_name}</div>
+					{/if}
+				</td>
+				<td>{$p_type[$pay.type]}</td>
+				<td>{$pay.order_id}</td>
+				<td>{$pay.game_user}</td>
+				<td><code class="bg-info">￥{$pay.pay_money}</code></td>
+				<td>{$pay.real_name}</td>
+			</tr>
+			{/foreach}
+		</tbody>
+	</table>
+</div>
+<div class="bjui-pageFooter">
+	<div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+	<div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>
+
+
+<script type="text/javascript">
+	$(function(){
+		$("#center_td .click_del").click(function(){
+			$(this).next("select").attr("style","display:block")
+            $(this).remove();
+		})
+        $(".click_alert").click(function(){
+            alert("游戏渠道只能修改一次！！");
+        })
+		$("#center_td select").change(function(){
+			var val = $(this).val();
+			var order_id = $(this).children("option:selected").attr('rel');
+			var name = $(this).children("option:selected").html();
+			$.ajax({
+				url: "/user_info.php?act=change_channel",
+				type: "post",
+				data: {
+					id:val,
+					order_id:order_id
+				},
+				dataType: 'json',
+				success:function(result){
+					}
+			})
+			$(this).parent().html(name);
+		})
+	})
+</script>

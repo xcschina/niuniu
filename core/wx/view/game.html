@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+<title>游戏详情</title>
+<meta name="keywords" content="{$info.game_name}礼包" />
+<meta name="description" content="" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<link rel="stylesheet" type="text/css" href="http://static.66173.cn/weixin/css/style.css" media="screen" />
+</head>
+
+<body>
+<header class="page-header clearfix"><h1 class="h1-txt">游戏详情</h1><a class="back-link" href="javascript:history.back();"></a></header>
+<!--<a class="page-btn">下载</a>-->
+<div class="lb-box clearfix">
+  <div class="xq-top clearfix">
+  	<img src="http://static.66173.cn/images/game_icon/{$info.id}.png" alt="name"><div><em>{$info.game_name}</em><span>评分<i class="stars" data-percent="5"></i></span></div>
+  </div>
+  <!--Str 截图 -->
+    <section class="screen-box clearfix">
+        <ul class="screen-list swiper-wrapper clearfix">
+            <li class="swiper-slide"><img src="http://static.66173.cn/{$info.img1}" alt="" /></li>
+            <li class="swiper-slide"><img src="http://static.66173.cn/{$info.img2}" alt="" /></li>
+            <li class="swiper-slide"><img src="http://static.66173.cn/{$info.img3}" alt="" /></li>
+            <li class="swiper-slide"><img src="http://static.66173.cn/{$info.img4}" alt="" /></li>
+        </ul>
+    </section>
+  <!--End 截图 --> 
+    <div class="clearfix his-box">
+        <h3 class="tit clearfix">{$info.game_name}礼包</h3>
+        {if $gifts}
+        <ul class="lb-list clearfix">
+            {foreach from=$gifts item=g}
+            <li>
+                <a href="/gift{$g.id}"><img src="http://static.66173.cn/images/game_icon/{$g.game_id}.png"><em>{$g.title}</em><span>{$g.content}</span><span class="cor-ong">0积分</span></a>
+                <a href="/gift{$g.id}" class="chart chart-1" data-percent="{($g.remain/$g.num)*100}">领取</a>
+            </li>
+            {/foreach}
+        </ul>
+        {else}<p style="font-size: 1.2rem;margin: 10px">该游戏暂无礼包，去其他地方看看吧。</p>{/if}
+    </div>
+</div>
+<script src="http://static.66173.cn/weixin/js/zepto.min.js"></script>
+<script src="http://static.66173.cn/weixin/js/script.js"></script>
+<script>
+var swiper = new Swiper('.screen-box', {
+    slidesPerView: 'auto',
+    paginationClickable: true,
+    spaceBetween: 10,
+    preloadImages: false,
+    lazyLoading: true
+});
+
+var optionsg = {
+    scaleColor: false,
+    trackColor: '#ccc',
+    barColor: '#30b66f',
+    lineWidth: 3,
+    lineCap: 'butt',
+    size: 45
+};
+var optionsb = {
+    scaleColor: false,
+    trackColor: '#ccc',
+    barColor: '#317ee7',
+    lineWidth: 3,
+    lineCap: 'butt',
+    size: 45
+};
+window.addEventListener('DOMContentLoaded', function() {
+    var charts = [];
+    [].forEach.call(document.querySelectorAll('.chart-1'),  function(el) {
+        charts.push(new EasyPieChart(el, optionsg));
+    });
+    [].forEach.call(document.querySelectorAll('.chart-2'),  function(el) {
+        charts.push(new EasyPieChart(el, optionsb));
+    });
+});
+</script>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?7e04c1157689a56872eadeed20c541cb";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+</body>
+</html>

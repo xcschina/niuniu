@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>订单详情</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://static.66173.cn/shop/m/css/m_common.css?t={rand(1,10000)}" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://static.66173.cn/shop/m/css/m_pay.css?t={rand(1,10000)}" media="screen" />
+</head>
+<body>
+<header class="page-header clearfix">
+    <h1 class="h1-txt">订单详情</h1>
+    <a class="back-link" href="javascript:history.back()"></a></header>
+<section class="dd-header clearfix">
+    <div class="dd-header-txt">订单号：<span>{$order.order_id}</span>
+        <em>
+        {if $order.status eq '0'} 等待付款
+        {elseif $order.status eq '1'} 等待发货
+        {elseif $order.status eq '2'} 交易成功
+        {elseif $order.status eq '3'} 已退款
+        {elseif $order.status eq '9'} 已取消
+        {else} 未知状态
+        {/if}
+        </em>
+    </div>
+</section>
+<section class="dd-detail-box clearfix">
+    <div class="dd-detail-top clearfix">{$order.title}<span>{$order.unit_price}元X{$order.amount}</span></div>
+    <ul class="dd-detail-list clearfix">
+        <li>游戏区服：{$order.game_name}/{$order.channel_name}/{$order.serv_id}区</li>
+        <li>商品类型：{if $order.product_type eq '1'}首充号{elseif $order.product_type eq '2'}首充号续充{/if}</li>
+        <li>游戏平台：{$order.channel_name}账号</li>
+        <li>下单时间：{'Y-m-d H:i:s'|date:$order.buy_time}</li>
+        {if $order.product_type eq "1"}
+            {if $order.status eq '0'}
+                <li>首充账号：等待付款</li>
+                <li>账号密码：等待付款</li>
+            {elseif $order.status eq '1'}
+                <li>首充账号：等待发货</li>
+                <li>账号密码：等待发货</li>
+            {elseif $order.status eq '2'}
+                <li>首充账号：{$order.game_user}</li>
+                <li>账号密码：{$order.game_pwd}</li>
+            {elseif $order.status eq '3'}
+                <li>首充账号：{$order.game_user}</li>
+                <li>账号密码：{$order.game_pwd}</li>
+            {/if}
+        {elseif $order.product_type eq "2"}
+            <li>续充账号：{$order.game_user}</li>
+        {/if}
+    </ul>
+    <div class="dd-detail-btm">应付金额：<em>{$order.pay_money}</em> 元</div>
+    {if $order.status eq '0'}
+        <ul class="dd-detail-list clearfix">
+            <a class="pay-btn mt-10" style="width:100%;" href="http://shop.66173.cn/pay-66173{$order.id}-{$order.order_id}.html">去支付</a>
+        </ul>
+    {/if}
+    {if $order.status eq '1'}
+        <div class="dd-detail-btm" style="text-align: center"><em>预计3~10分钟内完成交易</em></div>
+    {/if}
+</section>
+{include file="{$TPL}/include/footer.html"}
+</body>
+</html>

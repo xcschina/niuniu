@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>买家订单</title>
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/comment.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/buy_list.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/my_collection.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+</head>
+<body>
+<div class="page_top2">
+    <div class="page_top_left2">
+        <img class="margin_two" src="//cdn.66173.cn/mobile/trading/image/index_image/back.png" alt="">
+    </div>
+    <div class="page_top_center2">
+        买家订单
+    </div>
+    <a class="page_top_right2" href="/moyu">
+        <span class="login_my">
+            <img class="page_top_r_img" src="//cdn.66173.cn/mobile/trading/image/person_center/index2.png" alt="">
+        </span>
+    </a>
+</div>
+<div class="top_tab margin_t">
+    <div class="top_tab_div">
+        <a  class="border_b" data-id="0" onclick="order_list()">全部</a>
+        <a  data-id="1" onclick="order_list(0)">待付款</a>
+        <a  data-id="2" onclick="order_list(1)">待发货</a>
+        <a  data-id="3" onclick="order_list(2)">待收货</a>
+    </div>
+</div>
+<div class="pay_list" {if !$order_list}style="background:#fff"{/if}>
+{if $order_list}
+{foreach from=$order_list item=list}
+<div class="pay_list_item">
+    <a href="/orderDetail/{$list.id}" class="pay_infor">
+        <div class="pay_infor_div">
+            <div class="pay_infor_s">
+                <span>订单号：<span class="paylist_number">{$list.order_id}</span></span>
+            </div>
+            <div class="pay_infor_x">
+                {if $list.status eq '0'}<span>待付款</span>
+                {else if $list.status eq '1'}<span>待发货</span>
+                {else if $list.status eq '2'}<span>已发货</span>
+                {else if $list.status eq '3'}<span>已完成</span>
+                {else if $list.status eq '4'}<span>已退款</span>
+                {else if $list.status eq '5'}<span>已关闭</span>
+                {/if}
+            </div>
+        </div>
+    </a>
+    <a href="/orderDetail/{$list.id}" class="pay_infor2">
+        <div class="pay_infor_div2">
+            <!--<div class="pay_list_tag">-->
+            <!--{$list.title}-->
+            <!--</div>-->
+            {if  $list.type eq 4} <div class="pay_list_tag">{$list.title}</div>
+            {elseif  $list.type eq 5}<div class="pay_list_tag">{$list.num}魔石&nbsp;(1元={$list.proportion}魔石)</div>
+            {elseif  $list.type eq 6}<div class="pay_list_tag">{$list.title}</div>
+            {/if}
+            <div class="pay_list_tag2">
+                <div class="pay_list_tag2_left">
+                    <span>{$list.game_name}&nbsp;</span>
+                    <span >&nbsp;{$list.channel_name}&nbsp;</span>
+                    <span class="tag_text">&nbsp;{if $list.serv_name }{$list.serv_name}&nbsp;{elseif $list.serv_id eq 0}全区全服&nbsp;{/if}</span>
+                </div>
+                <div class="pay_list_tag2_right">
+                    <div class="img_imgicon">
+                        <!--<img class="check_list_icon" src="//cdn.66173.cn/mobile/trading/image/shangpin_detail/confirm_id.png" alt="">-->
+                        <!--<img class="check_list_icon2" src="//cdn.66173.cn/mobile/trading/image/shangpin_detail/jicun.png" alt="">-->
+                    </div>
+                    <span class="num_text">x{$list.amount}</span>
+                </div>
+            </div>
+        </div>
+    </a>
+    <div class="pay_list_btn">
+        <div class="pay_list_btn_price">
+            <span class="total_text">总价</span><span class="buy_price">￥{$list.pay_money}</span>
+        </div>
+        {if $list.status eq '0'}
+        <div class="btn_a">
+            <a href="/continuePay/{$list.id}"  class="a_btn">继续支付</a>
+            <a class="a_btn close_pay" data-id="{$list.id}">关闭交易</a>
+        </div>
+        {else if $list.status eq '1'}
+        <div class="btn_a">
+            <a class="a_btn foot_kefu">联系客服</a>
+        </div>
+        {else if $list.status eq '2'}
+        <div class="btn_a">
+            <a class="a_btn confirm_Receive" data-id="{$list.id}">确认收货</a>
+            <a class="a_btn foot_kefu">申请退款</a>
+        </div>
+        {/if}
+    </div>
+    <div class="space"></div>
+</div>
+{/foreach}
+{else}
+<div class="current_nodata2">您暂时还没有相关订单</div>
+{/if}
+</div>
+<!--关闭交易弹窗1开始-->
+<div class="close_div_pay">
+    <div class="close_div_pay_title">关闭交易</div>
+    <div class="close_div_pay_item">
+        <li class="reason_li"><span>我不想买了</span><div class="div_div"><img class="yes_img" src="//cdn.66173.cn/mobile/trading/image/person_center/yes.png" alt=""></div></li>
+        <li class="reason_li"><span>信息填写错误</span><div class="div_div none_yes"><img class="yes_img " src="//cdn.66173.cn/mobile/trading/image/person_center/yes.png" alt=""></div></li>
+        <li class="reason_li"><span>卖家缺货</span><div class="div_div none_yes"><img class="yes_img" src="//cdn.66173.cn/mobile/trading/image/person_center/yes.png" alt=""></div></li>
+        <li class="reason_li"><span>其他</span><div class="div_div none_yes"><img class="yes_img" src="//cdn.66173.cn/mobile/trading/image/person_center/yes.png" alt=""></div></li>
+    </div>
+    <div class="close_div_pay_yes">
+        <div class="close_yes_y">确认</div>
+        <div class="close_yes_x">取消</div>
+    </div>
+</div>
+<!--确认收货弹窗2开始-->
+<div class="close_div_pay2">
+    <div class="close_div_pay_title2">确认收货</div>
+    <div class="close_div_pay_yes2">
+        <div class="close_yes_y2 comfirm">确认</div>
+        <div class="close_yes_x2 cancel">取消</div>
+    </div>
+</div>
+<div class="mask2"></div>
+<input class="id_id2" type="hidden" name="pagehash2" value="1">
+</body>
+<script>
+    function order_list(status){
+        var url = '';
+        console.log(status);
+        if(status || status == 0){
+            url = '/orderList/'+status;
+        }else{
+            url = '/orderList';
+        }
+        window.location.href =url;
+    };
+    $(window).ready(function () {
+        var url = window.location.pathname;
+        var status = url.match(/\d+/ig);
+        var name = 0;
+        if(status == 0){
+            name = 1;
+        }else if(status == 1){
+            name = 2;
+        }else if(status == 2){
+            name = 3;
+        }
+        $(".top_tab_div a").eq(name).addClass("border_b").siblings().removeClass("border_b");
+        $(".tag_text").each(function () {
+            var text = $(this).text();
+            if(text.length>8){
+                text = text.substring(0,7)+"..";
+                $(this).text(text)
+            }else{
+                text = text;
+                $(this).text(text)
+            }
+        });
+    });
+    $('.foot_kefu').click(function(){
+        var u = navigator.userAgent;
+        if(/Safari/.test(u) && !/Chrome/.test(u)){
+            alert('请添加客服QQ：3001082900');
+        }else{
+            window.location.href = 'http://wpa.qq.com/msgrd?v=3&uin=3001082900&site=qq&menu=yes';
+        }
+    });
+    $(window).ready(function () {
+       var id=UrlParm.parm("id");
+        $(".top_tab_div a").eq(id).addClass("border_b").siblings().removeClass("border_b");
+    })
+
+</script>
+<script src="//cdn.66173.cn/mobile/trading/js/getUrlParam.js?t={$smarty.now|date_format:'%Y%m%d'}"></script>
+<script src="//cdn.66173.cn/mobile/trading/js/base64_a.js?t={$smarty.now|date_format:'%Y%m%d'}"></script>
+<script src="//cdn.66173.cn/mobile/trading/js/buy_list.js?t={$smarty.now|date_format:'%Y%m%d'}"></script>
+</html>

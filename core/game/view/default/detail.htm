@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>《{$info.game_name}》官网网站 - 牛牛游戏</title>
+    <meta name="keywords" content="{$info.game_name}, {$info.game_name}官网" />
+    <link rel="stylesheet" href="http://static.66173.cn/game/css/reset.css"/>
+    <link rel="stylesheet" href="http://static.66173.cn/game/css/main.css" />
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+    <script src="http://static.66173.cn/game/js/jquery-1.9.1.min.js"></script>
+    <script src="http://static.66173.cn/game/js/index.js?t=1"></script>
+    <style>
+        body{
+            background:#f6f6f6 url('http://static.66173.cn/game/css/img/mxqst.jpg') no-repeat center 52px;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    {include 'default/common/top.htm'}
+    {include 'default/common/header.htm'}
+    <div id="main">
+        <div id="content" class="left">
+            <div id="adetails">
+                <dl class="info" style="overflow:visible !important;">
+                    <dt class="qudiao">
+                        <a href="/">首页</a>
+                        <i>&gt;</i>
+                        {if $article.part_id == 18}
+                        <a href="/article_list.php?id=4">攻略</a>
+                        <i>&gt;</i><a href="javascript:;">{$article.title}</a>
+                        {elseif $article.part_id == 16}
+                        <a href="/article_list.php?id=4">活动</a>
+                        <i>&gt;</i><a href="javascript:;">{$article.title}</a>
+                        {/if}
+                    </dt>
+                    <dd id="nobottom">
+                        <h3>{$article.title}</h3><p id="time">时间：{$article.add_time|date_format:'%Y-%m-%d %H:%M:%S'}</p><div id="acont">{$article.intro}</div>
+                    </dd>
+                </dl>
+            </div>        </div>
+        <!--侧边-->
+        {include 'default/common/side.htm'}
+    </div>
+</div>
+{include file="default/common/footer.htm"}
+{include file="default/common/useroption.html"}
+</body>
+</html>

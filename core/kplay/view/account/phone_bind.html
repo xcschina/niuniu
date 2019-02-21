@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>手机绑定</title>
+    {include file="../include/head.html"}
+    <link href="//cdn.66173.cn/niuguo/css/bootstrap3.3.6.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.66173.cn/niuguo/css/common.css?t={$smarty.now}">
+    <link rel="stylesheet" href="//cdn.66173.cn/niuguo/css/account.css?t={$smarty.now}">
+    <script src="//libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+</head>
+<body class="phone-bind-page">
+    <input type="hidden" value="15008459999" id="loginAccount"/>
+    {include file="../include/header.html"}
+    <div class="with-top-user-nav-mg container pd0 account-with-menu-container">
+        {include file="../include/user_side_menu.html" user_icon="//cdn.66173.cn/niuguo/img/{if $info.sex eq 2}account_head_girl_icon.png{else}account_head_boy_icon.png{/if}" name="{if $info.nick_name}{$info.nick_name}{else}{$info.mobile}{/if}"}
+        <div class="bg-white container-main">
+            <div class="common-box-top top">
+                <div class="font-lg title">手机绑定</div>
+            </div>
+            <div class="phone-bind-form">
+                {if !$info.mobile}
+                <!--未绑定-->
+                <div class="phone-bind-not">
+                    <div class="top-tip1">当前账号未绑定，为了安全起见，请尽快到牛牛任意游戏内绑定</div>
+                </div>
+                {else}
+                <!--已绑定-->
+                <div class="phone-bind-already">
+                    <div class="img-zone"><img class="phone-bind-img" src="//cdn.66173.cn/niuguo/img/img_phone_bind.png" alt=""></div>
+                    <div class="line already-phone-bind-line">
+                        <label class="font-lg common-input-label">绑定号码：</label>
+                        <span class="font-lg common-line-info">{substr($info['mobile'],0,3)}****{substr($info['mobile'],-4)}</span>
+                    </div>
+                </div>
+                {/if}
+            </div>
+        </div>
+    </div>
+    {include file="../include/side_float.html"}
+    {include file="../include/footer.html"}
+</body>
+<script src="//cdn.66173.cn/niuguo/scripts/bootstrap3.3.6.min.js"></script>
+
+</html>

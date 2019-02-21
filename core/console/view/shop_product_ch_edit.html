@@ -1,0 +1,37 @@
+<div class="bjui-pageContent">
+    <form action="shop_info.php?act=shop_product_ch_edit_do"  data-toggle="validate" data-alertmsg="false">
+        <table class="table table-condensed table-hover" width="100%">
+            <thead align="center">
+            <tr>
+                <th width="30"></th>
+                <th width="20">官网折扣</th>
+                <th width="20">店铺折扣</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach from=$channels_discount item=cd key=k}
+            <tr align="center">
+                <td>{$cd.channel_name}</td>
+                <td>{if $cd.priority_discount neq 0} <span class="red">{$cd.priority_discount}</span> {else}{$cd.priority_discount}{/if}</td>
+                <td><input type="text" name="ch_{$cd.id}" value="{abs($cd.shop_discount)}" cols="5" rows="1"  class="form-control" maxlength="3" size="6"></td>
+            </tr>
+            {/foreach}
+            </tbody>
+            <input type="hidden" name="product_id" value="{$params.product_id}"/>
+            <input type="hidden" name="shop_id" value="{$params.shop_id}"/>
+            <input type="hidden" name="sp_id" value="{$params.sp_id}"/>
+            <input type="hidden" name="game_id" value="{$params.game_id}"/>
+            <input type="hidden" name="type" value="{$params.type}"/>
+            <input type="hidden" name="chs_num" value="{$params.chs_num}"/>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        {if $smarty.session.shop_id}
+        <li><button type="submit" class="btn-default">保存</button></li>
+        {/if}
+    </ul>
+</div>
+

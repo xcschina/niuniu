@@ -1,0 +1,24 @@
+<div class="bjui-pageHeader"></div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th width="50">No.</th>
+            <th>栏目类型</th>
+            <th width="60">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=type from=$types}
+        <tr align="center">
+            <td>{$type['0']}</td>
+            <td>{$type['1']}</td>
+            <td>
+                <!--<a href="game_info.php?act=hot_game_list&type={$type['0']}" class="btn btn-green" data-toggle="navtab" data-id="hot_game_list" data-title="栏目游戏配置">配置</a>-->
+                <a href="game_info.php?act=hot_game_edit_view&type={$type['0']}" class="btn btn-green"  data-toggle="dialog" data-mask="true" data-width="420"  data-height="520" data-id="hot_game_edit_view" data-title="栏目游戏配置">配置</a>
+            </td>
+           </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>

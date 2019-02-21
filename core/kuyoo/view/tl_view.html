@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>手游交易平台_手游充值_首充号_66173手游交易平台</title>
+	<meta name="description" content="66173(www.66173.cn)是国内权威的游戏交易平台，安全快捷有保障的手游充值中心，66173是提供手游账号交易、首充号购买、游戏充值、苹果iOS代充、手游退游、装备及道具、游戏币交易的游戏交易平台。">
+	<meta name="keywords" content="手游交易平台，首充号购买，首充号续充，手游充值，苹果代充，iOS代充，装备道具交易，游戏币交易">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<link href="./tianlong/tianlong.css" type="text/css" rel="stylesheet" />
+	<link href="favicon.ico" type="image/x-icon" rel=icon>
+	<link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
+	<script type="text/javascript" src="http://static.66173.cn/www/js/jquery-1.7.1.min.js" ></script>
+
+</head>
+<body>
+<div class="float pages" id="float">
+	<div class="fix_box">
+		<h3 class="p-t-10">扫描二维码</h3>
+		<h3>下载《天龙八部3D》应用宝端</h3>
+		<img width="170" height="170" alt="" class="m-l-25 m-t-5 m-b-5" src="./tianlong/imgs/kuyoo.jpg">
+		<a class="btn_yyb m-l-25" href="http://dd.myapp.com/16891/B8A7489BBC8CE27F9983F4DC2A62AF65.apk?fsname=com.tencent.tmgp.mtlbb_1.305.0.2_16986370.apk"></a>
+		{if $ser_qq}
+		<a href="http://wpa.qq.com/msgrd?v=3&uin={$ser_qq}&site=qq&menu=yes" target="_blank" rel="noopener noreferrer" class="btn_qq m-l-25"></a>
+		{else}
+		<a href="http://wpa.qq.com/msgrd?v=3&uin=270772735&site=qq&menu=yes" target="_blank" rel="noopener noreferrer" class="btn_qq m-l-25"></a>
+		{/if}
+	</div>
+    <div class="fix2_box">
+        <p class="task_num">您还有<span>{3-$num}</span>个任务未完成</p>
+        <p class="task1"><span class="font_one">领礼包</span>
+             {if $desc.gift eq 1}
+                <img class="img_task" src="./tianlong/imgs/yes.png">
+                <span class="font_yes">已完成</span></p>
+             {else}
+                <img class="img_task" src="./tianlong/imgs/no.png">
+                <span class="font_no">未完成</span></p>
+             {/if}
+        <p class="task2"><span class="font_one">拿红包</span>
+            {if $desc.coupon eq 1}
+                <img class="img_task" src="./tianlong/imgs/yes.png">
+                <span class="font_yes">已完成</span></p>
+            {else}
+                <img class="img_task" src="./tianlong/imgs/no.png">
+                <span class="font_no">未完成</span></p>
+             {/if}
+        <p class="task3"><span class="font_one">抽大奖</span>
+            {if $desc.prize eq 1}
+                <img class="img_task" src="./tianlong/imgs/yes.png">
+                <span class="font_yes">已完成</span></p>
+            {else}
+                <img class="img_task" src="./tianlong/imgs/no.png">
+                <span class="font_no">未完成</span></p>
+            {/if}
+        <a class="to_buy" target='_blank' rel='noopener noreferrer' href="http://www.66173.cn/buy/1584-character.html" title="购买首充号"></a>
+    </div>
+</div>
+<div class="warpbox">
+	<div class="pagebox1 pagebox">
+		<div class="page1 pages">
+			<a class="btn_logo" href="#" title="天龙" target="_blank"></a>
+			<a class="btn_logo2" href="#" title="酷游" target="_blank"></a>
+		</div>
+	</div>
+	<div class="pagebox2 pagebox">
+		<div class="page2 pages">
+			<div class="login-bar">
+				<!--未登录-->
+				{if $smarty.session.user_id}
+				<p id="logined">{$smarty.session.nick_name},欢迎您<a href="/account.php?act=logout" title="退出登录">【注销】</a></p>
+				{else}
+				<p id="unlogin">您好，请 <a href="javascript:dologin();" id="dologin" title="登录">【登录】</a></p>
+				<!--<p id="qqlogin">您好，请 <a href="javascript:get_phone();" id="get_phone" title="绑定手机">【绑定手机】</a></p>-->
+				{/if}
+				<!--已登录-->
+			</div>
+			<a class="my_gifts" href="javascript:my_gifts();">[我的礼包]</a>
+			<h5>活动期间：登录酷游或新用户注册即可领取高级礼包一份！每人一份，限量1000份！</h5>
+			<ul>
+				<li><img width="70" height="70" alt="" src="./tianlong/imgs/icon_1.png"><p>美人转换符*10</p></li>
+				<li><img width="70" height="70" alt="" src="./tianlong/imgs/icon_2.png"><p>金钥匙*3</p></li>
+				<li><img width="70" height="70" alt="" src="./tianlong/imgs/icon_3.png"><p>侠侣奇缘(30天)</p></li>
+				<li><img width="70" height="70" alt="" src="./tianlong/imgs/icon_4.png"><p>壁水麒麟(30天)</p></li>
+				<li><img width="70" height="70" alt="" src="./tianlong/imgs/icon_5.png"><p>精钢*10</p></li>
+				<li><img width="70" height="70" alt="" src="./tianlong/imgs/icon_6.png"><p>金币*10万</p></li>
+			</ul>
+			<a class="btn_yjlq m-t-25" href="javascript:get_gifts();" title="一件领取"></a>
+		</div>
+	</div>
+	<div class="pagebox3 pagebox">
+		<div class="page3 pages">
+			<a class="my_coupon alter_show" href="javascript:;">[我的优惠券]</a>
+			<h5>活动期间：登录酷游或新用户注册即可领取高级礼包一份！每人一份，限量1000份！</h5>
+			<ul>
+				<li class="coupon_blue"><img width="170" height="75" alt="" src="./tianlong/imgs/b50.png"><p>满200元使用<br>限《天龙八部3D》应用宝端</p></li>
+				<li class="coupon_blue"><img width="170" height="75" alt="" src="./tianlong/imgs/b100.png"><p>满400元使用<br>限《天龙八部3D》应用宝端</p></li>
+				<li class="coupon_blue"><img width="170" height="75" alt="" src="./tianlong/imgs/b250.png"><p>满1000元使用<br>限《天龙八部3D》应用宝端</p></li>
+				<li class="coupon_red"><img width="170" height="75" alt="" src="./tianlong/imgs/p50.png"><p>全场商品，满98元可用</p></li>
+				<li class="coupon_red"><img width="170" height="75" alt="" src="./tianlong/imgs/p100.png"><p>全场商品，满98元可用</p></li>
+				<li class="coupon_red"><img width="170" height="75" alt="" src="./tianlong/imgs/p150.png"><p>全场商品，满98元可用</p></li>
+			</ul>
+			<div class="share300">
+				<h5>分享后即可领取300元现金券</h5>
+				<img width="170" height="75" alt="" src="./tianlong/imgs/p300_no.png">
+				<div class="share_box">
+					<section class="fri_s">分享至:</section>
+					<section class="sec_s">
+						<a href="#" onclick="share_btn('weixin')"><img width="25" height="25" src="./tianlong/imgs/s_wx.png"></a>
+						<a href="#" onclick="share_btn('qzone')"><img width="25" height="25" src="./tianlong/imgs/s_qz.png"></a>
+						<a href="#" onclick="share_btn('tsina')"><img width="25" height="25" src="./tianlong/imgs/s_wb.png"></a>
+						<a href="#" onclick="share_btn('sqq')"><img width="25" height="25" src="./tianlong/imgs/s_qq.png"></a>
+					</section>
+				</div>
+				<div class="bdsharebuttonbox">
+					<a href="#" id="bds_more" class="bds_more" data-cmd="more"></a>
+					<a href="#" id="bds_qzone" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+					<a href="#" id="bds_tsina" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+					<a href="#" id="bds_tqq" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+					<a href="#" id="bds_renren" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+					<a href="#" id="bds_weixin" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+				</div>
+				<script>window._bd_share_config = {
+					"common": {
+						"bdSnsKey": {},
+						"bdText": "",
+						"bdMini": "2",
+						"bdPic": "",
+						"bdStyle": "0",
+						"bdSize": "16"
+					}, "share": {}
+				};
+				with (document)0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+				<a href="javascript:receive_coupon(3);" title="立即领取"><img width="110" height="35" src="./tianlong/imgs/btn_ljlq.png"></a>
+			</div>
+		</div>
+	</div>
+	<div class="pagebox4 pagebox">
+		<div class="page4 pages">
+			<a class="btns_yjlq" href="javascript:receive_coupon(1);" title="一件领取"></a>
+			<h5>绑定手机号,即可获得价值800元的酷游现金券!仅限《天龙八部3D》应用宝使用 </h5>
+			<ul class="m-t-50">
+				<li class="coupon_blue"><img width="205" height="90" alt="" src="./tianlong/imgs/r1000.png"><p>(满4000可用)</p></li>
+				<li class="coupon_blue"><img width="205" height="90" alt="" src="./tianlong/imgs/r2000.png"><p>(满10000可用)</p></li>
+				<li class="coupon_blue"><img width="205" height="90" alt="" src="./tianlong/imgs/r5000.png"><p>(满20000可用)</p></li>
+			</ul>
+			<a class="btn_yjlq" href="javascript:receive_coupon(2);" title="一件领取"></a>
+		</div>
+	</div>
+	<div class="pagebox5 pagebox">
+		<div class="page5 pages">
+			<a class="my_prize show_pri" href="#;">[查看我的奖品]</a>
+			<h5>活动期间：登录酷游或新用户注册可免费抽奖一次！分享本次活动页面可参与一次抽奖！首次购买任意商品可多参与一次抽奖！</h5>
+			<div id="lottery" class="lottery_box">
+				<table>
+					<tr>
+						<td class="lottery-unit lottery-unit-0"><img height="75" src="./tianlong/imgs/g3.png"><p>无门槛优惠券</p></td>
+						<td class="lottery-unit lottery-unit-1"><img height="75" src="./tianlong/imgs/iphone7.png"><p>iphone7</p></td>
+						<td class="lottery-unit lottery-unit-2"><img height="75" src="./tianlong/imgs/v0.png"><p>普发礼包</p></td>
+					</tr>
+					<tr>
+						<td class="lottery-unit lottery-unit-7"><img height="75" src="./tianlong/imgs/v10.png"><p>顶级礼包</p></td>
+						<td><a href="#"><img height="140" width="252px" src="./tianlong/imgs/draw.png"><span>你还有<b id="change_num"> {$share_num} </b>次机会</span></a></td>
+						<td class="lottery-unit lottery-unit-3"><img height="75" src="./tianlong/imgs/g10.png"><p>无门槛优惠券</p></td>
+					</tr>
+					<tr>
+						<td class="lottery-unit lottery-unit-6"><img height="75" src="./tianlong/imgs/g20.png"><p>无门槛优惠券</p></td>
+						<td class="lottery-unit lottery-unit-5"><img height="75" src="./tianlong/imgs/v12.png"><p>v12礼包</p></td>
+						<td class="lottery-unit lottery-unit-4"><img height="75" src="./tianlong/imgs/mi5.png"><p>小米5</p></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="pagebox6 pagebox">
+		<div class="page6 pages">
+			<section class="left-100">
+				<h5>分享本次活动页面可参与一次抽奖！ </h5>
+				<ul>
+					<li><a href="#"><img width="55" height="55" alt="" src="./tianlong/imgs/wx.png"></a></li>
+					<li><a href="#"><img width="55" height="55" alt="" src="./tianlong/imgs/qzone.png"></a></li>
+					<li><a href="#"><img width="55" height="55" alt="" src="./tianlong/imgs/qq.png"></a></li>
+					<li><a href="#"><img width="55" height="55" alt="" src="./tianlong/imgs/weibo.png"></a></li>
+				</ul>
+			</section>
+			<section class="right-100">
+				<h5>首次购买任意商品可多参与一次抽奖！ </h5>
+				<a class="btn_qwgm m-t-20" target='_blank' rel='noopener noreferrer' href="http://www.66173.cn/games/1584.html" title="前往购买"></a>
+			</section>
+			<div class="win_box">
+				<h3>中奖名单</h3>
+				<ul class="win_title">
+					<li><p>中奖号码</p></li>
+					<li><p>奖品</p></li>
+					<li><p>时间</p></li>
+				</ul>
+				<div class="win_order">
+					<ul class="win_ul">
+						{foreach $active as $actives}
+						<li><span>{$actives.mobile}</span><span>获得了{$actives.prize_name}</span><span>{$actives.add_time|date_format:"%Y-%m-%d %H:%I:%S"}</span></li>
+						{/foreach}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="pagebox7 pagebox">
+		<div class="page7 pages">
+			<h5>关注酷游手游公众号，进入聊天窗口-点击 “游戏礼包”菜单，获取更多游戏礼包。</h5>
+		</div>
+	</div>
+	<div class="pagebox8 pagebox p-t-50 bg-c-8d">
+		<div class="bg-c-8d">
+			<div class="pages">
+				<div class="explain">
+					<h3>活动规则:</h3>
+					<p>1、活动时间：2016年10月20日。</p>
+					<p>2、活动参与方式：</p>
+					<p class="m-l-20">A：活动期间，登录酷游或新用户注册即可领取价值2500元的天龙八部3D游戏礼包一份！每人一份，限量1000份！ </p>
+					<p class="m-l-20">B：活动期间，登录酷游或新用户注册即可领取总价值1000元酷游现金卷！每人一份，限量5000份！</p>
+					<p class="m-l-20">C：活动期间：登录酷游或新用户注册可免费抽奖一次！分享本次活动页面可参与一次抽奖！购买酷游任意商品可多参与一次抽奖！</p>
+					<p>3、天龙八部3D礼包兑换码将直接放至用户酷游账户，请记得查看并在游戏中兑换。</p>
+					<p class="m-l-20">抽奖奖品中普发礼包、顶级礼包、V12礼包等奖品将于活动结束后7个工作日内发放到参与活动的账户中，敬请查收； </p>
+					<p class="m-l-20">所有现金券等将直接发放至用户酷游账户中，可立即用于酷游网站充值消费，使用条件请见优惠券详情！</p>
+					<p class="m-l-20">获得实物奖品后请于活动结束后联系客服填写详细寄送信息，如填写不正确或未填写将视为自动放弃领取，逾期不候。奖品将于活动结束后7个工 作日之内寄送。</p>
+					<p>4、本次活动最终解释权归酷游所有。</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	{include file="model.html"}
+	<input type="hidden" name="user_id" value="{$smarty.session.user_id}" id="user_id">
+	<input type="hidden" name="phone_num" value="{$smarty.session.mobile}" id="phone_num">
+</div>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://static.66173.cn/wwwv2/js/jquery.SuperSlide.2.1.1.js"></script>
+<script type="text/javascript" src="./tianlong/tl_active.js?t={$smarty.now}"></script>
+<script type="text/javascript">
+	function dologin(){
+		$('.tc_bg,.login_box').show();
+	}
+	function get_phone(){
+		$('.tc_bg,.phone_box').show();
+	}
+//	$('.tc_bg,.get_gift_box').show();
+//	$('.tc_bg,.my_gift_box').show();
+	var f_hide_login_box = function(){ $('.tc_bg,.login_box').hide(); }
+	var phone_box_hide = function(){ $('.tc_bg,.phone_box').hide(); }
+	var ban_box_hide = function(){ $('.tc_bg,.ban_success').hide(); }
+	$(function(){
+		$('.guanbi').click(function(){
+			f_hide_login_box();
+		});
+		$('.close_phone').click(function(){
+			phone_box_hide();
+		});
+		$('.close_success').click(function(){
+			ban_box_hide();
+		});
+		$('.close_btn').click(function(){
+			$('.tc_bg,.f_box').hide();
+		});
+	});
+	function ban_success(){
+		phone_box_hide();
+		$('.tc_bg,.ban_success').show();
+	}
+	function win_info(id,prize_id,prize_name,gift_code) {
+		switch(id){
+			case '0':
+
+			case '3':
+			case '6'://现金券
+
+				var html = "恭喜您成功领取价值<span class='red'>" + prize_name + "</span>一份!";
+				var img = "./tianlong/imgs/f_img" + prize_id + ".png";
+				document.getElementById("f_img").src = img;
+				$('#prize_coupon_t').html(html);
+				$('.tc_bg,.prize_coupon').show();
+				break;
+			case '2':
+			case '5':
+			case '7'://礼包码
+				var html = "恭喜您成功领取天龙八部3D" + prize_name + "一份!";
+				$('#prize_gift_t').html(html);
+				$('#gift_code').html('');
+				$('#gift_code').html(gift_code);
+				$('#f_copy').attr('rel',prize_id);
+				$('.tc_bg,.prize_gift').show();
+				break;
+			case '1':
+			case '4'://手机
+				var html = "恭喜您成功领取价值<span class='red'>" + prize_name + "</span>一台!";
+				var img = "./tianlong/imgs/f_img" + prize_id + ".png";
+				document.getElementById("phone_img").src = img;
+				$('#prize_phone_t').html(html);
+				$('.tc_bg,.prize_phone').show();
+				break;
+		}
+	}
+	function share_btn(name) {
+		getElementById("#bds_"+name).click()
+	}
+
+</script>
+</body>
+</html>

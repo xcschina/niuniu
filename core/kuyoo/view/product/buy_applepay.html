@@ -1,0 +1,100 @@
+<!-- 苹果代充 -->
+<div class="game_recharge">
+	<!-- 标题 -->
+	<div class="title">[{$gameinfo.game_name}]</div>
+	<div class="color_red">购买即可获得酷游送出的专属礼包</div>
+	{include file="product/buy_type.html"}
+	<div class="color_red fontsize_16">
+		{if $type eq 8}
+		【苹果代充】代充时请不要登录游戏账号,以免造成充值失败,
+		{else if $type eq 3}
+		【代充】代充时请不要登录游戏账号,以免造成充值失败,
+		{/if}
+	<br/>
+	您填写的游戏帐号密码信息经过系统自动加密,绝对安全。
+	</div>
+</div>
+
+<!-- 首充号 商品选择 -->
+<ul class="game_charge">
+	<li class="maxrow">
+		商品选择：<select class="select" name="product_id" id='choose_product' data-intro="haha">
+		{if $products|@count neq 0}
+		<option value="0">请选择商品</option>
+		{foreach from=$products item=product}
+		<option value="{$product.id}" data-subtitle="{$product.sub_title}">{$product.title}</option>
+		{/foreach}
+		{else}
+		<option value="0">暂无可选商品</option>
+		{/if}
+		</select>
+		<a class="color_red" id='product_sub_title'></a>
+	</li>
+	<li class="maxrow" id="discount_price" ></li>
+</ul>
+
+<!-- 平台选择 -->
+<div id="choose_platform">
+	<div class="charge_platform" id="android_platform">
+		<label class="icon_android"></label>
+	</div>
+	<div class="charge_platform" id="ios_platform">
+		<label class="icon_ios"></label>
+	</div>
+</div>
+
+<!-- 填写账号信息 -->
+<div id="account_info">
+	<div class="title_sub">
+		<strong class="name">填写帐号信息</strong>
+	</div>
+	<ul class="game_form">
+		<li>
+			<label><span class="color_red">*</span>选择区服：</label>
+			<select name="serv_id" id="choose_server">
+			</select>
+		</li>
+		<li>
+			<label><span class="color_red">*</span>角色名：</label>
+			<input type="text" class="txt" name="role_name" placeholder="请输入角色名">
+		</li>
+		<li>
+			<label><span class="color_red">*</span>代充帐号：</label>
+			<input type="text" class="txt" name="game_user" placeholder="请输入您要代充的帐号">
+			<input type="hidden" name="channel_id" value="{$firstpay.channel_id}">
+		</li>
+		<li>
+			<label><span class="color_red">*</span>密码：</label>
+			<input type="text" class="txt" placeholder="请输入密码" name="game_pwd">
+		</li>
+	</ul>
+</div>
+
+<!-- 联系方式 -->
+<div id="contact">
+	<div class="title_sub">
+		<strong class="name">联系方式</strong>
+	</div>
+	<ul class="game_form">
+		<li>
+			<label><span class="color_red">*</span>手机号码：</label>
+			<input type="text" class="txt" placeholder="请输入手机号码" name='tel' value="{if $smarty.session.buy_mobile neq ''}{$smarty.session.buy_mobile}{/if}" />
+		</li>
+		<li>
+			<label><span class="color_red">*</span>QQ：</label>
+			<input type="text" class="txt" placeholder="请输入QQ号" name='qq' value="{$smarty.session.buy_qq}"/>
+		</li>
+		{if $type eq 8}
+		<li><a class="btn" id="applepay">立即购买</a></li>
+		{else if $type eq 3}
+		<li><a class="btn" id="helppay">立即购买</a></li>
+		{/if}
+
+	</ul>
+</div>
+
+<input type="hidden" name="pagehash" value="{$pagehash}" />
+<input type="hidden" name="channel_id" value="0" id="channel_id">
+<input type="hidden" name="price" value="0" id="price"/>
+<input type="hidden" name="stprice" value="0" id="stprice"/>
+<input type="hidden" name="do" value="applepay" />

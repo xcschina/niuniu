@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>消息详情</title>
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/news_detail.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/comment.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+</head>
+<body>
+<div class="page_top2">
+    <div class="page_top_left2">
+        <img class="margin_two" src="//cdn.66173.cn/mobile/trading/image/index_image/back.png" alt="">
+    </div>
+    <div class="page_top_center2">
+        消息详情
+    </div>
+    <a class="page_top_right2" href="/moyu">
+        <span class="login_my">
+            <img class="page_top_r_img" src="//cdn.66173.cn/mobile/trading/image/person_center/index2.png" alt="">
+        </span>
+    </a>
+</div>
+<div class="new_detail_txt margin_t">
+   <div class="title_new">
+       <div class="title_new1">
+           <div class="title_new1_title">
+               <span class="blod_three">{if $info.status eq '2'}交易{else}系统{/if}消息:</span>{$info.title}
+           </div>
+       </div>
+       <div class="title_new2">
+           {'Y-m-d H:i:s'|date:$info.add_time}
+       </div>
+   </div>
+    <div class="title_contant">
+         <div class="text_contant_new"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <p> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                 {$info.content|html_entity_decode}
+             </p>
+         </div>
+    </div>
+</div>
+</body>
+<script>
+    $(".page_top_left2").click(function () {
+        history.back()
+    })
+</script>
+</html>

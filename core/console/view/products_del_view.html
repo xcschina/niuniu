@@ -1,0 +1,25 @@
+<style>
+    .do-del{
+        text-align: center;
+        font-size: 16px;
+        line-height: 126px;
+    }
+</style>
+<div class="bjui-pageContent">
+    <form action="products_info.php?act=do_del"  data-toggle="validate" class="do-del" data-alertmsg="false">
+    <table class="table table-condensed table-hover" width="100%">
+        <thead>
+        </thead>
+        <tbody>
+            是否确认删除该商品？
+        </tbody>
+        <input type="hidden" name="id" value="{$id}" />
+    </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>

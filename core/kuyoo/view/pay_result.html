@@ -1,0 +1,42 @@
+{include file="include/head.html" web_title="支付结果"}
+<body>
+    {include file="include/top.html"}
+    {include file="include/header.html"}
+    {include file="include/nav.html"}
+    <div class="w1000">
+        <div class="current_nav ">
+            当前位置：<a href="javascript:;">酷游手游交易平台</a>&nbsp;>&nbsp;<a href="javascript:;">游戏列表</a>&nbsp;>&nbsp;{$order_relation.game_name}
+        </div>
+        <img src="{$IMG_PATH}order_process3.png" />
+        <div class="title_sub mt_20">
+            <strong class="name">支付结果</strong>
+        </div>
+
+        <div class="pay_result_title">
+            {if $result eq 'success'}
+            <img src="{$IMG_PATH}sucess1.jpg">
+            {elseif $result eq 'no_order'}
+            <img src="{$IMG_PATH}wrong.jpg">无此订单，请到用户中心核实。
+            {else}
+            <img src="{$IMG_PATH}wrong.jpg">支付失败
+            {/if}
+        </div>
+        <div  class="pay_result">
+            订单编号：{$info.order_id}<br/>
+            商品名称：{$order_relation.title}<br/>
+            商品价格：<span class="fontsize_16 fontbold color_red">{$info.money}</span>元<br/>
+            游戏区服：{$info.serv_name}<br/>
+            购买数量：{$info.amount}<br/>
+            {if $result eq 'success'}
+            <a class="btn" href="http://shouyou.kuyoo.com/my.php?act=my_orders">查看订单</a>
+            {else}
+            <a class="btn" href="http://shouyou.kuyoo.com/my.php?act=my_orders">重新支付</a>
+            {/if}
+        </div>
+
+        {include file="include/footer.html"}
+    </div>
+</div>
+
+</body>
+</html>

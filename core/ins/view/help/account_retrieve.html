@@ -1,0 +1,206 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="width=device-width; initial-scale=0.5; minimum-scale=0.5; maximum-scale=0.5; user-scalable=0" id="viewport" name="viewport" />
+    <title>账号找回</title>
+    <link rel="stylesheet" href="//static.66173.cn/ins/css/help.css?t={$smarty.now}">
+    <script src="//libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <script type="application/javascript">
+        $(window).on('resize', function (e) {
+            var wWidth = document.documentElement.clientWidth || document.body.clientWidth;
+            var size = wWidth / 6.4 ;
+            document.getElementsByTagName('html')[0].style.fontSize = size + 'px';
+        }).trigger('resize');
+    </script>
+</head>
+<body>
+<form method="post" onSubmit="return check_submit();" id="acc-back-from">
+    <header>
+        {if $info}
+        {if $info.status eq '1'}
+        <span style="color: coral">{$info.reply}</span>
+        <br/>
+        {else}
+        <span style="color: coral">您在{$info.add_time|date_format:'%Y-%m-%d %H:%M:%S'}提交的申请，等待受理中，处理结果讲会通过提供的QQ或者手机号进行回复，请您耐心等待。</span>
+        <br/>
+        {/if}
+        {/if}
+        请耐心的填写相关信息,找回账号概率会加大。
+    </header>
+    <div class="input">
+        <label>手机号:</label>
+        <input type="number" name="mobile" id="mobile" maxlength="11" value="" placeholder="手机号码" onkeyup="value=value.replace(/[^\d]/g,'')"/>
+    </div>
+    <div class="input">
+        <label>联络QQ:</label>
+        <input type="number" name="qq" id="qq" maxlength="11" value="" placeholder="联络qq号" onkeyup="value=value.replace(/[^\d]/g,'')"/>
+    </div>
+    <div class="input">
+        <label>账号ID:</label>
+        <input type="text" name="transfer_id" id="transfer_id" maxlength="15" value=""/>
+    </div>
+    <div class="input">
+        <label>注册时间:</label><input type="date" id="creation_time" name="creation_time" maxlength="300" value="" datatype=""/>
+    </div>
+    <div class="input">
+        <label>最后登录时间:</label><input type="date" id="last_time" name="last_time" maxlength="300" value="" />
+    </div>
+    <div class="input">
+        <label>信息描述:</label>
+        <input type="text" name="user_info" maxlength="50" value="" id="user_info" placeholder=""/>
+    </div>
+    <!--<p class="desc-s">-->
+        <!--{$l10n_msg.feedback.user_info_desc}-->
+    <!--</p>-->
+    <div class="input">
+        <label>设备信息:</label>
+        <input type="text" name="device" maxlength="50" value="" id="device" placeholder="设备名称,系统号"/>
+    </div>
+    <div class="input">
+        <label>充值信息:</label>
+        <input type="text" name="pay_order" maxlength="50" value="" id="pay_order" placeholder="充值描述或者提供订单截图"/>
+    </div>
+    <div class="input">
+        <label>其他:</label><input type="text" name="other" id="other" maxlength="400" value=""/>
+    </div>
+    {if $appid eq 1000}
+    <input type="button" class="submit up_btn" value="上传截图" onclick="javascript:do_upload()" id="font_up"/>
+    <p id="ps" class="desc-s">图片仅支持:gif、jpeg、png格式</p>
+    {/if}
+    <input id="submit" type="button" class="submit" value="提交" onclick="javascript:on_submit()"/>
+    <input type="hidden" value="{$uuid}" name="uuid"/>
+    <input name="system" type="hidden" id="system" value="{$system}">
+    <input name="email" type="hidden" value="">
+</form>
+</body>
+<script type="text/javascript">
+    var submit_btn = $("#submit");
+    var is_submitting = false;
+    function check_submit() {
+        submit_btn.disable = true;
+        if(is_submitting){
+            return false;
+        }
+        var system = document.getElementById('system').value;
+        var mobile = $("input[name='mobile']");
+        var qq = document.getElementById('qq');
+        var transfer_id = document.getElementById('transfer_id');
+        var creation_time = document.getElementById('creation_time');
+        var last_time = document.getElementById('last_time');
+        var user_info = document.getElementById('user_info');
+        var device = document.getElementById('device');
+        var pay_order = document.getElementById('pay_order');
+        var other = document.getElementById('other');
+        if($(mobile).val()=="" || $(mobile).val().length!=11){
+            if(system == "50"){
+                alert('手机号长度错误');
+            }else {
+                ios_native_alert('mobile');
+            }
+            $(mobile).focus();
+            return false;
+        }
+        if(qq.value==""){
+            if(system == "50"){
+                alert('QQ号不能为空');
+            }else {
+                ios_native_alert('qq');
+            }
+            qq.focus();
+            return false;
+        }
+        if(transfer_id.value==""){
+            if(system == "50"){
+                alert('账号ID不能为空');
+            }else {
+                ios_native_alert('账号ID不能为空');
+            }
+            transfer_id.focus();
+            return false;
+        }
+        if(creation_time.value==""){
+            if(system == "50"){
+                alert('请选择注册时间');
+            }else {
+                ios_native_alert('请选择注册时间');
+            }
+            creation_time.focus();
+            return false;
+        }
+        if(last_time.value==""){
+            if(system == "50"){
+                alert('请选择最后登录时间');
+            }else {
+                ios_native_alert('请选择最后登录时间');
+            }
+            last_time.focus();
+            return false;
+        }
+        if(user_info.value==""){
+            if(system == "50"){
+                alert('信息描述不能为空');
+            }else {
+                ios_native_alert('信息描述不能为空');
+            }
+            user_info.focus();
+            return false;
+        }
+        if(device.value==""){
+            if(system == "50"){
+                alert('设备信息不能为空');
+            }else {
+                ios_native_alert('设备信息不能为空');
+            }
+            device.focus();
+            return false;
+        }
+        if(pay_order.value==""){
+            if(system == "50"){
+                alert('充值信息不能为空');
+            }else {
+                ios_native_alert('充值信息不能为空');
+            }
+            pay_order.focus();
+            return false;
+        }
+        var _$ = window.jQuery;
+        var formStr=_$("#acc-back-from").serialize();
+        if(system == "50"){
+            window.local_obj.account_submit(formStr);
+        }else {
+            account_submit(formStr);
+        }
+    }
+
+    function checkEmail(str){
+        var re = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+        return re.test(str)
+    }
+    function check_mobile(phone) {
+        var reg= /^13[0-9]{9}$|14[0-9]{9}|15[0-9]{9}$|18[0-9]{9}$|17[0-9]{9}$/;
+        return reg.test(phone)
+    }
+    function do_upload(){
+        var system = document.getElementById('system').value;
+        if (document.getElementById("font_up").value!="预览截图") {
+            document.getElementById("font_up").value="预览截图";
+        }
+        if(system == "50"){
+            window.local_obj.uploadfile()
+        }else {
+            upload_img();
+        }
+    }
+    function upload_img() {
+    }
+    function ios_native_alert() {
+    }
+    function on_submit(){
+        document.forms[0].onsubmit();
+    }
+    function account_submit(data){
+    }
+</script>
+</html>

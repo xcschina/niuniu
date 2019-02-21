@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>66173App</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="66173首款手游精选app，还有更多充值折扣，游戏活动等你参与~">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no, email=no"/>
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait"/>
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+</head>
+<style>
+    body {
+        max-width: 750px;
+        margin: auto;
+        text-align: center;
+        font-size: 0;
+    }
+    .top-zone {
+        position: relative;
+    }
+    .top-img {
+        width: 100%;
+    }
+    .scale-img {
+        display: block;
+        width: 25.3%;
+        position: absolute;
+        top: 0;
+        border-radius: 50%;
+        animation: mscale 1s ease-in-out infinite alternate;
+        -webkit-animation: mscale 1s ease-in-out infinite alternate;
+        -moz-animation: mscale 1s ease-in-out infinite alternate;
+        -o-animation: mscale 1s ease-in-out infinite alternate;
+    }
+    @keyframes mscale {
+        100% {
+            transform: scale(1.1);
+        }
+    }
+    @-webkit-keyframes mscale {
+        100% {
+            -webkit-transform: scale(1.1);
+        }
+    }
+    @-moz-keyframes mscale {
+        100% {
+            -webkit-transform: scale(1.1);
+        }
+    }
+    @-o-keyframes mscale {
+        100% {
+            -webkit-transform: scale(1.1);
+        }
+    }
+    .scale1 {
+        margin-top: 34%;
+        left: 7.2%;
+    }
+    .scale2 {
+        margin-top: 62%;
+        right: 2.6%;
+    }
+    .scale3 {
+        margin-top: 84%;
+        left: 7.2%;
+    }
+    .bottom-bg {
+        background: url(http://cdn.66173.cn/mobile/v2/css/img/appLink/bg_02.png?t=2) no-repeat;
+        width: 100%;
+        padding: 0% 0 10%;
+        text-align: center;
+        background-size: 100% 100%;
+    }
+    .download-wrapper {
+        display: block;
+        margin: 0 auto 10%;
+    }
+    .btn-link {
+        width: 50%;
+        display: inline-block;
+        -webkit-tap-highlight-color:rgba(0,0,0,0);
+        transition: all 0.5s ease-in-out;
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -o-transition: all 0.5s ease-in-out;
+
+    }
+    .btn-link:active {
+        transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        -moz-transform: scale(1.1);
+        -o-transform: scale(1.1);
+
+    }
+    .download-btn {
+        width: 100%;
+    }
+    footer {
+        line-height: 1.5;
+        color: #2d2d2d;
+        font-size: 14px;
+    }
+    .copyright {
+        color: #a5a4a4;
+        font-size: 12px;
+    }
+</style>
+<body id="body">
+    <section class="top-zone" id="topZone">
+        <img class="top-img" src="http://cdn.66173.cn/mobile/v2/css/img/appLink/bg_01.png?t=2" alt=""/>
+        <img id="scale1" class="scale-img scale1" src="http://cdn.66173.cn/mobile/v2/css/img/appLink/scale1.png"/>
+        <img id="scale2" class="scale-img scale2" src="http://cdn.66173.cn/mobile/v2/css/img/appLink/scale2.png"/>
+        <img id="scale3" class="scale-img scale3" src="http://cdn.66173.cn/mobile/v2/css/img/appLink/scale3.png"/>
+    </section>
+    <section class="bottom-bg" id="bottomBg">
+        <div class="download-wrapper"><a class="btn-link" href="http://apk.66173.cn/1051/app_nnwl.apk"><img class="download-btn" src="http://cdn.66173.cn/mobile/v2/css/img/appLink/download.png" alt=""></a></div>
+        <footer>
+            <div>福建牛牛网络信息技术有限公司</div>
+            <div class="copyright">&copy;2015&nbsp;66173版权所有</div>
+        </footer>
+    </section>
+</body>
+</html>

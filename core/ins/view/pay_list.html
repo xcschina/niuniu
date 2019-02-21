@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="expires" content="{$expires}" />
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta content="width=device-width; initial-scale=1; minimum-scale=1, maximum-scale=1; user-scalable=1" name="viewport">
+    <link rel="stylesheet" href="//static.66173.cn/ins/css/sdk_pay.css?t={$smarty.now}">
+    <title>消费记录</title>
+</head>
+<body class="order_pay">
+<!--<div class="no_recharge">目前还未有游戏充值记录</div>-->
+{if $order_list}
+<ul class="order_list">
+    {foreach from=$order_list item=order}
+    <li>
+        <div>
+            <section class="o_fri">
+                <p>订单号:{$order.order_id}</p>
+                <p><span class="c-ff6600">￥{$order.pay_money}</span>&nbsp;({$order.title})</p>
+                <p class="c-999 f-12">{'Y-m-d H:i:s'|date:$order.buy_time}</p>
+            </section>
+            <section class="o_sec">
+                {if $order.status eq '1'}
+                <span class="c-e4393c">已充值</span>
+                {else if $order.status eq '2' }
+                <span class="c-099c7f">已完成</span>
+                {else if $order.status eq '4'}
+                <span class="c-b0b0b0">交易取消</span>
+                {else if $order.status eq '3'}
+                <span class="c-27a2c5">支付失败</span>
+                {else}
+                <span class="c-ff6600">未充值</span>
+                {/if}
+            </section>
+        </div>
+    </li>
+    {/foreach}
+</ul>
+{else}
+<div class="center no-list">
+    <img class="no-pic" src="//cdn.66173.cn/ins/css/news/message_no.png"/>
+    <div class="tip">暂无记录</div>
+</div>
+{/if}
+{if count($order_list) eq 10}
+<div class="get-status">
+    <span class="more-btn more-btn-can">加载更多</span>
+</div>
+{else if $order_list}
+<div class="get-status">
+    <span>没有了~</span>
+</div>
+{/if}
+<div class="brief-tip-pop"><div class="con"></div></div>
+</body>
+<script src="//libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    function select_pay_type($id){
+        $(".pay_body li").each(function () {
+            $(this).removeClass("active");
+            $(this).find('i').css('display','none');
+        });
+        $("#"+$id).addClass("active");
+        $("#"+$id).find('i').css('display','block');
+    }
+</script>
+<script>
+    var curPage = 1;
+    var getMoreTimeout;
+    // 加载更多
+    // getMessage();
+    // 点击加载更多按钮
+    $(".order_pay").on("click",".more-btn-can",function() {
+        $(".more-btn").removeClass("more-btn-can");
+        getMessage();
+        btnTimeOutControl(".more-btn", "more-btn-can", getMoreTimeout, 3000);
+    })
+    // 获取消息列表
+    function getMessage() {
+        var reqPage = curPage + 1;
+        $.ajax({
+            url: "pay_list.php?act=more",
+            type: 'post',
+            dataType: 'json',
+            data: {
+                page:reqPage
+            }
+        }).success(function(res){
+            // type : 1是活动消息，1是客服消息，3是系统消息
+            var code = res.result;
+            var order_list = res.info || [];
+            if(code == 1) {
+                var content = "";
+                // 返回有消息，无论是第一页还是其他页
+                if (order_list.length != 0) {
+                    for(var i = 0; i < order_list.length; i++) {
+                        content += ' <li> <div> <section class="o_fri"> <p>订单号:'+order_list[i]['order_id']+'</p> '
+                            +'<p><span class="c-ff6600">￥'+order_list[i]['pay_money']+'</span>&nbsp;('+order_list[i]['title']+')</p> '
+                            +'<p class="c-999 f-12">'+getLocalTime(order_list[i]['buy_time'])+'</p> </section> '
+                            +'<section class="o_sec">'
+                            if(order_list[i]['status'] == '1') {
+                                content += ' <span class="c-e4393c">已充值</span>'
+                            }else if(order_list[i]['status'] == '2') {
+                                content += ' <span class="c-099c7f">已完成</span>'
+                            }else if(order_list[i]['status'] == '4') {
+                                content += ' <span class="c-b0b0b0">交易取消</span>'
+                            }else if(order_list[i]['status'] == '3') {
+                                content += ' <span class="c-27a2c5">支付失败</span>'
+                            }else{
+                                content += ' <span class="c-ff6600">未充值</span>'
+                            }
+                            content += '</section></div> </li>'
+                    }
+                    if(order_list.length < 10) {
+                        $(".get-status").html("没有了~").show();
+                    } else {
+                        $(".get-status").html('<span class="more-btn more-btn-can">加载更多</span>').show();
+                    }
+                    $(".order_list").append(content).show();
+                    curPage++;
+                }
+                // 第一页就没有消息或者其他页没有更多了
+                else {
+                    $(".get-status").html("没有了~").show();
+                }
+            }
+            else {
+                briefTipControl(res.desc);
+            }
+        }).error(function(req) {
+            briefTipControl("请求出错:"+req.status+","+req.statusText);
+        })
+    }
+    // 简单提示控制
+    function briefTipControl(text) {
+        $(".brief-tip-pop .con").html(text);
+        $(".brief-tip-pop").fadeIn(500).delay(1000).fadeOut(500);
+    }
+    // 按钮定时加class控制
+    function btnTimeOutControl(ele, cls, timeoutClient, timeout) {
+        clearTimeout(timeoutClient);
+        timeoutClient = setTimeout(function() {
+            $(ele).addClass(cls);
+        }, timeout || 2000);
+    }
+    function getLocalTime(timestamp) {
+        var date = new Date(parseInt(timestamp)*1000);
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var D = (date.getDate() < 10 ? '0'+(date.getDate()) : date.getDate()) + ' ';
+        var H = (date.getHours() < 10 ? '0'+(date.getHours()) : date.getHours()) + ':';
+        var I = (date.getMinutes() < 10 ? '0'+(date.getMinutes()) : date.getMinutes()) + ':';
+        var S = (date.getSeconds() < 10 ? '0'+(date.getSeconds()) : date.getSeconds()) ;
+        return Y + M + D + H + I + S;
+    }
+</script>
+</html>

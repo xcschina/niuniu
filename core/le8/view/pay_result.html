@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>支付结果</title>
+    <meta name="keywords" content="{$info.game_name},{$info.type_name}" />
+    <meta name="description" content="" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="x-rim-auto-match" content="none">
+    <link rel="stylesheet" type="text/css" href="http://static.66173.cn/mobile/css/common.css?t=1" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://static.66173.cn/mobile/css/pay.css?t=1" media="screen" />
+</head>
+<body>
+<div id="pay_result">
+    {if $result eq 'success'}
+    <h1>订单支付成功</h1>
+    {else}
+    <h1>订单支付失败</h1>
+    {/if}
+    <div class="info">
+        <p>订单号:{$order_id}</p>
+        <p>商品名称:{$info.title}</p>
+        <p>订单总额:￥<span class="orange">{$info.pay_money}</span></p>
+        {if $info.nnb>0}<p>牛币支付:￥<span class="orange">{$info.nnb}</span></p>{/if}
+        {if $info.channel_pay_money>0}<p>支付宝支付:￥<span class="orange">{$info.channel_pay_money}</span></p>{/if}
+    </div>
+    <a href="{$url}">返回</a>
+</div>
+</body>
+</html>

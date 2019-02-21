@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>实名认证</title>
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/news_detail.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/comment.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+</head>
+<body>
+<div class="page_top2">
+    <div class="page_top_left2">
+        <img class="margin_two" src="//cdn.66173.cn/mobile/trading/image/index_image/back.png" alt="">
+    </div>
+    <div class="page_top_center2">
+      实名认证
+    </div>
+    <a class="page_top_right2" href="/moyu">
+        <span class="login_my">
+            <img class="page_top_r_img" src="//cdn.66173.cn/mobile/trading/image/person_center/index2.png" alt="">
+        </span>
+    </a>
+</div>
+<div class="check_identity margin_t"></div>
+<div class="check_identity_div">
+   <div class="check_identity_div_input">
+       <div class="true_name">真实姓名</div>
+       <div class="input_name"><input class="true_name_input" type="text"></div>
+   </div>
+    <div class="check_identity_div_input">
+        <div class="true_name">身份证号</div>
+        <div class="input_name"><input class="true_idCard_input" type="text"></div>
+    </div>
+</div>
+<div class="tips_message">
+
+</div>
+<div class="check_btn" onclick="baocun()">确认绑定</div>
+<input class="pagehash" type="hidden" name="pagehash" value="{$pagehash}">
+</body>
+<script src="//cdn.66173.cn/mobile/trading/js/base64_a.js?t={$smarty.now|date_format:'%Y%m%d'}"></script>
+<script src="//cdn.66173.cn/mobile/trading/js/getUrlParam.js?t={$smarty.now|date_format:'%Y%m%d'}"></script>
+<script src="//cdn.66173.cn/mobile/trading/js/check_identity.js?t={$smarty.now|date_format:'%Y%m%d'}"></script>
+</html>

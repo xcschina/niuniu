@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <title>QB_Q币充值 _66173手游交易平台！</title>
+    <meta name="keywords" content="QB、Q币、66173、手游交易平台" />
+    <meta name="description" content="66173提供各类热门手机游戏应用宝Q币续充，续充可低至6折。66173(m.66173.cn)是国内权威的游戏交易平台，安全快捷有保障的手游充值中心。" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/common.css?t={rand(10,15)}" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/pay.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="http://static.66173.cn/mobile/v2/css/qb.css?t={rand(1,100)}" media="screen" />
+</head>
+<body>
+<header class="page-header clearfix">
+    <h1 class="page-h1">Q币充值</h1>
+    <a class="p2-back" href="javascript:history.back();">返回</a>
+    <a class="p2-back ml-40" href="http://m.66173.cn">首页</a>
+    {if $smarty.session.user_id}
+    <a class="login-on" href="/account.php?act=user_center">个人中心</a>
+    {else}
+    <a class="login-link" href="/account.php?act=user_center" id="login-btn">登录</a>
+    {/if}
+</header>
+<section class="qb_passport">
+    <label>充值账号：</label>
+    <input type="number" placeholder="请填写需要充值的QQ号码" name="qq" oninput="if(value.length>15)value=value.slice(0,15)" />
+</section>
+<div class="step">&nbsp;</div>
+<section class="qb_buy_info">
+    <title>Q币面值：</title>
+    <div class="qb_list clearfix">
+        <span rel="10">10&nbsp;Q币</span>
+        <span rel="10">30&nbsp;Q币</span>
+        <span rel="10">50&nbsp;Q币</span>
+        <span rel="10">100&nbsp;Q币</span>
+    </div>
+    <div class="qb_pay">
+        <p class="qb_price">售价：<span>9.5</span>元(95折)</p>
+        <p class="qb_tip"><em>!</em>为了您的账号及资金安全，请认真核对您的QQ号、充值数额</p>
+        <input class="qb_btn" type="button" value="点击充值" />
+    </div>
+</section>
+{include file="include/footer.html"}
+{literal}
+<script src="http://cdn.66173.cn/mobile/v2/scripts/script.js"></script>
+<script src="http://cdn.66173.cn/mobile/v2/scripts/index.js"></script>
+{/literal}
+</body>
+</html>

@@ -1,0 +1,24 @@
+<div class="sale-info-box clearfix">
+    <label>商品标题：</label>
+    <input name="title" maxlength="50" type="text" placeholder="请输入标题" class="sale-input" value="{$info.title}"/>
+</div>
+<div class="sale-info-box clearfix">
+    <label>商品描述：</label>
+    <textarea name="desc" placeholder="请详细描述你的账号信息" class="sale-input">{$info.intro}</textarea>
+</div>
+<div class="sale-info-box  sel-type sel-type-2 clearfix" id="storage">
+    <label>存放位置：</label>
+    {foreach from=$types item=type}{if $type}<a rel="{$type}"{if $type eq $info.game_storage} class="on"{/if}>{$type}</a>{/if}{/foreach}
+</div>
+<div class="sale-info-box clearfix">
+    <label>出售价格：</label>
+    <input name="price" maxlength="5" type="text" placeholder="请输入您想出售的 价格" class="sale-input" value="{$info.price}" />元
+</div>
+<div class="sale-info-box clearfix">
+    <label>出售件数：</label>
+    <input name="stock" maxlength="3" type="text" placeholder="请输入您想出售的 件数" class="sale-input" value="{$info.stock}"/>
+</div>
+<a class="b-btn" href="#;" onclick="do_props();">下一步</a>
+<input type="hidden" name="do" value="props" />
+<input type="hidden" name="game_storage" value="{$info.game_storage}" />
+<input type="hidden" name="pernum" value="{$info.pernum}" />

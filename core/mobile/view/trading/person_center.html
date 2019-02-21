@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/comment.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/person_center.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+</head>
+<body>
+<div class="page_top2">
+    <div class="page_top_left2">
+        <img class="margin_two" src="//cdn.66173.cn/mobile/trading/image/index_image/back.png" alt="">
+    </div>
+    <div class="page_top_center2">
+        个人中心
+    </div>
+    <a class="page_top_right2 ">
+        <div class="login_my2">
+             <img class="page_top_r_img index_icon" src="//cdn.66173.cn/mobile/trading/image/person_center/index2.png" alt="">
+             <img class="page_top_r_img left width news_icon" src="//cdn.66173.cn/mobile/trading/image/person_center/message3.png" alt="">
+            {if $message.num}
+            <span class="circle"></span>
+            {/if}
+        </div>
+    </a>
+</div>
+<div class="top_person_news margin_t">
+   <div class="top_head_news">
+      <div class="top_head_news_left">
+          <img src="//cdn.66173.cn/mobile/trading/image/person_center/head.png" alt="">
+      </div>
+      <div class="top_head_news_right">
+          <div class="user_name">
+              {$info.login_name}
+          </div>
+          <div class="user_number">
+              <span>
+                  <img src="//cdn.66173.cn/mobile/trading/image/person_center/phone.png" alt="">
+              </span>
+              <span class="span_number">
+                 {substr($info['mobile'],0,3)}****{substr($info['mobile'],-4)}
+              </span>
+              <span>
+                     <img src="//cdn.66173.cn/mobile/trading/image/person_center/true_name.png" alt="">
+              </span>
+          </div>
+      </div>
+   </div>
+</div>
+     <div class="buy_manage">
+         <div class="buy_manage_item">
+             <div class="buy_manage_item_text">
+                 买家管理
+             </div>
+         </div>
+         <div class="buy_manage_item">
+         </div>
+</div>
+<div class="buy_list_icon">
+    <div class="buy_list_icon_type">
+        <a class="paylist_list" href="/orderList/0" data-id="1">
+           <span class="span_num_s">{$pending_payment.num}</span>
+            <div class="type_icon">
+                <img src="//cdn.66173.cn/mobile/trading/image/person_center/future_pay.png" alt="">
+            </div>
+            <div class="type_name">
+                待付款
+            </div>
+        </a>
+        <a class="paylist_list" href="/orderList/1" data-id="2">
+            <span class="span_num_s">{$deliver_goods.num}</span>
+            <div class="type_icon">
+                <img src="//cdn.66173.cn/mobile/trading/image/person_center/fahuo.png" alt="">
+            </div>
+            <div class="type_name">
+                待发货
+            </div>
+        </a>
+        <a class="paylist_list" href="/orderList/2" data-id="3">
+            <span class="span_num_s">{$collect_goods.num}</span>
+            <div class="type_icon">
+                <img src="//cdn.66173.cn/mobile/trading/image/person_center/recive.png" alt="">
+            </div>
+            <div class="type_name">
+                待收货
+            </div>
+        </a>
+        <a class="paylist_list" href="/orderList" data-id="0">
+            <span class="span_num_s">0</span>
+            <div class="type_icon">
+                <img src="//cdn.66173.cn/mobile/trading/image/person_center/pay_list.png" alt="">
+            </div>
+            <div class="type_name">
+                我的订单
+            </div>
+        </a>
+    </div>
+    <div></div>
+</div>
+<div class="space"></div>
+<div class="footer_list_type">
+  <div class="footer_list_type_list">
+      <a class="link_a"  {if !$info.id_number}href="/realVerify"{/if}>
+          <span class="link_a_type">实名认证</span>
+          <span class="link_a_arrow">
+              {if $info.id_number}
+              <div class="link_a_text">已认证</div>
+              {else}
+              <div class="link_a_text">未认证</div>
+              {/if}
+              <div class="arrow">
+                   <img class="margin_two" src="//cdn.66173.cn/mobile/trading/image/person_center/right_arrow.png" alt="">
+              </div>
+          </span>
+      </a>
+  </div>
+    <div class="footer_list_type_list">
+        <a class="link_a" {if !$info.mobile}href="/phoneBind"{/if}>
+            <span class="link_a_type">安全手机</span>
+            <span class="link_a_arrow">
+              <div class="link_a_text black">{substr($info['mobile'],0,3)}****{substr($info['mobile'],-4)}</div>
+              <div class="arrow">
+                   <img class="margin_two" src="//cdn.66173.cn/mobile/trading/image/person_center/right_arrow.png" alt="">
+              </div>
+          </span>
+        </a>
+    </div>
+    <div class="footer_list_type_list">
+        <a class="link_a" href="/collectList">
+            <span class="link_a_type">我的收藏</span>
+            <span class="link_a_arrow">
+              <div class="link_a_text"></div>
+              <div class="arrow">
+                   <img class="margin_two" src="//cdn.66173.cn/mobile/trading/image/person_center/right_arrow.png" alt="">
+              </div>
+          </span>
+        </a>
+    </div>
+    <div class="footer_list_type_list">
+        <a class="link_a"  href="/consumeRecord">
+            <span class="link_a_type">消费记录</span>
+            <span class="link_a_arrow">
+              <div class="link_a_text"></div>
+              <div class="arrow">
+                   <img class="margin_two" src="//cdn.66173.cn/mobile/trading/image/person_center/right_arrow.png" alt="">
+              </div>
+          </span>
+        </a>
+    </div>
+</div>
+<a class="login_out" href="login.php?act=logout">
+     退出登陆
+</a>
+</body>
+<script>
+ $(document).ready(function () {
+     $(".span_num_s").each(function () {
+         var text=$(this).text();
+         if(text==0){
+             $(this).css("background","transparent")
+         }else {
+             $(this).css("background","#e4393c")
+         }
+     })
+ });
+ $(".news_icon").click(function () {
+     window.location.href = "/message"
+ });
+ $(".index_icon").click(function () {
+     window.location.href = "/moyu"
+ });
+ $(".paylist_list").click(function () {
+     localStorage.id = $(this).attr("data-id");
+ });
+ $(".page_top_left2").click(function () {
+     history.back()
+ })
+</script>
+</html>

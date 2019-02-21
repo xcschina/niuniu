@@ -1,0 +1,43 @@
+<div class="bjui-pageContent">
+    <form action="orders_info.php?act=detail_edit"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+
+            <tr>
+                <td>
+                    <label class="control-label x120">交易前截图：</label>
+                    {if $img_list[0]}
+                    <a href="http://static.66173.cn{$img_list[0]}" target="_blank" rel="noopener noreferrer"><img src="http://static.66173.cn{$img_list[0]}" style="width: 500px" /></a>
+                    {else}无{/if}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">交易中截图：</label>
+                    {if $img_list[1]}
+                    <a href="http://static.66173.cn{$img_list[1]}" target="_blank" rel="noopener noreferrer"><img src="http://static.66173.cn{$img_list[1]}" style="width: 500px" /></a>
+                    {else}无{/if}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">交易后截图：</label>
+                    {if $img_list[2]}
+                    <a href="http://static.66173.cn{$img_list[2]}" target="_blank" rel="noopener noreferrer"><img src="http://static.66173.cn{$img_list[2]}" style="width: 500px" /></a>
+                    {else}无{/if}
+                </td>
+            </tr>
+            <input type="hidden" name="id" value="{$order_detail.id}">
+            </tbody>
+        </table>
+        <br />
+    </form>
+</div>
+
+{literal}
+<script type="text/javascript">
+    $(function(){
+        $("select[name=serv_id]").chosen({width:"150px"});
+    })
+</script>
+{/literal}

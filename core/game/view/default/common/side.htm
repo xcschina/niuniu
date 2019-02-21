@@ -1,0 +1,56 @@
+<div class="right" id="aside">
+    <div id="btn">
+        <a href="/pay.php" id="pay"></a>
+    </div>
+    <dl class="info">
+        <dt><span class="icon game_icon"></span><span>游戏介绍</span></dt>
+        <dd id="game">
+            <div id="first">
+                <div class="left icon"><img width="80" height="80" src="http://static.66173.cn/{$info.game_icon}"></div>
+                <div class="left gdetail">
+                    <p class="first">{$info.game_name}</p>
+                    <p class="second">大小: 50MB</p>
+                    <p id="pingjia"><em style="width:90%"></em></p>
+                </div>
+            </div>
+            <p id="gcont">{$info.subtitle|truncate:120:'...'}</p>
+        </dd>
+    </dl>
+    {if !empty($faq)}
+    <dl class="info">
+        <dt><span class="icon fqa_icon"></span><span>常见问题</span></dt>
+        <dd id="fqa">
+            <ul>
+                {foreach $faq as $val}
+                <li><a href="http://www.66173.cn/info/{$val.id}" title="{$val.title}">{$val.title|truncate:9}</a></li>
+                {if $val@index == 6}
+                {break}
+                {/if}
+                {/foreach}
+            </ul>
+        </dd>
+    </dl>
+    {/if}
+    <dl class="info">
+        <dt><span class="icon customer_icon"></span><span>客服中心</span></dt>
+        <dd id="customer">
+            <ul>
+                <li>玩家群 : <span>66173</span></li>
+                <li>客服电话 : <span>87766173</span></li>
+                <!--<li><script charset="utf-8" type="text/javascript" src="http://wpa.qq.com/msgrd?v=3&uin=3311363532&site=qq&menu=yes"></script></li>-->
+            </ul>
+        </dd>
+    </dl>
+    {if $links}
+    <dl class="info">
+        <dt><span class="icon"></span><span>合作媒体</span></dt>
+        <dd id="medias">
+            <ul>
+                {foreach $links as $key=>$media}
+                <li><a href="{$media.go_url}" target="_blank" rel="noopener noreferrer"><img src="http://static.66173.cn/{$media.icon}" title="{$media.title}" /></a></li>
+                {/foreach}
+            </ul>
+        </dd>
+    </dl>
+    {/if}
+</div>

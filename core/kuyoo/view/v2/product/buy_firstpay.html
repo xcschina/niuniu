@@ -1,0 +1,100 @@
+<!-- 购买 首充号 -->
+<div class="game_recharge">
+	<!-- 标题 -->
+	<div class="title">[{$gameinfo.game_name}]</div>
+	<div class="color_red">购买即可获得酷游送出的专属礼包</div>
+	{include file="v2/product/buy_type.html"}
+	<div class="color_red fontsize_16">【首充号】酷游根据用户选择的游戏渠道，新注册账号及密码，且完成首次充值的账号；<br/>只需官网原价的2~5折即可购买，包含您购买的充值数及同等充值奖励。
+	</div>
+</div>
+
+<!-- 首充号 商品选择 -->
+<ul class="game_charge">
+	<li class="maxrow">
+		商品选择：<select class="select" name="product_id" id='choose_product' data-intro="haha">
+		<option value="0">*请选择商品</option>
+		{foreach from=$products item=product}
+		<option value="{$product.id}" data-subtitle="{$product.sub_title}">{$product.title}</option>
+		{/foreach}
+		</select>
+		<a class="color_red" id='product_sub_title'></a>
+	</li>
+	<li class="maxrow" id="discount_price" ></li>
+</ul>
+
+<!-- 平台选择 -->
+<div id="choose_platform">
+	<div class="charge_platform" id="android_platform">
+		<label class="icon_android"></label>
+	</div>
+	<div class="charge_platform" id="ios_platform">
+		<label class="icon_ios"></label>
+	</div>
+</div>
+
+<!-- 填写账号信息 -->
+<div id="account_info">
+	<div class="title_sub">
+		<strong class="name">填写帐号信息</strong>
+	</div>
+	<ul class="game_form">
+		<li>
+			<label><span class="color_red">*</span>选择区服：</label>
+			<select name="serv_id" id="choose_server">
+			</select>
+		</li>
+		<li class="game_recharge" id="random_nickname" >
+			<label><span class="color_red">*</span>随机角色名：</label>
+			<div class="type" style="padding-left:0px; margin-top:0px;">
+				<a class="item" lang="1"><i></i>是</a>
+				<a class="item cur" lang="0"><i></i>否</a>
+			</div>
+		</li>
+		<li class="nickname_row" style="padding-bottom:0px;">
+			<label><span class="color_red">*</span>角色名：</label>
+			<input type="text" class="txt" placeholder="请输入你想要的角色名"  name="role_name"/>
+		</li>
+		<li class="color_red nickname_row">备用角色名不能与角色名一样</li>
+		<li class="nickname_row">
+			<label><span class="color_red">*</span>备用角色名：</label>
+			<input type="text" class="txt" placeholder="如角色名被占用将使用备用名" name="role_back_name" />
+		</li>
+	 	{if !empty($tags)}
+			{foreach from=$tags item=tag key=k}
+	 		<li>
+	 			<label><span class="color_red">*</span>{$k}：</label>
+	 			<select name="attr[]">
+	 				{foreach from=$tag item=t}
+	 					<option value="{$k}:{$t}">{$t}</option>
+	 				{/foreach}
+	 			</select>
+	 		</li>
+	 		{/foreach}
+ 		{/if}
+ 	</ul>
+</div>
+
+<!-- 联系方式 -->
+<div id="contact">
+	<div class="title_sub">
+		<strong class="name">联系方式</strong>
+	</div>
+	<ul class="game_form">
+		<li>
+			<label><span class="color_red">*</span>手机号码：</label>
+			<input type="text" class="txt" placeholder="请输入手机号码" name='tel' value="{if $smarty.session.buy_mobile neq ''}{$smarty.session.buy_mobile}{/if}"/>
+		</li>
+		<li>
+			<label><span class="color_red">*</span>QQ：</label>
+			<input type="text" class="txt" placeholder="请输入QQ号" name='qq' />
+		</li>
+		<li><a class="btn" id="firstpay">立即购买</a></li>
+	</ul>
+</div>
+
+<input type="hidden" name="pagehash" value="{$pagehash}" />
+<input type="hidden" name="channel_id" value="0" id="channel_id">
+<input type="hidden" name="price" value="0" id="price"/>
+<input type="hidden" name="stprice" value="0" id="stprice"/>
+<input type="hidden" name="is_random_nickname" value="0" id="is_random_nickname">
+<input type="hidden" name="do" value="character" />

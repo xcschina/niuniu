@@ -1,0 +1,28 @@
+<div class="bjui-pageContent">
+    <form action="coupon.php?act=issue_status"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            </br>
+            <tr>
+                <td>
+                    <label class="control-label x120">活动开始时间：</label>
+                    <input type="text"  name="issue_start_time" data-toggle="datepicker" data-pattern="yyyy-MM-dd 00:00:00" size="20">
+                    <input type="hidden" name="id" value="{$id}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">活动结束时间：</label>
+                    <input type="text"  name="issue_end_time" data-toggle="datepicker" data-pattern="yyyy-MM-dd 23:59:59" size="20">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">确定</button></li>
+    </ul>
+</div>

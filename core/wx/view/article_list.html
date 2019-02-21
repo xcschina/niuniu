@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+<title>66173手游交易平台</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<link rel="stylesheet" type="text/css" href="http://static.66173.cn/weixin/css/style.css?t=20160303" media="screen" />
+    {literal}
+    <style>
+        #article-list div.item{padding: 10px 0}
+        #article-list div.item div.intro h3{overflow: hidden}
+        #article-list div.item div.intro{margin-left: 132px;margin-right: 10px}
+    </style>
+    {/literal}
+</head>
+<body>
+<section id="article-list">
+    {foreach from=$list item=item}
+    <div class="item">
+        <a href="article.php?act=item&id={$item.id}">
+            <img src="http://static.66173.cn/{$item.img}" class="thumb" />
+            <div class="intro">
+                <h3>{$item.title}</h3>
+                <p>{$item.summary|htmlspecialchars_decode|strip_tags}<em>&raquo;</em></p>
+            </div>
+        </a>
+    </div>
+    {/foreach}
+    {if $list|count>9}<a href="#more" id="more" onclick="load_page();">显示更多</a>{/if}
+</section>
+<input type="hidden" name="page" value="{$page+1}" />
+<input type="hidden" name="part_id" value="{$part_id}" />
+{literal}
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+    !window.jQuery && document.write('<script src=http://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js><\/script>');
+    function load_page(){
+        page = $("input[name='page']").val();
+        part_id = $("input[name='part_id']").val();
+        $.ajax({
+            type:'get',
+            url:'?act=list&part_id='+part_id+'&page='+page,
+            data:{
+                page:page
+            },
+            dataType: 'json',
+            beforeSend:function(){
+                $("#more").html("菊花玩命旋转中...");
+            },
+            success: function (json) {
+                var content = "";
+                $(json).each(function(index) {
+                    content += '<div class="item">';
+                    content += '<a href="article.php?act=item&id='+this.id+'">';
+                    content += '<img src="http://static.66173.cn/'+this.img+'" class="thumb" />';
+                    content += '<div class="intro">';
+                    content += '<h3>'+this.title+'</h3>';
+                    content += '<p>'+this.summary+'<em>&raquo;</em></p>';
+                    content += '</div></a></div>';
+
+                });
+                if(content==""){
+                    $("a#more").hide();
+                }else{
+                    $("a#more").before(content);
+                    $("input[name='page']").val(page);
+                }
+                if($(json).length<10){
+                    $("a#more").hide();
+                }
+            },
+            error:function(){
+                $("a#more").hide();
+            }
+        });
+    }
+</script>
+{/literal}
+</body>

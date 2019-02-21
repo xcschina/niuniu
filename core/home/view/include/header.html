@@ -1,0 +1,34 @@
+<div class="w1000">
+    <div id="logo_search">
+        {if $domain_name eq 1}
+        <div id="logo">
+            <a href="http://www.66173.cn" title="66173手游交易平台"></a>
+            <!-- <div class="code"></div> -->
+        </div>
+        {else if $domain_name eq 2}
+        <div id="u-logo">
+            <a href="http://www.u2590.com" title="u2590手游交易平台"></a>
+        </div>
+        {/if}
+        <div id="search">
+            <form>
+                <div class="input_txt">
+                    <input type="text" autocomplete="off" placeholder="请输入汉字或拼音" id="keyword" class="keyword"/><input type="button" class="btn" value="搜索" id="btn_search">
+                </div>
+                <div class="search_keyword">
+                    <dl>
+                        <dt></dt>
+                        {foreach from=$games item=game key=key}
+                        {if $key < 8}
+                        <dd><a target='_blank' rel='noopener noreferrer' href="/games/{$game.id}.html" class="color_red">{$game.game_name}</a></dd>
+                        {/if}
+                        {/foreach}
+                    </dl>
+                </div>
+            </form>
+        </div>
+        <div id="keyword_box">
+            <ul class="keyword-inner"> </ul>
+        </div>
+    </div>
+</div>

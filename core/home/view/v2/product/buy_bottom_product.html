@@ -1,0 +1,17 @@
+<div id="tab1_box">
+	<ul class="pro_img_small">
+		{section loop=$imgs name=gimg}
+		{if $smarty.section.gimg.index lt 4}
+		<li {if $smarty.section.gimg.first}class="cur"{/if}>
+			<i class="icon_arrow"></i>
+			<img src="http://cdn.66173.cn/{$imgs[gimg]['img_url']}"/>
+		</li>
+		{/if}
+		{/section}
+	</ul>
+	<div class="pro_img_big">
+		<i class="icon_arrow_left"></i>
+		<i class="icon_arrow_right"></i>
+		<img src="http://cdn.66173.cn/{$imgs[0]['img_url']}" id="bigimg" />
+	</div>
+</div>

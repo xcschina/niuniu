@@ -1,0 +1,13 @@
+<header class="page-header clearfix">
+    <h1 class="page-h1">{$title}</h1>
+    {if $url}
+        <a class="p2-back" href="{$url}">返回</a>
+    {else}
+        <a class="p2-back" href="javascript:history.back();">返回</a>
+    {/if}
+    {if $smarty.session.user_id}
+    <a class="login-on" href="http://m.66173.cn/account.php?act=user_center">个人中心</a>
+    {else}
+    <a class="login-link" href="http://shop.66173.cn/index.php?act=ajax_login" id="login-btn">登录</a>
+    {/if}
+</header>

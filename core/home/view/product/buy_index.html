@@ -1,0 +1,12 @@
+<!-- 购买 首页 -->
+<div class="game_recharge">
+	<!-- 标题 -->
+	<div class="title">[{$gameinfo.game_name}]</div>
+	<div class="color_red">购买即可获得{if $domain_name eq 1}66173{else if $domain_name eq 2}u2590{/if}送出的专属礼包</div>
+	{include file="product/buy_type.html"}
+	<div class="color_red fontsize_16">
+		<p>欢迎来到<strong>{$gameinfo.game_name}</strong>购买页面~~~</p>
+		<p>请选择您需要购买的类型</p>
+		<p>交易前请先登陆{if $domain_name eq 1}66173{else if $domain_name eq 2}u2590{/if}账户哦~~</p>
+	</div>
+</div>

@@ -1,0 +1,70 @@
+<div class="bjui-pageContent">
+    <form action="account_admins.php?act=update"  data-toggle="validate" data-alertmsg="false">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td colspan="4">
+                    <label class="control-label x120">账号：</label>
+                    <input type="text" name="account" value="{$info.account}" cols="30" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label class="control-label x120">昵称：</label>
+                    <input type="text" name="usr_name" value="{$info.usr_name}" cols="30" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">姓名：</label>
+                    <input type="text" name="real_name" value="{$info.real_name}"  cols="30" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">QQ：</label>
+                    <input type="text" name="qq" value="{$info.qq}"  cols="30" rows="1"  class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label class="control-label x120">密码：</label>
+                    <input type="text" name="usr_pwd"  cols="30" rows="1"  class="form-control"><span style="color: red">[留空不改变密码]</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">状态：</label>
+                    <input type="radio" name="is_del"  data-toggle="icheck" value="0" data-rule="checked"  {if $info.is_del eq 0} checked="checked" {/if} data-label="正常&nbsp;&nbsp;">
+                    <input type="radio" name="is_del"  data-toggle="icheck" value="1" {if $info.is_del eq 1} checked="checked"{/if} data-label="禁用">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">上次登陆时间：</label>
+                    {date('Y年m月d日 H:i:s', $info.last_login)}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">组别：</label>
+                    <select name="group"   data-toggle="selectpicker" data-rule="required">
+                        <option value="" {if $info.group eq ''}selected="selected"{/if}>未分组</option>
+                        {foreach key=key item=data from=$groupList}
+                        <option value="{$data.GroupName}" {if $info.group eq $data.GroupName}selected="selected"{/if}>{$data.GroupName}</option>
+                        {/foreach}
+                    </select>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <input type="hidden" name="id" value="{$info.id}" />
+        <input type="hidden" name="old_pwd" value="{$info.usr_pwd}" />
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>

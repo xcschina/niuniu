@@ -1,0 +1,30 @@
+<div class="bjui-pageContent">
+    <form action="account_groups.php?act=update"  data-toggle="validate" data-alertmsg="false">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td colspan="4">
+                    <label class="control-label x120">组名：</label>
+                    <input type="text" name="groups_name"  value="{$info.GroupName}" cols="15" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">状态：</label>
+                    <select name="groups_status" data-toggle="selectpicker" data-rule="required">
+                        <option value="1" {if $info.Status eq '1'}selected{/if}>启用</option>
+                        <option value="0" {if $info.Status eq '0'}selected{/if}>禁用</option>
+                    </select>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <input type="hidden" name="id" value="{$info.ID}" />
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>

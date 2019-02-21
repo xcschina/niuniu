@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{$activity.activity_name}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/common.css?t={$smarty.now}">
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/m_common.css?t={$smarty.now}">
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/activity_m.css?t={$smarty.now}">
+    <script src="http://cdn.66173.cn/www/js/jquery-1.8.3.min.js"></script>
+    <script type="application/javascript">
+        function initHTMLSize() {
+            var wWidth = document.documentElement.clientWidth || document.body.clientWidth;
+            var size = wWidth / 7.5;
+            document.getElementsByTagName('html')[0].style.fontSize = (size > 55 ? 55 : size) + 'px';
+        }
+        $(document).ready(function () {
+            console.log("ready");
+            initHTMLSize();
+        });
+        $(window).resize(function() {
+            console.log("resize");
+            initHTMLSize()
+        });
+    </script>
+</head>
+<body class="m-station activity_m">
+<header class="page-head clearfix">
+    <h1 class="page-title">游戏活动</h1>
+    <a class="page-back" href="javascript:history.back();"></a>
+    <a class="page-home" href="http://m.66173.cn">首页</a>
+    {if $smarty.session.user_id}
+    <a class="login-on-link" href="/account.php?act=user_center"></a>
+    {else}
+    <a class="login-in-link" href="/account.php?act=user_center" id="login-btn">登录</a>
+    {/if}
+    <!-- <a class="login-on-link" href="/account.php?act=user_center"></a> -->
+</header>
+<div class="bg-wrapper">
+    <img class="bg-top" src="http://cdn.66173.cn/{$m_img[0]}"/>
+    <div class="background-img bg-bottom" style="background-image:url(http://cdn.66173.cn/{$m_img[1]})">
+        <div class="treasure-top">
+            <div><a href="{$activity.down_url}" target="blank"><img src="http://cdn.66173.cn/mobile/v2/css/img/downloadBtn.png" class="download-btn"/></a></div>
+            <div class="treasure-tip">开宝箱,赢大礼!</div>
+        </div>
+        <div class="background-img treasure-cont" style="background-image:url(http://cdn.66173.cn/mobile/v2/css/img/pricebg.png)">
+            <span class="my-price-link">我的奖品</span>
+            <div class="top">
+                <ul>
+                    {foreach from=$box_img item=box}
+                    <li><img src="http://cdn.66173.cn/{$box}" /></li>
+                    {/foreach}
+                </ul>
+            </div>
+            <div class="bottom">
+                {if $receive}
+                <div><div class="background-img treasure-box already-open"></div></div>
+                <div><div class="background-img treasure-status already-open">已开启</div></div>
+                {else if  $activity.end_time < time()}
+                <div><div class="background-img treasure-box already-close"></div></div>
+                <div><div class="background-img treasure-status already-close">活动已结束</div></div>
+                {else if $activity.start_time > time()}
+                <div><div class="background-img treasure-box already-close"></div></div>
+                <div><div class="background-img treasure-status already-close">活动未开始</div></div>
+                {else}
+                <div><div class="background-img treasure-box wait-to-open"></div></div>
+                <div><div class="background-img treasure-status wait-to-open"></div></div>
+                {/if}
+            </div>
+        </div>
+        <div class="rule-zone">
+            <div><span class="rule-title">活动规则</span></div>
+            <div class="background-img rule-cont" style="background-image:url(http://cdn.66173.cn/mobile/v2/css/img/rulebg.png)">
+                <div class="desc">
+                    活动时间：{$activity['start_time']|date_format:'Y年m月d日'}-{$activity['end_time']|date_format:'Y年m月d日'}<br/>
+                    {str_replace("\n","<br/>",{$activity['activity_rules']})}<br/>
+                </div>
+            </div>
+        </div>
+        <div class="mask">
+            <div class="background-img pop-window price-window">
+                <a class="close"></a>
+                <div class="con">
+                    <div class="price-type"></div>
+                    <div class="share">
+                        <span class="text">好东西记得分享哦！</span>
+                        <div class="share-collection">
+                            <div class="bdsharebuttonbox">
+                                <a class="bds_weixin" data-cmd="weixin"></a>
+                                <a class="bds_qzone" data-cmd="qzone"></a>
+                                <a class="bds_tsina" data-cmd="tsina"></a>
+                                <a class="bds_sqq" data-cmd="sqq"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pop-window getting-tip">正在开宝箱，请稍后。。。</div>
+        </div>
+    </div>
+    <div class="brief-tip-pop"><div class="con"></div></div>
+    <input type="hidden" name="user_id" value="{$smarty.session.user_id}" id="user_id">
+</div>
+ {include file="include/footer.html"}
+</body>
+<script type="text/javascript" src="http://cdn.66173.cn/mobile/v2/scripts/clipboard1.6.1.min.js"></script>
+<script type="text/javascript">
+    with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+    // bdText:  分享标题，bdDesc: 附送的消息，bdUrl: 分享链接，bdPic: 图片
+    window._bd_share_config = { common : { bdText : "{$activity.share_title}", bdDesc : "{$activity.share_msg}", bdUrl : window.location.href, bdPic : "http://cdn.66173.cn/{$activity.product_img}",bdComment:"{$activity.share_desc}"}, share : [{ "bdSize":24}]};
+</script>
+<script>
+    var clipboardCode;
+    // 简单提示控制
+    function briefTipControl(text) {
+        $(".brief-tip-pop .con").html(text);
+        $(".brief-tip-pop").fadeIn(500).delay(1000).fadeOut(500);
+    }
+    // 开宝箱
+    $(".activity_m").on("click",".treasure-status.wait-to-open", function(e) {
+        var user_id = $('#user_id').val();
+        if(!user_id){
+            $("#login-btn").click();
+            return false;
+        }
+        var $ele = $(e.target);
+        $(".mask").show();
+        $(".getting-tip").show().siblings().hide();
+         $.ajax({
+         	 url: "/activity_info.php?act=activity_ajax",
+             type: "post",
+             data:{
+                 user_id: user_id,
+                 id:"{$activity.id}",
+             },
+             dataType: "json"
+         }).success(function(res) {
+            var con = "";
+            if(res.code == 1) {
+                $ele.addClass("already-open").removeClass("wait-to-open").html("已开启");
+                $(".treasure-box").addClass("already-open").removeClass("wait-to-open");
+                if(res.type == "gift") {
+                    var str = res.info;
+                    con = '<div class="gift">'
+                        +'<div class="tip">恭喜您获得<span class="name">{$activity.game_name}</span>大礼包一份!</div>'
+                        +'<div class="center">'
+                        + '<div class="gift-con"><div class="left">礼包内容：</div><div class="right">'+str.content+'</div></div>'
+                        +'<div class="code"><div class="left">兑换码：</div><div class="right">'+str.code+'</div></div>'
+                        +'</div>'
+                        +'<div class="go-link"><a href="my.php?act=my_gifts" target="_blank">查看我的礼包</a></div>'
+                        +'</div>';
+                    $(".price-type").html(con);
+                } else{
+                    var str = res.info;
+                    con = '<div class="coupon">'
+                        +'<div class="tip">恭喜您获得66173优惠券<span class="num">'+str.num+'</span>张!</div>'
+                        +'<div class="center"><div class="background-img coupon-bg"><div class="left">￥<span class="amount">'+str.discount_amount+'</span></div><div class="right"></div></div></div>'
+                        +'<div class="go-link"><a href="coupon.php?act=coupon_list" target="_blank">查看我的优惠券</a></div>'
+                        +'</div>';
+                    $(".price-type").html(con);
+                    // 再区分全场通还是当前游戏优惠券
+                    if(res.type == 'common') {
+                        $(".price-type .right").append('<div class="common">全场通优惠券</div>');
+                    } else {
+                        $('.price-type .right').append('<div class="certain"><div class="name">{$activity.game_name}</div><div class="type">专属优惠券</div></div>');
+                    }
+                }
+                $(".price-window").show().siblings().hide();
+            }
+            else {
+                con = '<div class="msg-tip">'
+                    +'<div class="tip">'+res.desc+'</div>'
+                    +'<div class="center"><img src="http://cdn.66173.cn/mobile/v2/css/img/no-cry.png" class="no-cry-img"/></div>'
+                    +'</div>';
+                $(".price-type").html(con);
+                $(".price-window").show().siblings().hide();
+
+            }
+         })
+
+    })
+    $(".price-window .close").on("click", function() {
+        $(".mask").hide();
+    })
+    $(".msg-tip .close").on("click", function() {
+        $(".mask").hide();
+    })
+    $(".activity_m").on("click", ".my-price-link", function() {
+        $(".mask").show();
+        $(".getting-tip").show().siblings().hide();
+        // $.ajax({
+        // 	url: "",
+        // 	dataType: "json",
+        // 	type: "get",
+        // 	data: {
+        // 		id: 1
+        // 	}
+        // }).success(function(res) {
+        var res = {
+            code: 0,
+            type: "gift",
+            type: "coupon"
+        }
+        var code = res.code;
+        var con = "";
+        if(code == 1) {
+            if(res.type == "gift") {
+                con += '<div class="my-price">'
+                        +'<div class="tip">我的奖品</div>'
+                        +'<div class="center">'
+                        +'<div class="line"><div class="left">奖品名称：</div><div class="right">大礼包哈哈</div></div>'
+                        +'<div class="line"><div class="left">奖品内容：</div><div class="right">VIP点数*1，农场提升（1天）*1,建筑加速（5分钟）*5， 体力药水（初级）*1 </div></div>'
+                        +'<div class="line"><div class="left">兑换码：</div><div class="right right-code-zone">132455665<a class="copy-code" data-clipboard-text="132455665">复制礼包码</a></div></div>'
+                        +'</div>'
+                        +'</div>';
+                $(".price-type").html(con);
+                $(".price-window").show().siblings().hide();
+                if (clipboardCode) {
+                    clipboardCode.destroy();
+                }
+                clipboardCode = new Clipboard(".copy-code");
+                clipboardCode.on('success', function (e) {
+                    briefTipControl("礼包码: " + e.text + " 已复制");
+                    e.clearSelection();
+                })
+            }
+            else {
+                con += '<div class="my-price">'
+                        +'<div class="tip">我的奖品</div>'
+                        +'<div class="center">'
+                        +'<div class="line"><div class="left">奖品名称：</div><div class="right">优惠券</div></div>'
+                        +'<div class="line"><div class="left">奖品内容：</div><div class="right">全站优惠券啦啦啦,价值3元</div></div>'
+                        +'</div>'
+                        +'</div>';
+                $(".price-type").html(con);
+                $(".price-window").show().siblings().hide();
+            }
+        }
+        else {
+            var con = '<div class="msg-tip">'
+                    +'<div class="tip">你还没有奖品哇哈哈</div>'
+                    +'<div class="center"><img src="img/no-cry.png" class="no-cry-img"/></div>'
+                    +'</div>';
+            $(".price-type").html(con);
+            $(".price-window").show().siblings().hide();
+        }
+        // })
+    })
+</script>
+</html>

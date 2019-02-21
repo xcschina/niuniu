@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>账户设置</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link href="http://cdn.66173.cn/wwwv2/css/style.css?t=109" type="text/css" rel="stylesheet" />
+</head>
+<body>
+{include file="include/top.html"}
+<div class="wrapper clearfix">
+    {include file="include/header.html"}
+    {include file="include/nav.html"}
+    <div class="w1000">
+        <div class="current_nav">
+            当前位置：<a href="#">66173交易平台</a>&nbsp;>&nbsp;我的66173
+        </div>
+        {include file="include/user-side.html"}
+        <div class="user_center_right">
+            <div class="integral_detail">
+                <div class="user_center_title">
+                    手机绑定
+                </div>
+                {if $type eq 'mobile_info'}
+                <div class="account_setup bound_phone">
+                    {if $smarty.session.mobile}
+                    <img src="http://cdn.66173.cn/www/css/v2/img/sucess.png"/><br/>
+                    <b>您已绑定手机号！</b><br/>
+                    {/if}
+                    当前绑定的手机号码：{if $smarty.session.mobile}{$smarty.session.mobile|substr:0:3}******{$smarty.session.mobile|substr:9:2}{else}您还未绑定手机号{/if}<br />
+                    <div style="margin: 40px 0 0 0;">
+                        <a href="?act=modify_phone" class="btn_red_big">{if $smarty.session.mobile}更 改{else}立即绑定{/if}</a>
+                    </div>
+                </div>
+                {else}
+                <div class="account_setup">
+                    {if $smarty.session.mobile}
+                    <form action="account.php?act=do_modify_phone" method="post" id="modify_phone">
+                    {else}
+                    <form action="account.php?act=do_qqlogin_phone_bind" method="post" id="qq_login_phone_bind">
+                    {/if}
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <em style="color:#C7162B" id="p_error">
+                                        {$smarty.session.modify_phone_p_error}
+                                        {$smarty.session.modify_phone_set_error}
+                                        {$smarty.session.modify_phone_error}
+                                        {$smarty.session.modify_phone_code_error}
+                                    </em>
+                                </td>
+                            </tr>
+                            {if $smarty.session.mobile}
+                            <tr>
+                                <td>登入密码：</td>
+                                <td>
+                                    <input name="password" type="text" style="width:200px" placeholder="" />
+                                </td>
+                            </tr>
+                            {else}
+                            <tr>
+                                <td>设置密码：</td>
+                                <td>
+                                    <input id="s_psw" class="text" type="password" placeholder="" name="password" value="" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>重复密码：</td>
+                                <td>
+                                    <input id="c_psw" class="text" type="password" placeholder="" name="cpassword" value="" />
+                                </td>
+                            </tr>
+                            {/if}
+                            <tr>
+                                <td>手机号码：</td>
+                                <td><input name="mobile" value="" type="text" style="width:200px" placeholder="" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>验证码：</td>
+                                <td>
+                                    <input name="sms_code" type="text" style="width:200px" placeholder="输入验证码" />
+                                    <a href="#" id="send_code" rel="1" style="padding:7px 10px; border-radius: 3px; text-align: center; color: #fff; background: #dd1322; margin-left: 5px;">获取验证码</a>
+                                </td>
+                            </tr>
+                        </table>
+                        <div style=" text-align: center; margin: 30px;">
+                            {if $smarty.session.mobile}
+                            <a href="javascript:modify_phone();" class="btn_red_big">确认修改</a>
+                            {else}
+                            <a href="javascript:qq_login_phone_bind();" class="btn_red_big">确定绑定</a>
+                            {/if}
+                        </div>
+                    </form>
+                </div>
+                {/if}
+            </div>
+        </div>
+    </div>
+</div>
+<!--footer-->
+{include file="include/footer.html"}
+<!--//footer-->
+<script type="text/javascript">
+    //点击获取验证码按钮
+    $("#send_code").bind("click",function(){
+        var _th=$(this);
+        if(_th.attr("rel")=="0"){
+            return ;
+        }
+        _th.css("background","#a5a5a5");
+        var second = parseInt(179);//倒计时总秒数量
+        time=window.setInterval(function(){
+            _th.attr("rel","0");
+            //$('#sec').html(second);
+            second--;
+            if(second<1){
+                window.clearTimeout(time);
+                _th.css("background","#a5a5a5");
+                _th.attr("rel","1");
+                _th.html("重新发送");
+                //_th.html("获取验证码");
+            }else{
+                _th.css("background","#999");
+                _th.attr("rel","0");
+                _th.html(second+"秒");
+            }
+        }, 1000);
+
+        $.ajax({
+            type:'post',
+            url:'account.php?act=register_sms_pc',
+            data:{
+                mobile:$("input[name=mobile]").val().trim()
+            },
+            dataType: 'json',
+            success: function (json) {
+                if(json.res==0){
+                    window.clearTimeout(time);
+                    $("#p_error").html(json.msg);
+                    _th.css("background","#999");
+                }
+            }
+        })
+    })
+
+    function modify_phone(){
+        $("#p_error").html("");
+        var pass=$('input[name=password]').val();
+        if(pass.length < 1 ){
+            $("#p_error").html("验证密码不能为空");
+            return ;
+        }
+        if(!$("input[name=sms_code]").val()){
+            $("#p_error").html("短信验证码不能为空");
+            return;
+        }
+        $("#modify_phone").submit();
+    }
+
+    function qq_login_phone_bind(){
+        $("#p_error").html("");
+        var pass=$('input[name=password]').val();
+        var cpass=$('input[name=cpassword]').val();
+        if(pass.length < 6 || pass.length > 18){
+            $("#p_error").html("密码为字母和数字，支持大小写，长度6-18个字符");
+            return ;
+        }
+        if(pass!=cpass){
+            $("#p_error").html("两次密码不一致");
+            return;
+        }
+        if(!$("input[name=sms_code]").val()){
+            $("#p_error").html("短信验证码不能为空");
+            return;
+        }
+        $("#qq_login_phone_bind").submit();
+    }
+
+</script>
+</body>
+</html>

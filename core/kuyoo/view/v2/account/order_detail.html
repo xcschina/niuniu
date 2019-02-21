@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>买家订单</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link href="http://static.kuyoo.com/kuyoo/wwwv2/css/style.css?t=109" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="http://static.kuyoo.com/www/js/jquery-1.7.1.min.js" ></script>
+</head>
+<body>
+{include file="include/top.html"}
+{include file="include/header.html"}
+{include file="include/nav.html"}
+<div id="BlackBox" style=" display:none;">
+    <div id="BBOverlay" style="opacity: 0.6; width: 3000px; height: 3000px;">
+    </div>
+    <div class="BlackBoxContent"  style="opacity: 1;  width: 450px;"><!--控制弹窗大小-->
+        <p class="title">系统提示</p><!--弹窗标题-->
+        <div class="Inner">
+            <div style="text-align: center; font-size: 20px; padding: 20px 0 10px 0;">
+                您确定要取消订单吗？
+            </div>
+            <div id="BlackBoxAction">
+                <button class="submit">确定</button>
+                <button class="cancel">取消</button>
+            </div>
+        </div>
+        <div class="close">×</div>
+    </div>
+</div>
+<div class="wrapper clearfix">
+    <div class="w1000">
+        <div class="current_nav ">
+            当前位置：<a href="#">酷游手游交易平台</a>&nbsp;>&nbsp;我的酷游
+        </div>
+        {include file="include/user-side.html"}
+        <div class="user_center_right">
+            <div class="integral_detail">
+                <div class="user_center_title">订单详情</div>
+                <div class="order_detail_unpaid">
+                    <dl>
+                        <dt>订单编号：</dt>
+                        <dd>{$detail.order_id}</dd>
+                    </dl>
+                    <dl>
+                        <dt>订单状态：</dt>
+                        <dd>
+                            <b class="color_red">
+                            {if $detail.status eq '0'}
+                            等待付款    （您的订单请务必在30分钟内完成支付，否则系统会自动取消您的订单。）
+                            {elseif $detail.status eq '1'}
+                            已支付
+                            {elseif $detail.status eq '2'}
+                            已支付
+                            {elseif $detail.status eq '9'}
+                            交易取消
+                            {else}
+                            未支付
+                            {/if}
+                            </b>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>商品详情：</dt>
+                        <dd>商品名称： {$detail.title}<br/>
+                            商品价格：<b class="color_red">{$detail.unit_price}元</b><br/>
+                            游戏区服：{$detail.serv_id}<br/>
+                            游戏平台：{$detail.game_channel}<br/>
+                            购买数量：{$detail.amount}<br/>
+                            下单时间：{'Y-m-d H:i:s'|date:$detail.buy_time}<br/>
+                            {if $detail.status eq '0'}
+                            支付时间：订单未支付<br/>
+                            成交时间：未成交
+                            {elseif $detail.status eq '1'}
+                            支付时间：订单已支付<br/>
+                            成交时间：<span class="color_red">交易成功</span>
+                            {elseif $detail.status eq '2'}
+                            支付时间： 订单已支付<br/>
+                            成交时间：<span class="color_red">预计10分钟内完成交易</span>
+                            {elseif $detail.status eq '9'}
+                            支付时间：订单未支付<br/>
+                            成交时间：未成交
+                            {else}
+                            支付时间：订单未支付<br/>
+                            成交时间：未成交
+                            {/if}
+                        </dd>
+                    </dl>
+                    <div class="clear_both"></div>
+                    {if $detail.status eq '0'}
+                    <div style="padding: 40px 0 0 0; text-align: center;">
+                        <a href="#" class="btn">去付款</a>
+                    </div>
+                    {elseif $detail.status eq '9'}
+                    <div style="padding: 40px 0 0 0; text-align: center;">
+                        <a href="#" class="btn">重新购买</a>
+                    </div>
+                    {/if}
+                </div>
+                <div class="clear_both"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--footer-->
+{include file="include/footer.html"}
+<!--//footer-->
+<script type="text/javascript" src="http://static.kuyoo.com/www/js/v2/order.js"></script>
+</body>
+</html>

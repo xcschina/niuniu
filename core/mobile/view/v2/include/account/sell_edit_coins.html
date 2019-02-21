@@ -1,0 +1,26 @@
+<div class="sale-info-box clearfix">
+    <label>游戏币类型：</label>{$info.unit}
+</div>
+<div class="sale-info-box clearfix">
+    <label>数量：</label>
+    <input name="pernum" maxlength="5" type="text" placeholder="请输入游戏币数量" class="sale-input" value="{$info.pernum}" />
+</div>
+<div class="sale-info-box clearfix">
+    <label>价格：</label>
+    <input name="price" maxlength="5" type="text" placeholder="请输入商品价格" class="sale-input" value="{$info.price}" />元
+</div>
+<div class="sale-info-box clearfix">
+    <label>出售件数：</label>
+    <input name="stock" maxlength="5" type="text" placeholder="请输入您想出售的 件数" class="sale-input" value="{$info.stock}" />
+</div>
+<div class="sale-info-box clearfix">
+    <label>单价：</label><span id="unitprice">1元={1/($info.price*$info.pernum)} {$info.unit}</span>
+</div>
+<div class="sale-info-box clearfix">
+    <label>总量：</label><span id="gross">{$info.stock*$info.pernum}</span>
+</div>
+<a class="b-btn" href="#;" onclick="do_coin();">下一步</a>
+<input type="hidden" name="do" value="coin" />
+<input type="hidden" name="game_storage" value="{$info.game_storage}"" />
+<input type="hidden" name="title" value="{$info.title}" />
+<input type="hidden" name="desc" value="{$info.intro}" />

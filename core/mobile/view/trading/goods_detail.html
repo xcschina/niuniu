@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>66173官方 魔域手游交易平台-账号-游戏币-道具装备-代练</title>
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/comment.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <link rel="stylesheet" href="//cdn.66173.cn/mobile/trading/css/goods_detail.css?t={$smarty.now|date_format:'%Y%m%d'}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.css">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script src="//cdn.66173.cn/mobile/trading/js/swiper.js?t={$smarty.now|date_format:'%Y%m%d'}"></script>
+</head>
+<body>
+<div class="page_top2">
+    <div class="page_top_left2">
+        <img class="margin_two" src="//cdn.66173.cn/mobile/trading/image/index_image/back.png" alt="">
+    </div>
+    <div class="page_top_center2">
+        商品详情
+    </div>
+    <a class="page_top_right2" href="/moyu">
+        <span class="login_my">
+            <img class="page_top_r_img" src="//cdn.66173.cn/mobile/trading/image/person_center/index2.png" alt="">
+        </span>
+    </a>
+</div>
+<div class="banner_div2 margin_t">
+    <div class="detail_banner">
+        <div class="rotator clearfix bbb">
+            <div class="swiper-container ">
+                <div class="swiper-wrapper">
+                    {foreach from=$imgs key=$k item=data}
+                    <div class="swiper-slide swiper-pagination-bullet-active"><img class="index_imgimg" src="//cdn.66173.cn/{$data.img_url}" alt="" /></div>
+                    {/foreach}
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination">
+                    {foreach from=$banners key=$k item=data}
+                    <span class="swiper-pagination-bullet swiper-pagination-bullet-active" data-seq="{$k}"></span>
+                    {/foreach}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="good_detail_top">
+    <div class="good_detail_top_div">
+        <div class="good_detail_top_left">
+            <div class="good_top_left_s">
+                {if  $product_info.type eq 4}<span class="type_name_c">账号</span>
+                {elseif  $product_info.type eq 5}<span class="type_name_c2">游戏币</span>
+                {elseif  $product_info.type eq 6}<span class="type_name_c3">道具</span>
+                {/if}
+                <!--<span class="type_name_title">{$product_info.title}</span>-->
+                {if  $product_info.type eq 4}<span class="type_name_title">{$product_info.title}</span>
+                {elseif  $product_info.type eq 5}<span class="type_name_title_game_coin"><span class="game_mount">{$product_info.num}</span>魔石 (1元=<span class="singal_price">{$product_info.proportion}</span>魔石)</span>
+                {elseif  $product_info.type eq 6}<span class="type_name_title">{$product_info.title}</span>
+                {/if}
+            </div>
+            <div class="good_top_left_x">
+                <div class="price_collection2">
+                   <span class="money_detail2">
+                       ￥
+                   </span>
+                    <span class="price">{$product_info.price}</span>
+                    {if  $product_info.type eq 5}<span class="Stock">库存<span class="Stock_num">{$product_info.stock}</span>件</span>{/if}
+                    {if  $product_info.type eq 6}<span class="Stock">库存<span class="Stock_num">{$product_info.stock}</span>件</span>{/if}
+                </div>
+            </div>
+        </div>
+        <div class="good_detail_top_right">
+            <div class="collect_img_div">
+                <img class="collect_img" {if $flag eq '1'}style="display: none"{/if} src="//cdn.66173.cn/mobile/trading/image/shangpin_detail/coloect.png" alt="">
+                <img class="collect_img2" {if $flag eq '1'}style="display: block"{/if} src="//cdn.66173.cn/mobile/trading/image/shangpin_detail/coloect_active.png" alt="">
+            </div>
+            {if $flag eq '1'}
+            <div class="collect_text">已收藏</div>
+            {elseif $flag eq '0'}
+            <div class="collect_text">收藏</div>
+            {/if}
+        </div>
+    </div>
+</div>
+<div class="space"></div>
+<div class="tab_nav">
+    <div class="buy_manage">
+        <div class="buy_manage_item">
+            <div class="buy_manage_item_text3 tab_one style_color">
+                商品信息
+            </div>
+        </div>
+        <div class="buy_manage_item">
+            <div class="buy_manage_item_text3 tab_two">
+                购买流程
+            </div>
+        </div>
+    </div>
+</div>
+<div class="tab_contant">
+    <ul class="tab_contant_one">
+        <li class="tab_contant_one_li">
+            <div class="li_left">所属游戏:</div>
+            <div class="li_right">{$product_info.game_name}</div>
+        </li>
+        <li class="tab_contant_one_li">
+            <div class="li_left">商品类型:</div>
+            <div class="li_right">
+                {if  $product_info.type eq 4}账号
+                {elseif  $product_info.type eq 5}游戏币
+                {elseif  $product_info.type eq 6}道具
+                {/if}
+            </div>
+        </li>
+        <li class="tab_contant_one_li">
+            <div class="li_left">适用系统:</div>
+            <div class="li_right">
+                {if $product_info.platform eq 1 }安卓
+                {else}苹果{/if}
+            </div>
+        </li>
+        <li class="tab_contant_one_li">
+            <div class="li_left">客户端:</div>
+            <div class="li_right">
+                {$product_info.channel_name}
+            </div>
+        </li>
+        <li class="tab_contant_one_li">
+            <div class="li_left">服务器:</div>
+            <div class="li_right">
+                {if $product_info.serv_id eq 0}全区全服{else}{$product_info.sname}{/if}
+            </div>
+        </li>
+        {if $product_info.type eq 4}
+        <li class="tab_contant_one_li">
+            <div class="li_left">职业:</div>
+            <div class="li_right">{$product_info.role_job}</div>
+        </li>
+        <li class="tab_contant_one_li">
+            <div class="li_left">角色等级:</div>
+            <div class="li_right">{$product_info.role_level}</div>
+        </li>
+        <li class="tab_contant_one_li">
+            <div class="li_left">性别:</div>
+            <div class="li_right">
+                {if $product_info.role_sex eq 1 }男
+                {elseif $product_info.role_sex eq 2}女{else}未知{/if}
+            </div>
+        </li>
+        {/if}
+        <li class="tab_contant_one_li">
+            <div class="li_left">补充描述:</div>
+            <div class="li_right">{$product_info.intro|html_entity_decode}</div>
+        </li>
+    </ul>
+
+    {if  $product_info.type eq 4}
+    <ul class="tab_contant_two">
+        <div class="wenzi_right1">
+            <div class="xiadan_txt"><span style="font-weight: bold">1.下单付款</span></div>
+            <div class="xiadan_txt2">付款成功，联系客服发货进入聊天页面.</div>
+        </div>
+        <div class="wenzi_right2">
+            <div class="xiadan_txt"><span style="font-weight: bold">2.等待发货</span></div>
+            <div class="xiadan_txt2">客服开始验号，截图给买家是否确认购买，客服进行改密换绑.</div>
+        </div>
+        <div class="wenzi_right1">
+            <div class="xiadan_txt"><span style="font-weight: bold">3.买家收货</span></div>
+            <div class="xiadan_txt2">客服将游戏资料发给买家，买家在游戏中收货.</div>
+        </div>
+        <div class="wenzi_right2">
+            <div class="xiadan_txt"><span style="font-weight: bold">4.确认收货</span></div>
+            <div class="xiadan_txt2">买家确认账号无误后，可在订单列表中确认收货，若未操作，系统将在24小时后自动收货.</div>
+        </div>
+        <div class="wenzi_right1">
+            <div class="xiadan_txt"><span style="font-weight: bold">5.卖家收款</span></div>
+            <div class="xiadan_txt2">买家已确认收货，66173平台转账给卖家.</div>
+        </div>
+        <div class="wenzi_right1">
+            <div class="xiadan_txt"><span style="font-weight: bold" >6.交易成功</span></div>
+            <div class="xiadan_txt2">卖家收到货款，交易完成.</div>
+        </div>
+    </ul>
+    {elseif  $product_info.type eq 5}
+    <ul class="tab_contant_two">
+        <div class="wenzi_right1">
+            <div class="xiadan_txt"><span style="font-weight: bold">1.下单付款</span></div>
+            <div class="xiadan_txt2">付款成功，联系客服发货进入聊天页面.</div>
+        </div>
+        <div class="wenzi_right2">
+            <div class="xiadan_txt"><span style="font-weight: bold">2.等待发货</span></div>
+            <div class="xiadan_txt2">客服协助卖家发货通知买家收货</div>
+        </div>
+        <div class="wenzi_right1" style="margin-top: -10px!important;">
+            <div class="xiadan_txt"><span style="font-weight: bold">3.买家收货</span></div>
+            <div class="xiadan_txt2">买家登录游戏确认价值</div>
+        </div>
+        <div class="wenzi_right2">
+            <div class="xiadan_txt"><span style="font-weight: bold">4.卖价收货</span></div>
+            <div class="xiadan_txt2">买家确认无误后，可在订单列表中确认收货，若未操作，系统将在24小时后自动收货，66173平台转账给卖家.</div>
+        </div>
+        <div class="wenzi_right1 last_text">
+            <div class="xiadan_txt"><span style="font-weight: bold" >5.交易成功</span></div>
+            <div class="xiadan_txt2">卖家收到货款，交易完成.</div>
+        </div>
+    </ul>
+    {elseif  $product_info.type eq 6}
+    <ul class="tab_contant_two">
+        <div class="wenzi_right1">
+            <div class="xiadan_txt"><span style="font-weight: bold">1.下单付款</span></div>
+            <div class="xiadan_txt2">付款成功，联系客服发货进入聊天页面.</div>
+        </div>
+        <div class="wenzi_right2">
+            <div class="xiadan_txt"><span style="font-weight: bold">2.等待发货</span></div>
+            <div class="xiadan_txt2">客服协助卖家发货通知买家收货.</div>
+        </div>
+        <div class="wenzi_right1" style="margin-top: -10px!important;">
+            <div class="xiadan_txt"><span style="font-weight: bold">3.买家收货</span></div>
+            <div class="xiadan_txt2">买家登录游戏确认价值.</div>
+        </div>
+        <div class="wenzi_right2">
+            <div class="xiadan_txt"><span style="font-weight: bold">4.确认收货</span></div>
+            <div class="xiadan_txt2">买家确认无误后，可在订单列表中确认收货，若未操作，系统将在24小时后自动收货，66173平台转账给卖家.</div>
+        </div>
+        <div class="wenzi_right1 last_text">
+            <div class="xiadan_txt"><span style="font-weight: bold" >5.交易成功</span></div>
+            <div class="xiadan_txt2">卖家收到货款，交易完成.</div>
+        </div>
+    </ul>
+    {/if}
+
+
+</div>
+<div class="niuniu-icon">
+    <div class="niuniu-icon_div">
+        <img class="icon_img" src="//cdn.66173.cn/mobile/trading/image/shangpin_detail/66173.png" alt="">
+        <span class="icon_txt">牛牛客户端</span>
+        <img class="icon_img2" src="//cdn.66173.cn/mobile/trading/image/shangpin_detail/zhixiao.png" alt="">
+    </div>
+</div>
+<div class="free_statement">
+    <li>免责声明:</li>
+    <li>1.所展示的商品供求信息由买卖双方自行提供，其真实性，准确性和合法性由信息发布人负责.</li>
+    <li>2.账号真实情况以客服截图为准.</li>
+    <li>3.国家法律规定，未成年人不能参与虚拟物品交易.</li>
+</div>
+<div class="space2"></div>
+<div class="foot_buy">
+    <div class="enjoy_icon">
+        <div class="img_enjoy">
+            <div class="img_enjoy_img">
+                <img class="enjoy_i" src="//cdn.66173.cn/mobile/trading/image/shangpin_detail/enjoy.png" alt="">
+            </div>
+            <div>
+                分享
+            </div>
+        </div>
+    </div>
+    {if  $product_info.is_pub eq 1}
+    <a class="buy_now" href="/confirm/{$product_info.id}">
+        立即购买
+    </a>
+    {elseif  $product_info.is_pub eq 0}
+    <!--做显示判断-->
+    <a class="overdue">
+        商品已下架
+    </a>
+    {/if}
+</div>
+<div class="fenxiang_img_arrow">
+    <img src="//cdn.66173.cn/mobile/trading/image/shangpin_detail/share.png" alt="">
+</div>
+<div class="fenxiang_img_arrow2">
+    <img src="//cdn.66173.cn/mobile/trading/image/shangpin_detail/share2.png" alt="">
+</div>
+<input class="ididid" type="hidden" id="ididid" value="{$product_info.id}">
+<input type="hidden" value="{$noncestr}" id="noncestr"/>
+<input type="hidden" value="{$timestamp}" id="timestamp"/>
+<input type="hidden" value="{$signature}" id="signature" />
+</body>
+<!--引入微信分享在线cdn的js微信分享-->
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script>
+    var noncestr = $("#noncestr").val();
+    var timestamp = $("#timestamp").val();
+    var signature = $("#signature").val();
+    document.addEventListener('WeixinJSBridgeReady', function() {
+        wx.config({
+            debug: false,
+            appId: "wxbaed68c7f2f3a62c",
+            timestamp: parseInt(timestamp),
+            nonceStr: noncestr,
+            signature: signature,
+            jsApiList: [
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'onMenuShareQQ',
+                'onMenuShareWeibo',
+                'onMenuShareQZone'
+            ]
+        });
+        //通过ready接口处理成功验证
+        wx.ready(function() {
+            var shareData = {
+                title: '66173官方 魔域手游交易平台-账号-游戏币-道具装备-代练',
+                desc: 'http://m.66173.cn/moyu',
+                link: window.location.href,
+                imgUrl: "//cdn.66173.cn/mobile/trading/image/index_image/logo2.png",// 分享图标
+                type: '',
+                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                success: function() {
+                    alert("分享成功")
+                },
+                cancel: function() {
+                    alert("取消分享");
+                }
+            };
+            // 分享给朋友事件绑定
+            wx.onMenuShareAppMessage(shareData);
+            // 分享到朋友圈
+            wx.onMenuShareTimeline(shareData);
+            // 分享到QQ
+            wx.onMenuShareQQ(shareData);
+            // 分享到QZone
+            wx.onMenuShareQZone(shareData);
+            // 分享到微博
+            wx.onMenuShareWeibo(shareData);
+        });
+    });
+</script>
+<script src="//cdn.66173.cn/mobile/trading/js/goods_detail.js?t={$smarty.now|date_format:'%Y%m%d'}"></script>
+<script src="//cdn.66173.cn/mobile/trading/js/base64_a.js?t={$smarty.now|date_format:'%Y%m%d'}"></script>
+</html>

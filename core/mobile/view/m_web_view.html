@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{$info.game_name}</title>
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <meta name="App-Config" content="fullscreen=yes,useHistoryState=yes,transition=yes">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <script src="http://cdn.66173.cn/weekactivity/js/swiper.min2.js"></script>
+    <script src="http://cdn.66173.cn/weekactivity/js/responseScripts.js"></script>
+    <script src="http://cdn.66173.cn/www/js/jquery-1.8.3.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.66173.cn/weekactivity/css/m_web.css?t=1"/>
+</head>
+<body>
+<div class="wrap">
+    <div class="content-box">
+        <div class="header" id="header" style="position: static; margin-top: 0;">
+            <a class="down-btn" href="javascript:void(0);">立即下载</a>
+            <div class="logo-wrap">
+                <a href="javascript:void(0);">
+                    {if $info.app_icon}
+11                    <img src="//cdn.66173.cn{$info.app_icon}?t=11" alt="logo" class="logo" style="border-radius:1em!important;cursor:pointer">
+                    {else}
+                    <img src="http://cdn.66173.cn/weekactivity/img/logo.png" alt="logo" class="logo" style="border-radius:30px!important;cursor:pointer;">
+                    {/if}
+                </a>
+                <div class="desc">
+                    <h2>{$info.app_name}</h2>
+                    <h3 style="font-size: .18rem!important;">17周年经典版，烈焰屠龙沙巴克</h3>
+                </div>
+            </div>
+        </div>
+        <div class="section00">
+            <div class="swiper-wrappers"  id="top_banner_box">
+                <ul class="swiper-wrapper">
+                    <li class="swiper-slide">
+                        <a href="javascript:void(0);"><img src="http://cdn.66173.cn/weekactivity/img/banner01.jpg"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="section-title section02-title">
+            <span class="icon"></span>
+            <span class="detail">职业介绍
+        <span class="gray">/ROLE PLACEMENT</span>
+        </span>
+        </div>
+        <div class="section02 ">
+            <ul class="n-list-role">
+                <li class="active" data-target="js-fighter">
+                    <a href="javascript:void(0);">战士</a>
+                </li>
+                <li data-target="js-archer">
+                    <a href="javascript:void(0);">道士</a>
+                </li>
+                <li data-target="js-master">
+                    <a href="javascript:void(0);">法师</a>
+                </li>
+            </ul>
+            <div class="tab">
+                <div class="list-con active js-fighter">
+                    <img src="http://cdn.66173.cn/weekactivity/img/intro.jpg" width="100%">
+                </div>
+                <div class="list-con js-archer">
+                    <img src="http://cdn.66173.cn/weekactivity/img/intro2.jpg" width="100%">
+                </div>
+                <div class="list-con js-master">
+                    <img src="http://cdn.66173.cn/weekactivity/img/intro3.jpg" width="100%">
+                </div>
+            </div>
+        </div>
+        <div class="section-title section03-title">
+            <span class="icon"></span>
+            <span class="detail">截图
+            <span class="gray">/SCREENSHOTS</span>
+        </span>
+        </div>
+        <div class="section03">
+            <div class="media">
+                <div class="item">
+                    <div class="rel">
+                        <img src="http://cdn.66173.cn/weekactivity/img/min_01.jpg?t=1" width="100%">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="rel">
+                        <img src="http://cdn.66173.cn/weekactivity/img/min_02.jpg?t=1" width="100%">
+                    </div>
+                </div>
+            </div>
+            <div class="swiper2">
+                <div class="media-pic" id="slideTwo">
+                    <ul class="swiper-wrapper">
+                        <li class="swiper-slide">
+                            <a href="javascript:void(0);"><img src="http://cdn.66173.cn/weekactivity/img/img_01.jpg"></a>
+                        </li>
+                        <li class="swiper-slide">
+                            <a href="javascript:void(0);"><img src="http://cdn.66173.cn/weekactivity/img/img_02.jpg"></a>
+                        </li>
+                        <li class="swiper-slide">
+                            <a href="javascript:void(0);"><img src="http://cdn.66173.cn/weekactivity/img/img_03.jpg"></a>
+                        </li>
+                        <li class="swiper-slide">
+                            <a href="javascript:void(0);"><img src="http://cdn.66173.cn/weekactivity/img/img_04.jpg"></a>
+                        </li>
+                        <li class="swiper-slide">
+                            <a href="javascript:void(0);"><img src="http://cdn.66173.cn/weekactivity/img/img_05.jpg"></a>
+                        </li>
+                    </ul>
+
+                    <div class="swiper-pagination" id="swiper">
+                    </div>
+                </div>
+                <script>
+                    var swiper = new Swiper('#slideTwo', {
+                        pagination: '#swiper',
+                        paginationClickable: true,
+                        autoplay: 2500,
+                        autoplayDisableOnInteraction: false,
+                        loop: true
+                    });
+                </script>
+            </div>
+        </div>
+        <div style="position: fixed;bottom: 0;left: 0;width: 100%;height: .9rem;background: #344768;background-size: contain;color: #FFF;z-index: 1000;line-height: .32rem;text-align: center;">
+            海南牛牛网络信息技术有限公司 Copyright©2017<br>
+            网络文化经营许可证 琼网文[2016]4099-040号<br>
+            增值电信业务经营许可证琼B2-20160073（琼ICP备16002140号)<br>
+            <a href=""></a>
+        </div>
+        <div class="js-pop" id="popVideo" style="display:none">
+            <div class="mask"></div>
+            <div class="pop-wrap"><a href="javascript:void(0);" class="close"></a>
+                <div class="content">
+                    <video src="" controls="controls" autoplay="autoplay"></video>
+                </div>
+            </div>
+        </div>
+        <div class="js-pop" id="popImg">
+            <div class="mask"></div>
+            <div class="pop-wrap"></div>
+        </div>
+        <div class="js-right">
+            <div class="img"></div>
+            <div class="cpm"></div>
+        </div>
+        <script>
+            $(".down-btn").click(function(){
+                alert('敬请期待');
+            })
+            $(".rel").click(function(){
+                var imgs = $(this).find("img").attr("src");
+                $(".js-right").css('display','block');
+                $(".cpm").html("<img src='"+imgs+"'>")
+
+            });
+            $(".img,.cpm,.cpm img").click(function(){
+                $(".js-right").css("display","none");
+            });
+            !function(o) {
+                    function n(e) {
+                        if (t[e]) return t[e].exports;
+                        var i = t[e] = {
+                            exports: {},
+                            id: e,
+                            loaded: !1
+                        };
+                        return o[e].call(i.exports, i, i.exports, n),
+                            i.loaded = !0,
+                            i.exports
+                    }
+                    var t = {};
+                    return n.m = o,
+                        n.c = t,
+                        n.p = "",
+                        n(0)
+                } ({
+                    0 : function(o, n, t) {
+                        o.exports = t(18)
+                    },
+                    13 : function(o, n) { !
+                        function() {
+                            function o(o) {
+                                i && !s && (o ? ($("body").css({
+                                    marginTop: 0
+                                }), t.css({
+                                    position: "static"
+                                })) : ($("body").css({
+                                    marginTop: t.height()
+                                }), t.css({
+                                    position: "fixed"
+                                }))),
+                                !i && s && (o ? ($("body").css({
+                                    marginTop: 0
+                                }), e.css({
+                                    position: "static"
+                                })) : ($("body").css({
+                                    marginTop: e.height()
+                                }), e.css({
+                                    position: "fixed"
+                                }))),
+                                i && s && (o ? ($("body").css({
+                                    marginTop: 0
+                                }), e.css({
+                                    position: "static"
+                                }), t.css({
+                                    position: "static",
+                                    marginTop: 0
+                                })) : ($("body").css({
+                                    marginTop: e.height() + t.height()
+                                }), t.css({
+                                    position: "fixed",
+                                    marginTop: 40
+                                }), e.css({
+                                    position: "fixed"
+                                })))
+                            }
+                            function n() {
+                                o($(window).width() / $(window).height() > 1.2 ? !0 : !1)
+                            }
+                            var t = $("#header"),
+                                e = $(".header-topBar"),
+                                i = !!t.length,
+                                s = !!e.length;
+                            window.addEventListener("onorientationchange" in window ? "orientationchange": "resize", n, !1),
+                                n()
+                        } ()
+                    },
+                    18 : function(o, n, t) {
+                        t(13);
+                        var e = {
+                                pop: function(o, n, t) {
+                                    function e() {
+                                        o.show(),
+                                            n.show()
+                                    }
+                                    function i(t) {
+                                        o.hide(),
+                                            n.hide(),
+                                        t && t()
+                                    }
+                                    function s() {
+                                        o.on("click", ".close,.mask",
+                                            function() {
+                                                i(a.closeCall)
+                                            }),
+                                            o.on("click", ".pop-wrap",
+                                                function(o) {
+                                                    o.stopPropagation()
+                                                })
+                                    }
+                                    var a = {
+                                        closeCall: null
+                                    };
+                                    a = $.extend(a, t),
+                                        this.wrap = o,
+                                        this.mask = n,
+                                        this.open = e,
+                                        this.close = i,
+                                        s()
+                                },
+                                maskPop: function(o, n) {
+                                    var t = {
+                                        closeCall: null
+                                    };
+                                    t = $.extend(t, n),
+                                        $.extend(this, new e.pop(o, o.find(".mask"), t))
+                                }
+                            },
+                            i = function() {
+                                function o(o, n, t, e) {
+                                    function i(e, i) {
+                                        o.find(n).removeClass("active"),
+                                            $(e).addClass("active"),
+                                            o.find(t).hide(),
+                                            o.find("." + i).fadeIn()
+                                    }
+                                    o.on("click", n,
+                                        function() {
+                                            var o = $(this).data("target");
+                                            i(this, o),
+                                            e && e.call(this)
+                                        })
+                                }
+
+                                function t() {
+                                    var n = $(".section01");
+                                    o(n, ".list-title-wrap li", ".list")
+                                }
+                                function i() {
+                                    var n = $(".section02");
+                                    o(n, ".n-list-role li", ".list-con")
+                                }
+                                function s() {
+                                    var o = $(".section03"),
+                                        n = o.find(".media-video").find(".item a"),
+                                        t = new e.maskPop($("#popVideo"));
+                                    t.setSrc = function(o) {
+                                        this.wrap.find("video").attr("src", o)
+                                    };
+                                    var i = $("#popVideo").find("video");
+                                    i[0].addEventListener("progress",
+                                        function(o) {
+                                            4 == i[0].readyState && i.parents(".pop-wrap").css({
+                                                marginTop: -i.height() / 2
+                                            })
+                                        }),
+                                        n.on("click",
+                                            function() {
+                                                t.setSrc($(this).data("src")),
+                                                    t.open()
+                                            });
+
+                                }
+                                function a() {
+                                    function o() {
+                                        var o = !1,
+                                            e = !1,
+                                            i = /^\d{11}$/;
+                                        n = $(".pop1 .fu").find(".active").attr("data-i"),
+                                            "a" === n ? (t.rid = 70, o = !0) : "b" == n ? (t.rid = 71, o = !0) : o = !1;
+                                        var s = $(".css-phone").val();
+                                        return i.test(s) ? (e = !0, t.telephone = s) : e = !1,
+                                            {
+                                                chooseF: o,
+                                                rPhone: e
+                                            }
+                                    }
+                                    var n = null,
+                                        t = {},
+                                        e = $(".pop1"),
+                                        i = $(".pop2"),
+                                        s = $(".order .red"),
+                                        a = localStorage.getItem("oldPeo") || 378748,
+                                        c = parseInt((new Date).getTime() / 1e3),
+                                        r = localStorage.getItem("now") || c,
+                                        p = 5 * (c - r) + parseInt(a);
+                                    s.text(p),
+                                        localStorage.setItem("now", c),
+                                        localStorage.setItem("oldPeo", p),
+                                        $(".section005").on("touchend", ".pop2 .more",
+                                            function() {
+                                                e.addClass("hide"),
+                                                    i.addClass("hide")
+                                            }).on("touchend", ".pop2 .dload",
+                                            function() {
+                                            }).on("touchend", ".pop1 .fu>li",
+                                            function() {
+                                                $(this).addClass("active"),
+                                                    $(this).siblings("li").removeClass("active")
+                                            }).on("touchend", ".colla",
+                                            function() {
+                                                $(this).addClass("hide"),
+                                                    $(".section005 .open").removeClass("hide")
+                                            }).on("touchend", ".open .title",
+                                            function() {
+                                                $(".colla").removeClass("hide"),
+                                                    $(".section005 .open").addClass("hide")
+                                            }).on("touchend", ".js-order",
+                                            function() {
+                                                e.removeClass("hide")
+                                            }).on("touchend", ".pop1 .js-close",
+                                            function() {
+                                                e.addClass("hide")
+                                            }).on("touchend", ".pop2 .js-close",
+                                            function() {
+                                                i.addClass("hide"),
+                                                    e.addClass("hide")
+                                            })
+                                }
+                                function c() {
+                                    s(), i(), t(), a()}
+                                    c();!function() {
+                                        var o = new e.maskPop($("#popImg")),
+                                            n = o.wrap.find(".pop-wrap");
+                                        o.setImg = function(o) {
+                                            n.empty();
+                                            var t = new Image;
+                                            t.src = o,
+                                                t.onload = function() {
+                                                    n.css("margin-top", -$(this).height() / 2)
+                                                },
+                                                n.append(t)
+                                        };
+                                        var t = $("#slideTwo");
+                                        t.on("click", "img",
+                                            function() {
+                                                o.setImg($(this).attr("src")),
+                                                    o.open()
+                                            }),
+                                            o.wrap.on("click", ".pop-wrap",
+                                                function() {
+                                                    o.close()
+                                                })
+                                    } ()
+                            };
+                        i()
+                    }
+                });
+        </script>
+    </div>
+
+</div>
+</body>
+</html>

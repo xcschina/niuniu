@@ -1,0 +1,54 @@
+{literal}
+<script type="text/javascript">
+    $(function(){
+        $("#links").chosen();
+        $("select[name=game_id]").chosen();
+    })
+</script>
+{/literal}
+<div class="bjui-pageHeader">
+    <a href="66market.php?act=add_banner" class="btn btn-green" data-toggle="navtab" data-id="add_view" data-title="新建轮播图">新建轮播图</a>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th width="20">No.</th>
+            <th>图片备注</th>
+            <th>图片</th>
+            <th>游戏名称</th>
+            <th>图片地址</th>
+            <th>主题名称</th>
+            <th>图片类型</th>
+            <th>是否发现</th>
+            <th>上传时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach item=record from=$data}
+        <tr align="center">
+            <td>{$record.id}</td>
+            <td>{$record.title}</td>
+            <td><img width="50px;" height="50px;" src="http://cdn.66173.cn{$record.img}" alt=""></td>
+            <td>{$record.game_name}</td>
+            <td>{if $record.url}<a target="_blank" href="{$record.url}">点击链接</a>{/if}</td>
+            <td>{if $record.m_title}{$record.m_title}{/if}</td>
+            <td>
+                {if ($record.type==1) &&($record.is_disc==1)}文章详情页{elseif $record.type==1}礼包详情页{elseif $record.type==2}活动页
+                {elseif $record.type==3}主题页{elseif $record.type==4}推荐手游详情页{/if}
+            </td>
+            <td>{if ($record.is_disc==1)}是{else}否{/if}</td>
+            <td>{$record.add_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
+            <td>
+                <a type="button" href="66market.php?act=del_banner&id={$record.id}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要删除该行信息吗？">删除</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

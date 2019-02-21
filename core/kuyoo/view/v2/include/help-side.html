@@ -1,0 +1,9 @@
+<div class="user_center_left no_indent">
+	<dl>
+		<dt>使用帮助</dt>
+		<dd class="module_title">常见问题</dd>
+		{foreach from=$data.questions item=question}
+		<dd><a href="/info/{$question.id}" title="{$question.title}"  {if ($pid eq '21') and ($sid eq $question['id'])}class="color_red"{/if}>{$question.title|mb_substr:0:12}</a></dd>
+		{/foreach}
+	</dl>
+</div>

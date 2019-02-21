@@ -1,0 +1,37 @@
+<div style="display:none;">
+    <img src="http://cdn.66173.cn/niuguo/img/icon.png?t=11" alt=""/>
+    <span>牛果游戏,海量游戏资源!为玩家提供海量游戏免费下载,最新手游排行榜,最热门手游推荐,最好玩的手游分享。</span>
+</div>
+<div class="page-top">
+    <div class="top-user-bar">
+        {if $smarty.session.user_id}
+        <div class="pull-right log-already">
+            <span>hi,<span class="name">{if $smarty.session.nick_name}{$smarty.session.nick_name}{else}{$smarty.session.mobile}{/if}</span></span>
+            <span class="seperator">|</span>
+            <a href="/account.php?act=user_center">个人中心</a>
+            <span class="seperator">|</span>
+            <a href="/account.php?act=logout">退出</a>
+            <span class="seperator">|</span>
+            <a href="http://m.66173.cn/website.php?act=app_promote" target="_blank">牛果APP</a>
+        </div>
+        {else}
+        <div class="pull-right log-not">
+            <a href="/account.php?act=login">登录</a>
+            <span class="seperator">|</span>
+            <a href="/account.php?act=register">注册</a>
+            <span class="seperator">|</span>
+            <a href="http://m.66173.cn/website.php?act=app_promote" target="_blank">牛果APP</a>
+        </div>
+        {/if}
+    </div>
+    <nav class="main-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="/index.php"><img src="http://cdn.66173.cn/niuguo/img/logo.png"/></a>
+            <ul class="navbar-list">
+                <li class="home-li"><a class="font-lger" href="/index.php"><span class="icon-main nav-right-icon home"></span><span>首页</span></a></li>
+                <li class="game-li"><a class="font-lger" href="/gameCenter"><span class="icon-main nav-right-icon game"></span><span>游戏中心</span></a></li>
+                <li class="service-li"><a class="font-lger" href="/serviceCenter"><span class="icon-main nav-right-icon service"></span><span>客服中心</span></a></li>
+            </ul>
+        </div>
+    </nav>
+</div>

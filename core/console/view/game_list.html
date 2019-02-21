@@ -1,0 +1,135 @@
+<script type="text/javascript">
+    $(function(){
+        $("select[name=first_letter]").chosen();
+        $("select[name=game_name]").chosen();
+    })
+</script>
+<div class="bjui-pageHeader" style="height:70px;">
+    <form id="pagerForm" action="66market.php?act=game_list" method="post" data-toggle="ajaxsearch">
+        <div class="bjui-searchBar">
+            <a href="66market.php?act=game_add_view" class="btn btn-green" data-toggle="navtab" data-id="game_add_view" data-title="游戏新建">新建</a>
+            <label>游戏名：</label>&nbsp;
+            <select name="game_name" style="width:200px">
+                <option value="" {if $params.game_name == ''}selected="selected"{/if}>请选择</option>
+                {foreach from=$game_list item=play}
+                <option value="{$play.game_name}" {if $params.game_name eq $play.game_name}selected="selected"{/if}>{$play.game_name}</option>
+                {/foreach}
+            </select>
+            <label>平台：</label>
+            <select name="channel" style="width:100px;"  data-toggle="selectpicker">
+                <option value="" {if $params.channel eq ''}selected="selected"{/if}>请选择</option>
+                <option value="1" {if $params.channel eq '1'}selected="selected"{/if}>安卓</option>
+                <option value="2" {if $params.channel eq '2'}selected="selected"{/if}>IOS</option>
+                <option value="3" {if $params.channel eq '3'}selected="selected"{/if}>WP</option>
+                <option value="4" {if $params.channel eq '4'}selected="selected"{/if}>全平台</option>
+            </select>
+            <label>游戏类型：</label>
+            <select name="type" style="width:100px;"  data-toggle="selectpicker">
+                <option value="" {if $params.type eq ''}selected="selected"{/if}>请选择</option>
+                <option value="1" {if $params.type eq '1'}selected="selected"{/if}>66精品</option>
+                <option value="2" {if $params.type eq '2'}selected="selected"{/if}>腾讯精品</option>
+            </select>
+            <label>置顶：</label>
+            <select name="is_top" style="width:100px;"  data-toggle="selectpicker">
+                <option value="" {if $params.is_top eq ''}selected="selected"{/if}>请选择</option>
+                <option value="1" {if $params.is_top eq '1'}selected="selected"{/if}>是</option>
+                <option value="0" {if $params.is_top eq '0'}selected="selected"{/if}>否</option>
+            </select>
+            <label>推荐：</label>
+            <select name="is_disc_rec" style="width:100px;"  data-toggle="selectpicker">
+                <option value="" {if $params.is_disc_rec eq ''}selected="selected"{/if}>请选择</option>
+                <option value="1" {if $params.is_disc_rec eq '1'}selected="selected"{/if}>是</option>
+                <option value="0" {if $params.is_disc_rec eq '0'}selected="selected"{/if}>否</option>
+            </select>
+            <label>每月新游：</label>
+            <select name="is_new_game" style="width:100px;"  data-toggle="selectpicker">
+                <option value="" {if $params.is_new_game eq ''}selected="selected"{/if}>请选择</option>
+                <option value="1" {if $params.is_new_game eq '1'}selected="selected"{/if}>是</option>
+                <option value="0" {if $params.is_new_game eq '0'}selected="selected"{/if}>否</option>
+            </select>
+            <label>热门搜索：</label>
+            <select name="is_hot_search" style="width:100px;"  data-toggle="selectpicker">
+                <option value="" {if $params.is_hot_search eq ''}selected="selected"{/if}>请选择</option>
+                <option value="1" {if $params.is_hot_search eq '1'}selected="selected"{/if}>是</option>
+                <option value="0" {if $params.is_hot_search eq '0'}selected="selected"{/if}>否</option>
+            </select>
+            <label>游戏类别：</label>
+            <select name="app_type" style="width:100px;"  data-toggle="selectpicker">
+                <option value="" {if $params.app_type eq ''}selected="selected"{/if}>请选择</option>
+                <option value="1" {if $params.app_type eq '1'}selected="selected"{/if}>新游</option>
+                <option value="2" {if $params.app_type eq '2'}selected="selected"{/if}>单机</option>
+            </select>
+        </div>
+        <div class="bjui-searchBar">
+            <label>是否首页推荐：</label>
+            <select name="app_recommend" style="width:100px;"  data-toggle="selectpicker">
+                <option value="" {if $params.app_recommend eq ''}selected="selected"{/if}>请选择</option>
+                <option value="0" {if $params.app_recommend eq '0'}selected="selected"{/if}>否</option>
+                <option value="1" {if $params.app_recommend eq '1'}selected="selected"{/if}>是</option>
+            </select>
+            <label>小编精选：</label>
+            <select name="is_chosen" style="width:100px;"  data-toggle="selectpicker">
+                <option value="" {if $params.is_chosen eq ''}selected="selected"{/if}>请选择</option>
+                <option value="0" {if $params.is_chosen eq '0'}selected="selected"{/if}>否</option>
+                <option value="1" {if $params.is_chosen eq '1'}selected="selected"{/if}>是</option>
+            </select>
+            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent"  style="top:70px;">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th width="12">No.</th>
+            <th width="160">游戏名称</th>
+            <th width="120">ICON</th>
+            <th width="120">游戏图片</th>
+            <th width="50">平台</th>
+            <th width="80">版本号</th>
+            <th width="100">系统信息</th>
+            <th width="100">语言</th>
+            <th width="100">推荐游戏</th>
+            <th width="100">每月新游</th>
+            <th width="100">游戏类型</th>
+            <th width="120">标签</th>
+            <th width="100">短描述</th>
+            <th width="120">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {foreach key=key item=data from=$data_list}
+        <tr align="center">
+            <td>{$data.id}</td>
+            <td>
+                {$data.game_name}
+            </td>
+            <td>{if $data.game_icon}<img src="http://cdn.66173.cn{$data.game_icon}" width="50px" height="50px">{/if}</td>
+            <td>{if $data.game_banner}<img src="http://cdn.66173.cn{$data.game_banner}" width="50px" height="50px">{/if}</td>
+            <td>{if $data.channel==1}安卓{elseif $data.channel==2}IOS{elseif $data.channel==3}WP{else}全平台{/if}</td>
+            <td>{$data.version}</td>
+            <td>{$data.system}</td>
+            <td>{if $data.language==0}中文{else}English{/if}</td>
+            <td>{if $data.is_disc_rec ==0}否{else}是{/if}</td>
+            <td>{if $data.is_new_game ==0}否{else}是{/if}</td>
+            <td>{if $data.is_hot_search ==1}<span class="red">[热]</span>{/if}{if $data.is_top ==1}<span class="green">[顶]</span>{/if}{if $data.type==1}66精品{elseif $data.type==2}腾讯精品{/if}</td>
+            <td>{$data.new_tags}</td>
+            <td>
+                {$data.game_title}
+            </td>
+
+            <td>
+                <a href="66market.php?act=game_edit_view&id={$data.id}" class="btn btn-green" data-toggle="navtab"  data-height="550" data-id="game_edit_view" data-title="游戏编辑">编辑</a>
+                <a type="button" href="66market.php?act=del_game&id={$data.id}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要删除该行信息吗？">删除</a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

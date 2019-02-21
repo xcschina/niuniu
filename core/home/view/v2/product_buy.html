@@ -1,0 +1,124 @@
+{include file="v2/include/head.html" web_title=$page_title web_key=$web_key}
+<body>
+	{include file="v2/include/top.html"}
+	<div class="wrapper clearfix">
+		{include file="v2/include/header.html"}
+		{include file="v2/include/nav.html" nav="game"}
+		<div class="w1000">
+			<div class="current_nav ">
+				当前位置：<a href="http://www.66173.cn">66173交易平台</a>&nbsp;>&nbsp;<a href="http://www.66173.cn/games.html">游戏列表</a>&nbsp;>&nbsp;{$gameinfo.game_name}
+			</div>
+			<div class="left_w260">
+				<img src="http://cdn.66173.cn/{$gameinfo.product_img}" class="left_imgthumb" />
+				{if $type neq 0}
+				<div id='weixin'>
+					<div class="title_sub">
+						<strong class="name">礼包领取</strong>
+					</div>
+					<img src="{$IMG_PATH}webchat.png" class="left_imgwebchat" />
+					<div class="left_msgbox">
+						<p>关注66173微信号，随时随地领取<strong>手机游戏礼包</strong>！</p>
+						<p>微信名称：66173手游平台</p>
+					</div>
+				</div>
+				
+				<div id="recommend">
+					<div class="title_sub">
+						<strong class="name">您感兴趣的商品</strong>
+					</div>
+					<ul class="left_pro_list">
+						{foreach from=$recommends item=recommend}
+						<li>
+							<a href="/buy{$gameinfo.id}/{$type}">
+								<img src="http://cdn.66173.cn/{$gameinfo.product_img}" class="img"/>
+							</a>
+							<div class="word">
+								<a href="#">{$recommend.title} </a>
+								<br />
+								售价：￥{$recommend.price}
+							</div>
+						</li>
+						{/foreach}
+					</ul>
+				</div>
+				{/if}
+			</div>
+
+			<!-- right main -->
+			<form method="post" id="buyfrm">
+				<input type="hidden" name="game_id" value="{$gameinfo.id}" id='gid'/>
+				<div class="right_w720" id='buy_section'>
+
+					<!-- 充值介绍页 -->
+					{if $type eq 0}
+					{include file="v2/product/buy_index.html"}
+
+					<!-- 首充号 -->
+					{elseif $type eq 1}
+					{include file="v2/product/buy_firstpay.html"}
+
+					<!-- 首充号续充 - 首充号列表单选-->
+					{elseif $type eq 2}
+					{include file="v2/product/buy_recharge.html"}
+
+					<!-- 首充号续充 - 指定首充号校验 -->
+					{elseif $type eq 201}
+					{include file="v2/product/buy_recharge2.html"}
+
+					<!-- 苹果代充 页面-->
+					{elseif $type eq 8}
+					<script> var $uu1 = {$smarty.session.user_id}+''; </script>
+					{include file="v2/product/buy_applepay.html"}
+
+					<!-- 代充 -->
+					{elseif $type eq 3}
+					<script> var $uu1 = {$smarty.session.user_id}+''; </script>
+					{include file="v2/product/buy_applepay.html"}
+
+					<!-- 游戏币 -->
+					{elseif $type eq 5}
+					{include file="v2/product/buy_gamecoin.html"}
+
+
+					<!-- 首充号续充 - 指定首充号校验 -->
+					{elseif $type eq 501}
+					{include file="v2/product/buy_gamecoin2.html"}
+
+					<!-- 账号 -->
+					{elseif $type eq 4}
+					{include file="v2/product/buy_account.html"}
+
+					{/if}
+
+				</div>
+			</form>
+
+			<div class="error" style="display: none;"></div>
+
+			<!-- 公用底部 -->
+			<div class="clear_both"></div><br/><br/>
+			{include file="v2/product/buy_bottom.html"}
+			{include file="v2/include/footer.html"}
+
+			<script> var $uu = {$smarty.session.user_id}+''; </script>
+			{include file="v2/include/login.html"}
+
+			<script type="text/javascript" src="{$JS_PATH}zbc_check.js" ></script>
+			<script type="text/javascript" src="{$JS_PATH}zbc_buy.js" ></script>
+			{if $type eq 1}
+			<script type="text/javascript" src="{$JS_PATH}product/buy_firstpay.js?t=2222" ></script>
+			{elseif in_array($type,array(2,201))}
+			<script type="text/javascript" src="{$JS_PATH}product/buy_recharge.js" ></script>
+			{elseif $type eq 8}
+			<script type="text/javascript" src="{$JS_PATH}product/buy_helppay.js?t=2222" ></script>
+			<script> window.onload = function(){ $('#recommend').remove(); } </script>
+			{elseif $type eq 3}
+			<script type="text/javascript" src="{$JS_PATH}product/buy_helppay.js?t=2222" ></script>
+			{elseif $type eq 5}
+			<script type="text/javascript" src="{$JS_PATH}product/buy_gamecoin.js" ></script>
+			{elseif $type eq 4}
+			<script type="text/javascript" src="{$JS_PATH}product/buy_account.js" ></script>
+			{/if}
+
+		</body>
+		</html>

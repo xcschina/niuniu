@@ -1,0 +1,182 @@
+<script type="text/javascript">
+    $(function(){
+        $("select[name=shop_id]").chosen();
+        $("select[name=game_id]").chosen();
+        $("select[name=serv_id]").chosen();
+        $("select[name=game_channel]").chosen();
+    })
+</script>
+<div class="bjui-pageHeader" style="height:60px;" >
+    <form id="pagerForm" action="orders_info.php?act=orders_list" method="post" data-toggle="ajaxsearch">
+        <div class="bjui-searchBar">
+            <label>店铺ID：</label>
+            <select name="shop_id">
+                <option value="" {if $params.shop_id eq ''}selected="selected"{/if}>请选择</option>
+                {foreach from=$shop_list item=shop}
+                <option value="{$shop.s_id}" {if $params.shop_id eq $shop.s_id}selected="selected"{/if}>{$shop.s_id}-{$shop.s_name}</option>
+                {/foreach}
+            </select>&nbsp;
+            <label>订单号：</label>
+            <input type="text" name="order_id" value="{$params.order_id}"  class="form-control" size="10">&nbsp;
+            <label>用户id：</label>
+            <input type="text" name="user_id" value="{$params.user_id}" size="10"  class="form-control">&nbsp;
+            <label>首冲号：</label>
+            <input type="text" name="game_user" value="{$params.game_user}" size="10"  class="form-control">&nbsp;
+            <label>订单状态：</label>
+            <select name="status"   data-toggle="selectpicker">
+                <option value="" {if $params.status eq ''}selected="selected"{/if}>请选择</option>
+                <option value="0" {if $params.status eq '0'}selected="selected"{/if}>已下单</option>
+                <option value="1" {if $params.status eq '1'}selected="selected"{/if}>已付款</option>
+                <option value="2" {if $params.status eq '2'}selected="selected"{/if}>已发货</option>
+                <option value="-1" {if $params.status eq '-1'}selected="selected"{/if}>已退款</option>
+                <option value="3" {if $params.status eq '3'}selected="selected"{/if}>已完成</option>
+            </select>&nbsp;
+            <label>游戏：</label>
+            <select name="game_id">
+                <option value="" {if $params.game_id eq ''}selected="selected"{/if}>请选择</option>
+                {foreach from=$game_list item=game}
+                <option value="{$game.id}" {if $params.game_id eq $game.id}selected="selected"{/if}>{$game.game_name}-{$game.id}</option>
+                {/foreach}
+            </select>&nbsp;
+            <!--<label>区服：</label>
+            <select name="serv_id">
+                <option value="" {if $params.serv_id eq ''}selected="selected"{/if}>请选择</option>
+                {foreach from=$servs_list item=servs}
+                <option value="{$servs.serv_id}" {if $params.serv_id eq $servs.serv_id}selected="selected"{/if}>{$servs.serv_name}-{$servs.serv_id}</option>
+                {/foreach}
+            </select>&nbsp;-->
+            <label>渠道：</label>
+            <select name="game_channel">
+                <option value="" {if $params.game_channel eq ''}selected="selected"{/if}>请选择</option>
+                {foreach from=$channels_list item=channel}
+                <option value="{$channel.id}" {if $params.game_channel eq $channel.id}selected="selected"{/if}>{$channel.channel_name}-{$channel.id}</option>
+                {/foreach}
+            </select>&nbsp;
+            <label>购买时间：</label>
+            <input type="text" name="time" data-toggle="datepicker" value="{$params.time}" placeholder="开始时间">-
+            <input type="text" name="time2" data-toggle="datepicker"  value="{$params.time2}" placeholder="结束时间">
+            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
+            <a type="button" class="btn btn-default" href="javascript:;" data-url="orders_info.php?act=export" data-toggle="doexport" data-confirm-msg="确定要导出吗？">导出</a>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent" style="top:60px;">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr align="center">
+            <th width="60px">ID</th>
+            <th width="60px">状态</th>
+            <th width="40px">店铺</th>
+            <th width="250px">商品</th>
+            <th width="100px">购买人</th>
+            <th width="100px">客服</th>
+            <th width="150px">订单ID</th>
+            <th width="100px">金额</th>
+            <th width="250px">支付/银行单号</th>
+            <th width="120px">礼包码</th>
+            <th width="150px">首冲账号</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=data from=$dataList}
+        <tr align="center"{if $data.status eq 0} class="text-muted"{/if}>
+            <td>{$data.id}</td>
+            <td>{if $data.is_del eq '2' || $data.status eq '4'}
+                <span class="text-success">已退款</span>
+                {else}
+                    {if $data.status eq '0'}
+                    <span class="text-muted">待付款</span>
+                    {elseif $data.status eq '2'}
+                    <span class="text-success">已发货</span>
+                    {elseif $data.status eq '1'}
+                    <span class="orange">已付款</span>
+                    {elseif $data.status eq '9'}
+                    <span class="text-muted">已取消</span>
+                    {elseif $data.status eq '3'}
+                    <span class="text-success">已完成</span>
+                    {elseif $data.status eq '5'}
+                    <span class="text-danger">已关闭</span>
+                    {elseif $data.status eq '10'}
+                    <span class="text-danger">卖家发货审核</span>
+                    {elseif $data.status eq '11'}
+                    <span class="text-danger">卖家发货拒绝</span>
+                    {/if}
+                {/if}
+            </td>
+            <td>{if $data.shop_id}{$data.shop_id}{/if}</td>
+            {if $data.status eq 1}
+            <td class="orange text-left">[{$p_type[$data.type]}][{$data.game_name}]<br />{$data.title}</td>
+            {elseif $data.status eq 2}
+            <td class="text-success text-left">[{$p_type[$data.type]}][{$data.game_name}]<br />{$data.title}</td>
+            {else}
+            <td class="text-left">[{$p_type[$data.type]}][{$data.game_name}]<br />{$data.title}</td>
+            {/if}
+            <td>{$data.buyer_id}</td>
+            <td>{$data.real_name}</td>
+            <td>
+                {if $data.status eq 1}
+                    <span class="orange">{$data.order_id}</span>
+                {elseif $data.status eq 2}
+                <span class="text-success">{$data.order_id}</span>
+                {else}
+                <span class="text-muted">{$data.order_id}</span>
+                {/if}
+                <br /><span class="text-muted"> @{'Y-m-d H:i:s'|date:$data.buy_time}</span>
+            </td>
+            <td><code class="bg-info">￥{$data.pay_money}</code></td>
+            <td{if $data.status eq 1} class="orange"{elseif $data.status eq 2} class="text-success"{/if}>
+                {$data.channel_order_id}
+                {if $data.bank_order_id}<br/>{$data.bank_order_id}{/if}
+                {if $data.status>1 && $data.pay_time>0}<p>{$pay_channel[$data.pay_channel]}<span class="text-muted">@{'Y-m-d H:i:s'|date:$data.pay_time}</span></p>{/if}
+            </td>
+            <td>
+                {if $data.gift_code}
+                    <span class="text-success">{$data.gift_code}</span>
+                {else}
+                    {if $data.status eq '2' && !$data.gift_code}
+                    <a href="orders_info.php?act=order_gift_code_view&id={$data.id}" class="btn btn-green" data-toggle="dialog" data-mask="true" data-width="400"  data-height="150" data-id="order_gift_code_view" data-title="赠送礼包码">赠送礼包码</a>
+                    {/if}
+                {/if}
+            </td>
+            <td>
+                {$data.game_user}
+            </td>
+            <td>
+                {if $data.status eq 10}
+                <a href="orders_info.php?act=orders_audit&id={$data.id}" class="btn btn-green" data-toggle="dialog" data-mask="true" data-width="300"  data-height="200" data-title="发货通过">通过</a>
+                <a href="orders_info.php?act=refuse&id={$data.id}" class="btn btn-red" data-toggle="dialog" data-mask="true" data-width="300"  data-height="200" data-title="发货拒绝">拒绝</a>
+                {/if}
+                {if $data.type eq '1' && $data.status eq '1' && $data.is_del neq '2' && ($data.service_id eq $smarty.session.usr_id || $smarty.session.usr_id eq 1 || $data.service_id eq 0)}
+                <a href="orders_info.php?act=order_edit_view&id={$data.id}" class="btn btn-green" data-toggle="dialog"
+                   data-mask="true" data-width="450"  data-height="180" data-id="order_edit_view" data-title="录入首充账号，密码">首充号录入</a>
+                {/if}
+                {if $data.type neq '1' && $data.status eq '1' && $data.is_del neq '2' && ($data.service_id eq $smarty.session.usr_id || $smarty.session.usr_id eq 1 || $data.service_id eq 0 || $smarty.session.group eq 'admin')}
+                <a href="orders_info.php?act=finish_order_view&id={$data.id}" class="btn btn-green" data-toggle="dialog"
+                   data-mask="true" data-width="450"  data-height="130" data-id="finish_order_view" data-title="订单结单">结单</a>
+                {/if}
+                <a href="orders_info.php?act=order_detail&id={$data.id}" class="btn btn-green" data-toggle="dialog"
+                   data-mask="true" data-width="700"  data-height="600" data-id="order_detail" data-title="订单明细">详情</a>
+                {if $data.del eq 2 || $data.status eq '4'}
+                <a href="http://static.66173.cn/{$data.refund_img}"  class="btn btn-green" target="_BLANK">退款截图</a>
+                {else}
+                <a href="orders_info.php?act=get_order_imgs&id={$data.id}"  class="btn btn-green" data-toggle="navtab"  data-height="550" data-id="get_order_imgs">截图</a>
+                {/if}
+                {if $data.status eq 10}
+                <a href="orders_info.php?act=get_sell_order_imgs&id={$data.id}"  class="btn btn-green" data-toggle="navtab"  data-height="550" data-id="get_order_imgs">交易截图</a>
+                {/if}
+                {if $data.status neq '0' && $data.is_del neq '2' && ($data.service_id eq $smarty.session.usr_id || $smarty.session.usr_id eq 86 || $smarty.session.usr_id eq 1 || $data.service_id eq 0 || $smarty.session.group eq 'admin')}
+                <a href="orders_info.php?act=order_refund_view&id={$data.id}"  class="btn btn-green" data-toggle="dialog"
+                   data-mask="true" data-width="450"  data-height="130" data-id="order_refund_view">退款</a>
+                {/if}
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages"> <span>每页{$page.pageSize}条&nbsp;&nbsp;共{$page.pageTotal}条记录</span></div>
+    <div class="pagination-box" data-toggle="pagination" data-total="{$page.pageTotal}" data-page-size="{$page.pageSize}" data-page-current="{$page.pageCurrent}" data-url=""></div>
+</div>

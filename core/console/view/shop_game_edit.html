@@ -1,0 +1,55 @@
+<script>
+    $("select[name=game_id]").chosen();
+</script>
+<style> 
+.dialogContent{ height:200px !important; } 
+.bjui-dialog{ height:235px !important; }
+</style>
+<div class="bjui-pageContent">
+    <form action="shop_info.php?act=shop_game_edit_do"  data-toggle="validate" data-alertmsg="false" method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">No：</label> &nbsp;&nbsp;{$game.sg_id}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">排序：</label>
+                    <input type="text" name="sg_sort" cols="20" rows="1"  class="form-control" data-rule="required" maxlength="20" value='{$game.sg_sort}'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">店内热门：</label>
+                    <select name="is_hot"   data-toggle="selectpicker">
+                        <option value="0" {if $game.is_hot eq '0'}selected{/if}>否</option>
+                        <option value="1" {if $game.is_hot eq '1'}selected{/if}>是</option>
+                    </select>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">店内上架：</label>
+                    <select name="sg_status"   data-toggle="selectpicker">
+                        <option value="0"  {if $game.sg_status eq '0'}selected{/if}>否</option>
+                        <option value="1"  {if $game.sg_status eq '1'}selected{/if}>是</option>
+                    </select>&nbsp;
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <input type="hidden" name="sg_id" value="{$game.sg_id}">
+        <input type="hidden" name="game_id" value="{$game.game_id}">
+        <input type="hidden" name="s_id" value="{$game.s_id}">
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+
+    

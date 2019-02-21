@@ -1,0 +1,59 @@
+{include file="include/head.html" web_title=$title web_key='手机游戏资讯，游戏资讯列表，游戏新闻资讯，酷游手游新闻资讯'}
+<link href="http://static.kuyoo.com/kuyoo/wwwv2/css/article.css" type="text/css" rel="stylesheet">
+    <body>
+        {include file="include/top.html"}
+        {include file="include/header.html"}
+        {include file="include/nav.html" nav=""}
+        <div class="w1000">
+			<div class="current_nav">当前位置：<a href="http://shouyou.kuyoo.com">酷游手游交易平台</a>&nbsp;>&nbsp;{$title}</div>
+            <div class="article_game clearfix">
+                <div class="article_game_left">
+                    {foreach from=$article_list item=item}
+                    <div class="article_item clearfix">
+                        <img src="http://static.kuyoo.com/{$item.img}" width="236" height="132" alt="{$item.title}" />
+                        <div class="intro">
+                            <a href="/info/{$item.id}" class="title">{$item.title}</a>
+                            <em>{'Y-m-d H:i:s'|date:$item.add_time}</em>
+                            <p>{$item.summary}</p>
+                            {if $item.tags}
+                            <div class="tag">标签:{foreach from="，"|explode:$item.tags item=tag}<strong>{$tag}</strong>{/foreach}</div>
+                            {/if}
+                        </div>
+                    </div>
+                    {/foreach}
+                    {if $article_list|@count neq 0}
+                    <div id="page">{$page_show}</div>
+                    {/if}
+                </div>
+                <div class="article_game_right">
+                    <h3>热门手游</h3>
+                    <div class="hot_games clearfix">
+                        {foreach from=$hot_games item=game key=k}
+                        {if $k<6}
+                        <a href="/games/{$game.id}.html">
+                            <img src="http://static.kuyoo.com/{$game.game_icon}" alt="热门游戏_{$game.game_name}" width="80" height="80" /><strong>{$game.game_name}</strong>
+                        </a>
+                        {/if}
+                        {/foreach}
+                        <div style="clear: both;"></div>
+                    </div>
+                    <h3>新游推荐</h3>
+                    <ul class="new_game_news">
+                        {foreach from=$new_game_news item=news key=k}
+                        {if $k eq 0}
+                        <li class="cover"><a href="/info/{$news.id}">
+                            <img src="http://static.kuyoo.com/{$news.img}" width="284" height="164" alt="{$news.title}" />
+                            <strong>{$news.title}</strong>
+                            <p>{$news.summary}</p>
+                        </a></li>
+                        {else}
+                        <li><a href="/info/{$news.id}">{$news.title}</a></li>
+                        {/if}
+                        {/foreach}
+                    </ul>
+                </div>
+            </div>
+		</div>
+		{include file="include/footer.html"}
+	</body>
+</html>

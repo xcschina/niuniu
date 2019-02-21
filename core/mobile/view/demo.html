@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>微信支付demo</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <link href="http://static.66173.cn/website/index.css?t=333" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="http://static.66173.cn/website/layer.css?t=11">
+    <script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+    <style>
+        .pay_input_server div.link_hover >#sub_search{ width:100%;height:40px; background-color:#ff4939; opacity:0.8; line-height: 42px; }
+        .link_hover > #confirm{
+            width:100%;height:40px; background-color:#ff4939; opacity:0.8;
+        }
+    </style>
+</head>
+
+<body>
+<div class="header">
+    <div class="header_con">
+        <div class="title">微信支付调试</div>
+    </div>
+</div>
+
+<div class="content">
+        <div class="sub_bnt link" onclick="pay_affirm()"><div id="confirm">确认</div></div>
+        <div class="foot"> &copy;2010-2016 </div>
+    </form>
+</div>
+
+<script type="text/javascript" src="http://static.66173.cn/website/jquery.min.js"></script>
+<script src="http://static.66173.cn/website/wap_pay.js?t=231321"></script>
+<script>
+    var obj = new WxLogin({
+        self_redirect:true,
+        id:"login_container",
+        appid: "",
+        scope: "",
+        redirect_uri: "",
+        state: "",
+        style: "",
+        href: ""
+    });
+</script>
+</body>
+</html>

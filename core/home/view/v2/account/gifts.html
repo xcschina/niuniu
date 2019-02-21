@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>我的礼包码</title>
+    <link href="http://cdn.66173.cn/wwwv2/css/style.css?t=109" type="text/css" rel="stylesheet" />
+    <link href="http://cdn.66173.cn/www/css/page.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="http://cdn.66173.cn/www/js/jquery-1.7.1.min.js"></script>
+</head>
+<body>
+{include file="include/top.html"}
+{include file="include/header.html"}
+{include file="include/nav.html"}
+<div class="wrapper clearfix">
+    <div class="w1000">
+        <div class="current_nav ">
+            当前位置：<a href="#">66173交易平台</a>&nbsp;>&nbsp;我的礼包
+        </div>
+        <div class="user_center">
+            {include file="include/user-side.html"}
+            <form action="?" method="get" id="my_gifts">
+                <input type="hidden" name="act" value="my_gifts">
+                <div class="user_center_right">
+                <div class="integral_detail">
+                    <div class="user_center_title">我的礼包码</div>
+                    {if $gift_list|@count neq 0}
+                    <div class="select_filter">
+                        <ul>
+                            <li>选择游戏：
+                                <select name="game_id">
+                                    <option value="">全部游戏</option>
+                                    {foreach from=$all_games item=game}
+                                    <option value="{$game.id}"  {if $params.game_id eq $game.id}selected{/if}>{$game.game_name}</option>
+                                    {/foreach}
+                                </select>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="code_list">
+                        {foreach from=$gift_list item=gift}
+                        <dl class="exchange_list code_model">
+                            <!--<dt><img src="/item{$order.product_id}"/></dt>-->
+                            <dt><img src="http://cdn.66173.cn/www/css/v2/img/ico1.jpg"/></dt>
+                            <dd class="title">{$gift.game_name}</dd>
+                            <dd>兑换码：<B>{$gift.code}</B></dd>
+                            <dd>有效期：2015-08-05 至 2015-09-10</dd>
+                        </dl>
+                        {/foreach}
+                    </div>
+                    <div class="clear_both"></div>
+                    <div id="pagebar">{$pageBar}</div>
+                    {else}
+                    <div class="code_list">
+                        <div class="not_receiving">
+                            <b>您还未领取过礼包哦。</b><br/>
+                            <img src="http://cdn.66173.cn/www/css/v2/img/code2.jpg"/><br/>关注微信公众号game66173,免费领取超值礼包！
+                        </div>
+                    </div>
+                    {/if}
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+{include file="include/footer.html"}
+<script>
+    $(function() {
+        $('select[name=game_id]').change(function () {
+            var game_id=$("select[name=game_id] option:selected").val();
+            $('#my_gifts').submit();
+        })
+    });
+</script>
+</body>
+</html>

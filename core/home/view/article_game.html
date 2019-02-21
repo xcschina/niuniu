@@ -1,0 +1,104 @@
+{include file="include/head.html" web_title=$title}
+<link href="http://cdn.66173.cn/wwwv2/css/article.css?t=2" type="text/css" rel="stylesheet">
+<body>
+	{include file="include/top.html"}
+	{include file="include/header.html"}
+	{include file="include/nav.html" nav=""}
+	<div class="w1000">
+		<div class="current_nav ">
+			当前位置：
+			<a href="/">{if $domain_name eq 1}66173{else if $domain_name eq 2}u2590{/if}交易平台</a> &nbsp;>&nbsp;
+			<a href="/info/list{$pid}">{$article.part_name}</a> &nbsp;>&nbsp;
+			{$title}
+		</div>
+		<div class="article_game clearfix">
+            <div class="article_game_left">
+                <h1>{$article.title}</h1>
+                <div class="desc">
+                    <div class="source">发布时间：{'Y-m-d H:i:s'|date:$article.add_time}</div>
+                    <div class="ashare bdsharebuttonbox" data-tag="share_1">
+                        <a class="bds_qzone" data-cmd="qzone" href="#"></a>
+                        <a class="bds_tsina" data-cmd="tsina"></a>
+                        <a class="bds_baidu" data-cmd="baidu"></a>
+                        <a class="bds_tqq" data-cmd="tqq"></a>
+                        <a class="bds_weixin" data-cmd="weixin"></a>
+                        <a class="bds_sqq" data-cmd="sqq"></a>
+                        <a class="bds_tqf" data-cmd="tqf"></a>
+                    </div>
+                    <div class="date">来源:{$article.source}</div>
+                </div>
+                {if $article.summary}<p class="summary">{$article.summary}</p>{/if}
+                <div class="details">{$article.intro|htmlspecialchars_decode}</div>
+                {if $article.tags}
+                    <div class="tags clearfix"><label>标签:</label>
+                    {foreach from=$article.tags item=tag}<strong>{$tag}</strong>{/foreach}
+                    </div>
+                {/if}
+                <div class="copy">{if $domain_name eq 1}66173{else if $domain_name eq 2}u2590{/if}手游交易平台提供国内外热门手机游戏资讯，热门手游下载、手游充值交易、获取更多游戏资讯就上{if $domain_name eq 1}66173{else if $domain_name eq 2}u2590{/if}(<a href="/" target="_blank" rel="noopener">{if $domain_name eq 1}www.66173.cn{else if $domain_name eq 2}www.u2590.com{/if}</a>)。</div>
+                <div class="desc desc1">
+                    {if $prve_article.id}
+                    <div class="prev">上一篇：<a href="/info/{$prve_article.id}">{$prve_article.title}</a></div>
+                    {else}
+                    <div class='next'>上一篇：没有了</div>
+                    {/if}
+                    {if $next_article.id}
+                    <div class='next'>下一篇：<a href="/info/{$next_article.id}">{$next_article.title}</a></div>
+                    {else}
+                    <div class='next'>下一篇：没有了</div>
+                    {/if}
+                </div>
+            </div>
+            <div class="article_game_right">
+                {if $game}
+                <h3>{$game.game_name}</h3>
+                <div class="game_info">
+                    <img src="http://cdn.66173.cn/{$game.game_icon}" />
+                    <p>
+                        <a target="_blank" rel="noopener noreferrer" href="/games/{$game.id}.html" class="go_game">我要买</a>
+                        <!--<a target="_blank" rel="noopener noreferrer" href="/download/games{$game.id}.html" class="go_download">游戏下载</a>-->
+                    </p>
+                </div>
+                {if $game_news}
+                <h3>{$game.game_name}相关资讯</h3>
+                <ul class="news">
+                    {foreach from=$game_news item=item}
+                    <li><a target="_blank" rel="noopener noreferrer" href="/info/{$item.id}">{$item.title}</a></li>
+                    {/foreach}
+                </ul>
+                {/if}
+                {if $game_strategys}
+                <h3>{$game.game_name}相关攻略</h3>
+                <ul class="news">
+                    {foreach from=$game_strategys item=item}
+                    <li><a target="_blank" rel="noopener noreferrer" href="/info/{$item.id}">{$item.title}</a></li>
+                    {/foreach}
+                </ul>
+                {/if}
+                {/if}
+                {if $domain_name eq 1}
+                <a target="_blank" rel="noopener noreferrer" href="{$data['regpic'][0]['go_url']}" class="game_info"><img src="http://cdn.66173.cn/{$data['regpic'][0]['img']}" alt="{$data['regpic'][0]['title']}" width='304' height='238'></a>
+                {/if}
+            </div>
+        </div>
+    </div>
+    {include file="include/footer.html"}
+</body>
+<script>
+    with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+    window._bd_share_config = { common : { bdText : "{$article.title}", bdDesc : "{$article.title}", bdUrl : "http://www.66173.cn/info/{$sid}", bdPic : "http://cdn.66173.cn/{$game.game_icon}"}, share : [{ "bdSize":16}]};
+</script>
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+</html>

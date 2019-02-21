@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+<title>我的礼包</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<link rel="stylesheet" type="text/css" href="http://static.66173.cn/weixin/css/style.css?t={rand(1,10000)}" media="screen" />
+</head>
+<body>
+<!--<header class="page-header clearfix"><h1 class="h1-txt">我的礼包</h1><a class="back-link"></a></header>-->
+<header class="tip">长按[绿色激活码]就可以复制哦</header>
+{if $gifts}
+<div class="lb-box clearfix">
+    <table class="gifts">
+        {foreach from=$gifts item=g key=k}
+            <tr>
+                <td class="icon"><img src="http://static.66173.cn/images/game_icon/{$g.game_id}.png" /></td>
+                <td>
+                    <h3>{$g.title}</h3>
+                    <p class="code"><span class="green">{$g.code}</span></p>
+                </td>
+            </tr>
+        {/foreach}
+    </table>
+</div>
+{else}<h2 class="tip">您还没领取过66173的礼包哦<br /><em>66173.cn</em></h2>{/if}
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?7e04c1157689a56872eadeed20c541cb";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+</body>
+</html>

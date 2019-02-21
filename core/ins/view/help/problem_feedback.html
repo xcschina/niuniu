@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="width=device-width; initial-scale=0.5; minimum-scale=0.5; maximum-scale=0.5; user-scalable=0" id="viewport" name="viewport" />
+    <title>客服工单</title>
+    <link rel="stylesheet" href="//static.66173.cn/ins/css/help.css">
+    <script src="//libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <script type="application/javascript">
+        $(window).on('resize', function (e) {
+            var wWidth = document.documentElement.clientWidth || document.body.clientWidth;
+            var size = wWidth / 6.4 ;
+            document.getElementsByTagName('html')[0].style.fontSize = size + 'px';
+        }).trigger('resize');
+    </script>
+</head>
+<body>
+<form method="post" onSubmit="return check_submit();" id="prb_feed">
+    <div class="fb-body">
+        <div class="select" autofocus>
+            <select id="type" name="type">
+                <option value="">请选择类型</option>
+                {foreach from=$type item=info key=k}
+                <option value="{$k}">{$info}</option>
+                {/foreach}
+            </select>
+            <span></span>
+            <i></i>
+        </div>
+        <div class="select" autofocus>
+            <select id="server" name="server">
+                <option value="">请选择服务器</option>
+                {foreach from=$services item=server}
+                <option value="{$server.AreaServerName}" data-n="{$server.RoleName}" data-p="{$server.RoleID}">{$server.AreaServerName}</option>
+                {/foreach}
+            </select>
+            <span></span>
+            <i></i>
+        </div>
+        <textarea class="m-b-15" name="content" id="desc"  maxlength="500" placeholder="描述下你的问题呗~"></textarea>
+        <!--<input type="button" class="submit up_btn" value="上传截图" onclick="javascript:do_upload()" id="font_up"/>
+        <p id="ps" class="desc-s">
+            图片仅支持:gif、jpeg、png格式
+        </p>-->
+        <input id="submit" type="button" class="submit" value="提交" onclick="javascript:on_submit()"/>
+        <input name="honeypot" type="hidden" value="{$honeypot}">
+        <input name="help_type" type="hidden" value="1">
+        <input name="system" type="hidden" id="system" value="{$system}">
+    </div>
+</form>
+</body>
+<script src="//static.66173.cn/js/app/common.js"></script>
+<script type="text/javascript">
+
+    var submit_btn = $("#submit");
+    var is_submitting = false;
+    function check_submit() {
+        submit_btn.disable = true;
+        if(is_submitting){
+            return false;
+        }
+        var system = document.getElementById('system').value;
+        var type = document.getElementsByName("type")[0];
+        var server = document.getElementsByName("server")[0];
+        var content_input=$("textarea[name=content]");
+        var content = document.getElementById('desc').value;
+        var select = document.querySelector("select[name=server]");
+        var server_name = "";
+        var nick_name = "";
+        var player_id = 0;
+
+        if(select != null){
+            var server_name = select.value;
+            if(server_name != "0"){
+                var index = select.selectedIndex;
+                nick_name = select.options[index].getAttribute("data-n");
+                player_id = select.options[index].getAttribute("data-p");
+            }else{
+                if(system == "50"){
+                    alert('请选择服务器');
+                }else {
+                    ios_native_alert('请选择服务器');
+                }
+                select.focus();
+                return;
+            }
+        }
+        if(server_name == undefined || server_name == null){
+            server_name = "";
+        }
+
+        if(nick_name == undefined || nick_name == null){
+            nick_name = "";
+        }
+
+        if(player_id == undefined || player_id == null){
+            player_id = 0;
+        }
+        var type_verify=document.getElementById("type");
+        if(type_verify.value==""){
+            if(system == "50"){
+                alert('请选择问题类型');
+            }else {
+                ios_native_alert('请选择问题类型');
+            }
+            type.focus();
+            return false;
+        }
+        var server_verify=document.getElementById("server");
+        if(server_verify.value==""){
+            if(system == "50"){
+                alert('请选择服务器');
+            }else {
+                ios_native_alert('请选择服务器');
+            }
+            server.focus();
+            return false;
+        }
+        if(content == '') {
+            if(system == "50"){
+                alert('请描述下你的问题');
+            }else {
+                ios_native_alert('请描述下你的问题');
+            }
+            content_input.focus();
+            return false;
+        }
+
+        var _$ = window.jQuery;
+        var formStr=_$("#prb_feed").serialize();
+        var data="";
+        data = formStr+'&server_name='+server_name+'&nick_name='+nick_name+'&player_id='+player_id;
+        if(system == "50"){
+            window.local_obj.problem_submit(data);
+        }else {
+            problem_submit(data);
+        }
+    }
+    function do_upload(){
+        var system = document.getElementById('system').value;
+        if (document.getElementById("font_up").value!="预览截图") {
+            document.getElementById("font_up").value="预览截图";
+        }
+        if(system == "50"){
+            window.local_obj.uploadfile()
+        }else {
+            upload_img();
+        }
+    }
+    function upload_img() {
+    }
+    function ios_native_alert() {
+    }
+    function on_submit(){
+        document.forms[0].onsubmit();
+    }
+    function problem_submit(data){
+    }
+</script>
+</html>

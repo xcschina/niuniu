@@ -1,0 +1,69 @@
+{literal}
+<script type="text/javascript">
+    function nodeCheck(e, treeId, treeNode) {
+        var zTree = $.fn.zTree.getZTreeObj(treeId),
+            nodes = zTree.getCheckedNodes(true);
+        var ids = '', names = '',pami_ids='',pami_name='',nodes_id='',nodes_ids='',pid='',index='',pami_id='';
+        for (var i = 0; i < nodes.length; i++) {
+             nodes_id =''+nodes[i].id+'';
+             pid=nodes[i].pid
+             index=nodes_id.indexOf("_");
+            if(index>=0){
+                pami_id=nodes_id.substr((index+1));
+                pami_ids+= ','+nodes[i].pid+"_"+pami_id;
+            }else{
+                nodes_ids += ','+ nodes[i].id
+            }
+        }
+        $("input[name=nodes_ids]").val(nodes_ids);
+        $("input[name=pami_ids]").val(pami_ids);
+    }
+</script>
+{/literal}
+<div class="bjui-pageContent">
+    <div style="margin:15px auto 0; width:800px;">
+        <fieldset>
+            <legend>您正在为【{$usr_id}】设置权限</legend>
+            <div class="clearfix">
+                <div style="float:left; width:300px;  overflow:auto;">
+                    <ul id="ztree2" class="ztree" data-toggle="ztree" data-on-check="nodeCheck" data-expand-all="false" data-divid="#ztree2" data-check-enable="true">
+                        {foreach from=$menus key=i item=menu}
+                        <li data-id="{$menu.id}" data-pid="0"  {if $menu.id|in_array:$module_arr}data-checked="true" {/if}>{$menu.name}-{$menu.id}</li>
+                        {foreach from=$menu['p_menu'] key=k item=p_menu}
+                        <li data-id="{$p_menu.id}" data-pid="{$p_menu.pid}" {if $p_menu.id|in_array:$module_arr}data-checked="true" {/if}>{$p_menu.name}-{$p_menu.id}</li>
+                        {if !$p_menu['c_menu']}
+                        <li data-id="{$p_menu.id}_0" data-pid="{$p_menu.id}" {if $p_menu.id|cat:'_0'|in_array:$perm_arr}data-checked="true" {/if}>查询-{$p_menu.id|cat:'_0'}</li>
+                        <li data-id="{$p_menu.id}_1" data-pid="{$p_menu.id}" {if $p_menu.id|cat:'_1'|in_array:$perm_arr}data-checked="true" {/if}>新增-{$p_menu.id|cat:'_1'}</li>
+                        <li data-id="{$p_menu.id}_2" data-pid="{$p_menu.id}" {if $p_menu.id|cat:'_2'|in_array:$perm_arr}data-checked="true" {/if}>编辑-{$p_menu.id|cat:'_2'}</li>
+                        <li data-id="{$p_menu.id}_3" data-pid="{$p_menu.id}" {if $p_menu.id|cat:'_3'|in_array:$perm_arr}data-checked="true" {/if}>删除-{$p_menu.id|cat:'_3'}</li>
+                        <li data-id="{$p_menu.id}_4" data-pid="{$p_menu.id}" {if $p_menu.id|cat:'_4'|in_array:$perm_arr}data-checked="true" {/if}>导入-{$p_menu.id|cat:'_4'}</li>
+                        <li data-id="{$p_menu.id}_5" data-pid="{$p_menu.id}" {if $p_menu.id|cat:'_5'|in_array:$perm_arr}data-checked="true" {/if}>导出-{$p_menu.id|cat:'_5'}</li>
+                        {/if}
+                        {foreach from=$p_menu['c_menu'] key=j item=c_menu}
+                        <li data-id="{$c_menu.id}" data-pid="{$c_menu.pid}" {if $c_menu.id|in_array:$module_arr}data-checked="true" {/if}>{$c_menu.name}-{$c_menu.id}</li>
+                        <li data-id="{$c_menu.id}_0" data-pid="{$c_menu.id}" {if $c_menu.id|cat:'_0'|in_array:$perm_arr} data-checked="true" {/if}>查询-{$c_menu.id|cat:'_0'}</li>
+                        <li data-id="{$c_menu.id}_1" data-pid="{$c_menu.id}" {if $c_menu.id|cat:'_1'|in_array:$perm_arr} data-checked="true" {/if}>新增-{$c_menu.id|cat:'_1'}</li>
+                        <li data-id="{$c_menu.id}_2" data-pid="{$c_menu.id}" {if ($c_menu.id|cat:'_2')|in_array:$perm_arr} data-checked="true" {/if}>编辑-{$c_menu.id|cat:'_2'}</li>
+                        <li data-id="{$c_menu.id}_3" data-pid="{$c_menu.id}" {if $c_menu.id|cat:'_3'|in_array:$perm_arr} data-checked="true" {/if}>删除-{$c_menu.id|cat:'_3'}</li>
+                        <li data-id="{$c_menu.id}_4" data-pid="{$c_menu.id}" {if $c_menu.id|cat:'_4'|in_array:$perm_arr} data-checked="true" {/if}>导入-{$c_menu.id|cat:'_4'}</li>
+                        <li data-id="{$c_menu.id}_5" data-pid="{$c_menu.id}" {if $c_menu.id|cat:'_5'|in_array:$perm_arr} data-checked="true" {/if}>导出-{$c_menu.id|cat:'_5'}</li>
+                        {/foreach}
+                        {/foreach}
+                        {/foreach}
+                    </ul>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <form action="system_setting.php?act=sava_perm" method="post" data-toggle="validate">
+        <input type="hidden" name="usr_id" value="{$usr_id}">
+        <input type="hidden" name="nodes_ids" value="">
+        <input type="hidden" name="pami_ids" value="">
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+        <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+    </ul>
+</div>

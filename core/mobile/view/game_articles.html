@@ -1,0 +1,47 @@
+<!doctype html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+        <title>{$info.game_name}资讯_游戏名攻略_ 66173手游交易平台</title>
+        <meta name="keywords" content="{$info.game_name}、{$info.game_name}资讯、{$info.game_name}攻略、66173、手游交易平台" />
+        <meta name="description" content="66173提供最新的{$game.game_name}游戏资讯，最全的{$game.game_name}游戏攻略。最完整的{$game.game_name}测评，66173(m.66173.cn)是国内权威的游戏交易平台，安全快捷有保障的手游充值中心。" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/common.css?t={rand(10,15)}" media="screen" />
+        <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/mobile/v2/css/pay.css?t={rand(1,5)}" media="screen" />
+    </head>
+    <body>
+    <header class="page-header clearfix">
+        <h1 class="page-h1">{$info.game_name}资讯</h1>
+        <a class="p2-back" href="javascript:history.back();">返回</a>
+        <a class="p2-back ml-40" href="http://m.66173.cn">首页</a>
+        {if $smarty.session.user_id}
+        <a class="login-on" href="/account.php?act=user_center">个人中心</a>
+        {else}
+        <a class="login-link" href="/account.php?act=user_center" id="login-btn">登录</a>
+        {/if}
+    </header>
+    <nav class="pay-nav clearfix">
+    <ul class="pay-nav-list clearfix">
+        <li><a href="/game{$info.id}" rel="1">商品购买</a></li>
+        <li><a href="#;" rel="2">礼包领取</a></li>
+        <li class="on"><a href="#;">游戏资讯</a></li>
+        <li>
+            <!--<a href="#;" rel="3">游戏下载</a>-->
+        </li>
+    </ul>
+</nav>
+<div class="game_box">
+    <ul class="zx-list clearfix">
+        {foreach from=$news item=n}
+        <li><a href="/info/{$n.id}"><span>{"m-d"|date:$n.add_time}</span>{$n.title}</a></li>
+        {/foreach}
+    </ul>
+</div>
+{include file="include/footer.html"}
+<script src="http://cdn.66173.cn/mobile/v2/scripts/zeptio.min.js"></script>
+<script src="http://cdn.66173.cn/mobile/v2/scripts/script.js"></script>
+
+</body>
+</html>

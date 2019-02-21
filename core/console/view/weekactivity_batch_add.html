@@ -1,0 +1,62 @@
+<script type="text/javascript">
+    $(function(){
+        $("select[name=game_id]").chosen();
+    })
+</script>
+<div class="bjui-pageContent">
+    <form action="weekactivity.php?act=activity_batch_save"data-toggle="validate" data-alertmsg="false"  method="post" enctype="multipart/form-data">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label  class="control-label x120">PC端背景图：</label>
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="pc_pic.click()">选择图片</button>
+                    <input type="file" name="pc_pic" style="display: none;" onchange="pc_file.value=value"/>
+                    <input type="text" name="pc_file" placeholder="None file" class="form-control" size="15" data-rule="required" readonly/>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x120">M端背景图：</label>
+                    <button type="button" class="btn-default" data-icon="cloud-upload" onclick="m_pic.click()">选择图片</button>
+                    <input type="file" name="m_pic" style="display: none;" onchange="m_file.value=value"/>
+                    <input type="text" name="m_file" placeholder="None file"  class="form-control" size="15" data-rule="required" readonly/>&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x120">批次名称：</label>
+                    <input type="text" name="batch_name" value="" cols="18" rows="1"  class="form-control" data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">开始时间(必填)：</label>
+                    <input type="text"  name="start_time" data-toggle="datepicker" data-pattern="yyyy-MM-dd H:m:s" size="20">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label  class="control-label x120">结束时间(必填)：</label>
+                    <input type="text"  name="end_time" data-toggle="datepicker" data-pattern="yyyy-MM-dd H:m:s" size="20">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_form_content" class="control-label x120">活动规则：</label>
+                    <div style="display: inline-block; vertical-align: middle;">
+                        <textarea name="game_rule" id="j_form_content" class="j-content" style="width: 700px;" data-toggle="kindeditor" data-minheight="200"></textarea>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>
+
