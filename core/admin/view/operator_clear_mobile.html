@@ -1,0 +1,210 @@
+<form action="user.php?act=do_clear_mobile" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="change-mobile-wrapper">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h4 class="modal-title">清空号码</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="col-md-2 control-label">验证类型</label>
+                <div class="col-md-8" style="margin-top: 5px!important;">
+                    用户ID: <input type="radio" name="type" value="1" checked="checked" data-parsley-multiple="type" data-parsley-id="53">&nbsp;&nbsp;&nbsp;&nbsp;
+                    用户手机: <input type="radio" name="type"  value="2" data-parsley-multiple="type">
+                </div>
+            </div>
+            <div class="form-group" id="userID">
+                <label class="col-md-2 control-label">用户ID</label>
+                <div class="col-md-8">
+                    <input type="number" class="form-control" name="user_id" required id="user_id" />
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-info waves-effect waves-light" id="idCarReg">ID验证</button>
+                </div>
+            </div>
+            <div class="form-group" id="userMobile" style="display: none">
+                <label class="col-md-2 control-label">用户手机</label>
+                <div class="col-md-8">
+                    <input type="number" class="form-control" name="mobile_id" required id="mobile" />
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-info waves-effect waves-light" id="mobileCarReg">手机验证</button>
+                </div>
+            </div>
+            <div class="rel-infos form-group" style="display: none;">
+                <div class="col-md-2 control-label">账号信息</div>
+                <div class="col-md-10 info-list"></div>
+            </div>
+        </div>
+        <input value="{$pagehash}" name="pagehash" type="hidden" id="pagehash">
+        <input name="user_id" type="hidden" id="user_id_h">
+        <input name="mobile" type="hidden" id="mobile_id">
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-info waves-effect waves-light" id="idCarSave">清空</button>
+        </div>
+    </div>
+</form>
+{literal}
+<script>
+    var pagehash = $('#pagehash').val();
+    var regContact = new RegExp(/^1[34578]\d{9}$/);
+    var regUserId = new RegExp(/^[1-9]+$/);
+    $("input[name='type']").change(function(){
+        var type = $(this).val();
+        if(type == '2'){
+            $("#userID").hide();
+            $("#userMobile").show();
+        }else{
+            $("#userID").show();
+            $("#userMobile").hide();
+        }
+    });
+    $("#idCarReg").on("click",function(e){
+        var user_id = $("#user_id").val();
+        if (!regUserId.test(user_id)){
+            $.Notification.notify('error','top left',"用户ID格式错误！");
+            return false;
+        }
+        $.ajax({
+            type:"post",
+            url:"user.php?act=reg_user_id",
+            data:{
+                "user_id":user_id,
+                "pagehash":pagehash
+            },
+            cache:false,
+            dataType:"json",
+            timeout : 5000,
+            success:function(data){
+                var keyMap = {
+                    user_id: "用户ID",
+                    nick_name: "昵称",
+                    login_name: "登录昵称"
+                };
+                if (data.error=="1"){
+                    $.Notification.notify('error','top left', data.msg);
+                }else{
+                    $("#user_id").attr("disabled","disabled");
+                    $("#mobile").attr("disabled",false);
+                    $("#user_id_h").val(user_id);
+                    $("#mobile_id").val(data.infos.mobile);
+                    $.Notification.autoHideNotify('success', 'top left', "用户查询成功");
+                    var infos = data.infos;
+                    var con = "";
+                    if (infos){
+                            con = '<div class="row">'
+                                + '<label class="col-md-2">用户ID</label>'
+                                + '<span class="col-md-8">'+infos.user_id+'</span>'
+                                + '</div>'
+                                + '<div class="row">'
+                                + '<label class="col-md-2">昵称</label>'
+                                + '<span class="col-md-8">'+infos.nick_name+'</span>'
+                                + '</div>'
+                                + '<div class="row">'
+                                + '<label class="col-md-2">登录昵称</label>'
+                                + '<span class="col-md-8">'+infos.login_name+'</span>'
+                                + '</div>'
+                                + '</div>'
+                                + '<div class="row">'
+                                + '<label class="col-md-2">手机号码</label>'
+                                + '<span class="col-md-8">'+infos.mobile+'</span>'
+                                + '</div>'
+                                + '<input value="'+infos.mobile+'" name="mobile" type="hidden" id="">'
+                    }else{
+                        con = '暂无信息';
+                    }
+                    $(".info-list").html(con);
+                    $(".rel-infos").show();
+                }
+            },
+            error: function(req, error) {
+                $.Notification.notify('error','top left', "发生错误,HTTP代码:"+req.status, req.statusText);
+            }
+        });
+    });
+    $("#mobileCarReg").on("click",function(e){
+        var mobile = $("#mobile").val();
+        if (!regContact.test(mobile)){
+            $.Notification.notify('error','top left',"手机号码格式错误！");
+            return false;
+        }
+        $.ajax({
+            type:"post",
+            url:"user.php?act=reg_mobile",
+            data:{
+                "mobile":mobile,
+                "pagehash":pagehash
+            },
+            cache:false,
+            dataType:"json",
+            timeout : 5000,
+            success:function(data){
+                var keyMap = {
+                    user_id: "用户ID",
+                    nick_name: "昵称",
+                    login_name: "登录昵称",
+                    mobile:"手机号码"
+                };
+                if (data.error=="1"){
+                    $.Notification.notify('error','top left', data.msg);
+                }else{
+                    $("#mobile").attr("disabled","disabled");
+                    $("#user_id").attr("disabled",false);
+                    $("#user_id_h").val(data.infos.user_id);
+                    $("#mobile_id").val(mobile);
+                    $.Notification.autoHideNotify('success', 'top left', "用户查询成功");
+                    var infos = data.infos;
+                    var con = "";
+                    if (infos){
+                        for(var key in infos) {
+                            con += '<div class="row">'
+                                + '<label class="col-md-2">'+keyMap[key]+'</label>'
+                                + '<span class="col-md-8">'+infos[key]+'</span>'
+                                + '</div>'
+                        }
+                    }else{
+                        con = '暂无信息';
+                    }
+                    $(".info-list").html(con);
+                    $(".rel-infos").show();
+                }
+            },
+            error: function(req, error) {
+                $.Notification.notify('error','top left', "发生错误,HTTP代码:"+req.status, req.statusText);
+            }
+        });
+    });
+    //表单前端验证
+    $("#myform").submit(function(e){
+        var user_id = $("#user_id_h").val();
+        var mobile = $("#mobile_id").val();
+        var type=$('input:radio[name="type"]:checked').val();
+        var password = $("#password").val();
+        var again_password = $("#again_password").val();
+        var pagehash = $("#pagehash").val();
+        if (type == '1' && !regUserId.test(user_id)){
+            $.Notification.notify('error','top left',"请先验证用户ID！");
+            return false;
+        }
+        if (type == '2' && !regContact.test(mobile)){
+            $.Notification.notify('error','top left',"请先验证手机！");
+            return false;
+        }
+        if (password==""){
+            $.Notification.notify('error','top left',"密码不能为空！");
+            return false;
+        }
+        if (password.length < 6 || password.length > 12){
+            $.Notification.notify('error','top left',"密码格式错误！");
+            return false;
+        }
+        if (again_password==""){
+            $.Notification.notify('error','top left',"请再次输入密码不能为空！");
+            return false;
+        }
+        if (again_password != password){
+            $.Notification.notify('error','top left',"两次密码必须相同");
+            return false;
+        }
+    });
+</script>
+{/literal}

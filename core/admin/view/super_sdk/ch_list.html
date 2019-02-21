@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <!--&lt;!&ndash;按钮或搜索区域&ndash;&gt;-->
+                <!--<div class="col-sm-12 text-xs-center">-->
+                    <!--<button data-action="modal" class="btn btn-default m-b-20" href="channel_app.php?act=add"><i class="fa fa-plus m-r-5"></i>添加新品</button>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;end-&ndash;&gt;-->
+            </div>
+            <div class="table-responsive">
+                <!---核心内容列表区域-->
+                <table class="table table-striped m-0">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>APPID</th>
+                        <th>渠道名称</th>
+                        <th>游戏名称</th>
+                        <th>SuperAppID</th>
+                        <th>录入时间</th>
+                        <th>状态</th>
+                        <th>总上限金额</th>
+                        <th>当前余额</th>
+                        <th>比例设置</th>
+                        <th>预警设置</th>
+                        <th>充值录入</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach from=$datalist item=data}
+                    <tr>
+                        <th scope="row">{$data.id}</th>
+                        <td>{$data.app_id}</td>
+                        <td>{$data.channel}</td>
+                        <td>{$data.app_name}</td>
+                        <td>{$data.super_id}</td>
+                        <td>{'Y-m-d H:i:s'|date:$data.add_time}</td>
+                        <td>{if $data.status eq '1'}运营{elseif $data.status eq '2'}下线{elseif $data.status eq '3'}开启充值{elseif $data.status eq '4'}关闭充值{/if}</td>
+                        <td>{$data.recharge_count}</td>
+                        <td>{$data.balance}</td>
+                        <td><a class="on-default edit-row" data-action="modal" href="channel_app.php?act=ratio_set&id={$data.id}">{if $data.ratio}1:{$data.ratio}{else}设置比例{/if}</a></td>
+                        <td><a class="on-default edit-row" data-action="modal" href="channel_app.php?act=money_set&id={$data.id}">设置</a></td>
+                        <td><a class="on-default edit-row" data-action="modal" href="channel_app.php?act=add_money&id={$data.id}">充值</a></td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <!---内容区域end--->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row"><div class="col-lg-12"><div id="page">{$page_bar}</div></div></div>

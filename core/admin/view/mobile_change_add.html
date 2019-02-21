@@ -1,0 +1,269 @@
+
+<!--end--->
+<form action="feedback.php?act=do_change" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="change-mobile-wrapper">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">修改绑定手机</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-md-2 control-label">原手机号</label>
+            <div class="col-md-8">
+                <input type="number" class="form-control origin-tel-input" value="" name="user_mobile" required id="user_mobile"/>
+            </div>
+            <div class="col-md-2">
+                <span class="btn btn-default m-b-20 origin-verify-btn"><i class="fa m-r-5"></i>账号验证</span>
+                <span class="btn btn-default m-b-20 origin-captcha origin-captcha-can" href="" style="display: none"><i class="fa fa-plus m-r-5"></i>验证码</span>
+            </div>
+        </div>
+        <div class="form-group origin-captcha-input-zone" style="display: none;">
+            <label class="col-md-2 control-label">原手机验证码</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control origin-captcha-input" name="old_code" value="" required />
+            </div>
+        </div>
+        <div class="rel-infos form-group" style="display: none;">
+            <div class="col-md-2 control-label">账号信息</div>
+            <div class="col-md-10 info-list"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">改绑手机号</label>
+            <div class="col-md-8">
+                <input type="number" class="form-control change-tel-input" parsley-trigger="change" value="" required name="new_mobile_s" />
+            </div>
+            <div class="col-md-2">
+                <span data-action="modal" class="btn btn-default m-b-20 change-captcha change-captcha-can" href=""><i class="fa fa-plus m-r-5"></i>验证码</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">改绑手机验证码</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control change-captcha-input" value="" name="new_code" required />
+            </div>
+        </div>
+    </div>
+    <input value="{$pagehash}" name="pagehash" type="hidden" id="pagehash">
+    <input value="" name="mobile" type="hidden" id="mobile">
+    <input value="" name="new_mobile" type="hidden" id="new_mobile">
+
+    <!--<div class="modal-footer">-->
+        <!--&lt;!&ndash;<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>&ndash;&gt;-->
+        <!--<span type="submit" class="btn btn-info waves-effect waves-light save-mobile-change">提交</span>-->
+    <!--</div>-->
+    <div class="modal-footer">
+        <!--<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>-->
+        <button type="submit" class="btn btn-info waves-effect waves-light">保存</button>
+    </div>
+    </div>
+</form>
+<div class="brief-tip-pop"><div class="con"></div></div>
+
+{literal}
+<script>
+    var regContact = new RegExp(/^1[34578]\d{9}$/);
+    var regCaptchaPart = new RegExp(/^[0-9]{6}$/);
+    var captchaIntervalOrigin;//原手机号验证码倒计时
+    var captchaIntervalChange;//改绑手机号验证码倒计时
+    var pagehash = $('#pagehash').val();
+    jQuery(document).ready(function() {
+        $(".select2").select2();
+    });
+    function search() {
+        app_id = $("select[name='app_id']").val();
+        access_type = $("select[name='access_type']").val();
+        url = "app.php?act=guild_list&app_id="+app_id+"&access_type="+access_type;
+        main_data_load(url)
+    };
+    //账号验证
+    $(".change-mobile-wrapper").on("click", ".origin-verify-btn", function(e) {
+        var user_mobile = $(".origin-tel-input:visible").val();
+        if(!regContact.test($(".origin-tel-input:visible").val())) {
+            briefTipControl("请填写正确的手机号码！");
+        }
+        else {
+            $.ajax( {
+                url: 'feedback.php?act=account_verify',
+                data:{
+                    mobile:user_mobile,
+                    pagehash:pagehash
+                },
+                type:'post',
+                cache:false,
+                dataType:'json',
+                timeout : 5000,
+                beforeSend:function () {
+                },
+                success:function(data) {
+                    var keyMap = {
+                        user_id: "用户ID",
+                        nick_name: "昵称",
+                        login_name: "登录昵称",
+                        mobile: "手机号"
+                    };
+                    if(data.error=='1'){
+                        $.Notification.notify('error','top left',data.msg);
+                        return false;
+                    }else if(data.error=='0'){
+                        $.Notification.autoHideNotify('success', 'top left', "用户查询成功");
+                        $(e.currentTarget).hide().siblings().show();
+                        var con = "";
+                        var infos = data.infos;
+                        if(infos) {
+                            for(var key in infos) {
+                                con += '<div class="row">'
+                                    + '<label class="col-md-2">'+keyMap[key]+'</label>'
+                                    + '<span class="col-md-8">'+infos[key]+'</span>'
+                                    + '</div>'
+                            }
+                        }
+                        else {
+                            con = '暂无信息';
+                        }
+                        $(".info-list").html(con);
+                        $(".rel-infos").show();
+                    }
+                },
+                error: function(req, error) {
+                    $.Notification.notify('error','top left', "发生错误,HTTP代码:"+req.status, req.statusText);
+                }
+            });
+            return false;
+        }
+    });
+    //点击获取原手机号验证码
+    $(".change-mobile-wrapper").on("click",".origin-captcha-can", function() {
+        if(!regContact.test($(".origin-tel-input:visible").val())) {
+            briefTipControl("请填写正确的手机号码！");
+        }
+        else {
+            $(".origin-captcha-input-zone").show();
+            $('.origin-tel-input').attr("disabled", true);
+            $(".origin-captcha").removeClass("origin-captcha-can").html('<span class="origin-count-time">120</span>s后获取');
+            var countDownRest = 120;//倒计时
+            clearInterval(captchaIntervalOrigin);
+            captchaIntervalOrigin = setInterval(function() {
+                if(countDownRest > 1) {
+                    countDownRest--;
+                    $(".origin-count-time").html(countDownRest)
+                }
+                else {
+                    $(".origin-captcha").html("获取验证码").addClass("origin-captcha-can");
+                    clearInterval(captchaIntervalOrigin)
+                }
+
+            }, 1000);
+            var phone = $(".origin-tel-input:visible").val();
+            $("#mobile").val(phone);
+            $.ajax({
+                url: "/feedback.php?act=sms_code",
+                type: "post",
+                data: {
+                    mobile: phone,
+                    pagehash:pagehash
+                },
+                dataType: "json"
+            }).success(function(json) {
+                briefTipControl(json.msg);
+            }).error(function(req, error) {
+                $.Notification.notify('error','top left', "发生错误,HTTP代码:"+req.status, req.statusText);
+            })
+        }
+    });
+    //    点击获取改绑手机号验证码
+    $(".change-mobile-wrapper").on("click",".change-captcha-can", function() {
+        if(!regContact.test($(".change-tel-input:visible").val())) {
+            briefTipControl("请填写正确的手机号码！！");
+            $(".change-captcha").removeClass("change-captcha-can");
+            setTimeout(function() {
+                $(".change-captcha").addClass("change-captcha-can");
+            }, 2000);
+        }
+        else {
+            $(".change-captcha").removeClass("change-captcha-can").html('<span class="change-count-time">120</span>s后获取');
+            var countDownRest = 120;//倒计时
+            clearInterval(captchaIntervalChange);
+            captchaIntervalChange = setInterval(function() {
+                if(countDownRest > 1) {
+                    countDownRest--;
+                    $(".change-count-time").html(countDownRest)
+                }
+                else {
+                    $(".change-captcha").html("获取验证码").addClass("change-captcha-can");
+                    clearInterval(captchaIntervalChange)
+                }
+            }, 1000);
+            var phone = $(".change-tel-input:visible").val();
+            $.ajax({
+                url: "/feedback.php?act=sec_sms_code",
+                type: "post",
+                data: {
+                    mobile: phone,
+                    pagehash:pagehash
+                },
+                dataType: "json"
+            }).success(function(json) {
+                if(json.res == 1){
+                    $("#new_mobile").val(phone);
+                    $('.change-tel-input').attr("disabled", true);
+                }
+                briefTipControl(json.msg);
+            }).error(function(req, error) {
+                $.Notification.notify('error','top left', "发生错误,HTTP代码:"+req.status, req.statusText);
+            })
+        }
+    });
+    //    点击保存修改绑定手机
+    $(".change-mobile-wrapper").on("click", ".save-mobile-change", function() {
+        var originCaptcha = $(".origin-captcha-input").val();
+        var changeCaptcha = $(".change-captcha-input").val();
+        var originMobile = $(".origin-tel-input").val();
+        var changeMobile = $(".change-tel-input").val();
+        if(!regContact.test(originMobile)) {
+            briefTipControl("请填写正确的原手机号");
+            return false;
+        }
+        if(!regCaptchaPart.test(originCaptcha)) {
+            briefTipControl("请填写正确的原手机号验证码");
+            return false;
+        }
+        if(!regContact.test(changeMobile)) {
+            briefTipControl("请填写正确的改绑手机号");
+            return false;
+        }
+        if(!regCaptchaPart.test(changeCaptcha)) {
+            briefTipControl("请填写正确的改绑手机号验证码");
+            return false;
+        }
+        var pagehash = $('#pagehash').val();
+        $.ajax( {
+            url: 'feedback.php?act=do_change',
+            data:{
+                mobile: originMobile,
+                new_mobile: changeMobile,
+                sms_code: originCaptcha,
+                sec_sms_code: changeCaptcha,
+                pagehash:pagehash
+            },
+            type:'post',
+            cache:false,
+            dataType:'json',
+            timeout : 5000,
+            beforeSend:function () {
+            },
+            success:function(data) {
+                briefTipControl(data.msg);
+            },
+            error: function(req, error) {
+                $.Notification.notify('error','top left', "发生错误,HTTP代码:"+req.status, req.statusText);
+            }
+        });
+
+    });
+    // 简单提示控制
+    function briefTipControl(text) {
+        $(".brief-tip-pop .con").html(text);
+        $(".brief-tip-pop").fadeIn(500).delay(1000).fadeOut(500);
+    }
+</script>
+{/literal}

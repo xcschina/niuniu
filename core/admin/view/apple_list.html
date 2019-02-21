@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+    <meta name="author" content="Coderthemes">
+    <title>{$app_info.app_name}</title>
+    {include file="kpi/include/head.html"}
+    {include file="kpi/include/foot.html"}
+    <link href="assets/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css" rel="stylesheet" />
+    <script type="text/javascript" src="assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <script src="assets/plugins/bootstrap-filestyle/src/bootstrap-filestyle.min.js" type="text/javascript"></script>
+    <link href="assets/plugins/summernote/dist/summernote.css" rel="stylesheet">
+    <script src="assets/plugins/summernote/dist/summernote.js"></script>
+    {literal}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('form').parsley();
+            $('#summernote').summernote({
+                height:300,
+                toolbar: [
+                    ['color', ['color']],
+                    ['style', ['style']],
+                    ['font', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
+                    ['fontname', ['fontname']],
+                    ['fontsize', ['fontsize']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'hr']],
+                    ['view', ['fullscreen', 'codeview']],
+                    ['help', ['help']]
+                ]
+            });
+        });
+    </script>
+    {/literal}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('form').parsley();
+            $('input[name="version_time"]').datetimepicker({
+                locale: 'zh',format: 'yyyy-mm-dd hh:ii'
+            });
+            $('input[name="offline_time"]').datetimepicker({
+                locale: 'zh',format: 'yyyy-mm-dd hh:ii'
+            });
+        });
+    </script>
+</head>
+{literal}
+<style>
+    .modal-backdrop{
+        right:auto;
+        background-color: #fff;
+    }
+    .modal-header{
+        border-bottom: 2px solid #e5e5e5;
+    }
+    .apple-edit,.notice-edit{
+        width: 50%;
+        margin: 0 auto;
+        margin-top: 50px;
+        background-color: white;
+        padding:25px;
+    }
+    #data2 {
+        min-width: 310px; height: 400px; margin: 0 auto;
+    }
+    .red-date {
+        color: #ff6600;
+    }
+    .f-gray {
+        color: #666;
+    }
+    th, td {
+        text-align: center!important;
+    }
+    td {
+        padding: 9px!important;
+        font-size: 14px!important;
+        color: #333!important;
+    }
+    td.keep20{background-color: #ededed}
+    td.keep30{background-color: #dedede}
+    td.keep40{background-color: #cdcdcd}
+    td.daykeep{border-right: 1px solid #fff;}
+    tr {
+        background-color: inherit!important;
+    }
+    th {
+        font-size: 14px!important;
+        color: #666;
+    }
+    .f-green-d {
+        color: #009999!important;
+        font-weight: bold;
+    }
+    .f-green {
+        color: #009999!important;
+    }
+    .f-bold {
+        font-weight: bold;
+    }
+    .d-bg {
+        background-color: #f1f1f1!important;
+    }
+    .l-bg {
+        background-color: #f7f7f7!important;
+    }
+    .text-middle {
+        text-align: center!important;
+    }
+    .text-left {
+        text-align: left!important;
+    }
+    .text-right {
+        text-align: right!important;
+    }
+    .fix-span {
+        width: 45%;
+        display: inline-block;
+    }
+    .separate {
+        color: #ccc;
+        padding: 0 3px;
+    }
+    .sp .footable-sort-indicator {
+        position: absolute!important;
+    }
+    .form-group{
+        margin-bottom: 15px;
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+    .mask {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 99;
+        display: none;
+        cursor: pointer;
+    }
+    .brief-tip-pop {
+        position: fixed;
+        top: 45%;
+        z-index: 999;
+        left: 0;
+        right: 0;
+        text-align: center;
+        display: none;
+        word-break: break-all;
+    }
+    .brief-tip-pop .con {
+        background: rgba(0,0,0,0.6);
+        color: white;
+        max-width: 40%;
+        padding: 5px 10px;
+        display: inline-block;
+    }
+    .con {
+        width: 94%;
+        margin: 0 auto;
+    }
+</style>
+{/literal}
+<body>
+<!-- Begin page -->
+<div id="wrapper">
+    <!-- Left Sidebar -->
+
+    <div id="page-wrapper">
+        <div >
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card-box">
+                        <div class="row">
+                            <!--按钮或搜索区域-->
+                            <form  id="form_data" action="app.php?act=apple_list&app_id={$app_info.app_id}" method="post">
+                                <div class="col-sm-12 text-xs-center">
+                                    <div class="col-md-1">
+                                        <a class="btn btn-default m-b-20" data-action="modal" id="add-apple" target="_blank">添加分包</a>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select class="form-control select2" name="apple_id">
+                                            <option value="">请选择游戏名称</option>
+                                            {foreach from=$apple_list item=list}
+                                            <option value="{$list.apple_id}"{if $list.apple_id eq $params.apple_id} selected{/if}>{$list.game_name}</option>
+                                            {/foreach}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-default m-b-20" href="#;"><i class="fa fa-search m-r-5"></i>搜索</button>
+                                </div>
+                            </form>
+                            <!--end--->
+                        </div>
+                        <div class="table-responsive">
+                            <!---核心内容列表区域-->
+                            <table class="table table-striped m-0">
+                                <thead>
+                                <tr>
+                                    <th>NO.</th>
+                                    <th>游戏名称</th>
+                                    <th>APPLEID</th>
+                                    <th>游戏ICON</th>
+                                    <th>关联游戏名</th>
+                                    <th>渠道名称</th>
+                                    <th>公告</th>
+                                    <th>版本</th>
+                                    <th>录入时间</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {foreach from=$data_list item=data}
+                                <tr>
+                                    <td>{$data.id}</td>
+                                    <th scope="row">{$data.game_name}</th>
+                                    <td>{$data.apple_id}</td>
+                                    <td>{if $data.app_icon}<img src="//cdn.66173.cn{$data.app_icon}" width="50" height="50">{/if}</td>
+                                    <td>[{$data.app_id}]{$data.app_name}</td>
+                                    <td>{$data.channel}</td>
+                                    <td>
+                                        {if $data.notice_status eq 1}
+                                        <a class="on-default edit-row text-success" data-action="modal" onclick="notice_edit('{$data.id}')">上线</a>
+                                        {else}
+                                        <a class="on-default edit-row text-muted" data-action="modal" onclick="notice_edit('{$data.id}')">下线</a>
+                                        {/if}
+                                    </td>
+                                    <td>{$data.version}</td>
+                                    <td>{'Y-m-d H:i:s'|date:$data.time}</td>
+                                    <td>
+                                        <a class="on-default edit-row"  onclick="apple_edit('{$data.id}')"><i class="fa fa-pencil"></i></a>
+                                    </td>
+                                </tr>
+                                {/foreach}
+                                </tbody>
+                            </table>
+                            <!---内容区域end--->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row"><div class="col-lg-12"><div id="page">{$page_bar}</div></div></div>
+        </div>
+        <div class="mask">
+            <form class="form-horizontal apple-edit" >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="field-1">APP ID</label>
+                        <div class="col-md-9">
+                            <input type="number" class="form-control" id="field-1" name="app_id" value="{$app_info.app_id}" readonly />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">游戏名称</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" parsley-trigger="change" required name="game_name" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">渠道名称</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" parsley-trigger="change" required name="channel" />
+                        </div>
+                    </div>
+                    <div class="form-group version">
+                        <label class="col-md-3 control-label">切支付状态</label>
+                        <div class="col-md-9 m-t-7">
+                            全切支付 <input type="radio" value="0" name="web_status" checked>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            防苹果复查 <input type="radio" value="1" name="web_status" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">苹果ID</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" parsley-trigger="change" required name="apple_id" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">状态</label>
+                        <div class="col-md-9 m-t-7">
+                            运营 <input type="radio" value="1" name="status" checked>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            下线 <input type="radio" value="2" name="status" >
+                        </div>
+                    </div>
+                    <div class="form-group" id="offline_time" style="display:none">
+                        <label class="col-md-3 control-label">下线时间</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" parsley-trigger="change" name="offline_time" value="{if $info.offline_time}{'Y-m-d H:i:s'|date:$info.offline_time}{/if}"/>
+                        </div>
+                    </div>
+                    <div class="form-group version">
+                        <label class="col-md-3 control-label">ICON</label>
+                        <div class="col-md-9">
+                            <input name="icon" type="file" class="filestyle" id="file" data-buttonname="btn-white">
+                            <input type="hidden" name="app_icon" value="">
+                        </div>
+                    </div>
+                    <div class="form-group version app-icon" >
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-9">
+                            <img class="game-icon" src="" width="50" height="50">
+                        </div>
+                    </div>
+                    <div class="form-group version">
+                        <label class="col-md-3 control-label">版本号</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" parsley-trigger="change" required name="version" />
+                        </div>
+                    </div>
+                    <div class="form-group version">
+                        <label class="col-md-3 control-label">版本生效时间</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" parsley-trigger="change" required name="version_time" readonly/>
+                        </div>
+                    </div>
+                    <div class="form-group version">
+                        <label class="col-md-3 control-label">更新地址</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" parsley-trigger="change" required name="version_url" />
+                        </div>
+                    </div>
+                    <div class="form-group version">
+                        <label class="col-md-3 control-label">回调地址</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" parsley-trigger="change" required name="callback_url" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="id" value="">
+                    <button type="button" class="btn btn-default waves-effect " id="close">关闭</button>
+                    <button type="button" class="btn btn-info waves-effect waves-light">保存</button>
+                </div>
+            </form>
+            <form  class="form-horizontal notice-edit">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title">游戏公告修改</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">公告状态</label>
+                        <div class="col-md-10">
+                            <select class="form-control" name="notice_status">
+                                <option value="1">上线</option>
+                                <option value="0">下线</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">公告内容</label>
+                        <div class="col-md-10 summernote" id="summernote"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="notice" value="" />
+                    <input name="id" value="" id="id" type="hidden">
+                    <div style="display:none" class="notice"></div>
+                    <button type="button" class="btn btn-default waves-effect " id="close-notice" data-dismiss="modal">关闭</button>
+                    <span class="btn btn-info waves-effect " onclick="save_nitice()">保存</span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="brief-tip-pop"><div class="con"></div></div>
+</div>
+<script>
+    var type = '';
+    var formData = '';
+    var app_id = $("input[name='app_id']").val();
+    $('input:radio[name="status"]').change( function(){
+        var status=$('input:radio[name="status"]:checked').val();
+        if(status == 2){
+            $("#offline_time").show();
+        }else{
+            $("#offline_time").hide();
+        }
+    });
+    $(".select2").select2();
+    function briefTipControl(text) {
+        $(".brief-tip-pop .con").html(text);
+        $(".brief-tip-pop").fadeIn(500).delay(1000).fadeOut(500);
+    }
+    $("#add-apple").click(function(){
+        type = 'add';
+        $(".modal-title").html('添加分包');
+        $("input[name='game_name']").val('');
+        $("input[name='channel']").val('');
+        $("input[name='apple_id']").val('');
+        $("input[name='offline_time']").val('');
+        $("input[name='version']").val('');
+        $("input[name='version_time']").val('');
+        $("input[name='version_url']").val('');
+        $("input[name='app_icon']").val('');
+        $("input[name='status']").get(0).checked=true;
+        $("#offline_time").hide();
+        $(".version").hide();
+        $(".apple-edit").show();
+        $(".notice-edit").hide();
+        $(".mask").show();
+    });
+    //为文件上传添加change事件
+    var fileM=document.querySelector("#file");
+    $("#file").on("change",function() {
+        //获取文件对象，files是文件选取控件的属性，存储的是文件选取控件选取的文件对象，类型是一个数组
+        var fileObj = fileM.files[0];
+        //创建formdata对象，formData用来存储表单的数据，表单数据时以键值对形式存储的。
+        formData = new FormData();
+        formData.append('file', fileObj);
+        var ajax=new XMLHttpRequest();
+        //发送POST请求
+        ajax.open("POST","/app.php?act=upload_img",true);
+        ajax.send(formData);
+        ajax.onreadystatechange=function(){
+            if (ajax.readyState == 4) {
+                if (ajax.status>=200 &&ajax.status<300||ajax.status==304) {
+                    var obj=JSON.parse(ajax.responseText);
+                    if(obj.err == 0){
+                        //上传成功后自动动创建img标签放在指定位置
+                        $("input[name='app_icon']").val(obj.img);
+                        $(".game-icon").attr('src','//cdn.66173.cn'+obj.img);
+                        $(".app-icon").show();
+                        briefTipControl(obj.msg);
+                    }else{
+                        $(".app-icon").hide();
+                        $("input[name='app_icon']").val('');
+                        briefTipControl(obj.msg);
+                    }
+                }
+            }
+        }
+    });
+    function apple_edit(id){
+        $.ajax({
+            url: "/app.php?act=apple_edit",
+            type: "post",
+            data:{
+                app_id:id
+            },
+            dataType: "json"
+        }).success(function(res) {
+            if(res.code==0){
+                briefTipControl(res.msg);
+                return false;
+            }else{
+                var data = res.data;
+                if(data.status == 1){
+                    $("input[name='status']").get(0).checked=true;
+                    $("#offline_time").hide();
+                }else{
+                    $("input[name='status']").get(1).checked=true;
+                    $("#offline_time").show();
+                    $("input[name='offline_time']").val(getLocalTime(data.offline_time));
+                }
+                if(data.web_status == 1){
+                    $("input[name='web_status']").get(1).checked=true;
+                }else{
+                    $("input[name='web_status']").get(0).checked=true;
+                }
+                $(".version").show();
+                if(data.app_icon){
+                    $(".game-icon").attr('src','//cdn.66173.cn'+data.app_icon);
+                }else{
+                    $(".app-icon").hide();
+                }
+                $("input[name='game_name']").val(htmlDecode(data.game_name));
+                $("input[name='app_icon']").val(data.app_icon);
+                $("input[name='channel']").val(htmlDecode(data.channel));
+                $("input[name='apple_id']").val(data.apple_id);
+                $("input[name='id']").val(data.id);
+                $("input[name='version']").val(htmlDecode(data.version));
+                $("input[name='version_time']").val(getLocalTime(data.version_time));
+                $("input[name='version_url']").val(data.version_url);
+                $("input[name='callback_url']").val(data.callback_url);
+                $(".modal-title").html('分包编辑');
+                type = 'edit';
+                $(".apple-edit").show();
+                $(".notice-edit").hide();
+                $(".mask").show();
+            }
+        });
+    }
+    $("#close,#close-notice,.close").click(function(){
+        $(".mask").hide();
+    });
+    $('body').on('click',".waves-light",function(){
+        $(".btn-info").removeClass('waves-light');
+        setTimeout(function(){
+            $(".btn-info").addClass('waves-light');
+        }, 3000);
+        var game_name = $("input[name='game_name']").val();
+        var apple_id = $("input[name='apple_id']").val();
+        var id = $("input[name='id']").val();
+        var channel = $("input[name='channel']").val();
+        var status = $('input:radio[name="status"]:checked').val();
+        var offline_time = $("input[name='offline_time']").val();
+        if(!game_name){
+            briefTipControl("游戏名称不能为空");
+            return false;
+        }
+        if(!apple_id){
+            briefTipControl("苹果id不能为空");
+            return false;
+        }
+        if(!channel){
+            briefTipControl("渠道名称不能为空");
+            return false;
+        }
+        if(status == 2 && !offline_time){
+            briefTipControl("下线时间不能为空");
+            return false;
+        }
+        var url = '';
+        if(type =='edit'){
+            url =  "/app.php?act=do_edit_apple";
+        }else if(type =='add'){
+            url =  "/app.php?act=do_add_apple";
+        }
+        var formStr = $('.apple-edit').serialize();
+        $.ajax({
+            url: url,
+            type: "post",
+            data:formStr,
+            dataType: "json"
+        }).success(function(res) {
+            if(res.code == 0 ){
+                briefTipControl(res.msg);
+                return false;
+            }else{
+                briefTipControl(res.msg);
+                location.href='http://admin.66173.cn/app.php?act=apple_list&app_id='+ app_id;
+            }
+        })
+    });
+    function getLocalTime(timestamp) {
+        var date = new Date(parseInt(timestamp)*1000);
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var D = (date.getDate() < 10 ? '0'+(date.getDate()) : date.getDate()) + ' ';
+        var H = (date.getHours() < 10 ? '0'+(date.getHours()) : date.getHours()) + ':';
+        var I = (date.getMinutes() < 10 ? '0'+(date.getMinutes()) : date.getMinutes()) + ':';
+        var S = (date.getSeconds() < 10 ? '0'+(date.getSeconds()) : date.getSeconds()) ;
+        return Y + M + D + H + I + S;
+    }
+
+    function notice_edit(id){
+        $.ajax({
+            url: "/app.php?act=apple_edit",
+            type: "post",
+            data:{
+                app_id:id
+            },
+            dataType: "json"
+        }).success(function(res) {
+            if(res.code == 0){
+                briefTipControl(res.msg);
+                return false;
+            }else{
+                var data = res.data;
+                if(data.notice_status == '1'){
+                    $("select[name='notice_status']").find("option").eq(0).prop("selected",true);
+                }else{
+                    $("select[name='notice_status']").find("option").eq(1).prop("selected",true);
+                }
+                $("#id").val(data.id);
+                code = htmlDecode(data.notice);
+                $('#summernote').code(code);
+                $(".apple-edit").hide();
+                $(".notice-edit").show();
+                $(".mask").show();
+            }
+        })
+    }
+    function htmlDecode(value){
+        return $(".notice").html(value).text();
+    }
+    function save_nitice(){
+        var sHTML = $('#summernote').code();
+        $("input[name='notice']").val(sHTML);
+        var formStr = $('.notice-edit').serialize();
+        $.ajax({
+            url: "/app.php?act=do_edit_apple_notice",
+            type: "post",
+            data:formStr,
+            dataType: "json"
+        }).success(function(res) {
+            if(res.code == 0){
+                briefTipControl(res.msg);
+                return false;
+            }else{
+                briefTipControl(res.msg);
+                location.href='http://admin.66173.cn/app.php?act=apple_list&app_id='+ app_id;
+            }
+        })
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>牛果游戏_new游戏 new快乐-游戏中心页</title>
+<!--顶部开始-->
+    <meta charset="UTF-8">
+    <!--<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">-->
+    <meta name="description" content="牛果游戏是一个致力于提供优质手游的应用平台。实时同步市场热门手游,与玩家一起发现精品游戏,享受真福利与真特权，只为带给您高品质的游戏体验。"/>
+    <meta name="keywords" content="牛果游戏官网,手游下载,热门手游,官方正版手游,安卓免费手游,手游免费下载,好玩的手游下载"/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no"/>
+    <link href="http://cdn.66173.cn/niuguo/img/NewGameImg/logo.png" type="image/x-icon" rel="shortcut icon">
+    <script>
+        if(judgeIELower()) {
+            alert("您使用的浏览器版本过低，为了您的浏览体验，请使用360浏览器或Chrome浏览器");
+        }
+        function judgeIELower() {
+            var b_appName = navigator.appName;
+            var b_version = navigator.appVersion;
+            var reg = new RegExp(/.+MSIE\s+([5678])\.0;.+/);
+            reg.test(b_version);
+            return b_appName == "Microsoft Internet Explorer" && reg.test(b_version);
+        }
+        function judgeIE() {
+            var b_appName = navigator.appName;
+            return b_appName == "Microsoft Internet Explorer";
+        }
+    </script>
+    <link href="http://cdn.66173.cn/niuguo/css/bootstrap3.3.6.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdn.66173.cn/niuguo/css/common.css?t={$smarty.now}">
+    <link rel="stylesheet" href="http://cdn.66173.cn/niuguo/css/game_center.css?t={$smarty.now}">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+</head>
+<body class="game-rel-page game-center">
+<!--头部开始了-->
+<div style="display:none;">
+    <img src="http://cdn.66173.cn/niuguo/img/icon.png?t=11" alt=""/>
+    <span>牛果游戏,海量游戏资源!为玩家提供海量游戏免费下载,最新手游排行榜,最热门手游推荐,最好玩的手游分享。</span>
+</div>
+<div class="page-top">
+    <div class="top-user-bar">
+        {if $smarty.session.user_id}
+        <div class="pull-right log-already">
+            <span>hi,<span class="name">{if $smarty.session.nick_name}{$smarty.session.nick_name}{else}{$smarty.session.mobile}{/if}</span></span>
+            <span class="seperator">|</span>
+            <a href="/account.php?act=user_center">个人中心</a>
+            <span class="seperator">|</span>
+            <a href="/account.php?act=logout">退出</a>
+            <span class="seperator">|</span>
+            <a href="http://m.66173.cn/website.php?act=app_promote" target="_blank">牛果APP</a>
+        </div>
+        {else}
+        <div class="pull-right log-not">
+            <a href="/account.php?act=login">登录</a>
+            <span class="seperator">|</span>
+            <a href="/account.php?act=register">注册</a>
+            <span class="seperator">|</span>
+            <a href="http://m.66173.cn/website.php?act=app_promote" target="_blank">牛果APP</a>
+        </div>
+        {/if}
+    </div>
+    <nav class="main-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="/index.php"><img src="http://cdn.66173.cn/niuguo/img/NewGameImg/logo.png"/></a>
+            <ul class="navbar-list">
+                <li class="home-li"><a class="font-lger" href="indexNew.html"><span class="icon-main nav-right-icon home"></span><span>首页</span></a></li>
+                <li class="game-li"><a class="font-lger" href="game_center2.html"><span class="icon-main nav-right-icon game"></span><span>游戏中心</span></a></li>
+                <li class="service-li"><a class="font-lger" href="service_center2.html"><span class="icon-main nav-right-icon service"></span><span>客服中心</span></a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<!--游戏内容介绍中心开始-->
+<div class="top-banner"><img src="http://cdn.66173.cn/niuguo/img/service_banner.jpg" alt=""></div>
+<div class="bg-white minHeight600 container game-center-main-wrapper">
+    <div class="case-title-wrapper">
+        <div class="part dot-line"></div>
+        <span class="part block font-lg title">精品手游</span>
+        <div class="part dot-line"></div>
+    </div>
+    <ul class="font-md type-list">
+        <li class="{if $currentTag.tags == ''}active{/if}" data-type="">全部</li>
+        {foreach from=$tags_list key=k item=tags}
+        <li data-type="{$k}" class="{if $currentTag.tags eq $k}active{/if}">{$tags}</li>
+        {/foreach}
+    </ul>
+    <div class="loading-wrapper">
+        <div class="loading-mask"><div class="text">加载中...</div></div>
+        <ul class="row game-list case-game-list">
+            {if $game_list}
+            {foreach from=$game_list item=data}
+            <li class="col-xs-4">
+                <a href="/gameDetail{$data.id}">
+                    <div class="game-li-wrapper">
+                        <div class="bg"></div>
+                        <img class="game-icon" src="http://cdn.66173.cn{$data.banner}"/>
+                        <div class="game-text-wrapper">
+                            <div class="font-lg text-overflow name-wrapper"><span class="name">{$data.app_name}</span></div>
+                            <div class="font-md desc">{$data.subtitle}</div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            {/foreach}
+            {else}
+            <div class=" font-lg no-game">暂无游戏~</div>
+            {/if}
+
+        </ul>
+    </div>
+    <div class="text-center pagintor-wrapper">
+        <ul class="pagination"></ul>
+    </div>
+</div>
+<!--底部footer开始==========网页底部代码都一样，不用管它-->
+<div class="mask mobile-mask">
+    <div class="mask-inner-wrapper">
+        <div class="mobile-pop">
+            <div class="top">
+                <div class="font-lg title">提示</div>
+                <div class="close">x</div>
+            </div>
+            <div class="tip1">牛果游戏官网暂时只提供电脑版，您可以继续浏览或下载牛果游戏安卓app畅享更多游戏~</div>
+            <div class="btn-zone">
+                <span class="font-lg btn0 go-on-view-btn">继续浏览</span>
+                <a class="font-lg btn0 download-btn" href="http://imtt.dd.qq.com/16891/A9ACD8808B63B7E2370C36A63572C427.apk?csr=1bbd&fsname=com.niuniu.market_3.0.0.2_4.apk">下载app</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="text-wrapper font-sm">
+        <p>海南牛牛网络信息技术有限公司 Copyright©2016（琼ICP备16002140号）</p>
+        <p>网络文化经营许可证 琼网文[2016]4099-040号&nbsp;&nbsp;&nbsp;增值电信业务经营许可证琼B2-20160073</p>
+        <p>单位地址：海南省老城高新技术产业示范区海南生态软件园</p>
+        <!--<p>联系方式：0898-67200139&nbsp;&nbsp;&nbsp;投诉电话：0898-67200139</p>-->
+    </div>
+</div>
+<div class="brief-tip-pop"><div class="con"></div></div>
+<input type="hidden" value="{$noncestr}" id="noncestr"/>
+<input type="hidden" value="{$timestamp}" id="timestamp"/>
+<input type="hidden" value="{$signature}" id="signature" />
+{literal}
+<script>
+    // 昵称校验
+    var regAddress = new RegExp(/^.{0,50}$/);
+    // 昵称校验
+    var regNickname = new RegExp(/^.{2,20}$/);
+    // 手机号校验
+    var regContact = new RegExp(/^1[34578]\d{9}$/);
+    // 密码校验
+    var regPasswordLoose = new RegExp(/^.{6,18}$/);
+    var regPassword = new RegExp(/^[0-9a-zA-Z!_\-=\+#\.\,\?:;\(\)\[\]\{\}@\$%\^\*`~/\'\"\\]{6,18}$/);
+    // 图形码校验
+    var regCaptchaPic = new RegExp(/^[0-9a-zA-Z]{3,6}$/);
+    // 手机验证码校验
+    var regCaptchaTel = new RegExp(/^[0-9]{6}$/);
+    //身份证校验
+    var regIDcard = new RegExp(/^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/);
+    //带点的中文姓名校验
+    var regNameWithDot = new RegExp(/^[\u4e00-\u9fa5]{1,5}[·•][\u4e00-\u9fa5]{2,15}$/);
+    //不带点的中文姓名校验
+    var regNameNoDot = new RegExp(/^[\u4e00-\u9fa5]{2,15}$/);
+    var formMsgTip = {
+        nickname: {required: "请输入您的昵称", error: "请输入2~20位昵称"},
+        address: {required: "请输入地址", error: ""},
+        account: {required: "请输入您的账号", error: ""},
+        telephone: {required: "请输入手机号码", error: "请输入正确的11位手机号码"},
+        telcaptcha: {required: "请输入验证码", error: "请输入正确的验证码"},
+        captcha: {required: "请输入验证码", error: "请输入正确的验证码"},
+        passwordLoose: {required: "请输入密码", error: "请输入6-18位的密码"},
+        password: {required: "请输入密码", error: "请输入6-18位由数字、字母、字符组成的密码"},
+        confirmpassword: {required: "请确认密码", error: "请输入6-18位由数字、字母、字符组成的密码", equalTo: "两次输入密码不一致"},
+        realname: {required: "请输入真实姓名", error: "请输入正确的真实姓名"},
+        IDcard: {required: "请输入身份证号", error: "请输入正确的身份证号"},
+        sex: {required: "请选择性别", error: ""},
+        address: {required: "请填写地址", error: "地址长度在0~50之间"},
+        agree: {required: "您还未同意协议"}
+    };
+    var _hmt = _hmt || [];
+    // 统计
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f4f222b9599b20b45ffba412ca533efd";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+    // 移动端显示弹窗
+    if(isMobileNotPad() && ($("body").hasClass("home-page") || $("body").hasClass("login-page"))) {
+        $(".mobile-mask").show();
+    }
+    // 页脚是否固定
+    $(document).ready(function() {
+        footerFixControl();
+    });
+    $(window).resize(function() {
+        footerFixControl();
+    });
+    // 若是苹果手机，暂不提供下载app
+    $("body").on("click", ".mobile-mask .download-btn", function(e) {
+        if(isMobileIOS()) {
+            e.preventDefault();
+            briefTipControl("暂无苹果版app,此为安卓版~")
+        }
+    });
+    // 关闭手机提示弹窗
+    $("body").on("click", ".mobile-mask .close, .mobile-mask .go-on-view-btn", function() {
+        $(".mobile-mask").hide();
+    });
+    // 判断是否手机或平板
+    function isMobile() {
+        var mobileAgent = new Array("iphone", "ipod", "ipad", "android", "mobile", "blackberry", "webos", "incognito", "webmate", "bada", "nokia", "lg", "ucweb", "skyfire");
+        var browser = navigator.userAgent.toLowerCase();
+        for (var i=0; i<mobileAgent.length; i++){
+            if (browser.indexOf(mobileAgent[i])!=-1) {
+                return true;
+            }
+        }
+    }
+    // 判断是否手机且不是平板
+    function isMobileNotPad() {
+        var u= navigator.userAgent;
+        var Mobile = u.indexOf('Mobi')>0||u.indexOf('iPh')>0||u.indexOf('480')>0;
+        var Tablet =u.indexOf('Tablet')>0||u.indexOf('iPad')>0||u.indexOf('Nexus 7')>0;
+        var mobileAgent = new Array("iphone", "ipod", "ipad", "android", "mobile", "blackberry", "webos", "incognito", "webmate", "bada", "nokia", "lg", "ucweb", "skyfire");
+        if(Mobile && !Tablet) {
+            return true;
+        }
+    }
+    // 是否苹果手机
+    function isMobileIOS() {
+        var isIOS =(/iPhone|iPod|iPad/i).test(navigator.userAgent);
+        return isIOS ? true : false;
+    }
+    // 简单提示控制
+    function briefTipControl(text) {
+        $(".brief-tip-pop .con").html(text);
+        $(".brief-tip-pop").fadeIn(500).delay(1000).fadeOut(500);
+    }
+    // 按钮定时加class控制
+    function btnTimeOutControl(ele, cls, timeoutClient, timeout) {
+        clearTimeout(timeoutClient);
+        timeoutClient = setTimeout(function() {
+            $(ele).addClass(cls);
+        }, timeout || 2000);
+    }
+    // 固定底部
+    function footerFixControl() {
+//        console.log('window.innerHeight:'+window.innerHeight+',html:' + $("html").height()+',footer + margin-top:'+($(".footer").height() + parseInt($(".footer").css("margin-top"))));
+//        if($("body").hasClass("footer-fix-control-page")) {
+//            if ($(".footer").hasClass("footer-fix") && (window.innerHeight - $("html").height()) < ($(".footer").height() + parseInt($(".footer").css("margin-top")))) {
+//                $(".footer").removeClass("footer-fix");
+//            } else if (!$(".footer").hasClass("footer-fix") && window.innerHeight - $("html").height() > 0) {
+//                $(".footer").addClass("footer-fix");
+//            }
+//        }
+    }
+</script>
+{/literal}
+<!--微信分享-->
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script>
+    var noncestr = $("#noncestr").val();
+    var timestamp = $("#timestamp").val();
+    var signature = $("#signature").val();
+    document.addEventListener('WeixinJSBridgeReady', function() {
+        wx.config({
+            debug: false,
+            appId: "wxbaed68c7f2f3a62c",
+            timestamp: parseInt(timestamp),
+            nonceStr: noncestr,
+            signature: signature,
+            jsApiList: [
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'onMenuShareQQ',
+                'onMenuShareWeibo',
+                'onMenuShareQZone'
+            ]
+        });
+        wx.ready(function() {
+            var shareData = {
+                title: '牛果游戏_new游戏 new快乐',
+                desc: '牛果游戏是一个致力于提供优质手游的应用平台。实时同步市场热门手游,与玩家一起发现精品游戏,享受真福利与真特权，只为带给您高品质的游戏体验。',
+                link: window.location.href,
+                imgUrl: 'http://cdn.66173.cn/niuguo/img/icon.png?t=11',
+                success: function() {
+                    briefTipControl("分享成功");
+                },
+                cancel: function() {
+                    briefTipControl("取消分享");
+                }
+            };
+            // 分享给朋友事件绑定
+            wx.onMenuShareAppMessage(shareData);
+            // 分享到朋友圈
+            wx.onMenuShareTimeline(shareData);
+            // 分享到QQ
+            wx.onMenuShareQQ(shareData);
+            // 分享到QZone
+            wx.onMenuShareQZone(shareData);
+            // 分享到微博
+            wx.onMenuShareWeibo(shareData);
+        });
+    });
+</script>
+<input type="hidden" id="pagehash" value="{$pagehash}"/>
+<input type="hidden" id="tags" value="{$currentTag.tags}"/>
+</body>
+<script src="http://cdn.66173.cn/niuguo/scripts/bootstrap3.3.6.min.js"></script>
+<script src="http://cdn.66173.cn/niuguo/scripts/bootstrap_paginator.js?t=2"></script>
+<script>
+    var gameType = "";//游戏类型
+    var currentPage = 1;//当前页
+    var tags = $("#tags").val();
+    var pagehash = $("#pagehash").val();
+    var initPageOptions = {
+        bootstrapMajorVersion:3,
+        currentPage: parseInt("{$currentTag.page}") || 1,
+        totalPages: parseInt("{$num}") || 1,
+        numberOfPages:5,
+//        onPageClicked: pageChange,
+        pageUrl: paginatorPage
+    };
+    //   导航当前tab高亮
+    $(".main-navbar .navbar-right a").eq(1).addClass("active");
+    //    分页
+    $('.pagination').bootstrapPaginator(initPageOptions);
+    formatGameIconHeight();
+    $(window).resize(function() {
+        formatGameIconHeight();
+    });
+    //    点击分类型分页请求
+    $(".game-center").on("click", ".type-list li", function(e) {
+        var $ele = $(e.target);
+        gameType = $ele.data("type");
+//        getList(gameType, 1);
+        window.location.href = '/gameTags' + gameType + "/1";
+        $ele.addClass("active").siblings().removeClass("active");
+    });
+    //    页面url
+    function paginatorPage(type, page, current) {
+        return '/gameTags'  + tags + '/' + page;
+    }
+    // 获取链接参数
+    function getParameterByName(name, url) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
+        var results = url ? regex.exec(url) : regex.exec(location.href);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+    //    游戏列表的图标宽高比设置
+    function formatGameIconHeight() {
+        $(".game-li-wrapper .game-icon").css("height", $(".game-li-wrapper .game-icon").width()*0.447);
+    }
+    //    暂未使用，ajax分类型分页请求
+    function getList(type, page) {
+        $(".loading-wrapper .loading-mask").show();
+        $.ajax({
+            url: "game.php?act=ajax",
+            type: "post",
+            dataType: "json",
+            data: {
+                tags: type,
+                page: page,
+                pagehash: pagehash
+            }
+        }).success(function(res) {
+            $(".loading-wrapper .loading-mask").hide();
+            var code = res.code;
+            if(code == 1) {
+                var options = {
+                    currentPage: res.currentPage || 1,
+                    totalPages: res.totalPage || 1
+                };
+                var data = res.data || [];
+                var con = "";
+                if(data.length > 0) {
+                    for(var i = 0; i < data.length; i++) {
+                        con += '<li class="col-xs-4">'
+                            +'<a href="/gameDetail'+data[i].id+'">'
+                            +'<div class="game-li-wrapper">'
+                            +'<div class="bg"></div>'
+                            +'<img class="game-icon" src="http://cdn.66173.cn'+data[i].banner+'"/>'
+                            +'<div class="game-text-wrapper">'
+                            +'<div class="font-lg text-overflow name-wrapper"><span class="name">'+data[i].app_name+'</span></div>'
+                            +'<div class="font-md desc">'+data[i].subtitle+'</div>'
+                            +'</div>'
+                            +'</div>'
+                            +'</a>'
+                            +'</li>';
+                    }
+                }
+                else {
+                    con = '<div class=" font-lg no-game">暂无游戏~</div>';
+                }
+                $(".case-game-list").html(con);
+                $('.pagination').bootstrapPaginator(options);
+                currentPage = res.currentPage;
+                var paramsAct = getParameterByName("act");
+                var search = "/gameTags"  + gameType + "/" + currentPage;
+                window.history.pushState("","", search)
+
+            }
+            else {
+                briefTipControl(res.msg);
+            }
+
+        }).error(function(req){
+            $(".loading-wrapper .loading-mask").hide();
+            briefTipControl("请求出错:"+req.status+","+req.statusText);
+        })
+    }
+    //    暂未使用，页面变化
+    function pageChange(event, originalEvent, type, page) {
+        var currentTarget = $(event.currentTarget);
+        switch (type) {
+            case "first":
+                getList(gameType, page);
+                break;
+            case "prev":
+                getList(gameType, page);
+                break;
+            case "next":
+                getList(gameType, page);
+                break;
+            case "last":
+                getList(gameType, page);
+                break;
+            case "page":
+                getList(gameType, page);
+                break;
+        }
+    }
+</script>
+</html>

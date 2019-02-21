@@ -1,0 +1,119 @@
+<link href="assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet" />
+<link href="assets/plugins/multiselect/css/multi-select.css"  rel="stylesheet" type="text/css" />
+<link href="assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="assets/plugins/switchery/dist/switchery.min.js"></script>
+<script type="text/javascript" src="assets/plugins/multiselect/js/jquery.multi-select.js"></script>
+<script type="text/javascript" src="assets/plugins/jquery-quicksearch/jquery.quicksearch.js"></script>
+<script src="assets/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <!--按钮或搜索区域-->
+                <div class="col-sm-12 text-xs-center">
+                    {if $smarty.session.group_id eq 1}
+                    <div class="col-md-1 form-group">
+                        <button data-action="modal" class="btn btn-default m-b-20" href="activity.php?act=add"><i class="fa fa-plus m-r-5"></i>添加活动</button>
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <select class="form-control select2" name="is_del">
+                            <option value="">请选择活动状态</option>
+                            <option value="0" {if $params.is_del eq '0' } selected{/if}>上线</option>
+                            <option value="1" {if $params.is_del eq '1' } selected{/if}>下线</option>
+                        </select>
+                    </div>
+                    {else}
+                    <div class="col-md-1 form-group">
+                        <button data-action="modal" class="btn btn-default m-b-20" href="account.php?act=add_img&id={$smarty.session.usr_id}">上传头像</button>
+                    </div>
+                    {/if}
+                    <div class="col-md-2 form-group">
+                        <select class="form-control select2" name="act_id">
+                            <option value="">请选择活动</option>
+                            {foreach from=$activity_name item=activity}
+                            <option value="{$activity.id}" {if $params.act_id eq $activity.id } selected{/if}>{$activity.title}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+
+                    <button class="btn btn-default m-b-20" href="#;" onclick="search();"><i class="fa fa-search m-r-5"></i>搜索</button>
+                    <button class="btn btn-default m-b-20" href="#;" onclick="reloadsearch();"> <i class="fa fa-undo"></i>清空搜索</button>
+                </div>
+                <!--end--->
+            </div>
+            <div class="table-responsive">
+                <!---核心内容列表区域-->
+                <table class="table m-0 table-hover">
+                    <thead>
+                    <tr class="back_gray">
+                        <th>NO.</th>
+                        <th>活动名</th>
+                        <th>游戏名缩写</th>
+                        <th>开始时间</th>
+                        <th>结束时间</th>
+                        <th>{if $smarty.session.group_id != 1}推广链接 {else}活动状态 {/if}</th>
+                        <th>操作</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach from=$activity_list item=data}
+                    <tr>
+                        <th scope="row">{$data.id}</th>
+                        <td>{$data.title}</td>
+                        <td>{$data.game_ac}</td>
+                        <td>{'Y-m-d'|date:$data.start_time}</td>
+                        <td>{'Y-m-d'|date:$data.end_time}</td>
+                        <td>
+                            {if $smarty.session.group_id != 1}
+                             {if $data.act_id != ''}
+                            <a href="http://m.66173.cn/guild_reserve.php?act=index&id={$data.act_id}" target="_blank">打开链接</a>
+                             {/if}
+                            {else if $data.is_del==0}
+                            <a class="on-default edit-row text-success"  >上线</a>
+                            {else if $data.is_del==1}
+                            <a class="on-default edit-row text-muted" >下线</a>
+                            {/if}
+                        </td>
+                        <td>
+                            {if $smarty.session.group_id eq 1}
+                            <a class="on-default edit-row" data-action="modal" href="activity.php?act=edit_view&id={$data.id}"><i class="fa fa-pencil"></i></a>
+                            {else if $data.status eq 1}
+                            <span style="color: orange">等待审核</span>
+                            {else if $data.status eq 2}
+                            <span style="color: red">[申请失败]</span> <a  class="on-default edit-row" data-action="modal" href="activity.php?act=apply&id={$data.id}">重新申请</a>
+                            {else if $data.status eq 3}
+                            <span >申请成功</span>
+                            {else}
+                            <a  class="on-default edit-row" data-action="modal" href="activity.php?act=apply&id={$data.id}">申请</a>
+                            {/if}
+                        </td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <!---内容区域end--->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row"><div class="col-lg-12"><div id="page">{$page_bar}</div></div></div>
+<script>
+    jQuery(document).ready(function() {
+        // Select2
+        $(".select2").select2();
+    });
+    function search() {
+        is_del = $("select[name='is_del']").val();
+        act_id = $("select[name='act_id']").val();
+        url = "activity.php?act=list&is_del="+is_del+"&act_id="+act_id;
+        main_data_load(url);
+        return false;
+    }
+    function reloadsearch(){
+        url = "activity.php?act=list&is_del=&act_id=";
+        main_data_load(url);
+    }
+</script>

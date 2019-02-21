@@ -1,0 +1,102 @@
+<link href="assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet" />
+<link href="assets/plugins/multiselect/css/multi-select.css"  rel="stylesheet" type="text/css" />
+<link href="assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="assets/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <form id="form_data" >
+                <div class="row">
+                    <div class="col-sm-12 text-xs-center">
+                        <div class="col-md-2 form-group" style="width:150px;">
+                            <select class="form-control select2" name="game_id">
+                                <option value="" {if $params.game_id == ''}selected="selected"{/if}>请选择游戏</option>
+                                {foreach from=$game_list item=play}
+                                <option value="{$play.app_id}" {if $params.game_id eq $play.app_id}selected="selected"{/if}>{$play.app_name}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <input type="text" value="{$params.code}" name="code" class="form-control" placeholder="输入批量ID">
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <input type="text" value="{$params.code_name}" name="code_name" class="form-control" placeholder="输入链接前缀">
+                        </div>
+                        <span class="btn btn-default m-b-20" href="#;" onclick="search();"><i class="fa fa-search m-r-5"></i>搜索</span>
+                        <span class="btn btn-default m-b-20" href="#;" onclick="reloadsearch();"> <i class="fa fa-undo"></i>清空搜索</span>
+                        <a type="button" class="btn btn-default m-b-20"  href="general.php?act=export&game_id={$params.game_id}&code={$params.code}&code_name={$params.code_name}">导出</a>
+                    </div>
+                </div>
+            </form>
+            <div class="table-responsive">
+                <table class="table m-0 table-hover">
+                    <thead>
+                    <tr align="back_gray">
+                        <th width="12">No.</th>
+                        <th width="160">活动名称</th>
+                        <th width="80">活动ID</th>
+                        <th width="120">关联游戏</th>
+                        <th width="100">批量ID</th>
+                        <th width="120">ios地址</th>
+                        <th width="100">访问地址</th>
+                        <th width="120">下载量</th>
+                        <th width="100">访问量</th>
+                        <th width="100">设备激活总数</th>
+                        <th width="100">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach key=key item=data from=$log_list}
+                    <tr align="center">
+                        <td>{$data.id}</td>
+                        <td>
+                            {$data.title}
+                        </td>
+                        <td>{$data.pid}</td>
+                        <td>{$data.app_name}</td>
+                        <td>{$data.code}</td>
+                        <td>{if $data.ios_link}<a href="{$data.ios_link}" target="_blank">点击查看</a>{/if}</td>
+                        <td>http://ad.66173yx.com/website.php?act=general&id={$data.id}</td>
+                        <!--<td>http://www.66173.cn/website.php?act=general&id={$data.id}</td>-->
+                        <td>
+                            <a   data-toggle="dialog" data-mask="true" data-width="800"  data-height="600" data-id="form" data-title="{$data.title}">{$data.down_num}</a>
+                        </td>
+                        <td>
+                            <a data-toggle="dialog" data-mask="true" data-width="800"  data-height="600" data-id="form" data-title="{$data.title}">{$data.visit_num}</a>
+                        </td>
+                        <td>{$data.device_count}</td>
+                        <td>
+                            <button data-action="modal" class="btn btn-default m-b-20" href="general.php?act=add_ios_link&id={$data.id}">编辑</button>
+                        </td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row"><div class="col-lg-12"><div id="page">{$page_bar}</div></div></div>
+    <script>
+        jQuery(document).ready(function() {
+            $(".select2").select2();
+        });
+        function search() {
+            var url = "general.php?act=log_list&";
+            var formStr = $('#form_data').serialize();
+            post_main_data_load(url,formStr);
+        }
+        function generalexport() {
+            var url = "general.php?act=export&";
+            var formStr = $('#form_data').serialize();
+            post_main_data_load(url,formStr);
+        }
+
+        function reloadsearch(){
+            var url = "general.php?act=log_list";
+            var formStr = "game_id=&code=";
+            post_main_data_load(url,formStr);
+        }
+    </script>

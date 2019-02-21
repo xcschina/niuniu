@@ -1,0 +1,113 @@
+<link href="assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet" />
+<link href="assets/plugins/multiselect/css/multi-select.css"  rel="stylesheet" type="text/css" />
+<link href="assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="assets/plugins/switchery/dist/switchery.min.js"></script>
+<script type="text/javascript" src="assets/plugins/multiselect/js/jquery.multi-select.js"></script>
+<script type="text/javascript" src="assets/plugins/jquery-quicksearch/jquery.quicksearch.js"></script>
+<script src="assets/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <!--按钮或搜索区域-->
+                <form id="form_data">
+                    <div class="col-sm-12 text-xs-center">
+                        <div class="col-md-2">
+                            <select class="form-control select2" name="app_id">
+                                <option value="">请选择游戏</option>
+                                {foreach from=$app_list item=data}
+                                <option value="{$data.app_id}"{if $data.app_id eq $params.app_id} selected{/if}>[{$data.app_id}]{$data.app_name}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control select2" name="channel">
+                                <option value="">请选择渠道</option>
+                                {foreach from=$extension_list item=extension}
+                                <option value="{$extension.user_code}"{if $extension.user_code eq $params.channel} selected{/if}>{$extension.user_code}-{$extension.real_name}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-daterange input-group" id="date-range">
+                                <input type="text" class="form-control" name="start_time" value="{if $params.start_time}{$params.start_time}{else}{$start}{/if}" />
+                                <span class="input-group-addon bg-custom b-0 text-white">to</span>
+                                <input type="text" class="form-control" name="end_time" value="{if $params.end_time}{$params.end_time}{else}{$end}{/if}" />
+                            </div>
+                        </div>
+                        <div  class="col-md-4">
+                            <span class="btn btn-default m-b-20" href="#;" onclick="search();"><i class="fa fa-search m-r-5"></i>搜索</span>
+                            <span class="btn btn-default m-b-20" href="#;" onclick="reloadsearch();"> <i class="fa fa-undo"></i>清空搜索</span>
+                            <a type="button" class="btn btn-default m-b-20" href="user_app.php?act=export&app_id={$params.app_id}&start_time={$params.start_time}&end_time={$params.end_time}&channel={$params.channel}">导出</a>
+                            <div class="btn btn-default m-b-20" href="#;">合计：{$total}个</div>
+                        </div>
+                    </div>
+                </form>
+                <!--end--->
+            </div>
+            <div class="table-responsive">
+                <!---核心内容列表区域-->
+                <table class="table m-0 table-hover">
+                    <thead>
+                    <tr class="back_gray">
+                        <th>用户ID</th>
+                        <th>游戏ID</th>
+                        <th>区服</th>
+                        <th>渠道名</th>
+                        <th>角色ID</th>
+                        <th>角色名</th>
+                        <th>角色等级</th>
+                        <th>手机号码</th>
+                        <th>来自游戏ID</th>
+                        <th>游戏注册时间</th>
+                        <th>用户注册牛牛时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach from=$list item=data key=k}
+                    <tr>
+                        <th scope="row">{$data.UserID}</th>
+                        <th scope="row">{$data.AppID}</th>
+                        <td>{$data.AreaServerName}</td>
+                        <td>{$data.Channel}</td>
+                        <td>{$data.RoleID}</td>
+                        <td>{$data.RoleName}</td>
+                        <td>{$data.RoleLevel}</td>
+                        <td>{$data.mobile}</td>
+                        <td>{$data.from_app_id}</td>
+                        <td>{'Y-m-d H:i:s'|date:$data.RegTime}</td>
+                        <td>{'Y-m-d H:i:s'|date:$data.u_reg_time}</td>
+                    </tr>
+                    {if $k>20}
+                    {break}
+                    {/if}
+                    {/foreach}
+                    </tbody>
+                </table>
+                <label class="m-t-20 text-center">{$msg}</label>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    jQuery(document).ready(function(){
+        jQuery('#datepicker').datepicker();
+        jQuery('#date-range').datepicker({
+            format: "yyyy-mm-dd",
+            toggleActive: true
+        });
+        $(".select2").select2();
+    });
+    function search() {
+        var url = "user_app.php?act=list";
+        var formStr = $('#form_data').serialize();
+        post_main_data_load(url,formStr);
+    }
+    function reloadsearch() {
+        var url = "user_app.php?act=list";
+        var formStr = '';
+        post_main_data_load(url,formStr)
+    }
+</script>

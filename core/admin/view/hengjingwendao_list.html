@@ -1,0 +1,123 @@
+<link href="assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet" />
+<link href="assets/plugins/multiselect/css/multi-select.css"  rel="stylesheet" type="text/css" />
+<link href="assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<link href="assets/plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+<link href="assets/plugins/mjolnic-bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+<link href="assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+<link href="assets/plugins/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
+<link href="assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+<script src="assets/plugins/switchery/dist/switchery.min.js"></script>
+<script type="text/javascript" src="assets/plugins/multiselect/js/jquery.multi-select.js"></script>
+<script type="text/javascript" src="assets/plugins/jquery-quicksearch/jquery.quicksearch.js"></script>
+<script src="assets/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <!--按钮或搜索区域-->
+                <form id="form_data">
+                    <div class="col-sm-12 text-xs-center">
+                        <div class="col-md-1">
+                            <button data-action="modal" class="btn btn-default m-b-20" href="hengjingwendao.php?act=add"><i class="fa fa-plus m-r-5"></i>采购</button>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" value="{$params.order_id}" name="order_id" class="form-control" placeholder="请输入订单号"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" value="{$params.product_id}" name="product_id" class="form-control" placeholder="请输入商品编号"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" value="{$params.qq}" name="qq" class="form-control" placeholder="请输入QQ号"/>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control select2" name="status">
+                                <option value="">请选择状态</option>
+                                <option value="0"{if $params.status eq '0'} selected{/if}>未完成</option>
+                                <option value="1"{if $params.status eq '1'} selected{/if}>已完成</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1">
+                            <select class="form-control select2" name="admin_id">
+                                <option value="">请选择操作人</option>
+                                {foreach from=$operation_list item=operation}
+                                <option value="{$operation.id}" {if $operation.id eq $params.admin_id}selected{/if}>[{$operation.id}]{$operation.real_name}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                        <span class="btn btn-default m-b-20" href="#;" onclick="search();"><i class="fa fa-search m-r-5"></i>搜索</span>
+                        <span class="btn btn-default m-b-20" href="#;" onclick="reloadsearch();"> <i class="fa fa-undo"></i>清空搜索</span>
+                        <a type="button" class="btn btn-default m-b-20" href="hengjingwendao.php?act=export&order_id={$params.order_id}&product_id={$params.product_id}&qq={$params.qq}&status={$params.status}">导出</a>
+                    </div>
+                </form>
+                <!--end--->
+            </div>
+            <div class="table-responsive">
+                <!---核心内容列表区域-->
+                <table class="table table-hover m-0">
+                    <thead>
+                    <tr>
+                        <th>订单号</th>
+                        <th>商品编号</th>
+                        <th>购买数量</th>
+                        <th>价格</th>
+                        <th>qq号</th>
+                        <th>状态</th>
+                        <th>状态信息</th>
+                        <th>游戏</th>
+                        <th>下单时间</th>
+                        <th>回单时间</th>
+                        <th>操作人ID</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach from=$datalist item=data}
+                    <tr{if $data.status eq 2} class="danger"{/if}>
+                    <th scope="row">{$data.order_id}</th>
+                    <td>{$data.product_id}</td>
+                    <td>{$data.amount}</td>
+                    <td><span class="text-danger">{$data.price}</span></td>
+                    <td>{$data.qq}</td>
+                    <td>
+                        {if $data.status eq 0}<span class="text-danger">未完成</span>{/if}
+                        {if $data.status eq 1}<span class="text-success">已完成</span>{/if}
+                    </td>
+                    <td>
+                        {if $data.status eq 0}<span class="text-danger">{$data.status_info}</span>{/if}
+                        {if $data.status eq 1}<span class="text-success">{$data.status_info}</span>{/if}
+                    </td>
+                    <td>{if $data.game_id eq 0}魔域口袋版（网龙）{elseif $data.game_id eq 1}问道{elseif $data.game_id eq 2}魔域手游（西山居）{/if}</td>
+                    <td>{'Y-m-d H:i:s'|date:$data.addtime}</td>
+                    <td>
+                        {if $data.callback_time}
+                            {'Y-m-d H:i:s'|date:$data.callback_time}
+                        {/if}
+                    </td>
+                    <td>{$data.admin_id}</td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <!---内容区域end--->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row"><div class="col-lg-12"><div id="page">{$page_bar}</div></div></div>
+<script>
+    jQuery(document).ready(function() {
+        $(".select2").select2();
+    });
+    function search() {
+        var url = "hengjingwendao.php?act=list";
+        var formStr = $('#form_data').serialize();
+        post_main_data_load(url,formStr);
+    }
+    function reloadsearch(){
+        var url = "hengjingwendao.php?act=list";
+        var formStr = "order_id=&product_id=&qq=&status=";
+        post_main_data_load(url,formStr);
+    }
+
+</script>

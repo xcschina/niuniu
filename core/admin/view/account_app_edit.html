@@ -1,0 +1,71 @@
+<!-- Plugins css-->
+<link href="assets/plugins/multiselect/css/multi-select.css"  rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="assets/plugins/multiselect/js/jquery.multi-select.js"></script>
+<script type="text/javascript" src="assets/plugins/jquery-quicksearch/jquery.quicksearch.js"></script>
+
+<form action="account.php?act=do_app&id={$info.id}" method="post" enctype="multipart/form-data" data-toggle="ajaxform"
+      id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">【{$info.real_name}】产品配置</h4>
+    </div>
+    <div class="modal-body">
+        <select name="app[]" class="multi-select" multiple="" id="my_multi_select1" style="width: 320px">
+            {foreach from=$apps item=app}
+            <option value="{$app.app_id}"{if $app.app_id|in_array:$info.apps} selected{/if}>{$app.app_id} - {$app.app_name}</option>
+            {/foreach}
+        </select>
+    </div>
+    <div class="modal-footer">
+        <input type="hidden" name="id" value="{$info.id}" />
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light">保存</button>
+    </div>
+</form>
+{literal}
+<style>
+    .ms-container{
+        width: 90%
+    }
+</style>
+<script>
+    jQuery(document).ready(function() {
+        //advance multiselect start
+        $('#my_multi_select1').multiSelect({
+            selectableHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='产品库...'>",
+            selectionHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='已选中的...'>",
+            afterInit: function (lg) {
+                var that = this,
+                        $selectableSearch = that.$selectableUl.prev(),
+                        $selectionSearch = that.$selectionUl.prev(),
+                        selectableSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selectable:not(.ms-selected)',
+                        selectionSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selection.ms-selected';
+
+                that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+                        .on('keydown', function (e) {
+                            if (e.which === 40) {
+                                that.$selectableUl.focus();
+                                return false;
+                            }
+                        });
+
+                that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+                        .on('keydown', function (e) {
+                            if (e.which == 40) {
+                                that.$selectionUl.focus();
+                                return false;
+                            }
+                        });
+            },
+            afterSelect: function () {
+                this.qs1.cache();
+                this.qs2.cache();
+            },
+            afterDeselect: function () {
+                this.qs1.cache();
+                this.qs2.cache();
+            }
+        });
+    })
+</script>
+{/literal}

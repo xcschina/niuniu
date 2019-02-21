@@ -1,0 +1,109 @@
+<link href="assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+<script type="text/javascript" src="assets/plugins/jquery-quicksearch/jquery.quicksearch.js"></script>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-sm-12 text-xs-center">
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-default m-b-20">商户余额：{$balance.balance}</button>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-default m-b-20">总授权金额：{$balance.auth_balance}</button>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-default m-b-20">查询日期</button>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="input-daterange input-group" id="date-range">
+                            <input type="text" class="form-control" name="start_time" value="{$start_time}" />
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-default m-b-20" id="luoke_query">查询</button>
+                </div>
+                <div class="col-sm-12 text-xs-center">
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-default m-b-20" id="total_price">交易成功金额：</button>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-default m-b-20" id="order_num">订单数量：</button>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <!---核心内容列表区域-->
+                <table class="table table-striped m-0">
+                    <thead>
+                    <tr>
+                        <th>充值前余额</th>
+                        <th>充值后余额</th>
+                        <th>银行充值单号</th>
+                        <th>充值时间</th>
+                    </tr>
+                    </thead>
+                    <tbody id="recharge_list">
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                <div class="text-right">
+                                    <ul class="pagination pagination-split m-t-30"></ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <!---内容区域end--->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- jQuery  -->
+<script src="assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        // Date Picker
+        jQuery('#datepicker').datepicker();
+        jQuery('#date-range').datepicker({
+            format: "yyyy-mm-dd",
+            toggleActive: true
+        });
+    });
+    $("#luoke_query").on("click",function(){
+        var start_time = $("input[name='start_time']").val();
+        if (!start_time){
+            $.Notification.notify('error','top left', '查询日期不能为空');
+            return false;
+        }
+        $.ajax({
+            type:"post",
+            url:"luoke.php?act=query_recharge",
+            data:{
+                "start_time":start_time
+            },
+            dataType:"json",
+            success:function(data){
+                if (data.statusCode == '200'){
+                    $("#total_price").text("交易成功金额："+data.message.total_price);
+                    $("#order_num").text("订单数量："+data.message.order_num);
+                    var list = JSON.parse(data.message.list);
+                    if (list.length != 0){
+                        var content = '';
+                        for(var i=0;i<list.length;i++){
+                            content += '<tr><td>'+list[i].before_balance+'</td><td>'+list[i].after_balance+'</td><td>'+list[i].bank_recharge_id+'</td><td>'+list[i].create_time+'</td></tr>';
+                        }
+                        $("#recharge_list").html(content);
+                    }else{
+                        $("#recharge_list").html('暂无数据');
+                    }
+                }else{
+                    $.Notification.notify('error','top left', data.message);
+                }
+            },
+            error:function(req, error){
+                $.Notification.notify('error','top left', "发生错误,HTTP代码:"+req.status, req.statusText);
+            }
+        });
+    }).trigger('click');
+</script>

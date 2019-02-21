@@ -1,0 +1,109 @@
+<link href="assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet" />
+<link href="assets/plugins/multiselect/css/multi-select.css"  rel="stylesheet" type="text/css" />
+<link href="assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<link href="assets/plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+<link href="assets/plugins/mjolnic-bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+<link href="assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+<link href="assets/plugins/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
+<link href="assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+<script src="assets/plugins/switchery/dist/switchery.min.js"></script>
+<script type="text/javascript" src="assets/plugins/multiselect/js/jquery.multi-select.js"></script>
+<script type="text/javascript" src="assets/plugins/jquery-quicksearch/jquery.quicksearch.js"></script>
+<script src="assets/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <!--按钮或搜索区域-->
+                <form id="form_data">
+                <div class="col-sm-12 text-xs-center">
+                    <!--<div class="col-md-1 ">-->
+                        <!--<button data-action="modal" class="btn btn-default" href="user.php?act=change_pwd"><i class="fa fa-plus m-r-5"></i>修改密码</button>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-1">-->
+                        <!--<button data-action="modal" class="btn btn-default" href="user.php?act=clear_mobile"><i class="fa fa-plus m-r-5"></i>清空号码</button>-->
+                    <!--</div>-->
+                    <div class="col-md-1">
+                        <button data-action="modal" class="btn btn-default" href="user.php?act=qa_clear"><i class="fa fa-plus m-r-5"></i>QA清空号码</button>
+                    </div>
+                </div>
+                    <div class="col-sm-12 text-xs-center m-t-10">
+                    <div class="col-md-2">
+                        <input type="number" value="{$params.operator_id}" name="operator_id" class="form-control" placeholder="请输入操作人id"/>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="number" value="{$params.user_id}" name="user_id" class="form-control" placeholder="请输入用户id"/>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="number" value="{$params.mobile}" name="mobile" class="form-control" placeholder="请输入手机号码"/>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control select2" name="status">
+                            <option value="">请选择状态</option>
+                            <option value="1" {if $params.status == 1} selected{/if}>修改密码 </option>
+                            <option value="2" {if $params.status == 2} selected{/if}>清空手机号</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <span class="btn btn-default" href="#;" onclick="search();"><i class="fa fa-search m-r-5"></i>搜索</span>
+                        <span class="btn btn-default" href="#;" onclick="reloadsearch();"> <i class="fa fa-undo"></i>清空搜索</span>
+                    </div>
+                </div>
+                </form>
+                <!--end--->
+            </div>
+            <div class="table-responsive">
+                <!---核心内容列表区域-->
+                <table class="table m-0 table-hover">
+                    <thead>
+                    <tr class="back_gray">
+                        <th>NO.</th>
+                        <th>ip</th>
+                        <th>手机号码</th>
+                        <th>用户ID</th>
+                        <th>操作人</th>
+                        <th>新密码</th>
+                        <th>状态</th>
+                        <th>添加时间</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach from=$log_list item=data}
+                    <tr>
+                        <th scope="row">{$data.id}</th>
+                        <td>{$data.ip}</td>
+                        <td>{if $data.mobile}{$data.mobile}{/if}</td>
+                        <td>{$data.user_id}</td>
+                        <td>{$data.operator_id}</td>
+                        <td>{$data.new_password}</td>
+                        <td>{if $data.status eq '1'}修改密码{elseif $data.status eq '2'}清空手机号{/if}</td>
+                        <td>{'Y-m-d H:i:s'|date:$data.add_time}</td>
+                        <td></td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <!---内容区域end--->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row"><div class="col-lg-12"><div id="page">{$page_bar}</div></div></div>
+<script>
+    jQuery(document).ready(function() {
+        $(".select2").select2();
+    });
+    function search() {
+        var url = "user.php?act=list";
+        var formStr = $('#form_data').serialize();
+        post_main_data_load(url,formStr);
+    }
+    function reloadsearch(){
+        var url = "user.php?act=list";
+        var formStr = "operator_id=&user_id=&status=&mobile=";
+        post_main_data_load(url,formStr);
+    }
+</script>

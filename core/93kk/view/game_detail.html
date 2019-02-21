@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {include file="include/head.html"}
+    <link href="//cdn.66173.cn/niuguo/css/bootstrap3.3.6.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.66173.cn/you83/css/common.css?t={$smarty.now}">
+    <link rel="stylesheet" href="//cdn.66173.cn/you83/css/game_detail.css?t={$smarty.now}">
+    <script src="//libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <style>
+        .dt-head a:hover{
+            color:#333;
+        }
+    </style>
+</head>
+<body class="game-rel-page game-detail-page">
+{include file="include/header.html"}
+<div class="bg-white container game-detail-main-wrapper">
+    <div class="font-lg dt-head">
+        <a href="index.php">首页</a> > <a href="/gameCenter">游戏中心</a> > 《{$game_info.app_name}》
+    </div >
+    <div class="minHeight700 game-detail-main">
+        <div class="row detail-top-zone">
+            <div class="col-xs-8 dt-left">
+                <img src="//cdn.66173.cn{$game_info.app_icon}" class="game-icon">
+                <div class="dt-center" >
+                    <div class="font-lger text-overflow dt-game-name">{$game_info.app_name}</div>
+                    <div class="font-lg text-overflow dt-game-size">大小：{$game_info.app_size}</div>
+                    <div class="font-lg text-overflow dt-game-sys">系统：{$game_info.system}</div>
+                </div>
+            </div>
+            <div class="col-xs-4 font-md dt-right">
+                <div>
+                    <a class="dt-game-btn dt-game-down" href="{$game_info.down_url}"><span class="icon-main"></span><span>立即下载</span></a>
+                </div>
+                <!--<div>-->
+                    <!--<a class="dt-game-btn dt-game-feedback" href="feedback" ><span class="icon-main"></span><span>问题反馈</span></a>-->
+                <!--</div>-->
+            </div>
+
+        </div>
+        <div class="font-md game-detail-artical">
+            {htmlspecialchars_decode($game_info.desc)}
+        </div>
+    </div>
+</div>
+{include file="include/footer.html"}
+</body>
+<script src="//cdn.66173.cn/niuguo/scripts/bootstrap3.3.6.min.js"></script>
+<script>
+    if(/(iPhone|iPad|iPod)/i.test(navigator.userAgent)){
+        $(".dt-game-down").attr("href","javascript:void(0)");
+        $(".dt-game-down").addClass("mobileNotAndroid");
+    }
+
+    $(".game-detail-page").on("click", ".mobileNotAndroid", function(){
+        briefTipControl("此为安卓版，暂无苹果版~");
+    })
+</script>
+</html>

@@ -1,0 +1,114 @@
+<link href="assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet" />
+<link href="assets/plugins/multiselect/css/multi-select.css"  rel="stylesheet" type="text/css" />
+<link href="assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="assets/plugins/switchery/dist/switchery.min.js"></script>
+<script type="text/javascript" src="assets/plugins/multiselect/js/jquery.multi-select.js"></script>
+<script type="text/javascript" src="assets/plugins/jquery-quicksearch/jquery.quicksearch.js"></script>
+<script src="assets/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <!--按钮或搜索区域-->
+                <div class="col-sm-12 text-xs-center">
+                    <div class="col-md-2 form-group">
+                        <select class="form-control select2" name="type">
+                            <option value="">请选择后台类型</option>
+                            <option value="4"{if $params.type eq 4 } selected{/if}>66账号</option>
+                            <option value="1"{if $params.type eq 1 } selected{/if}>超级后台</option>
+                            <option value="2"{if $params.type eq 2 } selected{/if}>高级后台</option>
+                            <option value="3"{if $params.type eq 3 } selected{/if}>普通后台</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <select class="form-control select2" data-placeholder="请选用户组" name="group_id">
+                            <option value="">请选用户组</option>
+                            {foreach from=$dataList item=groups}
+                            <option value="{$groups.id}" {if $groups.id eq $params.group_id}selected{/if}>{$groups.ch_name}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <button class="btn btn-default m-b-20" href="#;" onclick="search();"><i class="fa fa-search m-r-5"></i>搜索</button>
+                    <button class="btn btn-default m-b-20" href="#;" onclick="reloadsearch();"> <i class="fa fa-undo"></i>清空搜索</button>
+                    <button class="btn btn-default m-b-20" id="menu" >权限批量设置</button>
+                    <a href=""  data-action="modal" id="batch_set" style="display:none"></a>
+                </div>
+                <!--end--->
+            </div>
+            <div class="table-responsive">
+                <!---核心内容列表区域-->
+                <table class="table m-0 table-hover">
+                    <thead>
+                    <tr class="back_gray">
+                        <th>
+                            <input type="checkbox" value="-1"  id="all"  />
+                            全选</th>
+                        <th>用户ID</th>
+                        <th>公会名</th>
+                        <th>账号</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach from=$list item=data}
+                    <tr>
+                        <td scope="row">
+                            <input type="checkbox" value="{$data.id}"  name="menu[]" id="check{$data.id}" rel="0"/>
+                        </td>
+                        <th scope="row">{$data.id}</th>
+                        <td>{$data.real_name}</td>
+                        <td>{$data.account}</td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <!---内容区域end--->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row"><div class="col-lg-12"><div id="page">{$page_bar}</div></div></div>
+<script>
+    $("#all").click(function(){
+        if(this.checked){
+            $(":checkbox").prop("checked", true);
+        }else{
+            $(":checkbox").prop("checked", false);
+        }
+    });
+    //    jQuery(document).ready(function() {
+    //        // Select2
+    //        $(".select2").select2();
+    //    });
+    $("#menu").click(function(){
+        var guild_id =[];
+        $("input:checked").each(function(index,item){
+            guild_id.push(parseInt(item.value))
+        });
+        $.ajax({
+            url: "account.php?act=batch_ajax",
+            type: "post",
+            data:{
+                guild_id: guild_id
+            },
+            dataType: "json"
+        }).success(function(res){
+            document.getElementById("batch_set").href="account.php?act=batch_set&guild_id="+res;
+            $("#batch_set").click();
+        });
+    });
+
+    function search() {
+        type = $("select[name='type']").val();
+        group_id = $("select[name='group_id']").val();
+        url = "account.php?act=batch_view&type="+type+"&group_id="+group_id;
+        main_data_load(url);
+        return false;
+    }
+    function reloadsearch(){
+        url = "account.php?act=batch_view&type=&group_id=";
+        main_data_load(url);
+    }
+</script>

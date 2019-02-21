@@ -1,0 +1,137 @@
+<!--<link rel="shortcut icon" href="http://android.data.yd.cc//static/images/favicon.png">-->
+<!--<link href="http://android.data.yd.cc//static/js/plugins/morris/morris.css" rel="stylesheet">-->
+<!--<link href="http://android.data.yd.cc//static/js/plugins/bootstrap-table/dist/bootstrap-table.min.css"  rel="stylesheet"/>-->
+<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="assets/css/core.css?t=11" rel="stylesheet" type="text/css" />
+<link href="assets/css/components.css" rel="stylesheet" type="text/css" />
+<link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+<link href="assets/css/pages.css" rel="stylesheet" type="text/css" />
+<link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<link href="assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+<!--<link href="/static/js/plugins/footable/css/footable.core.css" rel="stylesheet">-->
+<!--<link href="/static/js/plugins/sweetalert/dist/sweetalert.css" rel="stylesheet" type="text/css">-->
+
+<script src="assets/js/modernizr.min.js"></script>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <form id="form_data" >
+                <div class="row">
+                    <div class="col-sm-12 text-xs-center">
+                        <div class="col-md-2 form-group">
+                            <select name="app_id" class="form-control pop-select-init" required>
+                                <option value="">选择游戏</option>
+                                {foreach from=$game_list item=game}
+                                <option value="{$game.app_id}" {if $params.app_id eq $game.app_id}selected{/if}>{$game.app_name}-{$game.app_id}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <select name="status" class="form-control pop-select-init" required>
+                                <option value="">发布情况</option>
+                                <option value="0" {if $params.status eq '0'}selected{/if}>下架</option>
+                                <option value="1" {if $params.status eq '1'}selected{/if}>调试</option>
+                                <option value="2" {if $params.status eq '2'}selected{/if}>上线</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 form-group" >
+                            <input type="text" value="{$params.cpa_name}" name="cpa_name" class="form-control"  placeholder="对接名称">
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <select name="type" class="form-control pop-select-init" required>
+                                <option value="">游戏系统</option>
+                                <option value="0" {if $params.type eq '0'}selected{/if}>安卓</option>
+                                <option value="1" {if $params.type eq '1'}selected{/if}>iOS</option>
+                                <option value="2" {if $params.type eq '2'}selected{/if}>其他</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <input type="text" value="{$params.ch_name}" name="ch_name" class="form-control"  placeholder="渠道缩写">
+                        </div>
+                        <div class="col-md-2 form-group" >
+                            <input type="text" value="{$params.ch_code}" name="ch_code" class="form-control"  placeholder="渠道代码">
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <select name="ad_type" class="form-control pop-select-init" required>
+                                <option value="0" {if $params.ad_type eq '0'}selected{/if}>点击时间</option>
+                                <option value="1" {if $params.ad_type eq '1'}selected{/if}>推广批次</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <div class="input-daterange input-group" id="date-range">
+                                <input type="text" class="form-control" name="start_time" {if $params.start_time}value="{$params.start_time}"{/if} placeholder="开始时间" />
+                                <span class="input-group-addon bg-custom b-0 text-white">to</span>
+                                <input type="text" class="form-control" name="end_time" {if $params.end_time}value="{$params.end_time}"{/if} placeholder="结束时间"/>
+                            </div>
+                        </div>
+                        <div class="col-md- form-group" >
+                            <span class="btn btn-default m-b-20" href="#;" onclick="search();"><i class="fa fa-search m-r-5"></i>搜索</span>
+                            <span class="btn btn-default m-b-20" href="#;" onclick="reloadsearch();"> <i class="fa fa-undo"></i>清空搜索</span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        <div class="table-responsive">
+            <table class="table m-0 table-hover">
+                <thead>
+                <tr align="back_gray">
+                    <th width="12">No.</th>
+                    <th width="100">日期</th>
+                    <th width="100">广告id</th>
+                    <th width="100">点击量</th>
+                    <th width="100">激活</th>
+                    <th width="100">充值</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {foreach item=data from=$list}
+                    <tr align="back_gray">
+                        <td>{$data.id}</td>
+                        <td>{'Y-m-d'|date:$data.ad_batch}</td>
+                        <td>{$data.ad_id}</td>
+                        <td>{$data.num}</td>
+                        <td>{$data.install}</td>
+                        <td>{$data.num}</td>
+                    </tr>
+                    {/foreach}
+                </tbody>
+             </table>
+        </div>
+        </div>
+    </div>
+</div>
+<div class="row"><div class="col-lg-12"><div id="page">{$page_bar}</div></div></div>
+<script src="assets/plugins/moment/moment.js"></script>
+<script src="assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<script src="assets/plugins/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+<script src="assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="assets/plugins/clockpicker/dist/jquery-clockpicker.min.js"></script>
+<script src="assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        // Date Picker
+        jQuery('#datepicker').datepicker();
+        jQuery('#date-range').datepicker({
+            format: "yyyy-mm-dd",
+            toggleActive: true
+        });
+        $(".pop-select-init").select2();
+    });
+    function search() {
+        var url = "extend.php?act=record_list";
+        var formStr = $('#form_data').serialize();
+        post_main_data_load(url,formStr);
+    }
+    function reloadsearch(){
+        var url = "extend.php?act=record_list";
+        var formStr = "game_id=&start_time=&end_time=&code=&status=";
+        post_main_data_load(url,formStr);
+    }
+
+</script>
+
+

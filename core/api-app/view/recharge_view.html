@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>{$game['game_name']}续充</title>
+	<link href="http://cdn.66173.cn/app/css/sel_ch.css" type="text/css" rel="stylesheet">
+	<script src="http://static.66173.cn/website/jquery.min.js"></script>
+	<script type="application/javascript">
+		$(document).ready(function () {
+			var wWidth = document.documentElement.clientWidth || document.body.clientWidth;
+			var size = wWidth / 7.5;
+			document.getElementsByTagName('html')[0].style.fontSize = size + 'px';
+		});
+	</script>
+</head>
+<body>
+<form action="app.php?act=go_recharge" id="payform" method="post">
+	<div class="sel_head">
+		<section class="fl m-r-15">
+			<img class="game_icon" src="http://cdn.66173.cn//images/game_icon/{$game['id']}.png">
+		</section>
+		<section class="fl m-t10">
+			<div style="max-width: 5.30rem;overflow: hidden;height: .4rem">
+				<p class="fn-30 m-t-0 fl" id="good_title" >{$goods[0]['title']}</p>
+			</div>
+			<div style="display: block;">
+				<p class="fn-20 m-t-0 c-ccc" style="line-height: .5rem" id="good_price"><s>原价:¥{$goods[0]['price']}</s></p>
+			</div>
+			<div class="num_div" style="width:auto;max-width: 2.5rem;">
+				<span class="money" id="pay_price">¥{$pay_money}</span>
+				<span class="discount">{$discount}折</span>
+			</div>
+		</section>
+	</div>
+	<div class="b_title" style="margin-top: .25rem"><span class="ch_tag"></span>您的首充号信息如下:</div>
+	<div class="goods_box">
+		<ul>
+			<li>账号:<span>{$user['game_user']}</span></li>
+			<li>游戏:<span>{$game['game_name']}</span></li>
+			<li>渠道:<span>{$ch_info['channel_name']}</span></li>
+			<li>角色:<span>{$user['role_name']}</span></li>
+			<li>区服:<span>{$user['serv_name']}</span></li>
+		</ul>
+	</div>
+	<div class="sel_body">
+		<div class="b_title"><span class="ch_tag"></span>选择金额</div>
+		<div class="goods_body">
+			{foreach key=key item=data from=$goods}
+			<a {if ($key mod 3) eq '2'}class="m-r-0"{/if} {if $key eq '0'}class="sel"{/if} rel='{$data['id']}' rev='{$data['price']}'><span rel="{$data['title']}">{$data['price']}元</span></a>
+			{/foreach}
+		</div>
+		<div class="b_title"><span class="ch_tag"></span>商品介绍</div>
+		<div class="game_desc">《阴阳师》中的【勾玉】与人民币的兑换比例为 5:1
+			在66173购买对应的商品，需要支付相应的金额，同时可享受相应
+			的折扣，具体折扣请点击对应商品、渠道即可查看。
+			《阴阳师》商品对应的官方价格列表如下：
+			6元获得60元宝
+			30元获得300元宝
+			98元获得980元宝
+			198元获得1980元宝
+			328元获得3280元宝
+		</div>
+	</div>
+	<div class="b_title" style="margin-top: .25rem"><span class="ch_tag"></span>支付方式</div>
+	<div class="pay_box">
+		<div class="zfb_box">
+			<span class="zfb_icon"></span>手续费 ¥0.00<span></span><a class="pay_btn pay_on" rel="zfb"></a>
+		</div>
+		<div class="wx_box">
+			<span class="wx_icon"></span>手续费 ¥0.00<span></span><a class="pay_btn" rel="wx"></a>
+		</div>
+	</div>
+	<div style="width: 100%;height: 2rem">
+		<input name="game_id" value="{$user['game_id']}" type="hidden">
+		<input name="product_id" value="{$goods[0]['id']}" type="hidden">
+		<input name="channel_id" value="{$ch_info['id']}" type="hidden">
+		<input name="pay_mode" value="zfb" type="hidden">
+		<input name="is_rand_user" value="1" type="hidden">
+		<input type="hidden" name="do" value="recharge" />
+		<input type="hidden" name="serv_id" value="{$user['serv_id']}" />
+		<input type="hidden" name="role_name" value="{$user['role_name']}" />
+		<input type="hidden" name="game_user" value="{$user['game_user']}" />
+		<input type="hidden" name="tel" value="{$user['tel']}" />
+		<input type="hidden" name="qq" value="{$user['qq']}" />
+		<input type="hidden" name="pagehash" value="{$pagehash}" />
+		<input type="hidden" name="discount" value="{$discount}" />
+	</div>
+	<div class="foot">
+		<span id="pay_money" class="pay_money">总价:¥{$pay_money}</span>
+		<a class="btn fr" href="#" onclick="go_pay();">立即购买</a>
+	</div>
+</form>
+</body>
+<script type="application/javascript">
+	$(document).ready(function(){
+		$(".goods_body a").click(function(){
+			$(".goods_body a").removeClass("sel");
+			set_price(this);
+		});
+		$(".pay_box a").click(function(){
+			$(".pay_box a").removeClass("pay_on");
+			pay_mode = $(this).attr("rel");
+			$("input[name='pay_mode']").val(pay_mode);
+			$(this).addClass("pay_on");
+		});
+	});
+	function go_pay(){
+		var game_id = $("input[name='game_id']").val();
+
+		var _$ = window.jQuery;
+		var formStr=_$("#payform").serialize();
+		window.local_obj.cli_to_recharge(formStr,game_id);
+	}
+	function set_price(obj){
+		good_id = $(obj).attr("rel");
+		good_price = $(obj).attr("rev");
+		good_title = $(obj).find('span').attr("rel");
+		discount = $("input[name='discount']").val();
+		$("input[name='product_id']").val(good_id);
+		$("input[name='good_price']").val(good_price);
+		$("input[name='pay_money']").val(Math.round((good_price*discount)/10));
+		$("#pay_money").html("总价:￥"+Math.round((good_price*discount)/10));
+		$("#pay_price").html("￥"+Math.round((good_price*discount)/10));
+		$("#good_price").html("<s>原价:￥"+good_price+"</s>");
+		$("#money").html("总价:￥"+good_price);
+		$("#good_title").html(good_title);
+		$(obj).addClass("sel");
+	}
+</script>
+</html>

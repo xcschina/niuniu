@@ -1,0 +1,18 @@
+<form action="account.php?act=do_del" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">提示</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="col-md-9">
+                <p class="form-control-static">请确定要删除{$user_info.real_name}?</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="hidden" name="id" value="{$user_info.id}">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-danger waves-effect waves-light">删除</button>
+    </div>
+</form>

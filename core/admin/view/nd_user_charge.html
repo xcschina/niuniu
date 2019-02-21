@@ -1,0 +1,214 @@
+<form action="guild.php?act=nd_user_charge_save" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="nd_charge_form" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">牛点充值</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-md-3 control-label">当前剩余牛币</label>
+            <div class="col-md-9">
+                <input type="number" class="form-control" value="{$nnb_current}" name="nnb_current" disabled="disabled" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">用户id</label>
+            <div class="col-md-6">
+                <input type="number" class="form-control" name="nd_user_id" />
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-info waves-effect waves-light" id="user_search">查询</button>
+            </div>
+        </div>
+        <div id="nd_user_verify" style="display: none;">
+        <div class="form-group">
+            <span class="col-md-2 col-md-offset-4">用户id：</span>
+            <span class="col-md-6" id="u_id"></span>
+        </div>
+        <div class="form-group">
+                <span class="col-md-2 col-md-offset-4">用户昵称：</span>
+                <span class="col-md-6" id="u_name"></span>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">游戏名称</label>
+            <div class="col-md-9">
+                <select class="form-control select_nd" name="nd_app_id">
+                    <option value="">请选择游戏</option>
+                    {foreach from=$app_list item=data}
+                    <option value="{$data.app_id}" data-nd_discount="{$data.nd_discount}">[{$data.app_id}]{$data.app_name}({$data.nd_discount*10}折)</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">牛点数量</label>
+            <div class="col-md-9">
+                <input type="number" class="form-control" name="nd_no" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">所需牛币数量</label>
+            <div class="col-md-9">
+                <input type="number" class="form-control" name="nnb_no" readonly />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">充值密码</label>
+            <div class="col-md-9">
+                <input type="password" class="form-control" name="charge_pwd" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">验证码</label>
+            <div class="col-md-5">
+                <input type="text" class="form-control" name="code" />
+            </div>
+            <div class="col-md-4">
+                <img src="/verifycode.php" height="38" onclick="change_code(this)" />
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="hidden" name="nd_user_id_hidden" value="" />
+        <input type="hidden" name="app_discount" value="" />
+        <input value="{$pagehash}" name="pagehash" type="hidden" id="pagehash">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-info waves-effect waves-light" id="btn_charge">提交充值</button>
+    </div>
+</form>
+<div style="display: none;" id="nd_charge_msg">
+    <div class="modal-header">
+        <h4 class="modal-title">操作确认</h4>
+    </div>
+    <div class="modal-body">
+        <h3>
+            你将给用户账号为<strong class="text-danger"></strong>(昵称为<span class="text-danger"></span>)充值<strong class="text-danger"></strong>牛点，是否确认？
+        </h3>
+    </div>
+    <div class="modal-footer">
+        <input type="button" class="btn btn-default waves-effect" value="返回" id="btn_return"/>
+        <input type="button" class="btn btn-info waves-effect waves-light" value="确认" id="nd_charge_submit"/>
+    </div>
+</div>
+{literal}
+<script>
+    jQuery(document).ready(function() {
+        $(".select_nd").select2();
+    });
+    function change_code(obj) {
+        $(obj).attr("src","");
+        $(obj).attr("src","/verifycode.php");
+    }
+    $("#user_search").on("click",function(){
+        var nd_user_id = $("input[name='nd_user_id']").val();
+        var nd_user_id_reg = new RegExp(/^[1-9][0-9]*$/);
+        if (!nd_user_id_reg.test(nd_user_id)){
+            $.Notification.notify('error','top left',"用户id非法！");
+            return false;
+        }
+        $.ajax({
+            url:"guild.php?act=nd_user_verify",
+            type:"post",
+            data:{"nd_user_id":nd_user_id},
+            cache:false,
+            dataType:"json",
+            timeout : 5000,
+            success:function(data){
+                if (data.statusCode==200){
+                    $.Notification.autoHideNotify('success', 'top left', "用户查询成功");
+                    $("input[name='nd_user_id']").prop("disabled","disabled");
+                    $("#u_id").html(data.message.user_id);
+                    $("#u_name").html(data.message.nick_name);
+                    $("#nd_user_verify").show();
+                    $("input[name='nd_user_id_hidden']").val(nd_user_id);
+                }else{
+                    $.Notification.notify('error','top left',data.message);
+                }
+            },
+            error:function(req, error){
+                $.Notification.notify('error','top left', "发生错误,HTTP代码:"+req.status, req.statusText);
+            }
+        });
+    });
+    $("select[name='nd_app_id']").on("change",function(){
+        var app = $(this).val();
+        if (app==""){
+            $("input[name='nnb_no']").val("");
+            return false;
+        }
+        var discount = $("option:checked").eq(1).data("nd_discount");
+        $("input[name='app_discount']").val(discount);
+        var nd_input = $("input[name='nd_no']").val();
+        var nd_input_reg = new RegExp(/^[1-9][0-9]*$/);
+        if (nd_input==""){
+            $("input[name='nnb_no']").val("");
+            return false;
+        }
+        if (!nd_input_reg.test(nd_input)){
+            $("input[name='nnb_no']").val("");
+            return false;
+        }
+        var nnb_no = parseInt(nd_input)*parseFloat(discount);
+        $("input[name='nnb_no']").val(nnb_no.toFixed(2));
+    });
+    $("input[name='nd_no']").on("change",function(){
+        var app = $("select[name='nd_app_id']").val();
+        if (app==""){
+            $("input[name='nnb_no']").val("");
+            return false;
+        }
+        var nd_input = $(this).val();
+        var nd_input_reg = new RegExp(/^[1-9][0-9]*$/);
+        if (nd_input==""){
+            $("input[name='nnb_no']").val("");
+            return false;
+        }
+        if (!nd_input_reg.test(nd_input)){
+            $("input[name='nnb_no']").val("");
+            return false;
+        }
+        var discount = $("option:checked").eq(1).data("nd_discount");
+        var nnb_no = parseInt(nd_input)*parseFloat(discount);
+        $("input[name='nnb_no']").val(nnb_no.toFixed(2));
+    });
+    $("#btn_charge").on("click",function(){
+        var app = $("select[name='nd_app_id']").val();
+        if (app==""){
+            $.Notification.notify('error','top left', "游戏不能为空！");
+            return false;
+        }
+        var nd_no = $("input[name='nd_no']").val();
+        var nd_no_reg = new RegExp(/^[1-9][0-9]*$/);
+        if (nd_no==""){
+            $.Notification.notify('error','top left', "牛点数量不能为空！");
+            return false;
+        }
+        if (!nd_no_reg.test(nd_no)){
+            $.Notification.notify('error','top left', "牛点数量不合法！");
+            return false;
+        }
+        var charge_pwd = $("input[name='charge_pwd']").val();
+        if (charge_pwd==""){
+            $.Notification.notify('error','top left', "充值密码不能为空！");
+            return false;
+        }
+        var code = $("input[name='code']").val();
+        if (code==""){
+            $.Notification.notify('error','top left', "验证码不能为空！");
+            return false;
+        }
+        $("#nd_charge_msg h3>strong").eq(0).html($("#u_id").html());
+        $("#nd_charge_msg h3>span").html($("#u_name").html());
+        $("#nd_charge_msg h3>strong").eq(1).html(nd_no);
+        $("#nd_charge_form").hide();
+        $("#nd_charge_msg").show();
+    });
+    $("#btn_return").on("click",function(){
+        $("#nd_charge_msg").hide();
+        $("#nd_charge_form").show();
+    });
+    $("#nd_charge_submit").on("click",function(){
+        $("#nd_charge_form").submit();
+    });
+</script>
+{/literal}

@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <!--按钮或搜索区域-->
+                <div class="col-sm-12 text-xs-center">
+                    <button data-action="modal" class="btn btn-default m-b-20" href="deal.php?act=add"><i class="fa fa-plus m-r-5"></i>采购</button>
+                </div>
+                <!--end--->
+            </div>
+            <div class="table-responsive">
+                <!---核心内容列表区域-->
+                <table class="table table-hover m-0">
+                    <thead>
+                    <tr>
+                        <th>订单号</th>
+                        <th>商品编号</th>
+                        <th>购买数量</th>
+                        <th>价格</th>
+                        <th>账号</th>
+                        <th>卡号</th>
+                        <th>卡密</th>
+                        <th>状态</th>
+                        <th>下单时间</th>
+                        <th>回单时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach from=$datalist item=data}
+                    <tr{if $data.status eq 2} class="danger"{/if}>
+                    <th scope="row">{$data.order_id}</th>
+                    <td>{$data.product_id}</td>
+                    <td>{$data.amount}</td>
+                    <td><span class="text-danger">{$data.price}</span></td>
+                    <td>{$data.account}</td>
+                    <td>{$data.card_id}</td>
+                    <td>{$data.card_password}</td>
+                    <td>
+                        {if $data.status eq 0}<span class="text-danger">未完成</span>{/if}
+                        {if $data.status eq 1}<span class="text-success">已完成</span>{/if}
+                    </td>
+                    <td>{'Y-m-d H:i:s'|date:$data.addtime}</td>
+                    <td>{'Y-m-d H:i:s'|date:$data.callback_time}</td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <!---内容区域end--->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row"><div class="col-lg-12"><div id="page">{$page_bar}</div></div></div>

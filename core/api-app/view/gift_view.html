@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+	<title>游戏礼包</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<!-- <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/app/css/game_gift.css?t={$smarty.now}"> -->
+	<link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/app/css/app-main.css">
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script type="text/javascript" src="http://static.66173.cn/weixin/js/script.js"></script>
+	<script type="text/javascript" src="http://cdn.66173.cn/app/js/app-main.js"></script>
+</head>
+
+<body>
+<div class="game-gift">
+	<div class="gift-list gift-list-with-get">
+		{foreach from=$gifts item=g}
+		<a href="/gifts.php?act=item&id={$g.id}">
+			<div class="gift-item">
+				<div class="left">
+					<img src="http://cdn.66173.cn/{$g.game_icon}"/>
+				</div>
+				<div class="center">
+					<div class="title text-overflow">{$g.game_name}</div>
+					<div class="gift-name">{$g.title}</div>
+					<div class="gift-content text-overflow">{$g.content}</div>
+				</div>
+				<div class="right">
+					{if $g.is_get}
+					<a class="chart chart-2" data-percent="13" href="/gifts.php?act=item&id={$g.id}">已领取</a>
+					{else}
+					{if $g.remain<1}
+					<a class="chart chart-1 over" data-percent="0" href="/gifts.php?act=item&id={$g.id}">领光了</a>
+					{else}
+					<a class="chart chart-1" data-percent="83" href="/gifts.php?act=item&id={$g.id}">领取</a>
+					{/if}
+					{/if}
+				</div>
+			</div>
+			{/foreach}
+		</a>
+	</div>
+	<!--<div class="no-more">
+                <img src="noMore.png"/>
+            </div>-->
+</body>
+<script type="text/javascript">
+	var optionsg = {
+		scaleColor: false,
+		trackColor: '#ccc',
+		barColor: '#30b66f',
+		lineWidth: 3,
+		lineCap: 'butt',
+		size: 45
+	};
+	var optionsb = {
+		scaleColor: false,
+		trackColor: '#ccc',
+		barColor: '#317ee7',
+		lineWidth: 3,
+		lineCap: 'butt',
+		size: 45
+	};
+	window.addEventListener('DOMContentLoaded', function() {
+		var charts = [];
+		[].forEach.call(document.querySelectorAll('.chart-1'),  function(el) {
+			charts.push(new EasyPieChart(el, optionsg));
+		});
+		[].forEach.call(document.querySelectorAll('.chart-2'),  function(el) {
+			charts.push(new EasyPieChart(el, optionsb));
+		});
+	});
+</script>
+</html>

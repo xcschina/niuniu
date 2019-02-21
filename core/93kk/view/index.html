@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {include file="include/head.html"}
+    <link href="//cdn.66173.cn/niuguo/css/bootstrap3.3.6.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.66173.cn/you83/css/common.css?t={$smarty.now}">
+    <link rel="stylesheet" href="//cdn.66173.cn/you83/css/index.css?t={$smarty.now}">
+    <script src="//libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <!--[if IE]>
+    <style>
+        .swiper-wrapper {
+            display: block;
+        }
+        .rotator .swiper-slide {
+            display: none;
+        }
+        .rotator .swiper-slide:first-child {
+            display: block;
+        }
+    </style>
+    <![endif]-->
+</head>
+<body class="home-page">
+{include file="include/header.html"}
+<section class="rotator clearfix">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            {foreach from=$banner_list item=banner key=k}
+            <div class="swiper-slide"><a href="{$banner.url}" target="_blank"><img src="//cdn.66173.cn{$banner.banner}?t={$k}" alt="" /></a></div>
+            {/foreach}
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination">
+            <span class="swiper-pagination-bullet swiper-pagination-bullet-active" data-seq="0"></span>
+            <span class="swiper-pagination-bullet" data-seq="1"></span>
+            <span class="swiper-pagination-bullet" data-seq="2"></span>
+        </div>
+    </div>
+</section>
+<div class="minHeight600 container">
+    <div class="border-left-title-wrapper latest-title-wrapper">
+        <span class="font-lg title">最新手游</span>
+        <a href="/gameCenter" class="font-sm pull-right more">更多+</a>
+    </div>
+    <ul class="row game-list latest-game-list">
+        {foreach from=$new_game item=data}
+        <li class="col-xs-4">
+            <a href="/gameDetail{$data.id}">
+                <div class="game-li-wrapper">
+                    <div class="bg"></div>
+                    <img class="game-icon" src="//cdn.66173.cn/{$data.banner}"/>
+                    <div class="game-text-wrapper">
+                        <div class="font-lg text-overflow name-wrapper"><span class="name">{$data.app_name}</span></div>
+                        <div class="font-md desc">{$data.subtitle}</div>
+                    </div>
+                </div>
+            </a>
+        </li>
+        {/foreach}
+    </ul>
+    {include file="include/side_float.html"}
+</div>
+{include file="include/friendly_links.html"}
+{include file="include/footer.html"}
+<!--{include file="include/side_float.html"}-->
+</body>
+<script src="//cdn.66173.cn/niuguo/scripts/bootstrap3.3.6.min.js"></script>
+<script>
+    $(".main-navbar .navbar-right a").eq(0).addClass("active");
+    formatGameIconHeight();
+    $(window).resize(function() {
+        formatGameIconHeight();
+    });
+    //    游戏列表的图标宽高比设置
+    function formatGameIconHeight() {
+        $(".game-li-wrapper .game-icon").css("height", $(".game-li-wrapper .game-icon").width() * 0.447);
+    }
+</script>
+
+<!--[if !IE]><!-->
+<script src="//cdn.66173.cn/niuguo/scripts/swiper.jquery.3.4.2.min.js"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        autoplay: 4000,
+        crossFade: true ,///控制是否自动播放
+        preloadImages: false, //是否初始时将所有轮播图加载完,
+        lazyLoading: true, //是否图片懒加载，要和preloadImages: false一起使用
+        paginationClickable: true,
+        autoplayDisableOnInteraction: false //控制用户滑动或点击到其他图后是否不再轮播
+    });
+</script>
+<!--<![endif]-->
+
+<!--[if IE]>
+<script>
+    console.log("IE");
+    var slideLen = $(".rotator .swiper-slide").length;
+    var curSlide = 0;
+    var slideInterval;
+    function slideShow(cur) {
+        $(".rotator .swiper-slide").eq(cur).show().siblings().hide();
+        $(".rotator .swiper-pagination-bullet").eq(cur).addClass("swiper-pagination-bullet-active").siblings().removeClass("swiper-pagination-bullet-active");
+    }
+    function slideIntervalControl() {
+        clearTimeout(slideInterval);
+        slideInterval = setInterval(function () {
+            if (curSlide < slideLen - 1) {
+                curSlide++;
+            }
+            else {
+                curSlide = 0;
+            }
+            slideShow(curSlide);
+        },4000);
+    }
+    $(".rotator").on("click", ".swiper-pagination-bullet", function(e) {
+        var seq = parseInt($(e.target).data("seq"));
+        curSlide = seq;
+        slideShow(seq);
+        slideIntervalControl();
+    });
+    slideIntervalControl();
+</script>
+<![endif]-->
+</html>

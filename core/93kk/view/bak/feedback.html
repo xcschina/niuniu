@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>牛果游戏_new游戏 new快乐-问题反馈页</title>
+    {include file="include/head.html"}
+    <link href="http://cdn.66173.cn/niuguo/css/bootstrap3.3.6.min.css" rel="stylesheet">
+    <link href="http://admin.66173.cn/assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="http://cdn.66173.cn/niuguo/css/common.css?t={$smarty.now}">
+    <link rel="stylesheet" href="http://cdn.66173.cn/niuguo/css/feedback.css?t={$smarty.now}">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://admin.66173.cn/assets/plugins/select2/select2.min.js" type="text/javascript"></script>
+    <style>
+        .fd-border{
+            border-color: #f05050 !important;
+        }
+    </style>
+</head>
+<body class="service-rel-page feedback-page">
+{include file="include/header.html"}
+<div class="top-banner"><img src="http://cdn.66173.cn/niuguo/img/service_banner.jpg" alt=""></div>
+<div class="bg-white container feedback-main-wrapper">
+    <div class="font-lg fd-head">
+        <a href="index.php">首页</a> > <a href="/serviceCenter">客服中心</a> > 游戏问题反馈
+    </div >
+    <form id="form_data">
+      <div class="row fd-main">
+        <div class="col-xs-12">
+            <label class="font-md fd-label select-label">问题类型：</label>
+            <select class="font-md fd-select select2" name="type" required="">
+                <option value="2">账号问题</option>
+                <option value="3">充值问题</option>
+                <option value="4">游戏问题</option>
+                <option value="1">其他</option>
+            </select>
+        </div>
+        <div class="col-xs-12 app_id" >
+            <label class="font-md fd-label select-label">游戏名称：</label>
+            <select class="font-md  fd-select select2 " name="app_id" required="" id="app_id">
+                <option value="">请选择您的游戏</option>
+                {foreach from=$game_list item=data}
+                <option value="{$data.app_id}">{$data.app_name}</option>
+                {/foreach}
+            </select>
+        </div>
+        <div class="col-xs-12">
+            <label class="font-md fd-label ">游戏账号：</label>
+            <input type="text" class="font-md fd-control" placeholder="请输入您的游戏账号" name="login_name" required="">
+        </div>
+        <div class="col-xs-12">
+            <label class="font-md fd-label">游戏区服：</label>
+            <input type="text" class="font-md fd-control" placeholder="请输入您的游戏区服" name="service_name" required="">
+        </div>
+        <div class="col-xs-12">
+            <label class="font-md fd-label"> &nbsp;&nbsp; 角色名：</label>
+            <input type="text" class="font-md fd-control" placeholder="请输入您的游戏角色名" name="role_name" required="">
+        </div>
+        <div class="col-xs-12">
+            <label class="font-md fd-label">联系方式：</label>
+            <input type="number" class="font-md fd-control" placeholder="请输入您的手机方便客服联系您" name="mode" required="">
+        </div>
+        <div class="col-xs-12">
+            <label class="font-md fd-label question-desc-label">问题描述：</label>
+            <textarea class="font-md fd-control fd-desc" placeholder="请尽量详细的描述您的问题" required="" name="desc" data-parsley-id="4"></textarea>
+        </div>
+        <div class="col-xs-12">
+            <label class="font-md fd-label"> &nbsp;&nbsp; 验证码：</label>
+            <input type="text" class="font-md fd-control fd-code" placeholder="请输入验证码" name="verifyCode" required="">
+            <div class="fd-captcha-zone">
+                <img id="graphic-image" class="graphic-image" src="/verifycode.php">
+                <label class="font-sm change-code">看不清，换一张</label>
+            </div>
+        </div>
+      </div>
+        <div class="fd-submit">
+            <input type="hidden" value="{$pagehash}" name="pagehash">
+            <span class="font-md fd-btn-info fd-btn-info-can"  >提交</span>
+        </div>
+    </form>
+</div>
+{include file="include/footer.html"}
+{literal}
+<script src="http://cdn.66173.cn/niuguo/scripts/bootstrap3.3.6.min.js"></script>
+<script src="http://cdn.66173.cn/niuguo/scripts/bootstrap_paginator.js"></script>
+<script >
+    var regMobile = new RegExp(/^1[34578]\d{9}$/);
+    jQuery(document).ready(function() {
+        $(".select2").select2();
+    });
+    // 生成图形验证码
+    function createCode() {
+        var rand = Math.floor(Math.random()*9999);
+        $(".graphic-image").attr("src", "/verifycode.php?t="+rand);
+    }
+    // 刷新图形验证码
+    $(".graphic-image").click(function(){
+        createCode();
+    });
+    $(".change-code").click(function(){
+        createCode();
+    });
+    $('.feedback-page').on("blur", "textarea,input", function(e){
+        var $ele = $(e.target);
+        if($ele.val()) {
+            $ele.removeClass("fd-border");
+        }
+    });
+    $('.feedback-page').on("blur", "div", function(){
+        if($("#app_id").val()) {
+            $(".app_id .select2-container .select2-choice").removeClass("fd-border");
+        }
+    });
+    $(".feedback-page").on("click",".fd-btn-info-can",function(){
+        var formStr = $('#form_data').serialize();
+        var status = fromVerification();
+        if(!status){
+            setTimeout('$(".fd-btn-info").addClass("fd-btn-info-can")',2000);
+            return false;
+        }
+        $(".fd-btn-info").removeClass("fd-btn-info-can");
+        $.ajax({
+            url: "/feedback.php?act=add_feedback",
+            type: "post",
+            data:formStr,
+            dataType: "json"
+        }).success(function(res) {
+            if(res.code == 0){
+                $(".fd-btn-info").addClass("fd-btn-info-can");
+                briefTipControl(res.msg);
+            }else{
+                briefTipControl(res.msg);
+                setTimeout("location.reload()",2000);
+            }
+        })
+    })
+
+    function fromVerification(){
+        var mode = $("input[name=mode]").val();
+        var app_id = $("select[name=app_id]").val();
+        var login_name = $("input[name=login_name]").val();
+        var service_name = $("input[name=service_name]").val();
+        var role_name = $("input[name=role_name]").val();
+        var desc = $(".fd-desc").val();
+        var verifyCode = $("input[name=verifyCode]").val();
+        if(!app_id){
+            $(".app_id .select2-container .select2-choice").addClass("fd-border");
+            $(".fd-btn-info").removeClass("fd-btn-info-can");
+            briefTipControl("请选择游戏名称");
+            return false;
+        }
+        if(!login_name){
+            $("input[name=login_name]").addClass("fd-border");
+            $(".fd-btn-info").removeClass("fd-btn-info-can");
+            briefTipControl("请输入您的游戏账号");
+            return false;
+        }
+        if(!service_name){
+            $("input[name=service_name]").addClass("fd-border");
+            $(".fd-btn-info").removeClass("fd-btn-info-can");
+            briefTipControl("请输入您的游戏区服");
+            return false;
+        }
+        if(!role_name){
+            $("input[name=role_name]").addClass("fd-border");
+            $(".fd-btn-info").removeClass("fd-btn-info-can");
+            briefTipControl("请输入您的角色名称");
+            return false;
+        }
+        if(!mode){
+            $("input[name=mode]").addClass("fd-border");
+            $(".fd-btn-info").removeClass("fd-btn-info-can");
+            briefTipControl("请输入您的手机号码");
+            return false;
+        }else if(!regMobile.test(mode)){
+            $("input[name=mode]").addClass("fd-border");
+            briefTipControl("联系手机号不合法！");
+            return false;
+        }
+        if(!desc){
+            $(".fd-desc").addClass("fd-border");
+            $(".fd-btn-info").removeClass("fd-btn-info-can");
+            briefTipControl("请输入您所反馈的问题");
+            return false;
+        }
+        if(!verifyCode){
+            $("input[name=verifyCode]").addClass("fd-border");
+            $(".fd-btn-info").removeClass("fd-btn-info-can");
+            briefTipControl("请输入图形验证码");
+            return false;
+        }
+        return true;
+    }
+</script>
+{/literal}
+</body>
+</html>

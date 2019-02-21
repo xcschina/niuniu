@@ -1,0 +1,183 @@
+<link href="assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+<link href="assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="assets/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <!--按钮或搜索区域-->
+                <form id="form_data">
+                    <div class="col-sm-12 text-xs-center">
+                        <div class="col-md-2">
+                            <select class="form-control select2" name="game">
+                                <option value="">请选择游戏</option>
+                                {foreach from=$game_list item=app}
+                                <option value="{$app.game}" {if $app.game eq $params.game}selected{/if}>{$app.game}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control select2" name="game_area">
+                                <option value="">请选择游戏区服</option>
+                                {if $params.game}
+                                {foreach from=$game_area_list item=game_area}
+                                <option value="{$game_area.game_area}" {if $game_area.game_area eq $params.game_area}selected{/if}>{$game_area.game_area}</option>
+                                {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                        <div class="col-md-1">
+                            <select class="form-control select2" name="channel">
+                                <option value="">请选择渠道</option>
+                                {foreach from=$channel_list item=ch}
+                                <option value="{$ch.channel}" {if $ch.channel eq $params.channel}selected{/if}>{$ch.channel}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control select2" name="channel_pay">
+                                <option value="">请选择支付渠道</option>
+                                {foreach from=$channel_pay_list item=ch}
+                                <option value="{$ch.channel_pay}" {if $ch.channel_pay eq $params.channel_pay}selected{/if}>{$ch.channel_pay}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                        <div class="col-md-1">
+                            <select class="form-control select2" name="input_id">
+                                <option value="">请选择录入人</option>
+                                {foreach from=$input_name_list item=input}
+                                <option value="{$input.id}" {if $input.id eq $params.input_id}selected{/if}>[{$input.id}]{$input.real_name}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-daterange input-group" id="date-range">
+                                <input type="text" class="form-control" name="start_time" {if $params.start_time}value="{$params.start_time}"{/if} />
+                                <span class="input-group-addon bg-custom b-0 text-white">to</span>
+                                <input type="text" class="form-control" name="end_time" {if $params.end_time}value="{$params.end_time}"{/if} />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 text-xs-center m-t-10">
+                        <div class="col-md-2">
+                            <input type="text" value="{$params.game_account}" name="game_account" class="form-control" placeholder="请输入游戏账号"/>
+                        </div>
+                        <div class="col-md-6">
+                            <span class="btn btn-default" href="#;" onclick="search();"><i class="fa fa-search m-r-5"></i>搜索</span>
+                            <span class="btn btn-default" href="#;" onclick="reloadsearch();"> <i class="fa fa-undo"></i>清空搜索</span>
+                            <a type="button" class="btn btn-default" href="account_offline.php?act=tpl_down">模版下载</a>
+                            <a type="button" class="btn btn-default" href="account_offline.php?act=export">导出</a>
+                            <a type="button" class="btn btn-default" data-action="modal" href="account_offline.php?act=import_view">批量导入</a>
+                        </div>
+                    </div>
+                </form>
+                <!--end--->
+            </div>
+            <div class="table-responsive">
+                {if $datalist|count eq 0}暂无数据{else}
+                <!---核心内容列表区域-->
+                <table class="table table-striped table-hover m-0">
+                    <thead>
+                    <tr>
+                        <th>日期</th>
+                        <th>游戏</th>
+                        <th>渠道</th>
+                        <th>游戏区服</th>
+                        <th>账号</th>
+                        <th>支付渠道</th>
+                        <th>金额</th>
+                        <th>回款折扣</th>
+                        <th>回款</th>
+                        <th>支出金额</th>
+                        <th>收款渠道</th>
+                        <th>录入人ID</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach from=$datalist item=data}
+                    <tr>
+                        <td>{'Y/m/d'|date:$data.time}</td>
+                        <td>{$data.game}</td>
+                        <td>{$data.channel}</td>
+                        <td>{$data.game_area}</td>
+                        <td>{$data.game_account}</td>
+                        <td>{$data.channel_pay}</td>
+                        <td>{$data.money}</td>
+                        <td>{$data.payment_discount}</td>
+                        <td>{$data.payment}</td>
+                        <td>{$data.money_pay}</td>
+                        <td>{$data.channel_receivmoney}</td>
+                        <td>{$data.input_id}</td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                {/if}
+                <!---内容区域end--->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row"><div class="col-lg-12"><div id="page">{$page_bar}</div></div></div>
+<script src="assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+<script>
+    jQuery(document).ready(function() {
+        // Date Picker
+        jQuery('#datepicker').datepicker();
+        jQuery('#date-range').datepicker({
+            format: "yyyy-mm-dd",
+            toggleActive: true
+        });
+        // Select2
+        $(".select2").select2();
+    });
+    $("select[name='game']").on("change",function(){
+        var game_name = $(this).val();
+        if (game_name!=""){
+            get_game_area(game_name);
+        }else{
+            $("select[name='game_area']").html("<option value=''>请选择游戏区服</option>");
+        }
+    });
+    function get_game_area(game_name){
+        $.ajax({
+            type:"post",
+            url:"account_offline.php?act=get_game_area",
+            data:{
+                "game_name":game_name
+            },
+            cache:false,
+            dataType:"json",
+            timeout : 5000,
+            success:function(data){
+                if (data.statusCode=="300"){
+                    $.Notification.notify('error','top left', data.message);
+                }else{
+                    var str = "";
+                    for(var i=0;i<data.message.length;i++){
+                        str += "<option value='"+data.message[i].game_area+"'>"+data.message[i].game_area+"</option>";
+                    }
+                    console.log(str);
+                    $("select[name='game_area']").append($(str));
+                }
+            },
+            error:function(req, error){
+                $.Notification.notify('error','top left', "发生错误,HTTP代码:"+req.status, req.statusText);
+            }
+        });
+    }
+    function search() {
+        var url = "account_offline.php?act=list";
+        var formStr = $('#form_data').serialize();
+        post_main_data_load(url,formStr);
+    }
+    function reloadsearch(){
+        var url = "account_offline.php?act=list";
+        var formStr = "";
+        post_main_data_load(url,formStr);
+    }
+
+</script>

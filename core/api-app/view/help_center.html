@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>帮助中心</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/app/css/app-main.css">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="http://cdn.66173.cn/app/js/app-main.js"></script>
+</head>
+<body class="help-center-body">
+<div class="common-questions">
+    {foreach item=question key=k from=$data}
+    {$k=$k+1}
+    <div class="question-li" >
+        <div class="title" >
+            <img src="http://static.66173.cn/app/img/Q{$k}.png" class="question-icon" />
+            <div class="question">{$question.question}</div>
+        </div>
+        <div class="answer">
+            {$question.answer}
+        </div>
+    </div>
+    {/foreach}
+</div>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<link href="assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet" />
+<link href="assets/plugins/multiselect/css/multi-select.css"  rel="stylesheet" type="text/css" />
+<link href="assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="assets/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
+<!--kindeditor-->
+<link href="/kindeditor/themes/default/default.css" rel="stylesheet">
+<!-- swfupload for uploadify && kindeditor -->
+<script src="http://static.66173.cn/console/BJUI/plugins/swfupload/swfupload.js"></script>
+<!-- kindeditor -->
+<script src="/kindeditor/kindeditor-all.min.js"></script>
+<script src="/kindeditor/lang/zh_CN.js"></script>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <!--按钮或搜索区域-->
+                <form id="form_data">
+                <div class="col-sm-12 text-xs-center">
+                    <div class="col-md-1 form-group">
+                        <button data-action="modal" class="btn btn-default m-b-20" href="question.php?act=add"><i class="fa fa-plus m-r-5"></i>新建</button>
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <select class="form-control select2" name="is_show">
+                            <option value="">请选择类型</option>
+                            <option value="0"{if $params.is_show eq '0' } selected{/if}>显示</option>
+                            <option value="1"{if $params.is_show eq '1' } selected{/if}>隐藏</option>
+                        </select>
+                    </div>
+                    <span class="btn btn-default m-b-20" href="#;" onclick="search();"><i class="fa fa-search m-r-5"></i>搜索</span>
+                    <span class="btn btn-default m-b-20" href="#;" onclick="reloadsearch();"> <i class="fa fa-undo"></i>清空搜索</span>
+                </div>
+                </form>
+                <!--end--->
+            </div>
+            <div class="table-responsive">
+                <!---核心内容列表区域-->
+                <table class="table m-0 table-hover">
+                    <thead>
+                    <tr class="back_gray">
+                        <th>标题</th>
+                        <th>首页显示</th>
+                        <th>添加时间</th>
+                        <th>编辑</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach from=$question item=data}
+                    <tr>
+                        <th scope="row">{$data.title}</th>
+                        <td>{if $data.is_show eq '0'}是{else}否{/if}</td>
+                        <td>{'Y-m-d H:i:s'|date:$data.add_time}</td>
+                        <td>
+                            <a class="on-default edit-row" data-action="modal" href="question.php?act=edit&id={$data.id}"><i class="fa fa-pencil"></i></a>
+                            <a class="on-default edit-row" data-action="modal" href="question.php?act=del_view&id={$data.id}"><i class="fa md-delete"></i></a>
+                        </td>
+                        <td></td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <!---内容区域end--->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row"><div class="col-lg-12"><div id="page">{$page_bar}</div></div></div>
+<script>
+    jQuery(document).ready(function() {
+        setTimeout(function() {
+            $(".select2").select2();
+        }, 1000);
+    });
+    function search() {
+        var url = "question.php?act=list";
+        var formStr = $('#form_data').serialize();
+        post_main_data_load(url,formStr);
+    }
+    function reloadsearch(){
+        var url = "question.php?act=list";
+        var formStr = "is_show=&";
+        post_main_data_load(url,formStr);
+    }
+</script>

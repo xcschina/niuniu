@@ -1,0 +1,229 @@
+<!---表单验证器加载 参考地址http://coderthemes.com/ubold_1.3/dark_1/form-validation.html-->
+<script type="text/javascript" src="assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+<script src="assets/plugins/bootstrap-filestyle/src/bootstrap-filestyle.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('form').parsley();
+        $(".app-select2").select2();
+    });
+</script>
+<style>
+    .qb_discount{
+        display: none;
+    }
+</style>
+<!--end--->
+<form action="business.php?act=do_add" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">订单添加</h4>
+    </div>
+    <div class="modal-body">
+        <!--<div class="form-group">-->
+            <!--<label class="col-md-2 control-label">商会选择</label>-->
+            <!--<div class="col-md-10">-->
+                <!--<select class="form-control app-select2" name="guild_id" required>-->
+                    <!--<option value="">请选择商会</option>-->
+                    <!--{foreach from=$guild_list item=guild}-->
+                    <!--<option value="{$guild.id}">[{$guild.user_code}]-{$guild.real_name}</option>-->
+                    <!--{/foreach}-->
+                <!--</select>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="form-group">
+            <label class="col-md-2 control-label">游戏名称</label>
+            <div class="col-md-10">
+                <select class="form-control app-select2" name="app_id" id="app_id" required>
+                    <option value="">请选择游戏</option>
+                    {foreach from=$app_list item=app}
+                    <option value="{$app.app_id}">[{$app.app_id}]---{$app.app_name}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">区服名称</label>
+            <div class="col-md-10">
+                <select class="form-control app-select2" name="service_id" id="server_name" required>
+                    <option value="">请选择区服</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">职业名称</label>
+            <div class="col-md-10">
+                <select class="form-control app-select2" name="role_job" required>
+                    <option value="">请选择职业</option>
+                    <option value="狂战士">狂战士</option>
+                    <option value="亡灵巫师">亡灵巫师</option>
+                    <option value="魔法师">魔法师</option>
+                    <option value="异能者">异能者</option>
+                    <option value="血族">血族</option>
+                    <option value="暗黑龙骑">暗黑龙骑</option>
+                    <option value="其他">其他</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">角色性别</label>
+            <div class="col-md-10">
+                男: <input type="radio" checked="checked" name="role_sex" value="1" />&nbsp;&nbsp;&nbsp;&nbsp;
+                女: <input type="radio" name="role_sex" value="2" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">首选角色名</label>
+            <div class="col-md-10">
+                <input name="role_name" type="text" class="form-control" parsley-trigger="change" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">备用角色名</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" parsley-trigger="change" name="spare_role" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">备用账号</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" parsley-trigger="change" name="spare_account" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">补充说明</label>
+            <div class="col-md-10">
+                <textarea class="form-control" parsley-trigger="change" name="desc" ></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">支付方式</label>
+            <div class="col-md-10">
+                线下支付: <input type="radio" checked="checked" name="pay_mode" value="2" />&nbsp;&nbsp;&nbsp;&nbsp;
+                余额支付: <input type="radio" name="pay_mode" value="1" />(当前余额：￥{if $user_info.money}{$user_info.money}{else}0{/if})
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">付款方式</label>
+            <div class="col-md-10">
+                <select class="form-control app-select2" name="payment_method" >
+                    {foreach item=payment from=$payment_list key=k}
+                    <option value="{$k}">{$payment.title}{$payment.account}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">支付金额</label>
+            <div class="col-md-10">
+                <input type="number" class="form-control" parsley-trigger="change" name="money" required/>
+            </div>
+        </div>
+        <input type="hidden" id="discount" value="0.71">
+        <div class="form-group">
+            <label class="col-md-2 control-label">实付金额</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" parsley-trigger="change" name="pay_money" value="" readonly/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">支付凭证</label>
+            <div class="col-md-10">
+                <input id="game_img_add" type="file" name="imgs[]"  style="display: none"  multiple/>
+                <span id="game_add_preview" style="color: #ff0000"></span>
+                <a href="javascript:void(0)" class="btn btn-default  Huploadify-button" id="game_img_bnt">选择图片</a>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light">保存</button>
+    </div>
+</form>
+<script>
+    $("body").on("blur","input[name='money']",function(e){
+        var pay_num = $(this).val();
+        var discount = $("#discount").val();
+        var app_id = $("#app_id").val();
+        if(app_id){
+            var pay_money = pay_num*discount;
+            $("input[name='pay_money']").val(pay_money);
+        }
+    });
+    $("body").off('change', "#app_id");
+    $("body").on('change','#app_id',function(e){
+       var app_id = $(this).val();
+       var user_id = "{$smarty.session.usr_id}";
+       if(app_id){
+           $.ajax({
+               type:'post',
+               url:'/business.php?act=get_service',
+               data:{
+                   app_id: app_id,
+                   user_id:user_id
+               },
+               dataType: 'json',
+               success: function (res) {
+                   if(res.code==1){
+                       var data = res.list;
+                       $("#s2id_server_name .select2-choice .select2-chosen").html('请选择区服');
+                       $('#server_name').empty().append('<option value="">请选择区服</option>');
+                       for(var i=0;i<data.length;i++){
+                           $('#server_name').append('<option value="'+data[i].service_id+'">'+data[i].service_name+'</option>');
+                       }
+                       var discount = res.info['discount']?res.info['discount']:1;
+                       var pay_num = $("input[name='money']").val();
+                       $("input[name='pay_money']").val(pay_num*discount);
+                   }else{
+                       $("#s2id_server_name .select2-choice .select2-chosen").html('请选择区服');
+                       $('#server_name').empty();
+                   }
+               }
+           })
+       }
+    });
+    $(function(){
+        $("#game_img_bnt").bind('click',function(){
+            var ie=navigator.appName=="Microsoft Internet Explorer" ? true : false;
+            if(ie){
+                $("#game_img_add").click;
+            }else{
+                var a=document.createEvent("MouseEvents");
+                a.initEvent("click", true, true);
+                document.getElementById("game_img_add").dispatchEvent(a);
+            }
+        });
+
+        rFilter = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/jpeg|image\/jpeg|image\/png|)$/i;
+        (function () {
+            var viewFiles = document.getElementById("game_img_add");
+            function viewFile (file,i) {
+                html = $("#game_add_preview").html();
+                //通过file.size可以取得图片大小
+                var reader = new FileReader();
+                reader.onload = function(evt){
+                    html +="<img style='height: 120px;width: 100px;margin-right: 10px;'  src=\""+evt.target.result+"\" />";
+                    $("#game_add_preview").html(html);
+                }
+                reader.readAsDataURL(file);
+            }
+            viewFiles.addEventListener("change", function () {
+                for(i=0;imgFile = document.getElementById("game_img_add").files[i];i++){
+                    if(i>2){
+                        document.getElementById("game_img_add").value="";
+                        $("#game_add_preview").html("最多3张图片");
+                        return;
+                    }
+                    if (!rFilter.test(imgFile.type)) {
+                        document.getElementById("game_img_add").value="";
+                        $("#game_add_preview").html("图片格式不对，支持jpg、png、gif!");
+                        return;
+                    }
+                }
+                $("#game_add_preview").html('');
+                for (var i = 0; file = this.files[i]; i++) {
+                    viewFile(file,i);
+                }
+            }, false);
+        })();
+    })
+</script>

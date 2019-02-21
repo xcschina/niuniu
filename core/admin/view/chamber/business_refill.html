@@ -1,0 +1,140 @@
+<!---表单验证器加载 参考地址http://coderthemes.com/ubold_1.3/dark_1/form-validation.html-->
+<script type="text/javascript" src="assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+<script src="assets/plugins/bootstrap-filestyle/src/bootstrap-filestyle.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('form').parsley();
+        $(".business-select2").select2();
+    });
+</script>
+<!--end--->
+<form action="business.php?act=do_refill" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">续充订单</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-md-2 control-label">游戏名称</label>
+            <div class="col-md-10 m-t-7">
+              {$info.app_name}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">区服名称</label>
+            <div class="col-md-10 m-t-7">
+                {$info.service_name}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">职业名称</label>
+            <div class="col-md-10 m-t-7">
+                {$info.role_job}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">角色性别</label>
+            <div class="col-md-10 m-t-7">
+                {if $info.role_sex eq '1'}男{elseif $info.role_sex eq '2'}女{/if}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">登录账号</label>
+            <div class="col-md-10 m-t-7">
+                {$info.role_account}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">补充说明</label>
+            <div class="col-md-10">
+                <textarea class="form-control" parsley-trigger="change" name="desc" ></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">支付方式</label>
+            <div class="col-md-10">
+                线下支付: <input type="radio" checked="checked"  name="pay_mode" value="2" />&nbsp;&nbsp;&nbsp;&nbsp;
+                余额支付: <input type="radio" name="pay_mode" value="1" />(当前余额：￥{if $user_info.money}{$user_info.money}{else}0{/if})
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">支付金额</label>
+            <div class="col-md-10">
+                <input type="number" class="form-control" parsley-trigger="change" name="money" value="{$info.money}" required/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">实付金额</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" parsley-trigger="change" name="pay_money" value="{$info.pay_money}" readonly/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">支付凭证</label>
+            <div class="col-md-10">
+                <input id="game_img_add" type="file" name="imgs[]"  style="display: none"  multiple/>
+                <span id="game_add_preview" style="color: #ff0000"></span>
+                <a href="javascript:void(0)" class="btn btn-default  Huploadify-button" id="game_img_bnt">选择图片</a>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="hidden" name="discount" id="discount" value="{$info.discount}">
+        <input type="hidden" name="id"  value="{$info.id}">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light">保存</button>
+    </div>
+</form>
+<script>
+    $("body").on("blur","input[name='money']",function(e){
+        var pay_num = $(this).val();
+        var discount = $("#discount").val();
+        var pay_money = pay_num*discount;
+        $("input[name='pay_money']").val(pay_money);
+    });
+    $(function(){
+        $("#game_img_bnt").bind('click',function(){
+            var ie=navigator.appName=="Microsoft Internet Explorer" ? true : false;
+            if(ie){
+                $("#game_img_add").click;
+            }else{
+                var a=document.createEvent("MouseEvents");
+                a.initEvent("click", true, true);
+                document.getElementById("game_img_add").dispatchEvent(a);
+            }
+        });
+
+        rFilter = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/jpeg|image\/jpeg|image\/png|)$/i;
+        (function () {
+            var viewFiles = document.getElementById("game_img_add");
+            function viewFile (file,i) {
+                html = $("#game_add_preview").html();
+                //通过file.size可以取得图片大小
+                var reader = new FileReader();
+                reader.onload = function(evt){
+                    html +="<img style='height: 120px;width: 100px;margin-right: 10px;'  src=\""+evt.target.result+"\" />";
+                    $("#game_add_preview").html(html);
+                }
+                reader.readAsDataURL(file);
+            }
+            viewFiles.addEventListener("change", function () {
+                for(i=0;imgFile = document.getElementById("game_img_add").files[i];i++){
+                    if(i>2){
+                        document.getElementById("game_img_add").value="";
+                        $("#game_add_preview").html("最多3张图片");
+                        return;
+                    }
+                    if (!rFilter.test(imgFile.type)) {
+                        document.getElementById("game_img_add").value="";
+                        $("#game_add_preview").html("图片格式不对，支持jpg、png、gif!");
+                        return;
+                    }
+                }
+                $("#game_add_preview").html('');
+                for (var i = 0; file = this.files[i]; i++) {
+                    viewFile(file,i);
+                }
+            }, false);
+        })();
+    })
+</script>

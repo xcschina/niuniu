@@ -1,0 +1,101 @@
+<link href="assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<script src="assets/plugins/select2/select2.min.js" type="text/javascript"></script>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <form id="form_data">
+                <!--按钮或搜索区域-->
+                <div class="col-sm-12 text-xs-center">
+                    <div class="col-md-2">
+                        <select class="form-control select2" name="app_id">
+                            <option value="">请选择游戏</option>
+                            {foreach from=$app_list item=data}
+                            <option value="{$data.app_id}"{if $data.app_id eq $params.app_id} selected{/if}>[{$data.app_id}]{$data.app_name}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control select2" name="guild_code">
+                            <option value="">请选择用户</option>
+                            {foreach from=$guild_list item=guild}
+                            <option value="{$guild.user_code}"{if $guild.user_code eq $params.guild_code} selected{/if}>[{$guild.user_code}]{$guild.real_name}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control select2" name="status">
+                            <option value="">请选择状态</option>
+                            <option value="0"{if $params.status eq '0'} selected{/if}>准备打包</option>
+                            <option value="1"{if $params.status eq '1'} selected{/if}>打包</option>
+                            <option value="2"{if $params.status eq '2'} selected{/if}>已上</option>
+                            <option value="3"{if $params.status eq '3'} selected{/if}>已加载</option>
+                            <option value="4"{if $params.status eq '4'} selected{/if}>完成</option>
+                        </select>
+                    </div>
+                    <span class="btn btn-default m-b-20" href="#;" onclick="search();"><i class="fa fa-search m-r-5"></i>搜索</span>
+                    <span class="btn btn-default m-b-20" href="#;" onclick="reloadsearch();"> <i class="fa fa-undo"></i>清空搜索</span>
+                </div>
+                <!--end--->
+                </form>
+            </div>
+            <div class="table-responsive">
+                <!---核心内容列表区域-->
+                <table class="table table-striped m-0">
+                    <thead>
+                    <tr>
+                        <th>APPID</th>
+                        <th>游戏名称</th>
+                        <th>用户名</th>
+                        <th>状态</th>
+                        <th>包大小</th>
+                        <th>下载地址</th>
+                        <th>打包时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach from=$list item=data}
+                    <tr>
+                        <th scope="row">{$data.app_id}</th>
+                        <td>{$data.app_name}</td>
+                        <td>{$data.real_name}</td>
+                        <td>{if $data.status eq '0'}准备打包{else if $data.status eq '1'}打包{else if $data.status eq '2'}已上{else if $data.status eq '3'}已加载{else if $data.status eq '4'}完成{/if}</td>
+                        <td>{$data.apk_size}</td>
+                        <td>{$data.down_url}</td>
+                        <td>{if $data.time}{$data.time|date_format: '%Y-%m-%d %H:%M'}{/if}</td>
+                        <td>
+                            {if $data.status eq 3}
+                            {if $data.type eq 0}
+                            <a  data-action="modal" class="btn btn-default pack" href="guild.php?act=pack_validate&id={$data.id}" >验证</a>
+                            {else}
+                            <a data-action="modal" class="btn btn-default pack" href="guild.php?act=pack_status&id={$data.id}"><i class="fa m-r-5"></i>完成打包</a>
+                            {/if}
+                            {/if}
+                        </td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <!---内容区域end--->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row"><div class="col-lg-12"><div id="page">{$page_bar}</div></div></div>
+<script>
+    jQuery(document).ready(function() {
+        $(".select2").select2();
+    });
+    function search() {
+        var url = "guild.php?act=pack_list";
+        var formStr = $('#form_data').serialize();
+        post_main_data_load(url,formStr);
+    }
+
+    function reloadsearch(){
+        var url = "guild.php?act=pack_list";
+        var formStr = "app_id=&status=&guild_code=";
+        post_main_data_load(url,formStr);
+    }
+</script>

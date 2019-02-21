@@ -1,0 +1,41 @@
+<form action="ccm_service.php?act=do_service_edit" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">区服修改</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-md-3 control-label">游戏</label>
+            <div class="col-md-9">
+                <select class="form-control select2_edit" name="app_id_edit">
+                    {foreach from=$applist item=data}
+                    <option value="{$data.app_id}" {if $data.app_id eq $serviceinfo.app_id}selected{/if}>[{$data.app_id}]{$data.app_name}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">区服ID</label>
+            <div class="col-md-9">
+                <input type="number" class="form-control" parsley-trigger="change" required name="service_id_edit" value="{$serviceinfo.service_id}"  />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">区服名称</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" parsley-trigger="change" required name="service_name_edit" value="{$serviceinfo.service_name}"  />
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="hidden" value="{$serviceinfo.id}" name="id" />
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light">保存</button>
+    </div>
+</form>
+<script>
+    jQuery(document).ready(function() {
+        $("#myform").parsley();
+        $(".select2_edit").select2();
+    });
+</script>

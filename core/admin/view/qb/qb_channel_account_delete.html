@@ -1,0 +1,17 @@
+<form  action="qb_channel_account.php?act=do_delete" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">账号删除</h4>
+    </div>
+    <div class="modal-body">
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">确认是否删除？</label>
+            <input type="hidden" name="id" value="{$id}">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light">确定</button>
+    </div>
+</form>

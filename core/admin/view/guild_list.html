@@ -1,0 +1,134 @@
+<link href="assets/plugins/multiselect/css/multi-select.css"  rel="stylesheet" type="text/css" />
+<link href="assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script type="text/javascript" src="assets/plugins/multiselect/js/jquery.multi-select.js"></script>
+<script type="text/javascript" src="assets/plugins/jquery-quicksearch/jquery.quicksearch.js"></script>
+<script src="assets/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <!--按钮或搜索区域-->
+                <div class="col-sm-12 text-xs-center">
+                    <p>牛币余额:{if $user_info.nnb}{$user_info.nnb}{else}0.00{/if}</p>
+                    {if $user_info.group_id eq "1"}
+                    <p>汇总:超级后台余额:&nbsp;{$user_info.b_guild}<span class="m-l-15">高级后台余额:&nbsp;{$user_info.m_guild}</span><span class="m-l-15">普通后台余额:&nbsp;{$user_info.s_guild}</span></p>
+                    {elseif $user_info.group_id eq "10"}
+                    {if $user_info.p1 eq "0" and $user_info.p2 eq "0"}
+                    <p>汇总:高级后台余额:&nbsp;{$user_info.son_sum}<span class="m-l-15">普通后台余额:&nbsp;{$user_info.lower_sum}</span></p>
+                    {elseif $user_info.p2 eq "0"}
+                    <p>汇总:普通后台余额:&nbsp;{$user_info.son_sum}
+                    {/if}
+                    {/if}
+                </div>
+                <div class="col-sm-12 text-xs-center">
+                    <div class="col-md-2 form-group">
+                        <select class="form-control select2" name="guild">
+                            <option value="">请选择公会</option>
+                            {foreach from=$guild_list item=guild}
+                            <option value="{$guild.user_code}"{if $guild.user_code eq $params.guild} selected{/if}>{$guild.real_name}/{$guild.user_code}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <div class="col-md-1 form-group">
+                        <select class="form-control select2" name="type">
+                            <option value="">请选择后台类型</option>
+                            {if $smarty.session.group_id eq 1 }
+                            <option value="1"{if $params.type eq 1 } selected{/if}>超级后台</option>
+                            {/if}
+                            <option value="2"{if $params.type eq 2 } selected{/if}>高级后台</option>
+                            <option value="3"{if $params.type eq 3 } selected{/if}>普通后台</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-default m-b-20" href="#;" onclick="search();"><i class="fa fa-search m-r-5"></i>搜索</button>
+                    <button class="btn btn-default m-b-20" href="#;" onclick="reloadsearch();"> <i class="fa fa-undo"></i>清空搜索</button>
+                    <a type="button" class="btn btn-default m-b-20" href="guild.php?act=export&start_time={$params.start_time}&end_time={$params.end_time}&status={$params.status}">导出</a>
+                </div>
+                <!--end--->
+            </div>
+            <div class="table-responsive">
+                <!---核心内容列表区域-->
+                <table class="table m-0 table-hover">
+                    <thead>
+                    <tr class="back_gray">
+                        <th>用户ID</th>
+                        <th>公会名</th>
+                        <th>账号</th>
+                        <th>代码</th>
+                        <th>后台类型</th>
+                        <th>账号状态</th>
+                        <th>账号余额</th>
+                        <th>下级账号余额</th>
+                        <th>子账号充值</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach from=$datalist item=data}
+                    <tr>
+                        <th scope="row">{$data.id}</th>
+                        <td>{$data.real_name}</td>
+                        <td>{$data.account}</td>
+                        <td>{$data.user_code}</td>
+                        <td>{if $data.p1 != '0' and $data.p2 != '0'}普通后台
+                            {elseif $data.p1 != '0'}高级后台
+                            {else}超级后台
+                            {/if}
+                        </td>
+                        <!--<td>备注</td>-->
+                        <td>{if $data.nnb_lock eq '1'}冻结中{elseif $data.nnb_lock eq '0'}正常{/if}</td>
+                        <td>{$data.nnb}</td>
+                        <td>{$data.son_sum}</td>
+                        <td>
+                            {if $data.nnb_lock eq '1'}
+                            <a class="btn btn-info btn-sm" data-action="modal" href="guild.php?act=frozen&son_id={$data.id}&parent_id={$user_info.id}&type=2">解冻</a>
+                            {elseif $data.nnb_lock eq '0'}
+                            <a class="btn btn-default btn-sm" data-action="modal" onclick="go_pay({$data.id})" href="guild.php?act=recharge&son_id={$data.id}&parent_id={$user_info.id}&type=1">充值</a>
+                            <a class="btn btn-info btn-sm" data-action="modal" href="guild.php?act=frozen&son_id={$data.id}&parent_id={$user_info.id}&type=1">冻结</a>
+                            {if $data.nnb > 0 and $smarty.session.group_id eq 1}
+                            <a class="btn btn-danger btn-sm" data-action="modal" href="guild.php?act=revoke&son_id={$data.id}&parent_id={$user_info.id}&type=9">撤回</a>
+                            {/if}
+                            {/if}
+                        </td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <input type="hidden" value="{$user_info.nnb}" name="amount">
+                <input type="hidden" value="{$user_info.id}" name="id">
+                <!---内容区域end--->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row"><div class="col-lg-12"><div id="page">{$page_bar}</div></div></div>
+<script>
+    function go_pay(guild_id){
+        if(!guild_id){
+            alert("缺少必要参数,请重新登录.");
+            return false;
+        }
+        var amount = $("input[name='amount']").val();
+        if(amount === 0 || amount==""){
+            alert("帐号余额不足");
+            return false;
+        }
+    }
+    jQuery(document).ready(function() {
+        // Select2
+        $(".select2").select2();
+    });
+
+    function search() {
+        guild = $("select[name='guild']").val();
+        type = $("select[name='type']").val();
+        url = "guild.php?act=guild_list&guild="+guild+"&type="+type;
+        main_data_load(url);
+        return false;
+    }
+    function reloadsearch(){
+        url = "guild.php?act=guild_list&guild=&type=";
+        main_data_load(url);
+    }
+
+</script>

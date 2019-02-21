@@ -1,0 +1,56 @@
+<link href="assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+<style>
+    .modal-button,.modal-title{
+        text-align: center;
+    }
+    .date-repair{
+        margin: 12px;
+        padding: 8px 37px;
+        font-size: 16px;
+    }
+</style>
+<form action="business_inside.php?act=do_data_repair" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="online-form" class="form-horizontal"  data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button"  class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">所需修复数据时间段设置</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-md-2 control-label">执行员：</label>
+            <div class="col-md-10 m-t-5">
+                <select class="form-control select-group" name="user_id">
+                    {foreach from=$group_list item=group}
+                    <option value="{$group.id}"{if $group.id eq $params.user_id} selected{/if}>[{$group.real_name}]</option>
+                    {/foreach}
+                </select>
+            </div>
+            <label class="col-md-2 control-label">时间：</label>
+            <div class="col-md-10 m-t-5">
+                <div class="input-daterange input-group" id="date-repair">
+                    <input type="text" class="form-control" name="start_time" />
+                    <span class="input-group-addon bg-custom b-0 text-white">to</span>
+                    <input type="text" class="form-control" name="end_time"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12 modal-button">
+                <button type="submit" class="btn btn-info waves-effect waves-light date-repair">修复</button>
+                <button type="button" class="btn btn-default waves-effect date-repair"  data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</form>
+<script src="assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        // Date Picker
+        jQuery('#datepicker').datepicker();
+        jQuery('#date-repair').datepicker({
+            format: "yyyy-mm-dd",
+            toggleActive: true
+        });
+        // Select2
+        $(".select-group").select2();
+    });
+</script>

@@ -1,0 +1,114 @@
+<link href="assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script type="text/javascript" src="assets/plugins/jquery-quicksearch/jquery.quicksearch.js"></script>
+<script src="assets/plugins/select2/select2.min.js" type="text/javascript"></script>
+<style>
+    table{
+        word-break: break-all;
+    }
+</style>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <form  id="form_data">
+                <div class="col-sm-12 text-xs-center">
+                    <div class="col-md-2">
+                        <select class="form-control select2" name="app_id">
+                            <option value="">请选择游戏</option>
+                            {foreach from=$app_list item=name}
+                            <option value="{$name.app_id}"{if $name.app_id eq $params.app_id} selected{/if}>[{$name.app_id}]{$name.app_name}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control select2" name="type">
+                            <option value="">请选择问题类型</option>
+                            <option value="1"{if $params.type eq 1} selected{/if}>其他</option>
+                            <option value="2"{if $params.type eq 2} selected{/if}>账号问题</option>
+                            <option value="3"{if $params.type eq 3} selected{/if}>充值问题</option>
+                            <option value="4"{if $params.type eq 4} selected{/if}>游戏问题</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control select2" name="status">
+                            <option value="">请选择状态</option>
+                            <option value="0"{if $params.status eq '0'} selected{/if}>待处理</option>
+                            <option value="1"{if $params.status eq '1'} selected{/if}>已处理</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="number" value="{$params.operator_id}" name="operator_id" class="form-control" placeholder="请输入操作人ID"/>
+                    </div>
+                    <span class="btn btn-default m-b-20" href="#;" onclick="search();"><i class="fa fa-search m-r-5"></i>搜索</span>
+                    <span class="btn btn-default m-b-20" href="#;" onclick="reloadsearch();"> <i class="fa fa-undo"></i>刷新</span>
+                </div>
+                <!--按钮或搜索区域-->
+                <!--<div class="col-sm-12 text-xs-center">-->
+                    <!--<button data-action="modal" class="btn btn-default m-b-20" href="product.php?act=add"><i class="fa fa-plus m-r-5"></i>添加新品</button>-->
+                <!--</div>-->
+                <!--end--->
+                </form>
+            </div>
+            <div class="table-responsive">
+                <!---核心内容列表区域-->
+                <table class="table table-striped m-0">
+                    <thead>
+                    <tr>
+                        <th width="80">ID</th>
+                        <th width="120">游戏名称</th>
+                        <th width="200">用户帐户</th>
+                        <th width="100">联系方式</th>
+                        <th width="300">反馈问题</th>
+                        <th width="200">反馈时间</th>
+                        <th width="120">问题类型</th>
+                        <th width="100">状态</th>
+                        <th width="80">回复人</th>
+                        <th width="200">回复时间</th>
+                        <th width="50">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {foreach from=$list item=data}
+                            <tr {if $data.feedback_desc neq ""} class="danger"{/if}>
+                            <td scope="row">{$data.id}</td>
+                                <td>{$data.app_name}</td>
+                                <td>{$data.login_name}</td>
+                                <td>{$data.mode}</td>
+                                <td>{$data.desc}</td>
+                                <td>{'Y-m-d H:i:s'|date:$data.add_time}</td>
+                                <td>{if $data.type eq 1}其他{else if $data.type eq 2}账号问题{else if $data.type eq 3}充值问题{else if $data.type eq 4}游戏问题{/if}</td>
+                                <td>{if $data.status eq '0'}待处理{else if $data.status eq '1'}已处理{/if}</td>
+                                <td>{$data.operator_id}</td>
+                                <td>
+                                    {if $data.feedback_time}{'Y-m-d H:i:s'|date:$data.feedback_time}{/if}
+                                </td>
+                                <td>
+                                    <a class="on-default edit-row" data-action="modal" href="app_feedback.php?act=edit&id={$data.id}"><i class="fa fa-pencil"></i></a>
+                                </td>
+                            </tr>
+                        {/foreach}
+                    </tbody>
+                </table>
+                <!---内容区域end--->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row"><div class="col-lg-12"><div id="page">{$page_bar}</div></div></div>
+
+<script>
+    jQuery(document).ready(function() {
+        $(".select2").select2();
+    });
+    function search() {
+        var url = "app_feedback.php?act=list";
+        var formStr = $('#form_data').serialize();
+        post_main_data_load(url,formStr);
+    }
+    function reloadsearch(){
+        var url = "app_feedback.php?act=list";
+        var formStr = "app_id=&operator_id=&type=&status=";
+        post_main_data_load(url,formStr);
+    }
+</script>

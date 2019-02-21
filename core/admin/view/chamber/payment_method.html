@@ -1,0 +1,49 @@
+<!---表单验证器加载 参考地址http://coderthemes.com/ubold_1.3/dark_1/form-validation.html-->
+<script type="text/javascript" src="assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+<script src="assets/plugins/bootstrap-filestyle/src/bootstrap-filestyle.min.js" type="text/javascript"></script>
+<!--end--->
+<form action="ccm_account.php?act=do_payment" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">收款方式管理</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <!---核心内容列表区域-->
+            <table class="table table-bordered">
+                <thead>
+                <tr class="back_gray">
+                    <th><input type="checkbox" id="check_payment_all"  />全选</th>
+                    <th>收款方式</th>
+                    <th>账号</th>
+                </tr>
+                </thead>
+                <tbody id="payment_list">
+                {foreach item=list from=$payment key=k}
+                 <tr>
+                     <td><input type="checkbox"  {if in_array($k,$payment_list)}checked {/if} value="{$k}" name="payment[]"></td>
+                     <td>{$list.title}</td>
+                     <td>{$list.account}</td>
+                 </tr>
+                {/foreach}
+                </tbody>
+            </table>
+            <!---内容区域end--->
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="hidden" value="{$user_id}" name="user_id">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light">保存</button>
+    </div>
+</form>
+<script>
+    //全选反选
+    $("#check_payment_all").on("click",function(){
+        if ($(this).prop("checked")){
+            $("#payment_list").find("input[type='checkbox']").prop("checked","checked");
+        }else{
+            $("#payment_list").find("input[type='checkbox']").removeAttr("checked");
+        }
+    });
+</script>

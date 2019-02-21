@@ -1,0 +1,97 @@
+<form action="account.php?act=do_edit&id={$info.id}" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">账号修改</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-md-3 control-label">用户组</label>
+            <div class="col-md-9">
+                <select name="group_id" required class="form-control" id="group_id">
+                    <option value="">请选择</option>
+                    {foreach from=$groups item=group}
+                    <option value="{$group.id}"{if $info.group_id eq $group.id} selected{/if}>{$group.ch_name}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">备用组</label>
+            <div class="col-md-9">
+                <select name="group_id2" required class="form-control" id="group_id2">
+                    <option value="">请选择</option>
+                    {foreach from=$groups item=group}
+                    <option value="{$group.id}"{if $info.group_id2 eq $group.id} selected{/if}>{$group.ch_name}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">账号</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" parsley-trigger="change" required name="account" value="{$info.account}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">姓名(公会名)</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" parsley-trigger="change" required name="real_name" value="{$info.real_name}" />
+            </div>
+        </div>
+        <div class="form-group" id="ch_id" {if $info.group_id neq '11'}style="display: none"{/if}>
+            <label class="col-md-3 control-label">关联渠道</label>
+            <div class="col-md-9">
+                <select name="ch_id" required class="form-control">
+                    <option value="">请选择</option>
+                    {foreach from=$ch_list item=ch}
+                    <option value="{$ch.id}" {if $info.ch_id eq $ch.id } selected{/if}>[{$ch.id}]-{$ch.name}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">qq</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" parsley-trigger="change" name="qq" value="{$info.qq}" />
+            </div>
+        </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label">邮箱</label>
+        <div class="col-md-9">
+            <input type="text" class="form-control" parsley-trigger="change" name="email" value="{$info.email}" />
+        </div>
+    </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">代码</label>
+            <div class="col-md-9">
+                {if $info.user_code eq ""}
+                <input type="text" class="form-control" parsley-trigger="change" required name="user_code" value="{$info.user_code}" />
+                {else}
+                <p class="form-control-static">{$info.user_code}</p><input type="hidden" name="user_code" value="{$user_code}" />
+                {/if}
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        {if $info.user_code}
+        <input type="hidden" name="user_code" value="{$info.user_code}" />
+        {/if}
+        <input type="hidden" name="id" value="{$info.id}" />
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light">保存</button>
+    </div>
+</form>
+{literal}
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        $(".select2").select2();
+        $("#group_id").change(function(){
+            if($(this).val() == '11'){
+                $("#ch_id").show();
+            }else{
+                $("#ch_id").hide();
+            }
+        });
+    });
+</script>
+{/literal}

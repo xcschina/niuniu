@@ -1,0 +1,89 @@
+<link href="assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet" />
+<link href="assets/plugins/multiselect/css/multi-select.css"  rel="stylesheet" type="text/css" />
+<link href="assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="assets/plugins/switchery/dist/switchery.min.js"></script>
+<script type="text/javascript" src="assets/plugins/multiselect/js/jquery.multi-select.js"></script>
+<script type="text/javascript" src="assets/plugins/jquery-quicksearch/jquery.quicksearch.js"></script>
+<script src="assets/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
+<!---表单验证器加载 参考地址http://coderthemes.com/ubold_1.3/dark_1/form-validation.html-->
+<script type="text/javascript" src="assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+<script src="assets/plugins/bootstrap-filestyle/src/bootstrap-filestyle.min.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('form').parsley();
+    });
+</script>
+<!--end--->
+<form action="channel_app.php?act=do_add_money" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">下游充值</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-md-2 control-label">游戏名称</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control"  name="app_name" disabled="disabled" value="{$info.app_name}[{$info.channel}]" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">当前比例</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control"  name="ratio" disabled="disabled" value="1:{$info.ratio}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">充值金额</label>
+            <div class="col-md-10">
+                <input type="number" class="form-control" name="amount" value="" required/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">充值上限金额</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control"  name="amount_num" readonly />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">充值截图</label>
+            <div class="col-md-10">
+                <input name="pay_img" type="file" class="filestyle" data-buttonname="btn-white" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">充值密码</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="password" value="" required/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">备注</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="remarks"/>
+            </div>
+        </div>
+        <input type="hidden" value="{$pagehash}" name="page_hash">
+        <input type="hidden" value="{$info.id}" name="id">
+        <input type="hidden" value="{$info.ratio}" name="ch_ratio">
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light">保存</button>
+    </div>
+</form>
+<script>
+    jQuery(document).ready(function() {
+        // Select2
+        $(".select2").select2();
+    });
+    $("input[name='amount']").on("change",function(){
+        var nd_input = $("input[name='amount']").val();
+        var discount = $("input[name='ch_ratio']").val();
+        var nnb_no = parseInt(nd_input)*parseFloat(discount);
+        $("input[name='amount_num']").val(nnb_no.toFixed(2));
+    });
+</script>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>我的订单</title>
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<link rel="stylesheet" type="text/css" href="http://static.66173.cn/app/css/my_order.css?{$smarty.now}" media="screen" />
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdn.66173.cn/app/js/app-main.js"></script>
+</head>
+
+<body>
+<div class="my-order">
+	<div class="order-bar">
+		<div class="bar-item {if $status eq ''}active{/if}" data-left="0%" rel="">全部</div>
+		<div class="bar-item {if $status eq '1'}active{/if}" data-left="25%" rel="1">已成交</div>
+		<div class="bar-item {if $status eq '0'}active{/if}" data-left="50%" rel="0">待付款</div>
+		<div class="bar-item {if $status eq '9'}active{/if}" data-left="75%" rel="9">已取消</div>
+	</div>
+	<!-- <div class="active-border-line"></div> -->
+	<form action="/my.php?act=my_order" method="post" id="order-list">
+		<div class="order-list">
+			{foreach from=$order_list item=order}
+			<div class="order-item">
+				<div class="left">
+					<div class="title text-overflow">{$order.title}</div>
+					<div class="left-grey text-overflow">
+						<span>[{$order.game_name}]{$order.buy_time|date_format:'%Y/%m/%d'}</span>
+						<span class="num">{$order.amount}件</span>
+					</div>
+				</div>
+				<div class="right">
+					{if $order.status eq '0'}
+					<span class="status-btn unpaid">待付款</span>
+					{elseif $order.status eq '1'}
+					<span class="status-btn deal">已付款</span>
+					{elseif $order.status eq '2'}
+					<span class="status-btn deal">已成交</span>
+					{else}
+					<span class="status-btn cancelled">已取消</span>
+					{/if}
+					<div class="pay">￥{$order.unit_price}</div>
+				</div>
+			</div>
+			{/foreach}
+			<div id="more"></div>
+		</div>
+		<input name="status" value="{$status}" type="hidden">
+		<input name="user_id" value="{$user_id}" type="hidden">
+		<input name="page" value="1" type="hidden">
+	</form>
+	{if $order_list|@count eq '10'}
+	<div class="more-zone"><span class="more">更多</span></div>
+	{/if}
+</div>
+</body>
+{literal}
+<script type="text/javascript">
+	$(".order-bar").on("click", ".bar-item", function(e) {
+//		var $cur = $(e.currentTarget);
+//		var left = $cur.data("left");
+//		$cur.addClass("active").siblings().removeClass("active");
+//		$(".active-border-line").animate({left: left}, 300);
+		rel=$(this).attr("rel");
+		$("input[name='status']").val(rel);
+		$('#order-list').submit();
+	});
+	$(".more").on("click", function(e) {
+		status = $("input[name='status']").val();
+		user_id = $("input[name='user_id']").val();
+		var page = $("input[name='page']").val();
+		new_page = parseInt(page) + 1;
+		$("input[name='page']").val(new_page);
+		url = "/my.php?act=more_order";
+		$.ajax({
+			url: url,// 跳转到 action
+			data:{
+				status : status,
+				page : new_page,
+				user_id : user_id
+			},
+			type:'post',
+			cache:false,
+			dataType:'json',
+			timeout : 5000,
+			beforeSend:function () {
+			},
+			success:function(result) {
+				var date = new Date();
+				if(result.error=='0'){
+					for(var i = 0; i < result.data.length; ++i) {
+						var value = result.data[i];
+						var contest = '<div class="order-item"><div class="left"><div class="title">' + value.title + '</div>';
+						contest += '<div class="left-grey"><span>' + value.game_name + '/' +  getLocalTime(value.buy_time) + '&nbsp;</span><span class="num">' + value.amount + '件</span></div></div>';
+						if (value.game_name == '0') {
+							contest += '<div class="right"><span class="status-btn unpaid">待付款</span>';
+						} else if (value.game_name == '1') {
+							contest += '<div class="right"><span class="status-btn deal">已付款</span>';
+						} else if (value.game_name == '2') {
+							contest += '<div class="right"><span class="status-btn deal">已成交</span>';
+						} else {
+							contest += '<div class="right"><span class="status-btn cancelled">已取消</span>';
+						}
+						contest += '<div class="pay">￥' + value.unit_price + '</div></div>';
+						if(result.count < 10){
+							$(".more-zone").hide();
+						}
+						$("#more").append(contest);
+					}
+				}else if(result.error=='1'){
+					alert(result.msg);
+				}
+			}
+		});
+
+	})
+	function getLocalTime(nS) {
+		return new Date(parseInt(nS) * 1000).toLocaleString().substr(0,10)
+	}
+</script>
+{/literal}
+</html>

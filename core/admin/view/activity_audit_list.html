@@ -1,0 +1,123 @@
+<link href="assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet" />
+<link href="assets/plugins/multiselect/css/multi-select.css"  rel="stylesheet" type="text/css" />
+<link href="assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="assets/plugins/switchery/dist/switchery.min.js"></script>
+<script type="text/javascript" src="assets/plugins/multiselect/js/jquery.multi-select.js"></script>
+<script type="text/javascript" src="assets/plugins/jquery-quicksearch/jquery.quicksearch.js"></script>
+<script src="assets/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <!--按钮或搜索区域-->
+                <div class="col-sm-12 text-xs-center">
+                    <div class="col-md-2 form-group">
+                        <select class="form-control select2" data-placeholder="请选活动" name="activity_id">
+                            <option value="">请选活动</option>
+                            {foreach from=$activity_list item=activity}
+                            <option value="{$activity.id}" {if $activity.id eq $params.activity_id}selected{/if}>{$activity.title}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <select class="form-control select2" name="status">
+                            <option value="">请选择状态</option>
+                            <option value="1" {if $params.status eq '1' } selected{/if}>等待审核</option>
+                            <option value="2" {if $params.status eq '2' } selected{/if}>审核不通过</option>
+                            <option value="3" {if $params.status eq '3' } selected{/if}>审核通过</option>
+                        </select>
+                    </div>
+                    {if $admin eq 1}
+                    <div class="col-md-2 form-group">
+                        <input type="number" value="{$params.guild_id}" name="guild_id" class="form-control" placeholder="请输入申请人id">
+                    </div>
+                    {/if}
+                    <button class="btn btn-default m-b-20" href="#;" onclick="search();"><i class="fa fa-search m-r-5"></i>搜索</button>
+                    <button class="btn btn-default m-b-20" href="#;" onclick="reloadsearch();"> <i class="fa fa-undo"></i>清空搜索</button>
+                </div>
+                <!--end--->
+            </div>
+            <div class="table-responsive">
+                <!---核心内容列表区域-->
+                <table class="table m-0 table-hover">
+                    <thead>
+                    <tr class="back_gray">
+                        <th>NO.</th>
+                        <th>活动名</th>
+                        {if $admin eq 1}
+                        <th>申请人ID</th>
+                        <th>申请人</th>
+                        {else}
+                        <th>审核人</th>
+                        <th>审核时间</th>
+                        <th>理由</th>
+                        {/if}
+                        <th>审核状态</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach from=$reserve_list item=data}
+                    <tr>
+                        <th scope="row">{$data.id}</th>
+                        <td>{$data.title}</td>
+                        {if $admin eq 1}
+                        <td>{$data.guild_id}</td>
+                        <td>{$data.real_name}</td>
+                        {else}
+                        <td>{$data.real_name}</td>
+                        <td>{if $data.operator_time}{'Y-m-d H:i:s'|date:$data.operator_time}{/if}</td>
+                        <td>{$data.reason}</td>
+                        {/if}
+                        <td>
+                            {if $data.status eq 1}
+                            <span style="color: orange">[等待审核]</span>
+                            {else if $data.status eq 2 }
+                            <span style="color: red">[审核不通过]</span>
+                            {else if $data.status eq 3}
+                            <span >[审核通过]</span>
+                            {/if}
+                        </td>
+                        <td>{'Y-m-d H:i:s'|date:$data.add_time}</td>
+                        <!--<td></td>-->
+                        {if $admin eq 1}
+                        <td>
+                            {if $data.status eq 1}
+                            <a class="on-default edit-row" data-action="modal" href="activity.php?act=audit_view&id={$data.id}">审核</a>
+                            {else}
+                            <a class="on-default edit-row" data-action="modal" href="activity.php?act=audit_record&id={$data.id}">审核记录</a>
+                            {/if}
+                        </td>
+                        {/if}
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <!---内容区域end--->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row"><div class="col-lg-12"><div id="page">{$page_bar}</div></div></div>
+<script>
+        jQuery(document).ready(function() {
+        // Select2
+        $(".select2").select2();
+    });
+    function search() {
+        status = $("select[name='status']").val();
+        activity_id = $("select[name='activity_id']").val();
+        guild_id = $("input[name='guild_id']").val();
+        url = "activity.php?act=audit_list&status="+status+"&activity_id="+activity_id+"&guild_id="+guild_id;
+        main_data_load(url);
+        return false;
+    }
+    function reloadsearch(){
+        url = "activity.php?act=audit_list&status=&activity_id=&guild_id=";
+        main_data_load(url);
+    }
+</script>

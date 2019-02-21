@@ -1,0 +1,111 @@
+<form action="ccm_account.php?act=service_save" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="verify_form" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">分配游戏区服</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="control-label col-md-3">游戏列表：</label>
+            <div class="col-md-9">
+                <select class="select3 select2-multiple new-select" multiple="multiple" data-placeholder="请选择游戏"  name="game_list[]" id="game_service_list">
+                    {foreach from=$games item=game}
+                    <option value="{$game.app_id}" {if in_array($game.app_id,$game_arr)}selected="selected"{/if}>[{$game.app_id}]{$game.app_name}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <!---核心内容列表区域-->
+            <table class="table table-bordered">
+                <thead>
+                <tr class="back_gray">
+                    <th><input type="checkbox" id="check_all"  />全选</th>
+                    <th>APPID</th>
+                    <th>游戏名称</th>
+                    <th>区服ID</th>
+                    <th>区服名称</th>
+                    <th>区服类型</th>
+                </tr>
+                </thead>
+                <tbody id="service_list">
+                </tbody>
+            </table>
+            <!---内容区域end--->
+        </div>
+        <div class="form-group"><div class="col-md-12"><div id="page_list"></div></div></div>
+    </div>
+    <div class="modal-footer">
+        <input type="hidden" value="" name="page_key" />
+        <input type="hidden" value="{$user_id}" name="user_key" />
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light" id="btn_charge">保存</button>
+    </div>
+</form>
+{literal}
+<script>
+    jQuery(document).ready(function() {
+        $(".select3").select2();
+    });
+    $("#game_service_list").on("change",function(){
+        service_list_show("ccm_account.php?act=service_show");
+    });
+    var user_id = $("input[name='user_key']").val();
+    function service_list_show(url){
+        var game_service_list = $("#game_service_list").val();
+        if (game_service_list){
+            var game_list = game_service_list.join(",");
+        }else{
+            var game_list = "";
+        }
+        $.ajax({
+            "url":url,
+            "type":"post",
+            "data":{
+                "game_list":game_list,
+                "user_id":user_id
+            },
+            "dataType":"json",
+            "success":function(data){
+                if (data.statusCode=="200"){
+                    var msg = JSON.parse(data.message);
+                    var service = msg.service_list;
+                    var service_check = msg.service_list_check;
+                    var con = "";
+                    for(var i=0;i<service.length;i++){
+                        if (($.inArray(service[i].id,service_check)==-1)){
+                            var is_check = "";
+                        }else{
+                            var is_check = "checked='checked'";
+                        }
+                        if (service[i].service_type==1){
+                            var service_type = "混服";
+                        }else if(service[i].service_type==2){
+                            var service_type = "独服";
+                        }
+                        con += "<tr><td><input type='checkbox' value='"+service[i].id+"' name='service_list[]' "+is_check+" /></td> "
+                                + "<td>"+service[i].app_id+"</td><td>"+service[i].app_name+"</td><td>"+service[i].service_id+"</td>"
+                                + "<td>"+service[i].service_name+"</td><td>"+service_type+"</td></tr>";
+                    }
+                    $("#service_list").html(con);
+                    $("#page_list").html(msg.page);
+                    $("input[name='page_key']").val($("#page_list").find(".now").text());
+                }else{
+                    $.Notification.notify('error','top left',data.message);
+                }
+            },
+            "error":function(req,error){
+                $.Notification.notify('error','top left', "发生错误,HTTP代码:"+req.status, req.statusText);
+            }
+        });
+    }
+    //全选反选
+    $("#check_all").on("click",function(){
+        if ($(this).prop("checked")){
+            $("#service_list").find("input[type='checkbox']").prop("checked","checked");
+        }else{
+            $("#service_list").find("input[type='checkbox']").removeAttr("checked");
+        }
+    });
+    $("#game_service_list").trigger("change");
+</script>
+{/literal}

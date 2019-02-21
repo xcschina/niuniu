@@ -1,0 +1,109 @@
+<style>
+    .graphic-image{
+        position: relative;
+        height: 38px;
+        top: -38px;
+        left: 250px;
+        border-radius: 4px;
+    }
+</style>
+{if $info.status eq 0 }
+<form action="message.php?act=push_save" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">消息发送修改</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-md-3 control-label">消息状态</label>
+            <div class="col-md-9">
+                <select class="form-control select2" name="sort_type">
+                    <option value="1" selected>发送</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">发送时间</label>
+            <div class="col-md-9" style="margin-top: 5px!important;" id="send_time">
+                立即发送: <input type="radio" name="send_time" checked="checked" value="1" data-parsley-multiple="autonym" data-parsley-id="53">&nbsp;&nbsp;&nbsp;&nbsp;
+                选择时间: <input type="radio" name="send_time"  value="2" data-parsley-multiple="autonym">
+            </div>
+        </div>
+        <div class="form-group" id="push" style="display:none">
+            <label class="col-md-3 control-label">发布时间</label>
+            <div class="col-md-9">
+                <div class="input-daterange input-group" id="push_time">
+                    <input type="text" class="form-control" style="text-align:left;" data-format="dd/MM/yyyy hh:mm:ss"  name="push_time" value="" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group" >
+            <label class="col-md-3 control-label">图形验证</label>
+            <div class="col-md-9" style="height:38px;">
+                <input type="text" value="" name="verifyCode" class="form-control" style="width:50%" >
+                <img id="graphic-image" class="graphic-image" src="/verifycode.php" />
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="hidden" name="id" value="{$info.id}">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light">保存</button>
+    </div>
+</form>
+{else}
+<form action="message.php?act=do_offline" method="post" enctype="multipart/form-data" data-toggle="ajaxform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h4 class="modal-title">提示</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <div class="col-md-9">
+                    <p class="form-control-static">确认下架该信息？</p>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <input type="hidden" name="id" value="{$info.id}">
+            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal" >关闭</button>
+            <button type="submit" class="btn btn-info waves-effect waves-light">保存</button>
+        </div>
+</form>
+{/if}
+{literal}
+<script src="assets/plugins/moment/moment.js"></script>
+<script src="assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<script src="assets/plugins/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+<script src="assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="assets/plugins/clockpicker/dist/jquery-clockpicker.min.js"></script>
+<script src="assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script >
+
+    // 生成图形验证码
+    function createCode() {
+        var rand = Math.floor(Math.random()*9999);
+        $(".graphic-image").attr("src", "/verifycode.php?t="+rand);
+    }
+    // 刷新图形验证码
+    $(".graphic-image").click(function(){
+        createCode();
+    });
+    $("#send_time").change(function() {
+        var send_time = $("input[type='radio']:checked").val();;
+        if(send_time == 2){
+            $("#push").show();
+        }else{
+            $("#push").hide();
+        }
+    });
+    jQuery(document).ready(function() {
+        // Date Picker
+//        jQuery('#datepicker').datepicker();
+        jQuery('#push_time').datepicker({
+            format: "yyyy-mm-dd",
+            toggleActive: true
+        })
+    })
+</script>
+{/literal}

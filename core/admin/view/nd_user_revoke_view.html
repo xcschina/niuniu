@@ -1,0 +1,104 @@
+<form action="guild.php?act=nd_user_revoke_save" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="nd_revoke_form" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">牛点撤销</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-md-3 control-label">撤销牛点数量</label>
+            <div class="col-md-9">
+                <input type="number" class="form-control" name="nd_no" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">撤销理由</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" name="nd_revoke_reason" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">充值密码</label>
+            <div class="col-md-9">
+                <input type="password" class="form-control" name="charge_pwd" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">验证码</label>
+            <div class="col-md-5">
+                <input type="text" class="form-control" name="code" />
+            </div>
+            <div class="col-md-4">
+                <img src="/verifycode.php" height="38" onclick="change_code(this)" />
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="hidden" name="nd_app_id" value="{$params.app_id}" />
+        <input type="hidden" name="nd_user_id" value="{$params.user_id}" />
+        <input type="hidden" name="nd_user_nick_name" value="{$params.nick_name}" />
+        <input value="{$pagehash}" name="pagehash" type="hidden" id="pagehash">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-info waves-effect waves-light" id="btn_revoke">提交撤点</button>
+    </div>
+</form>
+<div style="display: none;" id="nd_revoke_msg">
+    <div class="modal-header">
+        <h4 class="modal-title">操作确认</h4>
+    </div>
+    <div class="modal-body">
+        <h3>
+            你将用户账号为<strong class="text-danger"></strong>（昵称为<span class="text-danger"></span>）撤销<strong class="text-danger"></strong>牛点，是否确认？
+        </h3>
+    </div>
+    <div class="modal-footer">
+        <input type="button" class="btn btn-default waves-effect" value="返回" id="btn_return"/>
+        <input type="button" class="btn btn-info waves-effect waves-light" value="确认" id="nd_revoke_submit"/>
+    </div>
+</div>
+{literal}
+<script>
+    function change_code(obj) {
+        $(obj).attr("src","");
+        $(obj).attr("src","/verifycode.php");
+    }
+    $("#btn_revoke").on("click",function(){
+        var nd_no = $("input[name='nd_no']").val();
+        var nd_no_reg = new RegExp(/^[1-9][0-9]*$/);
+        if (nd_no==""){
+            $.Notification.notify('error','top left',"牛点数量不能为空！");
+            return false;
+        }
+        if (!nd_no_reg.test(nd_no)){
+            $.Notification.notify('error','top left',"牛点数量不正确！");
+            return false;
+        }
+        var nd_revoke_reason = $("input[name='nd_revoke_reason']").val();
+        if (nd_revoke_reason==""){
+            $.Notification.notify('error','top left',"理由不能为空！");
+            return false;
+        }
+        var charge_pwd = $("input[name='charge_pwd']").val();
+        if (charge_pwd==""){
+            $.Notification.notify('error','top left',"充值密码不能为空！");
+            return false;
+        }
+        var code = $("input[name='code']").val();
+        if (code==""){
+            $.Notification.notify('error','top left',"验证码不能为空！");
+            return false;
+        }
+        $("#nd_revoke_msg h3>strong").eq(0).html($("input[name='nd_user_id']").val());
+        $("#nd_revoke_msg h3>span").html($("input[name='nd_user_nick_name']").val());
+        $("#nd_revoke_msg h3>strong").eq(1).html(nd_no);
+        $("#nd_revoke_form").hide();
+        $("#nd_revoke_msg").show();
+    });
+    $("#btn_return").on("click",function(){
+        $("#nd_revoke_msg").hide();
+        $("#nd_revoke_form").show();
+    });
+    $("#nd_revoke_submit").on("click",function(){
+        $("#nd_revoke_form").submit();
+    });
+</script>
+{/literal}

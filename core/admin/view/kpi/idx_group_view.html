@@ -1,0 +1,99 @@
+{include file="kpi/include/head.html"}
+<div class="row">
+    <form action="/kpi.php?act=idx_group_data&appids={$app_id}&channels={$channel}" method="post" id="sub">
+        <input type="hidden" name="day_diff" value="{$day_diff}">
+        <input type="hidden" name="appids" value="{$app_id}">
+        <input type="hidden" name="channels" value="{$channel}">
+    </form>
+    <div class="card-box m-b-0" style="padding-top: 10px;padding-left: 30px;">
+        <div class="tab-content m-b-0">
+            <div class="tab-pane active">
+                <div class="table-responsive">
+                    <ul class="pager m-b-0 m-t-0 pull-left" style="padding-bottom: 10px;">
+                        <li class="group-title"> {'m-d'|date:$day1} - {'m-d'|date:$day7} 流水总览</li>
+                        <li style="font-size:14px;"><a href="#;" onclick="backwards()"><i class="fa fa-angle-left"></i>向前七天</a></li>
+                        {if $day_diff neq '0'}
+                        <li style="font-size:14px;"><a href="#;" onclick="forwards()">向后七天 <i class="fa fa-angle-right"></i></a></li>
+                        {/if}
+                    </ul>
+                    <table class="table m-0 table-hover">
+                        <thead>
+                        <tr class="l-bg">
+                            <th width="180" class="text-left">时间</th>
+                            <th width="200" class="text-center">[新增]用户|设备</th>
+                            <th width="200" class="text-center">[活跃]用户|设备</th>
+                            <th width="110" class="text-center">充值人数</th>
+                            <th width="110" class="text-center">充值订单数</th>
+                            <th width="160" class="text-center">总营业额</th>
+                            <th width="120" class="text-center">苹果充值人数</th>
+                            <th width="160" class="text-center">苹果充值订单数</th>
+                            <th width="160" class="text-center">苹果总营业额</th>
+                            <th class="text-left"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="text-left">
+                            <td class="text-left f-bold">总计</td>
+                            <td class="f-bold text-center">
+                                <span class="text-custom text-right fix-span">{$all_sum_new_user}</span>
+                                <span class="separate">|</span>
+                                <span class="text-left fix-span">{$all_sum_new_device}</span>
+                            </td>
+                            <td class="f-bold text-center">
+                                <span class="text-custom text-right fix-span">{$all_sum_act_user}</span>
+                                <span class="separate">|</span>
+                                <span class="text-left fix-span">{$all_sum_act_device}</span>
+                            </td>
+                            <td class="f-bold text-center">{$all_sum_pay_count}</td>
+                            <td class="f-bold text-center">{$all_sum_order_count}</td>
+                            <td class="f-bold text-center">{$all_sum_pay}</td>
+                            <td class="f-bold text-center">{$all_apple_user_no}</td>
+                            <td class="f-bold text-center">{$all_apple_order_count}</td>
+                            <td class="f-bold text-center">{$all_apple_pay_count}</td>
+                            <td></td>
+                        </tr>
+                        {foreach from=$latest_seven_days_data item=data key=key}
+                        <tr class="text-left">
+                            <td class="text-center" scope="row">
+                                <a href="/kpi.php?act=game_hour_data&appids={$app_id}&channels={$channel}&date={$day7-86400*$key}" target="_blank">{'m-d'|date:($day7-86400*$key)}(查看时段统计)</a></td>
+                            <td class="text-center">
+                                <span class="text-custom text-right fix-span">{$data.sum_new_user}</span>
+                                <span class="separate">|</span>
+                                <span class="text-left fix-span">{$data.sum_new_device}</span>
+                            </td>
+                            <td class="text-center">
+                                <span class="text-custom text-right fix-span">{$data.sum_act_user}</span>
+                                <span class="separate">|</span>
+                                <span class="text-left fix-span">{$data.sum_act_device}</span></td>
+                            <td class="text-center">{$data.sum_pay_count}</td>
+                            <td class="text-center">{$data.sum_order_count}</td>
+                            <td class="text-center">{$data.sum_pay}</td>
+                            <td class="text-center">{$data.apple_user_no}</td>
+                            <td class="text-center">{$data.apple_order_count}</td>
+                            <td class="text-center">{$data.apple_pay_count}</td>
+                            <td></td>
+                        </tr>
+                        {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="kpi/include/foot.html"}
+<script>
+    function backwards() {
+        var day_diff = $("input[name=day_diff]").val();
+        day_diff = parseInt(day_diff) + 7;
+        $("input[name=day_diff]").val(day_diff);
+        $("#sub").submit();
+    }
+
+    function forwards() {
+        var day_diff = $("input[name=day_diff]").val();
+        day_diff = parseInt(day_diff) - 7;
+        $("input[name=day_diff]").val(day_diff);
+        $("#sub").submit();
+    }
+</script>

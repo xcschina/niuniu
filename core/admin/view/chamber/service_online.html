@@ -1,0 +1,62 @@
+<style>
+    .modal-button,.modal-title{
+        text-align: center;
+    }
+    .online,.offline{
+        margin: 12px;
+        padding: 8px 37px;
+        font-size: 16px;
+    }
+</style>
+<form action="business.php?act=do_service_online" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="online-form" class="form-horizontal"  data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" hidden class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">接单状态设置</h4>
+    </div>
+    <input name="is_online" value="" type="hidden">
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-md-2 control-label">接单游戏：</label>
+            <div class="col-md-10 m-t-5">
+                {foreach from=$games item=game}
+                <input type="checkbox" name="app_id[]" checked class="m-l-10" value="{$game.app_id}">{$game.app_name}
+                {/foreach}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12 modal-button">
+                <button type="button" class="btn btn-info waves-effect waves-light online">上线接单</button>
+                <button type="button" class="btn btn-default waves-effect offline">我下线了</button>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+$(function(){
+    var type = '';
+    $('body').on('click','.online,.offline',function(e){
+        if($(this).hasClass('online')){
+            type = 1;
+        }else if($(this).hasClass('offline')){
+            type = 2;
+        }
+        $('input[name=is_online]').val(type);
+        var formStr = $('#online-form').serialize();
+        $.ajax({
+            url: "/business.php?act=do_service_online",
+            type: "post",
+            data: formStr,
+            dataType: "json"
+        }).success(function(json) {
+            if(json.code == 0){
+                $.Notification.notify('error','top left',json.msg);
+                return false;
+            }else if(json.code == 1){
+                $.Notification.notify('success','top left','成功',json.msg);
+                $('.close').click();
+                return false;
+            }
+        });
+    });
+})
+</script>

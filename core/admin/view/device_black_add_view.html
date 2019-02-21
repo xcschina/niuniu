@@ -1,0 +1,27 @@
+<form action="device.php?act=do_device_black_add" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="change-mobile-wrapper">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h4 class="modal-title">增加设备黑名单</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="col-md-3 control-label">设备类型</label>
+                <div class="col-md-9" style="margin-top: 5px!important;">
+                    安卓: <input type="radio" name="device_type_add" value="1" checked="checked" data-parsley-multiple="type" />&nbsp;&nbsp;&nbsp;&nbsp;
+                    IOS: <input type="radio" name="device_type_add"  value="2" data-parsley-multiple="type" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">设备标识号码</label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" name="device_no_add" required id="device_no_add" />
+                </div>
+            </div>
+        </div>
+        <input value="{$pagehash}" name="pagehash" type="hidden" id="pagehash">
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-info waves-effect waves-light">保存</button>
+        </div>
+    </div>
+</form>

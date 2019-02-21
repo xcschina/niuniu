@@ -1,0 +1,119 @@
+<link href="assets/plugins/multiselect/css/multi-select.css"  rel="stylesheet" type="text/css" />
+<link href="assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="assets/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
+<form action="user.php?act=do_qa_clear" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="change-mobile-wrapper">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h4 class="modal-title">清空号码</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group" id="userMobile">
+                <label class="col-md-2 control-label">用户手机</label>
+                <div class="col-md-8">
+                    <select class="form-control new_select2" name="mobile_id" id="mobile">
+                        <option value="">请选择活动手机号码</option>
+                        {foreach from=$mobile_list item=$mobile}
+                        <option value="{$mobile}">{$mobile}</option>
+                        {/foreach}
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-info waves-effect waves-light" id="mobileCarReg">手机验证</button>
+                </div>
+            </div>
+            <div class="rel-infos form-group" style="display: none;">
+                <div class="col-md-2 control-label">账号信息</div>
+                <div class="col-md-10 info-list"></div>
+            </div>
+        </div>
+        <input value="{$pagehash}" name="pagehash" type="hidden" id="pagehash">
+        <input name="user_id" type="hidden" id="user_id_h">
+        <input name="mobile" type="hidden" id="mobile_id">
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-info waves-effect waves-light" id="idCarSave">清空</button>
+        </div>
+    </div>
+</form>
+{literal}
+<script>
+    jQuery(document).ready(function() {
+        // Select2
+        $(".new_select2").select2();
+    });
+    var pagehash = $('#pagehash').val();
+    var regContact = new RegExp(/^1[34578]\d{9}$/);
+    var regUserId = new RegExp(/^[1-9]+$/);
+    $("input[name='type']").change(function(){
+        var type = $(this).val();
+        if(type == '2'){
+            $("#userID").hide();
+            $("#userMobile").show();
+        }else{
+            $("#userID").show();
+            $("#userMobile").hide();
+        }
+    });
+    $("#mobileCarReg").on("click",function(e){
+        var mobile = $("#mobile").val();
+        if (!regContact.test(mobile)){
+            $.Notification.notify('error','top left',"手机号码格式错误！");
+            return false;
+        }
+        $.ajax({
+            type:"post",
+            url:"user.php?act=reg_mobile",
+            data:{
+                "mobile":mobile,
+                "pagehash":pagehash
+            },
+            cache:false,
+            dataType:"json",
+            timeout : 5000,
+            success:function(data){
+                var keyMap = {
+                    user_id: "用户ID",
+                    nick_name: "昵称",
+                    login_name: "登录昵称",
+                    mobile:"手机号码"
+                };
+                if (data.error=="1"){
+                    $.Notification.notify('error','top left', data.msg);
+                }else{
+                    $("#user_id_h").val(data.infos.user_id);
+                    $("#mobile_id").val(mobile);
+                    $.Notification.autoHideNotify('success', 'top left', "用户查询成功");
+                    var infos = data.infos;
+                    var con = "";
+                    if (infos){
+                        for(var key in infos) {
+                            con += '<div class="row">'
+                                + '<label class="col-md-2">'+keyMap[key]+'</label>'
+                                + '<span class="col-md-8">'+infos[key]+'</span>'
+                                + '</div>'
+                        }
+                    }else{
+                        con = '暂无信息';
+                    }
+                    $(".info-list").html(con);
+                    $(".rel-infos").show();
+                }
+            },
+            error: function(req, error) {
+                $.Notification.notify('error','top left', "发生错误,HTTP代码:"+req.status, req.statusText);
+            }
+        });
+    });
+    //表单前端验证
+    $("#myform").submit(function(e){
+        var mobile = $("#mobile_id").val();
+        var pagehash = $("#pagehash").val();
+        if (!regContact.test(mobile)){
+            $.Notification.notify('error','top left',"请先验证手机！");
+            return false;
+        }
+    });
+</script>
+{/literal}

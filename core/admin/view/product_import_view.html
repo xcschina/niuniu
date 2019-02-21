@@ -1,0 +1,67 @@
+<form  action="product.php?act=do_import" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">批量导入商品数据</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-md-4 control-label">导入文件（只支持Excel）</label>
+            <div class="col-md-8">
+                <input type="file" name="goods_file" />
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <!--<button type="submit" class="btn btn-info waves-effect waves-light">导入</button>-->
+        <button type="button" class="btn btn-info waves-effect waves-light" id="import">导入</button>
+    </div>
+</form>
+<div style="display: none" id="myPrompt">
+    <div class="modal-header">
+        <h4 class="modal-title">提示框</h4>
+    </div>
+    <div class="modal-body">
+        <p>是否确认导入？</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default waves-effect" id="myCancel">取消</button>
+        <button type="button" class="btn btn-info waves-effect waves-light" id="myConfirm">确认</button>
+    </div>
+</div>
+<script>
+    $("#import").on("click",function(){
+        if (!$("input[type='file']").val()){
+            $.Notification.notify('error','top left',"文件不能为空！");
+            return false;
+        }
+        $("#myform").hide();
+        $("#myPrompt").show();
+    });
+    $("#myCancel").on("click",function(){
+        $("#myPrompt").hide();
+        $("#myform").show();
+    });
+    $("#myConfirm").on("click",function(){
+        if (!$("input[type='file']").val()){
+            $.Notification.notify('error','top left',"文件不能为空！");
+            return false;
+        }
+        $("#myform").submit();
+    });
+    $("input[type='file']").on("change",function (e) {
+        var excel = e.target.files[0];
+        var name = excel.name;
+        var name_reg = new RegExp(/\.xl(s||sx)$/);
+        if (!name_reg.test(name)){
+            $.Notification.notify('error','top left', "文件后缀必须是xls或者xlsx！");
+            $(this).val("");
+            return false;
+        }
+        if (excel.size/(1024*1024)>=1){
+            $.Notification.notify('error','top left', "文件大小必须小于1M！");
+            $(this).val("");
+            return false;
+        }
+    })
+</script>

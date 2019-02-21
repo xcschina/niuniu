@@ -1,0 +1,64 @@
+<link href="assets/plugins/multiselect/css/multi-select.css"  rel="stylesheet" type="text/css" />
+<link href="assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script type="text/javascript" src="assets/plugins/multiselect/js/jquery.multi-select.js"></script>
+<script type="text/javascript" src="assets/plugins/jquery-quicksearch/jquery.quicksearch.js"></script>
+<script src="assets/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
+<script>
+    function auto_height(tg) {
+        var ifm= document.getElementById(tg);
+        var subWeb = document.frames ? document.frames[tg].document : ifm.contentDocument;
+        if(ifm != null && subWeb != null) {
+            ifm.height = subWeb.body.scrollHeight;
+        }
+    }
+</script>
+<style>
+    .warpper{
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+    }
+</style>
+<div class="content">
+    <div class="container">
+        <div class="un-card-box">
+            <div class="row">
+                <div class="col-md-3 form-group">
+                    <select class="select2 select2-multiple" multiple="multiple" data-placeholder="请选择产品" name="appids">
+                        {foreach from=$apps item=app}
+                        <option value="{$app.app_id}" >{$app.app_name}-{$app.app_id}</option>
+                        {/foreach}
+                    </select>
+                </div>
+                <div class="col-md-2 form-group">
+                    <select class="form-control select2" data-placeholder="请选公会" name="appchannels">
+                        <option value="">请选择渠道</option>
+                        {foreach from=$ch_list item=ch}
+                        <option value="{$ch.ch_code}">{$ch.channel}</option>
+                        {/foreach}
+                    </select>
+                </div>
+                <button type="button" class="btn btn-default waves-effect waves-light" onclick="group()" style="font-size: 14px;">查询</button>
+            </div>
+        </div>
+        <div class="warpper">
+        <iframe src="/super_qa.php?act=idx_game_data&" width="100%"  frameborder="0" id="f_3" scrolling="no" class="bg-white m-t-15" onLoad="auto_height('f_3')"></iframe>
+        </div>
+    </div>
+</div>
+<script>
+    $(".select2").select2();
+    function group(){
+        var appids = $("select[name=appids]").val();
+        var channels = $("select[name=appchannels]").val();
+        if (appids == null) {
+            appids = ""
+        }
+        if (channels == null) {
+            channels = ""
+        }
+        $('#f_3').attr('src','/super_qa.php?act=idx_game_data&appids='+appids+'&channels='+channels);
+    }
+</script>

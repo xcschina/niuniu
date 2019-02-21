@@ -1,0 +1,110 @@
+<link href="assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet" />
+<link href="assets/plugins/multiselect/css/multi-select.css"  rel="stylesheet" type="text/css" />
+<link href="assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="assets/plugins/switchery/dist/switchery.min.js"></script>
+<script type="text/javascript" src="assets/plugins/multiselect/js/jquery.multi-select.js"></script>
+<script type="text/javascript" src="assets/plugins/jquery-quicksearch/jquery.quicksearch.js"></script>
+<script src="assets/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <!--按钮或搜索区域-->
+                <form id="form_data">
+                <div class="col-sm-12 text-xs-center">
+                    <div class="col-md-1">
+                        <select class="form-control select2" name="index_name">
+                            <option value="sdk_log">安卓</option>
+                            <option value="ios_log"{if $index_name eq 'ios_log'} selected{/if}>IOS</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control select2" name="app_id">
+                            <option value="">请选择游戏</option>
+                            {foreach from=$apps item=app}
+                            <option value="{$app.app_id}"{if $app.app_id eq $app_id} selected{/if}>[{$app.app_id}]-{$app.app_name}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    {if $smarty.session.group_id eq '1' or $smarty.session.group_id eq '7'}
+                    <div class="col-md-2">
+                        <input type="text" value="{$channel}" name="channel" class="form-control" placeholder="手动输入渠道号"/>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control select2" name="user_code">
+                            <option value="">请选择渠道</option>
+                            {foreach from=$guild_list item=guild}
+                            <option value="{$guild.user_code}"{if $guild.user_code eq $user_code} selected{/if}>[{$guild.user_code}]-{$guild.real_name}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="number" value="{$user_id}" name="user_id" class="form-control" placeholder="手动输入用户ID"/>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" value="{$params.ip}" name="ip" class="form-control" placeholder="手动输入IP"/>
+                    </div>
+                    {/if}
+                    <span class="btn btn-default m-b-20" href="#;" onclick="search();"><i class="fa fa-search m-r-5"></i>搜索</span>
+                </div>
+                </form>
+                <!--end--->
+            </div>
+            <div class="table-responsive">
+                <!---核心内容列表区域-->
+                <table class="table table-striped m-0">
+                    <thead>
+                    <tr>
+                        <th>用户ID</th>
+                        <th>应用ID</th>
+                        <th>行为</th>
+                        <th>token</th>
+                        <th>设备号</th>
+                        <th>时间</th>
+                        <th>ip</th>
+                        <th>渠道代码</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {foreach from=$datas item=data}
+                            <tr>
+                                <td>{$data._source.userid}</td>
+                                <td>{$data._source.appid}</td>
+                                <td>{$data._source.do}</td>
+                                <td>{$data._source.token}</td>
+                                <td>{$data._source.idfa}</td>
+                                <td>{$data._source.addtime|date_format: '%Y-%m-%d %H:%M'}</td>
+                                <td>{$data._source.ip}</td>
+                                <td>{$data._source.channel}</td>
+                        {/foreach}
+                    </tbody>
+                </table>
+                <!---内容区域end--->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row"><div class="col-lg-12"><div id="page">{$page_bar}</div></div></div>
+<script>
+    jQuery(document).ready(function() {
+        // Select2
+        $(".select2").select2();
+    });
+    function search() {
+        //对用户ID进行错误验证
+        var user_id = $("input[name='user_id']").val();
+        var numberReg = new RegExp(/^[1-9][0-9]*$/);
+        var group_id = '{$smarty.session.group_id}';
+        if (group_id == '1' || group_id == '7'){
+            if ((!numberReg.test(user_id))&&(user_id!="")){
+                $.Notification.notify('error','top left',"输入用户ID不合法！");
+                return false;
+            }
+        }
+        var url = "qa.php?act=login";
+        var formStr = $('#form_data').serialize();
+        post_main_data_load(url,formStr);
+    }
+</script>

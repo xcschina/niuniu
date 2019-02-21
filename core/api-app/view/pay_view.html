@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>支付页</title>
+	<link href="http://cdn.66173.cn/app/css/sel_ch.css" type="text/css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="http://static.66173.cn/app/css/my_pay.css" media="screen" />
+	<script src="http://static.66173.cn/website/jquery.min.js"></script>
+	<script type="application/javascript">
+		$(document).ready(function () {
+			var wWidth = document.documentElement.clientWidth || document.body.clientWidth;
+			var size = wWidth / 7.5;
+			document.getElementsByTagName('html')[0].style.fontSize = size + 'px';
+		});
+	</script>
+</head>
+<body>
+<form action="app.php?act=go_pay" name="payform" id="payform" method="post">
+	<div class="sel_head" style="overflow:hidden;">
+		<section class="fl m-r-15">
+			<img class="game_icon" src="http://cdn.66173.cn//images/game_icon/{$products_info['game_id']}.png">
+		</section>
+		<section class="fl m-t10">
+			<div style="max-width: 5.30rem;overflow: hidden;height: .4rem">
+				<p class="fn-30 m-t-0 fl" id="good_title" >{$products_info['title']}</p>
+			</div>
+			<div style="display: block;">
+				<p class="fn-20 m-t-0 c-ccc" style="line-height: .5rem">渠道:{$ch_info['channel_name']}端</p>
+			</div>
+			<div class="num_div" style="width:auto;max-width: 4.2rem;">
+				<span class="money" id="money">¥{$pay_money}</span>
+				<s class="discount" style="color: #cccccc;line-height: .45rem;font-size: .28rem;margin-left: .15rem;">原价¥{$products_info['price']}</s>
+				<span class="discount">{$discount}折</span>
+			</div>
+		</section>
+	</div>
+	<div class="g_title"><span></span>联系方式</div>
+	<div class="user_mobile">
+		<div class="card-info-box clearfix">
+			<label><i>*</i>手机：</label>
+			<input name="tel" type="number" placeholder="{if !$smarty.session.buy_mobile}请输入联系手机{/if}" class="card-input" value="{$smarty.session.buy_mobile}" />
+		</div>
+		<div class="card-info-box clearfix">
+			<label><i>*</i>QQ：</label>
+			<input name="qq" type="number" class="card-input" value="{$smarty.session.buy_qq}" />
+		</div>
+	</div>
+	<div class="g_title"><span></span>填写账户信息</div>
+	<div class="user_list">
+		<div class="card-info-box clearfix">
+			<label><i>*</i>选择区服：</label>
+			<a class="sel-sev" href="#;" onclick="select_servs();">点击选择服务器</a>
+		</div>
+		<div class="card-info-box clearfix br-tb-1 rand_user" id="is-rand-game-user">
+			<label>随机角色名：</label>
+			<a class="s_btn" rel="1">是</a><a class="s_btn s_btn_on" rel="0">否</a>
+		</div>
+		<div class="card-info-box clearfix rand-user">
+			<div class="card3-con">
+				<label><i>*</i>角色名：</label>
+				<input name="role_name" type="text" placeholder="请输入您想要的角色名" class="card-input" />
+				<p class="card3-con-txt" hidden>备用角色名不能与角色名一样</p>
+			</div>
+		</div>
+		<div class="card-info-box clearfix rand-user">
+			<div class="card3-con">
+				<label><i>*</i>备用角色名：</label>
+				<input name="role_back_name" type="text" placeholder="如角色名被占用 将使用备用名" class="card-input" />
+			</div>
+		</div>
+		{foreach from=$tags item=tag key=k name=attr}
+		<div class="card-info-box">
+			<label><i>*</i>{$k}：</label>
+			<select name="attr[{$smarty.foreach.attr.index}]" class="">
+				{foreach from=$tag item=t}
+				<option value="{$k}:{$t}">{$t}</option>
+				{/foreach}
+			</select>
+		</div>
+		{/foreach}
+	</div>
+	<div class="side-bg" id="servs"></div>
+	<div class="g_title"><span></span>支付方式</div>
+	<div class="pay_box">
+		<div class="zfb_box">
+			<span class="zfb_icon"></span>手续费 ¥0.00<span></span><a class="pay_btn pay_on" rel="zfb"></a>
+		</div>
+		<div class="wx_box">
+			<span class="wx_icon"></span>手续费 ¥0.00<span></span><a class="pay_btn" rel="wx"></a>
+		</div>
+	</div>
+	<div class="notice_box">
+		<p>请在15分钟内完成支付否则订单会自动取消</p>
+	</div>
+	<div class="foot">
+		<span id="pay_money" class="pay_money">应付金额:¥{$pay_money}</span>
+		<a class="btn fr" href="#" onclick="go_pay();">确认支付</a>
+	</div>
+	<input name="game_id" value="{$game_id}" type="hidden">
+	<input name="product_id" value="{$products_info['id']}" type="hidden">
+	<input name="channel_id" value="{$ch_info['id']}" type="hidden">
+	<input name="pay_mode" value="zfb" type="hidden">
+	<input name="is_rand_user" value="0" type="hidden">
+	<input type="hidden" name="do" value="character" />
+	<input type="hidden" name="serv_id" value="0" />
+	<input type="hidden" name="pagehash" value="{$pagehash}" />
+</form>
+</body>
+<script type="application/javascript">
+	$(document).ready(function(){
+		$(".goods_body a").click(function(){
+			$(".goods_body a").removeClass("sel");
+			set_price(this);
+		});
+		$(".pay_box a").click(function(){
+			$(".pay_box a").removeClass("pay_on");
+			pay_mode = $(this).attr("rel");
+			$("input[name='pay_mode']").val(pay_mode);
+			$(this).addClass("pay_on");
+		});
+		$(".rand_user a").click(function(){
+			$(".rand_user a").removeClass("s_btn_on");
+			rand_user = $(this).attr("rel");
+			$("input[name='rand_user']").val(rand_user);
+			$(this).addClass("s_btn_on");
+		});
+		$("#is-rand-game-user a").click(function(){
+			is_rand_game_user(this);
+		});
+	});
+	function set_price(obj){
+		good_id = $(obj).attr("rel");
+		good_price = $(obj).attr("rev");
+		good_title = $(obj).find('span').attr("rel");
+		discount = $("input[name='discount']").val();
+		$("input[name='good_id']").val(good_id);
+		$("input[name='good_price']").val(good_price);
+		$("input[name='pay_money']").val(Math.round((good_price*discount)/10));
+		$("#pay_money").html("总价:￥"+Math.round((good_price*discount)/10));
+		$("#money").html("总价:￥"+good_price);
+		$("#good_title").html(good_title);
+		$(obj).addClass("sel");
+	}
+	function is_rand_game_user(obj){
+		$("#is-rand-game-user a").removeClass("on");
+		rel = $(obj).attr("rel");
+		$(obj).addClass("on");
+		$("input[name='is_rand_user']").val(rel);
+		if(rel==1){
+			$(".rand-user").hide();
+		}else{
+			$(".rand-user").show();
+		}
+	}
+
+	function select_servs(){
+		channel_id = Number($("input[name='channel_id']").val());
+		game_id = Number($("input[name='game_id']").val());
+		$("input[name='serv_id']").val("0");
+		if(channel_id==0 || channel_id==""){
+			alert("请先选择渠道");
+			return false;
+		}
+		$("#servs").load("/app.php?act=search_ser&game_id="+game_id+"&ch_id="+channel_id,function(responseTxt,statusTxt,xhr){
+			if(statusTxt=="error"){
+				$("#servs").html("<h5>加载数据失败</h5>");
+			}
+		}).css("display","block");
+	}
+
+	function go_pay(){
+		act     = $("input[name='do']").val();
+		ch_id   = $("input[name='channel_id']").val();
+		serv_id = $("input[name='serv_id']").val();
+		tel     = $("input[name='tel']").val();
+		qq      = $("input[name='qq']").val();
+		$(".form-warning").removeClass("form-warning");
+		if(act=='character'){
+			if(!check_character()){
+				return false;
+			}
+		}
+		if($.trim(ch_id)==''){
+			var t = $("div.error").html("请选择游戏版本").show(500);
+			setTimeout('$("div.error").hide();', 2000);
+			return false;
+		}
+		if($.trim(serv_id)=='' || $.trim(serv_id)==0){
+			alert('请选择游戏区服');
+			$("a.sel-sev").addClass("form-warning").focus();
+			return false;
+		}
+		if($.trim(tel)==''){
+			alert('请输入手机号信息');
+			$("input[name='tel']").addClass("form-warning").focus();
+			return false;
+		}
+		if($.trim(qq)==''){
+			alert('请输入QQ账号');
+			$("input[name='qq']").addClass("form-warning").focus();
+			return false;
+		}
+		var _$ = window.jQuery;
+		var formStr=_$("#payform").serialize();
+		window.local_obj.cli_to_pay(formStr);
+//		$("form[name='payform']").submit();
+	}
+	//首充号
+	function check_character(){
+		is_rand_user  = $("input[name='is_rand_user']").val();
+		role_name     = $("input[name='role_name']").val();
+		role_bak_name = $("input[name='role_back_name']").val();
+		is_rand_user  = $("input[name='is_rand_user']").val();
+		if(is_rand_user == 1){
+			$("input[name='role_name']").val('随机角色');
+			return true;
+		}
+		if($.trim(role_name)==''){
+			alert('请输入角色名');
+			$("input[name='role_name']").addClass("form-warning").focus();
+			return false;
+		}
+		if($.trim(role_bak_name)==''){
+			alert('请输入备用角色名');
+			$("input[name='role_back_name']").addClass("form-warning").focus();
+			return false;
+		}
+		if($.trim(role_bak_name)==$.trim(role_name)){
+			$("p.card3-con-txt").show();
+			$("input[name='role_back_name']").addClass("form-warning").focus();
+			return false;
+		}
+		return true;
+	}
+</script>
+</html>

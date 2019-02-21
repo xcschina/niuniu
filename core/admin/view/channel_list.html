@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <!--按钮或搜索区域-->
+                <div class="col-sm-12 text-xs-center">
+                    <button data-action="modal" class="btn btn-default m-b-20" href="channel_app.php?act=channel_add"><i class="fa fa-plus m-r-5"></i>添加渠道</button>
+                </div>
+                <!--end--->
+            </div>
+            <div class="table-responsive">
+                <!---核心内容列表区域-->
+                <table class="table table-striped m-0">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>渠道名称</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach from=$channel item=data}
+                    <tr>
+                        <th scope="row">{$data.id}</th>
+                        <td>{$data.name}</td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <!---内容区域end--->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row"><div class="col-lg-12"><div id="page">{$page_bar}</div></div></div>

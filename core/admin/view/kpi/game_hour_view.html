@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+    <meta name="author" content="Coderthemes">
+    <title>  12-13 时段数据统计</title>
+    {include file="kpi/include/head.html"}
+</head>
+<body>
+<!-- Begin page -->
+<div id="wrapper">
+    <!-- Left Sidebar -->
+    <div id="page-wrapper">
+        <!-- Start content -->
+        <style>
+            #data2 {
+                min-width: 310px; height: 400px; margin: 0 auto;
+            }
+            .red-date {
+                color: #ff6600;
+            }
+            .f-gray {
+                color: #666;
+            }
+            th, td {
+                text-align: right!important;
+            }
+            td {
+                padding: 9px!important;
+                font-size: 14px!important;
+                color: #333!important;
+            }
+            tr {
+                background-color: inherit!important;
+            }
+            th {
+                font-size: 14px!important;
+                color: #666;
+            }
+            .f-green-d {
+                color: #009999!important;
+                font-weight: bold;
+            }
+            .f-green {
+                color: #009999!important;
+            }
+            .f-bold {
+                font-weight: bold;
+            }
+            .d-bg {
+                background-color: #f1f1f1!important;
+            }
+            .l-bg {
+                background-color: #f7f7f7!important;
+            }
+            .p-30-im {
+                padding-right: 30px!important;
+            }
+            .text-left {
+                text-align: left!important;
+            }
+            .text-right {
+                text-align: right!important;
+            }
+            .fix-span {
+                width: 45%;
+                display: inline-block;
+            }
+            .separate {
+                color: #ccc;
+                padding: 0 3px;
+            }
+            .text-middle {
+                text-align: center!important;
+            }
+            .sp .footable-sort-indicator {
+                position: absolute!important;
+            }
+        </style>
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box widget-inline m-b-5">
+                            <div class="col-sm-12 text-center -m-t-10 m-b-10">
+                                <h4 class="header-title"><b class="text-center"><span class="red-date">{$date_time}</span> <span class="f-gray">数据统计</span></b></h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-2 col-sm-6" style="width: 20%">
+                                    <div class="widget-inline-box text-center">
+                                        <h3><i class="text-pink md md-account-child"></i> <b>{$act_user}</b></h3>
+                                        <h4 class="text-muted">活跃用户</h4>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2 col-sm-6" style="width: 20%">
+                                    <div class="widget-inline-box text-center">
+                                        <h3><i class="text-custom md md-account-child"></i> <b>{$new_user}</b></h3>
+                                        <h4 class="text-muted">新增用户</h4>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2 col-sm-6" style="width: 20%">
+                                    <div class="widget-inline-box text-center">
+                                        <h3><i class="text-pink md md-devices"></i> <b>{$act_device}</b></h3>
+                                        <h4 class="text-muted">活跃设备</h4>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2 col-sm-6" style="width: 20%">
+                                    <div class="widget-inline-box text-center">
+                                        <h3><i class="text-custom md md-devices"></i> <b>{$new_device}</b></h3>
+                                        <h4 class="text-muted">新增设备</h4>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-sm-6" style="width: 20%">
+                                    <div class="widget-inline-box text-center b-0">
+                                        <h3><i class="text-custom md ion-stats-bars"></i> <b>{$pay_rate}%</b></h3>
+                                        <h4 class="text-muted">付费率</h4>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2 col-sm-6" style="width: 20%">
+                                    <div class="widget-inline-box text-center">
+                                        <h3><i class="text-custom md ion-android-contacts"></i> <b>{$pay_count}</b></h3>
+                                        <h4 class="text-muted">充值人数</h4>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2 col-sm-6" style="width: 20%">
+                                    <div class="widget-inline-box text-center">
+                                        <h3><i class="text-purple md md-attach-money"></i> <b>{$pay_ammount}</b></h3>
+                                        <h4 class="text-muted">web充值总额</h4>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2 col-sm-6" style="width: 20%">
+                                    <div class="widget-inline-box text-center">
+                                        <h3><i class="text-purple md ion-stats-bars"></i> <b>{$arppu}</b></h3>
+                                        <h4 class="text-muted">ARPPU</h4>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-sm-6" style="width: 20%">
+                                    <div class="widget-inline-box text-center">
+                                        <h3><i class="text-danger md ion-stats-bars"></i> <b>{$darpu}</b></h3>
+                                        <h4 class="text-muted">DARPU</h4>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-sm-6" style="width: 20%">
+                                    <div class="widget-inline-box text-center">
+                                        <h3><i class="text-purple md md-attach-money"></i> <b>{$apple_pay_amount}</b></h3>
+                                        <h4 class="text-muted">苹果充值总额</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-box">
+                            <div class="col-sm-12 text-center -m-t-10">
+                                <h4 class="header-title"><b class="pull-left">趋势分析</b><b class="text-center f-gray">  <span class="red-date">{$date_time}</span> 时段数据统计</b></h4>
+                            </div>
+                            <hr class="col-sm-12">
+                            <div class="btn-group m-b-20">
+                                <a class="btn btn-white active" role="button" id="btn1" onclick="switch_chart(1)">活跃用户</a>
+                                <a class="btn btn-white" role="button" id="btn2" onclick="switch_chart(2)">新增用户</a>
+                                <a class="btn btn-white" role="button" id="btn3" onclick="switch_chart(3)">活跃设备</a>
+                                <a class="btn btn-white" role="button" id="btn4" onclick="switch_chart(4)">新增设备</a>
+                                <a class="btn btn-white" role="button" id="btn5" onclick="switch_chart(5)">充值总额</a>
+                            </div>
+                            <!-- <div class="text-center" id="data-title">活跃用户</div>-->
+                            <div id="data1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                            <div class="hide" id="data2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                            <div class="hide" id="data3" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                            <div class="hide" id="data4" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                            <div class="hide" id="data5" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                            <div class="table-responsive m-t-20">
+                                <table class="table m-0" id="h-table" data-page-size="30">
+                                    <thead>
+                                    <tr class="l-bg">
+                                        <th width="100" data-type="numeric">时段</th>
+                                        <th width="180" data-type="numeric" class="text-center d-bg text-middle sp">新增用户|新增设备</th>
+                                        <th width="180" data-type="numeric" class="text-center d-bg text-middle sp">活跃用户|活跃设备</th>
+                                        <th width="130" data-type="numeric" class="text-center">充值人数</th>
+                                        <th width="130" data-type="numeric" class="text-center">ARPPU</th>
+                                        <th width="130" data-type="numeric" class="text-center">DARPU</th>
+                                        <th width="130" data-type="numeric" class="text-center">付费率</th>
+                                        <th width="130" data-type="numeric" class="text-center d-bg p-30-im">充值总额</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <thead>
+                                    <tr>
+                                        <td class="f-bold" scope="row">总计</td>
+                                        <td class="f-bold l-bg text-middle" scope="row"><span class="f-green-d fix-span text-right">{$new_user}</span><span class="separate">|</span><span class="f-gray fix-span text-left">{$new_device}</span></td>
+                                        <td class="f-bold l-bg text-middle" scope="row"><span class="f-green-d fix-span text-right">{$act_user}</span><span class="separate">|</span><span class="f-gray fix-span text-left">{$act_device}</span></td>
+                                        <td class="f-bold" scope="row">{$pay_count}</td>
+                                        <td class="f-bold" scope="row">{$arppu}</td>
+                                        <td class="f-bold" scope="row">{$darpu}</td>
+                                        <td class="f-bold" scope="row">{$pay_rate}%</td>
+                                        <td class="f-bold l-bg p-30-im" scope="row">{$pay_ammount}</td>
+                                        <td></td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {foreach from=$apps_data item=info key=key}
+                                    <tr>
+                                        <td data-value="{$info['key']}" scope="row">{$info['key']}:00</td>
+                                        <td data-value="{$info['sum_new_user']['value']}" class="text-center l-bg text-middle"><span class="f-green fix-span text-right">{$info['sum_new_user']['value']}</span><span class="separate">|</span><span class="fix-span text-left">{$info['sum_new_device']['value']}</span></td>
+                                        <td data-value="{$info['sum_act_user']['value']}" class="text-center l-bg text-middle"><span class="f-green fix-span text-right">{$info['sum_act_user']['value']}</span><span class="separate">|</span><span class="fix-span text-left">{$info['sum_act_device']['value']}</span></td>
+                                        <td class="text-center">{$info['sum_pay_count']['value']}</td>
+                                        <td data-value="{($info['sum_pay']['value']/$info['sum_pay_count']['value'])|string_format:"%.1f"}" class="text-center">
+                                        {($info['sum_pay']['value']/$info['sum_pay_count']['value'])|string_format:"%.1f"}
+                                        </td>
+                                        <td data-value="{($info['sum_pay']['value']/$info['sum_act_user']['value'])|string_format:"%.1f"}" class="text-center">
+                                        {($info['sum_pay']['value']/$info['sum_act_user']['value'])|string_format:"%.1f"}
+                                        </td>
+                                        <td data-value="{($info['sum_pay_count']['value']/$info['sum_act_user']['value']*100)|string_format:"%.1f"}" class="text-center">
+                                        {($info['sum_pay_count']['value']/$info['sum_act_user']['value']*100)|string_format:"%.1f"}%
+                                        </td>
+                                        <td data-value="{$info['sum_pay']['value']}" class="text-center l-bg p-30-im">{$info['sum_pay']['value']}</td>
+                                        <td></td>
+                                    </tr>
+                                    {/foreach}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- container -->
+        </div> <!-- content -->
+    </div>
+</div>
+{include file="kpi/include/foot.html"}
+<script>
+    $(function () {
+        $('#h-table').footable();
+        data1();
+    });
+
+    function data1(){
+        var data1 = echarts.init(document.getElementById('data1'));
+        var option1 = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['当天活跃用户','昨天活跃用户','前天活跃用户','七天前活跃用户']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['{$time_list}']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                name:'当天活跃用户',
+                type:'line',
+                data:['{$act_user_list}'],
+                color:['#5d9cec'],
+                smooth:true
+            },{
+                name:'昨天活跃用户',
+                type:'line',
+                data:['{$act_user_list1}'],
+                color:['#3B3B3F'],
+                smooth:true
+            },{
+                name:'前天活跃用户',
+                type:'line',
+                data:['{$act_user_list2}'],
+                color:['#85EA72'],
+                smooth:true
+            },{
+                name:'七天前活跃用户',
+                type:'line',
+                data:['{$act_user_list7}'],
+                color:['#F69852'],
+                smooth:true
+            }]
+        };
+        data1.setOption(option1);
+    }
+
+    function data2(){
+        var data2 = echarts.init(document.getElementById('data2'));
+        var option2 = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['当天新增用户','昨天新增用户','前天新增用户','七天前新增用户']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data:['{$time_list}']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                name:'当天新增用户',
+                type:'line',
+                data:['{$new_user_list}'],
+                color:['#5d9cec'],
+                smooth:true
+            },{
+                name:'昨天新增用户',
+                type:'line',
+                data:['{$new_user_list1}'],
+                color:['#3B3B3F'],
+                smooth:true
+            },{
+                name:'前天新增用户',
+                type:'line',
+                data:['{$new_user_list2}'],
+                color:['#85EA72'],
+                smooth:true
+            },{
+                name:'七天前新增用户',
+                type:'line',
+                data:['{$new_user_list7}'],
+                color:['#F69852'],
+                smooth:true
+            }]
+        };
+        data2.setOption(option2);
+    }
+
+
+    function data3(){
+        var data3 = echarts.init(document.getElementById('data3'));
+        var option3 = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['当天活跃设备','昨天活跃设备','前天活跃设备','七天前活跃设备']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data:['{$time_list}']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                name:'当天活跃设备',
+                type:'line',
+                data:['{$act_device_list}'],
+                color:['#5d9cec'],
+                smooth:true
+            },{
+                name:'昨天活跃设备',
+                type:'line',
+                data:['{$act_device_list1}'],
+                color:['#3B3B3F'],
+                smooth:true
+            },{
+                name:'前天活跃设备',
+                type:'line',
+                data:['{$act_device_list2}'],
+                color:['#85EA72'],
+                smooth:true
+            },{
+                name:'七天前活跃设备',
+                type:'line',
+                data:['{$act_device_list7}'],
+                color:['#F69852'],
+                smooth:true
+            }]
+        };
+        data3.setOption(option3);
+    }
+
+
+    function data4(){
+        var data4 = echarts.init(document.getElementById('data4'));
+        var option4 = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['当天新增设备','昨天新增设备','前天新增设备','七天前新增设备']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data:['{$time_list}']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                name:'当天新增设备',
+                type:'line',
+                data:['{$new_device_list}'],
+                color:['#5d9cec'],
+                smooth:true
+            },{
+                name:'昨天新增设备',
+                type:'line',
+                data:['{$new_device_list1}'],
+                color:['#3B3B3F'],
+                smooth:true
+            },{
+                name:'前天新增设备',
+                type:'line',
+                data:['{$new_device_list2}'],
+                color:['#85EA72'],
+                smooth:true
+            },{
+                name:'七天前新增设备',
+                type:'line',
+                data:['{$new_device_list7}'],
+                color:['#F69852'],
+                smooth:true
+            }]
+        };
+        data4.setOption(option4);
+    }
+
+
+    function data5(){
+        var data5 = echarts.init(document.getElementById('data5'));
+        var option5 = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['当天充值总额','昨天充值总额','前天充值总额','七天前充值总额']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data:['{$time_list}']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                name:'当天充值总额',
+                type:'line',
+                data:['{$pay_list}'],
+                color:['#5d9cec'],
+                smooth:true
+            },{
+                name:'昨天充值总额',
+                type:'line',
+                data:['{$pay_list1}'],
+                color:['#3B3B3F'],
+                smooth:true
+            },{
+                name:'前天充值总额',
+                type:'line',
+                data:['{$pay_list2}'],
+                color:['#85EA72'],
+                smooth:true
+            },{
+                name:'七天前充值总额',
+                type:'line',
+                data:['{$pay_list7}'],
+                color:['#F69852'],
+                smooth:true
+            }]
+        };
+        data5.setOption(option5);
+    }
+
+
+    var data2_flag = 0;
+    var data3_flag = 0;
+    var data4_flag = 0;
+    var data5_flag = 0;
+    function switch_chart(num) {
+        for(var i=1; i <= 5; i++) {
+            if(i != num) {
+                $("#data"+i).addClass("hide");
+                $("#btn"+i).removeClass("active")
+            }
+        }
+        $($("#btn"+num)).addClass("active");
+        $("#data"+num).removeClass("hide");
+        //只初始化一次
+        if(num == 2 && data2_flag == 0) {
+            data2();
+            data2_flag = 1;
+        }
+        if(num == 3 && data3_flag == 0) {
+            data3();
+            data3_flag = 1;
+        }
+        if(num == 4 && data4_flag == 0) {
+            data4();
+            data4_flag = 1;
+        }
+        if(num == 5 && data5_flag == 0) {
+            data5();
+            data5_flag = 1;
+        }
+    }
+
+</script>
+</body>
+</html>

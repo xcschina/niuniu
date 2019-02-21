@@ -1,0 +1,11 @@
+<form action="user.php?act=relieve_suspend_save" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="relieve_suspend_form" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">是否确认操作？</h4>
+    </div>
+    <input type="hidden" value="{$user_id}" name="u_id" />
+    <div class="modal-footer" style="text-align: center;">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">取消</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light">确定</button>
+    </div>
+</form>

@@ -1,0 +1,48 @@
+<form action="account.php?act=do_add_img&id={$info.id}" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">默认图片</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-md-3 control-label">公会名称</label>
+            <div class="col-md-9">
+                <input name="guild_name" type="text" value="{$info.guild_name}" class="filestyle" data-buttonname="btn-white">
+            </div>
+        </div>
+        {if $info.img}
+        <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-9">
+                <div style="margin: 10px 0 0 0"><img src="http://cdn.66173.cn{$info.img}" alt="image" class="img-responsive thumb-lg"></div>
+                <input name="old_img" type="hidden" value="{$info.img}">
+            </div>
+        </div>
+        {/if}
+
+        <div class="form-group">
+            <label class="col-md-3 control-label">公会头像</label>
+            <div class="col-md-9">
+                <input name="img" type="file" class="filestyle" data-buttonname="btn-white">
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light">保存</button>
+    </div>
+</form>
+{literal}
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        $(".select2").select2();
+        $("#group_id").change(function(){
+            if($(this).val() == '11'){
+                $("#ch_id").show();
+            }else{
+                $("#ch_id").hide();
+            }
+        });
+    });
+</script>
+{/literal}

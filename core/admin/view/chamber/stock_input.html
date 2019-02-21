@@ -1,0 +1,51 @@
+<script type="text/javascript" src="assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+<script src="assets/plugins/bootstrap-filestyle/src/bootstrap-filestyle.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('form').parsley();
+    });
+</script>
+<style>
+    .modal-button,.modal-title{
+        text-align: center;
+    }
+    .confirm-enter{
+        margin: 12px;
+        padding: 8px 37px;
+        font-size: 16px;
+    }
+    .red{
+        color: red;
+    }
+</style>
+<form action="business_stock.php?act=do_input" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="online-form" class="form-horizontal"  data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">录入库存</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-md-3 control-label">录入库存数量：</label>
+            <div class="col-md-7">
+                <input type="number" value="" name="stock_num" class="form-control" required/>
+            </div>
+            <small class="col-md-2 m-t-10"><span class="red">*</span>可为负数</small>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">备注说明：</label>
+            <div class="col-md-9">
+                <textarea type="text" value="" id="desc" name="desc" class="form-control" required></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <small class="col-md-9" ><span class="red">*</span>必填，说明录入库存具体情况</small>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12 modal-button">
+                <input type="hidden" name="id" value="{$id}"/>
+                <button type="submit" class="btn btn-info waves-effect waves-light confirm-enter">确认录入</button>
+            </div>
+        </div>
+    </div>
+</form>

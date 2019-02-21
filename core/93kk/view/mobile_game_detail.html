@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta name="format-detection" content="telephone=no" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>牛果游戏</title>
+  <link rel="stylesheet" href="//cdn.66173.cn/93kk/css/reset.css">
+  <link rel="stylesheet" href="//cdn.66173.cn/93kk/css/style.css">
+  <script type=text/javascript src="//cdn.66173.cn/93kk/js/jquery-2.1.3.min.js"></script>
+  <style>
+    .concent {
+      margin: 0 auto;
+      width: 100%;
+      max-width: 750px;
+      min-width: 320px;
+    }
+
+    .box {
+      white-space: nowrap;
+      overflow-x: auto;
+      margin-top: -.5rem;
+    }
+
+    .box::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      display: none;
+    }
+
+    .box div {
+      list-style: none;
+      display: inline-block;
+      width: 40%;
+      height: 20rem;
+      line-height: 30px;
+      background: #ffffff;
+      text-align: center;
+    }
+
+    .box div img {
+      width: 100%;
+      height: 100%;
+      /* background-size: 100%; */
+    }
+
+    .box div:last-child {
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="detail">
+    <div class="d-tit">
+      <span onClick="javascript: history.back(-1);"></span>
+      <p>虚荣（Vainglory）</p>
+      <span></span>
+    </div>
+    <div class="d-msg flex">
+      <img src="//cdn.66173.cn/93kk/images/d_1.png" alt="">
+      <div class="flex-box">
+        <h1 class="tit">{$game_info.app_name}</h1>
+        <p class="info"><em>265万次下载</em> | {$game_info.app_size}</p>
+        <p>{$game_info.subtitle}</p>
+      </div>
+    </div>
+    <!-- 图片滑块 -->
+    <div class="d-img">
+      <p class="tit"><span>详情</span></p>
+      <div class="concent">
+        <div class="box">
+          <div>
+            <img src="//cdn.66173.cn/93kk/images/banner1.png" alt="">
+          </div>
+          <div>
+            <img src="//cdn.66173.cn/93kk/images/banner1.png" alt="">
+          </div>
+          <div>
+            <img src="//cdn.66173.cn/93kk/images/banner1.png" alt="">
+          </div>
+          <div>
+            <img src="//cdn.66173.cn/93kk/images/banner1.png" alt="">
+          </div>
+          <div>
+            <img src="//cdn.66173.cn/93kk/images/banner1.png" alt="">
+          </div>
+          <div>
+            <img src="//cdn.66173.cn/93kk/images/banner1.png" alt="">
+          </div>
+        </div>
+      </div>
+      <script>
+        var oBox = $('.box');
+        var oBoxWidth = $('.box').width();
+
+        oBox.find('div').on('click', function () {
+          var thisWidth = $(this).width();
+          var moveLeft = this.offsetLeft;
+          if (oBoxWidth < moveLeft + thisWidth) {
+            oBox.animate({
+              scrollLeft: moveLeft
+            });
+          } else {
+            oBox.animate({
+              scrollLeft: 0
+            });
+          }
+        });
+      </script>
+    </div>
+    <div class="d-desc">
+      <p class="tit">游戏简介</p>
+      <p class="desc">{htmlspecialchars_decode($game_info.desc)}</p>
+      <p class="tit">游戏信息</p>
+      <table>
+        <tr>
+          <td>大小：{$game_info.app_size}</td>
+          <td>版本：{$game_info.system}</td>
+        </tr>
+        <tr>
+          <td>更新时间：2018-11-26</td>
+          <td>语言：中文</td>
+        </tr>
+        <tr>
+          <td>厂商：网易（上海）网络游戏有限公司</td>
+        </tr>
+      </table>
+    </div>
+    <div class="dl">
+      <a href="">下载</a>
+    </div>
+  </div>
+</body>
+
+</html>

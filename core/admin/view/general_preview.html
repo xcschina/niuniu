@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <title>{$info.title}</title>
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/website/css/add_page.css?t=3123">
+    <script src="http://cdn.66173.cn/www/js/jquery-1.8.3.min.js"></script>
+    <style>
+        .video-zone {
+            position: absolute;
+            width: 55%;
+            z-index: 9;
+            left: 3%;
+            top: 27.1%;
+            font-size: 0;
+        }
+        .poster {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="page-bg">
+<!--<a href="http://ad.66173yx.com/website.php?act=general_down&id={$info.id}" class="page-game-box">-->
+<div class="page-game-box">
+    <a class="page-top" href="{$info.down_url}">
+        <img src="http://cdn.66173.cn/{$info.banner}"/>
+    </a>
+    <div class="page-center">
+        <div class="relative maxFullWidth">
+            {if $info.is_video == 1}
+            <div class="video-zone"></div>
+            {/if}
+            <a class="block" href="{$info.down_url}">
+                <img src="http://cdn.66173.cn/{$info.top_img}"/>
+            </a>
+        </div>
+        <a class="block" href="{$info.down_url}">
+            <div class="slideshow-zone" style="background-image: url(http://cdn.66173.cn/{$info.middle_img})">
+                <ul class="img-ul">
+                    {foreach from=$bg_img key=$k item=bg}
+                    <li data-index="{$k}" {if $k==0}class="show"{/if}><img src="http://cdn.66173.cn/{$bg}"></li>
+                    {/foreach}
+                </ul>
+                <ul class="dot-ul">
+                    {foreach from=$bg_img key=$k item=bg}
+                    <li data-index="{$k}" {if $k==0}class="cur"{/if}><span class="dot"></span></li>
+                    {/foreach}
+                </ul>
+            </div>
+            {if $info.bottom_img} <img src="http://cdn.66173.cn/{$info.bottom_img}"/>{/if}
+        </a>
+    </div>
+</div>
+{if $info.is_footer eq 1}
+{if $info.id >'317' and  $info.id <'338'}
+<div class="bottom-foot">杭州道盟网络科技有限公司</br>浙网文（2016）0298-168号</div>
+{else}
+<div class="bottom-foot">福建牛牛网络信息技术有限公司</br>闽网文〔2016〕1554-024号</div>
+{/if}
+{/if}
+<input type="hidden" id="video_url" value="{$info.video_url}">
+<input type="hidden" id="video_img" value="{$info.video_img}">
+</body>
+{literal}
+<script type="text/javascript">
+    var cur = 0;
+    var slideInterval;
+    var video = null;
+    var videoSrc = $("#video_url").val();
+    var maskSrc = $("#video_img").val();
+    function slideControl(cur) {
+        $('.img-ul li[data-index="'+cur+'"]').addClass("show").siblings().removeClass("show");
+        $('.dot-ul li[data-index="'+cur+'"]').addClass("cur").siblings().removeClass("cur");
+    }
+    function sizeControl() {
+        $(".img-ul img").css("height", $(".img-ul img:visible").width()*0.6+'px');
+        $(".video-zone").css("height", $(".video-zone").width()*0.5625);
+    }
+    function addVideo() {
+        if($(".video-zone").length > 0) {
+            var con = '<img class="poster" src="http://cdn.66173.cn'+maskSrc+'" alt="">'
+                +'<video width="100%" height="100%" style="object-fit:fill;z-index: 10" controls="controls"'
+                +'webkit-playsinline playsinline id="video" src="' + videoSrc + '">not support</video>';
+            $(".video-zone").html(con);
+            video = document.getElementById("video");
+            $(".video-zone").css("height", $(".video-zone").width()*0.5625);
+        }
+    }
+    $(window).load(function() {
+        sizeControl();
+        addVideo();
+        slideInterval = setInterval(function() {
+            cur < 3 ? cur++ : cur = 0;
+            slideControl(cur);
+        }, 2000)
+    });
+    $(window).resize(function() {
+        sizeControl();
+    });
+    $(".page-bg").on("click", ".poster", function(e) {
+        $(e.target).hide();
+        video.play();
+    })
+</script>
+{/literal}
+</html>

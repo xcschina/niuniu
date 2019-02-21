@@ -1,0 +1,48 @@
+<form action="ccm_service.php?act=do_service_add" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">区服添加</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-md-3 control-label">游戏</label>
+            <div class="col-md-9">
+                <select class="form-control select2_add" name="app_id_add">
+                    <option value="">请选择游戏</option>
+                    {foreach from=$app_list item=data}
+                    <option value="{$data.app_id}">[{$data.app_id}]{$data.app_name}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">区服ID</label>
+            <div class="col-md-9">
+                <input type="number" class="form-control" parsley-trigger="change" required name="service_id_add" value=""  />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">区服名称</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" parsley-trigger="change" required name="service_name_add" value=""  />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">区服类型</label>
+            <div class="col-md-9" style="margin-top: 5px!important;">
+                混服: <input type="radio" checked="checked" name="service_type" value="1" />
+                独服: <input type="radio" name="service_type" value="2" />
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light">新增</button>
+    </div>
+</form>
+<script>
+    jQuery(document).ready(function() {
+        $("#myform").parsley();
+        $(".select2_add").select2();
+    });
+</script>

@@ -1,0 +1,115 @@
+{if $group_id==10 && $p1!=0 && $p2!=0}
+<link href="assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+<script type="text/javascript" src="assets/plugins/multiselect/js/jquery.multi-select.js"></script>
+<script type="text/javascript" src="assets/plugins/jquery-quicksearch/jquery.quicksearch.js"></script>
+<script src="assets/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
+{else}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+    <meta name="author" content="Coderthemes">
+    <title>公会总盘数据</title>
+    {include file="kpi/include/head.html"}
+    <link href="assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+</head>
+<body>
+{/if}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="table-responsive">
+                <form id="guild_form" class="col-md-12" method="post" action="guild.php?act=guild_data_child_count&id={$id}&time=none">
+                    <div class="col-md-3">
+                        <div class="input-daterange input-group" id="date-range">
+                            <input type="text" class="form-control" name="start_time" {if $start_time}value="{$start_time}"{/if} />
+                            <span class="input-group-addon bg-custom b-0 text-white">to</span>
+                            <input type="text" class="form-control" name="end_time" {if $end_time}value="{$end_time}"{/if} />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <span class="btn btn-default" onclick="search('none');"><i class="fa fa-search m-r-5"></i>搜索</span>
+                    </div>
+                {if $group_id==10 && $p1!=0 && $p2!=0}
+                    <div  class="col-md-6 text-right">
+                        <a class="btn btn-default {if $time eq 'today'}btn-inverse{/if}" href="javascript:search('today');">今天</a>
+                        <a class="btn btn-default {if $time eq 'last_week'}btn-inverse{/if}" href="javascript:search('last_week');">上周</a>
+                        <a class="btn btn-default {if $time eq 'this_month'}btn-inverse{/if}" href="javascript:search('this_month');">本月</a>
+                        <a class="btn btn-default {if $time eq 'last_month'}btn-inverse{/if}" href="javascript:search('last_month');">上个月</a>
+                        <a class="btn btn-default {if $time eq 'last_three_month'}btn-inverse{/if}" href="javascript:search('last_three_month');">上三个月</a>
+                    </div>
+                {else}
+                    <div class="col-md-6 text-right">
+                        <a class="btn btn-default {if $time eq 'today'}btn-inverse{/if}" href="/guild.php?act=guild_data_child_count&id={$id}&time=today">今天</a>
+                        <a class="btn btn-default {if $time eq 'last_week'}btn-inverse{/if}" href="/guild.php?act=guild_data_child_count&id={$id}&time=last_week">上周</a>
+                        <a class="btn btn-default {if $time eq 'this_month'}btn-inverse{/if}" href="/guild.php?act=guild_data_child_count&id={$id}&time=this_month">本月</a>
+                        <a class="btn btn-default {if $time eq 'last_month'}btn-inverse{/if}" href="/guild.php?act=guild_data_child_count&id={$id}&time=last_month">上个月</a>
+                        <a class="btn btn-default {if $time eq 'last_three_month'}btn-inverse{/if}" href="/guild.php?act=guild_data_child_count&id={$id}&time=last_three_month">上三个月</a>
+                    </div>
+                {/if}
+                </form>
+                <!---核心内容列表区域-->
+                <table class="table m-0 table-hover">
+                    <thead>
+                    <tr class="back_gray">
+                        <th>公会名称</th>
+                        <th>流水量</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach from=$datalist item=data}
+                    <tr>
+                        <td>{$data.real_name}</td>
+                        <td>￥{$data.money}</td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <!---内容区域end--->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row"><div class="col-lg-12"><div id="page">{$page_bar}</div></div></div>
+{if $group_id==10 && $p1!=0 && $p2!=0}
+<script>
+    function search(str) {
+        var start_time = new Date($("input[name='start_time']").val());
+        var end_time = new Date($("input[name='end_time']").val());
+        if (end_time.getTime()/1000/24/3600-start_time.getTime()/1000/24/3600>180){
+            alert("时间间隔不能超过180天！");
+            return false;
+        }
+        var url = "guild.php?act=guild_data_child_count&id={$id}&time="+str;
+        var formStr = $('#guild_form').serialize();
+        post_main_data_load(url,formStr);
+    }
+</script>
+{else}
+{include file="kpi/include/foot.html"}
+<script>
+    function search(str){
+        var start_time = new Date($("input[name='start_time']").val());
+        var end_time = new Date($("input[name='end_time']").val());
+        if (end_time.getTime()/1000/24/3600-start_time.getTime()/1000/24/3600>180){
+            alert("时间间隔不能超过180天！");
+            return false;
+        }
+        $("#guild_form").submit();
+    }
+</script>
+{/if}
+<script src="assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        // Date Picker
+        jQuery('#datepicker').datepicker();
+        jQuery('#date-range').datepicker({
+            format: "yyyy-mm-dd",
+            toggleActive: true
+        });
+    });
+</script>

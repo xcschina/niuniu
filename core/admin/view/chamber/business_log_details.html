@@ -1,0 +1,96 @@
+<!---表单验证器加载 参考地址http://coderthemes.com/ubold_1.3/dark_1/form-validation.html-->
+<script type="text/javascript" src="assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+<script src="assets/plugins/bootstrap-filestyle/src/bootstrap-filestyle.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('form').parsley();
+        $(".app-select2").select2();
+    });
+</script>
+<!--end--->
+
+<form action="business.php?act=do_edit_charge" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">订单详情</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-md-2 control-label">执行员</label>
+            <div class="col-md-10 m-t-5">{$info.real_name}</div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">游戏名称</label>
+            <div class="col-md-10 m-t-5">{if $info.app_id eq '99999'}金额录入{else}{$info.app_name}{/if}</div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">区服名称</label>
+            <div class="col-md-10 m-t-5">
+                {if $info.service_id eq '88888'}牛牛区服{else}{$info.service_name}{/if}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">职业名称</label>
+            <div class="col-md-10 m-t-5">
+               {$info.role_job}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">角色性别</label>
+            <div class="col-md-10 m-t-5">
+                {if $info.role_sex eq '1'}男{elseif $info.role_sex eq '2'}女{else}未知{/if}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">角色名</label>
+            <div class="col-md-10 m-t-5">
+               {$info.role_name}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">账号</label>
+            <div class="col-md-10 m-t-5">
+               {$info.account}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">密码</label>
+            <div class="col-md-10 m-t-5">
+              {$info.pwd}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">支付方式</label>
+            <div class="col-md-10 m-t-5">
+                {if $info.status eq 10}牛牛支付{elseif $info.pay_type eq '1'}支付宝{elseif $info.pay_type eq '2'}爱云{elseif $info.pay_type eq '3'}游戏久0303{elseif $info.pay_type eq '4'}游戏久0304{elseif $info.pay_type eq '5'}游戏久0305{elseif $info.pay_type eq '6'}游戏久0306{/if}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">交易金额</label>
+            <div class="col-md-10 m-t-5">
+                {if $info.status eq '1'}
+                <input type="text" class="form-control" parsley-trigger="change" name="money" value="{$info.money}" required/>
+                {else}
+                {$info.money}
+                {/if}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">备注说明</label>
+            <div class="col-md-10 m-t-5">
+                {if $info.status eq '1'}
+                <textarea class="form-control" parsley-trigger="change" name="desc" >{$info.desc}</textarea>
+                {else}
+                {$info.desc}
+                {/if}
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        {if $info.status eq '1'}
+        <input type="hidden" value="{$info.id}" name="id" >
+        <button type="submit" class="btn btn-info waves-effect waves-light">保存</button>
+        {/if}
+    </div>
+</form>

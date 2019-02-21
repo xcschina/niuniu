@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<title>{$info['game_name']}</title>
+	<link href="http://cdn.66173.cn/app/css/sel_ch.css" type="text/css" rel="stylesheet">
+	<script src="http://static.66173.cn/website/jquery.min.js"></script>
+	<script type="application/javascript">
+		$(document).ready(function () {
+			var wWidth = document.documentElement.clientWidth || document.body.clientWidth;
+			var size = wWidth / 7.5;
+			document.getElementsByTagName('html')[0].style.fontSize = size + 'px';
+		});
+	</script>
+</head>
+<body>
+<div class="sel_head">
+	<section class="fl m-r-15">
+		<img class="game_icon" src="http://cdn.66173.cn//images/game_icon/{$info['id']}.png">
+	</section>
+	<section class="fl w-530">
+		<div style="overflow: hidden">
+			<p class="fn-30 m-t-0 fl">{$info['game_name']}</p>
+			<a class="tags fl" style="display: inline-block">首充低至{$min_dis}折</a>
+		</div>
+		<div style="display: block;">
+			<p class="fn-20 m-t-0 c-ccc p-t-10">{$info['gift_guide']}</p>
+		</div>
+	</section>
+</div>
+<div class="sel_body">
+	<ul class="fn-30">
+		<li><span class="ch_tag"></span>选择渠道</li>
+		{foreach key=key item=data from=$ch_list}
+		<a href="app.php?act=sel_goods&ch={$data['d_type']}&game_id={$game_id}">
+			<li style="width:100%;overflow: hidden;">
+			<div class="fl">
+				<img class="ch_icon" src="http://cdn.66173.cn/{$data['icon']}">{$data['name']}端
+			</div>
+			{if $data['discount'] eq $min_dis}
+			<span class="tags fl m-t-45">推荐</span>
+			{/if}
+			<span class="tags fl m-t-45">首充低至{$data['discount']}折</span></li>
+		</a>
+		{/foreach}
+	</ul>
+</div>
+</body>
+</html>

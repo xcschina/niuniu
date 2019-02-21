@@ -1,0 +1,48 @@
+<form action="app.php?act=sdk_rules_save" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="verify_form" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">添加规则</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-md-3 control-label">类型</label>
+            <div class="col-md-9" style="margin-top: 5px!important;">
+                等级: <input type="radio" checked="checked" name="rules_type" value="1" />
+                时间: <input type="radio" name="rules_type" value="2" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">规则内容</label>
+            <div class="col-md-9">
+                <input type="number" class="form-control" name="rules_content" placeholder="请输入等级数值" />
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light" id="btn_charge">保存</button>
+    </div>
+</form>
+{literal}
+<script>
+    $("#verify_form").on("submit",function(){
+        var content = $("input[name='rules_content']").val();
+        var content_reg = new RegExp(/^[1-9][0-9]*$/);
+        if (!content_reg.test(content)){
+            $.Notification.notify('error','top left',"规则内容不符合！");
+            return false;
+        }
+        if (input[name='rules_type'].val==2 && (parseInt(content))>86400){
+            $.Notification.notify('error','top left',"时间不能超过24小时！");
+            return false;
+        }
+    });
+    $("input[name='rules_type']").on("click",function(){
+        if ($(this).val()==1){
+            $("input[name='rules_content']").attr("placeholder","请输入等级数值");
+        }else if($(this).val()==2){
+            $("input[name='rules_content']").attr("placeholder","请输入时间秒数");
+        }
+    });
+</script>
+{/literal}

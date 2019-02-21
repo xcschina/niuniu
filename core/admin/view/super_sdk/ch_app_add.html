@@ -1,0 +1,77 @@
+<!---表单验证器加载 参考地址http://coderthemes.com/ubold_1.3/dark_1/form-validation.html-->
+<script type="text/javascript" src="assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+<script src="assets/plugins/bootstrap-filestyle/src/bootstrap-filestyle.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('form').parsley();
+    });
+</script>
+<!--end--->
+<form action="channel_app.php?act=do_add" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">添加渠道游戏配置</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-md-3 control-label" for="field-1">APP ID</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" id="field-1" name="app_id" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label" for="field-2">APP KEY</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" id="field-2" name="app_key" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">渠道名称</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" parsley-trigger="change" required name="channel" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">渠道代码</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" parsley-trigger="change" required name="ch_code" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">游戏名称</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" parsley-trigger="change" required name="app_name" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">关联SuperAppID</label>
+            <div class="col-md-9">
+                <select class="form-control select2" name="super_id" required>
+                    <option value="">请选择SuperAppID</option>
+                    {foreach from=$app item=apps}
+                    <option value="{$apps.app_id}"{if $apps.app_id eq $info.super_id} selected{/if}>[{$apps.app_id}]-{$apps.app_name}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">回调接口</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" parsley-trigger="change" name="ch_charge_url" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">状态</label>
+            <div class="col-md-9">
+                <select class="form-control" name="status">
+                    <option value="1">运营</option>
+                    <option value="2">下线</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light">保存</button>
+    </div>
+</form>

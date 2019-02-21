@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+    <meta name="author" content="Coderthemes">
+    <title>{$app_name}</title>
+    {include file="kpi/include/head.html"}
+</head>
+<body>
+<!-- Begin page -->
+<div id="wrapper">
+    <!-- Left Sidebar -->
+    <div id="page-wrapper">
+        {literal}
+        <style>
+            #data2 {
+                min-width: 310px; height: 400px; margin: 0 auto;
+            }
+            .red-date {
+                color: #ff6600;
+            }
+            .f-gray {
+                color: #666;
+            }
+            th, td {
+                text-align: right!important;
+            }
+            td {
+                padding: 9px!important;
+                font-size: 14px!important;
+                color: #333!important;
+            }
+            td.keep20{background-color: #ededed}
+            td.keep30{background-color: #dedede}
+            td.keep40{background-color: #cdcdcd}
+            td.daykeep{border-right: 1px solid #fff;}
+            tr {
+                background-color: inherit!important;
+            }
+            th {
+                font-size: 14px!important;
+                color: #666;
+            }
+            .f-green-d {
+                color: #009999!important;
+                font-weight: bold;
+            }
+            .f-green {
+                color: #009999!important;
+            }
+            .f-bold {
+                font-weight: bold;
+            }
+            .d-bg {
+                background-color: #f1f1f1!important;
+            }
+            .l-bg {
+                background-color: #f7f7f7!important;
+            }
+            .text-middle {
+                text-align: center!important;
+            }
+            .text-left {
+                text-align: left!important;
+            }
+            .text-right {
+                text-align: right!important;
+            }
+            .fix-span {
+                width: 45%;
+                display: inline-block;
+            }
+            .separate {
+                color: #ccc;
+                padding: 0 3px;
+            }
+            .sp .footable-sort-indicator {
+                position: absolute!important;
+            }
+            .channel-none{
+                display: none !important;
+            }
+            .channel-block{
+                display: block !important;
+            }
+        </style>
+        {/literal}
+        <!-- Start content -->
+        <div class="content m-b-0">
+            <div class="container">
+                <div class="row m-b-5">
+                    <div class="col-lg-12">
+                        <ul class="nav nav-tabs tabs">
+                            <li class="active tab">
+                                <a href="/kpi.php?act=detail&appids={$appid}">
+                                    <span class="visible-xs"><i class="fa fa-home"></i></span>
+                                    <span class="hidden-xs">总览</span>
+                                </a>
+                            </li>
+                            {if $smarty.session.usr_id neq '419'}
+                            <li class="tab">
+                                <a href="/kpi.php?act=realtime&appids={$appid}">
+                                    <span class="visible-xs"><i class="fa fa-user"></i></span>
+                                    <span class="hidden-xs">实时</span>
+                                </a>
+                            </li>
+                            {if $smarty.session.group_id eq '1' or $smarty.session.usr_id eq '312' or $smarty.session.usr_id eq '712'}
+                            <li class="tab">
+                                {if $app_type==1}
+                                <a href="/kpi.php?act=all_channel&appids={$appid}">
+                                    <span class="visible-xs"><i class="fa fa-user"></i></span>
+                                    <span class="hidden-xs">渠道</span>
+                                </a>
+                                {elseif $app_type==2}
+                                    <a href="/kpi.php?act=ios_channel&appids={$appid}">
+                                        <span class="visible-xs"><i class="fa fa-user"></i></span>
+                                        <span class="hidden-xs">分包</span>
+                                    </a>
+                                {/if}
+                            </li>
+                            {/if}
+                            {/if}
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-box">
+                            <div class="col-sm-12 -m-t-10">
+                                <div class="row">
+                                    <form  action="/kpi.php?act=detail&appids={$appid}" method="post" class="form-inline pull-left" id="detail_form">
+                                        <div class="col-sm-12 text-xs-center">
+                                            <div class="col-md-3 form-group">
+                                                <lable>产品ID：</lable>
+                                                <select class="form-control select2 m-w-200 m-r-10" data-placeholder="请选择产品" name="appid">
+                                                    {if $smarty.session.usr_id eq '419'}
+                                                    <option value="6024">魔域手游渠道服-6024</option>
+                                                    {else}
+                                                    {foreach from=$apps item=app}
+                                                    <option value="{$app.app_id}" {if $app.app_id eq $appid} selected{/if}>{$app.app_name}-{$app.app_id}</option>
+                                                    {/foreach}
+                                                    {/if}
+                                                </select>
+                                            </div>
+                                            <div class="col-md-5 form-group">
+                                                <lable>时段：</lable>
+                                                <div class="input-daterange form-group" id="date-range">
+                                                    <input type="text" class="form-control w-md" name="start_date" value="{$start_date}">至<input type="text" class="form-control w-md" name="end_date" value="{$end_date}">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-12 text-xs-center m-t-10">
+                                            <div class="col-md-2 form-group">
+                                                <lable>渠道类型：</lable>
+                                                <select class="form-control select2 m-w-200 m-r-10" data-placeholder="请选择类型" id="channel_type" name="channel_type">
+                                                    <option value="1" {if $params.channel_type eq 1} selected{/if}>公会</option>
+                                                    <option value="2" {if $params.channel_type eq 2} selected{/if}>运营</option>
+                                                </select>
+                                            </div>
+                                            {if $app_type==1}
+                                            <div class="col-md-2 form-group appchannels {if $params.channel_type eq '2'}channel-none{else}channel-block{/if}">
+                                                <lable>渠道：</lable>
+                                                <select class="form-control select2 w-mlg m-r-10"  data-placeholder="请选择渠道" name="appchannels">
+                                                    <option value="">请选择渠道</option>
+                                                    {foreach from=$guild_list item=guild}
+                                                    <option value="{$guild.user_code}"{if $guild.user_code eq $channels} selected{/if}>{$guild.user_code}</option>
+                                                    {/foreach}
+                                                </select>
+                                            </div>
+                                            {else if $app_type==2}
+                                            <div class="col-md-2 form-group ">
+                                                <lable>包名：</lable>
+                                                <select class="form-control select2 w-mlg m-r-10"  data-placeholder="请选择包名" name="apppackages">
+                                                    <option value="">请选择包名</option>
+                                                    {foreach from=$apppackage_list item=apppackages}
+                                                    {if $apppackages.apple_id == $apppackages.channel}
+                                                    <option value="{$apppackages.apple_id}"{if $apppackages.apple_id eq $channels} selected{/if}>{$apppackages.game_name}</option>
+                                                    {else}
+                                                    <option value="{$apppackages.channel}"{if $apppackages.channel eq $channels} selected{/if}>{$apppackages.game_name}</option>
+                                                    {/if}
+                                                    {/foreach}
+                                                    <option value="appstore" {if $channels eq "appstore"}selected{/if}>Appstore</option>
+                                                </select>
+                                            </div>
+                                            {/if}
+                                            <div class="col-md-3 form-group extension-channel {if $params.channel_type eq '2'}channel-block{else}channel-none{/if}">
+                                                <lable>信息流：</lable>
+                                                <select class="form-control select2 w-mlg m-r-10"  data-placeholder="请选择信息流" name="ex_channel">
+                                                    <option value="">请选择信息流</option>
+                                                    {foreach from=$extension_list item=extension}
+                                                    <option value="{$extension.user_code}"{if $extension.user_code eq $params.ex_channel} selected{/if}>{$extension.user_code}-{$extension.real_name}</option>
+                                                    {/foreach}
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3 form-group extension-channel {if $params.channel_type eq '2'}channel-block{else}channel-none{/if}">
+                                                <lable>信息流渠道名：</lable>
+                                                <input type="text"  class="form-control w-md" name="flow_channel" value="{$params.flow_channel}"/>
+                                            </div>
+                                            <div class="col-md-2 form-group">
+                                                <input type="hidden" name="channels" id="channels" value=""/>
+                                                <button type="button" class="btn btn-default waves-effect waves-light m-r-10" onclick="detail_query()">查询</button>
+                                                <a type="button" class="btn btn-default waves-effect waves-light m-r-10" target="_blank" href="kpi.php?act=role_export&app_id={$appid}&start={$start_date}&end={$end_date}">导出</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <hr class="col-sm-12 m-t-10">
+                            <div class="btn-group m-b-20">
+                                <a class="btn btn-white active" role="button" id="btn1" onclick="switch_chart(1)">充值金额</a>
+                                <a class="btn btn-white" role="button" id="btn2" onclick="switch_chart(2)">新增与活跃用户</a>
+                                <a class="btn btn-white" role="button" id="btn3" onclick="switch_chart(3)">用户留存比</a>
+                            </div>
+                            <div class="text-center" id="data-title">充值金额({$sum_pay})</div>
+                            <div id="data1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                            <div class="hide" id="data2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                            <div class="hide" id="data3" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                            <div class="table-responsive m-t-20">
+                                <table id="detail-table" class="table m-0 table-hover" data-filter="#filter" data-page-size="30">
+                                    <thead>
+                                    <tr class="l-bg">
+                                        <th width="" >日期</th>
+                                        <th width="156" data-type="numeric" class="text-center d-bg text-middle sp">[新增]用户|设备</th>
+                                        <th width="156" data-type="numeric" class="text-center d-bg text-middle sp">[活跃]用户|设备</th>
+                                        <th width="120" data-type="numeric" class="text-center d-bg">[新增]用户/设备</th>
+                                        <th width="" data-type="numeric" class="text-center">付费用户</th>
+                                        <th width="" data-type="numeric" class="text-center">付费率</th>
+                                        <th width="" data-type="numeric" class="text-center">darpu</th>
+                                        <th width="" data-type="numeric" class="text-center d-bg">充值金额</th>
+                                        <th width="" data-type="numeric" class="text-center" style="padding-left: 20px">1%</th>
+                                        <th width="" data-type="numeric" class="text-center">2%</th>
+                                        <th width="" data-type="numeric" class="text-center">3%</th>
+                                        <th width="" data-type="numeric" class="text-center">4%</th>
+                                        <th width="" data-type="numeric" class="text-center">5%</th>
+                                        <th width="" data-type="numeric" class="text-center">6%</th>
+                                        <th width="" data-type="numeric" class="text-center">7%</th>
+                                        <th width="" data-type="numeric" class="text-center">8%</th>
+                                        <th width="" data-type="numeric" class="text-center">10%</th>
+                                        <th width="" data-type="numeric" class="text-center">12%</th>
+                                        <th width="" data-type="numeric" class="text-center">14%</th>
+                                        <th width="" data-type="numeric" class="text-center">16%</th>
+                                        <th width="" data-type="numeric" class="text-center">20%</th>
+                                        <th width="" data-type="numeric" class="text-center">30%</th>
+                                    </tr>
+                                    </thead>
+                                    <thead>
+                                    <tr>
+                                        <td scope="row"><span class="text-left f-bold" style="float:left;">总计</span><span class="text-right" style="float:right;">时段统计</span></td>
+                                        <td class="f-bold l-bg text-middle" scope="row">
+                                            <span class="f-green-d fix-span text-right">{$sum_new_user}</span><span class="separate">|</span><span class="f-gray fix-span text-left">{$sum_new_device}</span>
+                                        </td>
+                                        <td class="f-bold l-bg text-middle" scope="row">
+                                            <span class="f-green-d fix-span text-right">{$sum_act_user}</span><span class="separate">|</span><span class="f-gray fix-span text-left">{$sum_act_device}</span>
+                                        </td>
+                                        <td class="f-bold l-bg" scope="row" style="padding-right: 30px!important;">{($sum_new_user/$sum_new_device*100)|string_format:"%.1f"}%</td>
+                                        <td class="f-bold" scope="row">{$sum_pay_count}</td>
+                                        <td class="f-bold" scope="row">{($sum_pay_count/$sum_act_user*100)|string_format:"%.1f"}%</td>
+                                        <td class="f-bold" scope="row">{($sum_pay/$sum_act_user)|string_format:"%.1f"}</td>
+                                        <td class="f-bold l-bg" scope="row" style="padding-right: 30px!important;">{$sum_pay}</td>
+                                        <td class="f-bold" scope="row">{($sum_next/$sum_new_user*100)|string_format:"%.1f"}</td>
+                                        <td class="f-bold" scope="row">{($sum_two/$sum_new_user*100)|string_format:"%.1f"}</td>
+                                        <td class="f-bold" scope="row">{($sum_third/$sum_new_user*100)|string_format:"%.1f"}</td>
+                                        <td class="f-bold" scope="row">{($sum_four/$sum_new_user*100)|string_format:"%.1f"}</td>
+                                        <td class="f-bold" scope="row">{($sum_five/$sum_new_user*100)|string_format:"%.1f"}</td>
+                                        <td class="f-bold" scope="row">{($sum_six/$sum_new_user*100)|string_format:"%.1f"}</td>
+                                        <td class="f-bold" scope="row">{($sum_seven/$sum_new_user*100)|string_format:"%.1f"}</td>
+                                        <td class="f-bold" scope="row">{($sum_eight/$sum_new_user*100)|string_format:"%.1f"}</td>
+                                        <td class="f-bold" scope="row">{($sum_ten/$sum_new_user*100)|string_format:"%.1f"}</td>
+                                        <td class="f-bold" scope="row">{($sum_twelve/$sum_new_user*100)|string_format:"%.1f"}</td>
+                                        <td class="f-bold" scope="row">{($sum_fourteen/$sum_new_user*100)|string_format:"%.1f"}</td>
+                                        <td class="f-bold" scope="row">{($sum_sixteen/$sum_new_user*100)|string_format:"%.1f"}</td>
+                                        <td class="f-bold" scope="row">{($sum_twenty/$sum_new_user*100)|string_format:"%.1f"}</td>
+                                        <td class="f-bold" scope="row">{($sum_thirty/$sum_new_user*100)|string_format:"%.1f"}</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {foreach from=$app_data["date_list"] item=date key=key}
+                                    <tr>
+                                    <td data-value="{$date}" data-type="date" scope="row">{$date}
+                                        <!--<a href="/hour?appids=5079&channels=&date=2016-12-11" target="_blank">{$date}</a>-->
+                                    </td>
+                                    <td class="l-bg text-middle text-center" data-value="{$app_data['new_user_list'][$key]}">
+                                        <span class="f-green fix-span text-right">{$app_data["new_user_list"][$key]}</span><span class="separate">|</span><span class="fix-span text-left">{$app_data["new_device_list"][$key]}</span>
+                                    </td>
+                                    <td class="l-bg text-middle text-center" data-value="{$app_data['act_user_list'][$key]}">
+                                        <span class="f-green fix-span text-right">{$app_data["act_user_list"][$key]}</span><span class="separate">|</span><span class="fix-span text-left">{$app_data["act_device_list"][$key]}</span>
+                                    </td>
+                                    <td data-value="{($app_data['new_user_list'][$key]/$app_data['new_device_list'][$key]*100)|string_format:"%.1f"}" class="text-center l-bg" style="padding-right: 30px!important;">
+                                        {($app_data['new_user_list'][$key]/$app_data['new_device_list'][$key]*100)|string_format:"%.1f"}%
+                                    </td>
+                                    <td data-value="{$app_data['pay_count_list'][$key]}" class="text-center">{$app_data['pay_count_list'][$key]}</td>
+                                    <td data-value="{($app_data['pay_count_list'][$key]/$app_data['act_user_list'][$key]*100)|string_format:"%.1f"}" class="text-center">
+                                        {($app_data['pay_count_list'][$key]/$app_data['act_user_list'][$key]*100)|string_format:"%.1f"}%
+                                    </td>
+                                    <td data-value="{($app_data['pay_list'][$key]/$app_data['act_user_list'][$key]*100)|string_format:"%.1f"}" class="text-center">
+                                        {($app_data['pay_list'][$key]/$app_data['act_user_list'][$key])|string_format:"%.1f"}
+                                    </td>
+                                    <td class="l-bg" data-value="{$app_data['pay_list'][$key]}" class="text-center" style="padding-right: 30px!important;">{$app_data['pay_list'][$key]}</td>
+                                    <td data-value="{($app_data['next_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}" class="text-center">
+                                        {($app_data['next_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}
+                                    </td>
+                                    <td data-value="{($app_data['two_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}" class="text-center daykeep">
+                                        {($app_data['two_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}
+                                    </td>
+                                    <td data-value="{($app_data['third_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}" class="text-center daykeep">
+                                        {($app_data['third_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}
+                                    </td>
+                                    <td data-value="{($app_data['four_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}" class="text-center daykeep">
+                                        {($app_data['four_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}
+                                    </td>
+                                    <td data-value="{($app_data['five_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}" class="text-center daykeep">
+                                        {($app_data['five_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}
+                                    </td>
+                                    <td data-value="{($app_data['six_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}" class="text-center daykeep">
+                                        {($app_data['six_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}
+                                    </td>
+                                    <td data-value="{($app_data['seven_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}" class="text-center daykeep">
+                                        {($app_data['seven_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}
+                                    </td>
+                                    <td data-value="{($app_data['eight_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}" class="text-center daykeep">
+                                        {($app_data['eight_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}
+                                    </td>
+                                    <td data-value="{($app_data['ten_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}" class="text-center daykeep">
+                                        {($app_data['ten_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}
+                                    </td>
+                                    <td data-value="{($app_data['twelve_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}" class="text-center daykeep">
+                                        {($app_data['twelve_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}
+                                    </td>
+                                    <td data-value="{($app_data['fourteen_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}" class="text-center daykeep">
+                                        {($app_data['fourteen_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}
+                                    </td>
+                                    <td data-value="{($app_data['sixteen_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}" class="text-center daykeep">
+                                        {($app_data['sixteen_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}
+                                    </td>
+                                    <td data-value="{($app_data['twenty_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}" class="text-center daykeep">
+                                        {($app_data['twenty_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}
+                                    </td>
+                                    <td data-value="{($app_data['thirty_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}" class="text-center daykeep">
+                                        {($app_data['thirty_list'][$key]/$app_data['new_user_list'][$key]*100)|string_format:"%.1f"}
+                                    </td>
+                                    </tr>
+                                    {/foreach}
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <td colspan="5">
+                                            <div class="text-right">
+                                                <ul class="pagination pagination-split m-t-30"></ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                                <input name="app_data" value="{$app_data}" id="app_data" type="hidden">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- container -->
+        </div> <!-- content -->
+    </div>
+</div>
+{include file="kpi/include/foot.html"}
+<script>
+    $("body").off('change', "#channel_type");
+    $('body').on('change','#channel_type',function(e){
+        var channel_type = $(this).val();
+        if(channel_type == '1'){
+            $(".appchannels").addClass('channel-block');
+            $(".appchannels").removeClass('channel-none');
+            $(".extension-channel").removeClass('channel-block');
+            $(".extension-channel").addClass('channel-none');
+        }else if(channel_type == '2'){
+            $(".appchannels").removeClass('channel-block');
+            $(".appchannels").addClass('channel-none');
+            $(".extension-channel").addClass('channel-block');
+            $(".extension-channel").removeClass('channel-none');
+        }
+    });
+    $(function () {
+        $('#detail-table').footable();
+        jQuery('#date-range').datepicker({
+            toggleActive: true,
+            format: 'yyyy-mm-dd',
+            autoclose: true
+        });
+        data1();
+        daykeep();
+    });
+
+    //留存样式
+    function daykeep() {
+        $("td.daykeep").each(function(){
+            keep = $(this).attr("data-value");
+            if(keep>39){
+                $(this).addClass("keep40");
+            }else if(keep>29){
+                $(this).addClass("keep30");
+            }else if(keep>19){
+                $(this).addClass("keep20");
+            }
+        });
+    }
+
+    function data1(){
+        var data1 = echarts.init(document.getElementById('data1'));
+        var option1 = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['充值金额']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data:['{$app_data["short_date_list"]}']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                name:'充值金额',
+                type:'line',
+                data:['{$app_data["pay_list_graph"]}'],
+                color:['#5d9cec'],
+                smooth:true
+            }]
+        };
+        data1.setOption(option1);
+    }
+
+    function data2(){
+        var data2 = echarts.init(document.getElementById('data2'));
+        var option2 = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['新增','活跃']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data:['{$app_data["short_date_list"]}']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                name:'新增',
+                type:'line',
+                data:['{$app_data["js_sum_new_user"]}'],
+                color:['#5d9cec'],
+                smooth:true
+            },
+            {
+                name:'活跃',
+                type:'line',
+                data:['{$app_data["js_sum_act_user"]}'],
+                color:['#36404a'],
+                smooth:true
+            }]
+        };
+        data2.setOption(option2);
+    }
+
+    function data3(){
+        var data3 = echarts.init(document.getElementById('data3'));
+        var option3 = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['次日','三日','一周','两周','三十日']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data:['{$app_data["short_date_list"]}']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                name:'次日',
+                type:'line',
+                data:['{$app_data["sum_keep_next"]}'],
+                color:['#36404a'],
+                smooth:true
+            },
+                {
+                    name:'三日',
+                    type:'line',
+                    data:['{$app_data["sum_keep_third"]}'],
+                    color:['#5d9cec'],
+                    smooth:true
+                },
+                {
+                    name:'一周',
+                    type:'line',
+                    data:['{$app_data["sum_keep_seven"]}'],
+                    color:['#a0d269'],
+                    smooth:true
+                },
+                {
+                    name:'两周',
+                    type:'line',
+                    data:['{$app_data["sum_keep_fourteen"]}'],
+                    color:['#a5e2bb'],
+                    smooth:true
+                },
+                {
+                    name:'三十日',
+                    type:'line',
+                    data:['{$app_data["sum_keep_thirty"]}'],
+                    color:['#e38d13'],
+                    smooth:true
+                }]
+        };
+        data3.setOption(option3);
+    }
+
+    var data2_flag = 0;
+    var data3_flag = 0;
+    function switch_chart(num) {
+        for(var i=1; i <= 3; i++) {
+            if(i != num) {
+                $("#data"+i).addClass("hide");
+                $("#btn"+i).removeClass("active");
+            }
+        }
+        $($("#btn"+num)).addClass("active");
+        $("#data"+num).removeClass("hide");
+        if(num == 1) {
+            $("#data-title").html("充值金额({$sum_pay})");
+            $("#title2").addClass("hide");
+            $("#title3").addClass("hide");
+        }
+        if(num == 2) {
+            $("#data-title").html("新增与活跃用户(新增:{$sum_new_user} 活跃:{$sum_act_user})");
+            $("#title3").addClass("hide");
+            $("#title2").removeClass("hide");
+        }
+        if(num == 3) {
+            $("#data-title").html("用户留存比");
+            $("#title2").addClass("hide");
+            $("#title3").removeClass("hide");
+        }
+        //只初始化一次
+        if(num == 2 && data2_flag == 0) {
+            data2();
+            data2_flag = 1;
+        }
+        if(num == 3 && data3_flag == 0) {
+            data3();
+            data3_flag = 1;
+        }
+    }
+
+    function detail_query(){
+        {if $app_type==1}
+        var channels = $("select[name=appchannels]").val();
+        {else if $app_type==2}
+        var channels = $("select[name=apppackages]").val();
+        {/if}
+        if (channels == null) {
+            channels = ""
+        }
+        var appid = $("select[name=appid]").val();
+        $("#detail_form").attr("action","/kpi.php?act=detail&appids="+appid);
+        $("#channels").val(channels);
+        $("#detail_form").submit();
+    }
+    $(".select2").select2();
+
+</script>
+</body>
+</html>

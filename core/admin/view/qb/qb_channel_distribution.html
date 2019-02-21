@@ -1,0 +1,230 @@
+<!---表单验证器加载 参考地址http://coderthemes.com/ubold_1.3/dark_1/form-validation.html-->
+<script type="text/javascript" src="assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+<script src="assets/plugins/bootstrap-filestyle/src/bootstrap-filestyle.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('form').parsley();
+        $(".inside-select2").select2();
+        // Date Picker
+        jQuery('#datepicker').datepicker();
+        jQuery('#date-order_time').datepicker({
+            format: "yyyy-mm-dd",
+            toggleActive: true
+        });
+    });
+</script>
+<style>
+    .modal-dialog {
+        width: 90%;
+        overflow: auto;
+    }
+    .ke-container {
+        width: 50% !important;
+    }
+    .notice-content-preview {
+        border: 1px solid #999;
+    }
+    .tags{
+        margin-right:10px;
+    }
+    .modal-info{
+        margin-left: 20px;
+        font-weight: 600;
+    }
+    .automatic_input{
+        display: none;
+    }
+</style>
+<!--end--->
+<form action="qb_channel_distribution.php?act=do_distribution" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title text-center">渠道分配</h4>
+    </div>
+    <div class="modal-body">
+        {if $distribution neq null}
+
+
+        {foreach from=$distribution key=key item=data}
+        <div class="form-group col-md-12">
+            <label class="control-label">第{$key}次分配：</label>
+        </div>
+        {foreach from=$data item=info}
+        <div class="form-group col-md-12">
+            <div class="form-group col-md-1">
+                渠道名称：{$info.channel_name}
+            </div>
+            <div class="form-group col-md-2">
+                分配金额：{$info.distribution_money}元
+            </div>
+            <div class="form-group col-md-2">
+                收款人：{$info.user_name}
+            </div>
+            <div class="form-group col-md-2">
+                收款账户：{$info.payment_account}
+            </div>
+            <div class="form-group col-md-1">
+                时间：{'Y-m-d'|date:$info.add_time}
+            </div>
+            {if $flag eq 1}
+            <div class="form-group col-md-2">
+                授信金额：{$info.credit_money}元
+            </div>
+            {/if}
+            <div class="form-group col-md-1">
+                <span id="result{$info.id}">{if $info.status eq 1}<span style="color: red;">未制单</span>{elseif $info.status eq 2}<span style="color: red;">已制单</span>{elseif $info.status eq 3}<span style="color: red;">已授权</span>{/if}</span>
+            </div>
+            {if $info.img_url neq null}
+            <div class="form-group col-md-1">
+                <a href="//cdn.66173.cn/{$info.img_url}" target="_blank" ><img src="//cdn.66173.cn/{$info.img_url}" width="50" height="50"></a>
+            </div>
+            {/if}
+            {if $info.refund_money neq null}
+            <div style="height: 38px;">
+                <span style="color: red;font-size: 14px;margin-top: 20px;">已退款{$info.refund_money}元</span>
+            </div>
+            {/if}
+
+        </div>
+
+        {/foreach}
+        {/foreach}
+        {/if}
+
+
+        <div class="form-group col-md-12">
+        <label class="control-label">第{$num}次分配：</label>
+        </div>
+        {foreach from=$account_list item=data}
+        <div class="form-group col-md-12">
+            <div class="form-group col-md-2">
+                <label class="col-md-6 control-label">渠道名称:</label>
+                <div class="col-md-6">
+                    <input name="money" type="text" value="{$data.channel_name}" class="form-control" parsley-trigger="change" readonly="readonly">
+                    <input type="hidden" name="channel_id[]" value="{$data.channel_id}">
+                </div>
+            </div>
+            <div class="form-group col-md-2">
+                <label class="col-md-5 control-label">分配金额:</label>
+                <div class="col-md-7">
+                    <input type="text"  name="distribution_money[]" class="form-control" placeholder="">
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label class="col-md-4 control-label">收款人:</label>
+                <div class="col-md-8">
+                    <input type="text"  name="user_name[]" class="form-control" placeholder="" readonly="readonly" value="{$data.user_name}" >
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label class="col-md-4 control-label">收款账户:</label>
+                <div class="col-md-8">
+                    <input type="text"  name="payment_account[]" class="form-control" placeholder=""  readonly="readonly" value="{$data.payment_account}" >
+                </div>
+            </div>
+            {if $flag eq 1}
+            <div class="form-group col-md-2">
+                <label class="col-md-4 control-label">授信金额:</label>
+                <div class="col-md-8">
+                    <input type="text"  name="credit_money" class="form-control" placeholder="" readonly="readonly" value="{$data.credit_money}元" >
+                </div>
+            </div>
+            {/if}
+        </div>
+
+        {/foreach}
+        <div class="form-group col-md-12">
+            <label class="control-label">订单已分配<span style="color: red;">{$allocated_money}</span>元，剩余可分配<span style="color: red;">{$can_distribution_money}</span>元，已退款金额<span style="color: red;">{if $refund_money neq null}{$refund_money}{else}0{/if}</span>元</label>
+        </div>
+        {if $flag eq 1}
+        {foreach from=$credit_channel_list item=data}
+        {if $data.credit_money neq 0}
+        <div class="form-group col-md-12">
+            <label class="control-label">{$data.channel_name}  {$data.user_name}已授信{$data.credit_money}元，已分配{$data.allocated_money}元，超出<span style="color: red;">{$data.beyond_money}</span>元</label>
+        </div>
+        {/if}
+        {/foreach}
+        {/if}
+        <div class="form-group"></div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <input type="hidden" name="id" value="{$id}">
+        {if $can_distribution_money >0}
+        <button type="submit" class="btn btn-info waves-effect waves-light">提交</button>
+        {/if}
+    </div>
+
+</form>
+
+<script>
+    $("body").on("blur","input[name='in_money'],input[name='exit_depot'],input[name='enter_depot'],input[name='loss_num']",function(e){
+        var in_money = $("input[name='in_money']").val();
+        var exit_depot = $("input[name='exit_depot']").val();
+        var enter_depot = $("input[name='enter_depot']").val();
+        var account_type = $("#account_type").val();
+        var loss_num = $("input[name='loss_num']").val();
+        if(!loss_num){
+            loss_num = 0;
+        }
+        if(in_money == '0' || !in_money || account_type == '2' || (loss_num && loss_num != '0' && !enter_depot && !exit_depot)){
+            $("input[name='token_scale']").val(0);
+        }else{
+            if(enter_depot && enter_depot != '0'){
+                var token_scale = parseInt(enter_depot)/in_money;
+                $("input[name='token_scale']").val(token_scale.toFixed(2));
+            }else if(exit_depot && exit_depot != '0'){
+                var token_scale = parseInt(exit_depot)/in_money;
+                $("input[name='token_scale']").val(token_scale.toFixed(2));
+            }
+        }
+    });
+    $("body").on("change","select[name='account_type']",function(e){
+        var in_money = $("input[name='in_money']").val();
+        var exit_depot = $("input[name='exit_depot']").val();
+        var enter_depot = $("input[name='enter_depot']").val();
+        var loss_num = $("input[name='loss_num']").val();
+        var account_type = $(this).val();
+        if(!loss_num){
+            loss_num = 0;
+        }
+        if(in_money == '0' || !in_money || account_type == '2' || loss_num){
+            $("input[name='token_scale']").val(0);
+        }else{
+            if(enter_depot && enter_depot != '0'){
+                var token_scale = parseInt(enter_depot)/in_money;
+                $("input[name='token_scale']").val(token_scale.toFixed(2));
+            }else if(exit_depot && exit_depot != '0'){
+                var token_scale = parseInt(exit_depot)/in_money;
+                $("input[name='token_scale']").val(token_scale.toFixed(2));
+            }
+        }
+    });
+    $("body").off('change', "#app_id");
+    $("body").on('change','#app_id',function(e){
+        var app_id = $(this).val();
+        if(app_id){
+            $.ajax({
+                type:'post',
+                url:'/qb_channel_distribution.php?act=get_service',
+                data:{
+                    app_id: app_id,
+                },
+                dataType: 'json',
+                success: function (res) {
+                    if(res.code==1){
+                        var data = res.list;
+                        $("#s2id_server_name .select2-choice .select2-chosen").html('请选择区服');
+                        $('#server_name').empty().append('<option value="">请选择区服</option>');
+                        for(var i=0;i<data.length;i++){
+                            $('#server_name').append('<option value="'+data[i].service_id+'">'+data[i].service_name+'</option>');
+                        }
+                    }else{
+                        $("#s2id_server_name .select2-choice .select2-chosen").html('请选择区服');
+                        $('#server_name').empty();
+                    }
+                }
+            })
+        }
+    });
+</script>

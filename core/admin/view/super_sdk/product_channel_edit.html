@@ -1,0 +1,108 @@
+<!---表单验证器加载 参考地址http://coderthemes.com/ubold_1.3/dark_1/form-validation.html-->
+<script type="text/javascript" src="assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+<script src="assets/plugins/bootstrap-filestyle/src/bootstrap-filestyle.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('form').parsley();
+    });
+</script>
+<!--end--->
+<form action="super_product.php?act=do_edit_channel" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">添加关联渠道信息</h4>
+    </div>
+    <div class="modal-body">
+
+        <div class="form-group">
+            <label class="col-md-3 control-label">所属应用</label>
+            <div class="col-md-9">
+                <select class="form-control select3" name="app_id" id="app_id" required>
+                    <option value="">请选择关联应用</option>
+                    {foreach from=$app_list item=app}
+                    <option value="{$app.app_id}" {if $app.app_id eq $info.app_id}selected{/if}>{$app.app_name}-[{$app.app_id}]</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">渠道名称</label>
+            <div class="col-md-9">
+                <select class="form-control select3" name="channel_id" id="channel_id" required>
+                    <option value="">请选择渠道</option>
+                    {foreach from=$channel_list item=ch}
+                    <option value="{$ch.id}"  {if $ch.id eq $info.ch_id}selected{/if}>{$ch.channel}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">商品名称</label>
+            <div class="col-md-9">
+                <select class="form-control select3" name="goods_id" id="goods_id" required>
+                    <option value="">请选择商品</option>
+                    {foreach from=$goods_list item=goods}
+                    <option value="{$goods.id}"  {if $goods.id eq $info.goods_id}selected{/if}>{$goods.good_name}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">渠道计费点代码</label>
+            <div class="col-md-9">
+                <input type="text" name="channel_goods" value="{$info.channel_goods}" class="form-control" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">商品状态</label>
+            <div class="col-md-9">
+                发布 <input type="radio" value="0" name="is_pub" {if $info.is_pub eq '0'} checked=""{/if}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                下线 <input type="radio" value="1" name="is_pub" {if $info.is_pub eq '1'} checked=""{/if}>
+            </div>
+        </div>
+    <div class="modal-footer">
+        <input type="hidden" value="{$info.id}" name="id">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light">保存</button>
+    </div>
+</form>
+<script>
+    jQuery(document).ready(function() {
+        $(".select3").select2();
+    });
+    $("body").off('change', "#app_id");
+    $("body").on('change','#app_id',function(e){
+        var app_id = $(this).val();
+        if(app_id){
+            $.ajax({
+                type: 'post',
+                url: '/super_product.php?act=get_goods_list',
+                data: {
+                    app_id: app_id
+                },
+                dataType: 'json',
+                success: function (res) {
+                    if(res.code==1){
+                        var goods_list = res.goods_list;
+                        var channel_list = res.channel_list;
+                        $("#s2id_channel_id .select2-choice .select2-chosen").html('请选择渠道');
+                        $('#channel_id').empty().append('<option value="">请选择渠道</option>');
+                        $("#s2id_goods_id .select2-choice .select2-chosen").html('请选择商品');
+                        $('#goods_id').empty().append('<option value="">请选择商品</option>');
+                        for(var i=0;i<goods_list.length;i++){
+                            $('#goods_id').append('<option value="'+goods_list[i].id+'">'+goods_list[i].good_name+'</option>');
+                        }
+                        for(var j=0;j<channel_list.length;j++){
+                            $('#channel_id').append('<option value="'+channel_list[j].id+'">'+channel_list[j].channel+'</option>');
+                        }
+                    }else{
+                        $("#s2id_channel_id .select2-choice .select2-chosen").html('请选择渠道');
+                        $('#channel_id').empty();
+                        $("#s2id_goods_id .select2-choice .select2-chosen").html('请选择商品');
+                        $('#goods_id').empty();
+                    }
+                }
+            })
+        }
+    })
+</script>

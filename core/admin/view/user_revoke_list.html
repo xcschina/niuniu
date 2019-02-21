@@ -1,0 +1,205 @@
+<form  action="guild.php?act=user_revoke_do" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform1" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div id="first_page">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h4 class="modal-title">撤币操作</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="col-md-4 control-label">用户账号ID：</label>
+                <div class="col-md-6">
+                    <input type="number" class="form-control" id="user_account" name="user_account" />
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-info waves-effect waves-light" id="search">查询</button>
+                </div>
+            </div>
+            <div class="col-md-4 control-label">
+            </div>
+            <div id="user_info" class="col-md-8">
+            </div>
+            <div style="display:none;" id="nnb_info">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">牛币余额：</label>
+                    <label class="col-md-4 control-label" id="user_nnb">牛币</label>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">撤币数量：</label>
+                    <div class="col-md-6">
+                        <input type="number" class="form-control" name="nnb_number" id="nnb_number" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">到款账户：</label>
+                    <div class="col-md-6">
+                        <select class="form-control" name="arrive_account" id="arrive_account">
+                            <option value="125">官方账号(fwf)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group text-center">
+                    <button type="button" class="btn btn-info btn-lg" onclick="revoke()" style="width: 150px;">撤币</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="second_page" style="display:none;">
+        <div class="form-group">
+            <h3 class="text-center col-md-11">提示</h3>
+            <button type="button" class="close col-md-1" id="exit">×</button>
+        </div>
+        <div class="form-group">
+            <h3 class="col-md-8 col-md-offset-2" id="msg_sure">您将从##账号撤**个牛币到XX账号，请输入密码</h3>
+        </div>
+        <div class="form-group">
+            <input type="password" name="pay_pwd" id="pay_pwd" class="form-control input-lg" placeholder="请输入支付密码" />
+        </div>
+        <div class="form-group">
+            <input type="number" name="dd_id" id="dd_id" class="form-control input-lg" placeholder="请输入钉钉审批编号" />
+        </div>
+        <div class="form-group">
+            <input type="text" name="revoke_reason" id="revoke_reason" class="form-control input-lg" placeholder="请输入撤币理由" />
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <img src="guild.php?act=create_code" title="验证码" onclick="rselect(this)" />
+            </div>
+            <div class="col-md-8">
+                <input type="text" class="form-control input-lg" placeholder="请输入验证码" name="code" id="code" />
+            </div>
+        </div>
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-info btn-lg" style="width: 150px;">确认撤币</button>
+        </div>
+    </div>
+    <input type="hidden" value="" name="user_account_hidden" id="user_account_hidden" />
+    <input type="hidden" value="{$pagehash}" name="pagehash" id="pagehash" />
+</form>
+{literal}
+<script>
+    var regUserId = new RegExp(/^[1-9][0-9]*$/);
+    $("#myform1").on("submit",function(e){
+        var pay_pwd = $("#pay_pwd").val();
+        var code = $("#code").val();
+        var dd_id = $("#dd_id").val();
+        var revoke_reason = $("#revoke_reason").val();
+        var dd_id_reg = new RegExp(/^[0-9]{21}$/);
+        if (pay_pwd==""){
+            $.Notification.notify('error','top left',"支付密码不能为空！");
+            return false;
+        }
+        if (code==""){
+            $.Notification.notify('error','top left',"验证码不能为空！");
+            return false;
+        }
+        if (dd_id==""){
+            $.Notification.notify('error','top left',"钉钉审批编号不能为空！");
+            return false;
+        }
+        if (!dd_id_reg.test(dd_id)){
+            $.Notification.notify('error','top left',"钉钉审批编号不符合规则！");
+            return false;
+        }
+        if (revoke_reason==""){
+            $.Notification.notify('error','top left',"撤币理由不能为空！");
+            return false;
+        }
+    });
+    $("#search").on("click",function () {
+        //发送ajax获取用户牛币及用户上级关系
+        var user_account = $("#user_account").val();
+        if (!user_account){
+            $.Notification.notify('error','top left',"用户账号ID不能为空！");
+            return false;
+        }
+        if (!regUserId.test(user_account)){
+            $.Notification.notify('error','top left',"用户账号ID不合法！");
+            return false;
+        }
+        $.ajax({
+            "type":"post",
+            "url":"guild.php?act=user_search",
+            data:{
+                "user_account":user_account
+            },
+            cache:false,
+            dataType:"json",
+            timeout : 5000,
+            success:function (data) {
+                if (data.statusCode=='200'){
+                    $("#user_account").attr("disabled","disabled");
+                    $("#search").attr("disabled","disabled");
+                    $("#user_account_hidden").val(user_account);
+                    $.Notification.autoHideNotify('success', 'top left', "用户查询成功");
+                    var keyMap = {
+                        user_id: "用户ID：",
+                        nick_name: "用户昵称：",
+                        mobile: "手机号码："
+                    };
+                    var infos = {
+                        "user_id":data.message.user_id,
+                        "nick_name":data.message.nick_name,
+                        "mobile":data.message.mobile
+                    };
+                    var con = '';
+                    for(var key in infos) {
+                        con += '<div class="row">'
+                                + '<label class="col-md-4">'+keyMap[key]+'</label>'
+                                + '<span class="col-md-4">'+infos[key]+'</span>'
+                                + '</div>'
+                    }
+                    $("#user_info").html(con);
+                    $("#nnb_info").show();
+                    $("#user_nnb").html(data.message.nnb+"牛币");
+                    if (!$.isEmptyObject(data.message.child_user)){
+                        $("#arrive_account").append("<option value='"+data.message.child_user.id+"'>"+"上级公会("+data.message.child_user.account+")</option>");
+                        if (!$.isEmptyObject(data.message.sub_user)){
+                            $("#arrive_account").append("<option value='"+data.message.sub_user.id+"'>"+"上上级公会("+data.message.sub_user.account+")</option>");
+                            if (!$.isEmptyObject(data.message.sup_user)){
+                                $("#arrive_account").append("<option value='"+data.message.sup_user.id+"'>"+"最高级公会("+data.message.sup_user.account+")</option>");
+                            }
+                        }
+                    }
+                }else{
+                    $.Notification.notify('error','top left',data.message);
+                }
+            },
+            error:function (req) {
+                $.Notification.notify('error','top left', "发生错误,HTTP代码:"+req.status, req.statusText);
+            }
+        });
+    });
+    $("#exit").on("click",function(){
+        $("#pay_pwd").val("");
+        $("#code").val("");
+        $("#second_page").hide();
+        $("#first_page").show();
+    });
+    function revoke() {
+        var nnb_number = $("#nnb_number").val();
+        if (!nnb_number){
+            $.Notification.notify('error','top left',"撤币数量不能为空！");
+            return false;
+        }
+        if (!regUserId.test(nnb_number)){
+            $.Notification.notify('error','top left',"撤币数量不合法！");
+            return false;
+        }
+        var user_nnb = $("#user_nnb").html();
+        user_nnb = parseInt(user_nnb.replace("牛币",""));
+        if (user_nnb-parseInt(nnb_number)<0){
+            $.Notification.notify('error','top left',"撤币数量不能大于用户拥有币！");
+            return false;
+        }
+        var user_account = $("#user_account").val();
+        var arrive_account = $("#arrive_account").find("option:selected").text();
+        $("#msg_sure").html("您将从用户ID为<i style='color:red;'>"+user_account+"</i>的账号撤<i style='color:red;'>"+nnb_number+
+                "</i>个牛币到<i style='color:red;'>"+arrive_account+"</i>，请输入密码");
+        $("#first_page").hide();
+        $("#second_page").show();
+    }
+    function rselect(obj) {
+        $(obj).attr("src","guild.php?act=create_code&statu="+Math.random());
+    }
+</script>
+{/literal}

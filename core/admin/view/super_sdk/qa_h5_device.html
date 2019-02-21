@@ -1,0 +1,124 @@
+<link href="assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet" />
+<link href="assets/plugins/multiselect/css/multi-select.css"  rel="stylesheet" type="text/css" />
+<link href="assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<link href="assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+<script src="assets/plugins/switchery/dist/switchery.min.js"></script>
+<script type="text/javascript" src="assets/plugins/multiselect/js/jquery.multi-select.js"></script>
+<script type="text/javascript" src="assets/plugins/jquery-quicksearch/jquery.quicksearch.js"></script>
+<script src="assets/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <!--按钮或搜索区域-->
+                <form id="form_data" method="post">
+                    <div class="col-sm-12 text-xs-center">
+                        <div class="col-md-2">
+                            <select class="form-control select2" name="system">
+                                <option value="">请选择系统</option>
+                                <option value="Windows" {if $params.system eq 'Windows'} selected{/if}>Windows</option>
+                                <option value="iOS" {if $params.system eq 'iOS'} selected{/if}>iOS</option>
+                                <option value="Android" {if $params.system eq 'Android'} selected{/if}>Android</option>
+                                <option value="Mac" {if $params.system eq 'Mac'} selected{/if}>Mac</option>
+                                <option value="1" {if $params.system eq '1'} selected{/if}>其他</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control select2" name="app_id">
+                                <option value="">请选择游戏</option>
+                                {foreach from=$apps item=app}
+                                <option value="{$app.app_id}"{if $app.app_id eq $params.app_id} selected{/if}>[{$app.app_id}]-{$app.app_name}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                        {if $smarty.session.group_id eq '1' or $smarty.session.group_id eq '7' }
+                        <div class="col-md-2">
+                            <input type="text" value="{$params.channel}" name="channel" class="form-control" placeholder="手动输入渠道号"/>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control select2" name="ch_code">
+                                <option value="">请选择渠道</option>
+                                {foreach from=$guild_list item=guild}
+                                <option value="{$guild.ch_code}"{if $guild.ch_code eq $params.ch_code} selected{/if}>[{$guild.ch_code}]-{$guild.channel}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-daterange input-group" id="date-range">
+                                <input type="text" class="form-control" name="start_time" value="{$params.start_time}" />
+                                <span class="input-group-addon bg-custom b-0 text-white">to</span>
+                                <input type="text" class="form-control" name="end_time" value="{$params.end_time}" />
+                            </div>
+                        </div>
+                        {/if}
+                        <span class="btn btn-default m-b-20" href="#;" onclick="search();"><i class="fa fa-search m-r-5"></i>搜索</span>
+                    </div>
+                </form>
+                <!--end--->
+            </div>
+            <div class="table-responsive">
+                <!---核心内容列表区域-->
+                <table class="table table-striped m-0">
+                    <thead>
+                    <tr>
+                        <th>USERID</th>
+                        <th>APPID</th>
+                        <th>语言</th>
+                        <th>系统</th>
+                        <th>SDK版本</th>
+                        <th>安卓版本</th>
+                        <th>浏览器版本</th>
+                        <th>浏览器名</th>
+                        <th>设备类型</th>
+                        <th>渠道</th>
+                        <th>ip</th>
+                        <th>注册时间</th>
+                        <th>活跃时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach from=$datas item=data}
+                    <tr>
+                        <td>{$data['user_id']}</td>
+                        <td>{$data['app_id']}</td>
+                        <td>{$data['lang']}</td>
+                        <td>{$data['system']}</td>
+                        <td>{$data['sdk_ver']}</td>
+                        <td>{$data['os_ver']}</td>
+                        <td>{$data['broswer_ver']}</td>
+                        <td>{$data['browser']}</td>
+                        <td>{$data['device_type']}</td>
+                        <td>{$data['channel']}</td>
+                        <td>{$data['ip']}</td>
+                        <td>{$data['time']|date_format: '%Y-%m-%d %H:%M:%S'}</td>
+                        <td>{$data['act_time']|date_format: '%Y-%m-%d %H:%M:%S'}</td>
+                        {/foreach}
+                    </tbody>
+                </table>
+                <!---内容区域end--->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row"><div class="col-lg-12"><div id="page">{$page_bar}</div></div></div>
+<!-- jQuery  -->
+<script src="assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        // Date Picker
+        jQuery('#datepicker').datepicker();
+        jQuery('#date-range').datepicker({
+            format: "yyyy-mm-dd",
+            toggleActive: true
+        });
+        // Select2
+        $(".select2").select2();
+    });
+    function search() {
+        var url = "super_qa.php?act=h5_device";
+        var formStr = $('#form_data').serialize();
+        post_main_data_load(url,formStr);
+    }
+</script>

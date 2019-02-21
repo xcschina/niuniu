@@ -1,0 +1,279 @@
+<link href="assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet" />
+<link href="assets/plugins/multiselect/css/multi-select.css"  rel="stylesheet" type="text/css" />
+<link href="assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="assets/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
+<link href="assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <form id="form_data">
+                    <div class="col-md-12 text-xs-center">
+                        {if $user_info.group_id2 eq 18}
+                        <div class="col-md-1">
+                            <button data-action="modal" class="btn btn-default m-b-20" href="qb_order.php?act=add"><i class="fa fa-plus m-r-5"></i>新建订单</button>
+                        </div>
+                        {/if}
+                        <div class="col-md-2">
+                            <select class="form-control select2" name="app_id" id="app_id">
+                                <option value="">请选择游戏</option>
+                                {foreach from=$app_list item=app}
+                                <option value="{$app.app_id}"{if $app.app_id eq $params.app_id} selected{/if}>[{$app.app_id}]-{$app.app_name}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control select2" name="channel">
+                                <option value="">请选择渠道</option>
+                                {foreach item=channel key=k from=$channel_list}
+                                <option value="{$k}"{if $params.channel eq $k} selected{/if}>{$channel}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control select2" name="service_id" id="service_name">
+                                <option value="">请选择区服</option>
+                                {if $service_list}
+                                {foreach item=list from=$service_list}
+                                <option value="{$list.service_id}" {if $params.service_id eq $list.service_id} selected{/if}>{$list.service_name}</option>
+                                {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control select2" name="order_types">
+                                <option value="">请选择订单类型</option>
+                                <option value="1"{if $params.order_types eq '1'} selected{/if}>开区订单</option>
+                                <option value="2"{if $params.order_types eq '2'} selected{/if}>备货订单</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control select2" name="pay_mode">
+                                <option value="">请选择支付方式</option>
+                                <option value="1"{if $params.pay_mode eq '1'} selected{/if}>A</option>
+                                <option value="2"{if $params.pay_mode eq '2'} selected{/if}>B</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="col-md-12 ">
+                        <div class="col-md-2">
+                            <select class="form-control select2" name="status">
+                                <option value="">请选择订单状态</option>
+                                <option value="1"{if $params.status eq '1'} selected{/if}>初审中</option>
+                                <option value="2"{if $params.status eq '2'} selected{/if}>初审通过</option>
+                                <option value="3"{if $params.status eq '3'} selected{/if}>复审中</option>
+                                <option value="4"{if $params.status eq '4'} selected{/if}>复审通过</option>
+                                <option value="5"{if $params.status eq '5'} selected{/if}>订单退回</option>
+                                <option value="6"{if $params.status eq '6'} selected{/if}>待编辑</option>
+                                <option value="7"{if $params.status eq '7'} selected{/if}>待提交</option>
+                                <option value="8"{if $params.status eq '8'} selected{/if}>初审未过</option>
+                                <option value="9"{if $params.status eq '9'} selected{/if}>复审未过</option>
+                                <option value="10"{if $params.status eq '10'} selected{/if}>提交至编辑</option>
+                                <option value="11"{if $params.status eq '11'} selected{/if}>打款完成</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" value="{$params.order_id}" name="order_id" class="form-control" placeholder="请输入订单号"/>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-daterange input-group" id="date-range">
+                                <input type="text" class="form-control" name="start_time" {if $params.start_time}value="{$params.start_time}"{/if} />
+                                <span class="input-group-addon bg-custom b-0 text-white">to</span>
+                                <input type="text" class="form-control" name="end_time" {if $params.end_time}value="{$params.end_time}"{/if} />
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <span class="btn btn-default" href="#;" onclick="search();"><i class="fa fa-search m-r-5"></i>搜索</span>
+                            <span class="btn btn-default" href="#;" onclick="reloadsearch();"> <i class="fa fa-undo"></i>清空搜索</span>
+                            <a type="button" class="btn btn-default" href="qb_order.php?act=order_export&app_id={$params.app_id}&channel={$params.channel}&pay_mode={$params.pay_mode}&start_time={$params.start_time}&end_time={$params.end_time}&order_id={$params.order_id}&order_type={$params.order_type}&service_id={$params.service_id}">导出</a>
+                            <a data-action="modal" class="btn btn-danger " href="qb_order.php?act=get_all_balance&type=2">查看余额</a>
+                        </div>
+                    </div>
+                </form>
+                <!--end--->
+            </div>
+            <div class="table-responsive">
+                <!---核心内容列表区域-->
+
+                <table class="table m-0 table-hover">
+                    <thead>
+                    <tr class="back_gray">
+                        <th>ID</th>
+                        <th>执行员</th>
+                        <th>订单号</th>
+                        <th>渠道</th>
+                        <th>游戏名称</th>
+                        <th>区服名称</th>
+                        <th>订单类别</th>
+                        <th>申请开号金额</th>
+                        <th>申请金额</th>
+                        <th>支付方式</th>
+                        <th>订单状态</th>
+                        <th>退回备注</th>
+                        <th>下单时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach from=$datalist item=data}
+                    <tr>
+                        <th scope="row">{$data.id}</th>
+                        <td>{$data.real_name}</td>
+                        <td>
+                            {$data.order_id}
+
+                        </td>
+                        <td>{$data.channel_name}</td>
+                        <td>{$data.app_name}</td>
+                        <td>
+                            {if $data.service_id eq 0}
+                            全区服
+                            {else}
+                            {$data.service_name}
+                            {/if}
+                        </td>
+                        <td> {if $data.order_types eq 1}
+                            开区订单
+                            {elseif $data.order_types eq 2}
+                            备货订单
+                            {/if}
+                        </td>
+                        <td>{$data.num}</td>
+                        <td>{$data.money}</td>
+                        <td>{if $data.pay_mode eq 1}
+                            A
+                            {elseif $data.pay_mode eq 2}
+                            B
+                            {/if}
+                        </td>
+                        <td style="color: red;">{if $data.status eq 1}
+                            初审中
+                            {elseif $data.status eq 2}
+                            初审通过
+                            {elseif $data.status eq 3}
+                            复审中
+                            {elseif $data.status eq 4}
+                            复审通过
+                            {elseif $data.status eq 5}
+                            订单退回
+                            {elseif $data.status eq 6}
+                            待编辑
+                            {elseif $data.status eq 7}
+                            待提交
+                            {elseif $data.status eq 8}
+                            初审未通过
+                            {elseif $data.status eq 9}
+                            复审未通过
+                            {elseif $data.status eq 10}
+                            提交至编辑
+                            {elseif $data.status eq 11}
+                            打款完成
+                            {/if}
+                        </td>
+                        <td>{if $data.refund_desc neq null && $data.status eq 5}
+                            {$data.refund_desc}
+                            {/if}
+                        </td>
+                        <td>{'Y-m-d H:i:s'|date:$data.order_time}</td>
+                        <td>
+                            {if $user_info.group_id2 eq 18 && ($data.status eq 5 || $data.status eq 10)}
+                            <button data-action="modal" class="btn btn-default m-b-20" href="qb_order.php?act=back_edit&id={$data.id}">编辑修改</button>
+                            {/if}
+                            {if $user_info.group_id2 eq 18 && ($data.status eq 5 || $data.status eq 10)}
+                            <button data-action="modal" class="btn btn-default m-b-20" href="qb_order.php?act=qb_channel_commit&id={$data.id}">提交订单</button>
+                            {/if}
+
+                            {if $user_info.group_id2 eq 2 && ($data.status eq 6 || $data.status eq 7)}
+                            <button data-action="modal" class="btn btn-default m-b-20" href="qb_order.php?act=edit&id={$data.id}">编辑修改</button>
+                            {/if}
+                            {if $user_info.group_id2 eq 2 && $data.status eq 7}
+                            <button data-action="modal" class="btn btn-default m-b-20" href="qb_order.php?act=commit&id={$data.id}">提交订单</button>
+                            {/if}
+                            {if $user_info.group_id2 eq 2 && ($data.status eq 6 || $data.status eq 7)}
+                            <button data-action="modal" class="btn btn-default m-b-20" href="qb_order.php?act=back&id={$data.id}">退回订单</button>
+                            {/if}
+                            {if $data.order_desc neq null || $data.desc neq null || $data.order_desc  neq null}
+                            <button data-action="modal" class="btn btn-default m-b-20" href="qb_order.php?act=desc_detail&id={$data.id}">查看备注</button>
+                            {/if}
+                        </td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <!---内容区域end--->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row"><div class="col-lg-12"><div id="page">{$page_bar}</div></div></div>
+<!-- jQuery  -->
+<script src="assets/plugins/moment/moment.js"></script>
+<script src="assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<script src="assets/plugins/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+<script src="assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="assets/plugins/clockpicker/dist/jquery-clockpicker.min.js"></script>
+<script src="assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+
+<script>
+    jQuery(document).ready(function() {
+        setTimeout(function() {
+            $(".select2").select2();
+        }, 1000);
+    });
+    jQuery(document).ready(function() {
+        // Date Picker
+        jQuery('#datepicker').datepicker();
+        jQuery('#date-range').datepicker({
+            format: "yyyy-mm-dd",
+            toggleActive: true
+        });
+        // Select2
+        $(".select2").select2();
+    });
+    function search() {
+        var url = "qb_order.php?act=list&";
+        var formStr = $('#form_data').serialize();
+        post_main_data_load(url,formStr);
+        return false;
+    }
+    function reloadsearch(){
+        var url = "qb_order.php?act=list&";
+        var formStr = '';
+        post_main_data_load(url,formStr);
+    }
+
+    $("body").off('change', "#app_id");
+    $("body").on('change','#app_id',function(e){
+        var app_id = $(this).val();
+        var user_id = "{$smarty.session.usr_id}";
+        if(app_id){
+            $.ajax({
+                type:'post',
+                url:'/qb_order.php?act=get_service',
+                data:{
+                    app_id: app_id,
+                    user_id:user_id
+                },
+                dataType: 'json',
+                success: function (res) {
+                    if(res.code==1){
+                        var data = res.list;
+                        $("#s2id_service_name .select2-choice .select2-chosen").html('请选择区服');
+                        $('#service_name').empty().append('<option value="">请选择区服</option>');
+                        $('#server_name').append('<option value="0">全区服</option>');
+                        for(var i=0;i<data.length;i++){
+                            $('#service_name').append('<option value="'+data[i].service_id+'">'+data[i].service_name+'</option>');
+                        }
+                    }else{
+                        $("#s2id_service_name .select2-choice .select2-chosen").html('请选择区服');
+                        $('#service_name').empty();
+                    }
+                }
+            })
+        }
+    });
+</script>

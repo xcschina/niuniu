@@ -1,0 +1,17 @@
+<form action="activity.php?act=apply_save&id={$id}&guild_id={$smarty.session.usr_id}" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">提示</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="col-md-9">
+                <p class="form-control-static">确认申请该活动？</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light">确认</button>
+    </div>
+</form>

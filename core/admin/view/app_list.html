@@ -1,0 +1,187 @@
+<link href="assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet" />
+<link href="assets/plugins/multiselect/css/multi-select.css"  rel="stylesheet" type="text/css" />
+<link href="assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="assets/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <!--按钮或搜索区域-->
+                <form  id="form_data">
+                <div class="col-sm-12 text-xs-center">
+                    {if $smarty.session.group_id eq '1'}
+                    <div class="col-md-1">
+                    <button data-action="modal" class="btn btn-default m-b-20" href="app.php?act=add"><i class="fa fa-plus m-r-5"></i>添加新品</button>
+                    </div>
+                    {/if}
+                    <div class="col-md-2">
+                        <select class="form-control select2" name="app_id">
+                            <option value="">请选择游戏</option>
+                            {foreach from=$app_list item=data}
+                            <option value="{$data.app_id}"{if $data.app_id eq $params.app_id} selected{/if}>[{$data.app_id}]{$data.app_name}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control select2" name="ch_id">
+                            <option value="">请选择渠道</option>
+                            {foreach from=$channel_list item=channel}
+                            <option value="{$channel.id}"{if $channel.id eq $params.ch_id} selected{/if}>[{$channel.id}]{$channel.name}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control select2" name="access_type">
+                            <option value="">请选择状态</option>
+                            <option value="0"{if $params.access_type eq '0'} selected{/if}>接入中</option>
+                            <option value="1"{if $params.access_type eq '1'} selected{/if}>接入完成</option>
+                            <option value="2"{if $params.access_type eq '2'} selected{/if}>终止</option>
+                            <option value="3"{if $params.access_type eq '3'} selected{/if}>预接入</option>
+                            <option value="4"{if $params.access_type eq '4'} selected{/if}>对外运营</option>
+                        </select>
+                    </div>
+                    <span class="btn btn-default m-b-20" href="#;" onclick="search();"><i class="fa fa-search m-r-5"></i>搜索</span>
+                    <span class="btn btn-default m-b-20" href="#;" onclick="reloadsearch();"> <i class="fa fa-undo"></i>清空搜索</span>
+                    <a type="button" class="btn btn-default m-b-20" href="app.php?act=export&access_type={$params.access_type}&ch_id={$params.ch_id}&app_id={$params.app_id}">导出</a>
+                </div>
+                </form>
+                <!--end--->
+            </div>
+            <div class="table-responsive">
+                <!---核心内容列表区域-->
+                <table class="table table-striped m-0">
+                    <thead>
+                    <tr>
+                        <th>APPID</th>
+                        <th>游戏名称</th>
+                        <th>渠道</th>
+                        <th>接入状态</th>
+                        <th>版本</th>
+                        <th>收款方</th>
+                        <th>录入时间</th>
+                        <th>公告</th>
+                        <th>更新操作</th>
+                        <th>实名认证</th>
+                        <th>牛点折扣</th>
+                        {if $smarty.session.group_id eq '1'}
+                        <th>Web菜单</th>
+                        <th>防刷功能</th>
+                        <th>验证码方式</th>
+                        <th>操作</th>
+                        <th>分包操作</th>
+                        {/if}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach from=$datalist item=data}
+                    <tr>
+                        <th scope="row">{$data.app_id}</th>
+                        <td>{$data.app_name}</td>
+                        <td>{$data.ch_name}</td>
+                        <td>{if $data.access_type eq '1'}接入完成{else if $data.access_type eq '2'}终止{else if $data.access_type eq '3'}预接入{else if $data.access_type eq '4'}对外运营{else if $data.access_type eq '0'}接入中{/if}</td>
+                        <td>{$data.version}</td>
+                        <td>{if $data.payee_ch eq '2'}HN
+                            {else if $data.payee_ch eq '3'}BJ
+                            {else if $data.payee_ch eq '4'}HNYQ
+                            {else if $data.payee_ch eq '5'}HNAMJ
+                            {else}FJ{/if}</td>
+                        <td>{'Y-m-d H:i:s'|date:$data.add_time}</td>
+                        <td>
+                            {if $smarty.session.group_id eq '1'}
+                                {if $data.notice_status eq 1}
+                                <a class="on-default edit-row text-success" data-action="modal" href="app.php?act=edit_notice&id={$data.id}">上线</a>
+                                {else}
+                                <a class="on-default edit-row text-muted" data-action="modal" href="app.php?act=edit_notice&id={$data.id}">下线</a>
+                                {/if}
+                            {else}
+                                {if $data.notice_status eq 1}上线{else}下线{/if}
+                            {/if}
+                        </td>
+                        <td>
+                            {if $smarty.session.group_id eq '1'}
+                                {if $data.apk_url}
+                                <a class="on-default edit-row text-success" data-action="modal" href="app.php?act=version_edit&id={$data.id}">编辑</a>
+                                {else}未上线{/if}
+                            {else}
+                                {if $data.apk_url}上线{else}未上线{/if}
+                            {/if}
+                        </td>
+                        <td>
+                            {if $smarty.session.group_id eq '1'}
+                                {if $data.autonym}
+                                <a class="on-default edit-row text-success" data-action="modal" href="app.php?act=real_validate&id={$data.id}">开启</a>
+                                {else}
+                                <a class="on-default edit-row text-muted" data-action="modal" href="app.php?act=real_validate&id={$data.id}">关闭</a>
+                                {/if}
+                            {else}
+                                {if $data.autonym}开启{else}关闭{/if}
+                            {/if}
+                        </td>
+                        <td>
+                            {if $smarty.session.group_id eq '1'}
+                            <a class="on-default edit-row text-info" data-action="modal" href="app.php?act=app_discount_edit&app_id={$data.app_id}">{$data.nd_discount*10}</a>
+                            {else}
+                            {$data.nd_discount*10}
+                            {/if}
+                        </td>
+                        {if $smarty.session.group_id eq '1'}
+                        <td>
+                            {if $data.is_web}
+                            <a class="on-default edit-row text-success" data-action="modal" href="app.php?act=web&id={$data.id}">开启</a>
+                            {else}
+                            <a class="on-default edit-row text-muted" data-action="modal" href="app.php?act=web&id={$data.id}">关闭</a>
+                            {/if}
+                        </td>
+                        <td>
+                            {if $data.verify_type eq 0}
+                            <a class="on-default edit-row text-muted" data-action="modal" href="app.php?act=app_verify_edit&app_id={$data.app_id}">未开启</a>
+                            {elseif $data.verify_type eq 1}
+                            <a class="on-default edit-row text-success" data-action="modal" href="app.php?act=app_verify_edit&app_id={$data.app_id}">等级</a>
+                            {elseif $data.verify_type eq 2}
+                            <a class="on-default edit-row text-success" data-action="modal" href="app.php?act=app_verify_edit&app_id={$data.app_id}">时间</a>
+                            {/if}
+                        </td>
+                        <td>
+                            {if $data.verifycode_type eq 0}
+                            <a class="on-default edit-row text-success" data-action="modal" href="app.php?act=app_verify_code_edit&app_id={$data.app_id}">短信</a>
+                            {elseif $data.verifycode_type eq 1}
+                            <a class="on-default edit-row text-success" data-action="modal" href="app.php?act=app_verify_code_edit&app_id={$data.app_id}">语音</a>
+                            {/if}
+                        </td>
+                        <td>
+                            <a class="on-default edit-row" data-action="modal" href="app.php?act=edit&id={$data.id}"><i class="fa fa-pencil"></i></a>
+                        </td>
+                        <td>
+                            {if $data.app_type eq 2}
+                            <a class="btn btn-default" href="app.php?act=apple_list&app_id={$data.app_id}" target="_blank">分包</a>
+                            {/if}
+                        </td>
+                        {/if}
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <!---内容区域end--->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row"><div class="col-lg-12"><div id="page">{$page_bar}</div></div></div>
+<script>
+    jQuery(document).ready(function() {
+        $(".select2").select2();
+    });
+    function search() {
+        var url = "app.php?act=list&";
+        var formStr = $('#form_data').serialize();
+        post_main_data_load(url,formStr);
+    }
+
+    function reloadsearch(){
+        var url = "app.php?act=list";
+        var formStr = "app_id=&ch_id=&access_type=";
+        post_main_data_load(url,formStr);
+    }
+</script>

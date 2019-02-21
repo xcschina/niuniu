@@ -1,0 +1,20 @@
+<form action="ccm_account.php?act=do_state" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">设置用户状态</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-md-3 control-label">状态</label>
+            <div class="col-md-9 m-t-7">
+                使用中 <input type="radio" value="0" name="type" {if $info.type eq '0'}checked=""{/if}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                停用 <input type="radio" value="1" name="type" {if $info.type eq '1'}checked=""{/if}>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="hidden" name="id" value="{$info.id}">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-default waves-effect waves-light">保存</button>
+    </div>
+</form>

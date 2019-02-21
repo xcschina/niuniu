@@ -1,0 +1,129 @@
+<link href="assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet" />
+<link href="assets/plugins/multiselect/css/multi-select.css"  rel="stylesheet" type="text/css" />
+<link href="assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="assets/plugins/switchery/dist/switchery.min.js"></script>
+<script type="text/javascript" src="assets/plugins/multiselect/js/jquery.multi-select.js"></script>
+<script type="text/javascript" src="assets/plugins/jquery-quicksearch/jquery.quicksearch.js"></script>
+<script src="assets/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
+<!--kindeditor-->
+<link href="/kindeditor/themes/default/default.css" rel="stylesheet">
+<!-- swfupload for uploadify && kindeditor -->
+<script src="http://static.66173.cn/console/BJUI/plugins/swfupload/swfupload.js"></script>
+<!-- kindeditor -->
+<script src="/kindeditor/kindeditor-all.min.js"></script>
+<script src="/kindeditor/lang/zh_CN.js"></script>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <!--按钮或搜索区域-->
+                <form id="form_data">
+                <div class="col-sm-12 text-xs-center">
+                    <div class="col-md-1 form-group">
+                        <button data-action="modal" class="btn btn-default m-b-20" href="message.php?act=add"><i class="fa fa-plus m-r-5"></i>添加</button>
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <select class="form-control select2" name="type">
+                            <option value="">请选择消息类型</option>
+                            <option value="1"{if $params.type eq 1 } selected{/if}>系统消息</option>
+                            <option value="2"{if $params.type eq 2 } selected{/if}>客服消息</option>
+                            <option value="3"{if $params.type eq 3 } selected{/if}>活动消息</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <select class="form-control select2" name="sort_type">
+                            <option value="">请选择分类类型</option>
+                            <option value="1"{if $params.sort_type eq 1 } selected{/if}>用户</option>
+                            <option value="2"{if $params.sort_type eq 2 } selected{/if}>游戏+渠道</option>
+                            <option value="3"{if $params.sort_type eq 3 } selected{/if}>游戏</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <select class="form-control select2" data-placeholder="请选公会" name="channel">
+                            <option value="">请选公会</option>
+                            {foreach from=$guild_list item=guild}
+                            <option value="{$guild.user_code}" {if $guild.user_code eq $params.channel}selected{/if}>{$guild.user_code}----{$guild.account}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <select class="form-control select2" data-placeholder="请选游戏" name="appid">
+                            <option value="">请选游戏</option>
+                            {foreach from=$game_list item=game}
+                            <option value="{$game.app_id}" {if $game.app_id eq $params.appid}selected{/if}>{$game.app_id}----{$game.app_name}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <span class="btn btn-default m-b-20" href="#;" onclick="search();"><i class="fa fa-search m-r-5"></i>搜索</span>
+                    <span class="btn btn-default m-b-20" href="#;" onclick="reloadsearch();"> <i class="fa fa-undo"></i>清空搜索</span>
+                </div>
+                </form>
+                <!--end--->
+            </div>
+            <div class="table-responsive">
+                <!---核心内容列表区域-->
+                <table class="table m-0 table-hover">
+                    <thead>
+                    <tr class="back_gray">
+                        <th>NO.</th>
+                        <th>消息名称</th>
+                        <th>消息类型</th>
+                        <th>分类类型</th>
+                        <th>关联游戏</th>
+                        <th>渠道</th>
+                        <th>推送时间</th>
+                        <th>添加时间</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach from=$message item=data}
+                    <tr>
+                        <th scope="row">{$data.id}</th>
+                        <td>{$data.title}</td>
+                        <td>{if $data.type eq '1'}系统消息{elseif $data.type eq '2'}客服消息{elseif $data.type eq '3'}活动消息{/if}</td>
+                        <td>{if $data.sort_type eq 1}用户{elseif $data.sort_type eq 2}游戏+渠道{elseif $data.sort_type eq 3}游戏{/if}</td>
+                        <td>{$data.app_name}</td>
+                        <td>{$data.channel}</td>
+                        <td>{'Y-m-d H:i:s'|date:$data.push_time}</td>
+                        <td>{'Y-m-d H:i:s'|date:$data.add_time}</td>
+                        <td>{if $data.status eq '0'}
+                            <a class="on-default edit-row" data-action="modal" href="message.php?act=push_view&id={$data.id}">发布</a>
+                            {else if $data.status eq '1'}
+                            <a class="on-default edit-row text-muted" data-action="modal" href="message.php?act=push_view&id={$data.id}">
+                            下架
+                            </a>
+                            {/if}</td>
+                        <td>
+                            <a class="on-default edit-row" data-action="modal" href="message.php?act=edit&id={$data.id}" ><i class="fa fa-pencil"></i></a>
+                        </td>
+                        <td></td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <!---内容区域end--->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row"><div class="col-lg-12"><div id="page">{$page_bar}</div></div></div>
+<script>
+    jQuery(document).ready(function() {
+        $(".select2").select2();
+    });
+    function search() {
+        var url = "message.php?act=list";
+        var formStr = $('#form_data').serialize();
+        post_main_data_load(url,formStr);
+    }
+    function reloadsearch(){
+        var url = "message.php?act=list";
+        var formStr = "appid=&type=&sort_type=&channel=";
+        post_main_data_load(url,formStr);
+    }
+</script>

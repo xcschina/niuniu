@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>93KK</title>
+    <!--头部开始了-->
+    <meta charset="UTF-8">
+    <!--<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">-->
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no"/>
+    <link href="http://cdn.66173.cn/93kk/logo.png" type="image/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" href="http://cdn.66173.cn/93kk/index.css">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+    <!--[if IE 9]>
+    <style>
+        .ad_youlike-item{
+            width:17%;
+            height:100%;
+            position: relative;
+            display: table-cell;
+            margin-left:47px!important;
+            flex: 1;
+        }
+        .imgimg{
+            border-radius: 12px;
+            width:72px;
+            height:70px;
+            margin-left: 22px;
+        }
+        .ad_txt{
+            width:170px;
+            height: 72px;
+            margin-left:15px;
+            margin-top: 3px;
+        }
+    </style>
+    <![endif]-->
+    <script>
+        if(judgeIELower()) {
+            alert("您使用的浏览器版本过低，为了您的浏览体验，请使用360浏览器或Chrome浏览器");
+        }
+        function judgeIELower() {
+            var b_appName = navigator.appName;
+            var b_version = navigator.appVersion;
+            var reg = new RegExp(/.+MSIE\s+([5678])\.0;.+/);
+            reg.test(b_version);
+            return b_appName == "Microsoft Internet Explorer" && reg.test(b_version);
+        }
+        function judgeIE() {
+            var b_appName = navigator.appName;
+            return b_appName == "Microsoft Internet Explorer";
+        }
+    </script>
+    <!--头部结束了-->
+    <link href="http://cdn.66173.cn/niuguo/css/bootstrap3.3.6.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdn.66173.cn/niuguo/css/common.css?t={$smarty.now}">
+    <link rel="stylesheet" href="http://cdn.66173.cn/niuguo/css/index.css?t={$smarty.now}">
+    <!--[if IE]>
+    <style>
+        .swiper-wrapper {
+            display: block;
+        }
+        .rotator .swiper-slide {
+            display: none;
+        }
+        .rotator .swiper-slide:first-child {
+            display: block;
+        }
+    </style>
+    <![endif]-->
+    <style>
+    </style>
+</head>
+<body class="home-page">
+
+<!--这里是头部开始-->
+<div style="display:none;">
+    <img src="http://cdn.66173.cn/niuguo/img/icon.png?t=11" alt=""/>
+    <span>牛果游戏,海量游戏资源!为玩家提供海量游戏免费下载,最新手游排行榜,最热门手游推荐,最好玩的手游分享。</span>
+</div>
+<!--头部导航开始=======-->
+<div class="page-top">
+    <div class="top-user-bar">
+        {if $smarty.session.user_id}
+        <div class="pull-right log-already">
+            <span>hi,<span class="name">{if $smarty.session.nick_name}{$smarty.session.nick_name}{else}{$smarty.session.mobile}{/if}</span></span>
+            <span class="seperator">|</span>
+            <a href="/account.php?act=user_center">个人中心</a>
+            <span class="seperator">|</span>
+            <a href="/account.php?act=logout">退出</a>
+            <span class="seperator">|</span>
+            <a href="http://m.66173.cn/website.php?act=app_promote" target="_blank">牛果APP</a>
+        </div>
+        {else}
+        <div class="pull-right log-not">
+            <a href="/account.php?act=login">登录</a>
+            <span class="seperator">|</span>
+            <a href="/account.php?act=register">注册</a>
+            <span class="seperator">|</span>
+            <a href="http://m.66173.cn/website.php?act=app_promote" target="_blank">牛果APP</a>
+        </div>
+        {/if}
+    </div>
+    <nav class="main-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="/index.php"><img src="http://cdn.66173.cn/93kk/logo.png"/></a>
+            <ul class="navbar-list">
+                <li class="home-li"><a class="font-lger" href="indexNew.html"><span class="icon-main nav-right-icon home"></span><span>首页</span></a></li>
+                <li class="game-li"><a class="font-lger" href="game_center2.html"><span class="icon-main nav-right-icon game"></span><span>游戏中心</span></a></li>
+                <li class="service-li"><a class="font-lger" href="service_center2.html"><span class="icon-main nav-right-icon service"></span><span>客服中心</span></a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+
+<!--顶部大轮播图开始了-->
+<section class="rotator clearfix" style="width: 100%;height:500px">
+    <div class="swiper-container" style="width: 100%;height:500px">
+        <div class="swiper-wrapper" style="width: 100%;height:500px">
+            <div class="swiper-slide" style="width: 100%;height:500px">
+                <img style="width: 100%;height:500px" src="http://cdn.66173.cn/93kk/banner-large.png" alt="" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--中部小轮播图开始了-->
+<div class="jq22-container">
+    <div id="wrapper">
+        <div id="slider-wrap">
+            <ul id="slider">
+                <li><img style="width: 100%;height: 100%" src="http://cdn.66173.cn/93kk/banner-small.png" alt=""></li>
+                <li><img style="width: 100%;height: 100%" src="http://cdn.66173.cn/mobile/css/img/yhwz_pc/img_data2.png" alt=""></li>
+                <li><img style="width: 100%;height: 100%" src="http://cdn.66173.cn/mobile/css/img/yhwz_pc/img_data3.png" alt=""></li>
+                <li><img style="width: 100%;height: 100%" src="http://cdn.66173.cn/mobile/css/img/yhwz_pc/img_data4.png" alt=""></li>
+            </ul>
+            <!--左右箭头controls开始-->
+            <div class="btns" id="next"><i class="fa fa-arrow-right"></i></div>
+            <div class="btns" id="previous"><i class="fa fa-arrow-left"></i></div>
+            <div id="counter"></div>
+            <div id="pagination-wrap">
+                <ul></ul>
+            </div>
+            <!--左右箭头controls结束-->
+        </div>
+    </div>
+
+</div>
+
+<!--中心游戏主题展示内容开始-->
+<div class="minHeight600 container">
+    <div class="border-left-title-wrapper latest-title-wrapper">
+        <span class="font-lg title">最新手游</span>
+        <a href="/gameCenter" class="font-sm pull-right more">更多+</a>
+    </div>
+    <ul class="row game-list latest-game-list">
+        {foreach from=$new_game item=data}
+        <li class="col-xs-4">
+            <a href="/gameDetail2{$data.id}">
+                <div class="game-li-wrapper">
+                    <div class="bg"></div>
+                    <img class="game-icon" src="http://cdn.66173.cn{$data.banner}"/>
+                    <div class="game-text-wrapper">
+                        <div class="font-lg text-overflow name-wrapper"><span class="name">{$data.app_name}</span></div>
+                        <div class="font-md desc">{$data.subtitle}</div>
+                    </div>
+                </div>
+            </a>
+        </li>
+        {/foreach}
+    </ul>
+    <!--侧边客服开始-->
+    <div class="side-float font-sm">
+        <a class="part qq-wrapper" href="http://wpa.qq.com/msgrd?v=3&uin=270772735&site=qq&menu=yes" target="_blank">
+            <span class="icon-main side-icon qq"></span>
+            <div class="text">在线客服</div>
+        </a>
+        <div class="part tel-wrapper">
+            <span class="icon-main side-icon service"></span>
+            <div class="text">客服电话</div>
+            <div class="text-center side-pop tel-pop">
+                <div>客服电话</div>
+                <div>0591-87766173</div>
+            </div>
+        </div>
+        <div class="part wx-wrapper">
+            <span class="icon-main side-icon wx"></span>
+            <div class="text">官方微信</div>
+            <div class="text-center side-pop wx-pop">
+                <div>扫一扫</div>
+                <img  src="http://cdn.66173.cn/mobile/v2/css/img/dsgl/qr_niuniu_wx.png"/>
+            </div>
+        </div>
+    </div>
+    <!--侧边客服结束-->
+</div>
+
+<!--猜你喜欢开始，这里把他写死就不用动它了-->
+<div class="youlike">
+    <div class="container">
+        <div class="border-left-title-wrapper2">
+            <span class="font-lg title" style="color:#333333">猜你喜欢</span>
+        </div>
+        <div style="width:100%;height: 100%;margin: 0 auto;">
+            <div class="ad_youlike row">
+                <a class="ad_youlike-item ad111 col-xs-2.4" href="http://www.66173yx.com/gameDetail9">
+                    <div class="ad_youlike-item-i row">
+                        <div class="col-xs-5">
+                            <img src="http://cdn.66173.cn/93kk/66.jpg" class="imgimg" alt="">
+                        </div>
+                        <div class="col-xs-7">
+                            <div class="ad_txt">
+                                <p style="width: 100%;height: 25px;margin:0 0 0 0;padding: 0;font-size: 14px;color: black">《 天堂荣耀 》</p>
+                                <p style="width: 100%;height: 25px;margin:0px 0 0 0px;padding: 0;font-size: 11px;color: black">万人决战超燃...</p>
+                                <p style="width: 100%;height: 25px;margin:0 0 0 0;padding: 0;font-size: 11px;color: black">
+                                    <span>
+                                        <img src="http://cdn.66173.cn/93kk/time.png" style="margin-top: -4px" alt=""></span><span style="margin-left:5px">大小：167M</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a class="ad_youlike-item ad222 col-xs-2.4" href="http://www.66173yx.com/gameDetail15" >
+                    <div class="ad_youlike-item-i row">
+                        <div class="col-xs-5">
+                            <img src="http://cdn.66173.cn/93kk/44.jpg" class="imgimg" alt="">
+                        </div>
+                        <div class="col-xs-7" >
+                            <div class="ad_txt">
+                                <p style="width: 100%;height: 25px;margin:0 0 0 0;padding: 0;font-size: 14px;color: black">《 星座联萌 》</p>
+                                <p style="width: 100%;height: 25px;margin:0px 0 0 0px;padding: 0;font-size: 11px;color: black">一款美女直播...</p>
+                                <p style="width: 100%;height: 25px;margin:0 0 0 0;padding: 0;font-size: 11px;color: black">
+                                    <span>
+                                        <img src="http://cdn.66173.cn/93kk/time.png" style="margin-top: -4px" alt=""></span><span style="margin-left:5px">大小：280M</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a class="ad_youlike-item ad333 col-xs-2.4" href="http://www.66173yx.com/gameDetail6">
+                    <div class="ad_youlike-item-i row">
+                        <div class="col-xs-5">
+                            <img src="http://cdn.66173.cn/93kk/77.jpg" class="imgimg" alt="">
+                        </div>
+                        <div class="col-xs-7">
+                            <div class="ad_txt">
+                                <p style="width: 100%;height: 25px;margin:0px 0 0 0;padding: 0;font-size: 14px;color: black">《 不良人2 》</p>
+                                <p style="width: 100%;height: 25px;margin:0px 0 0 0px;padding: 0;font-size: 11px;color: black">一天不是良人...</p>
+                                <p style="width: 100%;height: 25px;margin:0 0 0 0;padding: 0;font-size: 11px;color: black">
+                                    <span>
+                                        <img src="http://cdn.66173.cn/93kk/time.png" style="margin-top: -4px" alt=""></span><span style="margin-left:5px">大小：445M</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a class="ad_youlike-item ad555 col-xs-2.4" href="http://www.66173yx.com/gameDetail11">
+                    <div class="ad_youlike-item-i row">
+                        <div class="col-xs-5">
+                            <img src="http://cdn.66173.cn/93kk/33.jpg" class="imgimg" alt="">
+                        </div>
+                        <div class="col-xs-7">
+                            <div class="ad_txt">
+                                <p style="width: 100%;height: 25px;margin:0px 0 0 0;padding: 0;font-size: 14px;color: black">《 思美人 》</p>
+                                <p style="width: 100%;height: 25px;margin:0px 0 0 0px;padding: 0;font-size: 11px;color: black">携手张馨予共度..</p>
+                                <p style="width: 100%;height: 25px;margin:0 0 0 0;padding: 0;font-size: 11px;color: black">
+                                    <span>
+                                        <img src="http://cdn.66173.cn/93kk/time.png" style="margin-top: -4px" alt=""></span><span style="margin-left:5px">大小：530M</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a class="ad_youlike-item ad444 col-xs-2.4" href="http://www.66173yx.com/gameDetail10">
+                    <div class="ad_youlike-item-i row">
+                        <div class=" col-xs-5" >
+                            <img src="http://cdn.66173.cn/93kk/55.jpg" class="imgimg" alt="">
+                        </div>
+                        <div class=" col-xs-7">
+                            <div class="ad_txt">
+                                <p style="width: 100%;height: 25px;margin:0px 0 0 0;padding: 0;font-size: 14px;color: black">《 幻游猎人 》</p>
+                                <p style="width: 100%;height: 25px;margin:0px 0 0 0px;padding: 0;font-size: 11px;color: black">即使冒险战斗群...</p>
+                                <p style="width: 100%;height: 25px;margin:0 0 0 0;padding: 0;font-size: 11px;color: black">
+                                    <span>
+                                        <img src="http://cdn.66173.cn/93kk/time.png" style="margin-top: -4px" alt=""></span><span style="margin-left:5px">大小：234M</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--外部链接部分开始-->
+<div class="friendly-link-wrapper">
+    <div class="container">
+        <div class="border-left-title-wrapper link-title-wrapper">
+            <span class="font-lg title">友情链接</span>
+        </div>
+    </div>
+    <ul class="friendly-links-ul">
+        <div class="container">
+            <li><a class="font-md" href="http://www.nd.com.cn/" target="_blank" rel="noopener noreferrer">网龙网络</a></li>
+            <li><a class="font-md" href="http://www.kpzs.com/" target="_blank" rel="noopener noreferrer">靠谱网络</a></li>
+            <li><a class="font-md" href="http://www.15w.com/" target="_blank" rel="noopener noreferrer">要我玩</a></li>
+            <li><a class="font-md" href="http://www.178.com" target="_blank" rel="noopener noreferrer">178游戏网</a></li>
+            <li><a class="font-md" href="http://www.skymoons.com/" target="_blank" rel="noopener noreferrer">天象互动</a></li>
+            <li><a class="font-md" href="http://game.91.com/" target="_blank" rel="noopener noreferrer">91手机网</a></li>
+            <li><a class="font-md" href="http://www.hiapk.com/" target="_blank" rel="noopener noreferrer">安卓网</a></li>
+            <li><a class="font-md" href="http://www.app111.com/" target="_blank" rel="noopener noreferrer">苹果园</a></li>
+            <li><a class="font-md" href="http://www.babybus.com" target="_blank" rel="noopener noreferrer">宝宝巴士</a></li>
+            <li><a class="font-md" href="http://www.18183.com/" target="_blank" rel="noopener noreferrer">18183</a></li>
+            <li><a class="font-md" href="http://www.go.cc/" target="_blank" rel="noopener noreferrer">云顶游戏</a></li>
+            <li><a class="font-md" href="http://www.gao7.com/" target="_blank" rel="noopener noreferrer">搞趣网</a></li>
+            <li><a class="font-md" href="http://zhanggame.com/" target="_blank" rel="noopener noreferrer">掌游网</a></li>
+            <li><a class="font-md" href="http://jiahehuyu.com/" target="_blank" rel="noopener noreferrer">佳和互娱</a></li>
+            <li><a class="font-md" href="http://www.yingxiong.com/" target="_blank" rel="noopener noreferrer">英雄互娱</a></li>
+            <li><a class="font-md" href="http://www.91.com/" target="_blank" rel="noopener noreferrer">91门户</a></li>
+            <li><a class="font-md" href="http://www.haote.com/xz/545449.html " target="_blank" rel="noopener noreferrer">好特网</a></li>
+            <li><a class="font-md" href="http://download.pchome.net/mobile/games/gmtools/detail-200666.html" target="_blank" rel="noopener noreferrer">pchome</a></li>
+            <li><a class="font-md" href="http://www.huacolor.com/app/160169.html" target="_blank" rel="noopener noreferrer">华彩软件站</a></li>
+            <li><a class="font-md" href="http://www.downcc.com/soft/313598.html" target="_blank" rel="noopener noreferrer">绿色资源网</a></li>
+            <li><a class="font-md" href="https://www.hookbase.com/youxi/yxfz/143849.html" target="_blank" rel="noopener noreferrer">顶库下载</a></li>
+            <li><a class="font-md" href="https://www.vipcn.com/shoujiyouxi/shouyoufuzhu/553196.html" target="_blank" rel="noopener noreferrer">清风手游网</a></li>
+            <li><a class="font-md" href="http://www.jisuxia.com/soft/niuguoyouxizhong-51614.html" target="_blank" rel="noopener noreferrer">极速下载</a></li>
+            <li><a class="font-md" href="http://www.onlinedown.net/soft/1075253.htm" target="_blank" rel="noopener noreferrer">华军软件园</a></li>
+            <li><a class="font-md" href="http://www.minixiazai.com/android/apk_10085.html" target="_blank" rel="noopener noreferrer">迷你下载</a></li>
+            <li><a class="font-md" href="http://www.newasp.net/android/339418.html" target="_blank" rel="noopener noreferrer">新云下载</a></li>
+            <li><a class="font-md" href="http://www.9553.com/android/85887.html" target="_blank" rel="noopener noreferrer">9553下载</a></li>
+        </div>
+    </ul>
+</div>
+
+<!--底部footer开始,==============网页底部代码都一样，不用管它-->
+<div class="mask mobile-mask">
+    <div class="mask-inner-wrapper">
+        <div class="mobile-pop">
+            <div class="top">
+                <div class="font-lg title">提示</div>
+                <div class="close">x</div>
+            </div>
+            <div class="tip1">牛果游戏官网暂时只提供电脑版，您可以继续浏览或下载牛果游戏安卓app畅享更多游戏~</div>
+            <div class="btn-zone">
+                <span class="font-lg btn0 go-on-view-btn">继续浏览</span>
+                <a class="font-lg btn0 download-btn" href="http://imtt.dd.qq.com/16891/A9ACD8808B63B7E2370C36A63572C427.apk?csr=1bbd&fsname=com.niuniu.market_3.0.0.2_4.apk">下载app</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="text-wrapper font-sm">
+        <p>海南牛牛网络信息技术有限公司 Copyright©2016（琼ICP备16002140号）</p>
+        <p>网络文化经营许可证 琼网文[2016]4099-040号&nbsp;&nbsp;&nbsp;增值电信业务经营许可证琼B2-20160073</p>
+        <p>单位地址：海南省老城高新技术产业示范区海南生态软件园</p>
+        <!--<p>联系方式：0898-67200139&nbsp;&nbsp;&nbsp;投诉电话：0898-67200139</p>-->
+    </div>
+</div>
+<div class="brief-tip-pop"><div class="con"></div></div>
+<input type="hidden" value="{$noncestr}" id="noncestr"/>
+<input type="hidden" value="{$timestamp}" id="timestamp"/>
+<input type="hidden" value="{$signature}" id="signature" />
+{literal}
+<script>
+    // 昵称校验
+    var regAddress = new RegExp(/^.{0,50}$/);
+    // 昵称校验
+    var regNickname = new RegExp(/^.{2,20}$/);
+    // 手机号校验
+    var regContact = new RegExp(/^1[34578]\d{9}$/);
+    // 密码校验
+    var regPasswordLoose = new RegExp(/^.{6,18}$/);
+    var regPassword = new RegExp(/^[0-9a-zA-Z!_\-=\+#\.\,\?:;\(\)\[\]\{\}@\$%\^\*`~/\'\"\\]{6,18}$/);
+    // 图形码校验
+    var regCaptchaPic = new RegExp(/^[0-9a-zA-Z]{3,6}$/);
+    // 手机验证码校验
+    var regCaptchaTel = new RegExp(/^[0-9]{6}$/);
+    //身份证校验
+    var regIDcard = new RegExp(/^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/);
+    //带点的中文姓名校验
+    var regNameWithDot = new RegExp(/^[\u4e00-\u9fa5]{1,5}[·•][\u4e00-\u9fa5]{2,15}$/);
+    //不带点的中文姓名校验
+    var regNameNoDot = new RegExp(/^[\u4e00-\u9fa5]{2,15}$/);
+    var formMsgTip = {
+        nickname: {required: "请输入您的昵称", error: "请输入2~20位昵称"},
+        address: {required: "请输入地址", error: ""},
+        account: {required: "请输入您的账号", error: ""},
+        telephone: {required: "请输入手机号码", error: "请输入正确的11位手机号码"},
+        telcaptcha: {required: "请输入验证码", error: "请输入正确的验证码"},
+        captcha: {required: "请输入验证码", error: "请输入正确的验证码"},
+        passwordLoose: {required: "请输入密码", error: "请输入6-18位的密码"},
+        password: {required: "请输入密码", error: "请输入6-18位由数字、字母、字符组成的密码"},
+        confirmpassword: {required: "请确认密码", error: "请输入6-18位由数字、字母、字符组成的密码", equalTo: "两次输入密码不一致"},
+        realname: {required: "请输入真实姓名", error: "请输入正确的真实姓名"},
+        IDcard: {required: "请输入身份证号", error: "请输入正确的身份证号"},
+        sex: {required: "请选择性别", error: ""},
+        address: {required: "请填写地址", error: "地址长度在0~50之间"},
+        agree: {required: "您还未同意协议"}
+    };
+    var _hmt = _hmt || [];
+    // 统计
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f4f222b9599b20b45ffba412ca533efd";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+    // 移动端显示弹窗
+    if(isMobileNotPad() && ($("body").hasClass("home-page") || $("body").hasClass("login-page"))) {
+        $(".mobile-mask").show();
+    }
+    // 页脚是否固定
+    $(document).ready(function() {
+        footerFixControl();
+    });
+    $(window).resize(function() {
+        footerFixControl();
+    });
+    // 若是苹果手机，暂不提供下载app
+    $("body").on("click", ".mobile-mask .download-btn", function(e) {
+        if(isMobileIOS()) {
+            e.preventDefault();
+            briefTipControl("暂无苹果版app,此为安卓版~")
+        }
+    });
+    // 关闭手机提示弹窗
+    $("body").on("click", ".mobile-mask .close, .mobile-mask .go-on-view-btn", function() {
+        $(".mobile-mask").hide();
+    });
+    // 判断是否手机或平板
+    function isMobile() {
+        var mobileAgent = new Array("iphone", "ipod", "ipad", "android", "mobile", "blackberry", "webos", "incognito", "webmate", "bada", "nokia", "lg", "ucweb", "skyfire");
+        var browser = navigator.userAgent.toLowerCase();
+        for (var i=0; i<mobileAgent.length; i++){
+            if (browser.indexOf(mobileAgent[i])!=-1) {
+                return true;
+            }
+        }
+    }
+    // 判断是否手机且不是平板
+    function isMobileNotPad() {
+        var u= navigator.userAgent;
+        var Mobile = u.indexOf('Mobi')>0||u.indexOf('iPh')>0||u.indexOf('480')>0;
+        var Tablet =u.indexOf('Tablet')>0||u.indexOf('iPad')>0||u.indexOf('Nexus 7')>0;
+        var mobileAgent = new Array("iphone", "ipod", "ipad", "android", "mobile", "blackberry", "webos", "incognito", "webmate", "bada", "nokia", "lg", "ucweb", "skyfire");
+        if(Mobile && !Tablet) {
+            return true;
+        }
+    }
+    // 是否苹果手机
+    function isMobileIOS() {
+        var isIOS =(/iPhone|iPod|iPad/i).test(navigator.userAgent);
+        return isIOS ? true : false;
+    }
+    // 简单提示控制
+    function briefTipControl(text) {
+        $(".brief-tip-pop .con").html(text);
+        $(".brief-tip-pop").fadeIn(500).delay(1000).fadeOut(500);
+    }
+    // 按钮定时加class控制
+    function btnTimeOutControl(ele, cls, timeoutClient, timeout) {
+        clearTimeout(timeoutClient);
+        timeoutClient = setTimeout(function() {
+            $(ele).addClass(cls);
+        }, timeout || 2000);
+    }
+    // 固定底部
+    function footerFixControl() {
+//        console.log('window.innerHeight:'+window.innerHeight+',html:' + $("html").height()+',footer + margin-top:'+($(".footer").height() + parseInt($(".footer").css("margin-top"))));
+//        if($("body").hasClass("footer-fix-control-page")) {
+//            if ($(".footer").hasClass("footer-fix") && (window.innerHeight - $("html").height()) < ($(".footer").height() + parseInt($(".footer").css("margin-top")))) {
+//                $(".footer").removeClass("footer-fix");
+//            } else if (!$(".footer").hasClass("footer-fix") && window.innerHeight - $("html").height() > 0) {
+//                $(".footer").addClass("footer-fix");
+//            }
+//        }
+    }
+</script>
+{/literal}
+<!--微信分享-->
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script>
+    var noncestr = $("#noncestr").val();
+    var timestamp = $("#timestamp").val();
+    var signature = $("#signature").val();
+    document.addEventListener('WeixinJSBridgeReady', function() {
+        wx.config({
+            debug: false,
+            appId: "wxbaed68c7f2f3a62c",
+            timestamp: parseInt(timestamp),
+            nonceStr: noncestr,
+            signature: signature,
+            jsApiList: [
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'onMenuShareQQ',
+                'onMenuShareWeibo',
+                'onMenuShareQZone'
+            ]
+        });
+        wx.ready(function() {
+            var shareData = {
+                title: '牛果游戏_new游戏 new快乐',
+                desc: '牛果游戏是一个致力于提供优质手游的应用平台。实时同步市场热门手游,与玩家一起发现精品游戏,享受真福利与真特权，只为带给您高品质的游戏体验。',
+                link: window.location.href,
+                imgUrl: 'http://cdn.66173.cn/niuguo/img/icon.png?t=11',
+                success: function() {
+                    briefTipControl("分享成功");
+                },
+                cancel: function() {
+                    briefTipControl("取消分享");
+                }
+            };
+            // 分享给朋友事件绑定
+            wx.onMenuShareAppMessage(shareData);
+            // 分享到朋友圈
+            wx.onMenuShareTimeline(shareData);
+            // 分享到QQ
+            wx.onMenuShareQQ(shareData);
+            // 分享到QZone
+            wx.onMenuShareQZone(shareData);
+            // 分享到微博
+            wx.onMenuShareWeibo(shareData);
+        });
+    });
+</script>
+<!--底部结束了-->
+<!--{include file="include/side_float.html"}-->
+</body>
+<script type="text/javascript" src="http://cdn.66173.cn/93kk/slide.js"></script>
+<script src="http://cdn.66173.cn/niuguo/scripts/bootstrap3.3.6.min.js"></script>
+<script>
+    $(".main-navbar .navbar-right a").eq(0).addClass("active");
+    formatGameIconHeight();
+    $(window).resize(function() {
+        formatGameIconHeight();
+    });
+    //    游戏列表的图标宽高比设置
+    function formatGameIconHeight() {
+        $(".game-li-wrapper .game-icon").css("height", $(".game-li-wrapper .game-icon").width() * 0.447);
+    }
+</script>
+
+<!--[if !IE]><!-->
+<script src="http://cdn.66173.cn/niuguo/scripts/swiper.jquery.3.4.2.min.js"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        autoplay: 4000,
+        crossFade: true ,///控制是否自动播放
+        preloadImages: false, //是否初始时将所有轮播图加载完,
+        lazyLoading: true, //是否图片懒加载，要和preloadImages: false一起使用
+        paginationClickable: true,
+        autoplayDisableOnInteraction: false //控制用户滑动或点击到其他图后是否不再轮播
+    });
+</script>
+<!--<![endif]-->
+
+<!--[if IE]>
+<script>
+    console.log("IE");
+    var slideLen = $(".rotator .swiper-slide").length;
+    var curSlide = 0;
+    var slideInterval;
+    function slideShow(cur) {
+        $(".rotator .swiper-slide").eq(cur).show().siblings().hide();
+        $(".rotator .swiper-pagination-bullet").eq(cur).addClass("swiper-pagination-bullet-active").siblings().removeClass("swiper-pagination-bullet-active");
+    }
+    function slideIntervalControl() {
+        clearTimeout(slideInterval);
+        slideInterval = setInterval(function () {
+            if (curSlide < slideLen - 1) {
+                curSlide++;
+            }
+            else {
+                curSlide = 0;
+            }
+            slideShow(curSlide);
+        },4000);
+    }
+    $(".rotator").on("click", ".swiper-pagination-bullet", function(e) {
+        var seq = parseInt($(e.target).data("seq"));
+        curSlide = seq;
+        slideShow(seq);
+        slideIntervalControl();
+    });
+    slideIntervalControl();
+</script>
+<![endif]-->
+</html>

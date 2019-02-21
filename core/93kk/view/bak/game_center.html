@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>牛果游戏_new游戏 new快乐-游戏中心页</title>
+    {include file="include/head.html"}
+    <link href="http://cdn.66173.cn/niuguo/css/bootstrap3.3.6.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdn.66173.cn/niuguo/css/common.css?t={$smarty.now}">
+    <link rel="stylesheet" href="http://cdn.66173.cn/niuguo/css/game_center.css?t={$smarty.now}">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+</head>
+<body class="game-rel-page game-center">
+    {include file="include/header.html"}
+    <div class="top-banner"><img src="http://cdn.66173.cn/niuguo/img/service_banner.jpg" alt=""></div>
+    <div class="bg-white minHeight600 container game-center-main-wrapper">
+        <div class="case-title-wrapper">
+            <div class="part dot-line"></div>
+            <span class="part block font-lg title">精品手游</span>
+            <div class="part dot-line"></div>
+        </div>
+        <ul class="font-md type-list">
+            <li class="{if $currentTag.tags == ''}active{/if}" data-type="">全部</li>
+            {foreach from=$tags_list key=k item=tags}
+            <li data-type="{$k}" class="{if $currentTag.tags eq $k}active{/if}">{$tags}</li>
+            {/foreach}
+        </ul>
+        <div class="loading-wrapper">
+            <div class="loading-mask"><div class="text">加载中...</div></div>
+            <ul class="row game-list case-game-list">
+                {if $game_list}
+                {foreach from=$game_list item=data}
+                <li class="col-xs-4">
+                    <a href="/gameDetail{$data.id}">
+                        <div class="game-li-wrapper">
+                            <div class="bg"></div>
+                            <img class="game-icon" src="http://cdn.66173.cn{$data.banner}"/>
+                            <div class="game-text-wrapper">
+                                <div class="font-lg text-overflow name-wrapper"><span class="name">{$data.app_name}</span></div>
+                                <div class="font-md desc">{$data.subtitle}</div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                {/foreach}
+                {else}
+                <div class=" font-lg no-game">暂无游戏~</div>
+                {/if}
+
+            </ul>
+        </div>
+        <div class="text-center pagintor-wrapper">
+            <ul class="pagination"></ul>
+        </div>
+    </div>
+    {include file="include/footer.html"}
+    <input type="hidden" id="pagehash" value="{$pagehash}"/>
+    <input type="hidden" id="tags" value="{$currentTag.tags}"/>
+</body>
+<script src="http://cdn.66173.cn/niuguo/scripts/bootstrap3.3.6.min.js"></script>
+<script src="http://cdn.66173.cn/niuguo/scripts/bootstrap_paginator.js?t=2"></script>
+<script>
+    var gameType = "";//游戏类型
+    var currentPage = 1;//当前页
+    var tags = $("#tags").val();
+    var pagehash = $("#pagehash").val();
+    var initPageOptions = {
+        bootstrapMajorVersion:3,
+        currentPage: parseInt("{$currentTag.page}") || 1,
+        totalPages: parseInt("{$num}") || 1,
+        numberOfPages:5,
+//        onPageClicked: pageChange,
+        pageUrl: paginatorPage
+    };
+    //   导航当前tab高亮
+    $(".main-navbar .navbar-right a").eq(1).addClass("active");
+    //    分页
+    $('.pagination').bootstrapPaginator(initPageOptions);
+    formatGameIconHeight();
+    $(window).resize(function() {
+        formatGameIconHeight();
+    });
+    //    点击分类型分页请求
+    $(".game-center").on("click", ".type-list li", function(e) {
+        var $ele = $(e.target);
+        gameType = $ele.data("type");
+//        getList(gameType, 1);
+        window.location.href = '/gameTags' + gameType + "/1";
+        $ele.addClass("active").siblings().removeClass("active");
+    });
+    //    页面url
+    function paginatorPage(type, page, current) {
+        return '/gameTags'  + tags + '/' + page;
+    }
+    // 获取链接参数
+    function getParameterByName(name, url) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
+        var results = url ? regex.exec(url) : regex.exec(location.href);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+    //    游戏列表的图标宽高比设置
+    function formatGameIconHeight() {
+        $(".game-li-wrapper .game-icon").css("height", $(".game-li-wrapper .game-icon").width()*0.447);
+    }
+    //    暂未使用，ajax分类型分页请求
+    function getList(type, page) {
+        $(".loading-wrapper .loading-mask").show();
+        $.ajax({
+            url: "game.php?act=ajax",
+            type: "post",
+            dataType: "json",
+            data: {
+                tags: type,
+                page: page,
+                pagehash: pagehash
+            }
+        }).success(function(res) {
+            $(".loading-wrapper .loading-mask").hide();
+            var code = res.code;
+            if(code == 1) {
+                var options = {
+                    currentPage: res.currentPage || 1,
+                    totalPages: res.totalPage || 1
+                };
+                var data = res.data || [];
+                var con = "";
+                if(data.length > 0) {
+                    for(var i = 0; i < data.length; i++) {
+                        con += '<li class="col-xs-4">'
+                            +'<a href="/gameDetail'+data[i].id+'">'
+                            +'<div class="game-li-wrapper">'
+                            +'<div class="bg"></div>'
+                            +'<img class="game-icon" src="http://cdn.66173.cn'+data[i].banner+'"/>'
+                            +'<div class="game-text-wrapper">'
+                            +'<div class="font-lg text-overflow name-wrapper"><span class="name">'+data[i].app_name+'</span></div>'
+                            +'<div class="font-md desc">'+data[i].subtitle+'</div>'
+                            +'</div>'
+                            +'</div>'
+                            +'</a>'
+                            +'</li>';
+                    }
+                }
+                else {
+                    con = '<div class=" font-lg no-game">暂无游戏~</div>';
+                }
+                $(".case-game-list").html(con);
+                $('.pagination').bootstrapPaginator(options);
+                currentPage = res.currentPage;
+                var paramsAct = getParameterByName("act");
+                var search = "/gameTags"  + gameType + "/" + currentPage;
+                window.history.pushState("","", search)
+
+            }
+            else {
+                briefTipControl(res.msg);
+            }
+
+        }).error(function(req){
+            $(".loading-wrapper .loading-mask").hide();
+            briefTipControl("请求出错:"+req.status+","+req.statusText);
+        })
+    }
+    //    暂未使用，页面变化
+    function pageChange(event, originalEvent, type, page) {
+        var currentTarget = $(event.currentTarget);
+        switch (type) {
+            case "first":
+                getList(gameType, page);
+                break;
+            case "prev":
+                getList(gameType, page);
+                break;
+            case "next":
+                getList(gameType, page);
+                break;
+            case "last":
+                getList(gameType, page);
+                break;
+            case "page":
+                getList(gameType, page);
+                break;
+        }
+    }
+</script>
+</html>

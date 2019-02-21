@@ -1,0 +1,67 @@
+<form action="app.php?act=app_rules_save" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="verify_form" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">编辑游戏防刷功能</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-md-3 control-label">游戏名称</label>
+            <div class="col-md-9">
+                <input type="text" value="[{$app.app_id}]{$app.app_name}" disabled class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">类型</label>
+            <div class="col-md-9" style="margin-top: 5px!important;">
+                未开启：<input type="radio" {if $app.verify_type eq 0}checked="checked"{/if} name="verify_type" value="0" />
+                等级: <input type="radio" {if $app.verify_type eq 1}checked="checked"{/if} name="verify_type" value="1" />
+                时间: <input type="radio" {if $app.verify_type eq 2}checked="checked"{/if} name="verify_type" value="2" />
+            </div>
+        </div>
+        <div class="form-group" id="rules">
+            <label class="control-label col-md-3">规则：</label>
+            <div class="col-md-9" id="level">
+                <select class="select3 select2-multiple new-select" multiple="multiple" data-placeholder="请选择等级规则"  name="level_verify_content[]">
+                {foreach from=$level_arr item=play}
+                <option value="{$play.id}" {if in_array($play.id,$app_arr)}selected="selected"{/if}>{$play.desc}</option>
+                {/foreach}
+                </select>
+            </div>
+            <div id="time" class="col-md-9" style="display: none;">
+                <select class="select3 select2-multiple new-select" multiple="multiple" data-placeholder="请选择时间规则"  name="time_verify_content[]">
+                    {foreach from=$time_arr item=play}
+                    <option value="{$play.id}" {if in_array($play.id,$app_arr)}selected="selected"{/if}>{$play.desc}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="hidden" value="{$app.app_id}" name="app_id" />
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light" id="btn_charge">保存</button>
+    </div>
+</form>
+<script>
+    jQuery(document).ready(function() {
+        $(".select3").select2();
+    });
+    show_page();
+    function show_page(){
+        var verify_type = $("input[name='verify_type']:checked").val();
+        if (verify_type==0){
+            $("#rules").hide();
+        }else if(verify_type==1){
+            $("#rules").show();
+            $("#level").show();
+            $("#time").hide();
+        }else if(verify_type==2){
+            $("#rules").show();
+            $("#time").show();
+            $("#level").hide();
+        }
+    }
+    $("input[name='verify_type']").on("click",function(){
+        show_page();
+    });
+</script>

@@ -1,0 +1,101 @@
+{include file="kpi/include/head.html"}
+<!-- Begin page -->
+<div class="card-box m-b-0">
+    <div class="row">
+        <div class="col-sm-12 -m-t-10">
+            <h4 class="header-title pull-left p-t-5 group-title">趋势分析</h4>
+            <form class="form-inline pull-right" action="/rh_kpi.php?act=idx_trend_data&appids={$app_id}&channels={$channel}" method="post" id="trent_form">
+                <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light {if $date_type eq '1'}btn-inverse{/if}" onclick="click_time_tab(1)">近七天</button>
+                <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light {if $date_type eq '2'}btn-inverse{/if}" onclick="click_time_tab(2)">上周</button>
+                <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light {if $date_type eq '3'}btn-inverse{/if}" onclick="click_time_tab(3)">本月</button>
+                <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light {if $date_type eq '4'}btn-inverse{/if}" onclick="click_time_tab(4)">上月</button>
+                <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light m-r-10 {if $date_type eq '5'}btn-inverse{/if}" onclick="click_time_tab(5)">前三月</button>
+                <div class="input-daterange form-group" id="date-range">
+                    <input type="text" class="form-control w-md" name="start" id="date-start" value="{$date_start}">至<input type="text" class="form-control w-md" name="end" id="date-end" value="{$date_end}">
+                </div>
+                <button type="button" class="btn btn-default waves-effect waves-light" onclick="click_change_time()">查询</button>
+                <input type="hidden" name="data_type" id="data_type" value="{$data_type}">
+                <input type="hidden" name="date_type" id="date_type" value="{$date_type}">
+                <input type="hidden" name="date_start" id="date_start" value="{$date_start}">
+                <input type="hidden" name="date_end" id="date_end" value="{$date_end}">
+                <input type="hidden" name="appids" value="{$app_id}">
+                <input type="hidden" name="channels" value="{$channel}">
+            </form>
+        </div>
+        <hr class="col-sm-12 m-t-10">
+        <div class="col-sm-12">
+            <div class="btn-group m-b-20">
+                <a class="type_button btn btn-white {if $data_type eq '1'}active{/if}" role="button" onclick="click_type_tab(type=1)">新增用户</a>
+                <a class="type_button btn btn-white {if $data_type eq '2'}active{/if}" role="button" onclick="click_type_tab(type=2)">活跃用户</a>
+                <a class="type_button btn btn-white {if $data_type eq '3'}active{/if}" role="button" onclick="click_type_tab(type=3)">充值金额</a>
+            </div>
+            <div class="text-center">{$title}(一共:{$data_total})</div>
+            <div id="myfirstchart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        </div>
+    </div>
+</div>
+{include file="kpi/include/foot.html"}
+<script>
+    $(function () {
+        jQuery('#date-range').datepicker({
+            toggleActive: true,
+            format: 'yyyy-mm-dd',
+            autoclose: true
+        });
+
+        var myfirstchart = echarts.init(document.getElementById('myfirstchart'));
+        var option = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['{$title}']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: [{$date_list}]
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                name:'{$title}',
+                type:'line',
+                data:[{$data_list}],
+                color:['#5d9cec'],
+                smooth:true
+            }]
+        };
+        myfirstchart.setOption(option);
+    });
+
+    function click_type_tab(data_type) {
+        $("#data_type").val(data_type);
+        $("#trent_form").submit();
+    }
+
+    function click_change_time() {
+        $("#date_type").val(0);
+        var date_start = $("#date-start").val();
+        var date_end = $("#date-end").val();
+        if (date_start=="" || date_end=="") {
+            alert("请选择日期.");
+            return false;
+        }
+        $("#date_start").val(date_start);
+        $("#date_end").val(date_end);
+        $("#trent_form").submit();
+    }
+
+    function click_time_tab(date_type) {
+        $("#date_type").val(date_type);
+        $("#trent_form").submit();
+    }
+</script>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$info.title}</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no, email=no"/>
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait"/>
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/website/css/add_page_v2.css">
+    <script src="http://cdn.66173.cn/www/js/jquery-1.8.3.min.js"></script>
+
+</head>
+<body class="page-bg">
+<a href="{$info.down_url}" class="page-game-box">
+    <div class="page-center">
+        <img src="http://cdn.66173.cn/{$info.top_img}"/>
+        <div class="slideshow-zone" style="background-image: url(http://cdn.66173.cn/{$info.middle_img})">
+            <!-- <div class="slideshow-zone"> -->
+            <ul class="img-ul">
+                {foreach from=$bg_img key=$k item=bg}
+                <li data-index="{$k}" {if $k==0}class="show"{/if}><img src="http://cdn.66173.cn/{$bg}"></li>
+                {/foreach}
+            </ul>
+            <ul class="dot-ul">
+                {foreach from=$bg_img key=$k item=bg}
+                <li data-index="{$k}" {if $k==0}class="cur"{/if}><span class="dot"></span></li>
+                {/foreach}
+            </ul>
+        </div>
+        <img src="http://cdn.66173.cn/{$info.bottom_img}"/>
+    </div>
+</a>
+<div class="bottom-foot">
+    {if $info.page_info}
+    {str_replace("\n","<br/>",{$info.page_info})}
+    {else}
+    广州指点网络科技有限公司  Copyright 2013 y6.cn 版权所有<br/>
+    网站安全备案编号 粤ICP备10217776号-1
+    {/if}
+</div>
+</body>
+<script type="text/javascript">
+    var cur = 0;
+    var slideInterval;
+    function slideControl(cur) {
+        $('.img-ul li[data-index="'+cur+'"]').addClass("show").siblings().removeClass("show");
+        $('.dot-ul li[data-index="'+cur+'"]').addClass("cur").siblings().removeClass("cur");
+    }
+
+    $(window).load(function() {
+        slideInterval = setInterval(function() {
+            cur < 3 ? cur++ : cur = 0;
+            slideControl(cur);
+        }, 2000)
+    })
+
+</script>
+</html>

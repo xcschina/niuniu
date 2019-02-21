@@ -1,0 +1,614 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+    <meta name="author" content="Coderthemes">
+    <title>{$app_name} 今日实时数据统计</title>
+    {include file="kpi/include/head.html"}
+</head>
+<body>
+<!-- Begin page -->
+<div id="wrapper">
+    <!-- Left Sidebar -->
+    <div id="page-wrapper">
+        <!-- Start content -->
+        <style>
+            #data2 {
+                min-width: 310px; height: 400px; margin: 0 auto;
+            }
+            .red-date {
+                color: #ff6600;
+            }
+            .f-gray {
+                color: #666;
+            }
+            th, td {
+                text-align: right!important;
+            }
+            td {
+                padding: 9px!important;
+                font-size: 14px!important;
+                color: #333!important;
+            }
+            tr {
+                background-color: inherit!important;
+            }
+            th {
+                font-size: 14px!important;
+                color: #666;
+            }
+            .f-green-d {
+                color: #009999!important;
+                font-weight: bold;
+            }
+            .f-green {
+                color: #009999!important;
+            }
+            .f-bold {
+                font-weight: bold;
+            }
+            .d-bg {
+                background-color: #f1f1f1!important;
+            }
+            .l-bg {
+                background-color: #f7f7f7!important;
+            }
+            .text-middle {
+                text-align: center!important;
+            }
+            .text-left {
+                text-align: left!important;
+            }
+            .text-right {
+                text-align: right!important;
+            }
+            .fix-span {
+                width: 45%;
+                display: inline-block;
+            }
+            .separate {
+                color: #ccc;
+                padding: 0 3px;
+            }
+            .sp .footable-sort-indicator {
+                position: absolute!important;
+            }
+        </style>
+        <div class="content">
+            <div class="container">
+                <div class="row m-b-5">
+                    <div class="col-lg-12">
+                        <ul class="nav nav-tabs tabs">
+                            <li class="tab">
+                                <a href="/kpi.php?act=detail&appids={$appid}&channels={$selected_channel}">
+                                    <span class="visible-xs"><i class="fa fa-home"></i></span>
+                                    <span class="hidden-xs">总览</span>
+                                </a>
+                            </li>
+                            <li class="active tab">
+                                <a href="/kpi.php?act=realtime&appids={$appid}&channels={$selected_channel}">
+                                    <span class="visible-xs"><i class="fa fa-user"></i></span>
+                                    <span class="hidden-xs">实时</span>
+                                </a>
+                            </li>
+                            <li class="tab">
+                                {if $app_type==1}
+                                <a href="/kpi.php?act=all_channel&appids={$appid}">
+                                    <span class="visible-xs"><i class="fa fa-user"></i></span>
+                                    <span class="hidden-xs">渠道</span>
+                                </a>
+                                {elseif $app_type==2}
+                                <a href="/kpi.php?act=ios_channel&appids={$appid}">
+                                    <span class="visible-xs"><i class="fa fa-user"></i></span>
+                                    <span class="hidden-xs">分包</span>
+                                </a>
+                                {/if}
+                            </li>
+                            <li class="pull-right m-t-5 m-r-10 m-l-10">
+                                {if $app_type==1}
+                                <select class="select2-container form-control select2 w-mlg m-r-10" data-placeholder="请选择渠道" name="channel" id="channel" onchange="change_channel()">
+                                    <option value="">请选择渠道</option>
+                                    {foreach from=$guild_list item=guild}
+                                    <option value="{$guild.user_code}"{if $guild.user_code eq $selected_channel} selected{/if}>{$guild.user_code}</option>
+                                    {/foreach}
+                                </select>
+                                {else if $app_type==2}
+                                <select class="select2-container form-control select2 w-mlg m-r-10" data-placeholder="请选择包名" name="apppackages" id="apppackages" onchange="change_channel()">
+                                    <option value="">请选择包名</option>
+                                    {foreach from=$apppackage_list item=apppackages}
+                                    {if $apppackages.apple_id == $apppackages.channel}
+                                    <option value="{$apppackages.apple_id}"{if $apppackages.apple_id eq $selected_channel} selected{/if}>{$apppackages.game_name}</option>
+                                    {else}
+                                    <option value="{$apppackages.channel}"{if $apppackages.channel eq $selected_channel} selected{/if}>{$apppackages.game_name}</option>
+                                    {/if}
+                                    {/foreach}
+                                    <option value="appstore" {if $selected_channel eq "appstore"}selected{/if}>Appstore</option>
+                                </select>
+                                {/if}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box widget-inline m-b-5">
+                            <div class="col-sm-12 text-center -m-t-10 m-b-10">
+                                <h4 class="header-title"><b class="text-center"><span class="red-date">{$app_name} </span>今日实时数据统计</b></h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-2 col-sm-6">
+                                    <div class="widget-inline-box text-center">
+                                        <h3><i class="text-pink md md-account-child"></i><b>{$sum_act_user}</b></h3>
+                                        <h4 class="text-muted">活跃用户</h4>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2 col-sm-6">
+                                    <div class="widget-inline-box text-center">
+                                        <h3><i class="text-custom md md-account-child"></i> <b>{$sum_new_user}</b></h3>
+                                        <h4 class="text-muted">新增用户</h4>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2 col-sm-6">
+                                    <div class="widget-inline-box text-center">
+                                        <h3><i class="text-pink md md-devices"></i> <b>{$sum_act_device}</b></h3>
+                                        <h4 class="text-muted">活跃设备</h4>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2 col-sm-6">
+                                    <div class="widget-inline-box text-center">
+                                        <h3><i class="text-custom md md-devices"></i> <b>{$sum_new_device}</b></h3>
+                                        <h4 class="text-muted">新增设备</h4>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2 col-sm-6">
+                                    <div class="widget-inline-box text-center">
+                                        <h3><i class="text-purple md md-attach-money"></i><b>{$sum_pay}</b></h3>
+                                        <h4 class="text-muted">充值总额</h4>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-sm-6">
+                                    <div class="widget-inline-box text-center">
+                                        <h3><i class="text-purple md md-attach-money"></i><b>{$pay_count}</b></h3>
+                                        <h4 class="text-muted">牛点充值</h4>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-sm-6">
+                                    <div class="widget-inline-box text-center">
+                                        <h3><i class="text-custom md ion-android-contacts"></i><b>{$sum_pay_count}</b></h3>
+                                        <h4 class="text-muted">充值人数</h4>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-sm-6">
+                                    <div class="widget-inline-box text-center">
+                                        <h3><i class="text-danger md icon-fire"></i><b>{$act_user_60_min}</b></h3>
+                                        <h4 class="text-muted">1小时在线</h4>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-sm-6">
+                                    <div class="widget-inline-box text-center">
+                                        <h3><i class="text-purple md ion-stats-bars"></i> <b>{$arppu}</b></h3>
+                                        <h4 class="text-muted">ARPPU</h4>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-sm-6">
+                                    <div class="widget-inline-box text-center">
+                                        <h3><i class="text-danger md ion-stats-bars"></i> <b>{$darpu}</b></h3>
+                                        <h4 class="text-muted">DARPU</h4>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-sm-6">
+                                    <div class="widget-inline-box text-center">
+                                        <h3><i class="text-custom md ion-stats-bars"></i> <b>{$pay_rate}%</b></h3>
+                                        <h4 class="text-muted">付费率</h4>
+                                    </div>
+                                </div>
+                                {if $app_info['app_type'] eq '2'}
+                                <div class="col-lg-2 col-sm-6">
+                                    <div class="widget-inline-box text-center">
+                                        <h3><i class="text-purple md md-attach-money"></i><b>{$today_apple_pay}</b></h3>
+                                        <h4 class="text-muted">苹果充值总额</h4>
+                                    </div>
+                                </div>
+                                {else}
+                                <div class="col-lg-2 col-sm-6">
+                                    <div class="widget-inline-box text-center">
+                                        <h3><i class="text-danger md icon-fire"></i><b>{$old_role['role_count']}</b></h3>
+                                        <h4 class="text-muted">衮服人数</h4>
+                                    </div>
+                                </div>
+                                {/if}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-12 text-center -m-t-10">
+                            <h6 class="header-title"><b class="text-center">新设备渠道分布</b></h6>
+                        </div>
+                        <div class="card-box widget-inline m-b-5">
+
+                            <div id="myfirstchart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-box">
+                            <div class="col-sm-12 text-center -m-t-10">
+                                <h6 class="header-title"><b class="text-center">时段趋势分析</b></h6>
+                            </div>
+                            <div class="btn-group m-b-20">
+                                <a class="btn btn-white active" role="button" id="btn1" onclick="switch_chart(1)">活跃用户</a>
+                                <a class="btn btn-white" role="button" id="btn2" onclick="switch_chart(2)">新增用户</a>
+                                <a class="btn btn-white" role="button" id="btn3" onclick="switch_chart(3)">活跃设备</a>
+                                <a class="btn btn-white" role="button" id="btn4" onclick="switch_chart(4)">新增设备</a>
+                                <a class="btn btn-white" role="button" id="btn5" onclick="switch_chart(5)">充值总额</a>
+                            </div>
+                            <div id="data1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                            <div class="hide" id="data2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                            <div class="hide" id="data3" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                            <div class="hide" id="data4" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                            <div class="hide" id="data5" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                            <div class="table-responsive m-t-20">
+                                <table id="rt-table" class="table m-0 table-hover" data-page-size="30">
+                                    <thead>
+                                    <tr class="l-bg">
+                                        <th width="100" data-type="numeric">时段</th>
+                                        <th width="200" data-type="numeric" class="text-center text-middle sp">新增用户|新增设备</th>
+                                        <th width="200" data-type="numeric" class="text-center text-middle sp">活跃用户|活跃设备</th>
+                                        <th width="100" data-type="numeric" class="text-center">充值人数</th>
+                                        <th width="150" data-type="numeric" class="text-center">ARPPU</th>
+                                        <th width="150" data-type="numeric" class="text-center">DARPU</th>
+                                        <th width="150" data-type="numeric" class="text-center">付费率</th>
+                                        <th width="150" data-type="numeric" class="text-center">充值总额</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <thead>
+                                    <tr>
+                                        <td class="f-bold" scope="row">总计</td>
+                                        <td class="f-bold text-middle" scope="row"><span class="f-green-d fix-span text-right">{$sum_new_user}</span><span class="separate">|</span><span class="fix-span text-left">{$sum_new_device}</span></td>
+                                        <td class="f-bold text-middle" scope="row"><span class="f-green-d fix-span text-right">{$sum_act_user}</span><span class="separate">|</span><span class="fix-span text-left">{$sum_act_device}</span></td>
+                                        <td class="f-bold" scope="row">
+                                            {$sum_pay_count}
+                                        </td>
+                                        <td class="f-bold" scope="row">
+                                            {($sum_pay/$sum_pay_count)|string_format:"%.1f"}
+                                        </td>
+                                        <td class="f-bold" scope="row">
+                                            {($sum_pay/$sum_act_user)|string_format:"%.1f"}
+                                        </td>
+                                        <td class="f-bold" scope="row">
+                                            {($sum_pay_count/$sum_act_user*100)|string_format:"%.1f"}%
+                                        </td>
+                                        <td class="f-bold" scope="row">
+                                           {$sum_pay}
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {foreach from=$apps_data item=info key=key}
+                                    <tr>
+                                        <td data-value="{$info['key']}" scope="row">{$info['key']}:00</td>
+                                        <td data-value="{$info['sum_new_user']['value']}" class="text-middle">
+                                            <span class="f-green fix-span text-right">{$info['sum_new_user']['value']}</span><span class="separate">|</span><span class="text-left fix-span">{$info['sum_new_device']['value']}</span>
+                                        </td>
+                                        <td data-value="{$info['sum_act_user']['value']}" class="text-middle">
+                                            <span class="f-green fix-span text-right">{$info['sum_act_user']['value']}</span><span class="separate">|</span><span class="text-left fix-span">{$info['sum_act_device']['value']}</span>
+                                        </td>
+                                        <td class="text-center">{$info['sum_pay_count']['value']}</td>
+                                        <td data-value="{($info['sum_pay']['value']/$info['sum_pay_count']['value'])|string_format:"%.1f"}" class="text-center">
+                                            {($info['sum_pay']['value']/$info['sum_pay_count']['value'])|string_format:"%.1f"}
+                                        </td>
+                                        <td data-value="{($info['sum_pay']['value']/$info['sum_act_user']['value'])|string_format:"%.1f"}" class="text-center">
+                                            {($info['sum_pay']['value']/$info['sum_act_user']['value'])|string_format:"%.1f"}
+                                        </td>
+                                        <td data-value="{($info['sum_pay_count']['value']/$info['sum_act_user']['value']*100)|string_format:"%.1f"}" class="text-center">
+                                            {($info['sum_pay_count']['value']/$info['sum_act_user']['value']*100)|string_format:"%.1f"}%
+                                        </td>
+                                        <td data-value="{$info['sum_pay']['value']}" class="text-center">
+                                            {$info['sum_pay']['value']}
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    {/foreach}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- container -->
+        </div> <!-- content -->
+    </div>
+</div>
+{include file="kpi/include/foot.html"}
+<script>
+    $(function () {
+        $('#rt-table').footable();
+    });
+
+    $(function () {
+        jQuery('#date-day').datepicker({
+            toggleActive: true,
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+        }).on('changeDate', function(){
+            var day = $("#date-day").val()
+            if (day.length == 10) {
+                window.location.href = "/hour?appids=5079&channels=&date="+day
+            }
+        });
+
+        ch_data();
+        data1();
+    });
+    function ch_data() {
+        var myfirstchart = echarts.init(document.getElementById('myfirstchart'));
+        var option = {
+            color: ['#3398DB'],
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: ['{$ch_name}'],
+                    axisTick: {
+                        alignWithLabel: true
+                    }
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    name: '新设备数量',
+                    type: 'bar',
+                    barWidth: '50%',
+                    data: ['{$ch_num}'],
+                }
+            ]
+        };
+        myfirstchart.setOption(option);
+    }
+
+    function data1(){
+        var data1 = echarts.init(document.getElementById('data1'));
+        var option1 = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['活跃用户']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['{$time_list}']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                name:'活跃用户',
+                type:'line',
+                data: ['{$act_user_list}'],
+                color:['#5d9cec'],
+                smooth:true
+            }]
+        };
+        data1.setOption(option1);
+    }
+
+    function data2(){
+        var data2 = echarts.init(document.getElementById('data2'));
+        var option2 = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['新增用户']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['{$time_list}']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                name:'新增用户',
+                type:'line',
+                data: ['{$new_user_list}'],
+                color:['#5d9cec'],
+                smooth:true
+            }]
+        };
+        data2.setOption(option2);
+    }
+
+
+    function data3(){
+        var data3 = echarts.init(document.getElementById('data3'));
+        var option3 = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['活跃设备']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['{$time_list}']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                name:'活跃设备',
+                type:'line',
+                data: ['{$act_device_list}'],
+                color:['#5d9cec'],
+                smooth:true
+            }]
+        };
+        data3.setOption(option3);
+    }
+
+
+    function data4(){
+        var data4 = echarts.init(document.getElementById('data4'));
+        var option4 = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['新增设备']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['{$time_list}']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                name:'新增设备',
+                type:'line',
+                data: ['{$new_device_list}'],
+                color:['#5d9cec'],
+                smooth:true
+            }]
+        };
+        data4.setOption(option4);
+    }
+
+
+    function data5(){
+        var data5 = echarts.init(document.getElementById('data5'));
+        var option5 = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['充值总额']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['{$time_list}']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                name:'充值总额',
+                type:'line',
+                data: ['{$pay_list}'],
+                color:['#5d9cec'],
+                smooth:true
+            }]
+        };
+        data5.setOption(option5);
+    }
+
+    var data2_flag = 0;
+    var data3_flag = 0;
+    var data4_flag = 0;
+    var data5_flag = 0;
+    function switch_chart(num) {
+        for(var i=1; i <= 5; i++) {
+            if(i != num) {
+                $("#data"+i).addClass("hide");
+                $("#btn"+i).removeClass("active");
+            }
+        }
+        $($("#btn"+num)).addClass("active");
+        $("#data"+num).removeClass("hide");
+        //只初始化一次
+        if(num == 2 && data2_flag == 0) {
+            data2();
+            data2_flag = 1;
+        }
+        if(num == 3 && data3_flag == 0) {
+            data3();
+            data3_flag = 1;
+        }
+        if(num == 4 && data4_flag == 0) {
+            data4();
+            data4_flag = 1;
+        }
+        if(num == 5 && data5_flag == 0) {
+            data5();
+            data5_flag = 1;
+        }
+    }
+
+    $(".select2").select2();
+
+    function change_channel() {
+        {if $app_type==1}
+        window.location.href = "/kpi.php?act=realtime&appids={$appid}&channels=" + $("#channel").val();
+        {else if $app_type==2}
+        window.location.href = "/kpi.php?act=realtime&appids={$appid}&channels=" + $("#apppackages").val();
+        {/if}
+    }
+
+</script>
+</body>
+</html>

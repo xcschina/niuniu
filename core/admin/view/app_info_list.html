@@ -1,0 +1,127 @@
+<link href="assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet" />
+<link href="assets/plugins/multiselect/css/multi-select.css"  rel="stylesheet" type="text/css" />
+<link href="assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="assets/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
+<!--kindeditor-->
+<link href="/kindeditor/themes/default/default.css" rel="stylesheet">
+<!-- swfupload for uploadify && kindeditor -->
+<script src="http://static.66173.cn/console/BJUI/plugins/swfupload/swfupload.js"></script>
+<!-- kindeditor -->
+<script src="/kindeditor/kindeditor-all.min.js"></script>
+<script src="/kindeditor/lang/zh_CN.js"></script>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <!--按钮或搜索区域-->
+                <form  id="form_data">
+                <div class="col-sm-12 text-xs-center">
+                    <div class="col-md-1">
+                    <button data-action="modal" class="btn btn-default m-b-20" href="app_info.php?act=add"><i class="fa fa-plus m-r-5"></i>添加新品</button>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control select2" name="app_id">
+                            <option value="">请选择游戏</option>
+                            {foreach from=$app_list item=data}
+                            <option value="{$data.app_id}"{if $data.app_id eq $params.app_id} selected{/if}>[{$data.app_id}]{$data.app_name}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control select2" name="is_new">
+                            <option value="">请选择手游类型</option>
+                            <option value="0"{if $params.is_new eq '0'} selected{/if}>最新手游</option>
+                            <option value="1"{if $params.is_new eq '1'} selected{/if}>普通手游</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control select2" name="is_del">
+                            <option value="">请选择状态</option>
+                            <option value="0"{if $params.is_del eq '0'} selected{/if}>上线</option>
+                            <option value="1"{if $params.is_del eq '1'} selected{/if}>下线</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control select2" name="tags">
+                            <option value="">请选择标签</option>
+                            <option value="101"{if $params.tags eq '101'} selected{/if}>角色</option>
+                            <option value="102"{if $params.tags eq '102'} selected{/if}>策略</option>
+                            <option value="103"{if $params.tags eq '103'} selected{/if}>卡牌</option>
+                            <option value="104"{if $params.tags eq '104'} selected{/if}>其他</option>
+                        </select>
+                    </div>
+                    <span class="btn btn-default m-b-20" href="#;" onclick="search();"><i class="fa fa-search m-r-5"></i>搜索</span>
+                    <span class="btn btn-default m-b-20" href="#;" onclick="reloadsearch();"> <i class="fa fa-undo"></i>清空搜索</span>
+                </div>
+                </form>
+                <!--end--->
+            </div>
+            <div >
+                <!---核心内容列表区域-->
+                <table class="table table-striped m-0">
+                    <thead>
+                    <tr>
+                        <th>NO.</th>
+                        <th>标题</th>
+                        <th>关联游戏</th>
+                        <th>游戏ICON</th>
+                        <th>游戏banner</th>
+                        <th>游戏大小</th>
+                        <th>系统</th>
+                        <th>最新手游</th>
+                        <th>标签</th>
+                        <th>添加时间</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach from=$list item=data}
+                    <tr>
+                        <th scope="row">{$data.id}</th>
+                        <td>{$data.title}</td>
+                        <td>{$data.app_name}</td>
+                        <td>{if $data.app_icon}<img src="http://cdn.66173.cn{$data.app_icon}" width="50" height="50">{/if}</td>
+                        <td>{if $data.banner}<img src="http://cdn.66173.cn{$data.banner}" width="50" height="50">{/if}</td>
+                        <td>{$data.app_size}</td>
+                        <td>{$data.system}</td>
+                        <td>{if $data.is_new eq '0'}是{else if $data.is_new eq '1'}否{/if}</td>
+                        <td>{$data.new_tags}</td>
+                        <td>{'Y-m-d H:i:s'|date:$data.add_time}</td>
+                        <td>{if $data.is_del eq '0'}
+                            <a class="on-default edit-row" style="color:#81c868" data-action="modal" href="app_info.php?act=offline&id={$data.id}">上线</a>
+                            {else}
+                            <a class="on-default edit-row" style="color:#999" data-action="modal" href="app_info.php?act=offline&id={$data.id}">下线</a>
+                            {/if}
+                        </td>
+                        <td>
+                            <a class="on-default edit-row" data-action="modal" href="app_info.php?act=edit&id={$data.id}"><i class="fa fa-pencil"></i></a>
+                        </td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <!---内容区域end--->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row"><div class="col-lg-12"><div id="page">{$page_bar}</div></div></div>
+<script>
+    jQuery(document).ready(function() {
+        $(".select2").select2();
+    });
+    function search() {
+        var url = "app_info.php?act=list&";
+        var formStr = $('#form_data').serialize();
+        post_main_data_load(url,formStr);
+    }
+
+    function reloadsearch(){
+        var url = "app_info.php?act=list";
+        var formStr = "app_id=&is_new=&tags=&is_del=";
+        post_main_data_load(url,formStr);
+    }
+</script>

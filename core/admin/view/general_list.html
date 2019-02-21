@@ -1,0 +1,101 @@
+<link href="assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet" />
+<link href="assets/plugins/multiselect/css/multi-select.css"  rel="stylesheet" type="text/css" />
+<link href="assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="assets/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <form id="form_data" >
+                <div class="row">
+            <!--按钮或搜索区域-->
+                    <div class="col-sm-12 text-xs-center">
+                        <div class="col-md-1 form-group">
+                            <button data-action="modal" class="btn btn-default m-b-20" href="general.php?act=general_add"><i class="fa fa-plus m-r-5"></i>新建</button>
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <select class="form-control select2" name="game_id">
+                                <option value="" {if $params.game_id == ''}selected="selected"{/if}>请选择游戏</option>
+                                {foreach from=$game_list item=play}
+                                <option value="{$play.app_id}" {if $params.game_id eq $play.app_id}selected="selected"{/if}>{$play.app_name}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <select class="form-control select2" name="general_id" >
+                                <option value="" {if $params.general_id == ''}selected="selected"{/if}>请选择活动</option>
+                                {foreach from=$general_name item=general}
+                                <option value="{$general.id}" {if $params.general_id eq $general.id}selected="selected"{/if}>{$general.title}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                         <span class="btn btn-default m-b-20" href="#;" onclick="search();"><i class="fa fa-search m-r-5"></i>搜索</span>
+                         <span class="btn btn-default m-b-20" href="#;" onclick="reloadsearch();"> <i class="fa fa-undo"></i>清空搜索</span>
+                     </div>
+                    <!--end--->
+                </div>
+            </form>
+        <div class="table-responsive">
+        <table class="table m-0 table-hover">
+            <thead>
+            <tr class="back_gray">
+                <th width="12">No.</th>
+                <th width="160">活动名称</th>
+                <th width="120">关联游戏</th>
+                <th width="120">源包前缀</th>
+                <th width="120">网页预览</th>
+                <!--<th width="120">渠道推广</th>-->
+                <th width="120">批量生成链接</th>
+                <th width="100">添加时间</th>
+                <th width="100">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        {foreach key=key item=data from=$general}
+        <tr >
+            <td>{$data.id}</td>
+            <td>
+                {$data.title}
+            </td>
+            <td>{$data.app_name}</td>
+            <td>
+               {$data.batch_name}
+            </td>
+            <td>
+                <a href="general.php?act=preview&id={$data.id}" target="_blank">预览页面</a>
+            </td>
+            <td>
+                {if $data.type == 1}
+                <a data-action="modal" href="general.php?act=batch_view&id={$data.id}" data-toggle="dialog" data-mask="true" data-width="450"  data-height="180" data-id="form" data-title="{$data.title}">批量导入</a>
+                {/if}
+            </td>
+            <td>{'Y-m-d H:i:s'|date:$data.add_time}</td>
+            <td>
+                <a data-action="modal" href="general.php?act=general_edit&id={$data.id}" class="btn btn-green" data-toggle="navtab"  data-height="550" data-id="general_edit_view" data-title="游戏编辑"><i class="fa fa-pencil"></i></a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+    </div>
+    </div>
+</div>
+</div>
+<div class="row"><div class="col-lg-12"><div id="page">{$page_bar}</div></div></div>
+<script>
+    jQuery(document).ready(function() {
+        $(".select2").select2();
+    });
+    function search() {
+        var url = "general.php?act=general_list&";
+        var formStr = $('#form_data').serialize();
+        post_main_data_load(url,formStr);
+    }
+
+    function reloadsearch(){
+        var url = "general.php?act=general_list";
+        var formStr = "game_id=&general_id=";
+        post_main_data_load(url,formStr);
+    }
+</script>

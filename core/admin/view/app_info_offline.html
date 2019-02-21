@@ -1,0 +1,50 @@
+<form action="app_info.php?act=do_offline" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h4 class="modal-title">更改状态</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="col-md-2 control-label">状态</label>
+                <div class="col-md-10">
+                    <select class="form-control" name="status" data-parsley-id="4">
+                        <option value="0" selected="">上线</option>
+                        <option value="1">下线</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <input type="hidden" name="id" value="{$id}">
+            <input type="hidden" name="pagehash" value="{$pagehash}">
+            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal" >关闭</button>
+            <button type="submit" class="btn btn-info waves-effect waves-light">保存</button>
+        </div>
+</form>
+{literal}
+<script src="assets/plugins/moment/moment.js"></script>
+<script src="assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<script src="assets/plugins/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+<script src="assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="assets/plugins/clockpicker/dist/jquery-clockpicker.min.js"></script>
+<script src="assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script >
+
+    $("#send_time").change(function() {
+        var send_time = $("input[type='radio']:checked").val();;
+        if(send_time == 2){
+            $("#push").show();
+        }else{
+            $("#push").hide();
+        }
+    });
+    jQuery(document).ready(function() {
+        // Date Picker
+//        jQuery('#datepicker').datepicker();
+        jQuery('#push_time').datepicker({
+            format: "yyyy-mm-dd",
+            toggleActive: true
+        })
+    })
+</script>
+{/literal}

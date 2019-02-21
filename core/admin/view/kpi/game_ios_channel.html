@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+    <meta name="author" content="Coderthemes">
+    <title>{$app_name} 今日实时数据统计</title>
+    {include file="kpi/include/head.html"}
+</head>
+<body>
+<!-- Begin page -->
+<div id="wrapper">
+    <!-- Left Sidebar -->
+    <div id="page-wrapper">
+        <!-- Start content -->
+        <style>
+            .red-date {
+                color: #ff6600;
+            }
+            .f-gray {
+                color: #666;
+            }
+            th, td {
+                text-align: right!important;
+            }
+            td {
+                padding: 9px!important;
+                font-size: 14px!important;
+                color: #333!important;
+            }
+            tr {
+                background-color: inherit!important;
+            }
+            th {
+                font-size: 14px!important;
+                color: #666;
+            }
+            .f-green-d {
+                color: #009999!important;
+                font-weight: bold;
+            }
+            .f-green {
+                color: #009999!important;
+            }
+            .f-bold {
+                font-weight: bold;
+            }
+            .d-bg {
+                background-color: #f1f1f1!important;
+            }
+            .d-bg {
+                background-color: #f7f7f7!important;
+            }
+            .text-left {
+                text-align: left!important;
+            }
+            .text-right {
+                text-align: right!important;
+            }
+            .text-middle {
+                text-align: center!important;
+            }
+            .fix-span {
+                width: 45%;
+                display: inline-block;
+            }
+            .separate {
+                color: #ccc;
+                padding: 0 3px;
+            }
+            .sp .footable-sort-indicator {
+                position: absolute!important;
+            }
+        </style>
+
+        <!-- Start content -->
+<div class="content m-b-0">
+    <div class="container">
+        <div class="row m-b-5">
+            <div class="col-lg-12">
+                <ul class="nav nav-tabs tabs">
+                    <li class="tab">
+                        <a href="/kpi.php?act=detail&appids={$appid}">
+                            <span class="visible-xs"><i class="fa fa-home"></i></span>
+                            <span class="hidden-xs">总览</span>
+                        </a>
+                    </li>
+                    <li class="tab">
+                        <a href="/kpi.php?act=realtime&appids={$appid}">
+                            <span class="visible-xs"><i class="fa fa-user"></i></span>
+                            <span class="hidden-xs">实时</span>
+                        </a>
+                    </li>
+                    <li class="active tab">
+                        <a href="/kpi.php?act=ios_channel&appids={$appid}">
+                            <span class="visible-xs"><i class="fa fa-user"></i></span>
+                            <span class="hidden-xs">分包</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-box">
+                    <div class="col-sm-12 -m-t-10">
+                        <div class="row">
+                            <form  action="/kpi.php?act=ios_channel" method="post" class="form-inline pull-left" id="detail_form">
+                                <lable>时段:</lable>
+                                <div class="input-daterange form-group" id="date-range">
+                                    <input type="text" class="form-control w-md" name="start_date" value="{$start_date}">至<input type="text" class="form-control w-md" name="end_date" value="{$end_date}">
+                                </div>
+
+                                <input type="hidden" name="appids" id="appids" value="{$appid}"/>
+                                <button type="button" class="btn btn-default waves-effect waves-light m-r-10" onclick="detail_query()">查询</button>
+                                <!--<button type="button" class="btn btn-default waves-effect waves-light m-r-10" onclick="export_query()">导出</button>-->
+                            </form>
+                        </div>
+                    </div>
+                    <hr class="col-sm-12 m-t-10">
+                    <div class="btn-group m-b-20">
+                        <a class="btn btn-white active" role="button" id="btn1" onclick="switch_chart(1)">渠道新增</a>
+                        <a class="btn btn-white" role="button" id="btn2" onclick="switch_chart(2)">渠道活跃</a>
+                    </div>
+                    <div id="data1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                    <div class="hide" id="data2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                    <div class="table-responsive m-t-20">
+                        <table class="table m-0" id="ch-table" data-page-size="30">
+                            <thead>
+                            <tr class="d-bg">
+                                <th width="100">包名</th>
+                                <th width="220" data-type="numeric" class="text-center text-middle sp">新增用户|新增设备</th>
+                                <th width="100" data-type="numeric" class="text-center">新增角色</th>
+                                <th width="120" data-type="numeric" class="text-center">充值人数</th>
+                                <th width="150" data-type="numeric" class="text-center">充值金额</th>
+                                <th width="120" data-type="numeric" class="text-center">访问量</th>
+                                <th width="120" data-type="numeric" class="text-center">点击量</th>
+                                <th width="120" data-type="numeric" class="text-center">排重点击数</th>
+                                <th width="120" data-type="numeric" class="text-center">激活率</th>
+                                <th width="120" data-type="numeric" class="text-center">次日留存</th>
+                                <th width="120" data-type="numeric" class="text-center">7日留存</th>
+                                <th width="120" data-type="numeric" class="text-center">ARPPU</th>
+                                <th width="120" data-type="numeric" class="text-center">ARPU</th>
+                                <th width="120" data-type="numeric" class="text-center">付费率</th>
+                                <th></th>
+                            </tr>
+
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>总额</td>
+                                <td data-value="{$sum_new_user}" class="text-center text-middle"><span class="fix-span text-right">{$sum_new_user}</span>
+                                    <span class="separate">|</span><span class="fix-span text-left">{$sum_new_device}</span></td>
+                                <td data-value="{$sum_new_role}" class="text-center">{$sum_new_role}</td>
+                                <td class="text-center">{$sum_pay_count}</td>
+                                <td class="text-center">{$sum_pay}</td>
+                                <td class="text-center">{$visit_total}</td>
+                                <td class="text-center">{$down_total}</td>
+                                <td class="text-center">{$diff_total}</td>
+                                <td class="text-center">{math equation="x/y*100" x=$sum_new_device y=$diff_total format="%.2f"}%</td>
+                            </tr>
+                            {foreach from=$app_data['result'] item=data key=key}
+                            <tr>
+                            <td scope="row">{$data['app_name']}({$data['key']})</td>
+                            <td data-value="{$data['sum_new_user']['value']}" class="text-center text-middle"><span class="fix-span text-right">{$data['sum_new_user']['value']}</span>
+                                <span class="separate">|</span><span class="fix-span text-left">{$data['sum_new_device']['value']}</span></td>
+                            <td data-value="{$data['sum_new_role']['value']}" class="text-center">{$data['sum_new_role']['value']}</td>
+                            <td class="text-center">{$data['sum_pay_count']['value']}</td>
+                            <td class="text-center">{$data['sum_pay']['value']}</td>
+                            <td class="text-center">{$data['visit_num']}</td>
+                            <td class="text-center">{$data['down_num']}</td>
+                            <td class="text-center">{$data['diff_num']}</td>
+                            <td class="text-center">{math equation="x/y*100" x=$data['sum_new_device']['value'] y=$data['diff_num'] format="%.2f"}%</td>
+                            <td data-value="{$data['k1']}" class="text-center">
+                                {$data['k1']}%
+                            </td>
+                            <td data-value="{$data['k7']}" class="text-center">
+                                {$data['k7']}%
+                            </td>
+                            <td data-value="{$data['pu1']}" class="text-center">
+                            {$data['pu1']}
+                            </td>
+                            <td data-value="{$data['pu2']}" class="text-center">
+                            {$data['pu2']}
+                            </td>
+                            <td data-value="{$data['pr']}" class="text-center">
+                            {$data['pr']}%
+                            </td>
+                            </tr>
+                            {/foreach}
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <div class="text-right">
+                                        <ul class="pagination pagination-split m-t-30"></ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    </div> <!-- container -->
+</div> <!-- content -->
+{include file="kpi/include/foot.html"}
+<script>
+    $(function () {
+        $('#ch-table').footable();
+        jQuery('#date-range').datepicker({
+            toggleActive: true,
+            format: 'yyyy-mm-dd',
+            autoclose: true
+        });
+        data1();
+    });
+
+    function data1(){
+        var data1 = echarts.init(document.getElementById('data1'));
+        var option1 = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['渠道新增']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '5%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['{$app_data["sum_user_channel"]}'],
+        axisLabel :{
+            interval:0,
+                rotate: 30
+        }
+    },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            name:'渠道新增用户',
+            type:'line',
+            data:['{$app_data["sum_new_user"]}'],
+            color:['#5d9cec'],
+            smooth:true
+    }]
+    };
+        data1.setOption(option1);
+    }
+
+    function data2(){
+        var data2 = echarts.init(document.getElementById('data2'));
+        var option2 = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['渠道活跃']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '5%',
+                containLabel: true
+            },
+            axisLabel :{
+                interval:0,
+                rotate: 60
+            } ,
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data:['{$app_data["sum_user_channel"]}'],
+                axisLabel :{
+            interval:0,
+                rotate: 30
+        }
+    },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            name:'渠道活跃用户',
+            type:'line',
+            data:['{$app_data["sum_act_user"]}'],
+            color:['#5d9cec'],
+            smooth:true
+    }]
+    };
+        data2.setOption(option2);
+    }
+
+    var data2_flag = 0;
+    function switch_chart(num) {
+        for(var i=1; i <= 2; i++) {
+            if(i != num) {
+                $("#data"+i).addClass("hide")
+                $("#btn"+i).removeClass("active")
+            }
+        }
+        $($("#btn"+num)).addClass("active")
+        $("#data"+num).removeClass("hide")
+        /* if(num == 1) {
+         $("#data-title").html("渠道新增")
+         }
+         if(num == 2) {
+         $("#data-title").html("渠道活跃")
+         }*/
+        //只初始化一次
+        if(num == 2 && data2_flag == 0) {
+            data2();
+            data2_flag = 1;
+        }
+    }
+
+    function detail_query(){
+        $("#detail_form").attr("action","/kpi.php?act=ios_channel&appids={$appid}");
+        $("#detail_form").submit();
+    }
+    function export_query(){
+        $("#detail_form").attr("action","/kpi.php?act=ios_export&appids={$appid}");
+        $("#detail_form").submit();
+    }
+
+</script>
+</body>
+</html>

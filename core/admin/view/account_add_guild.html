@@ -1,0 +1,131 @@
+<form action="account.php?act=do_add_guild" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">账号修改</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-md-3 control-label">用户组</label>
+            <div class="col-md-9">
+                <select name="group_id" required class="form-control">
+                    <option value="10">公会</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">后台类型</label>
+            <div class="col-md-9" style="margin-top: 5px!important;">
+                {if $user_info['group_id'] eq '1'}
+                超级后台: <input type="radio" checked="checked" name="status" value="1" />&nbsp;&nbsp;&nbsp;&nbsp;
+                高级后台: <input type="radio" name="status" value="2" />&nbsp;&nbsp;&nbsp;&nbsp;
+                普通后台: <input type="radio" name="status" value="3" />
+                {elseif $user_info['group_id'] eq '10' and $user_info['p1'] eq '0' and $user_info['p2'] eq '0'}
+                高级后台: <input type="radio" checked="checked" name="status" value="1" />&nbsp;&nbsp;&nbsp;&nbsp;
+                普通后台: <input type="radio" name="status" value="2" />&nbsp;&nbsp;&nbsp;&nbsp;
+                {elseif $user_info['group_id'] eq '10' and $user_info['p2'] eq '0'}
+                普通后台: <input type="radio" checked="checked" name="status" value="1" />&nbsp;&nbsp;&nbsp;&nbsp;
+                {/if}
+            </div>
+        </div>
+        <div class="form-group" style="display: none" id="middle_guild">
+            <label class="col-md-3 control-label">公会组</label>
+            <div class="col-md-9">
+                <select name="middle_guild" required class="form-control pop-select-init">
+                    <option value="">请选择</option>
+                    {foreach from=$guild_list item=group}
+                    <option value="{$group.id}">{$group.real_name}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+        <div class="form-group" style="display: none" id="min_guild">
+            <label class="col-md-3 control-label">子公会组</label>
+            <div class="col-md-9">
+                <select class="form-control pop-select-init" name="min_guild">
+                    <option value="">请选择</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">登入账号</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" parsley-trigger="change" required name="account" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">密码</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" parsley-trigger="change" required name="usr_pwd" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">渠道号</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" parsley-trigger="change" required name="real_name" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">qq</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" parsley-trigger="change" name="qq" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">代码</label>
+            <div class="col-md-9"><input type="text" class="form-control" parsley-trigger="change" required name="user_code" value="" /></div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light">保存</button>
+    </div>
+</form>
+{literal}
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        $(".pop-select-init").select2();
+    });
+    $(function(){
+        $("input[name='status']").change(function() {
+            var status = $(this).val();
+            if(status==1){
+                $('#middle_guild').hide();
+                $('#min_guild').hide();
+            }else if (status==2){
+                $('#middle_guild').show();
+                $('#min_guild').hide();
+            }else if (status==3){
+                $('#middle_guild').show();
+                $('#min_guild').show();
+                $("select[name=middle_guild]").change(function(){
+                    $("select[name=min_guild]").val("");
+                    var middle_guild = $("select[name=middle_guild]").val();
+                    var min_guild = $("select[name=min_guild]").select2();
+                    if(middle_guild > 0){
+                        $.ajax({
+                            type:'post',
+                            url:'account.php?act=get_min_guild',
+                            data:{
+                                guild_id:middle_guild
+                            },
+                            dataType: 'json',
+                            success: function (json) {
+                                min_guild.empty();
+                                min_guild.append("<option value='0'>请选择</option>");
+                                $(json).each(function(){
+                                    min_guild.append("<option value=\"" + this.id + "\">" + this.real_name +"</option>")
+                                });
+                                min_guild.trigger("chosen:updated");
+                            },
+                            error:function(){
+                            }
+                        });
+                    }
+
+                });
+
+            }
+        });
+    });
+</script>
+{/literal}

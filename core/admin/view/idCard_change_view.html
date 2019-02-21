@@ -1,0 +1,242 @@
+<form action="feedback.php?act=do_idCard" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="change-mobile-wrapper">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h4 class="modal-title">身份证换绑</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="col-md-2 control-label">用户ID</label>
+                <div class="col-md-8">
+                    <input type="number" class="form-control" name="user_id" required id="user_id" />
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-info waves-effect waves-light" id="id_car_reg">身份验证</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">用户姓名</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="user_name" required id="user_name"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">身份证号</label>
+                <div class="col-md-8">
+                    <input type="number" class="form-control" name="user_idCard" required id="user_idCard"  />
+                </div>
+            </div>
+            <div class="form-group" style="display: none;">
+                <label class="col-md-2 control-label">改绑手机号</label>
+                <div class="col-md-8">
+                    <input type="number" class="form-control" name="new_phone" required id="new_phone"  />
+                </div>
+            </div>
+            <div class="form-group" style="display: none;">
+                <label class="col-md-2 control-label">改绑手机号验证码</label>
+                <div class="col-md-8">
+                    <input type="number" class="form-control" name="new_phone_id" required id="new_phone_id"  />
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-info waves-effect waves-light" id="new_phone_id_btn">手机验证码</button>
+                </div>
+            </div>
+            <div class="form-group" style="display: none;">
+                <label class="col-md-2 control-label">身份证图片</label>
+                <div class="col-md-8">
+                    <input type="file" class="form-control" name="user_idImg" required id="user_idImg"  />
+                </div>
+            </div>
+            <div class="form-group" style="display: none;">
+                <div class="col-md-12">
+                    <img class="center-block" src="" name="img" id="img" style="width: 300px;height: 200px;" />
+                </div>
+            </div>
+            <div class="rel-infos form-group" style="display: none;">
+                <div class="col-md-2 control-label">账号信息</div>
+                <div class="col-md-10 info-list"></div>
+            </div>
+        </div>
+        <input value="{$pagehash}" name="pagehash" type="hidden" id="pagehash">
+        <input name="user_id_h" type="hidden" id="user_id_h">
+        <input name="user_name_h" type="hidden" id="user_name_h">
+        <input name="user_idCard_h" type="hidden" id="user_idCard_h">
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-info waves-effect waves-light" id="idCarSave">保存</button>
+        </div>
+    </div>
+</form>
+{literal}
+<script>
+    //验证用户合法性
+    var regIdCard = new RegExp(/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/);
+    var regUserId = new RegExp(/^[1-9][0-9]*$/);
+    var regPhone = new RegExp(/^1[34578]\d{9}$/);
+    var phoneTimer = null;//绑定手机号码定时器
+    $("#id_car_reg").on("click",function(e){
+        var user_id = $("#user_id").val();
+        var user_name = $("#user_name").val();
+        var user_idCard = $("#user_idCard").val();
+        var pagehash = $("#pagehash").val();
+        if (!regUserId.test(user_id)){
+            $.Notification.notify('error','top left',"用户ID格式错误！");
+            return false;
+        }
+        if (user_name==""){
+            $.Notification.notify('error','top left',"用户姓名必填！");
+            return false;
+        }
+        if (!regIdCard.test(user_idCard)){
+            $.Notification.notify('error','top left',"身份证不合法！");
+            return false;
+        }
+        $.ajax({
+            type:"post",
+            url:"feedback.php?act=reg_idCard",
+            data:{
+                "user_id":user_id,
+                "user_name":user_name,
+                "user_idCard":user_idCard,
+                "pagehash":pagehash
+            },
+            cache:false,
+            dataType:"json",
+            timeout : 5000,
+            success:function(data){
+                var keyMap = {
+                    user_id: "用户ID",
+                    nick_name: "昵称",
+                    login_name: "登录昵称"
+                };
+                if (data.error=="1"){
+                    $.Notification.notify('error','top left', data.msg);
+                }else{
+                    $("#user_id").attr("disabled","disabled");
+                    $("#user_name").attr("disabled","disabled");
+                    $("#user_idCard").attr("disabled","disabled");
+                    $("#user_id_h").val(user_id);
+                    $("#user_name_h").val(user_name);
+                    $("#user_idCard_h").val(user_idCard);
+                    $.Notification.autoHideNotify('success', 'top left', "用户查询成功");
+                    var infos = data.infos;
+                    var con = "";
+                    if (infos){
+                        for(var key in infos) {
+                            con += '<div class="row">'
+                                    + '<label class="col-md-2">'+keyMap[key]+'</label>'
+                                    + '<span class="col-md-8">'+infos[key]+'</span>'
+                                    + '</div>'
+                        }
+                    }else{
+                        con = '暂无信息';
+                    }
+                    $(".info-list").html(con);
+                    $(".rel-infos").show();
+                    $("#user_idImg").parent().parent().show();
+                    $("#new_phone").parent().parent().show();
+                    $("#new_phone_id").parent().parent().show();
+                }
+            },
+            error: function(req, error) {
+                $.Notification.notify('error','top left', "发生错误,HTTP代码:"+req.status, req.statusText);
+            }
+        });
+    });
+    $("#user_idImg").on("change",function(e){
+        var img = e.target.files[0];
+        //判断图片格式(jpg,png)
+        if (!(img.type.match("jpeg")||img.type.match("jpg")||img.type.match("png"))){
+            $.Notification.notify('error','top left', "图片格式只能是jpeg,jpg,png！");
+            $(this).val("");
+            $("#img").parent().parent().hide();
+            return false;
+        }
+        //判断图片大小(小于2M)
+        if (img.size/(1024*1024)>2){
+            $.Notification.notify('error','top left', "图片大小必须小于2M！");
+            $(this).val("");
+            $("#img").parent().parent().hide();
+            return false;
+        }
+        var reader = new FileReader();
+        reader.readAsDataURL(img);
+        reader.onload = function(e){
+            $("#img").attr("src",e.target.result);
+            $("#img").parent().parent().show();
+        }
+
+    });
+    //获取改绑手机号验证码
+    $("#new_phone_id_btn").on("click",function(e){
+        var new_phone = $("#new_phone").val();
+        if (!regPhone.test(new_phone)){
+            $.Notification.notify('error','top left',"改绑手机号不合法！");
+            return false;
+        }
+        $(this).attr("disabled","disabled");
+        var countDownRest = 120;
+        clearInterval(phoneTimer);
+        phoneTimer = setInterval(function(){
+            if (countDownRest<0){
+                clearInterval(phoneTimer);
+                $(this).removeAttr("disabled").html("重新获取");
+            }else{
+                $(this).html(countDownRest+"S");
+                countDownRest--;
+            }
+        }.bind(this),1000);
+        //发送AJAX短信验证码
+        var pagehash = $("#pagehash").val();
+        $.ajax({
+            url: "/feedback.php?act=sec_sms_code",
+            type: "post",
+            data: {
+                "mobile": new_phone,
+                "pagehash":pagehash
+            },
+            dataType: "json",
+            success:function(data){
+                if(data.res == 1){
+                    $.Notification.autoHideNotify('success', 'top left', "短信验证码发送成功");
+                }else{
+                    $.Notification.notify('error','top left', data.msg);
+                    clearInterval(phoneTimer);
+                    $(this).removeAttr("disabled").html("重新获取");
+                }
+            }.bind(this),
+            error:function(req, error){
+                $.Notification.notify('error','top left', "发生错误,HTTP代码:"+req.status, req.statusText);
+            }
+        })
+    });
+    //表单前端验证
+    $("#myform").submit(function(e){
+        var user_id = $("#user_id").val();
+        var user_name = $("#user_name").val();
+        var user_idCard = $("#user_idCard").val();
+        var pagehash = $("#pagehash").val();
+        var imgPath = $("#user_idImg").val();
+        var new_phone = $("#new_phone").val();
+        if (!regUserId.test(user_id)){
+            $.Notification.notify('error','top left',"用户ID格式错误！");
+            return false;
+        }
+        if (user_name==""){
+            $.Notification.notify('error','top left',"用户姓名必填！");
+            return false;
+        }
+        if (!regPhone.test(new_phone)){
+            $.Notification.notify('error','top left',"改绑手机号不合法！");
+            return false;
+        }
+        if (!regIdCard.test(user_idCard)){
+            $.Notification.notify('error','top left',"身份证不合法！");
+            return false;
+        }
+        if (imgPath==""){
+            $.Notification.notify('error','top left',"身份证图片不能为空！");
+            return false;
+        }
+    });
+</script>
+{/literal}

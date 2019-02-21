@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <!--按钮或搜索区域-->
+                <div class="col-sm-12 text-xs-center">
+                    <button data-action="modal" class="btn btn-default m-b-20" href="account.php?act=add"><i class="fa fa-plus m-r-5"></i>添加新用户</button>
+                    <button data-action="modal" class="btn btn-default m-b-20" href="account.php?act=add_groups"><i class="fa fa-plus m-r-5"></i>添加新组</button>
+                </div>
+                <!--end--->
+            </div>
+            <div class="table-responsive">
+                <!---核心内容列表区域-->
+                <table class="table table-striped m-0">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>组名</th>
+                        <th>代码</th>
+                        <th>状态</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach from=$dataList item=data}
+                    <tr>
+                        <th scope="row">{$data.id}</th>
+                        <td>{$data.ch_name}</td>
+                        <td>{$data.group_name}</td>
+                        <td>{if $data.status eq 1}<span class="text-success">正常</span>{else}<span class="text-success">金庸</span>{/if}</td>
+                        <td>
+                            <a class="on-default edit-row" data-action="modal" href="account.php?act=group_menu&id={$data.id}">权限设置</a>
+                        </td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <!---内容区域end--->
+            </div>
+        </div>
+    </div>
+</div>

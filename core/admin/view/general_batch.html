@@ -1,0 +1,26 @@
+<form action="general.php?act=batch_save&id={$id}" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">批量导入</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-md-3 control-label">添加链接前缀</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" parsley-trigger="change"  name="code_name" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">添加链接数量</label>
+            <div class="col-md-9">
+                <input type="number" value="" name="start_num" class="form-control" >
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light">保存</button>
+    </div>
+</form>
+
+

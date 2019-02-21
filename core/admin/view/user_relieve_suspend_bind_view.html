@@ -1,0 +1,32 @@
+<form action="user.php?act=relieve_suspend_bind_save" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="relieve_suspend_bind_form" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">是否确认操作？</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-md-2 control-label">换绑手机号</label>
+            <div class="col-md-8">
+                <input type="number" class="form-control" name="mobile_bind" required id="mobile_bind" />
+            </div>
+        </div>
+        <input type="hidden" value="{$user_id}" name="u_id" />
+    </div>
+    <div class="modal-footer" style="text-align: center;">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">取消</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light">确定</button>
+    </div>
+</form>
+{literal}
+<script>
+    $("#relieve_suspend_bind_form").on("submit",function(){
+        var regMobile = new RegExp(/^1[34578]\d{9}$/);
+        var mobile = $("#mobile_bind").val();
+        if (!regMobile.test(mobile)){
+            $.Notification.notify('error','top left',"用户手机号格式错误！");
+            return false;
+        }
+
+    });
+</script>
+{/literal}

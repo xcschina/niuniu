@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta name="format-detection" content="telephone=no" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>牛果游戏</title>
+  <link rel="stylesheet" href="//cdn.66173.cn/93kk/css/reset.css">
+  <link rel="stylesheet" href="//cdn.66173.cn/93kk/css/style.css">
+</head>
+
+<body>
+<div class="index">
+  <!-- header -->
+  <header>牛果游戏<a href="mobile_service.php"></a></header>
+
+  <!-- 轮播图-s -->
+  <div class="swiper">
+    <div class="banner">
+      <ul class="clearfix">
+        <li><a href="#"><img src="//cdn.66173.cn{$first_banner}"></a></li>
+        {foreach from=$banner_list item=data}
+        <li><a href="#"><img src="//cdn.66173.cn{$data.banner}"></a></li>
+        {/foreach}
+        <li><a href="#"><img src="//cdn.66173.cn{$last_banner}"></a></li>
+
+        <!--<li><a href="#"><img src="//cdn.66173.cn/93kk/images/banner5.png"></a></li>-->
+      </ul>
+      <ul>
+
+        <!--<li class="now"></li>-->
+        {foreach from=$banner_list item=data  key=$k}
+        <li {if $k eq 0} class="now" {/if}></li>
+        {/foreach}
+      </ul>
+    </div>
+  </div>
+  <script src="//cdn.66173.cn/93kk/js/base.js"></script>
+  <script src="//cdn.66173.cn/93kk/js/slide.js"></script>
+  <!-- 轮播图-e -->
+
+  <!--  tab切换-s -->
+  <div id="leftTabBox" class="tabBox">
+    <div class="hd">
+      <ul>
+        <li onclick="new_game()">新品手游</li>
+        <li onclick="quality_game()">精品手游</li>
+      </ul>
+    </div>
+    <div class="bd">
+      <ul id="new_game">
+        {foreach from=$new_game item=data}
+        <li class="t">
+          <a href="mobile_index.php?act=game_detail&id={$data.id}">
+            <div class="pic"><img src="//cdn.66173.cn/{$data.banner}" /></div>
+            <div class="con">
+              <p class="tit">{$data.app_name}</p>
+              <p class="info"><em>265万次下载</em> | {$data.app_size}</p>
+              <p>{$data.subtitle}</p>
+            </div>
+            <button class="dl">下载</button>
+          </a>
+        </li>
+        {/foreach}
+        {if $flag eq 1}
+        <button  class="more" id="more" onclick="getMore()" >查看更多 >> </button>
+        {/if}
+
+      </ul>
+
+      <ul class="list" id="list">
+        <div class="s-box flex" id="selected_bar">
+          <span class="s-active" data-type="0" onclick="get_Game(this)">全部</span>
+          {foreach from=$tags_list key=k item=tags}
+          <span data-type="{$k}" onclick="get_Game(this)">{$tags}</span>
+          {/foreach}
+        </div>
+        <!--<li>-->
+        <!--<ul id="sort_list">-->
+        {foreach from=$game_list item=data}
+        <li class="t">
+          <a href="mobile_index.php?act=game_detail&id={$data.id}">
+            <div class="pic"><img src="//cdn.66173.cn/{$data.banner}" /></div>
+            <div class="con">
+              <p class="tit">{$data.app_name}</p>
+              <p class="info"><em>265万次下载</em> | {$data.app_size}</p>
+              <p>{$data.subtitle}</p>
+            </div>
+            <button class="dl">下载</button>
+          </a>
+        </li>
+        {/foreach}
+        {if $count > 5}
+        <button class="more" id="list_more" onclick="getData1()" >查看更多 >> </button>
+        {/if}
+        <!--</ul>-->
+        <!--</li>-->
+      </ul>
+
+    </div>
+
+  </div>
+  <script src="//cdn.66173.cn/93kk/js/touchslider.js"></script>
+  <script type="text/javascript">
+      TouchSlide({
+          slideCell: "#leftTabBox"
+      });
+  </script>
+  <!--  tab切换-s -->
+
+
+</div>
+
+<script src="//cdn.66173.cn/93kk/js/jquery-2.1.3.min.js"></script>
+<script>
+    $(function () {
+        $("#selected_bar span").click(function () {
+            $(this).addClass("s-active").siblings().removeClass("s-active");
+            var keywords = $(this).html();
+            $('#sort_list li').hide().each(function () {
+                var selected = $('#keywords', this).html();
+                if (selected.indexOf(keywords) >= 0) this.style.display = 'block'
+                if (keywords == '全部') this.style.display = 'block'
+            });
+        })
+
+    })
+</script>
+<script>
+    var flag= true;
+    var page=1;
+    var tags=null;
+    var count = 1;
+    function new_game(){
+        tags = null;
+        page = 1;
+        $("#more").removeAttr("disabled");
+        $("#list_more").removeAttr("disabled");
+    }
+    function quality_game(){
+        page = 1;
+        $("#more").removeAttr("disabled");
+        $("#list_more").removeAttr("disabled");
+
+    }
+
+
+</script>
+<script>
+    function get_Game(t) {
+        $("#list_more").attr('disabled',false);
+        $("#more").removeAttr("disabled");
+        page = 1;
+        count =  0;
+        tags = $(t).attr('data-type');
+        $("#list").find("li").remove();
+        pagesize = 5;
+        $.ajax({
+            url: "mobile_index.php?act=more_game",
+            type: "POST",
+            data: {
+                page: page,
+                pagesize: 5,
+                tags: tags,
+            },
+            dataType: "text",
+            async: false,
+            success: function (res) {
+                var json = $.parseJSON(res);
+                var arr3 = json.data;
+                var html2 = '';
+                if (arr3.length == 0) {
+                    $("#list").find("li").remove();
+                    $("#list_more").html('没有找到相对应游戏');
+                    $("#list_more").attr('disabled',true);
+                    //$(".look_more1").show();
+                } else {
+                    if (arr3.length == 5) {
+                        page = page + 1;
+                        $("#list_more").html('查看更多>>');
+                        flag = true;
+                    } else if (arr3.length < 5) {
+                        page = 1;
+                        $("#list_more").html('暂无更多数据~');
+                        $("#list_more").attr('disabled',true);
+                        flag = false;
+                    }
+                    for (var i = 0; i < arr3.length; i++) {
+                        html2 += ' <li class="t">' +
+                            '<a href="mobile_index.php?act=game_detail&id={$data.id}">'+
+                            '<div class="pic">' +
+                            '<img src="images/l3.jpg"> </img>' + '</div>' +
+                            '<div class="con">'
+                            + '<p class="tit">' + arr3[i].app_name + '</p>' +
+                            '<p class="info">' + '<em>' + "265万次下载" + '</em>' + '|' + arr3[i].app_size + '</p>' +
+                            '<p>' + arr3[i].subtitle + '</p>' +
+                            '</div>' +
+                            '<button class="dl">' + "下载" + '</button>' +
+                                '</a>'+
+                            '</li>';
+
+                    }
+                    $("#list_more").before(html2)
+                    // $("#sort_list").append(html2)
+                }
+            }
+
+        })
+
+
+    }
+</script>
+<script>
+    function getData() {
+        $.ajax({
+            url: "mobile_index.php?act=more_game",
+            type: "POST",
+            data: {
+                page:page,
+                pagesize:5,
+                tags:tags,
+            },
+            dataType: "text",
+            async:false,
+            success: function (res) {
+                var json=$.parseJSON(res);
+                var arr3 = json.data;
+                console.log(arr3.length);
+                var html2='';
+                if(arr3.length == 0){
+                    $("#more").html('没有找到相对应游戏');
+                    $("#more").attr('disabled',true);
+                    //$(".look_more1").show();
+                }else {
+
+                    if(arr3.length == 5) {
+                        page = page+1;
+                        // $(".look_more").show();
+                        $("#more").attr('disabled',false);
+                        $("#more").html('查看更多>>');
+                        flag = true;
+                    }else if(arr3.length < 5){
+                        page = 1;
+                        //$(".look_more1").show();
+                        $("#more").html('暂无数据~');
+                        $("#more").attr('disabled',true);
+                        flag = false;
+                    }
+                    for (var i = 0; i < arr3.length; i++) {
+                        html2 += ' <li class="t">' +
+                            '<a href="mobile_index.php?act=game_detail&id={$data.id}">'+
+                            '<div class="pic">' +
+                            '<img src="images/l3.jpg"> </img>'  + '</div>' +
+                            '<div class="con">'
+                            +'<p class="tit">' +arr3[i].app_name+ '</p>' +
+                            '<p class="info">' + '<em>' + "265万次下载" + '</em>' + '|' + arr3[i].app_size + '</p>' +
+                            '<p>' + arr3[i].subtitle + '</p>' +
+                            '<button class="dl">' + "下载" + '</button>' +
+                            '</li>';
+
+                    }
+                    $("#more").before(html2);
+
+                }
+            }
+
+        })
+    }
+    function getData1() {
+        $("#more").removeAttr("disabled");
+        if ($(".s-active").html() == '全部'){
+            tags = 0;
+
+        }
+        if ($(".s-active").html() == '全部' && count==1){
+            page++;
+            count=0;
+        }
+
+        $.ajax({
+            url: "mobile_index.php?act=more_game",
+            type: "POST",
+            data: {
+                page:page,
+                pagesize:5,
+                tags:tags,
+            },
+            dataType: "text",
+            async:false,
+            success: function (res) {
+                var json=$.parseJSON(res);
+                var arr3 = json.data;
+                console.log(arr3);
+                var html2='';
+                if(arr3.length == 0){
+                    $(".list_more").html('没有找到相对应游戏');
+                    $("#list_more").attr('disabled',true);
+                    //$(".look_more1").show();
+                }else {
+                    console.log(arr3.length);
+                    if(arr3.length == 5) {
+                        page = page+1;
+                        // $(".look_more").show();
+                        $("#list_more").html('查看更多>>');
+                        flag = true;
+                    }else if(arr3.length < 5){
+                        page = 1;
+                        //$(".look_more1").show();
+                        $("#list_more").html('暂无数据~');
+                        $("#list_more").attr('disabled',true);
+                        flag = false;
+                    }
+                    for (var i = 0; i < arr3.length; i++) {
+                        html2 += ' <li class="t">' +
+                            '<a href="mobile_index.php?act=game_detail&id={$data.id}">'+
+                            '<div class="pic">' +
+                            '<img src="images/l3.jpg"> </img>'  + '</div>' +
+                            '<div class="con">'
+                            +'<p class="tit">' +arr3[i].app_name+ '</p>' +
+                            '<p class="info">' + '<em>' + "265万次下载" + '</em>' + '|' + arr3[i].app_size + '</p>' +
+                            '<p>' + arr3[i].subtitle + '</p>' +
+                            '</div>' +
+                            '<button  class="dl">'+"下载"+'</button>'+
+                            '</li>';
+
+                    }
+                    $("#list_more").before(html2)
+
+                }
+            }
+
+        })
+    }
+    function  getMore(){
+        if(flag){
+            if (tags!=null){
+                ++page;
+                getData1();//精品
+            }else {
+
+                ++page;
+                getData(page);//新品
+            }
+
+        }else{
+            page = 1;
+            // $('.look_more1').show();
+            // $('.look_more').html('暂无数据~');
+            // $(".look_more").html("没有更多数据6了~");
+            // $(".look_more").attr('disabled',true);
+        }
+    }
+
+</script>
+</body>
+
+</html>

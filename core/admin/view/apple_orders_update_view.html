@@ -1,0 +1,148 @@
+<form action="orders.php?act=do_apple_orders_update" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="change-mobile-wrapper">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h4 class="modal-title">苹果订单修改</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="col-md-2 control-label">验证类型</label>
+                <div class="col-md-8" style="margin-top: 5px!important;">
+                    订单号: <input type="radio" name="type" value="1" checked="checked" data-parsley-multiple="type" data-parsley-id="53">&nbsp;&nbsp;&nbsp;&nbsp;
+                    苹果订单ID: <input type="radio" name="type"  value="2" data-parsley-multiple="type">
+                </div>
+            </div>
+            <div class="form-group" id="appleOrder">
+                <label class="col-md-2 control-label">订单号</label>
+                <div class="col-md-7">
+                    <input type="text" class="form-control" name="apple_order" required id="apple_order" />
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-info waves-effect waves-light" id="appleOrderReg">订单号验证</button>
+                </div>
+            </div>
+            <div class="form-group" id="appleId" style="display: none">
+                <label class="col-md-2 control-label">苹果订单ID</label>
+                <div class="col-md-7">
+                    <input type="number" class="form-control" name="apple_order_id" required id="apple_order_id" />
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-info waves-effect waves-light" id="appleIdReg">订单ID验证</button>
+                </div>
+            </div>
+            <div class="form-group" id="pwd_reg" style="display: none">
+                <label class="col-md-2 control-label">支付密码</label>
+                <div class="col-md-7">
+                    <input type="password" class="form-control" name="user_charge_pwd" required id="user_charge_pwd" />
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="apple_list_id" value="" />
+        <input value="{$pagehash}" name="pagehash" type="hidden" id="pagehash">
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-info waves-effect waves-light">保存</button>
+        </div>
+    </div>
+</form>
+{literal}
+<script>
+    var pagehash = $('#pagehash').val();
+    $("input[name='type']").change(function(){
+        var type = $(this).val();
+        if(type == '2'){
+            $("#user_charge_pwd").val("");
+            $("#pwd_reg").hide();
+            $("input[name='apple_list_id']").val("");
+            $("#appleOrder").hide();
+            $("#apple_order").removeAttr("disabled").val("");
+            $("#appleOrderReg").removeAttr("disabled");
+            $("#appleId").show();
+        }else{
+            $("#user_charge_pwd").val("");
+            $("#pwd_reg").hide();
+            $("input[name='apple_list_id']").val("");
+            $("#appleId").hide();
+            $("#apple_order_id").removeAttr("disabled").val("");
+            $("#appleIdReg").removeAttr("disabled");
+            $("#appleOrder").show();
+        }
+    });
+    $("#appleOrderReg").on("click",function(){
+        //验证订单号
+        var app_order = $("#apple_order").val();
+        if (!app_order){
+            $.Notification.notify('error','top left',"订单号不能为空");
+            return false;
+        }
+        $.ajax({
+            type:"post",
+            url:"orders.php?act=apple_orders_reg",
+            data:{
+                "order_id":app_order,
+                "pagehash":pagehash
+            },
+            cache:false,
+            dataType:"json",
+            timeout : 5000,
+            success:function(data){
+                if (data.statusCode=="200"){
+                    $("#pwd_reg").show();
+                    $("input[name='apple_list_id']").val(data.message.id);
+                    $("#apple_order").attr("disabled","true");
+                    $("#appleOrderReg").attr("disabled","true");
+                    $.Notification.notify('success','top left','验证成功');
+                }else{
+                    $.Notification.notify('error','top left', data.message);
+                }
+            },
+            error:function(req){
+                $.Notification.notify('error','top left', "发生错误,HTTP代码:"+req.status, req.statusText);
+            }
+        });
+    });
+    $("#appleIdReg").on("click",function(){
+        //验证苹果订单ID
+        var regAppleOrderId = new RegExp(/^[1-9][0-9]*$/);
+        var appleOrderId = $("#apple_order_id").val();
+        if (!regAppleOrderId.test(appleOrderId)){
+            $.Notification.notify('error','top left',"苹果订单ID格式错误！");
+            return false;
+        }
+        $.ajax({
+            type:"post",
+            url:"orders.php?act=apple_orders_reg",
+            data:{
+                "id":appleOrderId,
+                "pagehash":pagehash
+            },
+            cache:false,
+            dataType:"json",
+            timeout : 5000,
+            success:function(data){
+                if (data.statusCode=="200"){
+                    $("#pwd_reg").show();
+                    $("input[name='apple_list_id']").val(data.message.id);
+                    $("#apple_order_id").attr("disabled","true");
+                    $("#appleIdReg").attr("disabled","true");
+                    $.Notification.notify('success','top left','验证成功');
+                }else{
+                    $.Notification.notify('error','top left', data.message);
+                }
+            },
+            error:function(req){
+                $.Notification.notify('error','top left', "发生错误,HTTP代码:"+req.status, req.statusText);
+            }
+        });
+    });
+    $("#myform").on('submit',function(){
+        if ($("input[name='apple_list_id']").val() == ""){
+            $.Notification.notify('error','top left', '请先查询验证');
+            return false;
+        }
+        if ($("#user_charge_pwd").val() == ""){
+            $.Notification.notify('error','top left', '支付密码不能为空');
+            return false;
+        }
+    });
+</script>
+{/literal}

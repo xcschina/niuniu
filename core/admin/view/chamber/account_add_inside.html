@@ -1,0 +1,129 @@
+<style>
+    .inside-chamber{
+        display: none;
+    }
+</style>
+<form action="ccm_account.php?act=do_add_inside" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">账号添加</h4>
+    </div>
+    <div class="modal-body">
+        <input type="hidden" name="group_id" value="15">
+        {if ($user_info.group_id eq 15 && !$user_info.p1 && !$user_info.p2) || $user_info.group_id eq 1}
+        <div class="form-group">
+            <label class="col-md-3 control-label">后台类型</label>
+            <div class="col-md-9" style="margin-top: 5px!important;">
+                {if $user_info.group_id eq 1}
+                商会管理员: <input type="radio" checked="checked" name="status" value="1">&nbsp;&nbsp;&nbsp;&nbsp;
+                {/if}
+                商会组长: <input type="radio" name="status" {if $user_info.group_id eq 15}checked="checked"{/if}  value="2">&nbsp;&nbsp;&nbsp;&nbsp;
+                商会组员: <input type="radio" name="status" value="3">
+            </div>
+        </div>
+        {else}
+        <input type="hidden" name="status" value="3">
+        {/if}
+        <div class="form-group inside-chamber " id="middle_guild">
+            <label  class="col-md-3 control-label">商会管理层</label>
+            <div class="col-md-9">
+                <select  class="form-control inside-select2" name="middle_guild" id="" >
+                    <option value="">请选择</option>
+                    {foreach item=list from=$chamber_list}
+                    <option value="{$list.id}">{$list.real_name}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+        <div class="form-group inside-chamber " id="min_guild">
+            <label  class="col-md-3 control-label">商会组长</label>
+            <div class="col-md-9">
+                <select  class="form-control inside-select2" name="min_guild" >
+                    <option value="">请选择</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">登入账号</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" parsley-trigger="change" required name="account" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">密码</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" parsley-trigger="change" required name="usr_pwd" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">商会名称</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" parsley-trigger="change" required name="real_name" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">qq</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" parsley-trigger="change" name="qq" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">手机号码</label>
+            <div class="col-md-9">
+                <input type="text" class="form-control" parsley-trigger="change" name="mobile" value="" />
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light">保存</button>
+    </div>
+</form>
+<script>
+    var type = $('input:radio:checked').val();
+    if(type==2){
+        $('#middle_guild').show();
+        $('#min_guild').hide();
+    }
+    $("input[name='status']").change(function() {
+        var status = $(this).val();
+        if(status==1){
+            $('#middle_guild').hide();
+            $('#min_guild').hide();
+        }else if (status==2){
+            $('#middle_guild').show();
+            $('#min_guild').hide();
+        }else if (status==3){
+            $('#middle_guild').show();
+            $('#min_guild').show();
+            $("select[name=middle_guild]").change(function(){
+                $("select[name=min_guild]").val("");
+                var middle_guild = $("select[name=middle_guild]").val();
+                var min_guild = $("select[name=min_guild]").select2();
+                if(middle_guild > 0){
+                    $.ajax({
+                        type:'post',
+                        url:'ccm_account.php?act=get_min_guild',
+                        data:{
+                            guild_id:middle_guild
+                        },
+                        dataType: 'json',
+                        success: function (json) {
+                            min_guild.empty();
+                            min_guild.append("<option value='0'>请选择</option>");
+                            $(json).each(function(){
+                                min_guild.append("<option value=\"" + this.id + "\">" + this.real_name +"</option>")
+                            });
+                            min_guild.trigger("chosen:updated");
+                        },
+                        error:function(){
+                        }
+                    });
+                }else{
+                    min_guild.empty();
+                    min_guild.append("<option value='0'>请选择</option>");
+                }
+            });
+        }
+    });
+</script>

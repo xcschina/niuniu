@@ -1,0 +1,175 @@
+<form action="user.php?act=do_suspend_save" method="post" enctype="multipart/form-data" data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal" data-parsley-validate novalidate>
+    <div class="change-mobile-wrapper">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h4 class="modal-title">停封账号</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="col-md-2 control-label">验证类型</label>
+                <div class="col-md-8" style="margin-top: 5px!important;">
+                    用户ID: <input type="radio" name="type" value="1" checked="checked" data-parsley-multiple="type" data-parsley-id="53">&nbsp;&nbsp;&nbsp;&nbsp;
+                    用户手机: <input type="radio" name="type"  value="2" data-parsley-multiple="type">
+                </div>
+            </div>
+            <div class="form-group" id="userID">
+                <label class="col-md-2 control-label">用户ID</label>
+                <div class="col-md-8">
+                    <input type="number" class="form-control" name="u_id" required id="u_id" />
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-info waves-effect waves-light" id="idReg">ID验证</button>
+                </div>
+            </div>
+            <div class="form-group" id="userMobile" style="display: none">
+                <label class="col-md-2 control-label">用户手机</label>
+                <div class="col-md-8">
+                    <input type="number" class="form-control" name="mobile" required id="mobile" />
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-info waves-effect waves-light" id="mobileReg">手机验证</button>
+                </div>
+            </div>
+            <div class="rel-infos form-group" style="display: none;"  id="user_info">
+                <div class="col-md-2 control-label">账号信息</div>
+                <div class="col-md-10 info-list"></div>
+            </div>
+            <div class="form-group" style="display: none" id="password_new">
+                <label class="col-md-2 control-label">新密码</label>
+                <div class="col-md-8">
+                    <input type="password" class="form-control" name="password_suspend" required id="password_suspend" />
+                </div>
+            </div>
+        </div>
+        <input value="" name="u_id_save" type="hidden" id="u_id_save" />
+        <input value="" name="mobile_save" type="hidden" id="mobile_save" />
+        <input value="" name="password_save" type="hidden" id="password_save" />
+        <input value="{$pagehash}" name="pagehash" type="hidden" id="pagehash">
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-info waves-effect waves-light">保存</button>
+        </div>
+    </div>
+</form>
+{literal}
+<script>
+    var pagehash = $('#pagehash').val();
+    $("input[name='type']").change(function(){
+        var type = $(this).val();
+        if(type == '2'){
+            $("#userID").hide();
+            $("#u_id").removeAttr("disabled").val("");
+            $("#idReg").removeAttr("disabled");
+            $("#userMobile").show();
+            $("#user_info").hide();
+            $("#user_info").find("div:eq(1)").empty();
+            $("#password_suspend").val("");
+            $("#password_new").hide();
+            $("#u_id_save").val("");
+            $("#mobile_save").val("");
+            $("#password_save").val("");
+        }else{
+            $("#userMobile").hide();
+            $("#mobile").removeAttr("disabled").val("");
+            $("#mobileReg").removeAttr("disabled");
+            $("#userID").show();
+            $("#user_info").hide();
+            $("#user_info").find("div:eq(1)").empty();
+            $("#password_suspend").val("");
+            $("#password_new").hide();
+            $("#u_id_save").val("");
+            $("#mobile_save").val("");
+            $("#password_save").val("");
+        }
+    });
+    $("#idReg").on("click",function(){
+        //验证userid
+        var regUserId = new RegExp(/^[1-9][0-9]*$/);
+        var userId = $("#u_id").val();
+        if (!regUserId.test(userId)){
+            $.Notification.notify('error','top left',"用户ID格式错误！");
+            return false;
+        }
+        $.ajax({
+            type:"post",
+            url:"user.php?act=reg_suspend&type=1",
+            data:{
+                "user_id":userId,
+                "pagehash":pagehash
+            },
+            cache:false,
+            dataType:"json",
+            timeout : 5000,
+            success:function(data){
+                if (data.statusCode=="200"){
+                    $("#password_new").show();
+                    $("#u_id").attr("disabled","true");
+                    $("#idReg").attr("disabled","true");
+                    var content = '<div class="row"><label class="col-md-2">用户ID</label><span class="col-md-8">'+data.message['user_id']+'</span></div>' +
+                            '<div class="row"><label class="col-md-2">昵称</label><span class="col-md-8">'+data.message['nick_name']+'</span></div>'+
+                            '<div class="row"><label class="col-md-2">手机号码</label><span class="col-md-8">'+data.message['mobile']+'</span></div>';
+                    $("#user_info").find("div:eq(1)").append(content);
+                    $("#user_info").show();
+                    $("#mobile_save").val(data.message['mobile']);
+                    $("#u_id_save").val(data.message['user_id']);
+                    $("#password_save").val(data.message['password']);
+                }else{
+                    $.Notification.notify('error','top left', data.message);
+                }
+            },
+            error:function(req){
+                $.Notification.notify('error','top left', "发生错误,HTTP代码:"+req.status, req.statusText);
+            }
+        });
+    });
+    $("#mobileReg").on("click",function(){
+        //验证手机号
+        var regMobile = new RegExp(/^1[34578]\d{9}$/);
+        var mobile = $("#mobile").val();
+        if (!regMobile.test(mobile)){
+            $.Notification.notify('error','top left',"用户手机号格式错误！");
+            return false;
+        }
+        $.ajax({
+            type:"post",
+            url:"user.php?act=reg_suspend&type=2",
+            data:{
+                "mobile":mobile,
+                "pagehash":pagehash
+            },
+            cache:false,
+            dataType:"json",
+            timeout : 5000,
+            success:function(data){
+                if (data.statusCode=="200"){
+                    $("#password_new").show();
+                    $("#mobile").attr("disabled","true");
+                    $("#mobileReg").attr("disabled","true");
+                    var content = '<div class="row"><label class="col-md-2">用户ID</label><span class="col-md-8">'+data.message['user_id']+'</span></div>' +
+                            '<div class="row"><label class="col-md-2">昵称</label><span class="col-md-8">'+data.message['nick_name']+'</span></div>'+
+                            '<div class="row"><label class="col-md-2">手机号码</label><span class="col-md-8">'+data.message['mobile']+'</span></div>';
+                    $("#user_info").find("div:eq(1)").append(content);
+                    $("#user_info").show();
+                    $("#u_id_save").val(data.message['user_id']);
+                    $("#mobile_save").val(data.message['mobile']);
+                    $("#password_save").val(data.message['password']);
+                }else{
+                    $.Notification.notify('error','top left', data.message);
+                }
+            },
+            error:function(req){
+                $.Notification.notify('error','top left', "发生错误,HTTP代码:"+req.status, req.statusText);
+            }
+        });
+    });
+    $("#myform").on("submit",function(){
+        if ($("#u_id_save").val()==""){
+            $.Notification.notify('error','top left',"请先验证用户！");
+            return false;
+        }
+        if ($("#password_suspend").val()==""){
+            $.Notification.notify('error','top left',"请输入新密码！");
+            return false;
+        }
+    });
+</script>
+{/literal}

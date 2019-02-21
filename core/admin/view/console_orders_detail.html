@@ -1,0 +1,389 @@
+<!---表单验证器加载 参考地址http://coderthemes.com/ubold_1.3/dark_1/form-validation.html-->
+<script type="text/javascript" src="assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+<script src="assets/plugins/bootstrap-filestyle/src/bootstrap-filestyle.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('form').parsley();
+        $(".merchant-select2").select2();
+    });
+</script>
+<style>
+    .modal .modal-dialog .modal-content  {
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        border-color: white;
+        border-radius: 2px;
+        box-shadow: none;
+        padding: 25px;
+    }
+    .modal-dialog {
+        width: 80%;
+        overflow: auto;
+    }
+
+    .ke-container {
+        width: 50% !important;
+    }
+
+    .notice-content-preview {
+        /*border: 1px solid #999;*/
+    }
+
+    .tags {
+        margin-right: 10px;
+    }
+
+    .modal-body {
+        border: 1px solid #cccc;
+        margin: 10px 0;
+    }
+
+    .modal-info {
+        margin-left: 20px;
+        font-weight：600;
+    }
+
+    .automatic_input {
+        display: none;
+    }
+
+    .pay-type {
+        display: none;
+    }
+</style>
+
+<!--end--->
+<form action="console_orders_info.php?act=detail_edit" method="post" enctype="multipart/form-data"
+      data-toggle="ajaxform" id="myform" class="form-horizontal" role="form" data-animation="modal"
+      data-parsley-validate novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title ">订单详情</h4>
+    </div>
+    <div class="modal-body" disabled="disabled">
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">订单号</label>
+            <div class="col-md-8">
+                <input name="role_name" type="text" class="form-control" value="{$order_detail.order_id}"
+                       parsley-trigger="change" required readonly="readonly">
+            </div>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">购买人ID</label>
+            <div class="col-md-8">
+                <input name="role_name" type="text" class="form-control" value="{$order_detail.buyer_id}"
+                                               parsley-trigger="change" required readonly="readonly">
+                {if $order_detail.is_agent>0}
+                <span class="text-danger">商人</span>
+                {/if}
+            </div>
+        </div>
+
+        {if $smarty.session.usr_id eq 1}
+        <div class="form-group col-md-6">
+                <label class="col-md-4 control-label">客服</label>
+            <div class="col-md-8">
+                <select name="service_id">
+                    {foreach from=$services item=s}
+                    <option value="{$s.id}"{if $s.id eq $order_detail.service_id} selected{/if}>{$s.real_name}</option>
+                    {/foreach}
+                </select>
+            </div>
+        </div>
+        {else}
+        <input type="hidden" name="service_id" value="{$order_detail.service_id}" />
+        {/if}
+
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">商人</label>
+            <div class="col-md-8 ">
+                {if $order_detail.is_agent>0}
+                <input name="role_name" type="text" class="form-control" value="是"
+                       parsley-trigger="change" required readonly="readonly"></span>
+                {else} <input name="role_name" type="text" class="form-control" value="否"
+                              parsley-trigger="change" required readonly="readonly">
+                {/if}
+
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">数量*单价</label>
+            <div class="col-md-8 ">
+                <input name="role_name" type="text" class="form-control" value="{$order_detail.amount}*{$order_detail.unit_price}"
+                       parsley-trigger="change" required readonly="readonly">
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">游戏</label>
+            <div class="col-md-8 ">
+                <input name="role_name" type="text" class="form-control" value="{$order_detail.game_name}"
+                       parsley-trigger="change" required readonly="readonly">
+            </div>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">区服</label>
+            <div class="col-md-8">
+                {if $order_detail.status neq 2}
+                <select class="form-control selector" name="serv_id">
+                    {foreach from=$servs item=serv}
+                    <option value="{$serv.id}"{if $serv.id eq $order_detail.serv_id} selected{/if}>{$serv.serv_name}</option>
+                    {/foreach}
+                </select>
+                {else}
+                {$order_detail.serv_name}<input type="hidden" class="form-control" name="serv_id" value="{$order_detail.serv_id}" />
+                {/if}
+            </div>
+        </div>
+        {if $order_detail.serv_id eq '1'}
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">其他区服</label>
+            <div class="col-md-8 ">
+                <input name="role_name" type="text" class="form-control" value="{$order_detail.other_ser}"
+                       parsley-trigger="change" required readonly="readonly">
+            </div>
+        </div>
+        {/if}
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">渠道</label>
+            <div class="col-md-8">
+                <input class="form-control" parsley-trigger="change"
+                          name="account_desc" value="{$order_detail.channel_name}">
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">实际折扣</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control" parsley-trigger="change"
+                          name="account_desc" value="{$order_detail.discount}">
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">订单来源</label>
+            <div class="col-md-8">
+                {if $order_detail.platform eq 7}
+                <input type="text" class="form-control" parsley-trigger="change" name="account_desc" value="酷游">
+                {else} <input type="text" class="form-control" parsley-trigger="change" name="account_desc" value="66173">{/if}
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">应付金额</label>
+            <div class="col-md-8">
+                <input class="form-control" parsley-trigger="change"
+                       name="account_desc" value="{$order_detail.pay_money}">
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">QQ</label>
+            <div class="col-md-8">
+                <input class="form-control" parsley-trigger="change"
+                       name="qq" value="{$order_detail.qq}">
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">电话</label>
+            <div class="col-md-8">
+                <input class="form-control" parsley-trigger="change"
+                       name="tel" value="{$order_detail.tel}">
+            </div>
+        </div>
+
+        {if $order_detail.type eq "1"}
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">角色名</label>
+            <div class="col-md-8">
+                <input class="form-control" parsley-trigger="change"
+                       name="role_name" value="{$order_detail.role_name}">
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">备用角色名</label>
+            <div class="col-md-8">
+                <input class="form-control" parsley-trigger="change"
+                       name="role_back_name" value="{$order_detail.role_back_name}">
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">附加属性标准</label>
+            <div class="col-md-8">
+                <input class="form-control" parsley-trigger="change"
+                        value="{$tags}">
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">附加属性</label>
+            <div class="col-md-8">
+                <input class="form-control" parsley-trigger="change"
+                        value="{$order_detail.attr}">
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">首充账号</label>
+            <div class="col-md-8">
+                <input class="form-control" parsley-trigger="change" value="{$order_detail.game_user}">
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">首充账号密码</label>
+            <div class="col-md-8">
+                <input class="form-control" parsley-trigger="change" value="{$order_detail.game_psw}">
+            </div>
+        </div>
+        {/if}
+
+        {if $order_detail.type eq 2 or $order_detail.type eq 3}
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">代充账号</label>
+            <div class="col-md-8">
+                <input class="form-control" parsley-trigger="change"
+                       name="game_user" value="{$order_detail.game_user}">
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">代充密码</label>
+            <div class="col-md-8">
+                <input class="form-control" parsley-trigger="change"
+                       name="game_pwd" value="{$order_detail.game_pwd}">
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">代充角色名</label>
+            <div class="col-md-8">
+                <input class="form-control" parsley-trigger="change"
+                       name="role_name" value="{$order_detail.role_name}">
+            </div>
+        </div>
+        {/if}
+        <div class="form-group col-md-12">
+            <label class="col-md-2 control-label">买家备注</label>
+            <div class="col-md-10">
+                <textarea class="form-control" parsley-trigger="change"
+                       name="remarks" >{$order_detail.remarks}
+                </textarea>
+            </div>
+        </div>
+
+        {if $order_detail.shop_id}
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">店铺ID</label>
+            <div class="col-md-8">
+                <input class="form-control" parsley-trigger="change"
+                        value="{$order_detail.shop_id}">
+            </div>
+        </div>
+
+        {/if}
+        {if $order_detail.type eq 5}
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">角色名</label>
+            <div class="col-md-8">
+                <input class="form-control" parsley-trigger="change"
+                        value="{$order_detail.role_name}">
+            </div>
+        </div>
+        {/if}
+
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">订单状态</label>
+            <div class="col-md-8">
+                {if $order_detail.status eq '0'}
+                <input class="form-control" parsley-trigger="change"  value="已下单">
+                {elseif $order_detail.is_del eq '2'}
+                <input class="form-control" parsley-trigger="change"  value="已退款">
+                {elseif $order_detail.status eq '1'}
+                <input class="form-control" parsley-trigger="change"  value="已付款">
+                {elseif $order_detail.status eq '9'}
+                <input class="form-control" parsley-trigger="change"  value="已取消">
+                {else}<input class="form-control" parsley-trigger="change" value="已发货">
+                {/if}
+
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">购买时间</label>
+            <div class="col-md-8">
+                <input  type="text" class="form-control" value="{'Y-m-d'|date:$order_detail.buy_time}"
+                       parsley-trigger="change" required readonly="readonly">
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">支付渠道</label>
+            <div class="col-md-8">
+                {if $order_detail.pay_channel eq 1}
+                <input class="form-control" parsley-trigger="change" value="支付宝">
+                {elseif $order_detail.pay_channel eq 2}
+                <input class="form-control" parsley-trigger="change"  value="网银">
+                {elseif $order_detail.pay_channel eq 3}
+                <input class="form-control" parsley-trigger="change"  value="财付通">
+                {elseif $order_detail.pay_channel eq 5}
+                <input class="form-control" parsley-trigger="change"  value="微信支付">
+                {/if}
+
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">支付渠道订单号</label>
+            <div class="col-md-8">
+                <input class="form-control" parsley-trigger="change"
+                        value="{$order_detail.channel_order_id}">
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">银行单号</label>
+            <div class="col-md-8">
+                <input class="form-control" parsley-trigger="change"
+                        value="{$order_detail.bank_order_id}">
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">支付人</label>
+            <div class="col-md-8">
+                <input class="form-control" parsley-trigger="change"
+                        value="{$order_detail.payer}">
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">发货备注</label>
+            <div class="col-md-8">
+                <input class="form-control" parsley-trigger="change"
+                        value="{$order_detail.ship_memo}">
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">支付备注</label>
+            <div class="col-md-8">
+                <input class="form-control" parsley-trigger="change"
+                        value="{$order_detail.pay_memo}">
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">支付截图</label>
+            <div class="col-md-8">
+                <a href="http://static.66173.cn{$order_detail.pay_img}" target="_blank" rel="noopener noreferrer"><img src="http://static.66173.cn{$order_detail.pay_img}" style="width: 300px" /></a>
+            </div>
+        </div>
+        {if $order_detail.refund_img}
+        <div class="form-group col-md-6">
+            <label class="col-md-4 control-label">退款截图</label>
+            <div class="col-md-8">
+                <a href="http://static.66173.cn{$order_detail.refund_img}" target="_blank" rel="noopener noreferrer"><img src="http://static.66173.cn{$order_detail.refund_img}" style="width: 300px" /></a>
+            </div>
+        </div>
+        {/if}
+        <input type="hidden" name="type" value="{$order_detail.type}">
+        <input type="hidden" name="id" value="{$order_detail.id}">
+
+        <div class="form-group" id="">
+            <div class="col-md-10 text-right">
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">关闭</button>
+                <button type="submit" class="btn btn-info waves-effect waves-light">保存</button>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+
+
+
+</script>

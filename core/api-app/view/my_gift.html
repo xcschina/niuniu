@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>我的礼包</title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta content="telephone=no" name="format-detection">
+	<meta content="email=no" name="format-detection">
+	<!-- <link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/app/css/my_gift.css?t={$smarty.now}" media="screen" /> -->
+	<link rel="stylesheet" type="text/css" href="http://cdn.66173.cn/app/css/app-main.css">
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdn.66173.cn/app/js/app-main.js"></script>
+</head>
+
+<body>
+<div class="my-gift">
+	{if $gift_list}
+	<div class="gift-list">
+		{foreach from=$gift_list item=gift}
+		<div class="gift-item">
+			<div class="left">
+				<img src="http://cdn.66173.cn//images/game_icon/{$gift.game_id}.png"/>
+			</div>
+			<div class="center">
+				<div class="title text-overflow">{$gift.game_name}</div>
+				<div class="gift-content text-overflow">礼包码：{$gift.code}</div>
+				<div class="valid-date text-overflow">有效期至：{($gift.buy_time+2678400)|date_format:'%Y/%m/%d'}</div>
+			</div>
+			<div class="right">
+				<span class="copy-code" data-code="{$gift.code}">复制</span>
+			</div>
+		</div>
+		{/foreach}
+		<div id="more"></div>
+		<input name="user_id" value="{$user_id}" type="hidden">
+		<input name="page" value="1" type="hidden">
+	</div>
+	{else}
+	<p class="mascot-outer">
+		<img src="http://cdn.66173.cn/app/css/img/mascot.png" class="mascot"/>
+	</p>
+	<p class="nogift">您还没有领取礼包<br />可以查看更多其他游戏的礼包哦～</p>
+	{/if}
+	{if $gift_list|@count eq '10'}
+	<div class="more-zone"><span class="more">更多</span></div>
+	{/if}
+	<div class="tip-pop-zone">
+		<div class="tip-pop">礼包码:<span class="copied-gift-code"></span>已复制到剪贴板，请尽快使用</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+	$(".gift-list").on("click", ".copy-code", function(e) {
+		var code = $(e.currentTarget).data("code");
+		console.log("code",code);
+		$(".copied-gift-code").html(code);
+		$(".tip-pop-zone").fadeIn(1000).fadeOut(1500);
+		window.local_obj.copy_code(code);
+	});
+	$(".more").on("click", function(e) {
+		user_id = $("input[name='user_id']").val();
+		var page = $("input[name='page']").val();
+		new_page = parseInt(page) + 1;
+		$("input[name='page']").val(new_page);
+		url = "/my.php?act=more_gift";
+		$.ajax({
+			url: url,// 跳转到 action
+			data:{
+				page : new_page,
+				user_id : user_id
+			},
+			type:'post',
+			cache:false,
+			dataType:'json',
+			timeout : 5000,
+			success:function(result) {
+				var date = new Date();
+				if(result.error=='0'){
+					var contest = '';
+					for(var i = 0; i < result.data.length; ++i) {
+						var value = result.data[i];
+						contest += '<div class="gift-item">'
+										+'<div class="left"><img src="http://cdn.66173.cn//images/game_icon/' + value.game_id + '.png"/></div>'
+										+ '<div class="center"><div class="title text-overflow">' + value.game_name + '</div><div class="gift-content text-overflow">礼包码：' + value.code + '</div><div class="valid-date text-overflow">有效期至：' +
+								value.buy_time + '</div></div>'
+										+ '<div class="right"><span class="copy-code" data-code="' + value.code + '">复制</span></div>'
+										+ '</div>'
+					}
+					if(result.count < 10){
+						$(".more-zone").hide();
+						$(".my-gift").append('<div class="no-more"><img src="http://cdn.66173.cn/app/img/noMore.png"/></div>');
+					}
+					$("#more").append(contest);
+				}else if(result.error=='1'){
+					alert(result.msg);
+				}
+			}
+		});
+
+	})
+</script>
+</html>
