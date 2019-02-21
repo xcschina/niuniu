@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+<title>H5游戏详情页2-游戏资讯</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<link rel="stylesheet" type="text/css" href="css/common.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="css/pay.css" media="screen" />
+</head>
+
+<body>
+<header class="page-header clearfix">
+  <h1 class="page-h1">游戏详情</h1>
+  <a class="p2-back">返回</a> </header>
+<nav class="pay-nav clearfix">
+  <ul class="pay-nav-list clearfix">
+    <li><a>商品详情</a></li>
+    <li><a>礼包领取</a></li>
+    <li><a>游戏下载</a></li>
+    <li class="on"><a>游戏资讯</a></li>
+  </ul>
+</nav>
+<section class="zx-box clearfix">
+	<header class="zx-header"><a class="zx-more">更多</a><h3 class="zx-h3">新闻：</h3></header>
+	<ul class="zx-list clearfix">
+    	<li><a><span>07-02</span>2015chinajoy门票火热售卖...</a></li>
+        <li><a><span>07-02</span>2015chinajoy门票火热售卖...</a></li>
+        <li><a><span>07-02</span>2015chinajoy门票火热售卖...</a></li>
+        <li><a><span>07-02</span>2015chinajoy门票火热售卖...</a></li>
+        <li><a><span>07-02</span>2015chinajoy门票火热售卖...</a></li>
+        <li><a><span>07-02</span>2015chinajoy门票火热售卖...</a></li>
+    </ul>
+</section>
+<section class="zx-box mt-30 clearfix">
+	<header class="zx-header"><a class="zx-more">更多</a><h3 class="zx-h3">攻略：</h3></header>
+	<ul class="zx-list clearfix">
+    	<li><a><span>07-02</span>2015chinajoy门票火热售卖...</a></li>
+        <li><a><span>07-02</span>2015chinajoy门票火热售卖...</a></li>
+        <li><a><span>07-02</span>2015chinajoy门票火热售卖...</a></li>
+        <li><a><span>07-02</span>2015chinajoy门票火热售卖...</a></li>
+        <li><a><span>07-02</span>2015chinajoy门票火热售卖...</a></li>
+        <li><a><span>07-02</span>2015chinajoy门票火热售卖...</a></li>
+    </ul>
+</section>
+
+<!--Str 页面通用底部-->
+<footer class="footer">
+  <nav class="footer-nav">
+    <ul class="footer-nav-list clearfix">
+      <li><a>首页</a></li>
+      <li><a>66173帮助</a></li>
+      <li><a>意见反馈</a></li>
+    </ul>
+  </nav>
+  <section class="footer-btm"> Copyright &copy 2002-2013 5173.com <br/>
+    版权所有ICP证：浙B2-20090127 <br/>
+    客服电话：0591-87563211 </section>
+</footer>
+<!--End 页面通用底部-->
+<script src="scripts/zepto.min.js"></script> 
+<script src="scripts/script.js"></script> 
+<script>
+var optionsg = {
+  scaleColor: false,
+  trackColor: '#ccc',
+  barColor: '#30b66f',
+  lineWidth: 3,
+  lineCap: 'butt',
+  size: 45
+};
+var optionsb = {
+  scaleColor: false,
+  trackColor: '#ccc',
+  barColor: '#317ee7',
+  lineWidth: 3,
+  lineCap: 'butt',
+  size: 45
+};
+window.addEventListener('DOMContentLoaded', function() {
+  var charts = [];
+  [].forEach.call(document.querySelectorAll('.chart-1'),  function(el) {
+    charts.push(new EasyPieChart(el, optionsg));
+  });
+    [].forEach.call(document.querySelectorAll('.chart-2'),  function(el) {
+    charts.push(new EasyPieChart(el, optionsb));
+  });
+});
+</script>
+</body>
+</html>

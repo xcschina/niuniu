@@ -1,0 +1,163 @@
+.mt-10{ margin-top:10px;}
+[class^=paym-icon-],[class^=pay-spr],.pay-pbtn:after{ display:inline-block; background-image:url(../images/pay-spr.png); background-repeat:no-repeat; background-size:39px auto;}
+
+.pay-con{ width:100%; padding:0 3%; box-sizing:border-box; background-color:#fff;}
+.pay-info,.pay-money{ padding:10px 0; border-bottom:1px solid #e6e6e6; color:#999}
+.pay-info-list li,.pay-money-list li{ height:24px; line-height:24px; font-size:1rem; position:relative}
+.pay-info-list li em{ display:inline-block; width:24%;}
+.pay-info-list li span{ color:#666}
+.pay-money-list li span{ color:#f60; padding-left:25px;}
+.pay-spr-1{ width:12px; height:7px; background-position:0 -66px; position:absolute; right:0; top:10px;}
+.pay-spr-2{ width:17px; height:17px; background-position:0 -73px; position:absolute; right:0; top:0}
+
+
+.pay-method{ margin-top:10px;}
+[class^=pay-m-]{ display:block; width:100%; height:36px; line-height:36px; box-sizing:border-box; border:1px solid #e7e7e7; margin-bottom:10px; border-radius:2px;  font-size:1.2rem; color:#666; background-color:#fff; text-indent:20%;}
+[class^=pay-m-] em{ color:#ccc; font-size:.8rem; padding-left:10px; vertical-align:middle}
+[class^=pay-m-].on{ border:1px solid #317ee7}
+[class^=paym-icon-]{ width:39px; height:22px; vertical-align:middle; margin:-2px 5px 0 0}
+.paym-icon-2{ background-position:0 -22px;}
+.paym-icon-3{ background-position:0 -44px;}
+
+.pay-btn{ display:block; width:100%; height:40px; line-height:40px; font-size:1.2rem; color:#fff; background-color:#f60; text-align:center;}
+
+.pay-notice{ display:block; border:1px solid #fc5761; width:100%; height:50px; box-sizing:border-box; padding:5px 30px; text-indent:-20px; line-height:20px; color:#fc5761; font-size:.9rem;}
+.pay-spr-3{ width:14px; height:12px; background-position:-18px -79px; vertical-align:middle; margin:0 5px 0 0;}
+
+.pay-help{ padding:10px 0; font-size:.9rem;}
+.pay-help em{ color:#317ee7}
+.pay-spr-4{ width:12px; height:11px; background-position:-18px -66px; vertical-align:middle; margin:-5px 2px 0 0;}
+
+/***************确认支付页******************/
+.pay-con-2{ width:100%;background-color:#fff; padding-bottom:20px;}
+.pay-page-con{ width:94%; margin:0 auto}
+.qpay-money{ display:block; width:100%; height:42px; line-height:42px; border-bottom:1px solid #e6e6e6; font-size:1rem;}
+.qpay-money em{ color:#f60}
+.qpay-txt{ display:block; width:100%; padding:10px 7px 10px 17px; box-sizing:border-box; line-height:18px; font-size:.9rem; text-indent:-17px;}
+.pay-tit{ height:32px; line-height:32px; font-size:1.1rem; color:#343434; text-indent:10px; position:relative}
+.pay-tit:before{ content:'';  display:block; width:3px; height:16px; background-color:#317ee7; position:absolute; left:0; top:7px;}
+.card-list li{ width:33%; float:left; height:32px;}
+.card-list li a,.money-list li a{ display:block; width:90%; height:30px; border:1px solid #e5e5e5; text-align:center; line-height:30px; color:#666; font-size:1rem;}
+.card-list li.on a,.money-list li.on a{ border:2px solid #f60}
+.card-list li:nth-child(2){ width:34%;}
+.card-list li:nth-child(2) a{ margin:0 auto}
+.card-list li:nth-child(3) a{ float:right}
+.money-list li{ width:50%; float:left; height:32px; margin-bottom:10px;}
+.money-list li a{ width:95%;}
+.money-list li:nth-child(2n) a{ float:right}
+.money-txt-box{ width:100%; padding:8px 4%; box-sizing:border-box; border:1px solid #e5e5e5; color:#666; font-size:.9rem; line-height:20px;}
+.card-info{ width:94%; margin:10px auto 0;}
+.card-info-box{ background-color:#f6f6f6; border:1px solid #e5e5e5; height:30px;}
+.card-info-box+.card-info-box{ border-top:none}
+.card-info-box label{ display:inline-block; width:20%; height:30px; line-height:30px; text-align:center; font-size:.9rem; color:#666;}
+.card-info-box input{ width:80%; height:30px; border:none; background-color:#f6f6f6;outline: 0; -webkit-appearance: none;}
+.pay-pbtn{ display:block; width:100%; height:32px; line-height:32px; font-size:1rem; text-indent:10px; box-sizing:border-box; border:1px solid #e5e5e5; border-radius:2px; margin-bottom:10px; position:relative}
+.pay-pbtn:after{ content:''; display:block; width:8px; height:16px; background-position:0 -90px; position:absolute; right:8px; top:8px;}
+/******************商品详情*********************/
+.gevr-spr,[class^=gver-icon-],.shop-rule li+li:before{ display:inline-block; background-image:url(../images/cmdt.png); background-repeat:no-repeat; background-size:60px auto}
+.cmdt-info span{ color:#666; display:block; height:45px; line-height:45px; font-size:1.1rem;}
+.cmdt-open{ width:100%; background-color:#f6f6f6; border:1px solid #e5e5e5; position:relative}
+.cmdt-open h4{ width:100%; height:30px; line-height:30px; text-indent:10px; color:#ccc; font-size:.9rem;}
+.open-btn{ display:block; width:50px; height:30px; text-align:center; line-height:30px; position:absolute; right:0; top:0; color:#f60; font-size:.9rem;}
+.open-icon{ width:12px; height:9px; background-position:-10px -70px; margin-left:3px; vertical-align:middle}
+.active .open-icon{ background-position:0 -70px;}
+.gver-list li{ width:33%; float:left; margin:5px 0}
+.gver-list li:nth-child(2) a{ margin:0 auto}
+.gver-list li:nth-child(3) a{ float:right}
+.gver-list li a{ display:block; width:93%; height:47px; background-color:#c2c2c2; border:2px solid #c2c2c2; box-sizing:border-box;}
+.gver-list li a span,.gver-list li a em{ display:block; width:100%;}
+.gver-list li a span{ height:27px; background-color:#fff; text-align:center; box-sizing:border-box; padding:3px 0}
+.gver-list li a em{ height:16px; line-height:16px; font-size:.9rem; text-align:center; color:#fff;}
+[class^=gver-icon-]{ width:60px; height:20px;}
+.gver-icon-2{ background-position:0 -20px;}
+.gver-icon-3{ background-position:0 -40px;}
+.gver-list li.on a,.gver-list li a:hover{ background-color:#fe6601; border-color:#fe6601}
+.gver-info-list{ margin-top:5px;}
+.gver-info-list li{ font-size:1rem; height:24px; line-height:24px; color:#666}
+.g-num a{ display:inline-block; box-sizing:border-box; width:14px; height:14px; border:1px solid #c2c2c2; background-color:#f6f6f6; text-align:center; line-height:10px; vertical-align:middle;}
+.g-num input{border:1px solid #c2c2c2; background-color:#f6f6f6; width:35px; height:22px; margin:0 5px; text-align:center; }
+.shop-rule{ margin-top:5px;}
+.shop-rule li{ display:inline-block; height:20px;  line-height:20px; position:relative; color:#666; font-size:.8rem;box-sizing:border-box ; padding-right:5px;}
+.shop-rule li+li{ padding-left:18px;}
+.shop-rule li+li:before{ content:''; display:block; width:17px; height:11px; background-position:0 -60px; position:absolute; left:-2px; top:4px;}
+.shop-rule i{ display:inline-block; width:20px; height:20px; border-radius:20px; background-color:#f6f6f6; color:#c2c2c2; font-size:1rem; font-family:Arial, Helvetica, sans-serif; font-style:normal; text-align:center; line-height:20px; margin:-2px 3px 0 0; vertical-align:middle}
+.select-box{ padding:20px 0 0;}
+.select-box .card-info-box label{ width:28%; text-align:left; text-indent:3%; float:left; overflow:hidden}
+.select-box .card-info-box input{ width:72%;}
+.kf-list{ margin:5px auto; width:94%; }
+.kf-list li{ width:50%; float:left; height:34px; margin:0 0 8px;}
+.kf-list li:nth-child(2n) a{ float:right}
+.kf-list li a{ display:block; width:98%; height:32px; line-height:30px; border:1px solid #e5e5e5; box-sizing:border-box; text-align:center}
+.kf-list li a:hover,.kf-list li.on a{ border:2px solid #f60}
+.mt-20{ margin-top:20px;}
+.pd-20{ padding-bottom:20px;}
+
+ @media screen and (max-width:350px) {
+.shop-rule li{ width:100%; margin-bottom:3px;}
+.shop-rule li+li{ padding-left:0px;}
+.shop-rule li+li:before{ display:none}
+	 }
+	 
+/*********************代充*******************/
+.pay-con-3{ width:100%; background-color:#fff; margin:-1px 0 20px; border:1px solid #d7d7d7; border-width:1px 0;}
+.pay-nav{ width:100%; height:35px;}
+.pay-nav-list{ width:94%; margin:0 auto;}
+.pay-nav-list li{ float:left}
+.pay-nav-list li a{ display:block; height:33px; line-height:33px; padding:0 10px; font-size:.9rem;}
+.pay-nav-list li.on a{ border-bottom:2px solid #317ee7; color:#317ee7}
+.pay-stxt{ padding:10px 0; font-size:.9rem; line-height:20px;}
+.cor-org{ color:#f60}
+.scmdt-list li{ padding:10px 0; width:100%; border-bottom:1px solid #f6f6f6; position:relative}
+.scmdt-pri-1{ position:absolute; display:block; height:25px; line-height:25px; font-size:1.2rem; right:0; top:10px; color:#f60}
+.scmdt-pri-2{ position:absolute; display:block; height:22px; line-height:22px; font-size:.9rem; right:0; top:35px; color:#bbb; text-decoration: line-through;}
+.scmdt-name,.scmdt-txt{ display:block; width:100%; overflow:hidden}
+.scmdt-name{ height:25px; line-height:25px; font-size:1.2rem; color:#343434; box-sizing:border-box; padding-right:80px; }
+.scmdt-txt{ height:22px; line-height:22px; font-size:1rem; color:#999}
+
+/*******************我的订单************************/
+.md-snav-box{ height:33px; line-height:33px; font-size:1rem}
+.md-snav li{ width:50%; float:left; text-align:center;}
+.md-snav li a{ display:block; width:100%; height:31px;}
+.md-snav li.on a,.md-tnav li.on a{ color:#317ee7; border-bottom:2px solid #317ee7;}
+.md-tit-box{ width:100%; background-color:#fff; border:1px solid #d7d7d7; border-width:1px 0; margin-top:-1px; padding-top:20px; position:relative}
+.md-tbtn{ position:absolute; display:block; width:52px; height:25px; border:1px solid #e5e5e5; border-width:1px 1px 0; right:3%; bottom:-1px; background-color:#f5f5f5; text-align:center; line-height:25px; font-size:.9rem;}
+.md-selbox{ width:100%; box-sizing:border-box; padding:15px 3% 8px;}
+.md-selbox select{ display:inline-block; width:49%; height:30px; background-color:#fff; border:1px solid #e5e5e5; text-indent:5px; font-size:.9rem;}
+.md-selbox select+select{ float:right}
+.md-tnav li{ width:23%; float:left; text-align:center; height:32px; line-height:32px; font-size:1rem;}
+.md-tnav li a{ display:block; width:100%; height:30px;}
+.md-tnav li:nth-child(4){ width:19%;}
+.md-tnav li:nth-child(5){ width:12%;}
+.md-list-box{ background-color:#fff; border-top:1px solid #d7d7d7; width:100%;}
+.md-list,.md-tnav{ width:94%; margin:0 auto;}
+.md-list li a{ display:block; width:100%; height:100%; float:left;}
+.md-list li{display:block; width:100%; padding:12px 0; float:left;}
+.md-list li+li{border-top:1px solid #e6e6e6; }
+[class^=md-state-]{ display:inline-block; width:60px; height:15px; text-align:center; line-height:15px; color:#fff; font-style:normal; vertical-align:middle; margin:-3px 3px 0 0; font-size:.8rem;}
+.md-state-1{ background-color:#d41414}
+.md-state-1:before{ content:'未支付'}
+.md-state-2{ background-color:#3a940f}
+.md-state-2:before{ content:'交易成功'}
+.md-state-3{ background-color:#317ee7}
+.md-state-3:before{ content:'等待发货'}
+.md-state-4{ background-color:#de9b18}
+.md-state-4:before{ content:'等待付款'}
+.md-name,.md-price,.md-num{ display:block; float:left; height:15px; line-height:15px; font-size:1rem; box-sizing:border-box; overflow:hidden;}
+.md-service,.md-date,.md-time{ display:block; float:left; height:15px; line-height:15px; overflow:hidden; color:#999; font-size:.9rem; box-sizing:border-box; margin-top:8px;}
+.md-name,.md-service{ width:70%; padding-right:20px;}
+.md-price,.md-date{ width:15%;}
+.md-price{color:#f60}
+.md-num,.md-time{width:15%; text-align:right}
+.info-more-btn{ display:block; width:94%; margin:10px auto 20px; height:29px; box-sizing:border-box; border:1px solid #d4d4d4; border-radius:5px; text-align:center; line-height:27px; font-size:1rem; color:#666}
+/****************订单详情******************/
+.dd-header{ width:100%; height:44px; border-bottom:1px solid #d7d7d7; box-sizing:border-box; padding:0 3%; line-height:44px; font-size:1rem; color:#343434}
+.dd-header-txt em{ float:right; color:#f60;}
+.dd-header-txt span{ color:#999}
+.dd-detail-box{ width:100%; background-color:#fff; margin:10px auto; color:#343434; border-bottom:1px solid #d7d7d7 }
+.dd-detail-top,.dd-detail-list,.dd-detail-btm{ width:94%; margin:0 auto;}
+.dd-detail-top{ height:50px; line-height:50px; border-bottom:1px solid #e6e6e6; font-size:1rem;}
+.dd-detail-top span{ float:right; color:#f60}
+.dd-detail-list{ padding:10px 0;}
+.dd-detail-list li{ height:26px; line-height:26px; overflow:hidden; width:100%; font-size:.9rem;}
+.dd-detail-btm{ border-top:1px solid #e6e6e6; height:42px; line-height:42px; font-size:.9rem;}
+.dd-detail-btm em{ padding-left:15px; color:#f60}

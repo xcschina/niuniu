@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="//cdn.66173.cn/www/js/jquery-1.8.3.min.js"></script>
+    <title>登录</title>
+    <style>
+        html {
+            background-color: #333;
+            position: relative;
+        }
+        .login-btn {
+            position: fixed;
+            color: white;
+            width: 8rem;
+            margin: auto;
+            left: 0;
+            right: 0;
+            top: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            -webkit-transition: all 0.3s ease-in-out;
+            -webkit-tap-highlight-color:rgba(0,0,0,0);
+        }
+        .login-btn:hover {
+            transform: scale(1.01);
+            -webkit-transform: scale(1.01);
+        }
+
+    </style>
+</head>
+<body>
+<input type="hidden" id="platform" value="hwquick"/>
+<input type="hidden" id="isND" value="2"/>
+<input type="hidden" id="isNL" value="2"/>
+<input type="hidden" id="chID" value="100546293"/>
+<input type="hidden" id="gameUrl" value="https://cdn0.myh5.90wmoyu.com/index.nnh5.html"/>
+</body>
+<script>
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+    function myfun() {
+        var platform = document.getElementById("platform").value;
+        var isND = document.getElementById("isND").value;
+        var isNL = document.getElementById("isNL").value;
+        var gameUrl = document.getElementById("gameUrl").value;
+        var chID = document.getElementById("chID").value;
+        if(gameUrl) {
+            var a = "platform=" + platform + "&isND=" + isND + "&isNL=" + isNL + "&chID=" + chID;
+            gameUrl = gameUrl.indexOf("?") > 0 ? gameUrl + "&" + a : gameUrl + "?" + a;
+            window.location.href = gameUrl;
+        }
+    }
+    window.onload = myfun;
+</script>
+</html>

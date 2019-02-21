@@ -1,0 +1,342 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>订单详细页</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<link type="text/css" rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div class="topnav">
+    <div class="wrapper clearfix">
+		<div class="fl topnav-l">
+			<span class="fl gray">hi，欢迎来到66173手机交易平台</span><em class="spc">|</em>
+			<a class="btn-login" href="#">登录</a><em class="spc">|</em>
+			<a class="btn-reg" href="#">注册</a><em class="spc">|</em>
+			<a class="btn-loginqq" href="#">QQ登录</a><em class="spc">|</em>
+			<a class="" href="#">其他平台登录</a><em class="spc">|</em>
+		</div>
+		<div class="fr topnav-r">
+			<em class="spc">|</em><a class="btn-buyer" href="#">买家中心</a>
+			<em class="spc">|</em><a class="btn-seller" href="#">卖家中心</a>
+			<em class="spc">|</em><a class="btn-msg" href="#">站内信<b class="orange">9</b>封</a>
+			<em class="spc">|</em><a class="btn-markcart" href="#">购物车<i>0</i></a>
+		</div>
+	</div>
+</div>
+<div class="wrapper clearfix">
+	<!--header-->
+	<div class="header clearfix">
+		<h1 class="fl logo"><a href="#" title="手游交易平台66173.com">手游交易平台66173.com</a></h1>
+		<div class="fr search">
+			<ul class="search-con clearfix">
+				<li class="search-name arrow">选择名称</li>
+				<li class="search-area arrow">游戏区</li>
+				<li class="search-server arrow">游戏服务器</li>
+				<li class="search-type arrow">物品类型</li>
+				<li class="search-box">
+					<input type="text" autocomplete="off" placeholder="请输入关键字">							
+				</li>
+				<li class="search-btn">
+					<input type="submit" value="搜索">
+				</li>
+			</ul>
+			<ul class="hot-game-list clearfix">
+				<li><a href="#">魔兽世界（国服）</a></li>
+				<li><a href="#">地下城与勇士</a></li>
+				<li><a href="#">笑傲江湖OL</a></li>
+				<li><a href="#">问道</a></li>
+				<li><a href="#">御龙在天</a></li>
+				<li><a href="#">剑灵</a></li>
+				<li><a href="#">魔域</a></li>
+			</ul>
+			<div class="gs_box" id="gsBox">
+				<div class="gs_box_inner">
+					<div class="gs_head clearfix">
+						<dl class="gs_name" style="display: block;">
+							<dt>历史选择：</dt>
+							<dd><a href="javascript:void(0);" class="b">地下城与勇士</a></dd>
+							<dd><a href="javascript:void(0);" class="r">剑侠情缘Ⅲ</a></dd>
+							<dd><a href="javascript:void(0);" class="b">剑灵</a></dd>
+							<dd><a href="javascript:void(0);" class="b">疾风之刃</a></dd>
+							<dd><a href="javascript:void(0);">疾风之刃</a></dd>
+						</dl>
+						<a target="_self" class="close_btn" title="关闭窗口" href="javascript:;">关闭窗口</a><a target="_blank" class="gs_add_name" href="#">找不到游戏、区服？</a></div>
+					<div id="gsFsearch" class="gs_f_search"><a href="#" class="gs_back_btn" id="gsBackBtn">返回</a>
+						<input type="text" placeholder="请输入汉字或拼音" class="gs_f_search_box gs_f_search_box_default">
+						<a class="gs_f_search_btn" href="javascript:void(0);">快速搜索</a></div>
+					<ul id="gsNav" class="gs_nav clearfix">
+						<li id="fastletter" class="w_70" style="display: none;"><a href="javascript:void(0);">搜索结果</a></li>
+						<li class="w_70"><a class="current" href="javascript:void(0);">热门游戏</a></li>
+						<li><a href="javascript:void(0);">A</a></li>
+						<li><a href="javascript:void(0);">B</a></li>
+						<li><a href="javascript:void(0);">C</a></li>
+						<li><a href="javascript:void(0);">D</a></li>
+						<li><a href="javascript:void(0);">E</a></li>
+						<li><a href="javascript:void(0);">F</a></li>
+						<li><a href="javascript:void(0);">G</a></li>
+						<li><a href="javascript:void(0);">H</a></li>
+						<li><a href="javascript:void(0);">I</a></li>
+						<li><a href="javascript:void(0);">J</a></li>
+						<li><a href="javascript:void(0);">K</a></li>
+						<li><a href="javascript:void(0);">L</a></li>
+						<li><a href="javascript:void(0);">M</a></li>
+						<li><a href="javascript:void(0);">N</a></li>
+						<li><a href="javascript:void(0);">O</a></li>
+						<li><a href="javascript:void(0);">P</a></li>
+						<li><a href="javascript:void(0);">Q</a></li>
+						<li><a href="javascript:void(0);">R</a></li>
+						<li><a href="javascript:void(0);">S</a></li>
+						<li><a href="javascript:void(0);">T</a></li>
+						<li><a href="javascript:void(0);">U</a></li>
+						<li><a href="javascript:void(0);">V</a></li>
+						<li><a href="javascript:void(0);">W</a></li>
+						<li><a href="javascript:void(0);">X</a></li>
+						<li><a href="javascript:void(0);">Y</a></li>
+						<li><a href="javascript:void(0);">Z</a></li>
+					</ul>
+					<ul id="gsSort" class="gs_sort clearfix">
+						<li id="sortall"><a href="javascript:void(0);">全部</a></li>
+						<li id="netgame" class="current"><a href="javascript:void(0);">网络游戏</a></li>
+						<li id="webgame"><a href="javascript:void(0);">网页游戏</a></li>
+						<li id="mobilegame"><a href="javascript:void(0);">手机游戏</a></li>
+						<li id="chessgame"><a href="javascript:void(0);">棋牌游戏</a></li>
+						<li id="other"><a href="javascript:void(0);">充值&amp;其他</a></li>
+						<li id="searchbar_rookie_tips">
+							<div class="fed-toolstip">
+								<div class="fed-tipsarr fed-arrleft"><span class="arr-1"></span><span class="arr-2"></span></div>
+								<div class="fed-tipcon">
+									<p>新增游戏类型筛选，选择页游、手游更方便！</p>
+								</div>
+								<a href="javascript:void(0);" id="searchbar_rookie_closebtn" class="fed-tipsclose"></a></div>
+						</li>
+					</ul>
+					<ul id="gsList" class="gs_list gs_name">
+						<li><a title="传奇世界2(经典区)" href="javascript:void(0);">传奇世界2(经典区)</a></li>
+						<li><a title="梦幻西游2" href="javascript:void(0);">梦幻西游2</a></li>
+						<li><a title="热血江湖" href="javascript:void(0);">热血江湖</a></li>
+						<li><a title="神魔大陆" href="javascript:void(0);">神魔大陆</a></li>
+						<li><a title="神鬼传奇" href="javascript:void(0);">神鬼传奇</a></li>
+						<li><a title="新水浒Q传" href="javascript:void(0);">新水浒Q传</a></li>
+						<li><a title="极光世界" href="javascript:void(0);">极光世界</a></li>
+						<li><a title="诛仙3" href="javascript:void(0);">诛仙3</a></li>
+						<li><a title="九阴真经" href="javascript:void(0);">九阴真经</a></li>
+						<li><a title="完美国际2" href="javascript:void(0);">完美国际2</a></li>
+						<li><a title="成吉思汗3" href="javascript:void(0);">成吉思汗3</a></li>
+						<li><a title="笑傲江湖OL" href="javascript:void(0);">笑傲江湖OL</a></li>
+						<li><a title="街头篮球" href="javascript:void(0);">街头篮球</a></li>
+						<li><a title="天下3" href="javascript:void(0);">天下3</a></li>
+						<li><a title="大唐无双2" href="javascript:void(0);">大唐无双2</a></li>
+						<li><a title="龙腾世界" href="javascript:void(0);">龙腾世界</a></li>
+						<li><a title="巨人" href="javascript:void(0);">巨人</a></li>
+						<li><a title="征途2S" href="javascript:void(0);">征途2S</a></li>
+						<li><a title="新飞飞" href="javascript:void(0);">新飞飞</a></li>
+						<li><a title="新破天一剑" href="javascript:void(0);">新破天一剑</a></li>
+						<li><a title="神泣" href="javascript:void(0);">神泣</a></li>
+						<li><a title="征途2经典版" href="javascript:void(0);">征途2经典版</a></li>
+						<li><a title="彩虹岛" href="javascript:void(0);">彩虹岛</a></li>
+						<li><a title="起凡游戏平台" href="javascript:void(0);">起凡游戏平台</a></li>
+						<li><a title="新大话西游2" href="javascript:void(0);">新大话西游2</a></li>
+						<li><a title="画皮世界" href="javascript:void(0);">画皮世界</a></li>
+						<li><a title="开心网001" href="javascript:void(0);">开心网001</a></li>
+						<li><a title="传奇归来" href="javascript:void(0);">传奇归来</a></li>
+						<li><a title="天涯明月刀" href="javascript:void(0);">天涯明月刀</a></li>
+					</ul>
+					<ul id="gsFastSearch" class="gs_list gs_name">
+					</ul>
+				</div>
+			</div>
+			<s id="searchbar_arrow" class="game_select_arrow"></s>
+		</div>
+	</div>
+	<!--//header-->
+	<!--nav-->
+	<div class="nav clearfix">
+		<div class="fl nav-con">
+			<a target="_blank" href="#">首页</a>
+			<a target="_blank" href="#">首充号</a>
+			<a class="cur" target="_blank" href="#">首充号代充</a>
+			<a target="_blank" href="#">手游礼包</a>
+		</div>
+		<div class="fr idx_ann">
+			<ul id="idx_ann_scroll">
+				<li><a href="javascript:;">【活动】庆公测返现送大礼</a></li>
+				<li><a href="javascript:;">【活动】庆公测返现送大礼庆公测返现送大礼</a></li>
+				<li><a href="javascript:;">【活动】庆公测返现送大礼</a></li>
+				<li><a href="javascript:;">【活动】庆公测返现送大礼庆公测返现送大礼</a></li>
+			</ul>
+			<i><a href="javascript:;"></a></i>
+		</div>
+	</div>
+	<!--//nav-->
+	<div class="breadcrumbs">您的位置：<a href="javascript:;">首页</a> &gt; <span>我的66173</span></div>
+	<div class="clearfix">
+		<div class="fl account-nav">
+			<div class="account-nav-title">我的账户</div>
+			<ul class="account-nav-con">
+				<li class="level-first open">
+					<div class="level-title">
+						<a class="btn-fold" href="javascript:;"></a>
+						<a href="javascript:;">我的66173</a>
+					</div>
+					<ul>
+						<li><a href="javascript:;">站内信<span class="orange">(5)</span></a></li>
+						<li><a href="javascript:;">买入订单</a></li>
+						<li><a href="javascript:;">我的兑换码</a></li>
+					</ul>
+				</li>
+				<li class="level-first open">
+					<div class="level-title">
+						<a class="btn-fold" href="javascript:;"></a>
+						<a href="javascript:;">退游管理</a>
+					</div>
+					<ul>
+						<li><a href="javascript:;">换游值明细</a></li>
+						<li><a href="javascript:;">退游订单</a></li>
+					</ul>
+				</li>
+				<li class="level-first open">
+					<div class="level-title">
+						<a class="btn-fold" href="javascript:;"></a>
+						<a href="javascript:;">卖家中心</a>
+					</div>
+					<ul>
+						<li><a href="javascript:;">卖出订单</a></li>
+						<li><a href="javascript:;">出售中</a></li>
+						<li><a href="javascript:;">已下架</a></li>
+						<li><a href="javascript:;">审核中</a></li>
+						<li><a href="javascript:;">上架失败</a></li>
+						<li><a href="javascript:;">暂存中</a></li>
+					</ul>
+				</li>
+				<li class="level-first open">
+					<div class="level-title">
+						<a class="btn-fold" href="javascript:;"></a>
+						<a href="javascript:;">资金管理</a>
+					</div>
+					<ul>
+						<li><a href="javascript:;">资金明细</a></li>
+						<li><a href="javascript:;">我要提现</a></li>
+						<li><a href="javascript:;">我要充值</a></li>
+
+					</ul>
+				</li>
+				<li class="level-first open">
+					<div class="level-title">
+						<a class="btn-fold" href="javascript:;"></a>
+						<a href="javascript:;">账户设置</a>
+					</div>
+					<ul>
+						<li><a href="javascript:;">个人资料</a></li>
+						<li><a href="javascript:;">手机绑定</a></li>
+						<li><a href="javascript:;">修改登录密码</a></li>
+						<li><a href="javascript:;">设置支付密码</a></li>
+						<li><a href="javascript:;">绑定游戏</a></li>
+					</ul>
+				</li>
+				<li class="level-first open">
+					<div class="level-title">
+						<a class="btn-fold" href="javascript:;"></a>
+						<a href="javascript:;">玩家论坛</a>
+					</div>
+				</li>
+			</ul>
+		</div>				
+		<div class="account-main">
+			<div class="section section2">
+				<div class="sec-title mt10 mb20"><em></em>订单详情</div>
+				<div class="setting-con">
+					<div class="setting-con-title2"><div class="left-con">当前状态</div><span class="orange">等待付款</span></div>
+					<ul class="setting-con-detail">
+						<li class="clearfix"><div class="left-con">商品标题：</div>6300W万年精灵王V16</li>
+					</ul>
+					<div class="setting-con-title2">订单详情</div>
+					<ul class="setting-con-detail">
+						<li><div class="left-con">订 单 号：</div>ORD-150519-22391439330</li>
+						<li><div class="left-con">下单时间：</div>2015-05-19 22:39:15</li>
+						<li><div class="left-con">支付时间：</div>订单未支付</li>
+						<li><div class="left-con">成交时间：</div>未成交</li>
+					</ul>
+					<div class="setting-con-title2">商品详情</div>
+					<ul class="setting-con-detail">
+						<li><div class="left-con">订 单 号：</div>ORD-150519-22391439330</li>
+						<li><div class="left-con">角色等级：</div>150</li>
+						<li><div class="left-con">性    别：</div>男</li>
+						<li><div class="left-con">主要精灵：</div>二转小鹿冥王创世等等</li>
+						<li><div class="left-con">其他精灵：</div>七二七一各种，截图自己看</li>
+						<li><div class="left-con">主要装备：</div>创世菠萝套，4套完美，2套半完美</li>
+						<li><div class="left-con">其他装备：</div>创世菠萝套，4套完美，2套半完美</li>
+						<li><div class="left-con">道具描述：</div>天赋点的很高，截图自己看</li>
+						<li><div class="left-con">物品描述：</div>从开区就是精灵王，战力比老二高一倍还多</li>
+						<li><div class="left-con">其他描述：</div>早8点准时深渊基本稳拿第1</li>
+						<li><div class="left-con">补充描述：</div>V16，稳定精灵王，这个价没什么好说了</li>
+					</ul>
+					<div class="setting-total-amount clearfix">
+						<div class="fl left-con">总计金额：<span class="orange">¥850</span></div>
+						<input type="submit" class="fr btn" value="付 款" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--footer-->
+	<div class="footer-baozh"></div>	
+	<div class="footer">
+		<p><a href="javascript:;">关于我们</a> | <a href="javascript:;">合作伙伴</a> | <a href="javascript:;">合作联系</a> | <a href="javascript:;">隐私保护</a> | <a href="javascript:;">投诉建议</a> | <a href="javascript:;">免责声明</a> | <a href="javascript:;">诚聘英才</a></p>
+		<p>Copyright &copy; 2002-2013 5173.com 版权所有ICP证：浙B2-20090127 （金华比奇网络技术有限公司）【网络文化经营许可证】文网文[2009 256号]</p>
+		<p class="honor-list"><a class="i1" href="javascript:;">亚洲中小私营企业100强</a><a class="i2" href="javascript:;">中国电子商务诚信单位</a><a class="i3" href="javascript:;">反盗号绿色联盟</a><a class="i4" href="javascript:;">网上交易保障中心</a></p>
+	</div>
+	<dl class="friend-link clearfix">
+		<dt>友情合作：</dt>
+		<dd><a href="http://www.658.com">658金融网</a>|</dd>
+		<dd><a href="http://www.178.com">178游戏网</a>|</dd>
+		<dd><a href="http://games.sina.com.cn/">新浪游戏频道</a>|</dd>
+		<dd><a href="http://game.mop.com/">猫扑游戏频道</a>|</dd>
+		<dd><a href="http://games.qq.com/">腾讯游戏频道</a>|</dd>
+		<dd><a href="http://www.07073.com/">网页游戏</a>|</dd>
+		<dd><a href="http://www.pcgames.com.cn/">太平洋游戏网</a>|</dd>
+		<dd><a href="http://www.qidian.com/">起点中文网</a>|</dd>
+		<dd><a href="http://www.yue365.com">365音乐网</a>|</dd>
+		<dd><a href="http://www.40407.com/">40407网页游戏</a>|</dd>
+		<dd><a href="http://www.9u8u.com/">9U8U网页游戏</a>|</dd>
+		<dd><a href="http://wan.renren.com/">人人游戏</a>|</dd>
+		<dd><a href="http://www.aicai.com">爱彩网</a>|</dd>
+		<dd><a href="http://www.68cai.com">68彩票</a>|</dd>
+		<dd><a href="http://www.78793.com/">78793游戏网</a>|</dd>
+		<dd><a href="http://www.2144.cn">小游戏</a>|</dd>
+		<dd><a href="http://www.cocfan.com">部落冲突</a>|</dd>
+	</dl>
+	<div class="letter-link">
+        <dl>
+            <dt>选择游戏：</dt>
+            <dd>
+                <a href="javascript:;">A</a><span>|</span> <a href="javascript:;">B</a><span>|</span> <a href="javascript:;">C</a><span>|</span>
+                <a href="javascript:;">D</a><span>|</span> <a href="javascript:;">E</a><span>|</span> <a href="javascript:;">F</a><span>|</span>
+                <a href="javascript:;">G</a><span>|</span> <a href="javascript:;">H</a><span>|</span> <a href="javascript:;">I</a><span>|</span>
+                <a href="javascript:;">J</a><span>|</span> <a href="javascript:;">K</a><span>|</span> <a href="javascript:;">L</a><span>|</span>
+                <a href="javascript:;">M</a><span>|</span> <a href="javascript:;">N</a><span>|</span> <a href="javascript:;">O</a><span>|</span>
+                <a href="javascript:;">P</a><span>|</span> <a href="javascript:;">Q</a><span>|</span> <a href="javascript:;">R</a><span>|</span>
+                <a href="javascript:;">S</a><span>|</span> <a href="javascript:;">T</a><span>|</span> <a href="javascript:;">U</a><span>|</span>
+                <a href="javascript:;">V</a><span>|</span> <a href="javascript:;">W</a><span>|</span> <a href="javascript:;">X</a><span>|</span>
+                <a href="javascript:;">Y</a><span>|</span> <a href="javascript:;">Z</a><span>|</span>
+            </dd>
+        </dl>
+    </div>
+	<!--//footer-->	
+</div>
+
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/plugin.js"></script>
+<script type="text/javascript">
+  $(function() {
+	$('.btn-fold').click(function(){
+	  var $this = $(this),
+		$parent = $this.parent().parent();
+	  $parent.toggleClass('open');
+	});
+  })
+</script>
+</body>
+</html>

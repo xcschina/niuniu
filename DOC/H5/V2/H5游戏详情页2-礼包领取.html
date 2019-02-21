@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1, user-scalable=no" />
+<title>H5游戏详情页2-礼包领取</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<link rel="stylesheet" type="text/css" href="css/common.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="css/pay.css" media="screen" />
+</head>
+
+<body>
+<header class="page-header clearfix">
+  <h1 class="page-h1">游戏详情</h1>
+  <a class="p2-back">返回</a> </header>
+<nav class="pay-nav clearfix">
+  <ul class="pay-nav-list clearfix">
+    <li><a>商品详情</a></li>
+    <li class="on"><a>礼包领取</a></li>
+    <li><a>游戏下载</a></li>
+    <li><a>游戏资讯</a></li>
+  </ul>
+</nav>
+        <ul class="lb-list clearfix">
+          <li><a><img src="pic/soft-1.png" alt="name"><em>英雄战魂</em><span class="lb-stxt">荣耀成长礼包</span><span class="lb-sinfo">精灵石 x 58、金币 x 1500000、潜力 x 123</span></a><a class="chart chart-1" data-percent="83">领取</a></li>
+          <li><a><img src="pic/soft-1.png" alt="name"><em>英雄战魂</em><span class="lb-stxt">荣耀成长礼包</span><span class="lb-sinfo">精灵石 x 58、金币 x 1500000、潜力 x 123</span></a><a class="chart chart-2" data-percent="30">已领</a></li>
+          <li><a><img src="pic/soft-1.png" alt="name"><em>英雄战魂</em><span class="lb-stxt">荣耀成长礼包</span><span class="lb-sinfo">精灵石 x 58、金币 x 1500000、潜力 x 123</span></a><a class="chart chart-1" data-percent="53">领取</a></li>
+          <li><a><img src="pic/soft-1.png" alt="name"><em>英雄战魂</em><span class="lb-stxt">荣耀成长礼包</span><span class="lb-sinfo">精灵石 x 58、金币 x 1500000、潜力 x 123</span></a><a class="chart chart-1" data-percent="10">领取</a></li>
+          <li><a><img src="pic/soft-1.png" alt="name"><em>英雄战魂</em><span class="lb-stxt">荣耀成长礼包</span><span class="lb-sinfo">精灵石 x 58、金币 x 1500000、潜力 x 123</span></a><a class="chart chart-1" data-percent="50">领取</a></li>
+        </ul>
+<!--Str 页面通用底部-->
+<footer class="footer">
+  <nav class="footer-nav">
+    <ul class="footer-nav-list clearfix">
+      <li><a>首页</a></li>
+      <li><a>66173帮助</a></li>
+      <li><a>意见反馈</a></li>
+    </ul>
+  </nav>
+  <section class="footer-btm"> Copyright &copy 2002-2013 5173.com <br/>
+    版权所有ICP证：浙B2-20090127 <br/>
+    客服电话：0591-87563211 </section>
+</footer>
+<!--End 页面通用底部-->
+<script src="scripts/zepto.min.js"></script> 
+<script src="scripts/script.js"></script> 
+<script>
+var optionsg = {
+  scaleColor: false,
+  trackColor: '#ccc',
+  barColor: '#30b66f',
+  lineWidth: 3,
+  lineCap: 'butt',
+  size: 45
+};
+var optionsb = {
+  scaleColor: false,
+  trackColor: '#ccc',
+  barColor: '#317ee7',
+  lineWidth: 3,
+  lineCap: 'butt',
+  size: 45
+};
+window.addEventListener('DOMContentLoaded', function() {
+  var charts = [];
+  [].forEach.call(document.querySelectorAll('.chart-1'),  function(el) {
+    charts.push(new EasyPieChart(el, optionsg));
+  });
+    [].forEach.call(document.querySelectorAll('.chart-2'),  function(el) {
+    charts.push(new EasyPieChart(el, optionsb));
+  });
+});
+</script>
+</body>
+</html>

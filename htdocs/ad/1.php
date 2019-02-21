@@ -1,0 +1,2 @@
+<?php
+echo 'document.write("<a href=\'http://www.yx58.com/play/reg-50-235367-99-3199.html\' target=\'_blank\' style=\'border:0;\'><img src=\'http://cdn.66173.cn/ad/1.gif\' style=\'border:0;\'/></a>")';
