@@ -1,0 +1,6 @@
+
+rewrite ^/gift([0-9]+)$ /gifts.php?act=item&id=$1;
+
+
+break;
+# end nginx rewrite rule

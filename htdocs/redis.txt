@@ -1,0 +1,138 @@
+执行日期：20180928175307
+RedisException::__set_state(array(
+   'message' => 'Redis server went away',
+   'string' => '',
+   'code' => 0,
+   'file' => 'D:\\niuniu\\common\\redisDao.php',
+   'line' => 48,
+   'trace' => 
+  array (
+    0 => 
+    array (
+      'file' => 'D:\\niuniu\\common\\redisDao.php',
+      'line' => 48,
+      'function' => 'setOption',
+      'class' => 'Redis',
+      'type' => '->',
+      'args' => 
+      array (
+        0 => 1,
+        1 => '0',
+      ),
+    ),
+    1 => 
+    array (
+      'file' => 'D:\\niuniu\\common\\baseRedis.php',
+      'line' => 6,
+      'function' => 'connection',
+      'class' => 'redisDao',
+      'type' => '->',
+      'args' => 
+      array (
+      ),
+    ),
+    2 => 
+    array (
+      'file' => 'D:\\niuniu\\core\\cpa\\dao\\clickServDao.php',
+      'line' => 10,
+      'function' => '__construct',
+      'class' => 'baseRedis',
+      'type' => '->',
+      'args' => 
+      array (
+      ),
+    ),
+    3 => 
+    array (
+      'file' => 'D:\\niuniu\\core\\cpa\\bo\\clickServ.php',
+      'line' => 10,
+      'function' => '__construct',
+      'class' => 'clickServDao',
+      'type' => '->',
+      'args' => 
+      array (
+      ),
+    ),
+    4 => 
+    array (
+      'file' => 'D:\\niuniu\\htdocs\\cpa\\c\\pingme.php',
+      'line' => 11,
+      'function' => '__construct',
+      'class' => 'clickServ',
+      'type' => '->',
+      'args' => 
+      array (
+      ),
+    ),
+  ),
+   'previous' => NULL,
+))
+执行日期：20180929095606
+RedisException::__set_state(array(
+   'message' => 'Redis server went away',
+   'string' => '',
+   'code' => 0,
+   'file' => 'D:\\niuniu\\common\\redisDao.php',
+   'line' => 48,
+   'trace' => 
+  array (
+    0 => 
+    array (
+      'file' => 'D:\\niuniu\\common\\redisDao.php',
+      'line' => 48,
+      'function' => 'setOption',
+      'class' => 'Redis',
+      'type' => '->',
+      'args' => 
+      array (
+        0 => 1,
+        1 => '0',
+      ),
+    ),
+    1 => 
+    array (
+      'file' => 'D:\\niuniu\\common\\baseRedis.php',
+      'line' => 6,
+      'function' => 'connection',
+      'class' => 'redisDao',
+      'type' => '->',
+      'args' => 
+      array (
+      ),
+    ),
+    2 => 
+    array (
+      'file' => 'D:\\niuniu\\core\\admin\\dao\\extend_dao.php',
+      'line' => 11,
+      'function' => '__construct',
+      'class' => 'baseRedis',
+      'type' => '->',
+      'args' => 
+      array (
+      ),
+    ),
+    3 => 
+    array (
+      'file' => 'D:\\niuniu\\core\\admin\\bo\\extend_admin.php',
+      'line' => 10,
+      'function' => '__construct',
+      'class' => 'extend_dao',
+      'type' => '->',
+      'args' => 
+      array (
+      ),
+    ),
+    4 => 
+    array (
+      'file' => 'D:\\niuniu\\htdocs\\admin\\extend.php',
+      'line' => 10,
+      'function' => '__construct',
+      'class' => 'extend_admin',
+      'type' => '->',
+      'args' => 
+      array (
+      ),
+    ),
+  ),
+   'previous' => NULL,
+))

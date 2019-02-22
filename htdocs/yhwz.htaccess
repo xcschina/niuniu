@@ -1,0 +1,6 @@
+rewrite ^/detail/([0-9]+)$ /website.php?act=article_detail&id=$1;
+rewrite ^/wl/detail/([0-9]+)$ /website.php?act=article_detail&id=$1;
+rewrite ^/wl$ /website.php?act=yhwz&ch=wl;
+
+break;
+# end nginx rewrite rule

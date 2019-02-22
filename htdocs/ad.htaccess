@@ -1,0 +1,6 @@
+rewrite ^/down/([0-9]+)$ /website.php?act=general_down&id=$1;
+rewrite ^/general/([0-9]+)$ /website.php?act=general&id=$1;
+rewrite ^/app/([0-9]+)$ /apple.php?apple_id=$1;
+
+break;
+# end nginx rewrite rule

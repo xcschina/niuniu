@@ -1,0 +1,112 @@
+rewrite ^/games\.html$ /games.php last;
+rewrite ^/games/([0-9]+)\.html$ /product.php?act=buy&id=$1;
+rewrite ^/buy/([0-9]+)-character\.html$ /product.php?act=buy&id=$1&ch=1;
+rewrite ^/buy/([0-9]+)-account\.html$ /product.php?act=buy&id=$1&ch=4;
+rewrite ^/buy/([0-9]+)-topup\.html$ /product.php?act=buy&id=$1&ch=3;
+rewrite ^/buy/([0-9]+)-coin\.html$ /product.php?act=buy&id=$1&ch=5;
+rewrite ^/buy/([0-9]+)-recharge\.html$ /product.php?act=buy&id=$1&ch=2;
+rewrite ^/buy/([0-9]+)-appstore\.html$ /product.php?act=buy&id=$1&ch=8;
+rewrite ^/download\.html$ /games.php?act=down_list;
+rewrite ^/download/games([0-9]+)\.html$ /game.php?id=$1&act=down;
+rewrite ^/guide\.html$ /info/list1;
+rewrite ^/customer\.html$ /info/list4;
+rewrite ^/about\.html$ /info/list5;
+rewrite ^/question\.html$ /info/list6;
+rewrite ^/charge\.html$ /info/list2;
+rewrite ^/services\.html$ /info/list3;
+
+rewrite ^/game([0-9]+)$ /game.php?id=$1 last;
+rewrite ^/game([0-9]+)/sell$ /sell.php?id=$1 last;
+rewrite ^/game([0-9]+)/([a-z]+)([0-9]*)$ /game.php?id=$1&act=$2&did=$3 last;
+
+rewrite ^/item([0-9]+)$ /product.php?act=info&id=$1;
+rewrite ^/item([0-9]+)/fav$ /product.php?act=collection&id=$1;
+rewrite ^/item([0-9]+)/unfav$ /product.php?act=uncollection&id=$1;
+
+rewrite ^/buy([0-9]+)/([0-9]+)/([0-9]+)/([0-9]+)$ /product.php?act=buy&id=$1&ch=$2&pid=$3&chid=$4;
+rewrite ^/buy([0-9]+)$ /product.php?act=buy&id=$1;
+rewrite ^/buy([0-9]+)/([0-9]+)$ /product.php?act=buy&id=$1&ch=$2;
+
+rewrite ^/special([0-9]+)$ /product.php?act=limit&id=$1;
+
+rewrite ^/order/([0-9]+)$ /product.php?act=order&id=$1;
+rewrite ^/pay/([0-9]+)$ /product.php?act=pay&id=$1;
+rewrite ^/info/list([0-9]+)$ /article.php?act=articles_list&part_id=$1;
+rewrite ^/info/([0-9]+)$ /article.php?act=detail&id=$1;
+rewrite ^/verify/([0-9]+)-([0-9]+).png /verify_code.php last;
+rewrite ^/gift([0-9]+)$ /gifts.php?act=item&id=$1;
+rewrite ^/ajax/([a-zA-Z]+)$ /ajax.php?act=$1;
+rewrite ^/shop([0-9]+)$ /shop.php?act=info&id=$1;
+
+
+
+
+rewrite ^/([0-9]+)\.html$ /index.php?act=shop&id=$1;
+rewrite ^/([0-9]+)-([0-9]+)\.html$ /index.php?act=shop_game&id=$1&gid=$2;
+rewrite ^/([0-9]+)-([0-9]+)-character\.html$ /index.php?act=shop_game_product&id=$1&gid=$2&type=1;
+rewrite ^/([0-9]+)-([0-9]+)-([0-9]+)-character\.html$ /index.php?act=shop_game_product&id=$1&gid=$2&pid=$3&type=1;
+rewrite ^/([0-9]+)-([0-9]+)-recharge\.html$ /index.php?act=shop_game_product&id=$1&gid=$2&type=2;
+rewrite ^/([0-9]+)-([0-9]+)-([0-9]+)-recharge\.html$ /index.php?act=shop_game_product&id=$1&gid=$2&oid=$3&type=2;
+rewrite ^/([0-9]+)-([0-9]+)-([0-9]+)-([0-9]+)-recharge\.html$ /index.php?act=shop_game_product&id=$1&gid=$2&oid=$3&pid=$4&type=2;
+rewrite ^/check([0-9]*)\.html$ /index.php?act=check_character&id=$1;
+rewrite ^/order-66173([0-9]+)-([0-9]+)\.html$ /index.php?act=shop_order_pay_view&id=$1&order_id=$2;
+rewrite ^/order-review\.html$ /index.php?act=shop_order_review_do;
+rewrite ^/order-status-66173([0-9]*)-([0-9]+)\.html$ /index.php?act=shop_order_detail_view&id=$1&order_id=$2;
+rewrite ^/pay-66173([0-9]+)-([0-9]+)\.html$ /index.php?act=shop_order_pay_view&id=$1&order_id=$2;
+rewrite ^/dopay-66173([0-9]+)-([0-9]+)\.html$ /index.php?act=shop_order_pay_do&id=$1&order_id=$2;
+rewrite ^/service([0-9]*)\.html$ /index.php?act=shop_service_view&id=$1;
+
+rewrite ^/gameCenter$ /game.php?act=list last;
+rewrite ^/serviceCenter$ /service_center.php last;
+rewrite ^/feedback$ /feedback.php?act=view last;
+rewrite ^/gameDetail([0-9]+)$ /game.php?act=detail&id=$1;
+rewrite ^/gameTags([0-9]+)/([0-9]+)$ /game.php?act=list&tags=$1&page=$2;
+rewrite ^/gameTags$ /game.php?act=list&tags&page=1;
+rewrite ^/gameTags/([0-9]+)$ /game.php?act=list&tags&page=$1;
+rewrite ^/enter$ /mobile_index.php;
+rewrite ^/index$ /mobile_index.php?act=index;
+rewrite ^/moreGame$ /mobile_index.php?act=more_game;
+rewrite ^/gameDetail/([0-9]+)$ /mobile_index.php?act=game_detail&id=$1;
+
+rewrite ^/detail/([0-9]+)$ /website.php?act=article_detail&id=$1;
+
+rewrite ^/moyu$ /moyu_index.php?act=index;
+rewrite ^/product/([0-9]+)$ /moyu_product.php?act=get_product_list&id=$1;
+rewrite ^/productDetail/([0-9]+)$ /moyu_product.php?act=get_product_info&id=$1;
+rewrite ^/articleDetail/([0-9]+)$ /announcement.php?act=get_article_info&id=$1;
+rewrite ^/updateCollect/([0-9]+)$ /moyu_product.php?act=update_product_collect&id=$1;
+rewrite ^/cancleCollect/([0-9]+)$ /moyu_product.php?act=cancle_product_collect&id=$1;
+rewrite ^/platform/([0-9]+)/([0-9]+)$ /moyu_product.php?act=get_product_list_platform&id=$1&platform=$2;
+rewrite ^/productType/([0-9]+)/([0-9]+)$ /moyu_product.php?act=get_product_list_type&id=$1&type=$2;
+rewrite ^/gameServer$ /moyu_product.php?act=get_game_servs_list;
+rewrite ^/serverName$ /moyu_product.php?act=get_serv_name;
+rewrite ^/realProduct$ /moyu_product.php?act=get_real_product;
+rewrite ^/Login$ /login.php?act=login;
+rewrite ^/orderList/([0-9]+)$ /trading_center.php?act=order_list&status=$1;
+rewrite ^/orderList$ /trading_center.php?act=order_list;
+rewrite ^/orderDetail/([0-9]+)$ /trading_center.php?act=order_detail&id=$1;
+rewrite ^/continuePay/([0-9]+)$ /trading_center.php?act=continue_pay&id=$1;
+rewrite ^/agreement$ /trading_center.php?act=agreement_view;
+rewrite ^/confirm/([0-9]+)$ /trading_center.php?act=confirm_view&goods_id=$1;
+rewrite ^/guideDetail/([0-9]+)$ /trading_center.php?act=guide_detail&id=$1;
+rewrite ^/accountCenter$ /trading_center.php?act=account_center;
+rewrite ^/collectList$ /trading_center.php?act=collect_list;
+rewrite ^/consumeRecord$ /trading_center.php?act=consume_record;
+rewrite ^/realVerify$ /trading_center.php?act=real_verify;
+rewrite ^/phoneBind$ /trading_center.php?act=phone_bind;
+rewrite ^/message$ /trading_center.php?act=message_list;
+rewrite ^/messageDetail/([0-9]+)$ /trading_center.php?act=message_detail&id=$1;
+rewrite ^/tradingGuide$ /trading_center.php?act=trading_guide;
+rewrite ^/confirmPay$ /trading_center.php?act=confirm_pay;
+rewrite ^/closeTrade$ /trading_center.php?act=close_trade;
+rewrite ^/confirmTrade$ /trading_center.php?act=confirm_trade;
+rewrite ^/doRealVerify$ /trading_center.php?act=do_real_verify;
+rewrite ^/doContinuePay$ /trading_center.php?act=do_continue_pay;
+rewrite ^/delCollect$ /trading_center.php?act=del_collect;
+rewrite ^/clearInvalid$ /trading_center.php?act=clear_invalid;
+rewrite ^/doPhoneBind$ /trading_center.php?act=do_phone_bind;
+
+
+
+break;
+# end nginx rewrite rule
