@@ -1,0 +1,531 @@
+/*登录和注册页不显示顶部个人栏*/
+.login-page .top-user-bar, .register-page .top-user-bar {
+    display: none;
+}
+/*侧边栏*/
+.account-with-menu-container {
+    position: relative;
+}
+.account-with-menu-container .container-main {
+    margin-left: 150px;
+    border: 1px solid #d1d1d1;
+}
+.common-account-icon {
+    background-image: url(http://cdn.66173.cn/niuguo/img/icon_cols_user_center.png);
+    background-repeat: no-repeat;
+    background-size: 200px 249px;
+}
+.user-side-memu {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 130px;
+    border: 1px solid #d1d1d1;
+    font-size: 0;
+}
+.user-side-memu .top {
+    background-color: #eaedf4;
+    text-align: center;
+    padding: 5px 0;
+}
+.user-side-memu .top .name {
+    display: inline-block;
+    width: 90%;
+}
+.user-side-memu .user-icon {
+    display: inline-block;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    border: 5px solid white;
+}
+.user-side-memu .menu-li {
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    background-color: white;
+    border-bottom: 1px solid #f2f2f2;
+}
+.user-side-memu .menu-li:last-child {
+    border-bottom: none;
+}
+.user-side-memu .menu-li .common-account-icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 8px 0 8px;
+    width: 25px;
+}
+.user-side-memu .menu-li .text {
+    display: inline-block;
+    vertical-align: middle;
+}
+.user-side-memu .user .common-account-icon {
+    background-position: -50px -33px;
+    height: 23px;
+}
+.user-side-memu .realname-verify .common-account-icon {
+    background-position: -50px -113px;
+    height: 23px;
+}
+.user-side-memu .phone-bind .common-account-icon {
+    background-position: -50px -146px;
+    height: 36px;
+}
+.user-side-memu .feedback .common-account-icon {
+    background-position: -50px -193px;
+    height: 25px;
+}
+.user-center-page .user-side-memu .user .common-account-icon, .user-side-memu .user:hover .common-account-icon {
+    background-position: -89px -33px;
+}
+.realname-verify-page .user-side-memu .realname-verify .common-account-icon, .user-side-memu .realname-verify:hover .common-account-icon {
+    background-position: -89px -113px;
+}
+.phone-bind-page .user-side-memu .phone-bind .common-account-icon, .user-side-memu .phone-bind:hover .common-account-icon {
+    background-position: -88px -146px;
+}
+.user-side-memu .feedback:hover .common-account-icon {
+    background-position: -89px -193px;
+}
+.user-center-page .user-side-memu .user .text,
+.realname-verify-page .user-side-memu .realname-verify .text,
+.phone-bind-page .user-side-memu .phone-bind .text,
+.user-side-memu .menu-li:hover .text {
+    color: #fc583d
+}
+/*公用样式*/
+.captcha-tip {
+    display: inline-block;
+    vertical-align: middle;
+    min-width: 90px;
+    height: 32px;
+    line-height: 32px;
+    padding: 0 5px;
+    background-color: #f5f5f5;
+    border: 1px solid #d1d1d1;
+    text-align: center;
+    cursor: pointer;
+}
+.account-submit {
+    color: white;
+    display: block;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    background-color: #ec3f56;
+    box-shadow: 0 4px 5px rgba(236,63,86,0.5);
+}
+.account-submit:active {
+    box-shadow: none;
+}
+.account-form .common-input {
+    width: 100%;
+    padding-left: 50px;
+}
+.account-form .input-wrapper {
+    position: relative;
+}
+.account-form .input-wrapper img:first-child {
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    top: 8px;
+    left: 14px;
+}
+.account-form .captcha-wrapper img:first-child, .account-form .telcaptcha-wrapper img:first-child {
+    height: 18px;
+    top: 10px;
+}
+.account-form .captcha-wrapper .common-input, .account-form .telcaptcha-wrapper .common-input{
+    width: 60%;
+    margin-right: 2%;
+}
+.account-form .captcha-wrapper .captcha-code-img {
+    width: 35%;
+    height: 32px;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+}
+/*表单按钮*/
+.common-account-step-btn-zone {
+    margin-top: 10px;
+}
+.common-account-step-btn-zone .step-btn {
+    width: 40%;
+    height: 40px;
+    line-height: 40px;
+    color: white;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    text-align: center;
+}
+.common-account-step-btn-zone .next-step-btn {
+    background-color: #fc583d;
+}
+.login-box .common-box-top, .register-box .common-box-top {
+    border-top: 3px solid #bd4c39;
+}
+/*登录*/
+.login-page .top-banner {
+    position: relative;
+    margin-top: 0px;
+}
+.login-page .main-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+
+}
+.login-box {
+    position: absolute;
+    width: 360px;
+    height: 330px;
+    top: 50%;;
+    right: 10%;
+    margin-top: -170px;
+    background-color: white;
+    border: 1px solid #d1d1d1;
+    border-top: 0;
+}
+.login-box .top .link-register {
+    display: inline-block;
+    vertical-align: middle;
+    height: 44px;
+    line-height: 44px;
+    padding: 0 30px;
+}
+.login-box .top .link-register {
+    color: #fcbda6;
+    text-decoration: underline;
+}
+.login-form {
+    padding: 10px 20px;
+}
+.login-form .link-password-forget {
+    color: #a8d4f1;
+    margin: 15px 0 10px;
+}
+
+/*注册*/
+.container.register-box {
+    background-color: white;
+    border: 1px solid #d1d1d1;
+}
+.register-main {
+    padding: 25px 0;
+}
+.register-main .left-box {
+    width: 50%;
+    border-right: 1px solid #d1d1d1;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 150px 0 100px;
+}
+.register-main .right-box {
+    width: 49%;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+}
+.register-main .link-login {
+    color: #79c4df;
+    text-decoration: underline;
+    display: inline-block;
+    margin-top: 20px;
+}
+.register-main .registered-already {
+    font-size: 26px;
+}
+.register-form {
+    padding-left: 50px;
+    width: 300px;
+}
+.register-form .protocol-line {
+    margin-bottom: 10px;
+}
+.register-form input[name=agree] {
+    margin-right: 10px;
+    cursor: pointer;
+}
+.register-form .red {
+    color: #ff6600;
+    cursor: pointer;
+}
+.register-page .agreement-pop .mask-inner-wrapper {
+    width: 60%;
+    min-width: 320px;
+}
+.register-page .agreement-pop {
+    position: absolute;
+    width: 100%;
+    margin: auto;
+    top: 15%;
+    height: 70%;
+    min-height: 300px;
+    background-color: white;
+    border: 1px solid #d1d1d1;
+    overflow: auto;
+}
+.register-page .agreement-pop .top {
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    position: relative;
+    border-bottom: 1px solid #d1d1d1;
+}
+.register-page .agreement-pop .top .title {
+    width: 95%;
+}
+.register-page .agreement-pop .top .close {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    position: absolute;
+    right:5px;
+    top: 0;
+    display: inline-block;
+    font-size: 26px;
+}
+.register-page .agreement-pop .content-box {
+    padding: 10px;
+    font-size: 14px;
+}
+.register-page .agreement-pop .content-box h2 {
+    font-size: 18px;
+}
+/*忘记密码*/
+.password-forget-box {
+    border: 1px solid #d1d1d1;
+}
+.password-forget-main {
+    padding: 15px 25px;
+}
+.step-wrapper {
+    width: 800px;
+    font-size: 0;
+    margin: auto;
+}
+.step-wrapper .step {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    width: 33.3%;
+    height: 30px;
+    line-height: 30px;
+    background-color: #dedede;
+    color: white;
+}
+.step-wrapper .end-icon {
+    position: absolute;
+    display: inline-block;
+    right: 0;
+    /*top: 0;*/
+    /*bottom: 0;*/
+    height: 100%;
+    width: 15px;
+    background-image: url(http://cdn.66173.cn/niuguo/img/step_slice1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.step-wrapper.cur1 .step1 .end-icon, .step-wrapper.cur2 .step2 .end-icon{
+    background-image: url(http://cdn.66173.cn/niuguo/img/step_slice2.jpg);
+}
+.step-wrapper.cur2 .step1 .end-icon {
+    background-image: url(http://cdn.66173.cn/niuguo/img/step_slice3.jpg);
+}
+.step-wrapper.cur1 .step1, .step-wrapper.cur2 .step1, .step-wrapper.cur2 .step2 {
+    background-color: #54bd9e;
+}
+.password-forget-form {
+    min-height: 300px;
+    width: 600px;
+    margin: auto;
+}
+.password-forget-form .telephone-wrapper .common-input {
+    width: 60%;
+    margin-right: 5px;
+}
+.password-forget-form .telcaptcha-wrapper .common-input {
+    width: 30%;
+}
+.password-forget-form .msg-label {
+    padding-left: 135px;
+}
+.password-forget-form .step1 {
+    padding-top: 50px;
+}
+.password-forget-form .link-login {
+    background-color: #549cbd;
+    margin-left: 10%;
+}
+.password-forget-form .step2 {
+    display: none;
+}
+.password-forget-form .step2 .top-tip {
+    padding: 20px 0;
+    font-size: 24px;
+}
+.password-forget-form .step2 .common-input {
+    width: 60%;
+}
+.password-forget-form .step2-btn {
+    margin-left: 25%;
+}
+/*实名认证*/
+.realname-verify-form {
+    width: 600px;
+    min-height: 400px;
+    margin: auto;
+    font-size: 0;
+}
+.realname-verify-form .top-tip1 {
+    padding: 25px 0 10px;
+    font-size: 20px;
+}
+.realname-verify-form .top-tip2 {
+    display: inline-block;
+    padding: 5px 25px;
+    background-color: #f5fcfb;
+    color: #9ccac3;
+    margin-bottom: 30px;
+    margin-left: 50px;
+}
+.realname-verify-form .input-wrapper .common-input {
+    width: 60%;
+    margin-right: 5px;
+}
+.realname-verify-form .step1-btn {
+    margin-left: 105px;
+}
+.realname-verify-form .msg-label {
+    padding-left: 135px;
+}
+.realname-verify-already {
+    width: 300px;
+    margin: auto;
+}
+.realname-verify-already .img-zone {
+    text-align: center;
+    padding: 50px 0 30px;
+}
+.realname-verify-already .verify-already-img {
+    width: 60px;
+}
+.realname-verify-already .tip-zone {
+    text-align: center;
+}
+.realname-verify-already .pass-tip {
+    display: inline-block;
+    padding: 5px 25px;
+    background-color: #f5fcfb;
+    color: #9ccac3;
+    margin: 20px 0 30px;
+}
+/*手机绑定*/
+.phone-bind-form {
+    min-height: 400px;
+}
+.phone-bind-not .top-tip1 {
+    padding: 150px 20px 0;
+    font-size: 20px;
+    text-align: center;
+}
+.phone-bind-already {
+    width: 240px;
+    margin: auto;
+}
+.phone-bind-already .img-zone {
+    text-align: center;
+    padding: 50px 0 30px;
+}
+.phone-bind-already .phone-bind-img {
+    width: 70px;
+}
+/*个人资料*/
+.user-center-form {
+    width: 800px;
+    margin: auto;
+}
+.user-center-btn-zone {
+    text-align: center;
+    padding: 20px 0 20px;
+}
+.user-center-btn-zone .operation-btn {
+    display: inline-block;
+    width: 200px;
+    height:40px;
+    line-height: 40px;
+    border: 1px solid #d1d1d1;
+    text-align: center;
+    cursor: pointer;
+}
+.user-center-btn-zone .operation-btn:hover {
+    transform: scale(1.01);
+}
+.user-center-btn-zone .operation-btn:active {
+    transform: scale(1);
+}
+.user-center-btn-zone .save-btn{
+    background-color: #0bb7a0;
+    color: white;
+}
+.user-center-btn-zone .save-btn-wrapper {
+    display: none;
+}
+.user-center-form-main {
+    min-height: 300px;
+    font-size: 0;
+    color: #999;
+    background-color: #f3f3f3;
+    padding: 30px 40px;
+    margin-top: 30px;
+}
+.user-center-form-main .msg-label {
+    display: inline-block;
+    vertical-align: middle;
+    height: 38px;
+    line-height: 38px;
+    padding-left: 10px;
+}
+.user-center-form-main .toggle {
+    display: inline-block;
+    height: 38px;
+}
+.user-center-form-main .current-block  {
+    /*display: none;*/
+}
+.user-center-form-main .edit-block {
+    display: none;
+}
+.user-center-form-main .modify-zone {
+    display: inline-block;
+    vertical-align: middle;
+}
+.user-center-form-main .nickname-wrapper .common-input {
+    height: 34px;
+    padding: 5px 10px;
+}
+.user-center-form-main .birthday-modify select {
+    width: 90px;
+    height: 25px;
+    margin-right: 10px;
+    border: 1px solid #d1d1d1;
+    outline: none;
+}
+.user-center-form-main  .sex-modify .text {
+    margin-right: 10px;
+}
+.user-center-form-main .address-wrapper textarea {
+    vertical-align: top;
+    width: 300px;
+    height: 50px;
+    border: 1px solid #d1d1d1;
+    padding: 5px;
+}

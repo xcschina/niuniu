@@ -1,0 +1,307 @@
+html{
+    background-color: #f8f8f8;
+}
+/*横屏*/
+@media (orientation: landscape) {
+    div.nav_list {
+        width: 100%;
+        height: 0.7rem;
+        margin-top: 0.22rem;
+        border-bottom: 1px solid #e3e3e3;
+    }
+
+    div.nav_list ul {
+        width: 100%;
+        list-style: none;
+        height: 0.7rem;
+        padding: 0;
+        margin: 0;
+
+    }
+
+    div.nav_list ul li {
+        float: left;
+    }
+
+    div.nav_list li.label {
+        width: 25%;
+        margin-top: 0.1rem;
+        font-size: 0.2rem;
+        text-align: center;
+        color: #878484;
+
+    }
+
+    div.nav_list li.select {
+        width: 25%;
+    }
+
+    li.select div {
+        background-color: #ffffff;
+        width: 100%;
+    }
+
+    li.start_time {
+        width: 22%;
+    }
+
+    li.end_time {
+        width: 22%;
+    }
+
+    li.hg {
+        margin-top: 0.15rem;
+        text-align: center;
+        width: 8%;
+        font-size: 14px;
+        color: #cccccc;
+    }
+
+    div.wrap_list {
+
+        background-color: #ffffff;
+        padding: 0 0.18rem;
+    }
+
+    div.main_list {
+        padding-top: 0.14rem;
+        border-bottom: 1px solid #e3e3e3;
+    }
+
+    div.main_list table {
+        width: 100%;
+        margin-bottom: 0.14rem;
+    }
+
+    td.right {
+        float: right;
+    }
+
+    td.left {
+        float: left;
+    }
+
+    .gray {
+        font-size: 0.18rem;
+        color: #909090;
+    }
+
+    .bottom {
+        font-size: 0.2rem;
+        margin-top: 10px;
+    }
+
+    div.time {
+        overflow: hidden;
+
+        text-align: center;
+        padding-bottom: 20px;
+        height: 40px;
+    }
+
+    div.nav_list input {
+        height: 0.56rem;
+        background: #fefefd;
+        -webkit-border-radius: 5px;
+        border: 1px solid #cecece;
+        width: 100%;
+        float: left;
+    }
+
+    div.select {
+        margin-left: 2%;
+        height: 0.42rem;
+        border: 1px solid #cecece;
+        -webkit-border-radius: 5px;
+    }
+
+    div.select select {
+        padding-left: 0.2rem;
+        width: 100%;
+        height: 100%;
+        float: left;
+        font-size: 0.18rem;
+        border-right: 1px solid #cecece !important;
+        border: 0px;
+        background: #fff;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background: url('./help/plus_up.png') no-repeat 95% 50%;
+    }
+
+    .green {
+        color: #4fb05f;
+        margin-right: 8px;
+    }
+
+    .red {
+        color: #cf2437;
+        margin-right: 8px;
+    }
+
+    .yellow {
+        color: #ff9922;
+        margin-right: 8px;
+    }
+
+    .light_gray {
+        color: #c9c9c9
+    }
+}
+/*竖屏*/
+@media all and (orientation : portrait) {
+    div.nav_list {
+        width: 100%;
+        height: 0.9rem;
+        margin-top: 0.22rem;
+        border-bottom: 1px solid #e3e3e3;
+    }
+
+    div.nav_list ul {
+        width: 100%;
+        list-style: none;
+        height: 0.9rem;
+        padding: 0;
+        margin: 0;
+
+    }
+
+    div.nav_list ul li {
+        float: left;
+    }
+
+    div.nav_list li.label {
+        width: 32%;
+        margin-top: 0.14rem;
+        font-size: 0.3rem;
+        text-align: center;
+        color: #878484;
+
+    }
+
+    div.nav_list li.select {
+        width: 50%;
+        margin-right: 0.48rem;
+    }
+
+    li.select div {
+        background-color: #ffffff;
+        width: 100%;
+    }
+
+    li.start_time {
+        width: 22%;
+    }
+
+    li.end_time {
+        width: 22%;
+    }
+
+    li.hg {
+        margin-top: 0.15rem;
+        text-align: center;
+        width: 8%;
+        font-size: 14px;
+        color: #cccccc;
+    }
+
+    div.wrap_list {
+
+        background-color: #ffffff;
+        padding: 0 0.18rem;
+    }
+
+    div.main_list {
+        padding-top: 0.14rem;
+        border-bottom: 1px solid #e3e3e3;
+    }
+
+    div.main_list table {
+        width: 100%;
+        margin-bottom: 0.14rem;
+    }
+
+    td.right {
+        float: right;
+    }
+
+    td.left {
+        word-wrap:break-word;
+        word-break:break-all;
+        width:4rem;
+        float: left;
+
+    }
+
+    .gray {
+        font-size: 0.22rem;
+        color: #909090;
+    }
+
+    .bottom {
+        font-size: 0.28rem;
+        margin-top: 10px;
+    }
+
+    div.time {
+        overflow: hidden;
+
+        text-align: center;
+        padding-bottom: 20px;
+        height: 40px;
+    }
+
+    div.nav_list input {
+        height: 0.56rem;
+        background: #fefefd;
+        -webkit-border-radius: 5px;
+        border: 1px solid #cecece;
+        width: 100%;
+        float: left;
+    }
+
+    div.select {
+        margin-left: 2%;
+        height: 0.59rem;
+        border: 1px solid #cecece;
+        -webkit-border-radius: 5px;
+    }
+
+    div.select select {
+        padding-left: 0.2rem;
+        width: 100%;
+        height: 100%;
+        float: left;
+
+        border-right: 1px solid #cecece !important;
+        border: 0px;
+        background: #fff;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background: url('./help/plus_up.png') no-repeat 95% 50%;
+    }
+
+    .green {
+        color: #4fb05f;
+        margin-right: 8px;
+    }
+
+    .red {
+        color: #cf2437;
+        margin-right: 8px;
+    }
+
+    .yellow {
+        color: #ff9922;
+        margin-right: 8px;
+    }
+
+    .light_gray {
+        color: #c9c9c9
+    }
+
+}
+
+

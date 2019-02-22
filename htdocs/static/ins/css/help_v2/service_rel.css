@@ -1,0 +1,848 @@
+/*横屏*/
+@media all and (orientation: landscape) {
+    .service-rel .main-width {
+        width: 90%;
+    }
+
+    .service-rel .list-outer-wrapper {
+        width: 90%;
+        margin: auto;
+    }
+
+    /*客服公共卡片*/
+    .service-rel .card-wrapper {
+        border: 1px solid #d1d1d1;
+        background-color: white;
+        margin-bottom: 0.2rem;
+    }
+
+    .service-rel .card-title {
+        background-color: #e6e6e6;
+        padding-left: 0.3rem;
+        line-height: 0.6rem;
+        color: #000;
+    }
+
+    .service-rel .card-title .link-get-more {
+        float: right;
+        margin-right: 0.2rem;
+    }
+
+    /*客服公共记录*/
+    .service-record-wrapper .has-list {
+        padding: 0 0.1rem;
+    }
+
+    .service-record-wrapper .service-list {
+        min-height: 2rem;
+    }
+
+    .service-record-wrapper .li {
+        font-size: 0;
+        display: block;
+        padding: 0.1rem 0.15rem;
+        border-bottom: 1px solid #d1d1d1;
+        /*-webkit-tap-highlight-color:rgba(255,255,255,0);*/
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0.05);
+    }
+
+    .service-record-wrapper .unread .left * {
+        color: red !important;
+    }
+
+    .service-record-wrapper .left, .service-record-wrapper .right, .service-record-wrapper .Q, .service-record-wrapper .question {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .service-record-wrapper .left {
+        width: 85%;
+    }
+
+    .service-record-wrapper .right {
+        width: 13%;
+        min-width: 40px;
+        text-align: right;
+    }
+
+    .service-record-wrapper .Q {
+        padding: 0 0.08rem;
+        line-height: 1.2;
+        background-color: #1296db;
+        margin-right: 0.1rem;
+        color: white;
+        font-weight: 300;
+        border-radius: 3px;
+
+    }
+
+    .service-record-wrapper .icon_question {
+        width: 0.3rem;
+        vertical-align: middle;
+        margin-right: 0.1rem;
+    }
+
+    .service-record-wrapper .question {
+        max-width: 88%;
+    }
+
+    .service-record-wrapper .base-desc {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .service-record-wrapper .line2 {
+        margin-top: 0.1rem;
+        color: #999;
+    }
+
+    .service-record-wrapper .base-desc1 {
+        /*width: 3rem;*/
+        margin-right: 0.2rem;
+    }
+
+    .service-record-wrapper .base-desc2 {
+        width: 1.5rem;
+    }
+
+    .service-record-wrapper .base-desc3 {
+        max-width: 3rem;
+    }
+
+    .service-record-wrapper .status.going {
+        color: #43b963;
+    }
+
+    .service-record-wrapper .status.no {
+        color: #b0b0b0;
+    }
+
+    .service-record-wrapper .status.close {
+        color: orange;
+    }
+
+    /*客服公共常见问题*/
+    .common-list-wrapper {
+        padding: 0 0.1rem;
+    }
+
+    .common-list-wrapper .li {
+        font-size: 0;
+        display: block;
+        padding: 0.15rem 0.15rem;
+        border-bottom: 1px solid #d1d1d1;
+        /*-webkit-tap-highlight-color:rgba(255,255,255,0);*/
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0.05);
+    }
+
+    /*客服公共底部*/
+    .service-rel .bottom {
+        color: #ccc;
+        font-weight: 300;
+        text-align: center;
+        border-bottom: 1px solid #f8f8f8;
+        padding: 0.3rem 0 0.2rem;
+
+    }
+
+    .service-rel .bottom .left, .service-rel .bottom .center, .service-rel .bottom .right {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .service-rel .bottom .left, .service-rel .bottom .right {
+        width: 0.7rem;
+        border-top: 1px solid #ccc;
+        height: 0;
+    }
+
+    /*客服中心页*/
+    .service-center .main-wrapper {
+        margin-top: 0.4rem;
+    }
+
+    .service-center .top-btn-zone {
+        margin-bottom: 0.4rem;
+    }
+
+    .service-center .top-btn-zone a {
+        display: inline-block;
+        width: 35%;
+    }
+
+    .service-center .top-btn-zone a:last-child {
+        margin-left: 30%;
+    }
+
+    .service-center .top-btn {
+        width: 100%;
+        text-align: center;
+        color: white;
+        line-height: 2.5;
+        border-radius: 3px;
+        display: inline-block;
+    }
+
+    .service-center .work-order-btn {
+        background-color: #2eb3f0;
+    }
+
+    .service-center .account-find-btn {
+        background-color: #f98943;
+    }
+
+    .service-center .service-record-wrapper .li:last-child {
+        border: none;
+    }
+
+    .service-center .common-list-wrapper .li:last-child {
+        border: none;
+    }
+
+    /*无客服记录*/
+    .service-center .no-list {
+        padding-top: 0.3rem;
+        text-align: center;
+    }
+
+    .service-center .no-list-img {
+        width: 25%;
+        margin: auto;
+    }
+
+    .service-center .no-list .text {
+        line-height: 3;
+        color: #ccc;
+        font-weight: 300;
+    }
+
+    .service-center a:hover {
+        color: #333;
+    }
+
+    /*更多常见问题页*/
+    .common-list-wrapper .li {
+        padding: 0.2rem 0.2rem;
+    }
+
+    /*常见问题详情页*/
+    .service-common-detail .detail-title {
+        text-align: center;
+        width: 90%;
+        padding: 0.3rem 0.3rem;
+    }
+
+    .service-common-detail .detail-text {
+        padding: 0.15rem 0.1rem;
+        color: #666666;
+    }
+
+    .service-common-detail .detail-text img {
+        display: block;
+        max-width: 90%;
+        margin: 0 auto;
+        padding: 0.1rem 0;
+    }
+
+    /*客服详情页*/
+    .service-detail .detail-wrapper {
+        width: 76%;
+        margin: auto;
+        margin-top: 0.28rem;
+    }
+
+    .service-detail .detail-head {
+        padding: 0.1rem 0;
+        font-size: 0;
+    }
+
+    .service-detail .detail-head .line2 {
+        border-top: 1px solid #d1d1d1;
+        padding: 0.1rem 0;
+        margin: 0.1rem 0 0.3rem;
+    }
+
+    .service-detail .detail-head .base-desc {
+        padding-right: 0.2rem;
+    }
+
+    .service-detail .detail-head .left .icon_question {
+        width: 0.3rem;
+        vertical-align: middle;
+        margin-right: 0.1rem;
+    }
+
+    .service-detail .detail-head .left .Q {
+        display: inline-block;
+        padding: 0 0.08rem;
+        line-height: 1.2;
+        background-color: #1296db;
+        margin-right: 0.1rem;
+        margin-top: 0.05rem;
+        color: white;
+        font-weight: 300;
+        border-radius: 3px;
+    }
+
+    .service-detail .detail-head .left {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .service-detail .detail-head .right {
+        display: inline-block;
+        width: 90%;
+        vertical-align: top;
+    }
+
+    .server-card .card-title {
+        background-color: #999;
+        color: white;
+    }
+
+    .service-detail .interaction-zone .time {
+        text-align: right;
+        margin: 0.2rem 0.21rem;
+    }
+
+    .service-detail .interaction-zone .text {
+        color: #333333;
+        margin: 0.18rem 0.41rem;
+        line-height: 1.8;
+    }
+
+    .service-detail .no-response {
+        padding-top: 0.3rem;
+        text-align: center;
+    }
+
+    .service-detail .no-response-img {
+        width: 20%;
+    }
+
+    .service-detail .no-response .text {
+        font-weight: 300;
+        color: #ccc;
+        line-height: 3;
+    }
+
+    .service-detail .reply-zone .head {
+        margin: 0.2rem 0 0.1rem;
+
+    }
+
+    .service-detail .reply-container {
+        width: 100%;
+        height: 2rem;
+        padding: 0.2rem;
+        background-color: #eaeaea;
+        color: #666;
+        border: 1px solid #d1d1d1;
+        border-radius: 3px;
+        font-size: 0.2rem;
+        -webkit-appearance: none;
+    }
+
+    .service-detail .reply-zone .submit-btn {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .service-detail .reply-zone .submit-close {
+        background-color: #aaa;
+    }
+
+    /*找回账号页*/
+    .service-account-find .main-width {
+        padding-top: 0.3rem;
+        width: 90%;
+    }
+
+    .service-account-find .top-tip-zone {
+        margin-bottom: 0.2rem;
+        text-align: center;
+    }
+
+    .service-account-find .line .left {
+        width: 30%;
+    }
+
+    .service-account-find .submit-btn {
+        margin-left: 5%;
+    }
+
+    .find-miss-border {
+        border: 1px solid #f05050 !important;
+    }
+
+    /*客服工单页*/
+    .service-work-order .main-width {
+        padding-top: 0.39rem;
+    }
+    .service-work-order .select-line .right {
+        position: relative;
+    }
+    .service-work-order .select-line select {
+        width: 100%;
+        height: 0.5rem;
+        border: 1px solid #d1d1d1;
+        -webkit-appearance: none;
+        border-radius: 4px;
+        padding-left: 0.2rem;
+        color: #666;
+        background: url(http://cdn.66173.cn/ins/img/web_h/arrow_down_with_white_back.png) right center no-repeat;
+        background-size: 0.55rem 0.5rem;
+        background-color: #eaeaea;
+    }
+
+    .service-work-order .select-line select:focus {
+        outline: none;
+    }
+
+    .service-work-order .select2-container {
+        width: 100%;
+    }
+
+    .service-work-order .select2-drop-active {
+        border: 1px solid #d1d1d1;
+    }
+
+    .service-work-order .select2-container .select2-choice .select2-arrow {
+        background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #fff), color-stop(0.6, #fff));
+        background-image: linear-gradient(to top, #fff 0%, #fff 60%);
+        width: 0.5rem;
+        margin: 0 auto;
+        height: 0.5rem;
+        line-height: 0.5rem;
+    }
+
+    .service-work-order .select2-search input, .select2-search-choice-close, .select2-container .select2-choice abbr, .select2-container .select2-choice .select2-arrow b {
+        /*background-size:  1.7rem 0.75rem !important;*/
+        background-size: 0.3rem 0.2rem !important;
+        /* width: 103%; */
+        background-position: 0.1rem 0.12rem;
+        background-image: url(http://cdn.66173.cn/ins/img/web_h/push.png) !important;
+    }
+
+    .service-work-order .select2-dropdown-open .select2-choice .select2-arrow b {
+        /*background-position: -0.5rem 0rem;*/
+        background-size: 0.3rem 0.2rem !important;
+        background-position: 0.1rem 0.16rem;
+        background-image: url(http://cdn.66173.cn/ins/img/web_h/down.png) !important;
+    }
+
+    .service-work-order .select2-search input {
+        /*background-position: 100% -0.42rem !important;*/
+        /*height:0.3rem !important;*/
+        /*line-height: 0.3rem;*/
+        background-image: none !important;
+    }
+
+    .service-work-order .select2-container .select2-choice > .select2-chosen {
+        line-height: 0.5rem;
+    }
+
+    .service-work-order .select2-container .select2-choice {
+        background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #eaeaea), color-stop(0.5, #eaeaea));
+        background-image: linear-gradient(to top, #eaeaea 0%, #eaeaea 50%);
+        border: 1px solid #d1d1d1;
+        height: 0.5rem;
+    }
+
+    .service-work-order .desc-line .right {
+        height: auto;
+        vertical-align: top;
+    }
+
+    .service-work-order .desc-line textarea {
+        min-height: 1.5rem;
+        border: 1px solid #d1d1d1;
+        border-radius: 4px;
+        color: #666;
+        width: 100%;
+        padding: 0.2rem;
+        background-color: #eaeaea;
+    }
+
+    .service-work-order .service-footer {
+        margin: 0.1rem 0 0.1rem 0;
+        text-align: center;
+    }
+}
+/*竖屏*/
+@media all and (orientation: portrait) {
+    .service-record-list .main-wrapper, .service-common-list .main-wrapper {
+        margin-top: 0;
+    }
+    /*客服公共卡片*/
+    .service-rel .card-wrapper {
+        border: 1px solid #d1d1d1;
+        background-color: white;
+        margin-bottom: 0.2rem;
+    }
+    .service-rel .card-title {
+        background-color: #e6e6e6;
+        padding-left: 0.3rem;
+        line-height: 1rem;
+        color: #000;
+    }
+    .service-rel .card-title .link-get-more {
+        float: right;
+        margin-right: 0.2rem;
+    }
+    /*客服公共记录*/
+    .service-center .has-list {
+        padding: 0 0.1rem;
+    }
+    .service-center .service-list {
+        min-height: 2rem;
+    }
+    .service-record-wrapper .li {
+        font-size: 0;
+        display: block;
+        padding: 0.2rem 0.15rem;
+        border-bottom: 1px solid #d1d1d1;
+        /*-webkit-tap-highlight-color:rgba(255,255,255,0);*/
+        -webkit-tap-highlight-color:rgba(0,0,0,0.05);
+    }
+    .service-record-wrapper .unread .left *{
+        color: red !important;
+    }
+    .service-record-wrapper .left, .service-record-wrapper .right, .service-record-wrapper .Q, .service-record-wrapper .question {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .service-record-wrapper .left {
+        width: 85%;
+    }
+    .service-record-wrapper .right {
+        width: 13%;
+        min-width: 40px;
+        text-align: right;
+    }
+    .service-record-wrapper .Q {
+        padding: 0 0.08rem;
+        line-height: 1.2;
+        background-color: #1296db;
+        margin-right: 0.1rem;
+        color: white;
+        font-weight: 300;
+        border-radius: 3px;
+
+    }
+    .service-record-wrapper .icon_question{
+        width: 0.6rem;
+        vertical-align: middle;
+        margin-right: 0.1rem;
+    }
+    .service-record-wrapper .question {
+        max-width: 88%;
+    }
+    .service-record-wrapper .base-desc {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .service-record-wrapper .line2, .service-record-wrapper .line3 {
+        margin-top: 0.1rem;
+        color: #999;
+    }
+    .service-record-wrapper .base-desc1 {
+        display: block;
+    }
+    .service-record-wrapper .base-desc2 {
+        min-width: 2rem;
+        max-width: 100%;
+        margin-right: 5px;
+    }
+    .service-record-wrapper .base-desc3 {
+        max-width: 4rem;
+    }
+    .service-record-wrapper .status.going {
+        color: #43b963;
+    }
+    .service-record-wrapper .status.no {
+        color: #b0b0b0;
+    }
+    .service-record-wrapper .status.close {
+        color: orange;
+    }
+    /*客服公共常见问题*/
+    .common-list-wrapper {
+        padding: 0 0.1rem;
+    }
+    .common-list-wrapper .li {
+        font-size: 0;
+        display: block;
+        padding: 0.3rem 0.15rem;
+        border-bottom: 1px solid #d1d1d1;
+        /*-webkit-tap-highlight-color:rgba(255,255,255,0);*/
+        -webkit-tap-highlight-color:rgba(0,0,0,0.05);
+    }
+
+    /*客服公共底部*/
+    .service-rel .bottom {
+        color: #ccc;
+        font-weight: 300;
+        text-align: center;
+        border-bottom: 1px solid #f8f8f8;
+        padding: 0.3rem 0 0.2rem;
+    }
+    .service-rel .bottom .left, .service-rel .bottom .center, .service-rel .bottom .right {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .service-rel .bottom .left, .service-rel .bottom .right {
+        width: 0.7rem;
+        border-top: 1px solid #ccc;
+        height: 0;
+    }
+    /*客服中心页*/
+    .service-center .main-wrapper {
+        margin-top: 0.4rem;
+    }
+    .service-center .top-btn-zone {
+        margin: 0.8rem auto;
+        text-align: center;
+    }
+    .service-center .btn-line1 {
+        margin-bottom: 0.4rem;
+    }
+    .service-center .top-btn-zone a{
+        display: inline-block;
+        width: 35%;
+    }
+    .service-center .top-btn-zone a:last-child {
+        margin-left: 10%;
+    }
+    .service-center .top-btn {
+        width: 100%;
+        text-align: center;
+        color: white;
+        line-height: 2.8;
+        border-radius: 3px;
+        display: inline-block;
+    }
+    .service-center .work-order-btn {
+        background-color: #2eb3f0;
+    }
+    .service-center .account-find-btn {
+        background-color: #f98943;
+    }
+    .service-center .service-record-wrapper .li:last-child {
+        border: none;
+    }
+    .service-center .common-list-wrapper .li:last-child {
+        border: none;
+    }
+    /*无客服记录*/
+    .service-center .no-list {
+        padding-top: 0.3rem;
+        text-align: center;
+    }
+    .service-center .no-list-img {
+        width: 25%;
+        margin: auto;
+    }
+    .service-center .no-list .text{
+        line-height: 3;
+        color: #ccc;
+        font-weight: 300;
+    }
+    .service-center a:hover{
+        color:#333;
+    }
+    /*更多常见问题页*/
+    .service-common-list .common-list-wrapper .li {
+        padding: 0.3rem 0.2rem;
+    }
+    /*常见问题详情页*/
+    .service-common-detail .detail-title {
+        text-align: center;
+        width: 90%;
+        padding: 0.3rem 0.3rem;
+    }
+    .service-common-detail .detail-text{
+        padding:0.15rem 0.1rem;
+        color: #666666;
+    }
+    .service-common-detail .detail-text img{
+        display: block;
+        max-width:90%;
+        margin:0 auto;
+        padding:0.1rem 0;
+    }
+    /*客服详情页*/
+    .service-detail .detail-head{
+        padding: 0.2rem 0;
+        font-size: 0;
+    }
+    .service-detail .detail-head .line2 {
+        border-top: 1px solid #d1d1d1;
+        padding: 0.2rem 0;
+        margin: 0.1rem 0 0.3rem;
+    }
+    .service-detail .detail-head .base-desc {
+        padding-right: 0.2rem;
+    }
+    .service-detail .detail-head .left .icon_question{
+        width: 0.6rem;
+        vertical-align: middle;
+        margin-right: 0.2rem;
+    }
+    .service-detail .detail-head .left .Q{
+        display: inline-block;
+        padding: 0 0.08rem;
+        line-height: 1.2;
+        background-color: #1296db;
+        margin-right: 0.1rem;
+        margin-top: 0.05rem;
+        color: white;
+        font-weight: 300;
+        border-radius: 3px;
+    }
+    .service-detail .detail-head .left{
+        display: inline-block;
+        vertical-align: top;
+    }
+    .service-detail .detail-head .right{
+        display: inline-block;
+        width: 85%;
+        vertical-align: top;
+    }
+    .server-card .card-title {
+        background-color: #999;
+        color: white;
+    }
+    .service-detail .interaction-zone .time{
+        text-align: right;
+        margin: 0.1rem 0.1rem 0.2rem;
+    }
+    .service-detail .interaction-zone .text{
+        color:#333333;
+        margin: 0.1rem 0.3rem;
+        line-height: 1.8;
+    }
+    .service-detail .no-response{
+        padding-top:0.3rem;
+        text-align: center;
+    }
+    .service-detail .no-response-img{
+        width:20%;
+    }
+    .service-detail .no-response .text{
+        font-weight: 300;
+        color: #ccc;
+        line-height: 3;
+    }
+    .service-detail .reply-zone .head {
+        margin: 0.4rem 0 0.2rem;
+
+    }
+    .service-detail .reply-container {
+        width: 100%;
+        height: 2rem;
+        padding: 0.2rem;
+        background-color: #eaeaea;
+        color: #666;
+        border: 1px solid #d1d1d1;
+        border-radius: 3px;
+        font-size: 0.35rem;
+        -webkit-appearance: none;
+    }
+    .service-detail .reply-zone .submit-btn {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .service-detail .reply-zone .submit-close{
+        background-color: #aaa;
+    }
+    /*找回账号页*/
+    .service-account-find .top-tip-zone {
+        margin-bottom: 0.2rem;
+        text-align: center;
+    }
+    .find-miss-border{
+        border:1px solid #f05050 !important;
+    }
+    .service-account-find .line .left {
+        width: 35%;
+    }
+    /*客服工单页*/
+    .service-work-order .select-line .right {
+        position: relative;
+    }
+    .service-work-order .select-line select{
+        width: 100%;
+        height: 0.8rem;
+        border: 1px solid #d1d1d1;
+        -webkit-appearance: none;
+        border-radius: 4px;
+        padding-left: 0.1rem;
+        color: #666;
+        background: url(http://cdn.66173.cn/ins/img/web_h/arrow_down_with_white_back.png) right center no-repeat;
+        background-size: 0.9rem 0.8rem;
+        background-color: #eaeaea;
+    }
+    .service-work-order .select-line select:focus {
+        outline: none;
+    }
+    .service-work-order .select2-container {
+        width: 100%;
+    }
+    .service-work-order .select2-drop-active {
+        border: 1px solid #d1d1d1;
+    }
+    .service-work-order .select2-container .select2-choice .select2-arrow{
+        background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #fff), color-stop(0.6, #fff));
+        background-image: linear-gradient(to top, #fff 0%, #fff 60%);
+        width:0.5rem;
+        margin: 0 auto;
+        height: 0.5rem;
+        line-height: 0.5rem;
+    }
+    .service-work-order .select2-search input, .select2-search-choice-close, .select2-container .select2-choice abbr, .select2-container .select2-choice .select2-arrow b{
+        /*background-size:  1.7rem 0.75rem !important;*/
+        background-size: 0.3rem 0.2rem !important;
+        /* width: 103%; */
+        background-position: 0.1rem 0.12rem;
+        background-image: url(http://cdn.66173.cn/ins/img/web_h/push.png) !important;
+    }
+    .service-work-order .select2-dropdown-open .select2-choice .select2-arrow b{
+        /*background-position: -0.5rem 0rem;*/
+        background-size: 0.3rem 0.2rem !important;
+        background-position: 0.1rem 0.16rem;
+        background-image: url(http://cdn.66173.cn/ins/img/web_h/down.png) !important;
+    }
+    .service-work-order .select2-search input{
+        /*background-position: 100% -0.42rem !important;*/
+        /*height:0.3rem !important;*/
+        /*line-height: 0.3rem;*/
+        background-image:none !important;
+    }
+    .service-work-order .select2-container .select2-choice > .select2-chosen{
+        line-height: 0.5rem;
+    }
+    .service-work-order .select2-container .select2-choice{
+        background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #eaeaea), color-stop(0.5, #eaeaea));
+        background-image: linear-gradient(to top, #eaeaea 0%, #eaeaea 50%);
+        border:1px solid #d1d1d1;
+        height:0.5rem;
+    }
+    .service-work-order .desc-line .right{
+        height: auto;
+        vertical-align: top;
+    }
+    .service-work-order .desc-line textarea{
+        min-height: 2.5rem;
+        border: 1px solid #d1d1d1;
+        border-radius: 4px;
+        color: #666;
+        width: 100%;
+        padding: 0.1rem;
+        background-color: #eaeaea;
+    }
+    .service-work-order .service-footer{
+        margin:0.1rem 0 0.1rem 0;
+        text-align: center;
+    }
+}

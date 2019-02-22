@@ -1,0 +1,105 @@
+a.back-btn{
+    background: #f60;color: #fff;font-size: 16px;
+    padding: 10px 0;
+    display: block;
+    width: 50%;
+    margin: 30px auto 100px auto;
+    text-align: center;
+}
+p.result-tip{
+    font-size: 20px;
+    margin: 40px auto;
+    text-align: center;
+    color: #333;
+    width: 80%;
+}
+/*header*/
+.login-on{ display:block; background-image:url(img/top-icon.png); background-repeat:no-repeat; background-size:25px auto; width:21px; height:20px; background-position:0 -44px; text-indent:-9999em;position:absolute; right:2%; top:10px;}
+/**/
+.sale-money{ width:100%; box-sizing:border-box; padding:0 4%; border-bottom:1px solid rgba(234,234,234,.6); height:45px; line-height:45px;font-size:.9rem; color:#000; background-color:#f9f8f9}
+.sale-money em{ color:#e4393c; font-size:1.1rem;}
+
+.sale-info-box{ height:49px; line-height:49px;position:relative;font-size: 14px;}
+.sale-info-box + .sale-info-box{ border-top:1px solid rgba(234,234,234,.6); }
+.sale-info-box label,.sale-info-box-pic label{ display:block; width:30%; box-sizing:border-box; padding-right:2%; height:49px; float:left; text-align:right; font-size:.9rem; color:#7d7d7d}
+.sale-input,.sel-sev,.txt-input{ width:60%;  text-indent:3px; outline:none; height:24px; border:none;}
+.sel-sev{ display:block; float:left; margin-top:12px; line-height:24px; background-color:#f6f6f6; border:1px solid #f6f6f6; color:#ccc}
+textarea.sale-input{
+    margin: 10px 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+textarea.sale-input:focus{
+    box-shadow: 2px 1px 3px #aaa;
+}
+.sel-type a,.sale-info-box-2 a{ display:inline-block; width:60px; height:28px; text-align:center; line-height:26px; margin:0 6px; box-sizing:border-box; background-color:#f7f7f7; border:1px solid #e5e5e5; font-size:.9rem; position:relative}
+.sel-type a.on,.sale-info-box-2 a.on{ border:1px solid #cd2a2c; background-color:#fff; color:#000}
+.sel-type a.on:after,.sale-info-box-2 a.on:after{  background-image:url(img/pay-spr.png); background-size:42px auto; content:''; display:block; width:29px; height:23px; position:absolute; right:0; bottom:0; background-position:0 -52px;}
+.sale-tit-box{ height:40px; line-height:40px; background-color:#f5f5f5; border:1px solid #e5e5e5; border-width:1px 0; position:relative}
+.sale-tit{ font-size:1.1rem; color:#343434; text-indent:10px;}
+.txt-input{ border:1px solid #d1d1d1}
+.sale-info-box-2{ border-bottom:1px solid rgba(234,234,234,.6); width:100%; box-sizing:border-box; padding:10px 2%; }
+.sale-info-box-2 label{ display:block; height:24px; line-height:24px; font-size:.9rem; color:#7d7d7d; margin-bottom:10px;}
+.sale-info-box-3{ text-align:center; font-size:.8rem;color:#aaa;margin-bottom: 10px}
+.sale-info-box-3 input{ width:20px; height:20px; display:inline-block; border:1px solid #e4393c; margin:-3px 3px 0 0; vertical-align:middle; outline:none;}
+.sale-info-box-3 input:checked { background:url(img/sale.png) no-repeat 0 0; background-size:28px auto}
+.b-btn{ display:block; width:80%; height:32px; line-height:32px; text-align:center; color:#fff; font-size:1rem; background-color:#e4393c; margin:20px auto 40px}
+
+.g-num a{ display:inline-block; box-sizing:border-box; width:14px; height:14px; border:1px solid #c2c2c2; background-color:#f6f6f6; text-align:center; line-height:10px; vertical-align:middle;}
+.g-num input{border:1px solid #c2c2c2; background-color:#f6f6f6; width:35px; height:22px; margin:0 5px; text-align:center; }
+.sale-info-box-txt em{ display:inline-block; width:30%; box-sizing:border-box; padding-right:2%; text-align:right; font-size:.9rem; box-sizing:border-box}
+.sale-info-box-t { background-color:#f5f5f5}
+.sale-info-box-t label{ color:#000}
+.sale-info-box label i{ font-style:normal; color:#cd2a2c; display:inline-block; vertical-align:middle; margin-right:2px;}
+.sale-info-box-pic{ border:1px solid rgba(234,234,234,.6); border-width:1px 0; line-height:49px; position:relative}
+.sale-info-box-pic em{ display:block; width:156px; height:20px; line-height:20px; float:left }
+
+.add-pic-box{ width:156px; float:left; padding:7px 0 5px 0}
+.add-pic-box span ,.add-pic{ display:block;width:50px; height:35px; margin:0 2px 2px 0; position:relative; float:left}
+.remove-pic{ display:block; width:17px; height:17px; background:#e4393c url(img/sale.png) no-repeat 0 -19px;background-size:28px auto; position:absolute; left:0; top:0}
+.add-pic-box img{ display:block; width:50px; height:35px;}
+.add-pic{ background-color:#dfdfdf; border:1px solid #d6d6d6; box-sizing:border-box; border-radius:2px;}
+.add-pic:before{ content:''; display:block; width:28px; height:28px;background:url(img/sale.png) no-repeat 0 -36px; background-size:28px auto; position:absolute; left:11px; top:3px}
+
+.sel-type-2{ height:68px; line-height:0px;}
+.sel-type-2 label{ height:68px; line-height:68px;}
+.sel-type-2 a{ margin-top:20px}
+#preview{
+    margin: 0px;
+    line-height:normal;
+}
+#preview .img{
+    float: left;
+    width: 90px;
+    height: auto;
+}
+#preview .item{
+    margin: 0 10px 10px 0;
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+    border: 1px solid #eee;
+    padding: 1px;
+    text-align: center;
+    display: inline-block;
+}
+section.img{
+    padding: 10px 0;
+    width: 70%;
+    float: left;
+}
+section.img a.img{
+    display: inline-block;
+    width: 92px;
+    height: 92px;
+    background: url("img/icon-18.png") no-repeat;
+    background-size: 92px;
+}
+div.error{
+    background: #ffc;
+    color: #f03;
+    text-align: center;
+    padding: 5px 0;
+    font-size: 0.9rem;
+    display: none;
+}

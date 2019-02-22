@@ -1,0 +1,113 @@
+.service-fast-link {
+    padding: 20px 0 30px;
+    white-space: nowrap;
+}
+.service-fast-link .link-block {
+    width: 40%;
+    display: inline-block;
+    font-size: 0;
+}
+.service-fast-link .img-wrapper {
+    display: inline-block;
+    max-width: 60%;
+    border-radius: 20px;
+}
+.service-fast-link .img-wrapper:active {
+    transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    -o-transform: scale(1.05);
+    transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+}
+.service-fast-link .img-wrapper img {
+    width: 100%;
+    max-width: 90px;
+    cursor: pointer;
+}
+.service-fast-link .img-wrapper a {
+    display: inline-block;
+}
+.service-fast-link .go-feedback-img-wrapper {
+    box-shadow: none;
+}
+.service-fast-link .go-feedback-img-wrapper:hover {
+    box-shadow: 0px 5px 5px rgba(243,157,115,0.5);
+}
+.service-fast-link .online-service-img-wrapper {
+    box-shadow: none;
+}
+.service-fast-link .online-service-img-wrapper:hover {
+    box-shadow: 0px 5px 5px rgba(53,152,219,0.5);
+}
+.service-fast-link .text {
+    padding-top: 20px;
+}
+.common-wrapper {
+    padding: 0 5px 10px;
+}
+.common-tab li {
+    display: inline-block;
+    padding: 0 15px;
+    height: 35px;
+    line-height: 35px;
+    border-right: 1px solid #c8c8c8;
+    box-sizing: content-box;
+    z-index: 9;
+    background-color: #fff;
+}
+.common-tab li.active {
+    border-top: 3px solid #d02626;
+}
+.tab-border-grey {
+    border-bottom: 1px solid #c8c8c8;
+    margin-top: -1px;
+    margin-bottom: 10px;
+}
+.question-list .item{
+    border-bottom: 1px solid #f4f4f4;
+    padding: 10px 30px;
+}
+.question-list .question {
+    font-weight: 600;
+}
+.question-list .shape-wrapper {
+    position: relative;
+    padding-top: 55px;
+
+}
+.question-list .shape-wrapper .answer-icon {
+    position: absolute;
+    top: 14px;
+    left: 50px;
+    width: 48px;
+    height: 52px;
+}
+.question-list .answer {
+    border: 1px solid #d6d6d6;
+    background-color: #f9f9f9;
+    border-radius: 15px;
+    padding: 15px 20px;
+    line-height: 2;
+    color: #666;
+}
+.more-zone {
+    color: #999;
+    text-align: center;
+    padding-top: 10px;
+}
+.more-zone .more {
+    cursor: pointer;
+    height: 30px;
+    line-height: 30px;
+    transition: font-size 0.5s;
+    -webkit-transition: font-size 0.5s;
+}
+.more-zone .more:hover {
+    font-size: 15px;
+    color: #aaa;
+}

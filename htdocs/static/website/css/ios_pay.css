@@ -1,0 +1,232 @@
+* {
+    -webkit-tap-highlight-color: rgba(160,160,160,0.5);
+}
+html {
+    background-color: #f7f4f8;
+}
+body {
+    color: #333;
+    font-size: 0.3rem;
+    padding: 0;
+    margin: 0;
+}
+.top-header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: 1rem;
+    line-height: 1rem;
+    top:0;
+    z-index: 9;
+    background-color: black;
+    font-size: 0.4rem;
+    color:white;
+    text-align: center;
+}
+.tips{
+    color: #ee7b28;
+    line-height: 0.6rem;
+    text-align: center;
+    font-size: 0.3rem;
+    background: #fff;
+    margin-top: 1rem;
+}
+/* 充值选择第一步 */
+.pay_input_server {
+    background-color: white;
+    margin-bottom: 0.1rem;
+    padding: 0.4rem 0.3rem;
+    text-align: center;
+}
+.pay_input_server .item {
+    margin-bottom: 0.2rem;
+}
+.pay_input_server .lb{
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 0.25rem;
+}
+.pay_input_server .lb-r{
+    display: inline-block;
+    vertical-align: middle;
+}
+.pay_input_server input, .pay_input_server select {
+    width: 65%;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 0.25rem;
+    color: #8b8371;
+    padding: 0.15rem 0 8px 0.15rem;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    background-color: #f1f1f3;
+}
+.pay_input_server select {
+    height: 0.6rem;
+    padding: 0 5px;
+}
+.usr_err{
+    color: #fd9536;
+    text-align: center;
+    font-size: 0.25rem;
+    height: 0.6rem;
+    line-height: 0.6rem;
+    padding: 0 0.8rem ;
+}
+.search-role {
+    width: 80%;
+    margin: auto;
+    border: 1px solid #716f72;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 0.3rem;
+    line-height: 0.7rem;
+    cursor: pointer;
+}
+
+.pay-others {
+    background-color: white;
+    padding: 0 0.3rem 0.5rem;
+}
+.pay-others .tit{
+    padding-left: 0.3rem;
+    line-height: 0.8rem;
+    font-size: 0.3rem;
+    color:#6d6a6d;
+    border-bottom: 1px solid #f1f1f3;
+}
+.pay-others .tip{
+    height: 0.8rem;
+    line-height: 0.8rem;
+    font-size: 0.25rem;
+    color: #fe8c58;
+    width: 80%;
+    margin: auto;
+}
+.pay_money_sel {
+    font-size: 0;
+    box-sizing: border-box;
+    width: 80%;
+    margin: auto;
+}
+.pay_money_sel .item {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 0.25rem;
+    padding: 0.2rem 0;
+    background-color: #f1f1f3;
+    border: 1px solid #f1f1f3;
+    border-radius: 5px;
+    margin-bottom: 0.2rem;
+    text-align: center;
+    width: 44%;
+    cursor: pointer;
+}
+.pay_money_sel .item:nth-child(odd) {
+    margin-right: 10%;
+}
+.pay_money_sel .item.active {
+    background-color: white;
+    border: 1px solid #fe6601;
+    color: #fe6601;
+}
+
+.confirm-btn {
+    margin: auto;
+    width: 60%;
+    background-color: #fe6601;
+    color: white;
+    font-size: 0.3rem;
+    text-align: center;
+    line-height: 0.8rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.foot {
+    text-align: center;
+    font-size: 0.3rem;
+    padding: 0.3rem;
+}
+@media all and (orientation:landscape){
+    .pay_input_server .item {
+        display: inline-block;
+        vertical-align: middle;
+        width: 45%;
+    }
+}
+@media all and (orientation:portrait){
+    .pay-others .tip {
+        width: 90%;
+    }
+    .pay_money_sel {
+        width: 90%;
+    }
+}
+
+/*充值确认第二步*/
+.pay-detail {
+    background-color: white;
+    margin-bottom: 0.1rem;
+    padding: 0.3rem 0;
+}
+.pay-detail-main {
+    background-color: #fff8dd;
+    width: 80%;
+    margin: auto;
+    font-size: 0.25rem;
+    color: #ec8118;
+    line-height: 0.6rem;
+    padding-left: 0.3rem;
+}
+.pay-detail-main i {
+    color: #333;
+    font-style: normal;
+    min-width: 1.5rem;
+    text-align: right;
+    display: inline-block;
+}
+.pay_sub_sel {
+    margin-bottom: 0.2rem;
+}
+.pay_sub_sel .item {
+    cursor: pointer;
+    padding: 0.2rem 0.5rem;
+    position: relative;
+    border-bottom: 1px solid #f1f1f3;
+}
+.pay_sub_sel .icon {
+    display: inline-block;
+    vertical-align: middle;
+    height: 0.5rem;
+    margin-right: 0.3rem;
+}
+.pay_sub_sel .text {
+    display: inline-block;
+    vertical-align: middle;
+}
+.pay_sub_sel i {
+    position: absolute;
+    right: 0.5rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    color: #f1f1f3;
+    background-color: #f1f1f3;
+    border-radius: 50%;
+}
+.pay_sub_sel .active i {
+    color: white;
+    background-color: #ff6400;
+    background-image: url(//cdn.66173.cn/website/img/icon_check.png);
+    background-size: 0.38rem 0.3rem;
+    background-position: 0.05rem 0.11rem;
+    background-repeat: no-repeat;
+
+}
+.ch_err {
+    line-height: 0.6rem;
+    font-size: 0.25rem;
+    color: #fd9536;
+    text-align: center;
+}

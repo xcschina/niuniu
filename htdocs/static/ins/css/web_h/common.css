@@ -1,0 +1,301 @@
+* {-webkit-tap-highlight-color:rgba(0,0,0,0.1); -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */  color: #999;  }
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */  color: #999;  opacity:  1;  }
+::-moz-placeholder { /* Mozilla Firefox 19+ */  color: #999;  opacity:  1;  }
+:-ms-input-placeholder { /* Internet Explorer 10-11 */  color: #999; }
+body,div,span,iframe,input,form,input,h1,h2,h3,h4,h5,h6,p,a,em,img,b,dl,dt,dd,ul,ol,li,label{padding:0;margin:0;}
+button {border: none;outline: none;}
+label {display:inline-block;}
+ul {list-style: none;}
+body {
+    background-color: #f8f8f8;
+    color: #333;
+    font-size: 14px;
+    font-family: "微软雅黑";
+}
+a {
+    color: #333;
+    text-decoration: none;
+}
+a:hover, a:active, a:visited, a:focus {
+    text-decoration: none;
+}
+textarea:focus, input:focus {
+    outline: none;
+}
+.text-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.text-center {
+    text-align: center;
+}
+.bg-white {
+    background-color: white;
+}
+.font-lger {
+    font-size: 0.35rem;
+}
+.font-lg {
+    font-size: 0.3rem;
+}
+.font-mder {
+    font-size: 0.25rem;
+}
+.font-md {
+    font-size: 0.2rem;
+}
+.font-sm {
+    font-size: 0.15rem;
+}
+.font-tiny {
+    font-size: 0.1rem;
+}
+.account-common-icon {
+    background-image: url(//cdn.66173.cn/ins/img/web_h/account_common_icon.png);
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    background-size: 6rem 3.078rem;
+}
+.menu-bar {
+    position: fixed;
+    height: 100%;
+    box-shadow: 4px 0 8px #d6d6d6;
+    width: 10%;
+    background-color: #f6f4f5;
+    color: #b5b5b5;
+    text-align: center;
+}
+.menu-item {
+    height: 33.3%;
+    vertical-align: middle;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -moz-box-orient: vertical;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+.menu-item .text{
+    font-weight: 300;
+    color: #b4b4b4;
+}
+.menu-item .account-common-icon {
+    position: relative;
+    display: inline-block;
+    margin: 0 auto 0.1rem;
+    width: 0.63rem;
+    height: 0.63rem;
+}
+.menu-item .dot {
+    position: absolute;
+    right: 0;
+    top: 0.15rem;
+    width: 0.15rem;
+    height: 0.15rem;
+    background-color: #ff2323;
+    border-radius: 50%;
+}
+.menu-item.user .account-common-icon {
+    background-position: -0.306rem -0.232rem;
+}
+.account-rel .menu-item.user .account-common-icon, .menu-item.active.user .account-common-icon, .menu-item:hover.user .account-common-icon {
+    background-position: -0.306rem -0.93rem;
+}
+.account-rel .menu-item.user .text, .menu-item.active.user .text, .menu-item:hover.user .text {
+    color: #1296db;
+}
+.menu-item.message .account-common-icon {
+    background-position: -1.204rem -0.227rem;
+}
+.message-rel .menu-item.message .account-common-icon, .menu-item.active.message .account-common-icon, .menu-item:hover.message .account-common-icon {
+    background-position: -1.204rem -0.964rem;
+}
+.message-rel .menu-item.message .text, .menu-item.active.message .text, .menu-item:hover.message .text {
+    color: #f8941e;
+}
+.menu-item.service .account-common-icon {
+    background-position: -2.26rem -0.24rem;
+}
+.service-rel .menu-item.service .account-common-icon, .menu-item.active.service .account-common-icon, .menu-item:hover.service .account-common-icon {
+    background-position: -2.26rem -0.935rem;
+}
+.service-rel .menu-item.service .text, .menu-item.active.service .text, .menu-item:hover.service .text {
+    color: #6ed3dd;
+}
+.main-wrapper {
+    float: left;
+    width: 90%;
+    margin-left: 10%;
+}
+.main-wrapper-verticle-middle {
+    position: absolute;
+    width: 90%;
+    height: 100%;
+}
+.main-width {
+    width: 76%;
+    margin: auto;
+}
+.main-inner {
+    height: 100%;
+    width: 76%;
+    margin: 0 auto;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -moz-box-orient: vertical;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+/*简单提示*/
+.brief-tip-pop {
+    position: fixed;
+    top: 45%;
+    z-index: 999;
+    left: 0;
+    right: 0;
+    text-align: center;
+    display: none;
+    word-break: break-all;
+}
+.brief-tip-pop .con{
+    background: rgba(0,0,0,0.6);
+    color: white;
+    max-width: 60%;
+    padding: 5px 10px;
+    display: inline-block;
+}
+/*加载更多*/
+.get-status {
+    text-align: center;
+    padding: 0.1rem 0;
+    color: #999;
+    line-height: 2;
+}
+.get-status .more-btn {
+    display: inline-block;
+    padding: 0 0.3rem;
+    /*background-color: #eee;*/
+    /*border: 1px solid #ccc;*/
+    border-radius: 2px;
+    color: #333;
+    /*cursor: pointer;*/
+    /*box-shadow: 1px 1px 1px rgba(0,0,0,0.3);*/
+    /*transition: box-shadow 0.5s ease-in-out;*/
+}
+.get-status .more-btn:active {
+    box-shadow: none;
+}
+
+/*带消除的输入框*/
+.input-with-clear-zone {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+}
+.input-with-clear-zone input {
+    width: 100%;
+    height: 100%;
+    padding-left: 0.2rem;
+    padding-right: 0.5rem;
+    background-color: #eaeaea;
+    color: #666;
+    border: 1px solid #d1d1d1;
+    border-radius: 3px;
+    font-size: 0.2rem;
+    -webkit-appearance: none;
+}
+.input-with-clear-zone .clear {
+    position: absolute;
+    right: 0.1rem;
+    width: 0.3rem;
+    height: 0.3rem;
+    cursor: pointer;
+    top: 50%;
+    margin-top: -0.15rem;
+    border-radius: 50%;
+    display: none;
+
+}
+/*填写表单公用样式*/
+.fill-form .line {
+    font-size: 0;
+    margin-bottom: 0.25rem;
+}
+.fill-form .line .left, .fill-form .line .right {
+    display: inline-block;
+    vertical-align: middle;
+}
+.fill-form .line .left {
+    width: 30%;
+    text-align: right;
+}
+.fill-form .line .right {
+    width: 55%;
+    height: 0.5rem;
+}
+.fill-form .page-tip {
+    color: red;
+    text-align: center;
+    height: 0.2rem;
+    line-height: 0.2rem;
+}
+.fill-form .submit-btn {
+    width: 80%;
+    display: block;
+    margin: 0.1rem 0 0.5rem 5%;
+    background-color: #1296db;
+    color: white;
+    border-radius: 3px;
+    line-height: 2;
+    font-weight: 300;
+    text-align: center;
+    cursor: pointer;
+}
+.ele-toggle-btn {
+    position: fixed;
+    padding: 2px 4px;
+    right: 0%;
+    top: 5%;
+    background-color: #00a5de;
+    color: white;
+    display: none;
+    z-index: 1000;
+}
+/*蒙层*/
+.mask, .loading-mask {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 99;
+    display: none;
+}
+.loading-mask {
+    z-index: 100;
+}
+/*加载图*/
+.loading-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -0.8rem;
+    margin-left: -0.8rem;
+    width: 1.6rem;
+    height: 1.6rem;
+}

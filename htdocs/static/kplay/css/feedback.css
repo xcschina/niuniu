@@ -1,0 +1,112 @@
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: #b0b0b0;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #b0b0b0;
+    opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #b0b0b0;
+    opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #b0b0b0;
+}
+.fd-head{
+    padding: 15px 0 15px 20px;
+    border-bottom: dashed 1px #c0c0c0;
+}
+.fd-main{
+    padding: 20px 0 20px 12%;
+}
+.fd-select{
+    width: 50%;
+    max-width: 300px;
+    margin-top:20px;
+    border-radius: 5px;
+    height: 35px;
+}
+.fd-label{
+    color: #000;
+    text-align: right;
+    font-weight: 400;
+}
+.fd-control{
+    background-color: #FFFFFF;
+    border: 1px solid #E3E3E3;
+    margin-top:20px;
+    border-radius: 4px;
+    color: #333;
+    width:70%;
+    padding: 5px 10px;
+    height: 35px;
+    line-height: 25px;
+    max-width: 370px;
+    background-color: #f7f7f7;
+}
+.question-desc-label{
+    vertical-align: top;
+    margin-top: 20px;
+}
+.fd-desc{
+    min-height:90px;
+    width:85%;
+}
+.fd-code{
+    width: 120px;
+}
+.fd-captcha-zone {
+    display: inline-block;
+}
+.fd-captcha-zone .graphic-image {
+    height: 35px;
+    cursor: pointer;
+}
+.select2-container .select2-choice {
+    height: 35px;
+    line-height: 35px;
+    border: solid 1px #E3E3E3;
+    color: #555;
+    background-image: none;
+    background-color: #f7f7f7;
+}
+.select2-drop-active {
+    border: 1px solid #e3e3e3;
+}
+.select2-container .select2-choice .select2-arrow {
+    background-image: none;
+    background-color: #f7f7f7;
+}
+.change-code{
+    vertical-align: bottom;
+    color: #3a938b;
+    margin: 0;
+    cursor: pointer;
+}
+.fd-submit{
+    margin-top:20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.fd-btn-info{
+    display: inline-block;
+    background-color: #57b7d5;
+    border-radius: 5px;
+    color: #fff;
+    padding:6px 0;
+    width: 30%;
+    max-width: 200px;
+    cursor: pointer;
+    box-shadow: 0px 5px 10px rgba(87,183,213,0.3);
+}
+.fd-btn-info:hover {
+    box-shadow: none;
+}
+
+.select-label{
+    vertical-align: middle;
+    margin-top:25px;
+}
+.select2-container .select2-choice .select2-arrow b {
+    margin-top:5px;
+}

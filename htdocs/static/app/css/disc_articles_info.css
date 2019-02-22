@@ -1,0 +1,108 @@
+*{
+    padding: 0;
+    margin: 0;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+body{
+    max-width:750px;
+    background-color: #f2f2f2;
+    margin:0 auto;
+    font-size: 16px;
+}
+.make-complaints{
+    position: relative;
+}
+.make-border{
+    border-left: solid 2px #eb3b52; padding-left:5px;
+}
+.make-title{
+    border-bottom: solid 1px #e5e5e5;
+    padding: 0.26rem;
+}
+.font-bg{
+    background-color: white;
+}
+.make-complaints .make-icon{
+    width:1.28rem;
+    height:1.28rem;
+    border-radius: 10px;
+    vertical-align: middle;
+}
+.make-left{
+    display: inline-block;
+    font-size: 0;
+    margin:0.26rem 0.2rem 0.26rem 0.26rem;
+}
+.make-right{
+    vertical-align: middle;
+    display: inline-block;
+    width:70%;
+    margin-left: 0.1rem;
+}
+.down-num span{
+    color: #eb3b52;
+}
+.game-size span{
+    color:#ff6600;
+}
+.font-color{
+    color:#666666;
+}
+.game-name{
+    color:#333333;
+    margin-bottom: 0.1rem;
+}
+.game-size{
+    margin-bottom: 0.05rem;
+}
+.font-lg{
+    font-size: 20px;
+}
+@media (max-width: 374px) {
+    .font-lg {
+        font-size: 17px;
+    }
+    .font-sm {
+        font-size: 13px;
+    }
+}
+@media (min-width: 375px) and (max-width: 480px) {
+    .font-lg {
+        font-size: 18px;
+    }
+    .font-sm {
+        font-size: 14px;
+    }
+}
+@media (min-width: 481px) {
+    .font-lg {
+        font-size: 20px;
+    }
+    .font-sm {
+        font-size: 16px;
+    }
+}
+.make-desc{
+    margin-top:0.22rem;
+    border-top: solid 1px #e5e5e5;
+}
+.make-nav{
+    color:#333333;
+    padding: 0.26rem 0  0.16rem 0.26rem;
+    border-bottom:solid 1px #e5e5e5;
+}
+.make-info{
+    padding:0.21rem 0.26rem 0.5rem 0.26rem;
+}
+.make-info img{
+    display: block;
+    max-width: 90%;
+    padding:0.1rem 0;
+    height: auto;
+    margin: auto;
+}
+.text-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

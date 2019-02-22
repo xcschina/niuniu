@@ -1,0 +1,46 @@
+.login-bg{ width:100%; height:100%; position:fixed; left:0; top:0; background-color:rgba(0,0,0,.4);z-index:1000}
+/*******************登录*********************/
+.login-box{ width:84%; height:80%; position:absolute; left:8%; top:10%; background-color:#fff; -webkit-box-shadow:0 0 10px rgba(0, 0, 0, .5); }
+.login-header{ width:100%; height:40px; line-height:40px; position:relative; background-color:#e4393c}
+.login-close:after,.login-spr-1,.login-spr-2,.check-input,.notice-icon{ display:block; background-image:url(img/login-spr.png); background-repeat:no-repeat; background-size:15px auto;}
+.login-h1{ text-align:center; color:#fff; font-size:1.1rem;}
+.login-close{ display:block; width:40px; height:40px; position:absolute; left:0; top:0;}
+.login-close:after{ content:''; width:14px; height:14px; position:absolute; left:13px; top:13px;}
+.login-txt{ position:absolute; right:2%; top:0; display:block; height:40px; line-height:40px; color:#fff; font-size:.9rem;}
+.input-con{ width:90%; margin:20px auto 0;}
+.input-con-box{ border:1px solid #ccc;  width:100%;}
+.login-spr-1,.login-spr-2{ width:15px; height:17px; text-indent:-9999em; position:absolute; left:0; top:16px;}
+.inp-box{ height:50px; position:relative; width:90%; margin:0 auto;}
+.inp-box + .inp-box{ border-top:1px solid #ccc}
+.login-spr-1{ background-position:0 -14px;}
+.login-spr-2{ background-position:0 -31px;}
+.l-input{ border:none; height:30px; position:absolute; left:20px; top:10px; outline:none; width:80%; font-size:1rem;}
+a.f-password{ display:block; height:30px; line-height:30px; padding-left:5%; font-size:.9rem; color:rgba(102, 102, 102, .4); text-decoration:underline}
+.b-btn{ display:block; width:80%; height:32px; line-height:32px; text-align:center; color:#fff; font-size:1rem; background-color:#e4393c; margin:30px auto 50px;border:0;}
+.tx-login{ color:#666; font-size:.9rem; display:block; width:100%; text-align:center;}
+/****************注册*******************/
+.sinp-box{ height:38px; border-bottom:1px solid #e7e7e7; margin:0 auto; position:relative}
+.sinp-box label{ display:block; height:38px; line-height:38px; color:#666; font-size:.9rem; float:left; margin-right:5px; }
+.sinp-box input{ border:none; outline:none; font-size:.9rem; height:38px; width:70%;}
+.sinp-box-s input{ width:100px;}
+.get-code{ display:block; width:85px; height:23px; background-color:#f9f8f9; position:absolute; top:7px; right:0; text-align:center; line-height:23px; color:#e4393c; font-size:.8rem;}
+.check-box{ text-align:center; padding:20px 0 0; font-size:.8rem; color:rgba(102, 102, 102, .4)}
+.check-input,.notice-icon{ display:inline-block; width:10px; height:10px; border-radius:5px;background-color:#e4393c; background-position:-9999em -9999em; margin:-2px 2px 0 0; vertical-align:middle; }
+.check-input:checked { background-position:0 -48px;}
+.sinp-box input::-webkit-input-placeholder{ color:rgba(102, 102, 102, .4)}
+/***************找回密码******************/
+.input-con-2 .inp-box{ border-bottom:1px solid #ccc}
+.notice-txt{color:rgba(102, 102, 102, .4); padding:5px 0; font-size:.8rem; padding-left:15px; text-indent:-10px; line-height:18px;}
+.notice-icon{ background-position:0 -57px; background-color:#f60}
+
+
+.tx-login:before{ display:inline-block;background-image:url(img/login-spr2.png?v=2);background-repeat:no-repeat; background-size:25px auto;}
+
+.tx-tit{ text-align:center; font-size:.9rem;}
+.tx-login{ display:block; width:57px; height:57px; border-radius:57px; border:1px solid #fa5d5f; margin:25px auto 0; position:relative}
+.tx-login:before{ content:''; width:25px; height:25px; background-position:0 -61px; position:absolute; left:16px; top:16px;}
+@media screen and (max-height:480px) {
+    .f-password{margin:0 auto 30px; }
+    .login-footer{ margin-top:30px; }
+    .tx-login{ margin:15px auto 0;}
+}

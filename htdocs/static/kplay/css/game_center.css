@@ -1,0 +1,51 @@
+.game-center-main-wrapper {
+    padding-top: 20px;
+}
+.case-title-wrapper {
+    text-align: center;
+    margin-bottom: 10px;
+}
+.case-title-wrapper .part {
+    display: inline-block;
+    vertical-align: top;
+}
+.case-title-wrapper .title {
+    padding: 0 15px;
+    line-height: 35px;
+    height: 35px;
+}
+.case-title-wrapper .dot-line {
+    width: 80px;
+    display: inline-block;
+    border-bottom: 2px dotted #bfbfbf;
+    padding-top: 16px;
+}
+.type-list {
+    margin: 5px 0 15px;
+}
+.type-list li {
+    display: inline-block;
+    padding: 5px 0;
+    width: 100px;
+    margin-bottom: 5px;
+    background-color: #e0e0e0;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.type-list li.active, .type-list li:hover {
+    background-color: #44a6cb;
+    color: #fff;
+    cursor: pointer;
+}
+.type-list li:active {
+    background-color: #00a5de;
+}
+.case-game-list {
+    min-height: 200px;
+}
+.case-game-list .no-game {
+    padding-top: 90px;
+    text-align: center;
+    color: #999;
+}

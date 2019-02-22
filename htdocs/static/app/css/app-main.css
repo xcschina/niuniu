@@ -1,0 +1,458 @@
+html {
+	font-size: 0;
+	max-width: 1024px;
+	margin: auto;
+}
+body {
+	/*-webkit-tap-highlight-color:rgba(0,0,0,0);*/
+	font-size: 0.24rem;
+}
+.clearfix {
+	clear: both;
+}
+.text-overflow {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/*礼包详情*/
+/*礼包详情的上部公用部分*/
+.gift-detail .gift-detail-top {
+	padding: 0.3rem 0.2rem;
+	height: 1.3rem;
+}
+.gift-detail .gift-detail-top img{
+	float: left;
+	display: block;
+	width: 1.3rem;
+	height: 1.3rem;
+}
+.gift-detail .gift-detail-top .center {
+	margin-left: 0.1rem;
+	display: inline-block;
+	width: 60%;
+}
+.gift-detail .gift-detail-top .title {
+	font-size: 0.36rem;
+	color: #333333;
+	padding-right: 0.2rem;
+}
+.gift-detail .gift-detail-top .gift-name {
+	color: #999999;
+	padding-top: 0.2rem;
+	font-size: 0.32rem;
+}
+/*礼包详情tab条*/
+.gift-detail .swiper-pagination2 .swiper-pagination-bullet{
+	border: 1px solid #d1d1d1;
+	border-left: none;
+	border-right: none;
+	display: inline-block;
+	width: 33%;
+	font-size: 0.36rem;
+	height: 0.6rem;
+	line-height: 0.6rem;
+	text-align: center;
+	cursor: pointer;
+	color: #333333;
+	border-radius: 0;
+	margin: 0 !important;
+	background: none;
+	opacity: 1;
+}
+.gift-detail .swiper-pagination2 span.swiper-pagination-bullet-active {
+	background-color: #e4393c;
+	color: white;
+}
+
+/*礼包内容*/
+.gift-detail .gift-content-con .block {
+	padding: 0.2rem;
+}
+.gift-detail .gift-content-con .title {
+	color: #343434;
+	padding-left: 0.2rem;
+	border-left: 0.1rem solid #cd2a2c;
+	font-size: 0.44rem;
+	line-height: 0.44rem;
+	font-weight: 300;
+}
+.gift-detail .gift-content-con .desc {
+	padding-left: 0.32rem;
+	line-height: 0.45rem;
+	color: #808080;
+	padding-top: 0.2rem;
+}
+
+
+.mascot-outer{
+	margin: 0.25rem auto;
+   text-align: center;
+
+}
+.mascot {
+	width: 2.1rem;
+	height: 2.4rem;
+}
+.nogift{
+    text-align: center;
+    line-height: 0.4rem;
+}
+/*游戏下载*/
+.gift-detail .download-horizon-box {
+	width: 100%;
+	overflow: hidden;
+}
+.gift-detail .download-horizon-box ul{
+	list-style: none;
+	padding-left: 0.2rem;
+
+}
+.gift-detail .download-horizon-box li {
+	width: 2.9rem;
+}
+.gift-detail .download-horizon-box img {
+	width: 2.8rem;
+	height: 4.3rem;
+}
+
+/*礼包内容页块下方的的领取礼包*/
+.gift-detail .get-gift {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	text-align: center;
+	padding: 0.15rem 0;
+	border-top: 0.01rem solid #d1d1d1;
+	background-color: #fff;
+	z-index: 9;
+}
+.gift-detail .get-gift .get-button {
+	display: inline-block;
+	width: 60%;
+	font-size: 0.48rem;
+	padding: 0.15rem 0;
+	color: white;
+	border-radius: 1rem;
+	cursor: pointer;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+.gift-detail .get-button.to-get {
+	background-color: #5aaeca;
+}
+.gift-detail .get-button.no-get {
+	background-color: #a2a2a2;
+}
+/*领取礼包后的遮罩层及弹窗*/
+.gift-detail .get-mask {
+	display: none;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0,0,0,0.5);
+	z-index: 99;
+
+}
+.gift-detail .get-tip-window {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto 15%;
+	height: 2.5rem;
+	text-align: center;
+	padding: 0.5rem 0 0.2rem;
+	font-size: 0.32rem;
+	background: rgba(255,255,255,1);
+	border-radius: 0.05rem;
+}
+.gift-detail .get-tip-window .close {
+	position: absolute;
+	width: 0.5rem;
+	top: 0;
+	right: 0;
+	cursor: pointer;
+	font-size: 0.52rem;
+	font-weight: bold;
+	color: #4a434c;
+}
+.gift-detail .get-tip-window .tip {
+	font-size: 0.4rem;
+}
+.gift-detail .get-tip-window .gift-code{
+	padding: 0.3rem 0;
+	color: #999999;
+}
+.gift-detail .get-tip-window .copy-code {
+	display: inline-block;
+	border-radius: 0.05rem;
+	color: white;
+	width: 55%;
+	padding: 0.2rem 0;
+	background-color: #589384;
+	cursor: pointer;
+}
+
+/*游戏礼包和我的礼包公用没有更多*/
+.no-more {
+	text-align: center;
+	margin-top: 0.3rem;
+}
+.no-more img {
+	width: 2rem;
+	height: 2rem;
+}
+
+/*推荐礼包和游戏礼包公用部分start*/
+.gift-list-with-get .gift-item {
+	padding: 0.2rem;
+	border-bottom: 1px solid #d1d1d1;
+	height: 1.3rem;
+}
+.gift-list-with-get .gift-item .left {
+	float: left;
+}
+.gift-list-with-get .gift-item img {
+	width: 1.3rem;
+	height: 1.3rem;
+}
+.gift-list-with-get .gift-item .center {
+	margin-left: 0.1rem;
+	display: inline-block;
+	width: 60%;
+	color: #999999;
+}
+.gift-list-with-get .gift-item .title {
+	font-size: 0.36rem;
+	color: #343434;
+	padding-right: 0.2rem;
+}
+.gift-list-with-get .gift-item .gift-name {
+	padding: 0.05rem 0;
+}
+.gift-list-with-get .gift-item .gift-content {
+	position: relative;
+	padding-right:0.2rem;
+	overflow: hidden;
+}
+
+.gift-list-with-get .gift-item .right {
+	float: right;
+	position: relative;
+}
+
+/*圆*/
+.gift-list-with-get .chart {
+	display: inline-block;
+	width: 0.9rem;
+	height: 0.9rem;
+	line-height: 0.9rem;
+	position: absolute;
+	left: -0.9rem;
+	top: 0.2rem;
+	box-sizing: border-box;
+	text-align:center;
+	font-weight: 400;
+	text-decoration: none;
+}
+/*领取的字*/
+.gift-list-with-get .chart-1 {
+	color: #30b66f;
+}
+/*已领取的字*/
+.gift-list-with-get .chart-2{
+	color: #317ee7;
+}
+/*领光了的字*/
+.gift-list-with-get .over {
+	color: #bcbcbc;
+}
+.gift-list-with-get .chart canvas {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100% !important;
+	height: 100% !important;
+}
+/*推荐礼包和游戏礼包公用部分end*/
+/*我的订单*/
+.my-order {
+    font-size: 0.32rem;
+}
+.my-order .bar-item {
+    display: inline-block;
+    width: 24%;
+    text-align: center;
+    padding: 0.1rem 0;
+    cursor: pointer;
+}
+.my-order .bar-item.active {
+    border-bottom: 0.05rem solid #e4393c;
+}
+.my-order .active-border-line {
+    position: relative;
+    margin-top: -3px;
+    width: 25%;
+    height: 0;
+    /*border-bottom: 3px solid #e4393c;*/
+}
+.my-order .order-list {
+    border-bottom: 0.03rem solid #d1d1d1;
+}
+.my-order .order-item {
+    line-height: 0.6rem;
+    padding: 0.1rem 0.2rem;
+    height: 1.2rem;
+    border-top: 0.03rem solid #d1d1d1;
+}
+.my-order .order-item .left {
+    width: 70%;
+    float: left;
+
+
+}
+.my-order .order-item .left-grey {
+    color: #b6b6b6;
+}
+.my-order .order-item .right {
+    width: 25%;
+    float: right;
+    text-align: right;
+}
+.my-order .order-item .pay {
+    font-size: 0.48rem;
+    color: #ff6600;
+}
+.my-order .status-btn {
+    min-width: 0.7rem;
+    text-align: center;
+    color: white;
+    display: inline-block;
+    font-size: 0.28rem;
+    line-height: 0.45rem;
+    height: 0.45rem;
+    padding: 0 0.05rem;
+    text-align: center;
+    border-radius:  0.05rem;
+}
+.my-order .status-btn.cancelled {
+    background-color: #aaaaaa;
+}
+.my-order .status-btn.unpaid {
+    background-color: #2c7be6;
+}
+.my-order .status-btn.deal {
+    background-color: #52cca8;
+}
+.more-zone {
+    text-align: center;
+    margin-top: 0.1rem;
+}
+.more {
+    display: inline-block;
+    border: 1px solid #e88e5e;
+    border-radius: 3px;
+    color: #e88e5e;
+    padding: 0.02rem 0.2rem;
+    cursor: pointer;
+}
+
+/*我的礼包*/
+.my-gift .gift-item {
+	padding: 0.2rem 0.1rem 0.2rem 0.1rem;
+	border-bottom: 0.03rem solid #d1d1d1;
+	height: 1.3rem;
+}
+.my-gift .gift-item .left {
+	float: left;
+}
+.my-gift .gift-item img {
+	width: 1.3rem;
+	height: 1.3rem;
+}
+.my-gift .gift-item .center {
+	margin-left: 0.1rem;
+	display: inline-block;
+	width: 60%;
+}
+.my-gift .gift-item .title {
+	font-size: 0.32rem;
+	color: #343434;
+	padding-right: 0.2rem;
+}
+.my-gift .gift-item .gift-content {
+	margin: 0.07rem 0;
+	padding: 0.06rem 0.2rem 0.06rem .05rem;
+	color: #484848;
+	background-color: #d1d1d1;
+}
+.my-gift .gift-item .valid-date {
+	color: #e4393c;
+}
+.my-gift .gift-item .right {
+	float: right;
+
+}
+.my-gift .gift-item .copy-code {
+	display: inline-block;
+	border: 0.03rem solid #e88e5e;
+	border-radius: 0.05rem;
+	color: #e88e5e;
+	padding: 0.02rem 0.2rem;
+	margin-top: 0.5rem;
+	cursor: pointer;
+	
+}
+
+.my-gift .tip-pop-zone {
+	position: fixed;
+	width: 100%;
+	bottom: 40%;
+	left: 0;
+	right: 0;
+	color: white;
+	text-align: center;
+	display: none;
+}
+.my-gift .tip-pop {
+	display: inline-block;
+	padding: 0.15rem;
+	width: 80%;
+	background-color: #636363;
+	opacity: 0.6;
+}
+
+/*帮助中心*/
+.help-center-body {
+	background-color: #f8f8f8;
+}
+.common-questions .question-li{
+    padding: 0.2rem;
+}
+.question-li .title {
+    border-bottom: 0.04rem dashed #dedede;
+    position: relative;
+}
+.question-li .question-icon {
+    position: absolute;
+    width: 0.56rem;
+    height: 0.46rem;
+    top: 0.2rem;
+}
+.question-li .question {
+    font-size: 0.36rem;
+    color: #333333;
+    margin-left: 0.7rem;
+    padding: 0.2rem 0;
+}
+.question-li .answer {
+    font-size: 0.32rem;
+    color: #666666;
+    padding-top: 0.2rem;
+}

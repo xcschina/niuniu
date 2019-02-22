@@ -1,0 +1,381 @@
+.activity_pc {
+	overflow-x: hidden;
+	font-weight: "微软雅黑";
+}
+.bg-wrapper{
+	width: 800px;
+	margin: auto;
+	position: relative;
+}
+.w800 {
+	width: 800px;
+	margin: auto;
+	position: relative;
+}
+ul, p {
+	margin: 0;
+	padding: 0;
+}
+.background-img {
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.bg-left, .bg-right {
+	width: 368px;
+	position: absolute;
+	height: 1074px;
+	top: 0;
+}
+.bg-left {
+	left: -368px;
+}
+.bg-right {
+	right: -368px;
+}
+.bg-center-top {
+	width: 100%;
+	height: 580px;
+}
+.bg-center-bottom {
+	width: 100%;
+	height: 494px;
+	position: relative;
+}
+.treasure-top {
+	position: absolute;
+	width: 100%;
+	height: 100px;
+	top: -100px;
+	overflow: hidden;
+}
+.treasure-top .knight{
+	position: absolute;
+	left: 0;
+	width: 180px;
+	height: 160px;
+}
+.treasure-top .treasure-tip{
+	position: absolute;
+	left: 185px;
+	top: 65px;
+	width: 180px;
+	height: 26px;
+}
+.qr-zone {
+	position: absolute;
+	right: -200px;
+	top: -70px;
+	width: 148px;
+	height: 180px;
+	text-align: center;
+	background: rgba(0,0,0,0.7);
+	z-index: 9;
+	padding: 36px 0 18px;
+}
+.qr-zone .qr-bg {
+	width: 108px;
+	height: 108px;
+	margin: auto;
+	background: white;
+}
+.qr-zone .qr-img {
+	width: 100%;
+	height: 100%;
+	padding: 6px 4px;
+}
+.qr-zone .text {
+	font-size: 12px;
+	font-weight: lighter;
+	color: white;
+	line-height: 40px;
+}
+.qr-zone .download-btn {
+	width: 116px;
+	height: 32px;
+}
+.treasure-cont {
+	width: 100%;
+	height: 267px;
+	position: relative;
+}
+.treasure-cont .my-price-link {
+	position: absolute;
+	top: -30px;
+	right: 0;
+	text-decoration: underline;
+	color: #553000;
+	font-size: 14px;
+	cursor: pointer;
+}
+.treasure-cont .left {
+	display: inline-block;
+	width: 60%;
+	vertical-align: top;
+	margin: 35px 0 0 32px;
+}
+.treasure-cont li {
+	display: inline-block;
+	margin: 0 16px 12px 0;
+	text-align: center;
+}
+.treasure-cont li img {
+	width: 96px;
+	height: 96px;
+}
+.treasure-cont .right {
+	display: inline-block;
+	width: 30%;
+	text-align: center;
+}
+.treasure-cont .treasure-box {
+	width: 240px;
+	height: 160px;
+	display: inline-block;
+}
+.treasure-cont .treasure-box.wait-to-open{
+	background-image: url(http://cdn.66173.cn/www/img/activity/boxClose.png);
+}
+.treasure-cont .treasure-box.already-open{
+	background-image: url(http://cdn.66173.cn/www/img/activity/boxOpen.png);
+}
+.treasure-cont .treasure-status {
+	width: 200px;
+	height: 64px;
+	line-height: 64px;
+	display: inline-block;
+	font-size: 24px;
+	color: white;
+	background-size: 200px 64px;
+}
+.treasure-cont .treasure-status.wait-to-open{
+	background-image: url(http://cdn.66173.cn/www/img/activity/textToOpenBg.png);
+	cursor: pointer;
+}
+.treasure-cont .treasure-status.already-open{
+	background-image: url(http://cdn.66173.cn/www/img/activity/textOpenedBg.png);
+}
+.treasure-cont .treasure-status.wait-to-open:hover {
+	background-image: url(http://cdn.66173.cn/www/img/activity/textHoverBg.png);
+}
+.treasure-cont .treasure-status.wait-to-open:active {
+	background-image: url(http://cdn.66173.cn/www/img/activity/textClickBg.png);
+}
+.rule-cont {
+	width: 100%;
+	height: 186px;
+	margin: 12px 0;
+	padding: 8px 0 8px 16px;
+}
+.rule-cont .title {
+	width: 120px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	background-color: black;
+	color: #f6a133;
+	font-size: 20px;
+}
+.rule-cont .desc {
+	margin-top: 10px;
+	font-size: 12px;
+	line-height: 1.8;
+}
+
+.mask {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background: rgba(0,0,0,0.5);
+	z-index: 99;
+	display: none;
+}
+.pop-window {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	font-size: 14px;
+	display: none;
+}
+/*领取中的提示*/
+.getting-tip {
+	width: 300px;
+	margin-left: -150px;
+	color: #999;
+	text-align: center;
+}
+/*宝箱开启成功礼品展示弹窗*/
+.price-window {
+	background-image: url(http://cdn.66173.cn/www/img/activity/popwin.png);
+	width: 472px;
+	height: 347px;
+	margin-left: -236px;
+	margin-top: -173px;
+	color: #553008;
+}
+.price-window .close{
+	position: absolute;
+	display: inline-block;
+	right: 12px;
+	top: 3px;
+	width: 50px;
+	height: 50px;
+	cursor: pointer;
+}
+.price-window .con {
+	padding: 60px 30px 0;
+}
+.price-window .tip {
+	font-size: 18px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+}
+.price-window .tip .num {
+	color: #750000;
+}
+.price-window .center {
+	border-top: 1px solid #8f652e;
+	height: 115px;
+	padding-top: 10px;
+}
+/*获得礼包*/
+.price-window .price-type {
+	line-height: 2;
+}
+.price-window .gift .left {
+	display: inline-block;
+	vertical-align: top;
+	width: 80px;
+	text-align: right;
+}
+.price-window .gift .right {
+	display: inline-block;
+	width: 300px;
+}
+
+/*获得优惠券*/
+.price-window .coupon-bg {
+	background-image: url(http://cdn.66173.cn/www/img/activity/coupon.png);
+	width: 334px;
+	height: 100px;
+	background-size: 334px 100px;
+	margin: auto;
+}
+.price-window .coupon {
+	text-align: center;
+}
+.price-window .coupon .left {
+	display: inline-block;
+	vertical-align: top;
+	width: 134px;
+	height: 100px;
+	line-height: 100px;
+	color: #750000;
+}
+.price-window .coupon .amount {
+	font-size: 24px;
+	font-weight: bolder;
+}
+.price-window .coupon .right {
+	display: inline-block;
+	width: 195px;
+	font-size: 22px;
+}
+.price-window .coupon .common {
+	height: 100px;
+	line-height: 100px;
+}
+.price-window .coupon .certain {
+	padding: 25px 0 0;
+	line-height: 1.2;
+}
+.price-window .coupon .certain .type{
+	font-size: 15px;
+}
+/*我的礼包*/
+.price-window .my-price {
+
+}
+.price-window .my-price .center {
+	border-bottom: 1px solid #8f652e;
+	height: 150px;
+}
+.price-window .my-price .line {
+	padding-bottom: 10px;
+}
+
+.price-window .my-price .left {
+	display: inline-block;
+	vertical-align: top;
+	width: 80px;
+	text-align: right;
+}
+.price-window .my-price .right {
+	display: inline-block;
+	width: 300px;
+}
+.price-window .my-price .right-code-zone {
+	position: relative;
+}
+.price-window .my-price .copy-code {
+	position: absolute;
+	right: 0;
+	text-decoration: underline;
+	color: #750000;
+	cursor: pointer;
+}
+/*查看链接*/
+.price-window .go-link {
+	text-align: center;
+	border-bottom: 1px solid #8f652e;
+}
+.price-window .go-link a {
+	text-decoration: underline;
+	color: #750000;
+}
+/*后台返回消息提示*/
+.msg-tip .center {
+	text-align: center;
+	padding: 15px 0 10px;
+	border-bottom: 1px solid #8f652e;
+	height: auto;
+}
+.msg-tip .no-cry-img {
+	width: 120px;
+	height: 120px;
+}
+/*分享*/
+.share {
+	height: 75px;
+	line-height: 75px;
+	text-align: center;
+}
+.share .text {
+	display: inline-block;
+	vertical-align: top;
+	color: #333;
+}
+.share .share-collection {
+	display: inline-block;
+	padding-top: 15px;
+}
+/*简单提示*/
+.brief-tip-pop {
+	position: fixed;
+	top: 45%;
+	z-index: 999;
+	left: 0;
+	right: 0;
+	text-align: center;
+	display: none;
+	word-break: break-all;
+}
+.brief-tip-pop .con{
+	background: rgba(0,0,0,0.6);
+	color: white;
+	max-width: 40%;
+	padding: 5px 10px;
+	display: inline-block;
+}

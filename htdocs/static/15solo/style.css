@@ -1,0 +1,127 @@
+html, body, ul, ol, li, p, h1, h2, h3, h4, h5, h6, form, fieldset, table, td, th, img{border-width:0; padding:0; margin:0;}
+body{margin:0; font-size:14px; text-align:left; WORD-WRAP: break-word; color:#000000; background:#ffffff; font:"����", "������";}
+select,input,img{margin:0 auto; vertical-align: middle;}
+
+/*html5*/
+article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block;}
+
+ul{list-style:none ;}
+img{border:none;}
+li{list-style-type:none;}
+
+a{ text-decoration: none; color:#000000;}
+a:hover{color:#005a9e;}
+
+#button{width:100%; position: absolute; z-index:101; height:110px; background:url("images/button_bg.png") repeat-x; clear:both;}
+#button .btn_bg{width:1050px; height:97px; margin:auto;}
+#button .btn_bg .logo{width:400px; float:left;}
+#button .btn_bg .btn{width:650px; float:left;}
+#button .btn_bg .btn a{display:block; width:108px; text-align:center; height:95px; float:left; font-family:"΢���ź�"; font-size:18px; color:#FFFFFF; line-height:95px;}
+#button .btn_line{width:100%; height:2px; background:url("images/colorBar.jpg") top center;}
+#button .b1{background:url("images/btn_home1.png") center center no-repeat;}
+#button .b1s{background:url("images/btn_home2.png") center center no-repeat;}
+#button .b1:hover{background:url("images/btn_home2.png") center center no-repeat;}
+#button .b2{background:url("images/btn_about1.png") center center no-repeat;}
+#button .b2s{background:url("images/btn_about2.png?t=1") center center no-repeat;}
+#button .b2:hover{background:url("images/btn_about2.png") center center no-repeat;}
+#button .b3{background:url("images/btn_news1.png") center center no-repeat;}
+#button .b3s{background:url("images/btn_news2.png") center center no-repeat;}
+#button .b3:hover{background:url("images/btn_news2.png") center center no-repeat;}
+#button .b4{background:url("images/btn_games1.png") center center no-repeat;}
+#button .b4:hover{background:url("images/btn_games2.png") center center no-repeat;}
+#button .b4s{background:url("images/btn_games2.png") center center no-repeat;}
+#button .b5{background:url("images/btn_bus1.png") center center no-repeat;}
+#button .b5s{background:url("images/btn_bus2.png") center center no-repeat;}
+#button .b5:hover{background:url("images/btn_bus2.png") center center no-repeat;}
+#button .b6{background:url("images/btn_join1.png") center center no-repeat;}
+#button .b6s{background:url("images/btn_join2.png") center center no-repeat;}
+#button .b6:hover{background:url("images/btn_join2.png") center center no-repeat;}
+
+
+#body{width:100%; height:auto; overflow:hidden; margin:30px 0; clear:both;}
+#body .title{width:185px; margin:auto; border-bottom:2px #005a9e solid; text-align:center;}
+#body .bodyc{width:100%; border-top:1px #CCCCCC solid; padding:20px 0 0 0; overflow:hidden; clear:both;}
+#body .bodyc .you{width:1176px; margin:auto;}
+#body .bodyc .you .pp{width:262px; height:312px; border:6px #dbdbdb solid; margin:0 10px; float:left;}
+#body .bodyc .you .pp a{color:#FFFFFF;}
+
+#body .bodyc .about{width:1050px; margin:auto;}
+#body .bodyc .about .left{width:520px; float:left;}
+#body .bodyc .about .right{width:530px; float:left; line-height:28px;}
+
+#body .title2{width:1050px; margin:auto;}
+#body .title2 .l{width:185px; border-bottom:2px #005a9e solid; margin:0 420px 0 0; float:left;}
+#body .title2 .r{width:185px; border-bottom:2px #005a9e solid; float:left;}
+#body .bodyc .about .nleft{width:560px; float:left; margin:0 45px 0 0;}
+#body .bodyc .about .nleft .tt{width:540px; height:30px; line-height:30px; background:url("images/dian.jpg") left center no-repeat; padding:0 0 0 20px;}
+#body .bodyc .about .nleft .tt .kl{width:430px; float:left;}
+#body .bodyc .about .nleft .tt .kr{width:90px; color:#666666; font-size:12px; float:left;}
+#body .bodyc .about .nright{width:445px; float:left;}
+#body .bodyc .about .nright .rtt{width:435px; height:30px; line-height:30px; background:url("images/dian.jpg") left center no-repeat; padding:0 0 0 20px;}
+#body .bodyc .about .nright .rtt .rl{width:335px; float:left;}
+#body .bodyc .about .nright .rtt .rr{width:80px; color:#666666; font-size:12px; float:left;}
+
+#feet{width:100%; border-top:2px #005a9e solid; overflow:hidden; margin:40px 0 0 0; background:#e7e7e7; clear:both;}
+#feet .fet{width:950px; margin:auto; height:220px; margin:auto; line-height:30px; font-size:12px;}
+#feet .fet .logo{width:300px; height:220px; float:left;}
+#feet .fet .btn{width:650px; float:left; padding:20px 0 0 0;}
+#feet .fet .center{width:350px; float:left; padding:0; line-height:20px;}
+#feet .fet .center h1{line-height:50px; font-size:14px;}
+#feet .fet .fright{width:300px; float:left; padding:0; line-height:20px; padding:50px 0 0 0;}
+
+/*���ڷ���Star*/
+#banner_ab{width:100%; height:275px; background:url("images/abusbg.png") top center no-repeat; clear:both; margin:0 0 20px 0;}
+#about_body{width:1050px; margin:20px auto; overflow:hidden; border-bottom:1px #CCCCCC solid; padding:20px 0; clear:both;}
+#about_body .left{width:160px; float:left; padding:20px 0 0 0;}
+#about_body .right{width:850px; float:left; line-height:24px; color:#333333;}
+#about_body .right h1{font-size:24px; line-height:32px; font-family:"΢���ź�"; overflow:hidden;}
+#about_body .right div{margin:20px 0; overflow:hidden;}
+#about_body .right img{vertical-align: bottom;}
+/*���ڷ���End*/
+
+/*��Ϸ��ʼ*/
+#banner_games{width:100%; height:400px; background:url("images/g1.png") top center no-repeat; clear:both; margin:0 0 30px 0;}
+.games_body{width:1000px; border:1px #cccccc solid; padding:14px; overflow:hidden; margin:20px auto;}
+.games_body .left{width:240px; float:left;}
+.games_body .right{width:740px; margin:0 0 0 20px; float:left; line-height:24px; font-size:12px;}
+.games_body .right h1{color:#005a9e; font-size:16px; line-height:24px; width:300px; border-left:2px #005a9e solid; float:left; padding:0 0 0 10px; height:24px;}
+.games_body .right .r{width:420px; float:left; text-align:right;height:60px;}
+/*��Ϸ����*/
+
+/*������Ѷ*/
+#banner_news{width:100%; height:400px; background:url("images/news_banner.jpg") top center no-repeat; clear:both; margin:0 0 30px 0;}
+.news_body{margin: 20px auto;overflow: hidden;width: 1000px;}
+.news_list li{border-bottom: 1px solid #cccccc;padding: 14px;}
+.news_paging{height:30px;line-height:30px;margin:20px 0;float:right;}
+.news_paging li{float:left;margin-left:10px;}
+.news_paging li a{padding:2px 8px;border:1px solid #EBEBEB;background:#F5F5F5;color:#0072BC;}
+.news_paging li span{padding:2px 8px;border:1px solid #EBEBEB;background:#F5F5F5;color:#D7D7D7;}
+.news_paging li a.selected{border:1px solid #BBDDFF;background:#DDEEFF;}
+.news_time{display:block;width:100px;float:left;padding:10px 0;color:#BBBBBB;}
+.news_title{margin-left:100px;padding:8px 0;} 
+.news_title h3{font-size:12px;}
+.news_content{margin-left:100px;}
+
+#banner_business{width:100%; height:400px; background:url("images/business_banner.png") top center no-repeat; clear:both; margin:0 0 30px 0;}
+.business_body .l{padding-left: 20px;}
+.business_body #map{width:1050px;margin:0 auto;height:500px;}
+.company{width:1050px;margin:20px auto;font-size:16px;color:#000000;font-weight:500;line-height:30px;font-family:"΢���ź�";}
+.company span{float:left;}
+.company p{margin-left:80px;}
+#business {width:1050px;margin:0 auto;font-family:"΢���ź�";}
+#business ul li{display:block;width:500px;float:left;}
+#business ul li p{font-size:14px;color:#454547;font-weight:400;line-height:25px;}
+
+#news_details_body{margin: 20px auto;overflow: hidden;width: 1000px;}
+#news_details_body h3{height:80px;line-height:80px;border-bottom:1px solid #cccccc;padding-left:15px;background:url("images/title.gif") center left no-repeat;font-family:"΢���ź�";color:#5F5F5F;}
+#news_details_body .news_time{display:block;float:right;color:#BBBBBB;width:auto;padding:0;font-weight:200;}
+#news_details_body .news_details_content{width:100%;min-height:500px;position:relative;margin:40px auto;}
+#news_details_body .news_details_content p{line-height: 28px;margin-bottom: 29px;font-size:16px;}
+/*��Ƹ��ʼ*/
+#jobs_banner{width:100%; height:400px; background:url("images/j1.jpg") top center no-repeat; clear:both; margin:0 0 30px 0;}
+#jobs_s{width:1000px; text-align:center; height:116px; margin:20px auto;}
+#jobs_s img{margin:0 30px;}
+.jobs_body{width:1000px; margin:20px auto; overflow:hidden; line-height:24px;}
+.jobs_body h1{width:290px; height:30px; line-height:30px; color:#FFFFFF; font-size:16px; padding:0 0 0 10px; background:url("images/zao_title.jpg");}
+.jobs_body div{margin:20px 0;}
+/*��Ƹ����*/

@@ -1,0 +1,383 @@
+/*待绑定或换绑手机或验证绑定手机公用*/
+.fill-phone-bind .line .left {
+    width: 30%;
+}
+.fill-phone-bind .line .right {
+    width: 48%;
+}
+.fill-phone-bind .line .captcha-line {
+    width: 32%;
+}
+.fill-phone-bind .get-captcha-btn {
+    display: inline-block;
+    vertical-align: middle;
+    height: 0.8rem;
+    background-color: #a0a0a0;
+    border-radius: 3px;
+    color: white;
+    margin-left: 0.02rem;
+    padding: 0 4px;
+}
+.fill-phone-bind .get-captcha-btn-can {
+    background-color: #68c101;
+}
+.fill-phone-bind .phone-bind-btn {
+    width: 65%;
+}
+/*账户中心页*/
+.account-top {
+    margin-bottom: 0.7rem;
+    padding: 0.6rem 0;
+    font-size: 0;
+    background-color: white;
+    border-radius: 5px;
+}
+.account-top .left, .account-top .right {
+    text-align: center;
+}
+.account-center .head-icon {
+    width: 2rem;
+    height: 2rem;
+}
+.account-top .account-name {
+    display: block;
+    padding: 0.2rem 0;
+    font-weight: 400;
+    max-width: 70%;
+    text-align: center;
+    margin: auto;
+}
+.account-top .account-logout {
+    display: inline-block;
+    vertical-align: middle;
+    background-color: #e4e4e4;
+    padding: 0.1rem 0.5rem;
+    text-align: center;
+    color: #999;
+    border-radius: 0.05rem;
+    cursor: pointer;
+}
+.item-border-right {
+    border-right: 1px solid #d1d1d1;
+}
+.item-border-bottom {
+    border-bottom: 1px solid #d1d1d1;
+}
+.account-menu {
+    border: 1px solid #d1d1d1;
+    border-radius: 5px;
+    padding: 0.02rem;
+    text-align: center;
+    line-height: 1.5;
+    font-size: 0;
+}
+.account-menu-item {
+    width: 33.3%;
+    /*float: left;*/
+    padding: 0.6rem 0 0;
+    height: 2.7rem;
+    min-height: 75px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.account-menu-item .account-common-icon {
+    display: inline-block;
+    width: 0.98rem;
+    height: 0.86rem;
+    margin-bottom: 0.1rem;
+}
+.account-menu-item.niubi .account-common-icon {
+    background-position: -0.36rem -2.8rem;
+}
+.account-menu-item.bill .account-common-icon {
+    background-position: -1.69rem -2.8rem;
+}
+.account-menu-item.change-password .account-common-icon {
+    background-position: -2.94rem -2.8rem;
+}
+.account-menu-item.phone-bind .account-common-icon {
+    background-position: -4.15rem -2.8rem;
+}
+.account-menu-item.real-verify .account-common-icon {
+    background-position: -5.4rem -2.8rem;
+}
+.account-menu-item.to-wait .account-common-icon {
+    background-position: -6.77rem -2.8rem;
+}
+.account-menu-item.niudian .account-niudian {
+    display: inline-block;
+    height: 0.86rem;
+}
+.account-menu-item .red {
+    color: #ff6600;
+}
+.account-menu-item .green {
+    color: #0bb75b;
+}
+/*牛币页与牛点页*/
+.niu-rel-top {
+    margin-bottom: 0.7rem;
+    padding: 0.6rem 0;
+    font-size: 0;
+    background-color: white;
+    border-radius: 5px;
+}
+.niu-rel-top .left, .niu-rel-top .right {
+    text-align: center;
+}
+.niu-rel-top .rest-wrapper {
+    display: block;
+}
+.niu-rel-top .num-wrapper {
+    display: block;
+    padding: 0.2rem 0 0.4rem;
+}
+.account-niudian .niu-rel-top .num-wrapper {
+    padding-bottom: 0;
+}
+.niu-rel-top .num {
+    color: #ff6600;
+    padding-right: 0.1rem;
+}
+.niu-rel-top .charge-btn {
+    display: inline-block;
+    padding: 0.1rem 1rem;
+    background-color: #f7672a;
+    border-radius: 1rem;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+}
+.niu-rel-detail-wrapper {
+    border: 1px solid #d1d1d1;
+    background-color: white;
+    margin-bottom: 0.2rem;
+}
+.niu-rel-detail-wrapper .top-title {
+    background-color: #e6e6e6;
+    padding-left: 0.3rem;
+    line-height: 2.2;
+    color: #000;
+}
+.niu-rel-detail-wrapper .has-list {
+    padding: 0 0.1rem;
+}
+.niu-rel-detail-wrapper .table-wrapper {
+    min-height: 2rem;
+}
+.niu-rel-detail-wrapper table {
+    width: 100%;
+    text-align: center;
+}
+.niu-rel-detail-wrapper table th {
+    text-align: center;
+    font-weight: 400;
+}
+.niu-rel-detail-wrapper tr.title {
+    border-bottom: 1px solid #d1d1d1;
+    line-height: 2.5;
+
+}
+.niu-rel-detail-wrapper .li td {
+    color: #666;
+    padding: 0.1rem 0;
+    word-break: break-all;
+}
+.niu-rel-detail-wrapper .table-wrapper .add {
+    color: #8fca9d;
+}
+.niu-rel-detail-wrapper .table-wrapper .minus {
+    color: #dd7f62;
+}
+.niu-rel-detail-wrapper .table-wrapper .type1 {
+    color: #71b6e5;
+}
+.niu-rel-detail-wrapper .table-wrapper .type2 {
+    color: #f4ac39;
+}
+.niu-rel-detail-wrapper .table-wrapper .type3 {
+    color: #56b46f;
+}
+.niu-rel-detail-wrapper .table-wrapper .type4 {
+    color: #da4d57;
+}
+/*牛币牛点无账单*/
+.niu-rel-detail-wrapper .no-list {
+    padding-top: 0.3rem;
+    text-align: center;
+}
+.niu-rel-detail-wrapper .no-list-img {
+    width: 25%;
+    margin: auto;
+}
+.niu-rel-detail-wrapper .no-list .text{
+    line-height: 3;
+    color: #ccc;
+    font-weight: 300;
+}
+
+/*账单页*/
+.account-bill .no-bill{
+    text-align: center;
+}
+.no-bill .img-zone img {
+    width: 22.5%;
+    margin: auto;
+}
+.no-bill .text {
+    color: #ccc;
+    margin-top: 0.3rem;
+}
+.has-bill {
+    margin-top: 0.4rem;
+}
+.has-bill .main-width {
+    background-color: white;
+    border: 1px solid #d1d1d1;
+    border-radius: 5px;
+    padding: 0 1%;
+    margin: 0 auto 0.2rem;
+}
+.bill-list {
+    font-size: 0;
+}
+.bill-li {
+    border-bottom: 1px solid #d1d1d1;
+    padding: 0.1rem 0 0.1rem 0.2rem;
+}
+.bill-li:last-child {
+    border: none;
+}
+.bill-li .left {
+    display: inline-block;
+    vertical-align: middle;
+    width: 75%;
+    line-height: 1.5;
+}
+.bill-li .time {
+    color: #999;
+    line-height: 1;
+}
+.bill-li .right {
+    display: inline-block;
+    vertical-align: middle;
+    width: 20%;
+}
+.bill-li .status {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    color: white;
+    border-radius: 3px;
+    line-height: 2;
+    font-weight: 100;
+}
+.bill-li .status.done {
+    color: #e35371;
+}
+.bill-li .status.recharge {
+    color: #43b963;
+}
+.bill-li .status.no {
+    color: #b0b0b0;
+}
+
+/*实名认证页*/
+.account-real-verify .top-tip {
+    line-height: 2;
+    text-align: center;
+}
+.account-real-verify .top-tip2 {
+    color: #999;
+    margin-bottom: 0.5rem;
+}
+/*已实名认证*/
+.already-real-verify .step2, .already-real-verify .step3, .already-real-verify .step4 {
+    display: none;
+}
+.real-verify-info {
+    text-align: center;
+}
+.real-verify-info .img-zone img {
+    width: 16%;
+    margin: auto;
+}
+.real-verify-info .status-line {
+    color: #999;
+    margin: 0.1rem 0 0.3rem;
+}
+.real-verify-info .verify-line {
+    line-height: 2;
+    width: 55%;
+    min-width: 200px;
+    margin: auto;
+    text-align: left;
+}
+/*实名认证待填写部分*/
+.wait-real-verify .main-width {
+    margin-top: 0.8rem;
+}
+
+/*修改密码页*/
+.account-change-password .submit-btn {
+    margin-bottom: 0.1rem;
+}
+.account-change-password .forget-line {
+    width: 85%;
+    text-align: right;
+    margin-bottom: 0.1rem;
+}
+.account-change-password .forget-line .text {
+    text-decoration: underline;
+    color: #ff8f00;
+    cursor: pointer;
+}
+
+/*绑定手机页与换绑手机页*/
+/*已绑定手机信息*/
+.phone-bind-info {
+    text-align: center;
+}
+.phone-bind-info .img-zone img {
+    width: 14%;
+    margin: auto;
+}
+.phone-bind-info .phone-line {
+    margin: 0.25rem 0 0.4rem;
+}
+.phone-bind-info .phone-change-btn {
+    width: 65%;
+    display: inline-block;
+    margin: auto;
+    color: white;
+    border-radius: 3px;
+    font-weight: 300;
+    line-height: 2.5;
+    background-color: #1296db;
+}
+
+/*待绑定手机*/
+.phone-bind-top {
+    margin-bottom: 0.3rem;
+    padding: 0.25rem 0.2rem;
+    border-bottom: 1px solid #d1d1d1;
+}
+.wait-phone-bind  .head-icon, .wait-phone-bind  .left-right {
+    display: inline-block;
+    vertical-align: middle;
+}
+.wait-phone-bind .head-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+.wait-phone-bind .left-right {
+    margin-left: 0.2rem;
+    line-height: 1.5;
+}
+/*换绑手机号*/
+.account-phone-bind-change .cur-bind-line {
+    line-height: 0.8rem;
+}
+.account-phone-bind-change .step2 {
+    display: none;
+}

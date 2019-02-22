@@ -1,0 +1,57 @@
+    .bor-header {
+   border: none; 
+   border-width: 1px 0; 
+   position: relative;
+   background-color: #F1F1F1;
+}
+
+.pay-search-box{
+    display: inline-block;
+    top: -31px;
+    border: 1px solid red;
+    float: right;
+    width: 30%;
+}
+.shop-search-icon {
+    display: block;
+    height: 32px;
+    width: 45px;
+    background-color: #e4393c;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-image: url(http://static.66173.cn/shop/m/css/img/top-icon.png);
+    background-repeat: no-repeat;
+    background-size: 42px auto;
+    background-position: 8px -41px;
+}
+
+/* 店长推荐 */
+#shop_hot_game li{ width:33%; }
+#shop_hot_game li a{ max-width:200px; }
+
+/* 店铺介绍 */
+#shop_info{height:160px; }
+#shop_info #firstli{ font-size:20px; color:#333;}
+#shop_info .fl_img{margin-left: 20px; max-width: 164px; width: 30%; height: 100%; float: left; display: inline-block; }
+#shop_info .fl_img img{width:100%; }
+#shop_info .fr_info{margin-left:20px;height:144px;float:left;display:inline-block;width: 60%; }
+#shop_info .fr_info li {}
+@media (max-width:320px){
+    #shop_info{height:80px; }
+    #shop_info #firstli{font-size:14px; }
+    #shop_info .fr_info{margin-left:8px; }
+    #shop_info .fr_info li {font-size:10px; }
+    .pay-search-box{ width: 180px;}
+    .soft-list li a span{ height:38px;}
+}
+@media (min-width:321px) and (max-width:767px){
+    #shop_info{height:80px; }
+    #shop_info #firstli{font-size:17px; }
+    #shop_info .fl_img{width:auto; max-width: 30%;}
+    #shop_info .fl_img img{width:90px; }
+    #shop_info .fr_info{margin-left:8px; }
+    #shop_info .fr_info li {font-size:11px; }
+    .pay-search-box{ width: 186px;}
+    .soft-list li a span{ height:38px;}
+}

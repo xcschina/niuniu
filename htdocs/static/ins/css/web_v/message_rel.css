@@ -1,0 +1,160 @@
+/*消息中心页*/
+.message-center .main-wrapper {
+    margin-top: 0;
+}
+.message-wrapper{
+    width:95%;
+    margin:0 auto;
+}
+.message-ul{
+    margin-top:0.15rem;
+}
+.message-item .left{
+    width: 15%;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 5px;
+}
+.message-icon{
+    background-image: url(//cdn.66173.cn/ins/img/web_h/message_common_icon_v.png);
+    background-size: 5rem 2.38rem;
+    width: 0.8rem;
+    height: 0.9rem;
+    display: block;
+}
+.message-system{
+     background-position: -0.7rem -0.16rem;
+}
+.message-system-unread{
+     background-position: -0.7rem -1.22rem;
+}
+.message-service{
+    background-position: -3.56rem -0.16rem;
+}
+.message-service-unread{
+     background-position: -3.56rem -1.22rem;
+}
+.message-activity{
+    background-position: -2.14rem -0.16rem;
+}
+.message-activity-unread{
+    background-position: -2.14rem 1.22rem;
+}
+.message-item{
+    border-bottom: 1px solid #d1d1d1;
+    font-size: 0;
+    padding: 0.15rem 0;
+}
+.message_unread{
+    position: absolute;
+    top: 0.1rem;
+    width: 0.1rem;
+    right: 0.08rem;
+}
+.message-item .center{
+    display: inline-block;
+    vertical-align: middle;
+    width:75%;
+    color:#999;
+}
+.message-item .title{
+    color:#333;
+    margin-bottom: 0.15rem;
+}
+.message-item .desc{
+    display: inline-block;
+    vertical-align: middle;
+    width: 65%;
+    color:#999;
+    padding-right: 5px;
+}
+.message-item .time{
+    display: inline-block;
+    vertical-align: middle;
+    width: 35%;
+    text-align: right;
+}
+.message-item .right{
+    display: inline-block;
+    width: 10%;
+    vertical-align: middle;
+    text-align: right;
+}
+.message-item .right .box{
+    width: 0.22rem;
+    height: 0.32rem;
+    line-height: 0.32rem;
+    position: relative;
+    padding: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 0.18rem;
+}
+/*黑色三角形   */
+.message-item .right .box:before{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 0;
+    height: 0;
+    border:10px solid;
+    margin-top: -10px;
+    border-color: transparent transparent transparent #6c6c6c;
+}
+/*背景色三角形*/
+.message-item .right .box:after{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 2px;
+    width: 0;
+    height: 0;
+    border:10px solid;
+    margin-top: -10px;
+    border-color: transparent transparent transparent #f8f8f8;
+}
+.no-message{
+    text-align: center;
+}
+.no-message .no-list-img{
+    width:33%;
+    margin:0 auto;
+}
+.no-message .text{
+    font-weight: 300;
+    color: #ccc;
+    line-height: 3;
+}
+
+/*消息详情页*/
+.message-detail .main-wrapper {
+    margin-top: 0.2rem;
+}
+.message-detail .detail-head{
+    border-bottom: 1px solid #d1d1d1;
+    font-size:0;
+    padding:0 0 0.2rem;
+    text-align: center;
+}
+.message-detail .detail-title{
+    width: 90%;
+    margin: 0 auto 0.1rem;
+    color: #333333;
+}
+.message-detail .detail-time{
+    color: #666666;
+}
+.message-detail .detail-text{
+    padding:0.2rem 0.1rem;
+    color: #666666;
+}
+.message-detail .detail-text img{
+    display: block;
+    max-width:90%;
+    margin:0 auto;
+    padding:0.1rem 0;
+}

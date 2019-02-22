@@ -1,0 +1,489 @@
+html, body{
+    width:100%;
+    height:100%;
+    background-color: #f8f8f8;
+}
+body{font-family:Tahoma, Geneva, sans-serif;
+    margin:0;
+    padding:0;
+}
+
+.white{
+    color:#FFFFFF!important;
+}
+
+a {
+    text-decoration: none
+}
+
+.float_l {
+    float: left
+}
+
+.float_r {
+    float: right
+}
+
+
+@media (orientation: landscape) {/*横屏*/
+    .m-r-20 {
+        margin-right: .20rem
+    }
+
+    .account {
+        background-color: #ffffff;
+        width: 100%;
+        margin-top: .24rem;
+        border-bottom: 1px solid #e3e3e3;
+        border-top: 1px solid #e3e3e3;
+    }
+
+    .body_box {
+        color: #909090;
+        font-size: .22rem;
+        margin: 0 .38rem;
+    }
+
+    .user_box {
+        mix-height: .32rem;
+        line-height: .32rem;
+        margin-top: .28rem;
+        width: 100%;
+    }
+
+    .pay_name {
+        margin-left: .10rem;
+        color: #4c4c4c;
+    }
+
+    .user_info {
+        font-size: .2rem;
+        color: #909090;
+        margin-top: .22rem;
+        width: 100%;
+    }
+
+    .guest_icon {
+        width: .3rem;
+        height: .3rem;
+        display: inline-block;
+        background: url(img/icon-user.png) no-repeat 0 center;
+        background-size: 100%;
+        margin-right: .05rem;
+        margin-bottom: -0.08rem;
+    }
+
+    .user_icon {
+        width: .3rem;
+        height: .3rem;
+        display: inline-block;
+        background: url(img/usr_phone.jpg) no-repeat 0 center;
+        background-size: 100%;
+        margin-right: .05rem;
+        margin-bottom: -0.08rem;
+    }
+
+    .acc_up {
+        margin-left: .15rem;
+        font-size: .2rem;
+        padding: .10rem .15rem;
+        background-color: #06bfb9;
+        color: #ffffff;
+        border-radius: 5px;
+    }
+
+    .pay_list {
+        margin-left: .25rem;
+        font-size: .2rem;
+        padding: .10rem .20rem;
+        color: #909090;
+        border-radius: 5px;
+        border: 1px solid #cccccc;
+        background-color: #f8f8f8;
+    }
+
+    .guest_remind {
+        margin-top: .3rem;
+        color: #ff9922;
+        font-size: .18rem;
+    }
+
+    .pay_channel {
+        font-size: 0.26rem;
+        margin-top: .28rem;
+        border-bottom: 1px solid #e3e3e3;
+        border-top: 1px solid #e3e3e3;
+        background-color: #ffffff;
+    }
+
+    .select_ch {
+        margin: .25rem .35rem 0 .35rem;
+        /* background-color: #ffffff; */
+    }
+
+    .select_ch span {
+        color: #909090;
+        font-size: .23rem;
+    }
+
+    .zfb_btn a {
+        padding: .22rem 1.75rem;
+        color: #4c4c4c;
+    }
+
+    .zfb_btn {
+        text-align: center;
+        width: 100%;
+        height: .6rem;
+        line-height: .6rem;
+        font-size: .25rem;
+        border-radius: 5px;
+        border: .02rem solid #ff9922;
+        margin-top: .24rem;
+        margin-bottom: .35rem;
+    }
+
+    .zfb_btn i {
+        width: .9rem;
+        height: .3rem;
+        display: inline-block;
+        background: url(img/alipay.png) no-repeat 0 center;
+        background-size: 100%;
+        margin-bottom: -.05rem;
+    }
+
+    .btn {
+        margin: .30rem .22rem .50rem .22rem;
+        text-align: center;
+        font-size: .2rem;
+        line-height: .6rem;
+        height: .6rem;
+        border-radius: 5px;
+        background-color: #fd4c4c;
+    }
+
+    .btn a {
+        padding: .20rem 2.4rem;
+        color: #FFFFFF;
+    }
+
+    .footer {
+        height: .1rem;
+    }
+
+    header {
+        font-size: .23rem;
+        color: #909090;
+        margin-top: .15rem;
+        margin-left: .35rem;
+    }
+
+    div.wrap {
+        background-color: #ffffff;
+        overflow: hidden;
+        border-bottom: 1px solid #e3e3e3;
+        border-top: 1px solid #e3e3e3;
+        width: 100%;
+        height: auto;
+        margin: 0.24rem 0 0.22rem 0;
+    }
+
+    section.mod {
+        margin: .1rem .20rem;
+        background: #fff;
+        font-size: 0.32rem;
+        color: #909090;
+    }
+
+    .wrap_title {
+        margin: .1rem 0 .2rem .35rem;
+        padding: 0;
+        font-size: .2rem;
+        color: #4fae5d;
+
+    }
+
+    span.gray {
+        color: #909090;
+        margin-right: 12px;
+    }
+
+    ul.list {
+        list-style: none;
+        padding: 0;
+        margin: auto;
+        margin-left: .19rem !important;
+        overflow: hidden;
+
+    }
+
+    li.menu {
+        float: left;
+        width: 33%;
+        overflow: hidden;
+    }
+
+    #money_id a {
+        background-color: #f8f8f8;
+        display: inline-block;
+        margin-bottom: .15rem;
+        text-decoration: none;
+        background: #fafafa;
+        border: 1px solid #cccccc;
+        color: #333;
+        border-radius: 5px;
+        width: 95%;
+        overflow: hidden;
+    }
+
+    #money_id a strong {
+        color: #f00;
+    }
+
+    #money_id a:hover, #money_id a.hover {
+        background: #4fae5d;
+        color: #fff !important;
+        border-color: #4fae5d;
+    }
+
+    #money_id a div.layout {
+        padding-top: 8%;
+        height: 01rem;
+    }
+
+    p.tit {
+        font-size: .23rem;
+        text-align: center;
+        margin: 0;
+        height: 0.38rem;
+    }
+
+    p.con {
+        font-size: .16rem;
+        text-align: center;
+        margin: 0;
+        color: #909090;
+        line-height: .2rem;
+    }
+
+}
+@media all and (orientation : portrait){/*竖屏*/
+    .m-r-20{margin-right: .20rem}
+    .account{
+        background-color:#ffffff;
+        width:100%;
+        margin-top:.24rem;
+        border-bottom: 1px solid #e3e3e3;
+        border-top: 1px solid #e3e3e3;
+    }
+    .body_box{
+        color: #909090;
+        font-size:.26rem;
+        margin: 0 .38rem;
+    }
+    .user_box{
+        mix-height:.32rem;
+        line-height: .32rem;
+        margin-top:.28rem;
+        width: 100%;
+    }
+    .pay_name{
+        margin-left: .10rem;
+        color: #4c4c4c;
+    }
+    .user_info{
+        font-size:.28rem;
+        color: #909090;
+        margin-top:.35rem;
+        width: 100%;
+    }
+
+    .guest_icon {
+        width: .38rem;
+        height: .38rem;
+        display : inline-block;
+        background: url(img/icon-user.png) no-repeat 0 center;
+        background-size: 100%;
+        margin-right: .05rem;
+        margin-bottom:-0.08rem;
+    }
+    .user_icon {
+        width: .38rem;
+        height: .38rem;
+        display : inline-block;
+        background: url(img/usr_phone.jpg) no-repeat 0 center;
+        background-size: 100%;
+        margin-right: .05rem;
+        margin-bottom:-0.08rem;
+    }
+
+    .acc_up{
+        margin-left:.20rem;
+        font-size: .24rem;
+        font-weight: 100;
+        padding:.10rem .18rem;
+        background-color:#06bfb9;
+        color:#ffffff ;
+        border-radius: 5px;
+    }
+    .pay_list{
+        margin-left: .25rem;
+        font-size: .22rem;
+        padding:.10rem .20rem;
+        color:#909090;
+        border-radius: 5px;
+        border: 1px solid #cccccc;
+        background-color:#f8f8f8;
+    }
+    .guest_remind{
+        margin-top: .4rem;
+        color: #ff9922;
+        font-size: .26rem;
+    }
+    .pay_channel{
+        font-size: 0.26rem;
+        margin-top:.28rem;
+        border-bottom: 1px solid #e3e3e3;
+        border-top: 1px solid #e3e3e3;
+        background-color: #ffffff;
+    }
+    .select_ch{
+        margin: .25rem.35rem 0 .35rem;
+        /* background-color: #ffffff; */
+    }
+    .select_ch span{
+        color: #909090;
+        font-size: .26rem;
+    }
+    .zfb_btn a{
+        padding: .22rem 1.75rem;
+        color: #4c4c4c;
+    }
+    .zfb_btn{
+        text-align: center;
+        width: 100%;
+        height: .85rem;
+        line-height: .85rem;
+        font-size: .30rem;
+        border-radius: 5px;
+        border: .02rem solid #ff9922;
+        margin-top:.24rem;
+        margin-bottom:.35rem ;
+    }
+    .zfb_btn i{
+        width: 1.10rem;
+        height: .36rem;
+        display:inline-block;
+        background: url(img/alipay.png) no-repeat 0 center;
+        background-size: 100%;
+        margin-bottom: -.05rem;
+    }
+
+    .btn{
+        margin: .30rem .22rem .50rem .22rem;
+        text-align: center;
+        font-size: .38rem;
+        line-height: .9rem;
+        height: .9rem;
+        border-radius: 5px;
+        background-color:#fd4c4c;
+    }
+
+    .btn a{
+        padding:.20rem 2.4rem;
+        color:#FFFFFF;
+    }
+    .footer{
+        height: .1rem;
+    }
+    header{
+        font-size:.26rem;
+        color: #909090;
+        margin-top: .25rem;
+        margin-left:.35rem;
+    }
+    div.wrap{
+        background-color: #ffffff;
+        overflow:hidden;
+        border-bottom:1px solid #e3e3e3;
+        border-top:1px solid #e3e3e3;
+        width: 100%;
+        height:auto;
+        margin: 0.24rem 0 0.22rem 0;
+    }
+    section.mod{
+        margin: .19rem .20rem;
+        background: #fff;
+        font-size: 0.32rem;
+        color: #909090;
+    }
+    .wrap_title{
+        margin:.35rem 0 .35rem  .35rem;
+        padding: 0;
+        font-size: .28rem;
+        color:#4fae5d;
+
+    }
+
+    span.gray{
+        color: #909090;
+        margin-right: 12px;
+    }
+
+    ul.list{
+        list-style:none;
+        padding:0;
+        margin:auto;
+        margin-left: .05rem!important;
+        overflow:hidden;
+
+    }
+    li.menu{
+        float:left;
+        width:50%;
+        overflow: hidden;
+    }
+
+    #money_id a{
+        background-color: #f8f8f8;
+        display: inline-block;
+        margin-bottom:.15rem;
+        text-decoration: none;
+        background: #fafafa;
+        border: 1px solid #cccccc;
+        color: #333;
+        border-radius: 5px;
+        width: 95%;
+        overflow: hidden;
+    }
+    #money_id  a strong{
+        color: #f00;
+    }
+    #money_id a:hover,#money_id a.hover{
+        background: #4fae5d;
+        color: #fff !important;
+        border-color: #4fae5d;
+    }
+
+    #money_id a div.layout{
+        padding-top:8%;
+        height: 1.1rem;
+    }
+
+    p.tit{
+        font-size:.35rem;
+        text-align:center;
+        margin:0;
+        height:0.38rem;
+    }
+
+    p.con{
+        font-size: .25rem;
+        text-align:center;
+        margin:0;
+        color:#909090;
+        line-height: .32rem;
+    }
+
+}
+

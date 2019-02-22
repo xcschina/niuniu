@@ -1,0 +1,128 @@
+@-ms-viewport{width:device-width}html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}body{line-height:1}ol,ul{list-style:none}table{border-collapse:collapse;border-spacing:0}caption,th,td{text-align:left;font-weight:normal;vertical-align:middle}q,blockquote{quotes:none}q:before,q:after,blockquote:before,blockquote:after{content:"";content:none}a img{border:none}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary{display:block}html{overflow-y:auto}img,video{max-width:100%;height:auto}
+body{
+    background: #f8f8f8;
+}
+header{
+    margin: 12px;
+}
+section{
+    padding: 10px;
+    background: #fff;
+}
+section.mod{
+    background: #fff;
+    font-size: 90%;
+    line-height: 1.5;
+    border-bottom: 1px solid #ececec;
+}
+#money_id a{
+    display: inline-block;
+    width: 40%;
+    margin: 2%;
+    text-decoration: none;
+    background: #fafafa;
+    border: 1px solid #efefef;
+    color: #333;
+    padding: 6px 5px;
+    line-height: 1.5em;
+    font-size: 0.8em;
+}
+#money_id  a strong{
+    color: #f00;
+}
+#money_id a:hover,#money_id a.hover,#money_id a:hover strong{
+    background: #e6393d;
+    color: #fff;
+    border-color: #e6393d;
+}
+div.noti{
+    color: #999;
+    text-align: center;
+    line-height: 30px;
+    font-size: 0.8em;
+}
+span.green{
+    color: #519216;
+    margin-right: 10px;
+}
+section.tips,div.tips{
+    background-color: #ffe;
+    border: 1px solid #ffbd4a;
+    clear: both;
+    font-size: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    line-height: 30px;
+    color: #f00;
+    padding: 6px 10px;
+}
+div.tips{
+    display: none;
+}
+section.success{
+    color: #333;
+}
+section.success span.red{
+    color: #f00;
+}
+section.success span.green{
+    color: #519216;
+}
+section.pay{
+    margin: 8px 12px;
+}
+section.pay a{
+    color: #444;
+    text-decoration: none;
+    display: block;
+    background: #fff url(img/pay_back.png) no-repeat right center;
+    height: 28px;
+    line-height: 28px;
+}
+section.pay a.select{
+    background-image: url(img/pay_select.png);
+    color: green;
+}
+a.sub_pay{
+    background-color: #e6393d;
+    background-image: -moz-linear-gradient(#e6393d, #d31a1e);
+    background-image: -webkit-linear-gradient(#e6393d, #d31a1e);
+    background-image: linear-gradient(#e6393d, #d31a1e);
+    background-repeat: repeat-x;
+    border: 1px solid #f6141a;
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding: 9px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.075);
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    margin: 12px;
+    font-size: 100%;
+}
+section.game_name{
+    background: #fefefe;
+    color: #519216;
+    font-size: 150%;
+    line-height: 120%;
+    padding: 10px;
+    margin: 0;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+}
+section.game_name img{vertical-align:bottom;}
+section.pay a.mobile_paypal{
+    margin-top: 10px;
+    color: #1376ac;
+}
+.referrer_input {margin-top: 10px;width: 100%;height:auto;line-height: 60px;color: #777777;background-color: #ffffff;border:1px solid #dddddd }
+.referrer_input input{margin:0 10px 0 10px; height: 40px;box-sizing: border-box;
+    width:95% ; font-size: 1em;color: #2a2a2a;background:none; border:1px solid #dddddd;-webkit-border-radius: 0px;padding-left: 5px}
+section.pay{
+    border:1px solid #cdcdcd;
+    border-radius: 7px;
+    margin: 12px;
+}
+section.payitem{
+    border-top:1px solid #ececec;
+}

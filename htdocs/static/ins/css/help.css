@@ -1,0 +1,989 @@
+@charset "utf-8";
+/* css reset */
+body, h1, h2, h3, h4, h5, h6, p, dl, dt, dd, ul, ol, li, form, fieldset, button, input, textarea { margin: 0; padding: 0; -webkit-user-select: none; -webkit-touch-callout: none;}
+input, textarea { -webkit-user-select: text; }
+
+body {
+    font: 12px/1 "Helvetica Neue";
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+    font-size: 100%;
+}
+
+em, i {
+    font-style: normal;
+}
+a {
+    text-decoration: none;
+}
+
+ul, ol, li {
+    list-style: none;
+}
+
+img {
+    border: 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+input, textarea {
+    outline: none;
+    -webkit-user-select: text;
+    -moz-outline: none;
+}
+
+button, input, select, label, textarea {
+    font-size: 100%;
+    -webkit-appearance: none;
+}
+
+textarea {
+    outline-style: none;
+    resize: none;
+}
+
+body {
+    background: #fff;
+}
+/******general******/
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.both {
+    clear: both;
+}
+
+.m-r-18 {
+    margin-right: .18rem !important;
+}
+
+.m-t-20 {
+    margin-top: .20rem !important;
+}
+
+.m-l-12 {
+    margin-left: .12rem !important;
+}
+
+.m-b-15 {
+    margin-bottom: .15rem !important;
+}
+
+.l-green {
+    color: #25c2a3 !important;
+}
+
+.l-gray {
+    color: #cccccc;
+}
+
+.bor-b-sol {
+    border-bottom: 1px solid #ececec;
+}
+/******横屏******/
+@media all and (orientation: landscape) {
+    /******index******/
+    .notice {
+        margin: .23rem .2rem .2rem .2rem;
+    }
+
+    .notice p {
+        font-size: .15rem;
+        color: #909090
+    }
+
+    .btns {
+        overflow: hidden;
+        margin: 0 .2rem;
+        padding-bottom: .1rem;
+    }
+
+    .btns section {
+        background-color: #59aee5;
+        float: left;
+        text-align: center;
+        width: 46%;
+        height: .52rem;
+        line-height: .52rem;
+        margin-bottom: .2rem;
+        border-radius: 3px;
+    }
+
+    .btns a {
+        color: #ddd;
+        font-size: .23rem;
+        font-weight: 500;
+    }
+
+    .service .title {
+        border-top: 1px solid #eeeeee;
+        border-bottom: 2px solid #eeeeee;
+        height: .42rem;
+        line-height: .42rem;
+        padding-left: 0.2rem;
+        font-size: .17rem;
+        color: #555555;
+    }
+
+    .service .title span {
+        margin-left: .10rem;
+        font-size: .14rem;
+        color: #cccccc;
+    }
+
+    .problem li {
+        height: .5rem;
+        line-height: .5rem;
+        font-size: .16rem;
+        margin-left: .25rem;
+        border-bottom: 1px solid #f2f2f2;
+    }
+
+    .problem li a {
+        position: absolute;
+        z-index: 999;
+        display: block;
+        width: 4.1rem;
+        word-break: keep-all;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-right: 2rem;
+        color: #333333;
+    }
+
+    .problem li span {
+        float: right;
+        margin-right: .4rem;
+    }
+
+    .problem li span i {
+        position: absolute;
+        margin-top: .2rem;
+        margin-left: .05rem;
+        border-radius: 10px;
+        width: .1rem;
+        height: .1rem;
+        background-color: #cd2135;
+    }
+
+    /******reply******/
+    .question_container {
+        border-top: 1px solid #ececec;
+        border-bottom: 1px solid #ececec;
+    }
+
+    .question_container section h5.title {
+        padding-top: .1rem;
+        padding-right: .1rem;
+        /*margin-bottom: .1rem;*/
+        font-size: .17rem;
+        min-height: .25rem;
+        line-height: .25rem;
+    }
+
+    .question_container section h5 span {
+        color: #d13244;
+        margin-right: .05rem;
+    }
+
+    .question_container section h5 {
+        font-size: .17rem;
+        color: #333333;
+    }
+
+    p.question_img {
+        margin-bottom: .2rem;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    p.question_img img {
+        margin-right: .15rem;
+        margin-top: .07rem;
+        min-width: 140px;
+        width: 1.5rem;
+    }
+
+    .question_container section.question {
+        height: .25rem;
+        line-height: .25rem;
+        font-size: .14rem;
+        color: #909090;
+    }
+
+    .question_container section.question .group {
+        float: right;
+        margin-right: .1rem;
+    }
+
+    div.reply-info {
+        padding: .05rem 0 .05rem .12rem;
+        margin-top: .18rem;
+        border-top: 1px solid #ececec;
+        border-bottom: 1px solid #ececec;
+    }
+
+    .reply-info h5.title {
+        padding-top: .1rem;
+        padding-right: .1rem;
+        margin-bottom: .1rem;
+        font-size: .17rem;
+        min-height: .4rem;
+        line-height: .25rem;
+    }
+
+    .reply-info h5 span {
+        color: #d13244;
+        margin-right: .05rem;
+    }
+
+    .reply-info h5 {
+        font-size: .17rem;
+        color: #333333;
+    }
+
+    .reply-info p.reply-user {
+        font-size: .14rem !important;
+        color: #b7b7b7;
+        height: .3rem;
+        line-height: .3rem;
+    }
+
+    .reply-info p.reply-user i {
+        display: inline-block;
+        width: .14rem;
+        height: .2rem;
+        background: url("http://static.asia.appfame.com/css/img/man.png") no-repeat 0 center;
+        background-size: 100%;
+        margin-bottom: -.08rem;
+        margin-right: .05rem;
+    }
+
+    section.no_record_tip {
+        text-align: center;
+        margin-top: .2rem;
+        margin-bottom: .3rem;
+    }
+
+    section.no_record_tip h6 {
+        margin-top: .12rem;
+        font-size: .2rem;
+        color: #a7a7a7;
+    }
+
+    .viewmore {
+        position: relative;
+        text-align: center;
+        background: #efefef;
+        font-size: .26rem;
+    }
+
+    #divMorePic input {
+        outline: none;
+        -webkit-user-select: text;
+        -moz-outline: none;
+        -webkit-appearance: none;
+    }
+
+    #btnViewMore {
+        outline: none;
+        border: 0 !important;
+        background: #efefef;
+        color: #666666;
+        padding-bottom: .1rem;
+        font-size: .2rem;
+    }
+
+    /******问题反馈******/
+    .fb-body {
+        padding: .3rem .2rem;
+    }
+
+    .select {
+        height: .55rem;
+        border: 1px solid #cccccc;
+        position: relative;
+        display: flex;
+        width: 100%;
+        border-radius: 3px;
+        margin-bottom: .15rem;
+    }
+
+    .select select {
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        color: #333333;
+        border: 0;
+        padding-left: .15rem;
+        background: #fff;
+        flex: 1;
+        font-size: .16rem;
+
+    }
+
+    .select span {
+        position: absolute;
+        right: .6rem;
+        top: 0;
+        width: 1px;
+        height: 100%;
+        background: #cccccc;
+    }
+
+    .select i {
+        position: absolute;
+        display: inline-block;
+        width: .3rem;
+        height: .16rem;
+        background: url("http://static.asia.appfame.com/css/img/down-icon.png") no-repeat 0 center;
+        background-size: 100%;
+        right: .15rem;
+        top: .2rem;
+    }
+
+    .fb-body textarea {
+        border: 1px solid #cccccc;
+        border-radius: 3px;
+        width: 97.5%;
+        height: 1.5rem;
+        font-size: .16rem;
+        color: #333333;
+        padding-top: .12rem;
+        padding-left: .15rem;
+
+    }
+
+    div.upload_container {
+        font-size: .17rem;
+        color: #555555;
+        height: .5rem;
+        border-radius: 3px;
+        border: 1px solid #dbdbdb;
+        background: #eaeaea;
+        text-align: center;
+        position: relative;
+        width: 100%;
+        line-height: .5rem;
+    }
+
+    div.upload_container i {
+        display: inline-block;
+        width: .35rem;
+        height: .25rem;
+        background: url(http://static.66173.cn/ins/css/img/upload_img.png) no-repeat 0 center;
+        background-size: 100%;
+        margin-right: .05rem;
+        margin-bottom: -.08rem;
+    }
+
+    input[type=file] {
+        opacity: 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .desc-s {
+        margin-bottom: .3rem;
+        margin-top: .1rem;
+        font-size: .13rem;
+        color: #909090;
+    }
+
+    .fd-btn {
+        width: 100%;
+    }
+
+    .fd-btn section {
+        background-color: #59aee5;
+        float: left;
+        text-align: center;
+        width: 48%;
+        height: .5rem;
+        line-height: .5rem;
+        margin-bottom: .2rem;
+        border-radius: 3px;
+    }
+
+    .fd-btn section.first {
+        background-color: #cccccc;
+        color: #ffffff;
+        float: left;
+        text-align: center;
+        width: 48%;
+        height: .5rem;
+        line-height: .5rem;
+        margin-bottom: .2rem;
+        border-radius: 3px;
+    }
+
+    .fd-btn a {
+        color: #fff;
+        font-size: .22rem;
+        font-weight: 500;
+    }
+
+    .submit {
+        border: 0;
+        background-color: #59aee5;
+        color: #ffffff;
+        text-align: center;
+        width: 100%;
+        height: .5rem;
+        line-height: .5rem;
+        margin-bottom: .2rem;
+        border-radius: 3px;
+        font-size: .22rem;
+        font-weight: 500;
+    }
+
+    .up_btn {
+        font-size: .2rem !important;
+        color: #555555 !important;
+        border: 1px solid #dbdbdb !important;
+        background: #eaeaea !important;
+    }
+
+    /*******账号找回********/
+    #acc-back-from {
+        width: 96%;
+        margin: 0 auto;
+    }
+
+    #acc-back-from div, #acc-back-from input[type=submit] {
+        width: 100%;
+        font-size: .16rem;
+        margin-bottom: .15rem;
+        height: .5rem;
+        line-height: .5rem;
+        padding-left: .15rem;
+        border-radius: 3px;
+        border: 1px solid #d3d3d3;
+        background: #fff;
+    }
+
+    #acc-back-from header {
+        padding: .25rem 0 .12rem 0;
+        font-size: .15rem;
+        color: #909090;
+        line-height: .2rem;
+        font-weight: 500;
+    }
+
+    #acc-back-from div.input {
+        display: -webkit-box;
+        width: 97%;
+    }
+
+    #acc-back-from div.input input {
+        margin-left: .1rem;
+        height: 100%;
+        line-height: .5rem;
+        border: 0;
+        display: block;
+        -webkit-box-flex: 1;
+        background: #fff;
+    }
+
+    #acc-back-from div.upload_container {
+        font-size: .17rem;
+        color: #555555;
+        height: .5rem;
+        border-radius: 3px;
+        border: 1px solid #dbdbdb;
+        background: #eaeaea;
+        text-align: center;
+        position: relative;
+        width: 97%;
+        line-height: .5rem;
+    }
+
+    #acc-back-from div.upload_container i {
+        display: inline-block;
+        width: .35rem;
+        height: .25rem;
+        background: url(http://static.66173.cn/ins/css/img/upload_img.png) no-repeat 0 center;
+        background-size: 100%;
+        margin-right: .05rem;
+        margin-bottom: -.08rem;
+    }
+
+    #acc-back-from input[type=file] {
+        opacity: 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    #acc-back-from #submit {
+        background-color: #59aee5;
+        color: #fff;
+        border: 1px solid #59aee5 !important;
+        font-size: .22rem;
+    }
+}
+
+@media all and (orientation: portrait) {
+    /******index******/
+    .notice {
+        margin: .33rem .2rem .3rem .2rem;
+    }
+
+    .notice p {
+        font-size: .26rem;
+        color: #909090
+    }
+
+    .btns {
+        overflow: hidden;
+        margin: 0 .2rem;
+        padding-bottom: .1rem;
+    }
+
+    .btns section {
+        background-color: #59aee5;
+        float: left;
+        text-align: center;
+        width: 46%;
+        height: 0.9rem;
+        line-height: 0.9rem;
+        margin-bottom: .3rem;
+        border-radius: 3px;
+    }
+
+    .btns a {
+        color: #fff;
+        font-size: .35rem;
+        font-weight: 500;
+    }
+
+    .service .title {
+        border-top: 1px solid #eeeeee;
+        border-bottom: 2px solid #eeeeee;
+        height: .75rem;
+        line-height: .75rem;
+        padding-left: 0.2rem;
+        font-size: .3rem;
+        color: #555555;
+        font-weight:700;
+    }
+
+    .service .title span {
+        margin-left: .10rem;
+        font-size: .28rem;
+        color: #cccccc;
+    }
+
+    .problem li {
+        height: .85rem;
+        line-height: .85rem;
+        font-size: .28rem;
+        margin-left: .25rem;
+        border-bottom: 1px solid #f2f2f2;
+    }
+
+    .problem li a {
+        position: absolute;
+        z-index: 999;
+        display: block;
+        width: 4.1rem;
+        word-break: keep-all;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-right: 2rem;
+        color: #333333;
+    }
+
+    .problem li span {
+        float: right;
+        margin-right: .4rem;
+    }
+
+    .problem li span i {
+        position: absolute;
+        margin-top: .37rem;
+        margin-left: .08rem;
+        border-radius: 10px;
+        width: .15rem;
+        height: .15rem;
+        background-color: #cd2135;
+    }
+    .viewmore {
+        position: relative;
+        text-align: center;
+        background: #efefef;
+        font-size: .40rem;
+    }
+
+    #divMorePic input {
+        outline: none;
+        -webkit-user-select: text;
+        -moz-outline: none;
+        -webkit-appearance: none;
+    }
+
+    #btnViewMore {
+        outline: none;
+        border: 0 !important;
+        background: #efefef;
+        color: #666666;
+        padding-bottom: .1rem;
+        font-size: .28rem;
+    }
+    /******reply******/
+    .question_container {
+        border-top: 1px solid #ececec;
+        border-bottom: 1px solid #ececec;
+    }
+
+    .question_container section h5.title {
+        padding-top: .2rem;
+        padding-right: .1rem;
+        margin-bottom: .1rem;
+        font-size: .3rem;
+        min-height: .4rem;
+        line-height: .4rem;
+    }
+
+    .question_container section h5 span {
+        color: #d13244;
+        margin-right: .05rem;
+    }
+
+    .question_container section h5 {
+        font-size: .30rem;
+        color: #333333;
+    }
+
+    p.question_img {
+        margin-bottom: .3rem;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    p.question_img img {
+        margin-right: .15rem;
+        margin-top: .07rem;
+        min-width: 140px;
+        width: 1.5rem;
+    }
+
+    .question_container section.question {
+        height: .7rem;
+        line-height: .7rem;
+        font-size: .24rem;
+        color: #909090;
+    }
+
+    .question_container section.question .group {
+        float: right;
+        margin-right: .1rem;
+    }
+
+    div.reply-info {
+        padding: .05rem 0 .05rem .12rem;
+        margin-top: .18rem;
+        border-top: 1px solid #ececec;
+        border-bottom: 1px solid #ececec;
+    }
+
+    .reply-info h5.title {
+        padding-top: .1rem;
+        padding-right: .1rem;
+        margin-bottom: .1rem;
+        font-size: .3rem;
+        min-height: .5rem;
+        line-height: .4rem;
+    }
+
+    .reply-info h5 span {
+        color: #d13244;
+        margin-right: .05rem;
+    }
+
+    .reply-info h5 {
+        font-size: .3rem;
+        color: #333333;
+    }
+
+    .reply-info p.reply-user {
+        font-size: .24rem !important;
+        color: #b7b7b7;
+        height: .4rem;
+        line-height: .4rem;
+    }
+
+    .reply-info p.reply-user i {
+        display: inline-block;
+        width: .2rem;
+        height: .28rem;
+        background: url("http://static.asia.appfame.com/css/img/man.png") no-repeat 0 center;
+        background-size: 100%;
+        margin-bottom: -.1rem;
+        margin-right: .05rem;
+    }
+
+    section.no_record_tip {
+        text-align: center;
+        margin-top: .2rem;
+        margin-bottom: .3rem;
+    }
+
+    section.no_record_tip h6 {
+        margin-top: .12rem;
+        font-size: .3rem;
+        color: #a7a7a7;
+    }
+
+
+    /******问题反馈******/
+    .fb-body {
+        padding: .5rem .2rem;
+    }
+
+    .select {
+        height: .85rem;
+        border: 1px solid #cccccc;
+        position: relative;
+        display: flex;
+        width: 100%;
+        border-radius: 3px;
+        margin-bottom: .15rem;
+    }
+
+    .select select {
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        color: #333333;
+        border: 0;
+        padding-left: .15rem;
+        background: #fff;
+        flex: 1;
+        font-size: .28rem;
+    }
+
+    .select span {
+        position: absolute;
+        right: .9rem;
+        top: 0;
+        width: 1px;
+        height: 100%;
+        background: #cccccc;
+    }
+
+    .select i {
+        position: absolute;
+        display: inline-block;
+        width: .45rem;
+        height: .24rem;
+        background: url("http://static.asia.appfame.com/css/img/down-icon.png") no-repeat 0 center;
+        background-size: 100%;
+        right: .23rem;
+        top: .33rem;
+    }
+
+    .fb-body textarea {
+        border: 1px solid #cccccc;
+        border-radius: 3px;
+        width: 97.5%;
+        height: 3rem;
+        font-size:.28rem;
+        color: #333333;
+        padding-top: .12rem;
+        padding-left: .15rem;
+
+    }
+
+    div.upload_container {
+        font-size: .17rem;
+        color: #555555;
+        height: .5rem;
+        border-radius: 3px;
+        border: 1px solid #dbdbdb;
+        background: #eaeaea;
+        text-align: center;
+        position: relative;
+        width: 100%;
+        line-height: .5rem;
+    }
+
+    div.upload_container i {
+        display: inline-block;
+        width: .35rem;
+        height: .25rem;
+        background: url(http://static.66173.cn/ins/css/img/upload_img.png) no-repeat 0 center;
+        background-size: 100%;
+        margin-right: .05rem;
+        margin-bottom: -.08rem;
+    }
+
+    input[type=file] {
+        opacity: 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .desc-s {
+        margin-bottom: .3rem;
+        margin-top: .1rem;
+        font-size: .22rem;
+        color: #909090;
+    }
+
+    .fd-btn {
+        width: 100%;
+    }
+
+    .fd-btn section {
+        background-color: #59aee5;
+        float: left;
+        text-align: center;
+        width: 48%;
+        height: .5rem;
+        line-height: .5rem;
+        margin-bottom: .2rem;
+        border-radius: 3px;
+    }
+
+    .fd-btn section.first {
+        background-color: #cccccc;
+        color: #ffffff;
+        float: left;
+        text-align: center;
+        width: 48%;
+        height: .5rem;
+        line-height: .5rem;
+        margin-bottom: .2rem;
+        border-radius: 3px;
+    }
+
+    .fd-btn a {
+        color: #fff;
+        font-size: .22rem;
+        font-weight: 500;
+    }
+
+    .submit {
+        border: 0;
+        background-color: #59aee5;
+        color: #ffffff;
+        text-align: center;
+        width: 100%;
+        height: .85rem;
+        line-height: .85rem;
+        margin-bottom: .2rem;
+        border-radius: 3px;
+        font-size: .4rem;
+        font-weight: 500;
+    }
+
+    .up_btn {
+        font-size: .35rem !important;
+        color: #555555 !important;
+        border: 1px solid #dbdbdb !important;
+        background: #eaeaea !important;
+    }
+
+    /*******账号找回********/
+    #acc-back-from {
+        width: 96%;
+        margin: 0 auto;
+    }
+
+    #acc-back-from div, #acc-back-from input[type=submit] {
+        width: 100%;
+        font-size: .3rem;
+        margin-bottom: .2rem;
+        height: .85rem;
+        line-height: .85rem;
+        padding-left: .15rem;
+        border-radius: 3px;
+        border: 1px solid #d3d3d3;
+        background: #fff;
+    }
+
+    #acc-back-from header {
+        padding: .35rem 0 .22rem 0;
+        font-size: .26rem;
+        color: #909090;
+        line-height: .3rem;
+        font-weight: 500;
+    }
+
+    #acc-back-from div.input {
+        display: -webkit-box;
+        width: 97%;
+    }
+
+    #acc-back-from div.input input {
+        margin-left: .1rem;
+        height: 100%;
+        line-height: .85rem;
+        border: 0;
+        display: block;
+        -webkit-box-flex: 1;
+        background: #fff;
+    }
+
+    #acc-back-from div.upload_container {
+        font-size: .17rem;
+        color: #555555;
+        height: .5rem;
+        border-radius: 3px;
+        border: 1px solid #dbdbdb;
+        background: #eaeaea;
+        text-align: center;
+        position: relative;
+        width: 97%;
+        line-height: .5rem;
+    }
+
+    #acc-back-from div.upload_container i {
+        display: inline-block;
+        width: .35rem;
+        height: .25rem;
+        background: url(http://static.66173.cn/ins/css/img/upload_img.png) no-repeat 0 center;
+        background-size: 100%;
+        margin-right: .05rem;
+        margin-bottom: -.08rem;
+    }
+
+    #acc-back-from input[type=file] {
+        opacity: 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    #acc-back-from #submit {
+        background-color: #59aee5;
+        color: #fff;
+        border: 1px solid #59aee5 !important;
+        font-size: .4rem;
+    }
+}

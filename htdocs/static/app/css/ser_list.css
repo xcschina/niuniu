@@ -1,0 +1,132 @@
+.side-bg {
+    width: 100%;
+    height: auto;
+    min-height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, .4);
+    display: none;
+    z-index: 1001;
+    font-size: .15rem;
+}
+
+.side-box {
+    width: 88%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: #fff;
+    overflow: auto;
+    height: 100%;
+}
+.side-box a{
+    color: #666;
+    text-decoration: none;
+}
+.side-box ul{
+    overflow: hidden;
+    list-style: none;
+}
+.side-title {
+    height: .45rem;
+    line-height: .45rem;
+    border-bottom: 8px solid #e5e5e5;
+    text-align: center;
+    font-size: .2rem;
+    color: #303030;
+}
+
+
+.side-list li {
+    height: .42rem;
+    line-height: .42rem;
+    border-bottom: 1px solid rgba(234, 234, 234, .6);
+    font-size: .15rem;
+    text-indent: 5px;
+}
+
+.side-list li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.side-list li a:hover {
+    color: #e4393c!important;
+}
+
+.side-btn {
+    display: block;
+    width: 80%;
+    height: .6rem;
+    border: 1px solid #e5e5e5;
+    margin: .2rem auto;
+    text-align: center;
+    line-height: .6rem;
+    font-size: .24rem;
+    color: #e4393c!important;
+}
+
+/*2*/
+.sev-sel {
+    padding: .1rem 0;
+    border-bottom: 1px solid rgba(234, 234, 234, .6);
+}
+
+.sev-sel li {
+    width: 33%;
+    float: left;
+    margin: .1rem 0
+}
+
+.sev-sel li:nth-child(3n-1) {
+    width: 34%;
+}
+
+.sev-sel li a {
+    display: block;
+    width: 85%;
+    height: .44rem;
+    margin: 0 auto;
+    text-align: center;
+    line-height: .44rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    font-size: .24rem;
+    color: #303030
+}
+
+.sev-sel li a.on {
+    border: 1px solid #e4393c;
+    color: #e4393c
+}
+
+.sev-list {
+    padding: .1rem 0;
+}
+
+.sev-list li {
+    width: 33%;
+    float: left
+}
+
+.sev-list li a {
+    display: block;
+    text-align: center;
+    width: 100%;
+    height: .5rem;
+    line-height: .5rem;
+    font-size: .24rem;
+    overflow: hidden
+}
+
+.sev-list li a.on {
+    color: #e4393c
+}
+
+/*3*/
+.mt-30 {
+    margin-top: .3rem
+}

@@ -1,0 +1,273 @@
+* {
+	box-sizing: border-box;
+}
+body,div,span,iframe,input,form,input,h1,h2,h3,h4,h5,h6,p,a,em,img,b,dl,dt,dd,ul,ol,li,label {
+    margin: 0;
+    padding: 0;
+}
+body {
+	background-color: #eaeaea;
+	font-family: 微软雅黑;
+	max-width: 750px;
+	margin: auto;
+}
+::-webkit-scrollbar {
+    width: 0.01rem;
+}
+a {
+    color: #aaa;
+    text-decoration: none;
+    outline: none;
+}
+
+a:hover,a:active,a:focus {
+    text-decoration: none;
+}
+.font-lger {
+    font-size: 0.47rem;
+}
+.font-lg {
+    font-size: 0.4rem;
+}
+.font-mder {
+    font-size: 0.33rem;
+}
+.font-md {
+    font-size: 0.27rem;
+}
+.font-sm {
+    font-size: 0.2rem;
+}
+.font-tiny {
+    font-size: 0.13rem;
+}
+.sec {
+	background-color: white;
+}
+.text-overflow {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.background-img {
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+.w100 {
+	width: 100%;
+}
+.inline-block-middle {
+	display: inline-block;
+	vertical-align: middle;
+}
+/*顶部牛果游戏下载*/
+.page-top {
+	font-size: 0;
+	padding: 0.2rem 0.3rem;
+	position: relative;
+}
+.page-top a, .page-top img, .page-top .right{
+	display: inline-block;
+	vertical-align: middle;
+}
+.page-top .link-niuguo {
+	width: 70%;
+}
+.page-top .link-niuguo img {
+	width: 1rem;
+	height:1rem;
+	margin-right: 0.2rem;
+}
+.page-top .right {
+	width: 60%;
+}
+.page-top .name {
+	color: #666;
+	margin-bottom: 0.1rem;
+}
+.page-top .desc {
+	color: #999;
+}
+.page-top .link-download-app {
+	width: 26.7%;
+	position: absolute;
+	font-weight: 200;
+	line-height: 0.7rem;
+	background-color: #e4393c;
+	border-radius: 0.35rem;
+	color: white;
+	box-shadow: 1px 2px 2px rgba(255,0,0,0.3);
+	top: 0.35rem;
+	right: 0.3rem;
+	text-align: center;
+}
+/*顶部*/
+.detail-top {
+	font-size: 0;
+	padding: 0.2rem 0.3rem;
+}
+.detail-top .game-img, .detail-top .center {
+	display: inline-block;
+	vertical-align: middle;
+}
+.detail-top .game-img {
+	width: 1.3rem;
+	height: 1.3rem;
+	margin-right: 0.2rem;
+}
+.detail-top .center {
+	width: 75%;
+}
+.detail-top .desc {
+	color: #aaa;
+	line-height: 0.4rem;
+	height: 0.8rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+/*公用标题块*/
+.title-wrapper {
+	padding: 0.2rem 0.3rem;
+	border-bottom: 1px solid #eee;
+}
+.title-wrapper .title {
+	border-left: 2px solid #f07f34;
+	padding-left: 0.1rem;
+	line-height: 1.4;
+}
+
+/*游戏截图*/
+.shot-block {
+	margin-top: 0.3rem;
+}
+.no-shot-tip {
+	padding: 0.6rem 0;
+	text-align: center;
+	color: #888;
+}
+.download-horizon-box {
+	width: 100%;
+	overflow: hidden;
+}
+.download-horizon-box ul{
+	list-style: none;
+	padding: 0.3rem 0.2rem;
+	font-size: 0;
+
+}
+.download-horizon-box li {
+	width: 2.1rem;
+}
+.download-horizon-box img {
+	width: 2rem;
+	height: 3rem;
+}
+
+/*游戏简介*/
+.brief-intro-block {
+	margin-top: 0.3rem;
+}
+.brief-intro-block .desc {
+	color: #888;
+	padding: 0.2rem 0.3rem;
+	border-bottom: 1px solid #eee;
+}
+/*游戏信息*/
+.game-info-block {
+	margin-bottom: 1rem;
+}
+.info-wrapper {
+	font-size: 0;
+	padding: 0.2rem 0.3rem 1rem;
+}
+.info-wrapper .item {
+	width: 50%;
+	display: inline-block;
+	vertical-align: middle;
+	line-height: 1.5;
+	color: #888;
+}
+.info-wrapper .item:nth-child(odd) {
+	width: 50%;
+}
+.info-wrapper .item:nth-child(even) {
+	width: 50%;
+}
+/*底部下载游戏*/
+.bottom-fix-zone {
+	font-size: 0;
+	position: fixed;
+	bottom: 0;
+	left:0;
+	right:0;
+	text-align: center;
+	padding: 0.15rem 0;
+	box-shadow: 0 -3px 5px rgba(128,128,128,0.2);
+	background-color: white;
+	z-index: 9;
+
+}
+.bottom-fix-zone .link-download-game {
+	display: inline-block;
+	width: 70%;
+	font-weight: 200;
+	line-height: 0.7rem;
+	background-color: #e4393c;
+	border-radius: 0.35rem;
+	color: white;
+	box-shadow: 1px 2px 2px rgba(255,0,0,0.3);
+}
+.bottom-fix-zone .link-download-game:hover {
+	box-shadow: none;
+}
+.mask, .wx-share-mask {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0,0,0,0.5);
+	z-index: 99;
+	display: none;
+	cursor: pointer;
+}
+
+
+/*简单提示*/
+.brief-tip-pop {
+	position: fixed;
+	top: 45%;
+	z-index: 999;
+	left: 0;
+	right: 0;
+	text-align: center;
+	display: none;
+	word-break: break-all;
+}
+.brief-tip-pop .con{
+	background: rgba(0,0,0,0.6);
+	color: white;
+	max-width: 40%;
+	padding: 5px 10px;
+	display: inline-block;
+}
+
+/*微信内置浏览器中引导微信分享*/
+.wx-share-mask .wx-share-arrow {
+	text-align: right;
+	padding-right: 0.4rem;
+	margin-bottom: 0.5rem;
+}
+.wx-share-mask .wx-share-arrow img {
+	width: 2rem;
+}
+.wx-share-mask .wx-share-text {
+	text-align: center;
+}
+.wx-share-mask .wx-share-text img {
+	width: 3rem;
+}

@@ -1,0 +1,149 @@
+* {
+    padding: 0;
+    margin: 0;
+    -webkit-tap-highlight-color:rgba(0,0,0,0.1);
+}
+body {
+    color: #333;
+    font-size: 12px;
+    font-family: 微软雅黑;
+    background-color: #f2f2f2;
+}
+.text-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.block {
+    display: block;
+}
+a {
+    text-decoration: none;
+    color: #333;
+}
+.font-lg {
+    font-size: 14px;
+}
+.font-sm {
+    font-size: 12px;
+}
+@media (max-width: 374px) {
+    .font-lg {
+        font-size: 13px;
+    }
+    .font-sm {
+        font-size: 11px;
+    }
+}
+@media (min-width: 375px) and (max-width: 480px) {
+    .font-lg {
+        font-size: 14px;
+    }
+    .font-sm {
+        font-size: 12px;
+    }
+}
+@media (min-width: 481px) {
+    .font-lg {
+        font-size: 16px;
+    }
+    .font-sm {
+        font-size: 14px;
+    }
+}
+.message-item {
+    padding: 0.1rem 0;
+    position: relative;
+    height: 1.2rem;
+    border-bottom: 1px solid #d1d1d1;
+    background-color: white;
+}
+.message-item:active {
+    border-bottom: 1px solid #ddd;
+}
+.message-item .left {
+    position: absolute;
+    left: 0.3rem;
+    top: 0.15rem;
+    width: 1.1rem;
+    font-size: 0;
+}
+.message-icon {
+    width: 100%;
+}
+.message-item .dot {
+    position: absolute;
+    right: -0.05rem;
+    top: -0.05rem;
+    width: 0.2rem;
+    display: none;
+}
+.message-item .dot.active {
+    display: block;
+}
+.message-item .center {
+    padding-left: 1.6rem;
+    max-width: 60%;
+    line-height: 1.5;
+}
+.message-item .title {
+    font-weight: bold;
+}
+.message-item .time {
+    color: #999;
+}
+.message-item .go-to-message {
+    position: absolute;
+    right: 0.3rem;
+    top: 0.45rem;
+    height: 0.5rem;
+}
+.no-message {
+    text-align: center;
+    font-size: 22px;
+    font-weight: lighter;
+    padding-top: 20%;
+    color: #d3d3d3;
+}
+.no-message .no-pic {
+    width: 80px;
+}
+.get-status {
+    text-align: center;
+    padding: 0.3rem 0 0.3rem;
+    color: #999;
+    font-size: 14px;
+}
+.get-status .more-btn {
+    display: inline-block;
+    padding: 0.1rem 0.5rem;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    color: #666;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+    transition: box-shadow 0.5s ease-in-out;
+}
+.get-status .more-btn:active {
+    box-shadow: none;
+}
+
+/*简单提示*/
+.brief-tip-pop {
+    position: fixed;
+    top: 45%;
+    z-index: 999;
+    left: 0;
+    right: 0;
+    text-align: center;
+    display: none;
+    word-break: break-all;
+}
+.brief-tip-pop .con{
+    background: rgba(0,0,0,0.6);
+    color: white;
+    max-width: 40%;
+    padding: 5px 10px;
+    display: inline-block;
+}

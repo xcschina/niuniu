@@ -1,0 +1,9 @@
+.swiper-wrapper {
+    display: block;
+}
+.rotator .swiper-slide {
+    display: none;
+}
+.rotator .swiper-slide:first-child {
+    display: block;
+}

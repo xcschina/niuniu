@@ -1,0 +1,173 @@
+* {
+	box-sizing: border-box;
+}
+body,div,span,iframe,input,form,input,h1,h2,h3,h4,h5,h6,p,a,em,img,b,dl,dt,dd,ul,ol,li,label {
+	margin: 0;
+	padding: 0;
+}
+body {
+	background-color: #f2f2f2;
+	font-family: 微软雅黑;
+	max-width: 750px;
+	margin: auto;
+}
+::-webkit-scrollbar {
+	width: 0.01rem;
+}
+a {
+	color: #333;
+	text-decoration: none;
+	outline: none;
+}
+
+a:hover,a:active,a:focus {
+	text-decoration: none;
+}
+/*遮罩层*/
+.mask {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0,0,0,0.5);
+	z-index: 99;
+	display: none;
+	cursor: pointer;
+}
+/*弹窗*/
+.pop-wrapper {
+	max-width: 410px;
+	position: relative;
+	margin: auto;
+}
+.pop-bg {
+	margin: auto;
+	width: 84%;
+	position: absolute;
+	left: 50%;
+	margin-left: -42%;
+	box-sizing: border-box;
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 1px 2px 2px rgba(200,200,200,0.3);
+}
+.pop-bg .pop-title {
+	height: 1rem;
+	line-height: 1rem;
+	font-size: 0.4rem;
+	text-align: center;
+	color: #00aa33;
+	/*color: #ae2b1a;*/
+	border-bottom: 1px solid #d1d1d1;
+}
+.pop-bg.red-color .pop-title{
+	color: #ae2b1a;
+}
+.pop-bg .con {
+	color: #6b6b6c;
+	font-size: 0;
+}
+.pop-bg-large .con{
+	height: 78%;
+}
+.pop-bg-small .con{
+	height: 78%;
+}
+.pop-bg-small .btn-zone {
+	position: absolute;
+	width: 100%;
+	left: 0;
+	text-align: center;
+	bottom: 0;
+	font-size: 0;
+	border-top: 1px solid #bbb;
+}
+.pop-bg-small .btn-zone .bt-btn {
+	cursor: pointer;
+	padding: 15px 0;
+	font-size: 0.4rem;
+	display: inline-block;
+	vertical-align: middle;
+}
+/*确认支付*/
+.pay-check-pop {
+	width: 100%;
+	height: 100%;
+}
+.pay-check-pop .desc {
+	font-size: 0.35rem;
+	line-height: 25px;
+	padding: 10px;
+	color: #333;
+}
+.pay-check-pop .tip {
+	font-size: 0.2rem;
+	color: #aaa;
+	text-align: center;
+}
+.pay-check-pop .bt-btn {
+	width: 50%;
+}
+.pay-check-pop .go-pay-btn {
+	color: #bbb;
+	border-right: 1px solid #bbb;
+}
+.pay-check-pop .already-pay-btn {
+	color: #00aa33;
+}
+/*支付错误弹窗*/
+.pay-check-fail-pop .desc {
+	font-size: 0.4rem;
+	padding: 20% 10px 0;
+	text-align: center;
+}
+.pay-check-fail-pop .bt-btn {
+	width: 100%;
+	color: #bbb;
+}
+/*交易完成*/
+.pay-already-pop {
+	width: 80%;
+	height: 80%;
+	padding: 10% 0 10% 20%;
+	position: relative;
+}
+
+.step-line-zone .step {
+	width: 100%;
+	position: relative;
+	padding-left: 20%;
+}
+.step-line-zone .text {
+	font-size: 0.4rem;
+	line-height: 14px;
+}
+.step-line-zone .dot {
+	position: absolute;
+	left: 0;
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+}
+.step-line-zone.step1 .dot1, .step-line-zone.step2 .dot1, .step-line-zone.step2 .dot2 {
+	background-color: red;
+}
+.step-line-zone.step1 .dot2, .step-line-zone.step2 .dot3 {
+	border: 1px solid red;
+	background-color: white;
+}
+.step-line-zone.step1 .dot3 {
+	background-color: #bbb;
+}
+.step-line-zone .step-line-gap {
+	height: 40%;
+	margin-left: 6px;
+	border-left-width: 2px;
+	border-left-style: solid;
+	border-left-color: #bbb;
+	transition: color 2s linear;
+}
+.step-line-zone.step1 .step-line-gap1, .step-line-zone.step2 .step-line-gap1, .step-line-zone.step2 .step-line-gap2 {
+	border-left-color: red;
+}

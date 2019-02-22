@@ -1,0 +1,60 @@
+*{margin:0; padding:0;}
+h1, h2, h3, h4, h5, h6{font-size: 100%;}
+h3{font-weight: bold;}
+h4,h5,h6{font-weight: normal;}
+ul{list-style-type: none;}
+a {text-decoration: none;color: #FFFFFF;}
+a:hover {text-decoration: none;opacity: 0.9;filter: progid:DXImageTransform.Microsoft.Alpha(opacity=90);}
+img{border:0;}
+.clear{clear:both;visibility:hidden;height:0;line-height:0;font-size:0;}
+.clearfix:after{clear:both;content:".";height:0;display:block;visibility:hidden;}
+.clearfix{*zoom:1;}
+body{min-width: 1204px; font:12px/1.6 \5FAE\8F6F\96C5\9ED1,tahoma,sans-serif;color:#52505a;padding-top: 42px;background-color:#e9dab8; }
+.warpbox{margin-top:-45px;width: 100%;font-family: "微软雅黑";color: #9f7e6c;font-size: 14px;}
+.pagebox{width: 100%;}
+.pages{width: 1205px;margin: 0 auto;position: relative;display: block;right: 1px}
+.pagebox1{height: 568px;background: url(http://cdn.66173.cn/website/imgs/zt3/pg1.png) top center scroll no-repeat;}
+.pagebox2{height: 620px;background: url(http://cdn.66173.cn/website/imgs/zt3/pg2.png) top center scroll no-repeat;}
+.pagebox3{height: 680px;background: url(http://cdn.66173.cn/website/imgs/zt3/pg3.png) top center scroll no-repeat;}
+.pagebox4{background-color: #393838}
+.page1{height: 568px;background: url(http://cdn.66173.cn/website/imgs/zt3/bg1.jpg) top center scroll no-repeat;background-size: 100%}
+.page2{height: 620px;background: url(http://cdn.66173.cn/website/imgs/zt3/bg2.png) top center scroll no-repeat;background-size: 100%}
+.page3{height: 680px;background: url(http://cdn.66173.cn/website/imgs/zt3/bg3.png) top center scroll no-repeat;background-size: 100%}
+.page4{background-color: #393838}
+.fb{font-weight: bold;}
+.fl{float: left;_display: inline;}
+.fr{float: right;_display: inline;}
+
+.qr_box{height: 220px;width: 175px;background-color: #c8d8fc;filter:alpha(opacity=90);opacity:0.9;position: absolute;bottom: 5px;left: 100px;text-align: center;font-size: 12px;color: #333;}
+.guide_box{width: 1000px;position: absolute;top: 90px;left: 100px;border-top: 0px solid #d2c6c4;}
+.guide_box ul{height: 60px;background-color: #434343;margin-top: 20px;text-align: center}
+.guide_box ul li{width: 25%;line-height: 60px;font-size: 24px;color: #fff;float: left;}
+.cur{background-color: #d0ad69}
+.img_box{
+    width: 100%;
+    height: 440px;
+    background-color: #e3e3e3;
+    text-align: center;
+    overflow: hidden;
+    background: url(http://cdn.66173.cn/website/imgs/zt3/o2.png) top center scroll no-repeat;
+    background-size: 100%;
+    /*border-bottom: 2px solid #cda755;*/
+}
+.img_box img{margin-top: 25px}
+.img_box .con img{margin:0;}
+.game_box{width: 1000px;position: absolute;top: 70px;left: 100px;border-top: 2px solid #d2c6c4;}
+.screenshot_box{width: 100%;height: 600px;;margin-top: 30px}
+.screenshot_box ul{overflow: hidden}
+.screenshot_box ul li{float: left;margin-right: 10px}
+
+.l-h-30{line-height: 30px}
+.m-b-10{margin-bottom: 10px}
+
+/*底部*/
+.copyright{ background: #393838; padding: 20px 0; text-align: center; line-height: 32px; color: #fff; height:120px; clear: both;}
+.copyright a{ color: #fff; padding:0 10px; border-right:1px solid #aaa;}
+.copyright a:last-child{border-right: none;}
+.copyright p.honor-list a{display: inline-block}
+.yl_div{width: 980px;position: absolute;bottom: 20px;left: 100px;font-size: 14px;color: #333;text-align: left;border: 1px solid #E8E8E8;padding: 10px;background-color: #fff;}
+.yl_box{margin: 0 30px 0 30px; border-top: 1px solid #E8E8E8;padding-top: 10px;line-height: 20px;color: #333}
+.yl_box a{color: #333}

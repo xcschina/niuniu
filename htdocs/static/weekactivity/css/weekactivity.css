@@ -1,0 +1,368 @@
+.content{
+    width:100%;
+    background:#f8f8f8;
+    position: relative;
+}
+.content_box{
+    width:1201px;
+    height:100%;
+    background-color:#ffffff;
+    margin:auto;
+}
+.nav1{
+    width:95%;
+    height:50px;
+    margin-left:2.5%;
+    background:url("http://cdn.66173.cn/weekactivity/nav1.png") no-repeat;
+    background-size:100%;
+    text-align:center;
+    line-height:50px;
+    color:#fff;
+    font-size:20px;
+}
+.nav2{
+    width:95%;
+    height:50px;
+    margin-left:2.5%;
+    background:url("http://cdn.66173.cn/weekactivity/nav2.png") no-repeat;
+    background-size:100%;
+    text-align:center;
+    line-height:50px;
+    color:#fff;
+    font-size:20px;
+}
+.nav3{
+    width:95%;
+    height:50px;
+    margin-left:2.5%;
+    background:url("http://cdn.66173.cn/weekactivity/nav3.png") no-repeat;
+    background-size:100%;
+    text-align:center;
+    line-height:50px;
+    color:#fff;
+    font-size:20px;
+}
+.clear_h2{
+    clear: both;
+    height:20px;
+}
+
+.game_box{
+    width: 350px;
+    height:500px;
+    border:2px solid #d1d1d1;
+    float: left;
+    margin-left:2.9%;
+    margin-top:20px;
+}
+.desc_img{
+    width:296px;
+    height:234px;
+    margin:auto;
+    margin-top:13px;
+
+}
+.game_box span{
+    font-size:20px;
+    font-family: 'Microsoft YaHei', STXihei, 'Times New Roman', Georgia, serif;
+    margin-left:25px;
+    line-height:40px;
+}
+.game_box .solid{
+    width:96%;
+    height:2px;
+    background:#e5e5e5;
+    margin:auto;
+    margin-top:10px;
+}
+
+.price_border{
+    width:300px;
+    height:54px;
+    border:3px dashed #eda5a5;
+    border-radius:10px;
+    margin:auto;
+    margin-top:10px;
+}
+.reper_box{
+    width:100%;
+    height:40px;
+}
+.reper{
+    width:240px;
+    height:16px;
+    background:#e2e2e2;
+    border-radius:5px;
+    float: left;
+    margin-left:20px;
+    margin-top:10px;
+}
+.reper_num{
+    float: left;
+    font-size:12px;
+    color:red;
+    font-family: 'Microsoft YaHei', STXihei, 'Times New Roman', Georgia, serif;
+    margin-top:10px;
+}
+.reper_plan{
+    height:16px;
+    background:#ff0403;
+    border-radius:5px;
+}
+.game_box ul li{
+    padding:6px 30px;
+    border:2px solid red;
+    float: left;
+    margin-left:20px;
+    margin-top:14px;
+    border-radius:10px;
+    font-size:20px;
+}
+.ljgm{
+    border-color: #ff9600!important;
+    color:#ff9600;
+}
+.yjxz{
+    border-color: #54c7fd!important;
+    color:#54c7fd;
+}
+.cksp{
+    border-color:red!important;
+    color:red;
+}
+.price_border span{
+    font-size:15px;
+    line-height:60px;
+    float: left;
+    text-decoration:line-through
+}
+.price_border div{
+    font-size:15px;
+    line-height:60px;
+    color: #ff6600;
+    float: left;
+    margin-left:50px;
+}
+
+.price_border div i{
+    font-size:25px;
+    line-height:55px;
+    color: #ff6600;
+    float: right;
+}
+.rule_week{
+    width:1000px;
+    height:300px;
+    background:#f8f8f8;
+    margin:auto;
+    margin-top:20px;
+}
+
+.rule_week span{
+    float: left;
+    margin-top:30px;
+    margin-left:50px;
+}
+
+.rule_week ul{
+    float:left;
+    margin-left:50px;
+}
+
+.rule_week span{
+    font-size:20px;
+    font-family: 'Microsoft YaHei', STXihei, 'Times New Roman', Georgia, serif;
+}
+
+.rule_week ul li{
+    font-size:14px;
+    font-family: 'Microsoft YaHei', STXihei, 'Times New Roman', Georgia, serif;
+}
+.attention{
+    width:1000px;
+    height:240px;
+    background:#f8f8f8;
+    margin:auto;
+    margin-top:20px;
+    margin-bottom: 40px;
+}
+.qr{
+    width:122px;
+    height:175px;
+    text-align: center;
+    float: left;
+    margin-top:30px;
+    margin-right:20px;
+}
+.qr img{
+    width:122px;
+}
+.qr span{
+    font-size:14px;
+}
+.clear_h1{
+    clear: both;
+    height:10px;
+}
+.attention ul{
+    margin-left:40px;
+}
+.attention_img{
+    margin-top:100px;
+    float: left;
+    margin-left:50px;
+}
+.copyright{
+    width:1202px!important;
+    margin: auto;
+}
+.foot{
+    width:100%!important;
+    background:#323131;
+}
+.copyright{
+    background:#323131!important;
+}
+.black{
+    width:100%;
+    height:100%;
+    background:black;
+    position:fixed;
+    filter:alpha(opacity=60);
+    -moz-opacity:0.6;
+    opacity:0.6;
+    z-index:1;
+    display: none;
+}
+.alert_box{
+    width:800px;
+    margin-left:200px;
+    top:50px;
+    position: absolute;
+    z-index: 10;
+    background: #fff;
+}
+.alert_box_2{
+    width:800px;
+    margin-left:200px;
+    top:100px;
+    position:fixed;
+    z-index: 10;
+    background: #fff;
+}
+.alert_nav{
+    width:100%;
+    height:60px;
+    background:#e4393c;
+    text-align: center;
+    color: #fff;
+    font-size:25px;
+    line-height:50px;
+}
+#choose_server{
+    width:200px;
+    height:30px;
+    margin-top:10px;
+}
+#zhiy{
+    width:100px;
+    height:30px;
+    margin-top:10px;
+}
+
+.mt_10{
+    margin-top:20px!important;
+}
+
+body{
+    max-width:3000px!important;
+    margin: 0 auto;
+}
+
+.down_alert{
+    width:800px;
+    margin-left:200px;
+    top:100px;
+    position:fixed;
+    z-index:10;
+    background: #fff;
+}
+.game_down{
+    margin:0!important;
+    padding:0!important;
+    overflow: inherit!important;
+}
+.downaddr{
+    float: left!important;
+    margin-left:100px;
+    margin-top:40px;
+}
+
+.close_down{
+    width:30px;
+    height:30px;
+    background:url("http://cdn.66173.cn/weekactivity/close.png");
+    background-size:30px;
+    float:right;
+    margin-top:13px;
+    margin-right:20px;
+}
+.clear_h8{
+    clear:both;
+    height:80px;
+}
+.desc_img{
+    position: relative;
+}
+.desc_img .desc_content{
+    width:296px;
+    height:234px;
+    margin-top:-234px;
+}
+.black_1{
+    width:296px;
+    height:234px;
+    background: black;
+    filter:alpha(opacity=60);
+    -moz-opacity:0.6;
+    opacity:0.6;
+}
+.desc_content em{
+    font-size:15px;
+    margin-top:-234px;
+    float: left;
+    color:#fff;
+    position: absolute;
+    z-index:2;
+    padding:10px 10px;
+}
+.attr_select{
+    width:100px;
+    height:30px;
+    margin-top:10px;
+}
+.right_fixed{
+    margin-left: 1100px!important;
+}
+.buy_rule{
+    width:200px;
+    height:35px;
+    background:#AD1A1B!important;
+    margin:auto;
+    text-align:center;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+.buy_rule strong{
+    color:#fff;
+    font-size:20px;;
+}
+.jiathis_style_32x32{
+    margin-left:450px!important;
+    margin-top:-30px!important;
+}
+.jiathis_style_32x32 span{
+    float: left;
+    font-size:16px;
+}
+

@@ -1,0 +1,171 @@
+	.g_title{
+			width:100%;
+			height: .6rem;
+			background-color: #f2f2f2;
+			font-size: .3rem;
+			color: #7d7d7d;
+			line-height: .6rem;
+		}
+		.g_title span{
+			margin-left: .24rem;
+			width: .04rem;
+			height: .3rem;
+			display: inline-block;
+			background-color: #cd2a2c;
+			float: left;
+			margin-top: .15rem;
+			margin-right: .1rem;
+		}
+		.user_mobile{
+			color: #7d7d7d;
+			padding: .15rem 0;
+			height: 2.2rem;
+			background-color: #fff;
+			font-size: .24rem;
+			border-top: 1px solid #cccccc;
+			border-bottom: 1px solid #cccccc;
+		}
+		.card-info-box{
+			background-color: #fff;
+			padding: .15rem 0;
+			width: 100%;
+			line-height: .7rem;
+		}
+		.card-info-box label{
+			color: #7d7d7d;
+			float: left;
+			display: block;
+			width: 2rem!important;
+			text-align: right;
+		}
+		.card-info-box label i{
+			color: red;
+			margin: 0 .1rem;
+		}
+		.card-info-box input{
+			width: 4.8rem;
+			height: .65rem;
+			font-size: .24rem;
+			padding-left: .1rem;
+			color: #7d7d7d;
+		}
+		.sel-sev{
+			text-decoration:none;
+			display: inline-block;
+			background-color: #f2f2f2;
+			width: 4.8rem;
+			height: .65rem;
+			font-size: .3rem;
+			padding-left: .1rem;
+			color: #b0b0b0;
+		}
+		.user_list{
+			font-size: .24rem;
+			border-top: 1px solid #cccccc;
+			border-bottom: 1px solid #cccccc;
+		}
+		.br-tb-1{
+			border-bottom: 1px solid #e5e5e5;
+			border-top: 1px solid #e5e5e5;
+		}
+		.s_btn{
+			width: 1.40rem;
+			height: .65rem;
+			display: inline-block;
+			background-color: #f2f2f2;
+			color: #7d7d7d;
+			text-decoration: none;
+			text-align: center;
+			margin-right: .5rem;
+			line-height: .65rem;
+		}
+		.s_btn_on{
+			background-color: #ff6600;
+			color: #ffffff;
+		}
+		.card3-con-txt{
+			position: absolute;
+			padding: 0;
+			font-size: .18rem;
+			color: #cd2a2c;
+			margin-left: 2.1rem;
+			margin-top: -.2rem;
+		}
+		.pay_box{
+			border-top: 1px solid #e5e5e5;
+			background-color: #fff;
+			font-size: .2rem;
+			color: #cccccc;
+		}
+		.zfb_box{
+			width: 100%;
+			height: .85rem;
+			line-height: .85rem;
+			border-bottom: 1px solid #e5e5e5;
+		}
+		.wx_box{
+			width: 100%;
+			height: .85rem;
+			line-height: .85rem;
+			border-bottom: 1px solid #e5e5e5;
+		}
+		.zfb_icon{
+			float: left;
+			display: block;
+			width: 1.14rem;
+			height: .4rem;
+			background: url(http://cdn.66173.cn/app/img/zfb_icon.png);
+			background-size: 100%;
+			margin-left: .65rem;
+			margin-top: .22rem;
+			margin-right: .25rem;
+		}
+		.wx_icon{
+			float: left;
+			display: block;
+			width: 1.14rem;
+			height: .4rem;
+			background: url(http://cdn.66173.cn/app/img/wx_icon.png);
+			background-size: 100%;
+			margin-left: .65rem;
+			margin-top: .22rem;
+			margin-right: .25rem;
+		}
+		.notice_box{
+			height: 2rem;
+			text-align: center;
+		}
+		.notice_box p{
+			font-size: .2rem;
+			color: #e4393c;
+			margin: 0;
+			padding:0;
+			margin-top: .2rem;
+		}
+		.pay_btn{
+			height: .43rem;
+			width: .44rem;
+			display: block;
+			background: url(http://cdn.66173.cn/app/img/pay_def.png);
+			background-size: 100%;
+			float: right;
+			margin-top: .2rem;
+			margin-right: .15rem;
+		}
+		.pay_on{
+			height: .44rem;
+			width: .44rem;
+			display: block;
+			background: url(http://cdn.66173.cn/app/img/pay_on.png);
+			background-size: 100%;
+			float: right;
+			margin-top: .2rem;
+			margin-right: .15rem;
+		}
+		.card-info-box select{
+			width: 4.95rem;
+			height: .65rem;
+			font-size: .24rem;
+			padding-left: .1rem;
+			color: #7d7d7d;
+		}
