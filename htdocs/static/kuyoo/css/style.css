@@ -1,0 +1,56 @@
+.title_style span{ float: left; width: 3px; background: #19b0c4; height: 14px ;}
+.input_txt{ height: 30px; border: 2px solid #19b0c4;width: 580px;font-size: 14px; overflow: hidden;}
+.input_txt .btn{ background: #19b0c4; width: 80px; height: 30px; cursor: pointer; color: white; font-weight: bold; text-align: center; }
+.index_nav{ border-bottom: 2px solid #19b0c4; height: 40px; clear: both; }
+.index_nav_txt dt{ width: 200px; background: #19b0c4; text-indent: 13px; color: #fff;}
+.four_btn a{ width: 105px; height: 40px; line-height: 40px; display: block; color: #fff; background: #19b0c4; float: left; margin: 10px 8px 0 0; text-align: center; font-weight: bold;}
+.index_verification .search_btn{width: 34px; height: 26px; float: left;cursor: pointer; background: url(img/images.png) 8px -432px #19b0c4 no-repeat;}
+.goto_top{ text-align: center; background: #19b0c4; position: absolute; left: -1px; bottom: -40px;width:82px; height: 40px; line-height: 40px; font-size: 12px;}
+.tel_num{ font-size: 24px; font-weight: bold; color: #19b0c4;}
+.nav .nav_list>li{ float:left; padding: 0 8px; border-right:1px solid #d4172e; border-left: 1px solid #19b0c4; line-height: 24px; margin: 8px 0 0 0 ;}
+.title_sub .name{ border-left:solid 3px #19b0c4; height:18px; line-height:18px; padding-left:10px; font-weight:bold; font-size:16px; display:block;}
+.title_sub .name{ border-left:solid 3px #19b0c4; height:18px; line-height:18px; padding-left:10px; font-weight:bold; font-size:16px; display:block;}
+
+a.btn_red_big{ padding: 10px 40px; background: #09a9be; color: #fff;right:120px; border-radius: 3px; font-size: 14px; }
+a.btn_red_normal{ padding: 5px 15px; background: #09a9be; color: #fff; border-radius: 3px; font-size: 12px; }
+#page .current{ display:inline-block; height:30px; line-height:30px; padding:0px 10px;  margin-right:5px; color:#fff;background-color:#09a9be}
+.index_left_meu{ width: 200px;height: 285px; background:#09a9be; overflow: hidden; float: left;}
+.index_left_meu li a:hover{ background:#fff; color: #09a9be; text-decoration: none;}
+.index_left_box{ width:515px; height:253px; display:none; position:absolute; padding:15px 10px; left:200px; top:0px; z-index:999; border-right:solid 2px #09a9be; border-bottom:solid 2px #09a9be; background-color:#FFFFFF; }
+.right_fixed{ width:80px; border:solid 1px #09a9be; position:fixed; margin-left:1020px; bottom:200px; background-color:#FFFFFF; font-size:14px;}
+.right_fixed .title{ height:30px; line-height:30px; background-color:#09a9be; color:#FFFFFF; text-align:center;}
+.right_fixed .item{ height:70px; padding:10px 0px;  background-color:#FFFFFF; text-decoration:none; color:#09a9be; display:block; text-align:center; line-height:30px;cursor:pointer;}
+.right_fixed .item:hover{ background:#09a9be ;color:#FFFFFF;}
+.nav{ height: 40px;font-size: 15px; clear: both; background: #09a9be;}
+.nav_list>li>a.on,.nav_list>li>a:hover{ color: #09a9be; background: #fff;  border-radius: 3px; text-decoration: none; }
+.user_center_left dt{ background: #09a9be; line-height: 36px; color: #fff; font-weight: bold; text-indent: 15px;}
+.account_info .common_btn a.important_btn1{ padding: 0px 40px; background: #09a9be; color: #fff;right:120px; border-radius: 3px; }
+.account_info .common_btn a.important_btn2{ padding: 0px 40px; background: #09a9be; color: #fff; right:-14px; border-radius: 3px; border-radius: 3px;  }
+.letter_details div a{ color: #09a9be;}
+.user_center_right .sucess{ font-size: 16px; text-align: center; color: #09a9be; padding: 50px 0;}
+.login_txt .title,.reg_txt .title{ font-size: 22px; color: #09a9be; font-weight: bold; margin-bottom: 20px;}
+.title_tab{ height:40px; border-bottom:solid 2px #09a9be;}
+.title_tab .item.cur{ color:#FFFFFF; background-color:#09a9be; }
+.game_form>li .btn:hover{ background-color:#09a9be; }
+.game_form>li .btn2:hover{ background-color:#09a9be; }
+.title_tab{ height:40px; border-bottom:solid 2px #09a9be;}
+.title_tab .item.cur{ color:#FFFFFF; background-color:#09a9be; }
+.game_form>li .btn:hover{ background-color:#09a9be; }
+.game_down .downaddr .item{ width:110px; height:40px; padding:10px 20px; line-height:20px; font-size:14px; font-weight:bold; margin:0px 20px 10px 0px; cursor:pointer; display:inline-block;  border:solid 1px #09a9be; color:#09a9be; border-radius:3px; position:relative;}
+.game_down .downaddr .item:hover{ color:#FFFFFF; background-color:#09a9be; text-decoration:none; }
+
+.color_red{ color: #000;}
+.index_left_meu li a:hover{ color:#09a9be;}
+.index_first_screen_right .sfr,a:hover { color: #fe7e00; }
+.four_btn a:hover{ background: #20CAE0; color: #FFF;}
+.input_txt .btn:hover{ background: #20CAE0; color:#FFF; }
+.message{ color: #fe7e00; }
+.a_z dt:hover, .a_z dd:hover { color: #09a9be; }
+.sale_list li span { background-color: #fe7e00;}
+.foot_a_z a:hover { background-color: #09a9be; }
+.index_nav_txt a:hover{ color: #09a9be;}
+
+
+
+.f_footer_left{ display: inline-block; width: 160px;}
+.f_footer_right{ display: inline-block; width: 500px;text-align: left;}

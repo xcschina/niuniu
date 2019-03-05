@@ -1,0 +1,11 @@
+{
+    "require": {
+        "elasticsearch/elasticsearch": "~2.0",
+        "smarty/smarty": "3.1.*",
+        "phpoffice/phpexcel": "1.7.*",
+        "paypal/rest-api-sdk-php":"*"
+    },
+    "autoload": {
+        "files": ["common/bootstrap.php"]
+    }
+}

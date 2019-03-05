@@ -1,0 +1,28 @@
+#pagebar{
+    height: 40px;
+    line-height: 40px;
+    overflow: hidden;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto 10px auto;
+    font-size: 14px;
+    border-bottom: 1px solid #e6e8ea;
+    font-family: 'Microsoft YaHei', STXihei, 'Times New Roman', Georgia, serif;
+}
+#pagebar a,#pagebar strong{
+    border: 1px solid #d2d0d0;
+    padding: 5px 8px 4px 8px;
+    margin-right: 5px;
+    color: #777;
+}
+#pagebar a:hover,#pagebar a.hover{
+    border-color: #a5a4a4;
+    background: #b2b1b1;
+    color: #fff;
+    text-decoration: none;
+}
+#pagebar strong{
+    border-color: #eee;
+    background: #eee;
+    color: #999;
+}

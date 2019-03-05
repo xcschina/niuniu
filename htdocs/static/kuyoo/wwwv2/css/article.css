@@ -1,0 +1,235 @@
+@charset "UTF-8";
+div.article_game{
+	font-size: 14px;
+}
+div.article_game_left{
+	border-top:1px solid #ececec;
+	width: 666px;
+	float: left;
+}
+div.article_game_left div.desc{
+	font-size: 12px;
+	color: #555;
+	position: relative;
+	height:24px;
+	line-height: 24px;
+}
+div.article_game_left div.desc div.source{
+	position: absolute;
+	right: 0;
+	top: 0;
+	height:24px;
+	line-height: 24px;
+}
+div.article_game_left div.details{
+	border-top:1px solid #ececec;
+	margin-top: 10px;
+	line-height: 1.6em;
+	font-size: 14px;
+}
+div.article_game div.article_game_left div.tags{
+	height: 30px;
+	padding-bottom: 10px;
+	border-bottom:1px solid #ececec;
+}
+div.article_game div.article_game_left div.tags label, div.article_game div.tags strong{
+	display: block;
+	float: left;
+	height:30px;
+	line-height: 30px;
+	background: #ff8c2f;
+	color: #fff;
+	padding: 0 10px;
+	font-size: 12px;
+}
+div.article_game div.article_game_left div.tags strong{
+	background: #f3f3f3;
+	color: #666;
+}
+div.article_game div.copy{
+	width: 440px;
+	font-size: 12px;
+	color: #777;
+	line-height: 2em;
+	background: #f3f3f3;
+	padding: 15px;
+	margin: 10px auto;
+}
+h1{
+	font-size: 18px;
+	color: #333;
+	font-weight: bolder;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	margin-top:8px;
+}
+p.summary{
+	background: #f6f6f6;
+	padding: 10px;
+	line-height: 1.6em;
+	color: #999;
+}
+div.article_game_right{
+	width: 324px;
+	margin-left:676px;
+}
+div.article_game_right h3{
+	background: #f8f8f8;
+	border: 1px solid #ededed;
+	border-bottom: 1px solid #c61623;
+	height: 30px;
+	line-height: 30px;
+	text-indent: 10px;
+	font-size: 14px;
+}
+div.article_game_right div.game_info{
+	border: 1px solid #ededed;
+	padding: 20px;
+	border-top: none;
+	margin-bottom: 20px;
+	height: auto;
+	position: relative;
+}
+div.article_game_right div.game_info img{
+	width: 70px;
+	height: 70px;
+}
+div.article_game_right div.game_info p{
+	position: absolute;
+	right: 20px;
+	top:20px;
+	width: 202px;
+	text-align: center;
+	margin: 0;
+}
+div.article_game_right div.game_info p a{
+	height: 34px;
+	line-height: 34px;
+	display: block;
+	font-size: 14px;
+	color: #fff;
+	border-radius: 2px;
+	margin-bottom: 3px;
+}
+div.article_game_right div.game_info  p a.go_game{
+	background: #e64954;
+}
+div.article_game_right div.game_info  p a.go_download{
+	background: #ff8c2f;
+}
+div.article_game_right ul{
+	border: 1px solid #ededed;
+	margin-bottom:20px
+}
+div.article_game_right ul li a{
+	display: block;
+	width: 324px;
+	height: 40px;
+	line-height: 40px;
+	overflow: hidden;
+	font-size: 14px;
+	color: #888;
+	border-bottom: 1px dashed #ededed;
+	text-indent: 5px;
+}
+div.article_game div.article_item{
+	padding: 20px 0;
+	border-bottom: 1px solid #ededed;
+	position: relative;
+}
+div.article_game div.article_item img{
+	width: 234px;
+	height: 130px;
+	border:1px solid #f3f3f3;
+}
+div.article_game div.article_item div.intro{
+	width: 420px;
+	overflow: hidden;
+	float: right;
+}
+div.article_game div.article_item a.title{
+	font-size: 18px;
+	font-weight: 700;
+	height: 30px;
+	line-height: 30px;
+	display: block;
+	overflow: hidden;
+	width: 420px;
+}
+div.article_game div.article_item em{
+	font-size: 14px;
+	color: #999;
+	height: 26px;
+	line-height: 26px;
+	width: 420px;
+	display: block;
+	overflow: hidden;
+}
+div.article_game div.article_item p{
+	height: 52px;
+	line-height: 26px;
+	font-size: 14px;
+	color: #666;
+	overflow: hidden;
+	margin: 0;
+}
+div.article_game div.article_item div.intro div.tag{
+	height: 28px;
+	line-height: 28px;
+	overflow: hidden;
+}
+div.article_game div.article_item div.intro div.tag strong{
+	background: orange;
+	color: #fff;
+	margin-left: 5px;
+	padding: 2px 5px;
+}
+div.article_game div.article_game_right div.hot_games{
+	border: 1px solid #ededed;
+    height: 256px;
+    margin-bottom: 20px;
+}
+div.article_game div.article_game_right div.hot_games a{
+    width: 100px;
+    text-align: center;
+    display: block;
+    float: left;
+    margin: 10px 3px 10px 3px;
+}
+div.article_game div.article_game_right div.hot_games a img{
+    width: 80px;
+    height: 80px;
+}
+div.article_game div.article_game_right div.hot_games a strong{
+    display: block;
+    height: 28px;
+    line-height: 28px;
+    overflow: hidden;
+}
+div.article_game_right ul.new_game_news li.cover{
+
+}
+div.article_game_right ul.new_game_news li.cover a{
+    display: block;
+    height: 260px;
+    text-align: center;
+    padding: 10px 0;
+}
+div.article_game_right ul.new_game_news li.cover a img{
+    height: 164px;
+}
+div.article_game_right ul.new_game_news li.cover a strong{
+    font-size: 16px;
+    font-weight: 700;
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
+}
+div.article_game_right ul.new_game_news li.cover a p{
+    height: 56px;
+    line-height: 28px;
+    overflow: hidden;
+    margin: 0 10px;
+}
